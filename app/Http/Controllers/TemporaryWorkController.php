@@ -47,6 +47,7 @@ use App\Mail\PermitUnloadMail;
 use App\Models\DesignerCompanyEmail;
 use App\Models\PdfFilesHistory;
 use App\Models\ProjectBlock;
+use App\Models\Signature;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\View;
 
@@ -1996,7 +1997,7 @@ class TemporaryWorkController extends Controller
         Validations::storepermitload($request);
         try {
 
-            $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'company1','drawing','drawing_option','custom_drawing','design_upload');            
+            $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'company1','drawing','drawing_option','custom_drawing','design_upload','name3', 'job_title3', 'company3', 'companyid3', 'signed3', 'namesign3', 'name4', 'job_title4', 'company4', 'companyid4', 'signed4', 'namesign4', 'name5', 'job_title5', 'company5', 'companyid5', 'signed5', 'namesign5');            
             $all_inputs['created_by'] = auth()->user()->id;
             $all_inputs['custom_drawing'] = '';
             $all_inputs['design_upload'] = '';
@@ -2005,6 +2006,8 @@ class TemporaryWorkController extends Controller
                 $all_inputs['design_upload'] = $designUpload;
             }
 
+           
+            //first person signature and name
            
             //first person signature and name
            
@@ -2051,11 +2054,105 @@ class TemporaryWorkController extends Controller
                 file_put_contents($file, $image_base64);
                $all_inputs['signature'] = $image_name; 
             }
+
+            //third person signature and name
+            $image_name3 = '';
+            if ($request->signtype3 == 1) {
+                $signature3 = $request->namesign3;
+            } elseif($request->name3) { 
+                $name3 = $request->name3;
+                $job_title3 = $request->job_title3;
+                $folderPath = public_path('temporary/signature/');
+                $image = explode(";base64,", $request->signed3);
+                $image_type = explode("image/", $image[0]);
+                $image_type_png = $image_type[1];
+                $image_base64 = base64_decode($image[1]);
+                $image_name3 = uniqid() . '.' . $image_type_png;
+                $file = $folderPath . $image_name3;
+                file_put_contents($file, $image_base64);
+                $signature3 = $image_name3; 
+            }
+
+            //fourth person signature and name
+            $image_name4 = '';
+            if ($request->signtype4 == 1) {
+                $signature4 = $request->namesign4;
+            } elseif($request->name4) { 
+                $name4 = $request->name4;
+                $job_title4 = $request->job_title4;
+                $folderPath = public_path('temporary/signature/');
+                $image = explode(";base64,", $request->signed4);
+                $image_type = explode("image/", $image[0]);
+                $image_type_png = $image_type[1];
+                $image_base64 = base64_decode($image[1]);
+                $image_name4 = uniqid() . '.' . $image_type_png;
+                $file = $folderPath . $image_name4;
+                file_put_contents($file, $image_base64);
+                $signature4 = $image_name4; 
+            }
+
+            //fifth person signature and name
+            $image_name5 = '';
+            if ($request->signtype5 == 1) {
+                $signature4 = $request->namesign5;
+            } elseif($request->name5) { 
+                $name5 = $request->name5;
+                $job_title5 = $request->job_title5;
+                $folderPath = public_path('temporary/signature/');
+                $image = explode(";base64,", $request->signed5);
+                $image_type = explode("image/", $image[0]);
+                $image_type_png = $image_type[1];
+                $image_base64 = base64_decode($image[1]);
+                $image_name5 = uniqid() . '.' . $image_type_png;
+                $file = $folderPath . $image_name5;
+                file_put_contents($file, $image_base64);
+                $signature5 = $image_name5; 
+            }
+
             $all_inputs['created_by'] = auth()->user()->id;
             if (isset($request->approval)) {
                 $all_inputs['status'] = 2;
             }
             $permitload = PermitLoad::create($all_inputs);  
+
+            if($request->name3)
+            {
+                $signature3_record = new Signature([
+                    'name' => $name3,
+                    'job_title' => $job_title3,
+                    'signatureable_type' => get_class($permitload),  
+                    'signature' => $signature3, 
+                    'signatureable_id' => $permitload->id             
+                ]);
+    
+                $permitload->signatures()->save($signature3_record);
+            }
+
+            if($request->name4)
+            {
+                $signature4_record = new Signature([
+                    'name' => $name4,
+                    'job_title' => $job_title4,
+                    'signatureable_type' => get_class($permitload),  
+                    'signature' => $signature4, 
+                    'signatureable_id' => $permitload->id             
+                ]);
+    
+                $permitload->signatures()->save($signature4_record);
+            }
+
+            if($request->name5)
+            {
+                $signature5_record = new Signature([
+                    'name' => $name5,
+                    'job_title' => $job_title5,
+                    'signatureable_type' => get_class($permitload),  
+                    'signature' => $signature5, 
+                    'signatureable_id' => $permitload->id             
+                ]);
+    
+                $permitload->signatures()->save($signature5_record);
+            }
             if ($permitload) {
                 //make status 0 if permit is 
                 $msg= Auth::user()->name .' has uploaded a permit to load to the Temporary Works Portal.';
@@ -2073,7 +2170,7 @@ class TemporaryWorkController extends Controller
                 //save permit image
                 $pojectdata=Project::select('name','no')->find($request->project_id);
                 $image_links = $this->permitfiles($request, $permitload->id); 
-                $pdf = PDF::loadView('layouts.pdf.permit_load', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'image_name1' => $image_name1, 'company1' => $request->company1, 'date1'=>$request->date1]);
+                $pdf = PDF::loadView('layouts.pdf.permit_load', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'image_name1' => $image_name1, 'image_name3' => $image_name3, 'image_name4' => $image_name4, 'image_name5' => $image_name5, 'company1' => $request->company1, 'company3' => $request->company3, 'company4' => $request->company4, 'company5' => $request->company5, 'date1'=>$request->date1, 'date3'=>$request->date3, 'date4'=>$request->date4, 'date5'=>$request->date5]);
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
                 $model = PermitLoad::find($permitload->id);
@@ -2271,9 +2368,9 @@ class TemporaryWorkController extends Controller
     public function permit_update(Request $request)
     {
         Validations::storepermitload($request);
-        $permitdata = PermitLoad::find($request->permitid);
+        $permitload = PermitLoad::find($request->permitid);
         try {
-            $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed', 'pdfsigntype','pdfphoto', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'company1', 'drawing','drawing_option','custom_drawing','design_upload');
+            $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed', 'pdfsigntype','pdfphoto', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'company1', 'drawing','drawing_option','custom_drawing','design_upload', 'name3', 'job_title3', 'company3', 'companyid3', 'signed3', 'namesign3', 'name4', 'job_title4', 'company4', 'companyid4', 'signed4', 'namesign4', 'name5', 'job_title5', 'company5', 'companyid5', 'signed5', 'namesign5');
             $all_inputs['created_by'] = auth()->user()->id;
             $all_inputs['custom_drawing'] = '';
             $all_inputs['design_upload'] = '';
@@ -2297,7 +2394,7 @@ class TemporaryWorkController extends Controller
                     $image_base64 = base64_decode($image[1]);
                     $image_name1 = uniqid() . '.' . $image_type_png;
                     $file = $folderPath . $image_name1;
-                    @unlink($folderPath . $permitdata->signature1);
+                    @unlink($folderPath . $permitload->signature1);
                     file_put_contents($file, $image_base64);
                     $all_inputs['signature1'] = $image_name1;
                 }
@@ -2314,26 +2411,123 @@ class TemporaryWorkController extends Controller
                 $image_base64 = base64_decode($image[1]);
                 $image_name = uniqid() . '.' . $image_type_png;
                 $file = $folderPath . $image_name;
-                @unlink($folderPath . $permitdata->signature);
+                @unlink($folderPath . $permitload->signature);
                 file_put_contents($file, $image_base64);
                 $all_inputs['signature'] = $image_name;
             }
+            //third person signature and name
+            $image_name3 = '';
+            if ($request->signtype3 == 1) {
+                $signature3 = $request->namesign3;
+            } elseif($request->name3) { 
+                $name3 = $request->name3;
+                $job_title3 = $request->job_title3;
+                $folderPath = public_path('temporary/signature/');
+                $image = explode(";base64,", $request->signed3);
+                $image_type = explode("image/", $image[0]);
+                $image_type_png = $image_type[1];
+                $image_base64 = base64_decode($image[1]);
+                $image_name3 = uniqid() . '.' . $image_type_png;
+                $file = $folderPath . $image_name3;
+                file_put_contents($file, $image_base64);
+                $signature3 = $image_name3; 
+            }
+
+            //fourth person signature and name
+            $image_name4 = '';
+            if ($request->signtype4 == 1) {
+                $signature4 = $request->namesign4;
+            } elseif($request->name4) { 
+                $name4 = $request->name4;
+                $job_title4 = $request->job_title4;
+                $folderPath = public_path('temporary/signature/');
+                $image = explode(";base64,", $request->signed4);
+                $image_type = explode("image/", $image[0]);
+                $image_type_png = $image_type[1];
+                $image_base64 = base64_decode($image[1]);
+                $image_name4 = uniqid() . '.' . $image_type_png;
+                $file = $folderPath . $image_name4;
+                file_put_contents($file, $image_base64);
+                $signature4 = $image_name4; 
+            }
+
+            //fifth person signature and name
+            $image_name5 = '';
+            if ($request->signtype5 == 1) {
+                $signature4 = $request->namesign5;
+            } elseif($request->name5) { 
+                $name5 = $request->name5;
+                $job_title5 = $request->job_title5;
+                $folderPath = public_path('temporary/signature/');
+                $image = explode(";base64,", $request->signed5);
+                $image_type = explode("image/", $image[0]);
+                $image_type_png = $image_type[1];
+                $image_base64 = base64_decode($image[1]);
+                $image_name5 = uniqid() . '.' . $image_type_png;
+                $file = $folderPath . $image_name5;
+                file_put_contents($file, $image_base64);
+                $signature5 = $image_name5; 
+            }
+
             $all_inputs['created_by'] = auth()->user()->id;
             if (!isset($request->approval)) {
                 $all_inputs['status'] = 1;
             }
-            $permitload = PermitLoad::find($permitdata->id)->update($all_inputs);
+            
+            $permitload->signatures()->delete();
+
+            $permitload->update($all_inputs);
+            
+            
+            if($request->name3)
+            {
+                $signature3_record = new Signature([
+                    'name' => $name3,
+                    'job_title' => $job_title3,
+                    'signatureable_type' => get_class($permitload),  
+                    'signature' => $signature3, 
+                    'signatureable_id' => $permitload->id             
+                ]);
+    
+                $permitload->signatures()->save($signature3_record);
+            }
+
+            if($request->name4)
+            {
+                $signature4_record = new Signature([
+                    'name' => $name4,
+                    'job_title' => $job_title4,
+                    'signatureable_type' => get_class($permitload),  
+                    'signature' => $signature4, 
+                    'signatureable_id' => $permitload->id             
+                ]);
+    
+                $permitload->signatures()->save($signature4_record);
+            }
+
+            if($request->name5)
+            {
+                $signature5_record = new Signature([
+                    'name' => $name5,
+                    'job_title' => $job_title5,
+                    'signatureable_type' => get_class($permitload),  
+                    'signature' => $signature5, 
+                    'signatureable_id' => $permitload->id             
+                ]);
+    
+                $permitload->signatures()->save($signature5_record);
+            }
             $pojectdata=Project::select('name','no')->find($request->project_id);
             if ($permitload) {
                 //make status 0 if permit is 
                  $msg= Auth::user()->name .' has uploaded a permit to load to the Temporary Works Portal.';
                 //save permit image
-                $image_links = $this->permitfiles($request, $permitdata->id);
-                $pdf = PDF::loadView('layouts.pdf.permit_load', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'image_name1' => $image_name1]);
+                $image_links = $this->permitfiles($request, $permitload->id);
+                $pdf = PDF::loadView('layouts.pdf.permit_load', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'image_name1' => $image_name1, 'image_name3' => $image_name3, 'image_name4' => $image_name4, 'image_name5' => $image_name5, 'company1' => $request->company1, 'company3' => $request->company3, 'company4' => $request->company4, 'company5' => $request->company5, 'date1'=>$request->date1, 'date3'=>$request->date3, 'date4'=>$request->date4, 'date5'=>$request->date5]);
                 $path = public_path('pdf');
-                @unlink($path . $permitdata->ped_url);
+                @unlink($path . $permitload->ped_url);
                 $filename = rand() . '.pdf';
-                $model = PermitLoad::find($permitdata->id);
+                $model = PermitLoad::find($permitload->id);
                 $model->ped_url = $filename;
                 $model->save();
                 $pdf->save($path . '/' . $filename);
@@ -2346,7 +2540,7 @@ class TemporaryWorkController extends Controller
                         'filename' => $filename,
                         'links' =>  '',
                         'pc_twc' => '',
-                        'id' => $permitdata->id,
+                        'id' => $permitload->id,
                         'name' => 'Permit Load',
                     ],
                     'thanks_text' => 'Thanks For Using our site',

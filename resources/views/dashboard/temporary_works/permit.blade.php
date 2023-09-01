@@ -571,17 +571,6 @@
             </div>
           </div>
           <div class="row">
-            {{-- <div class="col-md-6">
-              <div class=" form-group mt-md-5">
-                <label>Drawings
-                  <input name="drawing_option" id="drawing_field" type="radio" value="drawing" checked />
-                </label>
-                <label>Custom File
-                  <input name="drawing_option" id="custom_field" type="radio" value="custom_file" />
-                </label>
-              </div>
-            </div> --}}
-
             <div class="col-md-6" >
                 <div class="modalDiv d-block mt-md-11" id="drawingFieldDiv"> 
                     <label class="fs-6 fw-bold">
@@ -1019,8 +1008,6 @@
 
 
               <div class="row">
-
-
                 <!-- Second person -->
                 <div class="col-md-6" id="second_member">
                   <!-- <div class="d-flex inputDiv">
@@ -1094,10 +1081,6 @@
 
                     </div>
                     <div class="d-flex inputDiv my-0" id="sign" style="align-items: center;border:none">
-                      <!-- <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Signature:</span>
-                                            </label>
-                                            <br/> -->
                       <canvas id="sig" onblure="draw()" style="background: lightgray; border-radius:10px"></canvas>
                       <br />
                       <textarea id="signature" name="signed" style="display: none"></textarea>
@@ -1119,31 +1102,8 @@
                       </label>
                       <input type="text" name="namesign" class="form-control form-control-solid">
                     </div>
-                    <!-- <div class="row">
-                                            <div class="col-md-8">
-                                                <div class="d-flex inputDiv principleno mt-0" id="sign">
-                                                    <div class="signatureDiv">
-                                                        <label style="width:24%;bottom:170px; background: white"
-                                                            class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                            <span class="required">Signature:</span>
-                                                        </label>
-                                                        <br />
-                                                        <div class="canva_signature_div" style="width: 76%">
-
-                                                            <br>
-                                                            <canvas id="sig" ></canvas>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 d-none">
-
-                                            </div>
-                                        </div> -->
-
                   </div>
                 </div>
-
                 <div class="col-md-6" id="first_member" style="display: none">
                   <!-- <div class="d-flex inputDiv d-block">
                                         </div> -->
@@ -1205,14 +1165,6 @@
                     </div>
                     &nbsp;
                     <!--end::Label-->
-                    {{-- <div style="display:flex; align-items: center; padding-left:10px">
-                                            <input type="radio" class="" id="pdfChecked1" style="width: 12px;">
-                                            <input type="hidden" id="pdfsign1" name="pdfsign1"
-                                                class="form-control form-control-solid" value="0">
-                                            <span
-                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2; min-width: fit-content">PNG/JPG
-                                                Upload </span>
-                                        </div> --}}
 
                   </div>
 
@@ -1220,17 +1172,6 @@
                   {{-- //old COde --}}
 
                   <div class="col-md-12">
-                    {{-- <div class="d-flex inputDiv" style="">
-                                            <label class="fs-6 fw-bold mb-2" style="">
-                                                <span>Name/signature:</span>
-                                            </label>
-                                            <input type="checkbox" id="flexCheckChecked1"
-                                                style="width: 12px;margin-top:5px">
-                                            <input type="hidden" id="signtype1" name="signtype1"
-                                                class="form-control form-control-solid" value="0">
-                                            <span class="tickboxalign" style="padding-left:3px;color:#000">Do you want
-                                                name signature?</span>
-                                        </div> --}}
                     <div class="d-flex inputDiv" id="namesign1" style="display: none !important;">
                       <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                         <span class="required">Name Signature:</span>
@@ -1253,6 +1194,247 @@
                       <textarea id="signature1" name="signed1" style="opacity: 0"></textarea>
                     </div>
                   </div>
+                </div>
+                <div class="col-md-6" id="third_member" style="display: none">
+                  <!-- <div class="d-flex inputDiv d-block">
+                                        </div> -->
+                  <div class="d-flex inputDiv principleno mt-0">
+                    <!--begin::Label-->
+                    <label class="fs-6 fw-bold mb-2" style="">
+                      <span class="required">Name:</span>
+                    </label>
+                    <!--end::Label-->
+                    <input type="text" class="form-control form-control-solid" placeholder="Name" id="name3" name="name3" style="color:#5e6278">
+                  </div>
+                  <div class="d-flex inputDiv principleno">
+                    <!--begin::Label-->
+                    <label class="fs-6 fw-bold mb-2">
+                      <span class="required">Job Title:</span>
+                    </label>
+                    <!--end::Label-->
+                    <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title3" name="job_title3">
+                  </div>
+                  <div class="d-flex inputDiv ">
+                    <!--begin::Label-->
+                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                      <span class="required">Company: </span>
+                    </label>
+                    <!--end::Label-->
+                    <div class="input">
+                      <input type="text" id="companyadmin3" class="form-control form-control-solid" placeholder="Company" name="company3">
+                      <!-- name="company1" -->
+                      <input type="hidden" id="companyid3" class="form-control form-control-solid" placeholder="Company" name="companyid3" readonly="readonly">
+                    </div>
+                  </div>
+                  <div class="d-flex inputDiv ">
+                    <!--begin::Label-->
+                    <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
+                      <span class="required">Date:</span>
+                    </label>
+                    <!--end::Label-->
+                    <div class="input">
+                      <input type="date" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                      <!-- name="date1" -->
+                    </div>
+                  </div>
+
+                  <div class="d-flex inputDiv" style="border: none">
+                    <label class="fs-6 fw-bold mb-2" style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
+                      <span class="signatureTitle" style="white-space: nowrap">Signature
+                        Type:</span>
+                    </label>
+                    <div style="display:flex; align-items: center; padding-left:10px">
+                      <input type="radio" class="checkbox-field" id="DrawCheck1" checked=true style="width: 12px;">
+                      <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="2"> -->
+                      <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
+                    </div>
+                    &nbsp;
+                    <!--end::Label-->
+
+                  </div>
+
+
+                  {{-- //old COde --}}
+
+                  <div class="col-md-12">
+                    <div class="d-flex inputDiv" id="namesign3" style="display: none !important;">
+                      <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                        <span class="required">Name Signature:</span>
+                      </label>
+                      <input type="text" name="namesign3" id="namesign_id3" class="form-control form-control-solid">
+                    </div>
+
+                    <div class="d-flex inputDiv principleno mb-0" id="sign3" style="border:none !important;">
+                      <canvas id="sig3" style="border-radius: 9px; background: lightgray;"></canvas>
+                      <span id="clear3" class="fa fa-undo cursor-pointer btn--clear" style="line-height: 11; position:relative; top:51px; right:26px"></span>
+                    </div>
+                    <div class="d-flex inputDiv principleno" id="sign3" style=" display: none !important">
+                      <textarea id="signature3" name="signed3" style="opacity: 0"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6" id="fourth_member" style="display: none">
+                  <!-- <div class="d-flex inputDiv d-block">
+                                        </div> -->
+                  <div class="d-flex inputDiv principleno mt-0">
+                    <!--begin::Label-->
+                    <label class="fs-6 fw-bold mb-2" style="">
+                      <span class="required">Name:</span>
+                    </label>
+                    <!--end::Label-->
+                    <input type="text" class="form-control form-control-solid" placeholder="Name" id="name4" name="name4" style="color:#5e6278">
+                  </div>
+                  <div class="d-flex inputDiv principleno">
+                    <!--begin::Label-->
+                    <label class="fs-6 fw-bold mb-2">
+                      <span class="required">Job Title:</span>
+                    </label>
+                    <!--end::Label-->
+                    <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title4" name="job_title4">
+                  </div>
+                  <div class="d-flex inputDiv ">
+                    <!--begin::Label-->
+                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                      <span class="required">Company: </span>
+                    </label>
+                    <!--end::Label-->
+                    <div class="input">
+                      <input type="text" id="companyadmin4" class="form-control form-control-solid" placeholder="Company" name="company4">
+                      <!-- name="company1" -->
+                      <input type="hidden" id="companyid4" class="form-control form-control-solid" placeholder="Company" name="companyid" readonly="readonly">
+                    </div>
+                  </div>
+                  <div class="d-flex inputDiv ">
+                    <!--begin::Label-->
+                    <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
+                      <span class="required">Date:</span>
+                    </label>
+                    <!--end::Label-->
+                    <div class="input">
+                      <input type="date" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                      <!-- name="date1" -->
+                    </div>
+                  </div>
+
+                  <div class="d-flex inputDiv" style="border: none">
+                    <label class="fs-6 fw-bold mb-2" style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
+                      <span class="signatureTitle" style="white-space: nowrap">Signature
+                        Type:</span>
+                    </label>
+                    <div style="display:flex; align-items: center; padding-left:10px">
+                      <input type="radio" class="checkbox-field" id="DrawCheck1" checked=true style="width: 12px;">
+                      <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="2"> -->
+                      <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
+                    </div>
+                    <!--end::Label-->
+                  </div>
+
+
+                  {{-- //old COde --}}
+
+                  <div class="col-md-12">
+                    <div class="d-flex inputDiv" id="namesign1" style="display: none !important;">
+                      <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                        <span class="required">Name Signature:</span>
+                      </label>
+                      <input type="text" name="namesign4" id="namesign_id4" class="form-control form-control-solid">
+                    </div>
+
+                    <div class="d-flex inputDiv principleno mb-0" id="sign4" style="border:none !important;">
+                      {{-- <label style="width:33%"
+                                                class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                <span class="required">Signature:</span>
+                                            </label> --}}
+                      {{-- <br /> --}}
+                      <canvas id="sig4" style="border-radius: 9px; background: lightgray;"></canvas>
+                      <span id="clear4" class="fa fa-undo cursor-pointer btn--clear" style="line-height: 11; position:relative; top:51px; right:26px"></span>
+                    </div>
+                    <div class="d-flex inputDiv principleno" id="sign4" style=" display: none !important">
+                      <textarea id="signature4" name="signed4" style="opacity: 0"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6" id="fifth_member" style="display: none">
+                  <div class="d-flex inputDiv principleno mt-0">
+                    <!--begin::Label-->
+                    <label class="fs-6 fw-bold mb-2" style="">
+                      <span class="required">Name:</span>
+                    </label>
+                    <!--end::Label-->
+                    <input type="text" class="form-control form-control-solid" placeholder="Name" id="name5" name="name5" style="color:#5e6278">
+                  </div>
+                  <div class="d-flex inputDiv principleno">
+                    <!--begin::Label-->
+                    <label class="fs-6 fw-bold mb-2">
+                      <span class="required">Job Title:</span>
+                    </label>
+                    <!--end::Label-->
+                    <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title5" name="job_title5">
+                  </div>
+                  <div class="d-flex inputDiv ">
+                    <!--begin::Label-->
+                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                      <span class="required">Company: </span>
+                    </label>
+                    <!--end::Label-->
+                    <div class="input">
+                      <input type="text" id="companyadmin4" class="form-control form-control-solid" placeholder="Company" name="company5">
+                      <!-- name="company1" -->
+                      <input type="hidden" id="company5" class="form-control form-control-solid" placeholder="Company" name="company5" readonly="readonly">
+                    </div>
+                  </div>
+                  <div class="d-flex inputDiv ">
+                    <!--begin::Label-->
+                    <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
+                      <span class="required">Date:</span>
+                    </label>
+                    <!--end::Label-->
+                    <div class="input">
+                      <input type="date" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                      <!-- name="date1" -->
+                    </div>
+                  </div>
+
+                  <div class="d-flex inputDiv" style="border: none">
+                    <label class="fs-6 fw-bold mb-2" style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
+                      <span class="signatureTitle" style="white-space: nowrap">Signature
+                        Type:</span>
+                    </label>
+                    <div style="display:flex; align-items: center; padding-left:10px">
+                      <input type="radio" class="checkbox-field" id="DrawCheck1" checked=true style="width: 12px;">
+                      <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="2"> -->
+                      <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
+                    </div>
+                    <!--end::Label-->
+                  </div>
+
+
+                  {{-- //old COde --}}
+
+                  <div class="col-md-12">
+                    <div class="d-flex inputDiv" id="namesign1" style="display: none !important;">
+                      <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                        <span class="required">Name Signature:</span>
+                      </label>
+                      <input type="text" name="namesign5" id="namesign_id5" class="form-control form-control-solid">
+                    </div>
+
+                    <div class="d-flex inputDiv principleno mb-0" id="sign5" style="border:none !important;">
+                      {{-- <label style="width:33%"
+                                                class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                <span class="required">Signature:</span>
+                                            </label> --}}
+                      {{-- <br /> --}}
+                      <canvas id="sig5" style="border-radius: 9px; background: lightgray;"></canvas>
+                      <span id="clear5" class="fa fa-undo cursor-pointer btn--clear" style="line-height: 11; position:relative; top:51px; right:26px"></span>
+                    </div>
+                    <div class="d-flex inputDiv principleno" id="sign4" style=" display: none !important">
+                      <textarea id="signature5" name="signed5" style="opacity: 0"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <button class="btn btn-success btn-sm" id="addMemberButton">Add New</button>
                 </div>
               </div>
               <br>
@@ -1786,18 +1968,36 @@
   const signaturePad = new SignaturePad(canvas);
   const canvas1 = document.getElementById("sig1");
   const signaturePad1 = new SignaturePad(canvas1);
+  const canvas3 = document.getElementById("sig3");
+  const signaturePad3 = new SignaturePad(canvas3);
+  const canvas4 = document.getElementById("sig4");
+  const signaturePad4 = new SignaturePad(canvas4);
+  const canvas5 = document.getElementById("sig5");
+  const signaturePad5 = new SignaturePad(canvas5);
   let first_sig = 0;
   let second_sig = 0;
-  console.log(signaturePad.toDataURL('image/png'));
-  console.log(signaturePad1.toDataURL('image/png'));
-  $("#submitbutton").on('click', function() {
+  let third_sig = 0;
+  let fourth_sig = 0;
+  let fifth_sig = 0;
+  $("#submitbutton").on('click', function(e) {
+    e.preventDefault();
     if (signaturePad) {
       $("#signature").val(signaturePad.toDataURL('image/png'));
     }
     if (signaturePad1) {
       $("#signature1").val(signaturePad1.toDataURL('image/png'));
     }
+    if (signaturePad3) {
+      $("#signature3").val(signaturePad3.toDataURL('image/png'));
+    }
+    if (signaturePad4) {
+      $("#signature4").val(signaturePad4.toDataURL('image/png'));
+    }
+    if (signaturePad5) {
+      $("#signature5").val(signaturePad5.toDataURL('image/png'));
+    }
     $(this).attr('disabled', 'disabled');
+
     $("#permitform").submit();
   })
 
@@ -1840,7 +2040,6 @@
     signtype = $("#signtype").val();
     pdfsign = $("#pdfsign").val();
     if (signtype == 1 || pdfsign == 1) {
-      console.log("here");
       if (signaturePad1.toDataURL('image/png') != "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAAAXNSR0IArs4c6QAABGJJREFUeF7t1AEJAAAMAsHZv/RyPNwSyDncOQIECEQEFskpJgECBM5geQICBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAgQdWMQCX4yW9owAAAABJRU5ErkJggg==") {
 
         $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
@@ -1859,7 +2058,28 @@
     }
   })
 
+  signaturePad3.addEventListener('endStroke', function() {
+    // $("#sigimage3").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
+    signtype = $("#signtype").val();
+    pdfsign = $("#pdfsign").val();
+    if (signtype == 1 || pdfsign == 1) {
+      if (signaturePad1.toDataURL('image/png') != "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAAAXNSR0IArs4c6QAABGJJREFUeF7t1AEJAAAMAsHZv/RyPNwSyDncOQIECEQEFskpJgECBM5geQICBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAgQdWMQCX4yW9owAAAABJRU5ErkJggg==") {
 
+        $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+        $('#submitbutton').prop('disabled', false);
+      } else {
+
+      }
+    } else {
+
+      if (signaturePad.toDataURL('image/png') != "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAAAXNSR0IArs4c6QAABGJJREFUeF7t1AEJAAAMAsHZv/RyPNwSyDncOQIECEQEFskpJgECBM5geQICBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAgQdWMQCX4yW9owAAAABJRU5ErkJggg==" && signaturePad1.toDataURL('image/png') != "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAAAXNSR0IArs4c6QAABGJJREFUeF7t1AEJAAAMAsHZv/RyPNwSyDncOQIECEQEFskpJgECBM5geQICBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAgQdWMQCX4yW9owAAAABJRU5ErkJggg==") {
+        $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+      } else {
+        $('#submitbutton').prop('disabled', true);
+        $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary");; //.removeAttr("disabled");
+      }
+    }
+  })
 
   var principle_contractor = '{{old('
   principle_contractor ')}}';
@@ -2162,24 +2382,6 @@
     }
   })
 
-
-  // $("#flexCheckChecked").change(function() {
-  //     if ($(this).is(':checked')) {
-  //         $("#signtype").val(1);
-  //         $("#namesign").addClass('d-flex').show();
-  //         $("input[name='namesign']").attr('required', 'required');
-  //         $("#signature").removeAttr('required');
-  //         $("#sign").removeClass('d-flex').hide();
-
-  //     } else {
-  //         $("#signtype").val(0);
-  //         $("#sign").addClass('d-flex').show();
-  //         $("#namesign").removeClass('d-flex').hide();
-  //         $("input[name='namesign']").removeAttr('required');
-  //         $("#signature").attr('required', 'required');
-  //     }
-  // })
-
   $("#flexCheckChecked").change(function() {
     if ($(this).is(':checked')) {
       $("#signtype").val(1);
@@ -2314,20 +2516,6 @@
     $('#namesign_id2').css("background-color", "#f5f8fa ");
   });
 
-  //  $('#permit_date').change(function() {
-  //     $('#permit_date').css("background-color", "#f5f8fa ");
-  //     $('#permit_date').css("color", "#000 !important;");
-  //  });
-
-
-
-  //  $('#clear').click(function(e) {
-  //     e.preventDefault();
-  //     signaturePad.clear();
-  //     $("#signature").val('');
-  // });
-
-
   const clearBtns = document.querySelectorAll('.btn--clear');
   console.log(clearBtns);
 
@@ -2351,20 +2539,6 @@
     });
   });
 
-
-  // $('#clear').click(function(e) {
-  // e.preventDefault();
-  // signaturePad.clear();
-  // $("#signature").val('');
-  // });
-
-  // $('#clear1').click(function(e) {
-  //     e.preventDefault();
-  //     signaturePad1.clear();
-  //     $("#signature1").val('');
-  // });
-
-
   //approval checkbox checkded
   $("#approval").change(function() {
     if ($(this).is(':checked')) {
@@ -2377,59 +2551,10 @@
   })
 </script>
 
-{{-- <script>
-  document.querySelector("button[type='submit']").addEventListener("click", function(e) {
-    e.preventDefault();
-    alert("here");
-  })
-</script> --}}
-{{-- <script>
-  const drawingField = document.getElementById('drawing_field');
-  const customField = document.getElementById('custom_field');
-  const drawingFieldDiv = document.getElementById('drawingFieldDiv');
-  const customFieldDiv = document.getElementById('customFieldDiv');
-
-  drawingField.addEventListener('change', function () {
-      if (this.checked) {
-          drawingFieldDiv.style.display = 'block';
-          customFieldDiv.style.display = 'none';
-      }
-  });
-
-  customField.addEventListener('change', function () {
-      if (this.checked) {
-          drawingFieldDiv.style.display = 'none';
-          customFieldDiv.style.display = 'block';
-      }
-  });
-</script> --}}
-{{-- <script>
-  const drawingField = document.getElementById('drawing_field');
-  const customField = document.getElementById('custom_field');
-  const drawingFieldDiv = document.getElementById('drawingFieldDiv');
-  const customFieldDiv = document.getElementById('customFieldDiv');
-
-  drawingField.addEventListener('change', function() {
-    if (this.checked) {
-      drawingFieldDiv.style.display = 'block';
-      customFieldDiv.style.display = 'none';
-    }
-  });
-
-  customField.addEventListener('change', function() {
-    if (this.checked) {
-      drawingFieldDiv.style.display = 'none';
-      customFieldDiv.style.display = 'block';
-    }
-  });
-</script> --}}
-
-
 <script>
     var drawingContainer = document.getElementById("additional-drawing");
 
     document.getElementById("drawing-button").addEventListener("click", function() {
-      console.log("Plus button clicked");
         var drawingDiv = document.createElement("div");
         drawingDiv.setAttribute("class", "col-md-5");
         drawingDiv.style.marginTop = "2px";
@@ -2502,5 +2627,68 @@ function deleteFile(id) {
       }
     }
 }
+var counter = 3; 
+
+function addNewSignature(e) {
+    e.preventDefault()
+    var canvas = 'canvas'+counter ;
+    signaturePad2  = 'signaturePad' + counter;
+    var signature = "#signature"+counter;
+    console.log("signaturePad", );
+    // Make an Ajax request to fetch the HTML content
+    $.ajax({
+        type: 'POST',
+        url: '{{route("new_signature")}}',
+        data: {
+            counter: counter,
+            _token: '{{ csrf_token() }}' // Include it as data as well, if needed
+        },
+        success: function(response) {
+            // Insert the fetched HTML into the add_signature div
+              $('#add_signature').append(response.html);
+              canvas = document.getElementById("sig"+counter);
+              console.log('canvas', canvas)
+              const signaturePad2 = new SignaturePad(canvas);
+              console.log('sign pad value', signaturePad2.toDataURL('image/png'))
+              counter++
+            },
+        error: function(xhr, status, error) {
+            console.error(error);
+        }
+    });
+}
+
+</script>
+<script>
+  // JavaScript to handle adding new members
+  const addMemberButton = document.getElementById('addMemberButton');
+
+  addMemberButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        const third_member = document.getElementById('third_member');
+        const fourth_member = document.getElementById('fourth_member');
+        const fifth_member = document.getElementById('fifth_member');
+
+        // Check the display style of element1
+        const style3 = window.getComputedStyle(third_member);
+        const displayStyle3 = style3.getPropertyValue('display');
+
+        // Check the display style of element2
+        const style4 = window.getComputedStyle(fourth_member);
+        const displayStyle4 = style4.getPropertyValue('display');
+
+        // Check the display style of element2
+        const style5 = window.getComputedStyle(fifth_member);
+        const displayStyle5 = style5.getPropertyValue('display');
+        if(displayStyle3 === 'none'){
+          third_member.style.display = 'block';
+        } else if(displayStyle4 === 'none'){
+          fourth_member.style.display = 'block';
+        } else if(displayStyle5 === 'none'){
+          fifth_member.style.display = 'block';
+        } else{
+          alert("No new signature for added")
+        }    
+  });
 </script>
 @endsection

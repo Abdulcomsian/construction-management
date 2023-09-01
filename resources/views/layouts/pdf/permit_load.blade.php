@@ -297,7 +297,7 @@
                         @if($data['principle_contractor']==1)
                         {{ date('d-m-Y', strtotime($data['date'])) }}
                         @endif
-                    </td>
+                        </td>
 
                     </tr>
                     <tr>
@@ -305,14 +305,14 @@
                         <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size:12px;">
                                     Signature </b></label></td>
                         <td style="width: 200px; font-size:12px;"> 
-                        @if(isset($image_name) && $image_name!='')
-                            <img src="temporary/signature/{{$image_name}}"  width="auto" height="50px" />
+                            @if(isset($image_name) && $image_name!='')
+                                <img src="temporary/signature/{{$image_name}}"  width="auto" height="50px" />
                             @else
-                            {{ $data['namesign'] ?? ''}}
+                                {{ $data['namesign'] ?? ''}}
                             @endif
-                    </td>
+                        </td>
 
-                    <td>
+                        <td>
                             <label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size:12px;">
                                     
                             @if($data['principle_contractor']==1)      Signature @endif
@@ -327,6 +327,128 @@
                             
                         </td>
 
+                    </tr>
+
+
+                    <tr>
+                        <td colspan="4"></td>
+                    </tr>
+                    {{-- third and fourth record --}} 
+
+                    <tr>
+                       
+                        <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; color:black; margin: 0px;"><b style="font-size:12px;">
+                        Name   </b></label></td>
+                        <td style="width: 200px; font-size:12px;"> {{$data['name3'] ?? ''}}</td>
+
+                        <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; color:black; margin: 0px;"><b style="font-size:12px;">
+                            Name   </b></label></td>
+                            <td style="width: 200px; font-size:12px;"> {{$data['name4'] ?? ''}}</td>
+                    </tr>
+                    <tr>
+                       
+                        <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color: black; margin: 0px;"><b style="font-size:12px;">
+                        Company 
+                         </b></label></td>
+                         <td style="width:200px; font-size:12px;">{{$company3 ?? ''}} </td>
+                        <td>
+                            <label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color: black; margin: 0px;">
+                                <b style="font-size:12px;"> Company</b></label>
+                        </td>
+                        <td style="width:200px; font-size:12px;">{{$company4 ?? ''}} </td>                      
+                    </tr>
+                    <tr> 
+                        <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size:12px;">
+                             Job Title        </b></label></td>
+                        <td style="width: 200px; font-size:12px;">{{$data['job_title3'] ?? ''}}</td>
+
+                        <td>
+                            <label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color: black; margin: 0px;">
+                                <b style="font-size:12px;">Job Title
+                                
+                                 </b></label>
+                        </td>
+                        <td style="width: 200px; font-size: 12px;">{{$data['job_title4'] ?? ''}}</td>                        
+                    </tr>                  
+                    <tr>
+                       
+                        <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size:12px;">
+                                    Date </b></label></td>
+                        <td style="width: 200px; font-size:12px;"> {{ date('d-m-Y', strtotime($data['date'] ?? '')) }}</td>
+
+                        <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size:12px;">
+                        Date</b></label></td>
+                        <td style="width: 200px; font-size:12px;"> 
+                        {{ date('d-m-Y', strtotime($data['date'] ?? '')) }}
+                        </td>
+
+                    </tr>
+                    <tr>
+                        
+                        <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size:12px;">
+                                    Signature </b></label></td>
+                        <td style="width: 200px; font-size:12px;"> 
+                            @if(isset($image_name3) && $image_name3!='')
+                                <img src="temporary/signature/{{$image_name3}}"  width="auto" height="50px" />
+                            @else
+                                {{ $data['namesign3'] ?? ''}}
+                            @endif
+                        </td>
+
+                        <td>
+                            <label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size:12px;">
+                                Signature
+                             </b></label>
+                        </td>
+                        <td style="width: 200px; font-size:12px;">
+                        @if(isset($image_name4) && $image_name4!='')
+                            <img src="temporary/signature/{{$image_name4}}"  width="auto" height="50px"/>
+                            @else
+                            {{ $data['namesign4'] ?? ''}}
+                            @endif
+                            
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td colspan="4"></td>
+                    </tr>
+
+                    {{-- fifth record --}} 
+
+                    <tr>
+                       
+                        <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; color:black; margin: 0px;"><b style="font-size:12px;">
+                        Name   </b></label></td>
+                        <td style="width: 200px; font-size:12px;"> {{$data['name5'] ?? ''}}</td>
+                    </tr>
+                    <tr>                      
+                        <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color: black; margin: 0px;"><b style="font-size:12px;">
+                        Company 
+                         </b></label></td>
+                         <td style="width:200px; font-size:12px;">{{$company5 ?? ''}} </td>                    
+                    </tr>
+                    <tr> 
+                        <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size:12px;">
+                             Job Title        </b></label></td>
+                        <td style="width: 200px; font-size:12px;">{{$data['job_title5'] ?? ''}}</td>                      
+                    </tr>                  
+                    <tr>
+                        <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size:12px;">
+                                    Date </b></label></td>
+                        <td style="width: 200px; font-size:12px;"> {{ date('d-m-Y', strtotime($data['date'] ?? '')) }}</td>
+                    </tr>
+                    <tr>
+                        <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center;  color:black ; margin: 0px;"><b style="font-size:12px;">
+                                    Signature </b></label></td>
+                        <td style="width: 200px; font-size:12px;"> 
+                            @if(isset($image_name5) && $image_name5!='')
+                                <img src="temporary/signature/{{$image_name5}}"  width="auto" height="50px" />
+                            @else
+                                {{ $data['namesign5'] ?? ''}}
+                            @endif
+                        </td>
                     </tr>
                 </tbody>
             </table>

@@ -1164,6 +1164,240 @@
                             </div>
                             @endif
                         </div>
+                        <div class="col-md-6 mt-md-5" id="third_member" style="display: block">
+                            <div class="d-flex inputDiv principleno mt-0">
+                              <!--begin::Label-->
+                              <label class="fs-6 fw-bold mb-2" style="">
+                                <span class="required">Name:</span>
+                              </label>
+                              <!--end::Label-->
+                              <input type="text" class="form-control form-control-solid" placeholder="Name" id="name3" name="name3" style="color:#5e6278">
+                            </div>
+                            <div class="d-flex inputDiv principleno">
+                              <!--begin::Label-->
+                              <label class="fs-6 fw-bold mb-2">
+                                <span class="required">Job Title:</span>
+                              </label>
+                              <!--end::Label-->
+                              <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title3" name="job_title3">
+                            </div>
+                            <div class="d-flex inputDiv ">
+                              <!--begin::Label-->
+                              <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                <span class="required">Company: </span>
+                              </label>
+                              <!--end::Label-->
+                              <div class="input">
+                                <input type="text" id="companyadmin3" class="form-control form-control-solid" placeholder="Company" name="company3">
+                                <!-- name="company1" -->
+                                <input type="hidden" id="companyid3" class="form-control form-control-solid" placeholder="Company" name="companyid3" readonly="readonly">
+                              </div>
+                            </div>
+                            <div class="d-flex inputDiv ">
+                              <!--begin::Label-->
+                              <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
+                                <span class="required">Date:</span>
+                              </label>
+                              <!--end::Label-->
+                              <div class="input">
+                                <input type="date" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                                <!-- name="date1" -->
+                              </div>
+                            </div>
+          
+                            <div class="d-flex inputDiv" style="border: none">
+                              <label class="fs-6 fw-bold mb-2" style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
+                                <span class="signatureTitle" style="white-space: nowrap">Signature
+                                  Type:</span>
+                              </label>
+                              <div style="display:flex; align-items: center; padding-left:10px">
+                                <input type="radio" class="checkbox-field" id="DrawCheck1" checked=true style="width: 12px;">
+                                <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="2"> -->
+                                <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
+                              </div>
+                              &nbsp;
+                              <!--end::Label-->
+          
+                            </div>
+                            <div class="col-md-12">
+                              <div class="d-flex inputDiv" id="namesign3" style="display: none !important;">
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                  <span class="required">Name Signature:</span>
+                                </label>
+                                <input type="text" name="namesign3" id="namesign_id3" class="form-control form-control-solid">
+                              </div>
+          
+                              <div class="d-flex inputDiv principleno mb-0" id="sign3" style="border:none !important;">
+                                <canvas id="sig3" style="border-radius: 9px; background: lightgray;"></canvas>
+                                <span id="clear3" class="fa fa-undo cursor-pointer btn--clear" style="line-height: 11; position:relative; top:51px; right:26px"></span>
+                              </div>
+                              <div class="d-flex inputDiv principleno" id="sign3" style=" display: none !important">
+                                <textarea id="signature3" name="signed3" style="opacity: 0"></textarea>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-md-5" id="fourth_member" style="display: block">
+                        <!-- <div class="d-flex inputDiv d-block">
+                                                </div> -->
+                        <div class="d-flex inputDiv principleno mt-0">
+                            <!--begin::Label-->
+                            <label class="fs-6 fw-bold mb-2" style="">
+                            <span class="required">Name:</span>
+                            </label>
+                            <!--end::Label-->
+                            <input type="text" class="form-control form-control-solid" placeholder="Name" id="name4" name="name4" style="color:#5e6278">
+                        </div>
+                        <div class="d-flex inputDiv principleno">
+                            <!--begin::Label-->
+                            <label class="fs-6 fw-bold mb-2">
+                            <span class="required">Job Title:</span>
+                            </label>
+                            <!--end::Label-->
+                            <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title4" name="job_title4">
+                        </div>
+                        <div class="d-flex inputDiv ">
+                            <!--begin::Label-->
+                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span class="required">Company: </span>
+                            </label>
+                            <!--end::Label-->
+                            <div class="input">
+                            <input type="text" id="companyadmin4" class="form-control form-control-solid" placeholder="Company" name="company4">
+                            <!-- name="company1" -->
+                            <input type="hidden" id="companyid4" class="form-control form-control-solid" placeholder="Company" name="companyid" readonly="readonly">
+                            </div>
+                        </div>
+                        <div class="d-flex inputDiv ">
+                            <!--begin::Label-->
+                            <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
+                            <span class="required">Date:</span>
+                            </label>
+                            <!--end::Label-->
+                            <div class="input">
+                            <input type="date" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                            <!-- name="date1" -->
+                            </div>
+                        </div>
+        
+                        <div class="d-flex inputDiv" style="border: none">
+                            <label class="fs-6 fw-bold mb-2" style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
+                            <span class="signatureTitle" style="white-space: nowrap">Signature
+                                Type:</span>
+                            </label>
+                            <div style="display:flex; align-items: center; padding-left:10px">
+                            <input type="radio" class="checkbox-field" id="DrawCheck1" checked=true style="width: 12px;">
+                            <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="2"> -->
+                            <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
+                            </div>
+                            <!--end::Label-->
+                        </div>
+        
+        
+                        {{-- //old COde --}}
+        
+                        <div class="col-md-12">
+                            <div class="d-flex inputDiv" id="namesign1" style="display: none !important;">
+                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                <span class="required">Name Signature:</span>
+                            </label>
+                            <input type="text" name="namesign4" id="namesign_id4" class="form-control form-control-solid">
+                            </div>
+        
+                            <div class="d-flex inputDiv principleno mb-0" id="sign4" style="border:none !important;">
+                            {{-- <label style="width:33%"
+                                                        class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                        <span class="required">Signature:</span>
+                                                    </label> --}}
+                            {{-- <br /> --}}
+                            <canvas id="sig4" style="border-radius: 9px; background: lightgray;"></canvas>
+                            <span id="clear4" class="fa fa-undo cursor-pointer btn--clear" style="line-height: 11; position:relative; top:51px; right:26px"></span>
+                            </div>
+                            <div class="d-flex inputDiv principleno" id="sign4" style=" display: none !important">
+                            <textarea id="signature4" name="signed4" style="opacity: 0"></textarea>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="col-md-6 mt-md-5" id="fifth_member" style="display: block">
+                        <!-- <div class="d-flex inputDiv d-block">
+                                                </div> -->
+                        <div class="d-flex inputDiv principleno mt-0">
+                            <!--begin::Label-->
+                            <label class="fs-6 fw-bold mb-2" style="">
+                            <span class="required">Name:</span>
+                            </label>
+                            <!--end::Label-->
+                            <input type="text" class="form-control form-control-solid" placeholder="Name" id="name5" name="name5" style="color:#5e6278">
+                        </div>
+                        <div class="d-flex inputDiv principleno">
+                            <!--begin::Label-->
+                            <label class="fs-6 fw-bold mb-2">
+                            <span class="required">Job Title:</span>
+                            </label>
+                            <!--end::Label-->
+                            <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title5" name="job_title5">
+                        </div>
+                        <div class="d-flex inputDiv ">
+                            <!--begin::Label-->
+                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span class="required">Company: </span>
+                            </label>
+                            <!--end::Label-->
+                            <div class="input">
+                            <input type="text" id="companyadmin4" class="form-control form-control-solid" placeholder="Company" name="company5">
+                            <!-- name="company1" -->
+                            <input type="hidden" id="company5" class="form-control form-control-solid" placeholder="Company" name="company5" readonly="readonly">
+                            </div>
+                        </div>
+                        <div class="d-flex inputDiv ">
+                            <!--begin::Label-->
+                            <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
+                            <span class="required">Date:</span>
+                            </label>
+                            <!--end::Label-->
+                            <div class="input">
+                            <input type="date" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                            <!-- name="date1" -->
+                            </div>
+                        </div>
+        
+                        <div class="d-flex inputDiv" style="border: none">
+                            <label class="fs-6 fw-bold mb-2" style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
+                            <span class="signatureTitle" style="white-space: nowrap">Signature
+                                Type:</span>
+                            </label>
+                            <div style="display:flex; align-items: center; padding-left:10px">
+                            <input type="radio" class="checkbox-field" id="DrawCheck1" checked=true style="width: 12px;">
+                            <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="2"> -->
+                            <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
+                            </div>
+                            <!--end::Label-->
+                        </div>
+        
+        
+                        {{-- //old COde --}}
+        
+                        <div class="col-md-12">
+                            <div class="d-flex inputDiv" id="namesign1" style="display: none !important;">
+                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                <span class="required">Name Signature:</span>
+                            </label>
+                            <input type="text" name="namesign5" id="namesign_id5" class="form-control form-control-solid">
+                            </div>
+        
+                            <div class="d-flex inputDiv principleno mb-0" id="sign5" style="border:none !important;">
+                            {{-- <label style="width:33%"
+                                                        class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                        <span class="required">Signature:</span>
+                                                    </label> --}}
+                            {{-- <br /> --}}
+                            <canvas id="sig5" style="border-radius: 9px; background: lightgray;"></canvas>
+                            <span id="clear5" class="fa fa-undo cursor-pointer btn--clear" style="line-height: 11; position:relative; top:51px; right:26px"></span>
+                            </div>
+                            <div class="d-flex inputDiv principleno" id="sign4" style=" display: none !important">
+                            <textarea id="signature5" name="signed5" style="opacity: 0"></textarea>
+                            </div>
+                        </div>
+                        </div>
                     </div>
 
 
@@ -1687,32 +1921,6 @@
 @section('scripts')
 <script>
     $("#signtype").val(1);
-    // $("#flexCheckChecked").change(function() {
-    //     if ($(this).is(':checked')) {
-    //         $("#signtype").val(1);
-    //         $("#namesign").addClass('d-flex').show();
-    //         $("#clear").hide();
-    //         $("#sign").removeClass('d-flex').hide();
-
-    //     } else {
-    //         $("#signtype").val(0);
-    //         $("#sign").addClass('d-flex').show();
-    //         $("#namesign").removeClass('d-flex').hide();
-    //         $("#clear").show();
-
-    //     }
-    // })
-
-    // $('#clear').click(function(e) {
-    //     e.preventDefault();
-    //     signaturePad.clear();
-    //     $("#signature").val('');
-    // });
-    // $('#clear1').click(function(e) {
-    //     e.preventDefault();
-    //     signaturePad1.clear();
-    //     $("#signature1").val('');
-    // });
     // New Conditions embedded by Basit 
     $("#flexCheckChecked").change(function(){
         if($(this).is(':checked'))
@@ -1804,6 +2012,9 @@
     var canvas = document.getElementById("sig");
     var signaturePad = new SignaturePad(canvas);
     var canvas1 = document.getElementById("sig1");
+    var canvas3 = document.getElementById("sig3");
+    var canvas4 = document.getElementById("sig4");
+    var canvas5 = document.getElementById("sig5");
     let signaturepad1 = false;
     let signaturepad2 = false;
     let isSecondMemEnable = true;
@@ -1811,13 +2022,36 @@
     {
     var signaturePad1 = new SignaturePad(canvas1);
     }
+    if(canvas3)
+    {
+    var signaturePad3 = new SignaturePad(canvas3);
+    }
+    if(canvas4)
+    {
+    var signaturePad4 = new SignaturePad(canvas4);
+    }
+    if(canvas5)
+    {
+    var signaturePad5 = new SignaturePad(canvas5);
+    }
 
     $("#submitbutton").on('click',function(){
         $("#signature").val(signaturePad.toDataURL('image/png'));
         if(canvas1)
         {
-        console.log("hello");
         $("#signature1").val(signaturePad1.toDataURL('image/png'));
+        }
+        if(canvas3)
+        {
+        $("#signature3").val(signaturePad3.toDataURL('image/png'));
+        }
+        if(canvas4)
+        {
+        $("#signature4").val(signaturePad4.toDataURL('image/png'));
+        }
+        if(canvas5)
+        {
+        $("#signature5").val(signaturePad5.toDataURL('image/png'));
         }
         $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").prop("disabled", true);
         $("#permitrenew").submit();
@@ -2166,4 +2400,36 @@
         }
     }
 </script>
+<script>
+    // JavaScript to handle adding new members
+    const addMemberButton = document.getElementById('addMemberButton');
+  
+    addMemberButton.addEventListener('click', (e) => {
+          e.preventDefault();
+          const third_member = document.getElementById('third_member');
+          const fourth_member = document.getElementById('fourth_member');
+          const fifth_member = document.getElementById('fifth_member');
+  
+          // Check the display style of element1
+          const style3 = window.getComputedStyle(third_member);
+          const displayStyle3 = style3.getPropertyValue('display');
+  
+          // Check the display style of element2
+          const style4 = window.getComputedStyle(fourth_member);
+          const displayStyle4 = style4.getPropertyValue('display');
+  
+          // Check the display style of element2
+          const style5 = window.getComputedStyle(fifth_member);
+          const displayStyle5 = style5.getPropertyValue('display');
+          if(displayStyle3 === 'none'){
+            third_member.style.display = 'block';
+          } else if(displayStyle4 === 'none'){
+            fourth_member.style.display = 'block';
+          } else if(displayStyle5 === 'none'){
+            fifth_member.style.display = 'block';
+          } else{
+            alert("No new signature for added")
+          }    
+    });
+  </script>
 @endsection

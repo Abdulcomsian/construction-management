@@ -20,6 +20,8 @@ class CreateSignaturesTable extends Migration
             $table->string('signatureable_type');
             $table->string('name');
             $table->string('job_title');
+            $table->string('company')->nullable();
+            $table->date('date');
             $table->timestamps();
         });
     }

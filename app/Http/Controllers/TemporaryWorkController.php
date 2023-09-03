@@ -1994,10 +1994,11 @@ class TemporaryWorkController extends Controller
     //save permit
     public function permit_save(Request $request)
     {
+        DB::beginTransaction();
         Validations::storepermitload($request);
         try {
 
-            $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'company1','drawing','drawing_option','custom_drawing','design_upload','name3', 'job_title3', 'company3', 'companyid3', 'signed3', 'namesign3', 'name4', 'job_title4', 'company4', 'companyid4', 'signed4', 'namesign4', 'name5', 'job_title5', 'company5', 'companyid5', 'signed5', 'namesign5');            
+            $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'company1','drawing','drawing_option','custom_drawing','design_upload','name3', 'job_title3', 'company3', 'companyid3', 'signed3', 'namesign3', 'name4', 'job_title4', 'company4', 'companyid4', 'signed4', 'namesign4', 'name5', 'job_title5', 'company5', 'companyid5', 'signed5', 'namesign5','date3','date4', 'date5');            
             $all_inputs['created_by'] = auth()->user()->id;
             $all_inputs['custom_drawing'] = '';
             $all_inputs['design_upload'] = '';
@@ -2062,6 +2063,8 @@ class TemporaryWorkController extends Controller
             } elseif($request->name3) { 
                 $name3 = $request->name3;
                 $job_title3 = $request->job_title3;
+                $company3 = $request->company3;
+                $date3 = $request->date3;
                 $folderPath = public_path('temporary/signature/');
                 $image = explode(";base64,", $request->signed3);
                 $image_type = explode("image/", $image[0]);
@@ -2080,6 +2083,8 @@ class TemporaryWorkController extends Controller
             } elseif($request->name4) { 
                 $name4 = $request->name4;
                 $job_title4 = $request->job_title4;
+                $company4 = $request->company4;
+                $date4 = $request->date4;
                 $folderPath = public_path('temporary/signature/');
                 $image = explode(";base64,", $request->signed4);
                 $image_type = explode("image/", $image[0]);
@@ -2098,6 +2103,8 @@ class TemporaryWorkController extends Controller
             } elseif($request->name5) { 
                 $name5 = $request->name5;
                 $job_title5 = $request->job_title5;
+                $company5 = $request->company5;
+                $date5 = $request->date5;
                 $folderPath = public_path('temporary/signature/');
                 $image = explode(";base64,", $request->signed5);
                 $image_type = explode("image/", $image[0]);
@@ -2120,6 +2127,8 @@ class TemporaryWorkController extends Controller
                 $signature3_record = new Signature([
                     'name' => $name3,
                     'job_title' => $job_title3,
+                    'company' => $company3,
+                    'date' => $date3,
                     'signatureable_type' => get_class($permitload),  
                     'signature' => $signature3, 
                     'signatureable_id' => $permitload->id             
@@ -2133,6 +2142,8 @@ class TemporaryWorkController extends Controller
                 $signature4_record = new Signature([
                     'name' => $name4,
                     'job_title' => $job_title4,
+                    'company' => $company4,
+                    'date' => $date4,
                     'signatureable_type' => get_class($permitload),  
                     'signature' => $signature4, 
                     'signatureable_id' => $permitload->id             
@@ -2146,6 +2157,8 @@ class TemporaryWorkController extends Controller
                 $signature5_record = new Signature([
                     'name' => $name5,
                     'job_title' => $job_title5,
+                    'company' => $company5,
+                    'date' => $date5,
                     'signatureable_type' => get_class($permitload),  
                     'signature' => $signature5, 
                     'signatureable_id' => $permitload->id             
@@ -2215,12 +2228,13 @@ class TemporaryWorkController extends Controller
                     // Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new PermitNotification($notify_admins_msg));
                     Notification::route('mail', $request->twc_email ?? '')->notify(new PermitNotification($notify_admins_msg));
                 }
+                DB::commit();
                 toastSuccess('Permit ' . $message . ' sucessfully!');
                 return redirect()->route('temporary_works.index');
             }
         } catch (\Exception $exception) {
-                        dd($exception->getMessage(), $exception->getLine());
-
+            DB::rollback();
+            dd($exception->getMessage(), $exception->getLine());
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }
@@ -2355,7 +2369,7 @@ class TemporaryWorkController extends Controller
     public function permit_edit($id)
     {
         $permitid =  \Crypt::decrypt($id);
-        $permitdata = PermitLoad::find($permitid);
+        $permitdata = PermitLoad::with('signatures')->find($permitid);
         $tempid = $permitdata->temporary_work_id;
         $tempdata = TemporaryWork::find($tempid);
         $twc_id_no = $permitdata->permit_no;
@@ -2367,10 +2381,11 @@ class TemporaryWorkController extends Controller
     //permit update
     public function permit_update(Request $request)
     {
+        DB::beginTransaction();
         Validations::storepermitload($request);
         $permitload = PermitLoad::find($request->permitid);
         try {
-            $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed', 'pdfsigntype','pdfphoto', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'company1', 'drawing','drawing_option','custom_drawing','design_upload', 'name3', 'job_title3', 'company3', 'companyid3', 'signed3', 'namesign3', 'name4', 'job_title4', 'company4', 'companyid4', 'signed4', 'namesign4', 'name5', 'job_title5', 'company5', 'companyid5', 'signed5', 'namesign5');
+            $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed', 'pdfsigntype','pdfphoto', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'company1', 'drawing','drawing_option','custom_drawing','design_upload', 'name3', 'job_title3', 'company3', 'companyid3', 'signed3', 'namesign3', 'name4', 'job_title4', 'company4', 'companyid4', 'signed4', 'namesign4', 'name5', 'job_title5', 'company5', 'companyid5', 'signed5', 'namesign5','date3','date4', 'date5');
             $all_inputs['created_by'] = auth()->user()->id;
             $all_inputs['custom_drawing'] = '';
             $all_inputs['design_upload'] = '';
@@ -2422,6 +2437,8 @@ class TemporaryWorkController extends Controller
             } elseif($request->name3) { 
                 $name3 = $request->name3;
                 $job_title3 = $request->job_title3;
+                $company3 = $request->company3;
+                $date3 = $request->date3;
                 $folderPath = public_path('temporary/signature/');
                 $image = explode(";base64,", $request->signed3);
                 $image_type = explode("image/", $image[0]);
@@ -2440,6 +2457,8 @@ class TemporaryWorkController extends Controller
             } elseif($request->name4) { 
                 $name4 = $request->name4;
                 $job_title4 = $request->job_title4;
+                $company4 = $request->company4;
+                $date4 = $request->date4;
                 $folderPath = public_path('temporary/signature/');
                 $image = explode(";base64,", $request->signed4);
                 $image_type = explode("image/", $image[0]);
@@ -2458,6 +2477,8 @@ class TemporaryWorkController extends Controller
             } elseif($request->name5) { 
                 $name5 = $request->name5;
                 $job_title5 = $request->job_title5;
+                $company5 = $request->company5;
+                $date5 = $request->date5;
                 $folderPath = public_path('temporary/signature/');
                 $image = explode(";base64,", $request->signed5);
                 $image_type = explode("image/", $image[0]);
@@ -2484,6 +2505,8 @@ class TemporaryWorkController extends Controller
                 $signature3_record = new Signature([
                     'name' => $name3,
                     'job_title' => $job_title3,
+                    'company' => $company3,
+                    'date' => $date3,
                     'signatureable_type' => get_class($permitload),  
                     'signature' => $signature3, 
                     'signatureable_id' => $permitload->id             
@@ -2491,12 +2514,14 @@ class TemporaryWorkController extends Controller
     
                 $permitload->signatures()->save($signature3_record);
             }
-
+            
             if($request->name4)
             {
                 $signature4_record = new Signature([
                     'name' => $name4,
                     'job_title' => $job_title4,
+                    'company' => $company4,
+                    'date' => $date4,
                     'signatureable_type' => get_class($permitload),  
                     'signature' => $signature4, 
                     'signatureable_id' => $permitload->id             
@@ -2510,6 +2535,8 @@ class TemporaryWorkController extends Controller
                 $signature5_record = new Signature([
                     'name' => $name5,
                     'job_title' => $job_title5,
+                    'company' => $company5,
+                    'date' => $date5,
                     'signatureable_type' => get_class($permitload),  
                     'signature' => $signature5, 
                     'signatureable_id' => $permitload->id             
@@ -2555,10 +2582,12 @@ class TemporaryWorkController extends Controller
                     // Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new PermitNotification($notify_admins_msg));
                     Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
                 }
+                DB::commit();
                 toastSuccess('Permit Updatd sucessfully!');
                 return redirect()->route('temporary_works.index');
             }
         } catch (\Exception $exception) {
+            DB::rollback();
             dd($exception->getMessage(), $exception->getLine()); 
             toastError('Something went wrong, try again!');
             return Redirect::back();

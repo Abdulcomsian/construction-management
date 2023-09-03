@@ -14,6 +14,8 @@ class Signature extends Model
         'signatureable_type',
         'name',
         'job_title',
+        'company',
+        'date',
     ];
     public function signatureable()
     {

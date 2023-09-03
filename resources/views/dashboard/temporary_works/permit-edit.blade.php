@@ -1171,7 +1171,7 @@
                                 <span class="required">Name:</span>
                               </label>
                               <!--end::Label-->
-                              <input type="text" class="form-control form-control-solid" placeholder="Name" id="name3" name="name3" style="color:#5e6278">
+                              <input type="text" class="form-control form-control-solid" placeholder="Name" id="name3" name="name3" value="{{$permitdata->signatures[0]->name ?? ''}}" style="color:#5e6278">
                             </div>
                             <div class="d-flex inputDiv principleno">
                               <!--begin::Label-->
@@ -1179,7 +1179,7 @@
                                 <span class="required">Job Title:</span>
                               </label>
                               <!--end::Label-->
-                              <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title3" name="job_title3">
+                              <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title3" name="job_title3" value="{{$permitdata->signatures[0]->job_title ?? ''}}">
                             </div>
                             <div class="d-flex inputDiv ">
                               <!--begin::Label-->
@@ -1188,7 +1188,7 @@
                               </label>
                               <!--end::Label-->
                               <div class="input">
-                                <input type="text" id="companyadmin3" class="form-control form-control-solid" placeholder="Company" name="company3">
+                                <input type="text" id="companyadmin3" class="form-control form-control-solid" placeholder="Company" name="company3" value="{{$permitdata->signatures[0]->company ?? ''}}">
                                 <!-- name="company1" -->
                                 <input type="hidden" id="companyid3" class="form-control form-control-solid" placeholder="Company" name="companyid3" readonly="readonly">
                               </div>
@@ -1200,7 +1200,7 @@
                               </label>
                               <!--end::Label-->
                               <div class="input">
-                                <input type="date" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                                <input type="date" name="date3" style="background-color:#f5f8fa" value="{{$permitdata->signatures[0]->date ?? ''}}" class="form-control form-control-solid">
                                 <!-- name="date1" -->
                               </div>
                             </div>
@@ -1245,7 +1245,7 @@
                             <span class="required">Name:</span>
                             </label>
                             <!--end::Label-->
-                            <input type="text" class="form-control form-control-solid" placeholder="Name" id="name4" name="name4" style="color:#5e6278">
+                            <input type="text" class="form-control form-control-solid" placeholder="Name" id="name4" name="name4" style="color:#5e6278" value="{{$permitdata->signatures[1]->name ?? ''}}">
                         </div>
                         <div class="d-flex inputDiv principleno">
                             <!--begin::Label-->
@@ -1253,7 +1253,7 @@
                             <span class="required">Job Title:</span>
                             </label>
                             <!--end::Label-->
-                            <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title4" name="job_title4">
+                            <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title4" name="job_title4" value="{{$permitdata->signatures[1]->job_title ?? ''}}">
                         </div>
                         <div class="d-flex inputDiv ">
                             <!--begin::Label-->
@@ -1262,7 +1262,7 @@
                             </label>
                             <!--end::Label-->
                             <div class="input">
-                            <input type="text" id="companyadmin4" class="form-control form-control-solid" placeholder="Company" name="company4">
+                            <input type="text" id="companyadmin4" class="form-control form-control-solid" placeholder="Company" name="company4" value="{{$permitdata->signatures[1]->company ?? ''}}">
                             <!-- name="company1" -->
                             <input type="hidden" id="companyid4" class="form-control form-control-solid" placeholder="Company" name="companyid" readonly="readonly">
                             </div>
@@ -1274,7 +1274,7 @@
                             </label>
                             <!--end::Label-->
                             <div class="input">
-                            <input type="date" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                            <input type="date" name="date4" style="background-color:#f5f8fa" value="{{$permitdata->signatures[1]->date ?? ''}}" class="form-control form-control-solid">
                             <!-- name="date1" -->
                             </div>
                         </div>
@@ -1326,7 +1326,7 @@
                             <span class="required">Name:</span>
                             </label>
                             <!--end::Label-->
-                            <input type="text" class="form-control form-control-solid" placeholder="Name" id="name5" name="name5" style="color:#5e6278">
+                            <input type="text" class="form-control form-control-solid" placeholder="Name" id="name5" name="name5" style="color:#5e6278" value="{{$permitdata->signatures[2]->name ?? ''}}">
                         </div>
                         <div class="d-flex inputDiv principleno">
                             <!--begin::Label-->
@@ -1334,7 +1334,7 @@
                             <span class="required">Job Title:</span>
                             </label>
                             <!--end::Label-->
-                            <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title5" name="job_title5">
+                            <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title5" name="job_title5" value="{{$permitdata->signatures[2]->job_title ?? ''}}">
                         </div>
                         <div class="d-flex inputDiv ">
                             <!--begin::Label-->
@@ -1343,7 +1343,7 @@
                             </label>
                             <!--end::Label-->
                             <div class="input">
-                            <input type="text" id="companyadmin4" class="form-control form-control-solid" placeholder="Company" name="company5">
+                            <input type="text" id="companyadmin4" class="form-control form-control-solid" placeholder="Company" name="company5" value="{{$permitdata->signatures[2]->company5 ?? ''}}">
                             <!-- name="company1" -->
                             <input type="hidden" id="company5" class="form-control form-control-solid" placeholder="Company" name="company5" readonly="readonly">
                             </div>
@@ -1355,7 +1355,7 @@
                             </label>
                             <!--end::Label-->
                             <div class="input">
-                            <input type="date" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                            <input type="date" name="date5" style="background-color:#f5f8fa" value="{{$permitdata->signatures[2]->date ?? ''}}" class="form-control form-control-solid">
                             <!-- name="date1" -->
                             </div>
                         </div>

@@ -27,4 +27,8 @@ class PermitLoad extends Model
     {
         return $this->belongsTo(ProjectBlock::class,'block_id');
     }
+    public function signatures()
+    {
+        return $this->hasMany(Signature::class, 'signatureable_id');
+    }
 }

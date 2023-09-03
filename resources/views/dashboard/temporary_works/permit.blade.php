@@ -1233,7 +1233,7 @@
                     </label>
                     <!--end::Label-->
                     <div class="input">
-                      <input type="date" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                      <input type="date" name="date3" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
                       <!-- name="date1" -->
                     </div>
                   </div>
@@ -1311,7 +1311,7 @@
                     </label>
                     <!--end::Label-->
                     <div class="input">
-                      <input type="date" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                      <input type="date" name="date4" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
                       <!-- name="date1" -->
                     </div>
                   </div>
@@ -1378,7 +1378,7 @@
                     </label>
                     <!--end::Label-->
                     <div class="input">
-                      <input type="text" id="companyadmin4" class="form-control form-control-solid" placeholder="Company" name="company5">
+                      <input type="text" id="companyadmin5" class="form-control form-control-solid" placeholder="Company" name="company5">
                       <!-- name="company1" -->
                       <input type="hidden" id="company5" class="form-control form-control-solid" placeholder="Company" name="company5" readonly="readonly">
                     </div>
@@ -1390,7 +1390,7 @@
                     </label>
                     <!--end::Label-->
                     <div class="input">
-                      <input type="date" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                      <input type="date" name="date5" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
                       <!-- name="date1" -->
                     </div>
                   </div>
@@ -2629,34 +2629,7 @@ function deleteFile(id) {
 }
 var counter = 3; 
 
-function addNewSignature(e) {
-    e.preventDefault()
-    var canvas = 'canvas'+counter ;
-    signaturePad2  = 'signaturePad' + counter;
-    var signature = "#signature"+counter;
-    console.log("signaturePad", );
-    // Make an Ajax request to fetch the HTML content
-    $.ajax({
-        type: 'POST',
-        url: '{{route("new_signature")}}',
-        data: {
-            counter: counter,
-            _token: '{{ csrf_token() }}' // Include it as data as well, if needed
-        },
-        success: function(response) {
-            // Insert the fetched HTML into the add_signature div
-              $('#add_signature').append(response.html);
-              canvas = document.getElementById("sig"+counter);
-              console.log('canvas', canvas)
-              const signaturePad2 = new SignaturePad(canvas);
-              console.log('sign pad value', signaturePad2.toDataURL('image/png'))
-              counter++
-            },
-        error: function(xhr, status, error) {
-            console.error(error);
-        }
-    });
-}
+
 
 </script>
 <script>

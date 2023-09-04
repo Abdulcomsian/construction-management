@@ -2388,7 +2388,7 @@ class TemporaryWorkController extends Controller
     {
         DB::beginTransaction();
         Validations::storepermitload($request);
-        $permitload = PermitLoad::find($request->permitid);
+        $permitload = PermitLoad::with('signatures')->find($request->permitid);
         try {
             $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed', 'pdfsigntype','pdfphoto', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'company1', 'drawing','drawing_option','custom_drawing','design_upload', 'name3', 'job_title3', 'company3', 'companyid3', 'signed3', 'namesign3', 'name4', 'job_title4', 'company4', 'companyid4', 'signed4', 'namesign4', 'name5', 'job_title5', 'company5', 'companyid5', 'signed5', 'namesign5','date3','date4', 'date5', 'action', 'permitdata_status');        
             $all_inputs['created_by'] = auth()->user()->id;
@@ -2424,77 +2424,106 @@ class TemporaryWorkController extends Controller
             }
             //second person signature and name
             $image_name = '';
-            if ($request->signtype == 1) {
-                $all_inputs['signature'] = $request->namesign;
-            } else {
-                $folderPath = public_path('temporary/signature/');
-                $image = explode(";base64,", $request->signed);
-                $image_type = explode("image/", $image[0]);
-                $image_type_png = $image_type[1];
-                $image_base64 = base64_decode($image[1]);
-                $image_name = uniqid() . '.' . $image_type_png;
-                $file = $folderPath . $image_name;
-                @unlink($folderPath . $permitload->signature);
-                file_put_contents($file, $image_base64);
-                $all_inputs['signature'] = $image_name;
-            }
+                if ($request->signtype == 1) {
+                    $all_inputs['signature'] = $request->namesign;
+                } else {
+                    $folderPath = public_path('temporary/signature/');
+                    $image = explode(";base64,", $request->signed);
+                    $image_type = explode("image/", $image[0]);
+                    $image_type_png = $image_type[1];
+                    $image_base64 = base64_decode($image[1]);
+                    $image_name = uniqid() . '.' . $image_type_png;
+                    $file = $folderPath . $image_name;
+                    @unlink($folderPath . $permitload->signature);
+                    file_put_contents($file, $image_base64);
+                    $all_inputs['signature'] = $image_name;
+                }
+           
+            
             //third person signature and name
             $image_name3 = '';
-            if ($request->signtype3 == 1) {
-                $signature3 = $request->namesign3;
-            } elseif($request->name3) { 
-                $name3 = $request->name3;
-                $job_title3 = $request->job_title3;
-                $company3 = $request->company3;
-                $date3 = $request->date3;
-                $folderPath = public_path('temporary/signature/');
-                $image = explode(";base64,", $request->signed3);
-                $image_type = explode("image/", $image[0]);
-                $image_type_png = $image_type[1];
-                $image_base64 = base64_decode($image[1]);
-                $image_name3 = uniqid() . '.' . $image_type_png;
-                $file = $folderPath . $image_name3;
-                file_put_contents($file, $image_base64);
+            if(!$permitload->signatures[0]->name){
+                if ($request->signtype3 == 1) {
+                    $signature3 = $request->namesign3;
+                } elseif($request->name3) {
+                    $name3 = $request->name3;
+                    $job_title3 = $request->job_title3;
+                    $company3 = $request->company3;
+                    $date3 = $request->date3;
+                    $folderPath = public_path('temporary/signature/');
+                    $image = explode(";base64,", $request->signed3);
+                    $image_type = explode("image/", $image[0]);
+                    $image_type_png = $image_type[1];
+                    $image_base64 = base64_decode($image[1]);
+                    $image_name3 = uniqid() . '.' . $image_type_png;
+                    $file = $folderPath . $image_name3;
+                    file_put_contents($file, $image_base64);
+                    $signature3 = $image_name3; 
+                } 
+            } else{
+                $name3 = $permitload->signatures[0]->name;
+                $job_title3 = $permitload->signatures[0]->job_title;
+                $company3 = $permitload->signatures[0]->company;
+                $date3 = $permitload->signatures[0]->date;
+                $image_name3 = $permitload->signatures[0]->signature;
                 $signature3 = $image_name3; 
             }
 
             //fourth person signature and name
             $image_name4 = '';
-            if ($request->signtype4 == 1) {
-                $signature4 = $request->namesign4;
-            } elseif($request->name4) { 
-                $name4 = $request->name4;
-                $job_title4 = $request->job_title4;
-                $company4 = $request->company4;
-                $date4 = $request->date4;
-                $folderPath = public_path('temporary/signature/');
-                $image = explode(";base64,", $request->signed4);
-                $image_type = explode("image/", $image[0]);
-                $image_type_png = $image_type[1];
-                $image_base64 = base64_decode($image[1]);
-                $image_name4 = uniqid() . '.' . $image_type_png;
-                $file = $folderPath . $image_name4;
-                file_put_contents($file, $image_base64);
+            if(!$permitload->signatures[0]->name){
+                if ($request->signtype4 == 1) {
+                    $signature4 = $request->namesign4;
+                } elseif($request->name4) { 
+                    $name4 = $request->name4;
+                    $job_title4 = $request->job_title4;
+                    $company4 = $request->company4;
+                    $date4 = $request->date4;
+                    $folderPath = public_path('temporary/signature/');
+                    $image = explode(";base64,", $request->signed4);
+                    $image_type = explode("image/", $image[0]);
+                    $image_type_png = $image_type[1];
+                    $image_base64 = base64_decode($image[1]);
+                    $image_name4 = uniqid() . '.' . $image_type_png;
+                    $file = $folderPath . $image_name4;
+                    file_put_contents($file, $image_base64);
+                    $signature4 = $image_name4; 
+                }
+            } else{
+                $name4 = $permitload->signatures[0]->name;
+                $job_title4 = $permitload->signatures[0]->job_title;
+                $company4 = $permitload->signatures[0]->company;
+                $date4 = $permitload->signatures[0]->date;
+                $image_name4 = $permitload->signatures[0]->signature;
                 $signature4 = $image_name4; 
             }
 
             //fifth person signature and name
             $image_name5 = '';
-            if ($request->signtype5 == 1) {
-                $signature4 = $request->namesign5;
-            } elseif($request->name5) { 
-                $name5 = $request->name5;
-                $job_title5 = $request->job_title5;
-                $company5 = $request->company5;
-                $date5 = $request->date5;
-                $folderPath = public_path('temporary/signature/');
-                $image = explode(";base64,", $request->signed5);
-                $image_type = explode("image/", $image[0]);
-                $image_type_png = $image_type[1];
-                $image_base64 = base64_decode($image[1]);
-                $image_name5 = uniqid() . '.' . $image_type_png;
-                $file = $folderPath . $image_name5;
-                file_put_contents($file, $image_base64);
+            if(!$permitload->signatures[0]->name){
+                if ($request->signtype5 == 1) {
+                    $signature4 = $request->namesign5;
+                } elseif($request->name5) { 
+                    $name5 = $request->name5;
+                    $job_title5 = $request->job_title5;
+                    $company5 = $request->company5;
+                    $date5 = $request->date5;
+                    $folderPath = public_path('temporary/signature/');
+                    $image = explode(";base64,", $request->signed5);
+                    $image_type = explode("image/", $image[0]);
+                    $image_type_png = $image_type[1];
+                    $image_base64 = base64_decode($image[1]);
+                    $image_name5 = uniqid() . '.' . $image_type_png;
+                    $file = $folderPath . $image_name5;
+                    file_put_contents($file, $image_base64);
+                    $signature5 = $image_name5; 
+                }
+            } else{
+                $name5 = $permitload->signatures[0]->name;
+                $job_title5 = $permitload->signatures[0]->job_title;
+                $company5 = $permitload->signatures[0]->company;
+                $date5 = $permitload->signatures[0]->date;
+                $image_name5 = $permitload->signatures[0]->signature;
                 $signature5 = $image_name5; 
             }
 

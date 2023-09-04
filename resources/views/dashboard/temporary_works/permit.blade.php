@@ -1341,10 +1341,6 @@
                     </div>
 
                     <div class="d-flex inputDiv principleno mb-0" id="sign4" style="border:none !important;">
-                      {{-- <label style="width:33%"
-                                                class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Signature:</span>
-                                            </label> --}}
                       {{-- <br /> --}}
                       <canvas id="sig4" style="border-radius: 9px; background: lightgray;"></canvas>
                       <span id="clear4" class="fa fa-undo cursor-pointer btn--clear" style="line-height: 11; position:relative; top:51px; right:26px"></span>

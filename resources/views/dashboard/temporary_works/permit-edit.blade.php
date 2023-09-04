@@ -1397,6 +1397,11 @@
                         </div>
                         </div>
                     </div>
+                    @if($permitdata->status == 2 || $permitdata->status == 6 || $permitdata->status == 7)
+                    <input type="hidden" id="permitdata_status" name="permitdata_status" value="pending"  />
+                    @else
+                    <input type="hidden"  id="permitdata_status" name="permitdata_status" value="approved"  />
+                    @endif
                     <div class="row mt-7">
                         <div class="col-md-6">
                             <button id="submitbutton" type="button" class="btn btn-secondary" disabled>Update</button>
@@ -2053,9 +2058,13 @@
         .attr("name", "action")
         .val(buttonValue);
 
-        // if(buttonValue == 'draft'){
-        //     $("#permitrenew").attr('action', "{{route('permit.save')}}");
-        // }
+        var status = $('#permitdata_status').val();
+        if(status == 'pending' && buttonValue != 'draft')
+        {
+            $("#permitrenew").attr('action', "{{route('permit.save')}}");
+        }
+
+        var status
 
     // Append the input element to the form
     $("#permitrenew").append(input);

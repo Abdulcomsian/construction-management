@@ -1445,9 +1445,7 @@
             <div class="col-md-1"></div>
             <div class="col-md-6 ">
               <button id="submitbutton" type="button" disabled class="btn btn-secondary  set-button" disabled>Submit</button>
-              <!-- <div class="d-flex inputDiv principleno" style="display: none !important">
-                                <textarea id="signature" name="signed" style="opacity: 0"></textarea>
-                            </div> -->
+              <button name="action" id="draft" value="draft" type="button" class="btn btn-success  set-button">Save as Draft</button>
             </div>
           </div>
         </form>
@@ -1979,7 +1977,7 @@
   let third_sig = 0;
   let fourth_sig = 0;
   let fifth_sig = 0;
-  $("#submitbutton").on('click', function(e) {
+  $("#submitbutton, #draft").on('click', function(e) {
     e.preventDefault();
     if (signaturePad) {
       $("#signature").val(signaturePad.toDataURL('image/png'));
@@ -1997,6 +1995,15 @@
       $("#signature5").val(signaturePad5.toDataURL('image/png'));
     }
     $(this).attr('disabled', 'disabled');
+
+    var buttonValue = $(this).val();
+    var input = $("<input>")
+        .attr("type", "hidden")
+        .attr("name", "action")
+        .val(buttonValue);
+
+    // Append the input element to the form
+    $("#permitform").append(input);
 
     $("#permitform").submit();
   })

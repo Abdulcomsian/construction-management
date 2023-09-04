@@ -782,7 +782,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-12">
                             <h5 style="color: #000;font-weight: 600;font-size: 24px;margin-top: 15px;">Permit to
@@ -883,7 +882,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-md-6">
                             <div class="row" id="second_member">
@@ -1399,16 +1397,10 @@
                         </div>
                         </div>
                     </div>
-
-
-
                     <div class="row mt-7">
-                        <div class="col-md-12">
-
-                            <!-- <div class="uploadDiv" style="padding-left: 10px;">
-                                <div class="input-images"></div>
-                                </div> -->
+                        <div class="col-md-6">
                             <button id="submitbutton" type="button" class="btn btn-secondary" disabled>Update</button>
+                            <button  name="action" id="draft" value="draft" type="button" class="btn btn-success set-button">Save as Draft</button>
                         </div>
                     </div>
                 </form>
@@ -2035,7 +2027,7 @@
     var signaturePad5 = new SignaturePad(canvas5);
     }
 
-    $("#submitbutton").on('click',function(){
+    $("#submitbutton, #draft").on('click', function(e) {
         $("#signature").val(signaturePad.toDataURL('image/png'));
         if(canvas1)
         {
@@ -2054,6 +2046,20 @@
         $("#signature5").val(signaturePad5.toDataURL('image/png'));
         }
         $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").prop("disabled", true);
+
+        var buttonValue = $(this).val();
+        var input = $("<input>")
+        .attr("type", "hidden")
+        .attr("name", "action")
+        .val(buttonValue);
+
+        // if(buttonValue == 'draft'){
+        //     $("#permitrenew").attr('action', "{{route('permit.save')}}");
+        // }
+
+    // Append the input element to the form
+    $("#permitrenew").append(input);
+
         $("#permitrenew").submit();
     });
 

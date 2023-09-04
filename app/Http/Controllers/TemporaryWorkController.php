@@ -3592,4 +3592,8 @@ class TemporaryWorkController extends Controller
 
         return response()->json(['message' => 'File not found'], 404);
     }
+
+    public function getReportsData(){
+        return view('dashboard.temporary_works.report');
+    }
 }

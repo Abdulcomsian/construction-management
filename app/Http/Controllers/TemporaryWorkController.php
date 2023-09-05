@@ -2399,29 +2399,41 @@ class TemporaryWorkController extends Controller
             if($request->action == 'draft'){
                 $all_inputs['status'] = 8;
             }
+
             //first person signature and name
             $image_name1 = '';
             if ($request->principle_contractor == 1) {
-                $all_inputs['name1'] = $request->name1;
-                $all_inputs['job_title1'] = $request->job_title1;
-                if ($request->signtype1 == 1) {
-                    $all_inputs['signature1'] = $request->namesign1;
-                } else {
+                if(!$permitload->signature){
 
-                    $folderPath = public_path('temporary/signature/');
-                    $image = explode(";base64,", $request->signed1);
-                    $image_type = explode("image/", $image[0]);
-                    $image_type_png = $image_type[1];
-                    $image_base64 = base64_decode($image[1]);
-                    $image_name1 = uniqid() . '.' . $image_type_png;
-                    $file = $folderPath . $image_name1;
-                    @unlink($folderPath . $permitload->signature1);
-                    file_put_contents($file, $image_base64);
-                    $all_inputs['signature1'] = $image_name1;
+                    $all_inputs['name1'] = $request->name1;
+                    $all_inputs['job_title1'] = $request->job_title1;
+                    if ($request->signtype1 == 1) {
+                        $all_inputs['signature1'] = $request->namesign1;
+                    } else {
+
+                        $folderPath = public_path('temporary/signature/');
+                        $image = explode(";base64,", $request->signed1);
+                        $image_type = explode("image/", $image[0]);
+                        $image_type_png = $image_type[1];
+                        $image_base64 = base64_decode($image[1]);
+                        $image_name1 = uniqid() . '.' . $image_type_png;
+                        $file = $folderPath . $image_name1;
+                        @unlink($folderPath . $permitload->signature1);
+                        file_put_contents($file, $image_base64);
+                        $all_inputs['signature1'] = $image_name1;
+                    }
+                } else {
+                    $all_inputs['name1'] = $request->name1;
+                    $all_inputs['job_title1'] = $request->job_title1;
+                    $image_name1 = $permitload->signature1;
+                    $all_inputs['signature1'] = $image_name1; 
                 }
-            }
+            } 
+
             //second person signature and name
             $image_name = '';
+            if(!$permitload->signature){
+
                 if ($request->signtype == 1) {
                     $all_inputs['signature'] = $request->namesign;
                 } else {
@@ -2436,11 +2448,17 @@ class TemporaryWorkController extends Controller
                     file_put_contents($file, $image_base64);
                     $all_inputs['signature'] = $image_name;
                 }
-           
-            
+            } else{
+                $all_inputs['name1'] = $request->name;
+                $all_inputs['job_title1'] = $request->job_title;
+                $image_name = $permitload->signature;
+                $all_inputs['signature'] = $image_name; 
+            }
+         
             //third person signature and name
             $image_name3 = '';
-            if(!$permitload->signatures[0]->name){
+            if(!isset($permitload->signatures[0]) && empty($permitload->signatures[0]->signature)){
+            // if(!$permitload->signatures[0]->name){
                 if ($request->signtype3 == 1) {
                     $signature3 = $request->namesign3;
                 } elseif($request->name3) {
@@ -2466,10 +2484,41 @@ class TemporaryWorkController extends Controller
                 $image_name3 = $permitload->signatures[0]->signature;
                 $signature3 = $image_name3; 
             }
-
+            // dd("yyyy");
+            
+            // $signature_exist = $permitload->signatures[0] ?? null;
+            // if(!empty($signature_exist)){
+            //     if(empty($permitload->signatures[0]->signature)){
+            //         if ($request->signtype3 == 1) {
+            //             $signature3 = $request->namesign3;
+            //         } elseif($request->name3) {
+            //             $name3 = $request->name3;
+            //             $job_title3 = $request->job_title3;
+            //             $company3 = $request->company3;
+            //             $date3 = $request->date3;
+            //             $folderPath = public_path('temporary/signature/');
+            //             $image = explode(";base64,", $request->signed3);
+            //             $image_type = explode("image/", $image[0]);
+            //             $image_type_png = $image_type[1];
+            //             $image_base64 = base64_decode($image[1]);
+            //             $image_name3 = uniqid() . '.' . $image_type_png;
+            //             $file = $folderPath . $image_name3;
+            //             file_put_contents($file, $image_base64);
+            //             $signature3 = $image_name3; 
+            //         } 
+            //     } else{
+            //         $name3 = $permitload->signatures[0]->name;
+            //         $job_title3 = $permitload->signatures[0]->job_title;
+            //         $company3 = $permitload->signatures[0]->company;
+            //         $date3 = $permitload->signatures[0]->date;
+            //         $image_name3 = $permitload->signatures[0]->signature;
+            //         $signature3 = $image_name3; 
+            //     }
+            // }
             //fourth person signature and name
             $image_name4 = '';
-            if(!$permitload->signatures[0]->name){
+            if(!isset($permitload->signatures[1]) && empty($permitload->signatures[1]->signature)){
+            // if(!$permitload->signatures[0]->name){
                 if ($request->signtype4 == 1) {
                     $signature4 = $request->namesign4;
                 } elseif($request->name4) { 
@@ -2498,7 +2547,8 @@ class TemporaryWorkController extends Controller
 
             //fifth person signature and name
             $image_name5 = '';
-            if(!$permitload->signatures[0]->name){
+            if(!isset($permitload->signatures[2]) && empty($permitload->signatures[2]->signature)){
+            // if(!$permitload->signatures[0]->name){
                 if ($request->signtype5 == 1) {
                     $signature4 = $request->namesign5;
                 } elseif($request->name5) { 

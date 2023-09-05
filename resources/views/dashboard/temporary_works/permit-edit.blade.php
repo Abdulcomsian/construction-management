@@ -1350,8 +1350,8 @@
                     @endif
                     <div class="row mt-7">
                         <div class="col-md-6">
-                            <button id="submitbutton" type="submit" class="btn btn-primary">Update</button>
-                            <button  name="action" id="draft" value="draft" type="submit" class="btn btn-success set-button">Save as Draft</button>
+                            <button id="submitbutton" type="button" class="btn btn-primary">Update</button>
+                            <button  name="action" id="draft" value="draft" type="button" class="btn btn-success set-button">Save as Draft</button>
                         </div>
                     </div>
                 </form>
@@ -1950,10 +1950,7 @@
     $('#namesign_id2').change(function() {
     $('#namesign_id2').css("background-color", "#f5f8fa ");
     });
-
-
     var canvas = document.getElementById("sig");
-    var signaturePad = new SignaturePad(canvas);
     var canvas1 = document.getElementById("sig1");
     var canvas3 = document.getElementById("sig3");
     var canvas4 = document.getElementById("sig4");
@@ -1963,11 +1960,16 @@
     let isSecondMemEnable = true;
     if(canvas1)
     {
+    var signaturePad = new SignaturePad(canvas);
+    }
+    if(canvas1)
+    {
     var signaturePad1 = new SignaturePad(canvas1);
     }
     if(canvas3)
     {
     var signaturePad3 = new SignaturePad(canvas3);
+    console.log("signature 3", signaturePad3)
     }
     if(canvas4)
     {
@@ -1979,8 +1981,10 @@
     }
 
     $("#submitbutton, #draft").on('click', function(e) {
-        alert("OK")
-        $("#signature").val(signaturePad.toDataURL('image/png'));
+        if(canvas)
+        {
+            $("#signature").val(signaturePad.toDataURL('image/png'));
+        }
         if(canvas1)
         {
         $("#signature1").val(signaturePad1.toDataURL('image/png'));

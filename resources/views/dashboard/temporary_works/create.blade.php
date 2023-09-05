@@ -1096,9 +1096,14 @@
                         <textarea id="signature5" name="signed5" style="opacity: 0"></textarea>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 d-flex flex-column align-items-start gap-3">
                     <div>
                         <button class="btn btn-success btn-sm mt-8" id="addMemberButton">Add New</button>
+                    </div>
+                    <div>
+                        @include('dashboard.modals.design-relief-modals')
+                        <button id="submitbutton" type="submit" class="btn btn-secondary float-end submitbutton" disabled style="padding: 10px 50px; font-size: 20px; font-weight: bold;">Submit</button>
+
                     </div>
 
                     <!-- <div class="d-flex inputDiv"  style="align-items: right;text-align:right;">
@@ -1108,9 +1113,6 @@
                     <!-- <button id="submitbutton" type="submit" style="" class="btn btn-primary float-end submitbutton">Submit</button> -->
                     <!-- </div> -->
                     <!-- work for approval -->
-                    @include('dashboard.modals.design-relief-modals')
-                    <button id="submitbutton" type="submit" class="btn btn-secondary float-end submitbutton" disabled style="  top: 70% !important; left: 0;  padding: 10px 50px;font-size: 20px;font-weight: bold;">Submit</button>
-
                 </div>
 
             </div>

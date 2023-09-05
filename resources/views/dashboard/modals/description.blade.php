@@ -28,7 +28,7 @@
                     <div class="row g-9 mb-8">
                         <!--begin::Col-->
                         <div class="col-md-12">
-                            <div class="col-lg-12 d-flex align-items-center fw-bold fs-6" id="desc">
+                            <div class="col-lg-12 align-items-center fw-bold fs-6" id="desc">
                             </div>
                             <!--begin::Label-->
                         </div>

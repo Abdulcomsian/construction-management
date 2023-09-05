@@ -895,7 +895,7 @@
                                         </label>
                                         <!--end::Label-->
                                         <input type="text" class="form-control" placeholder="Name" name="name"
-                                            value="{{$permitdata->name ?? ''}}">
+                                            value="{{$permitdata->name ?? ''}}" {{ isset($permitdata->name) && $permitdata->name != null ? 'readonly' : '' }}>
                                     </div>
                                     <div class="d-flex inputDiv ">
                                         <!--begin::Label-->
@@ -903,8 +903,7 @@
                                             <span class="required">Job title:</span>
                                         </label>
                                         <!--end::Label-->
-                                        <input type="text" class="form-control" placeholder="Job title" name="job_title"
-                                            value="{{$permitdata->job_title ?? ''}}">
+                                        <input type="text" class="form-control" placeholder="Job title" name="job_title" value="{{$permitdata->name ?? ''}}" {{ isset($permitdata->job_title) && $permitdata->job_title != null ? 'readonly' : '' }}>
                                     </div>
                                     <div class="d-flex inputDiv ">
                                         <!--begin::Label-->
@@ -913,10 +912,10 @@
                                         </label>
                                         <!--end::Label-->
                                         <input type="text" id="companyadmin" class="form-control" placeholder="Company"
-                                            name="company" value="{{$project->company->name ?? ''}}">
+                                            name="company" value="{{$project->company->name ?? ''}}" {{ isset($project->company->name) && $project->company->name != null ? 'readonly' : '' }}>
                                         <input type="hidden" id="companyid" class="form-control form-control-solid"
                                             placeholder="Company" name="companyid"
-                                            value="{{$project->company->id ?? ''}}" readonly="readonly">
+                                            value="{{$project->company->id ?? ''}}" >
                                     </div>
                                     <div class="d-flex inputDiv ">
                                         <!--begin::Label-->
@@ -929,37 +928,121 @@
                                     <!-- Approval div -->
 
                                 </div>
-                                {{-- <div class="col">
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <div class="d-flex inputDiv mt-0" id="sign" style="border: none;">
-                                                <div class="signatureDiv">
-                                                    <label style="width:33%;"
-                                                        class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                        <span class="required">Signature:</span>
-                                                    </label>
-                                                    <br />
-                                                    <canvas id="sig"></canvas>
-                                                    <br />
-                                                    <textarea id="signature" name="signed"
-                                                        style="display: none"></textarea>
-                                                </div>
+                               
+                                <div class="col">
+                                    @if(!isset($permitdata->signature) && $permitdata->signature != null)
+                                        <div class="d-flex inputDiv mt-0" style="border: none">
+                                            <label class="fs-6 fw-bold mb-2"
+                                                style="font-size: 600 !important; font-size: 16px !important">
+                                                <span class="signatureTitle" style="white-space: nowrap">Signature
+                                                    Type:</span>
+                                            </label>
+                                            <div style="display:flex; align-items: center; padding-left:10px">
+                                                <input type="radio" class="checkbox-field" id="DrawCheck" checked=true
+                                                    style="width: 12px;">
+                                                <span
+                                                    style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
                                             </div>
+                                            <!--end::Label-->
+                                            <div style="display:flex; align-items: center; padding-left:10px">
+                                                <input type="radio" class="" id="flexCheckChecked" style="width: 12px;">
+                                                <input type="hidden" id="signtype" name="signtype"
+                                                    class="form-control form-control-solid" value="2">
+                                                <span
+                                                    style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Name</span>
+                                            </div>
+                                            &nbsp;
+                                            <!--end::Label-->
+                                            <div style="display:flex; align-items: center; padding-left:10px">
+                                                <input type="radio" class="" id="pdfChecked" style="width: 12px;">
+                                                <input type="hidden" id="pdfsign" name="pdfsigntype"
+                                                    class="form-control form-control-solid" value="0">
+                                                <span
+                                                    style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2; min-width: fit-content">PNG/JPG
+                                                    Upload </span>
+                                            </div>
+
+                                        </div>
+                                        <div class="d-flex inputDiv my-0" id="sign" style="align-items: center;border:none">
+                                            <canvas id="sig" onblure="draw()"
+                                                style="background: lightgray; border-radius:10px"></canvas>
+                                            <br />
+                                            <textarea id="signature" name="signed" style="display: none"></textarea>
+                                            <span id="clear" class="fa fa-undo cursor-pointer btn--clear"
+                                                style="line-height: 6; position:relative; top:51px; right:26px"></span>
+                                        </div>
+                                        <span id="sigimage" class="text-danger" style="font-size: 15px">Signature Not
+                                            Added</span>
+                                        <div class="inputDiv d-none" id="pdfsign">
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                <span class="required">Upload Signature:(PNG,
+                                                    JPG)</span>
+                                            </label>
+                                            <input type="file" name="pdfphoto" class="form-control" accept="image/*">
                                         </div>
 
-                                    </div>
-
-
-                                </div> --}}
-                                <div class="col">
-                                    <div class="d-flex inputDiv mt-0" style="border: none">
+                                        <div class="d-flex inputDiv" id="namesign" style="display: none !important">
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                <span class="required">Name Signature:</span>
+                                            </label>
+                                            <input type="text" name="namesign" class="form-control form-control-solid">
+                                        </div>
+                                    @else
+                                        <img src="temporary/signature/{{$permitdata->signature}}" width="100%" />
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" id="first_member">
+                            @if(isset($permitdata) && $permitdata->principle_contractor==1)
+                                <div class="d-flex inputDiv principleno">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Name::</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="form-control" placeholder="Name" name="name1"
+                                        value="{{$permitdata->name1 ?? ''}}">
+                                </div>
+                                <div class="d-flex inputDiv principleno">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Job title:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="form-control" placeholder="Job title" name="job_title1"
+                                        value="{{$permitdata->job_title1 ?? ''}}">
+                                </div>
+                                <div class="d-flex inputDiv principleno">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Company: </span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" id="companyadmin" class="form-control" placeholder="Company"
+                                        name="company" value="{{$project->company->name ?? ''}}">
+                                    <input type="hidden" id="companyid" class="form-control form-control-solid"
+                                        placeholder="Company" name="companyid" value="{{$project->company->id ?? ''}}"
+                                        readonly="readonly">
+                                </div>
+                                <div class="d-flex inputDiv principleno">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
+                                        <span class="required">Date:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="date" value="{{ date('Y-m-d') }}" class="form-control">
+                                </div>
+                            @endif
+                            @if(isset($permitdata) && $permitdata->principle_contractor==1)
+                                @if(!isset($permitdata->signature1) && empty($permitdata->signature1))
+                                    <div class="d-flex inputDiv principleno" style="border: none">
                                         <label class="fs-6 fw-bold mb-2"
                                             style="font-size: 600 !important; font-size: 16px !important">
-                                            <span class="signatureTitle" style="white-space: nowrap">Signature
-                                                Type:</span>
+                                            <span class="signatureTitle" style="white-space: nowrap">Signature Type:</span>
                                         </label>
                                         <div style="display:flex; align-items: center; padding-left:10px">
-                                            <input type="radio" class="checkbox-field" id="DrawCheck" checked=true
+                                            <input type="radio" class="checkbox-field" id="DrawCheck1" checked=true
                                                 style="width: 12px;">
                                             <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="2"> -->
                                             <span
@@ -967,199 +1050,57 @@
                                         </div>
                                         <!--end::Label-->
                                         <div style="display:flex; align-items: center; padding-left:10px">
-                                            <input type="radio" class="" id="flexCheckChecked" style="width: 12px;">
-                                            <input type="hidden" id="signtype" name="signtype"
+                                            <input type="radio" class="" id="flexCheckChecked1" style="width: 12px;">
+                                            <input type="hidden" id="signtype1" name="signtype1"
                                                 class="form-control form-control-solid" value="2">
                                             <span
                                                 style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Name</span>
                                         </div>
                                         &nbsp;
                                         <!--end::Label-->
-                                        <div style="display:flex; align-items: center; padding-left:10px">
-                                            <input type="radio" class="" id="pdfChecked" style="width: 12px;">
-                                            <input type="hidden" id="pdfsign" name="pdfsigntype"
+                                    </div>
+                                    <div class="col-md-12">
+                                        {{-- <div class="d-flex inputDiv" style="">
+                                            <label class="fs-6 fw-bold mb-2" style="">
+                                                <span>Name/signature:</span>
+                                            </label>
+                                            <input type="checkbox" id="flexCheckChecked1" style="width: 12px;margin-top:5px">
+                                            <input type="hidden" id="signtype1" name="signtype1"
                                                 class="form-control form-control-solid" value="0">
-                                            <span
-                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2; min-width: fit-content">PNG/JPG
-                                                Upload </span>
+                                            <span class="tickboxalign" style="padding-left:3px;color:#000">Do you want
+                                                name signature?</span>
+                                        </div> --}}
+                                        <div class="d-flex inputDiv" id="namesign1" style="display: none !important;">
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                <span class="required">Name Signature:</span>
+                                            </label>
+                                            <input type="text" name="namesign1" id="namesign_id2"
+                                                class="form-control form-control-solid">
                                         </div>
 
-                                    </div>
-                                    <div class="d-flex inputDiv my-0" id="sign" style="align-items: center;border:none">
-                                        <!-- <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span class="required">Signature:</span>
-                                        </label>
-                                        <br/> -->
-                                        <canvas id="sig" onblure="draw()"
-                                            style="background: lightgray; border-radius:10px"></canvas>
-                                        <br />
-                                        <textarea id="signature" name="signed" style="display: none"></textarea>
-                                        <span id="clear" class="fa fa-undo cursor-pointer btn--clear"
-                                            style="line-height: 6; position:relative; top:51px; right:26px"></span>
-                                    </div>
-                                    <span id="sigimage" class="text-danger" style="font-size: 15px">Signature Not
-                                        Added</span>
-                                    <div class="inputDiv d-none" id="pdfsign">
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span class="required">Upload Signature:(PNG,
-                                                JPG)</span>
-                                        </label>
-                                        <input type="file" name="pdfphoto" class="form-control" accept="image/*">
-                                    </div>
-
-                                    <div class="d-flex inputDiv" id="namesign" style="display: none !important">
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span class="required">Name Signature:</span>
-                                        </label>
-                                        <input type="text" name="namesign" class="form-control form-control-solid">
-                                    </div>
-                                    <!-- <div class="row">
-                                        <div class="col-md-8">
-                                            <div class="d-flex inputDiv principleno mt-0" id="sign">
-                                                <div class="signatureDiv">
-                                                    <label style="width:24%;bottom:170px; background: white"
-                                                        class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                        <span class="required">Signature:</span>
-                                                    </label>
-                                                    <br />
-                                                    <div class="canva_signature_div" style="width: 76%">
-
-                                                        <br>
-                                                        <canvas id="sig" ></canvas>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div class="d-flex inputDiv principleno mb-0" id="sign1"
+                                            style="border:none !important;">
+                                            {{-- <label style="width:33%" class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                <span class="required">Signature:</span>
+                                            </label> --}}
+                                            {{-- <br /> --}}
+                                            <canvas id="sig1" style="border-radius: 9px"></canvas>
+                                            <textarea id="signature1" name="signed1" style="display: none"></textarea>
+                                            <span id="clear1" class="fa fa-undo cursor-pointer btn--clear"
+                                                style="line-height: 6; position:relative; top:83px; right:26px"></span>
+                                            {{-- <span id="clear1" class="fa fa-undo cursor-pointer"
+                                                style="line-height: 6; position:relative; top:51px; right:26px"></span> --}}
                                         </div>
-                                        <div class="col-md-4 d-none">
-
-                                        </div>
-                                    </div> -->
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6" id="first_member">
-                            @if(isset($permitdata) && $permitdata->principle_contractor==1)
-                            <div class="d-flex inputDiv principleno">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span class="required">Name::</span>
-                                </label>
-                                <!--end::Label-->
-                                <input type="text" class="form-control" placeholder="Name" name="name1"
-                                    value="{{$permitdata->name1 ?? ''}}">
-                            </div>
-                            <div class="d-flex inputDiv principleno">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span class="required">Job title:</span>
-                                </label>
-                                <!--end::Label-->
-                                <input type="text" class="form-control" placeholder="Job title" name="job_title1"
-                                    value="{{$permitdata->job_title1 ?? ''}}">
-                            </div>
-                            <div class="d-flex inputDiv principleno">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span class="required">Company: </span>
-                                </label>
-                                <!--end::Label-->
-                                <input type="text" id="companyadmin" class="form-control" placeholder="Company"
-                                    name="company" value="{{$project->company->name ?? ''}}">
-                                <input type="hidden" id="companyid" class="form-control form-control-solid"
-                                    placeholder="Company" name="companyid" value="{{$project->company->id ?? ''}}"
-                                    readonly="readonly">
-                            </div>
-                            <div class="d-flex inputDiv principleno">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
-                                    <span class="required">Date:</span>
-                                </label>
-                                <!--end::Label-->
-                                <input type="date" value="{{ date('Y-m-d') }}" class="form-control">
-                            </div>
-                            @endif
-                            @if(isset($permitdata) && $permitdata->principle_contractor==1)
-
-                            {{-- old code --}}
-
-                            {{-- old code end here --}}
-
-                            <div class="d-flex inputDiv principleno" style="border: none">
-                                <label class="fs-6 fw-bold mb-2"
-                                    style="font-size: 600 !important; font-size: 16px !important">
-                                    <span class="signatureTitle" style="white-space: nowrap">Signature Type:</span>
-                                </label>
-                                <div style="display:flex; align-items: center; padding-left:10px">
-                                    <input type="radio" class="checkbox-field" id="DrawCheck1" checked=true
-                                        style="width: 12px;">
-                                    <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="2"> -->
-                                    <span
-                                        style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
-                                </div>
-                                <!--end::Label-->
-                                <div style="display:flex; align-items: center; padding-left:10px">
-                                    <input type="radio" class="" id="flexCheckChecked1" style="width: 12px;">
-                                    <input type="hidden" id="signtype1" name="signtype1"
-                                        class="form-control form-control-solid" value="2">
-                                    <span
-                                        style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Name</span>
-                                </div>
-                                &nbsp;
-                                <!--end::Label-->
-                                {{-- <div style="display:flex; align-items: center; padding-left:10px">
-                                    <input type="radio" class="" id="pdfChecked1" style="width: 12px;">
-                                    <input type="hidden" id="pdfsign1" name="pdfsign1"
-                                        class="form-control form-control-solid" value="0">
-                                    <span
-                                        style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2; min-width: fit-content">PNG/JPG
-                                        Upload </span>
-                                </div> --}}
-
-                            </div>
-
-
-                            {{-- //old COde --}}
-
-                            <div class="col-md-12">
-                                {{-- <div class="d-flex inputDiv" style="">
-                                    <label class="fs-6 fw-bold mb-2" style="">
-                                        <span>Name/signature:</span>
-                                    </label>
-                                    <input type="checkbox" id="flexCheckChecked1" style="width: 12px;margin-top:5px">
-                                    <input type="hidden" id="signtype1" name="signtype1"
-                                        class="form-control form-control-solid" value="0">
-                                    <span class="tickboxalign" style="padding-left:3px;color:#000">Do you want
-                                        name signature?</span>
-                                </div> --}}
-                                <div class="d-flex inputDiv" id="namesign1" style="display: none !important;">
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Name Signature:</span>
-                                    </label>
-                                    <input type="text" name="namesign1" id="namesign_id2"
-                                        class="form-control form-control-solid">
-                                </div>
-
-                                <div class="d-flex inputDiv principleno mb-0" id="sign1"
-                                    style="border:none !important;">
-                                    {{-- <label style="width:33%" class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Signature:</span>
-                                    </label> --}}
-                                    {{-- <br /> --}}
-                                    <canvas id="sig1" style="border-radius: 9px"></canvas>
-                                    <textarea id="signature1" name="signed1" style="display: none"></textarea>
-                                    <span id="clear1" class="fa fa-undo cursor-pointer btn--clear"
-                                        style="line-height: 6; position:relative; top:83px; right:26px"></span>
-                                    {{-- <span id="clear1" class="fa fa-undo cursor-pointer"
-                                        style="line-height: 6; position:relative; top:51px; right:26px"></span> --}}
-                                </div>
-                                <span id="sigimage1" class="text-danger" style="font-size: 15px">Signature Not
-                                    Added</span>
-                                <!-- <div class="d-flex inputDiv principleno" id="sign1"
-                                    style=" display: none !important">
-                                    <textarea id="signature1" name="signed1" style="opacity: 0"></textarea>
-                                </div>  -->
-                            </div>
+                                        <span id="sigimage1" class="text-danger" style="font-size: 15px">Signature Not
+                                            Added</span>
+                                        <!-- <div class="d-flex inputDiv principleno" id="sign1"
+                                            style=" display: none !important">
+                                            <textarea id="signature1" name="signed1" style="opacity: 0"></textarea>
+                                        </div>  -->
+                                    </div>
+                                @else
+                                    <img src="temporary/signature/{{$permitdata->signature1}}" width="100%" />
+                                @endif
                             @endif
                         </div>
                         <div class="col-md-6 mt-md-5" id="third_member" style="display: {{ isset($permitdata->signatures[0]->name) && $permitdata->signatures[0]->name != null ? 'block' : 'none' }}">
@@ -1202,7 +1143,8 @@
                                 <!-- name="date1" -->
                               </div>
                             </div>
-                            @if(!isset($permitdata->signatures[0]->signature) && $permitdata->signatures[0]->signature != null)
+                            @if(!isset($permitdata->signatures[0]) && empty($permitdata->signatures[0]->signature))
+                            {{-- @if(!isset($permitdata->signatures[0]->signature) && $permitdata->signatures[0]->signature != null) --}}
                             <div class="d-flex inputDiv" style="border: none">
                               <label class="fs-6 fw-bold mb-2" style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
                                 <span class="signatureTitle" style="white-space: nowrap">Signature
@@ -1277,7 +1219,8 @@
                                 <!-- name="date1" -->
                                 </div>
                             </div>
-                            @if(!isset($permitdata->signatures[1]->signature) && $permitdata->signatures[1]->signature != null)
+                            @if(!isset($permitdata->signatures[1]) && empty($permitdata->signatures[1]->signature))
+                            {{-- @if(!isset($permitdata->signatures[1]->signature) && $permitdata->signatures[1]->signature != null) --}}
                             <div class="d-flex inputDiv" style="border: none">
                                 <label class="fs-6 fw-bold mb-2" style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
                                 <span class="signatureTitle" style="white-space: nowrap">Signature
@@ -1407,8 +1350,8 @@
                     @endif
                     <div class="row mt-7">
                         <div class="col-md-6">
-                            <button id="submitbutton" type="button" class="btn btn-secondary" disabled>Update</button>
-                            <button  name="action" id="draft" value="draft" type="button" class="btn btn-success set-button">Save as Draft</button>
+                            <button id="submitbutton" type="submit" class="btn btn-primary">Update</button>
+                            <button  name="action" id="draft" value="draft" type="submit" class="btn btn-success set-button">Save as Draft</button>
                         </div>
                     </div>
                 </form>
@@ -2036,6 +1979,7 @@
     }
 
     $("#submitbutton, #draft").on('click', function(e) {
+        alert("OK")
         $("#signature").val(signaturePad.toDataURL('image/png'));
         if(canvas1)
         {
@@ -2066,8 +2010,6 @@
         {
             $("#permitrenew").attr('action', "{{route('permit.save')}}");
         }
-
-        var status
 
     // Append the input element to the form
     $("#permitrenew").append(input);

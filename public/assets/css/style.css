@@ -48,15 +48,14 @@ input:focus {
     padding: 12px;
 }
 
-.modalDiv input {
+/* .modalDiv input {
     width: 100%;
     color: #000 !important;
     padding: 4;
     padding: 11px 15px;
-    /* margin: 20px 0px 0px;*/
     border: none;
     background-color: #f5f8fa;
-}
+} */
 
 .modalDiv input::placeholder,
 .requirment-second li input::placeholder {
@@ -991,11 +990,11 @@ table th {
 
 #first_member .inputDiv label {
     width: fit-content;
-    bottom: 24px;
+    bottom: 31px;
 }
 #second_member .inputDiv label {
     width: fit-content;
-    bottom: 24px;
+    bottom: 31px;
 }
 
 .upload_signature_div .principleno {

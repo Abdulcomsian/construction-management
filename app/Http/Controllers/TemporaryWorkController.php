@@ -931,7 +931,7 @@ class TemporaryWorkController extends Controller
     }
     //update design brief
     public function update(Request $request, TemporaryWork $temporaryWork)
-    {
+    { 
         Validations::storeTemporaryWork($request);
         try {
             if(!$request->approval){
@@ -984,13 +984,12 @@ class TemporaryWorkController extends Controller
                     unset($request[$key]);
                 }
             }
-
                //design description starts here
             // dd($request->all());
             $designDocument = $request->description_temporary_work_required;
             $dom = new \DOMDocument();
             $dom->loadHtml($designDocument, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-            $images = $dom->getElementsByTagName('img');
+            $images = $dom->getElementsByTagName('img') ?? [];
 
             foreach($images as $item => $image){
                 $data = $image->getAttribute("src");

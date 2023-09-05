@@ -1158,9 +1158,7 @@
     })
 </script>
 <script>
-    var projects = {
-        !!$projects!!
-    };
+    var projects = {!!$projects!!};
     var address = '';
     $('#projects').change(function() {
         let id = $(this).val();

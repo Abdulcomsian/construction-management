@@ -240,15 +240,15 @@
 <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}" />
 <link rel="stylesheet" href="{{asset('pdf-editor/viewer.css')}}" />
 <script>
-  var baseUrl = "{{ env('APP_URL') }}";
-  var CSRF_TOKEN = '{{ csrf_token() }}';
+    var baseUrl = "{{ env('APP_URL') }}";
+    var CSRF_TOKEN = '{{ csrf_token() }}';
 </script>
 <link rel="resource" type="application/l10n" href="https://mozilla.github.io/pdf.js/web/locale/locale.properties" />
 <script defer src="https://cdn.jsdelivr.net/npm/es-module-shims@1.4.7/dist/es-module-shims.js">
 </script>
 
 <script type="importmap-shim">
-  {
+    {
       "imports": {
         "pdfjs": "{{ asset('pdf-editor/src/pdf.js') }}",
         "pdfjs-lib": "{{ asset('pdf-editor/src/pdf.js') }}",
@@ -274,13 +274,13 @@
 <script src="{{ asset('pdf-editor/viewer.js?v=1') }}" type="module-shim"></script>
 <style>
     .modal-content {
-      height: 90vh;
+        height: 90vh;
     }
-  
+
     .modal-content .modal-body {
-      background-color: rgba(42, 42, 46, 1);
+        background-color: rgba(42, 42, 46, 1);
     }
-  </style>
+</style>
 @endsection
 @section('content')
 <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -303,8 +303,7 @@
 
             <!--begin::Card body-->
             <div class="card-body pt-0">
-                <form id="permitunload" action="{{route('permit.unload.save')}}" method="post"
-                    enctype="multipart/form-data">
+                <form id="permitunload" action="{{route('permit.unload.save')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     @if($errors->any())
                     <ul>
@@ -319,10 +318,8 @@
                     <x-auth-validation-errors class="mb-4" :errors="$errors" /> --}}
                     <input type="hidden" name="temporary_work_id" value="{{$tempid}}">
                     <input type="hidden" name="permitid" value="{{$permitdata->id}}">
-                    <input type="hidden" name="designer_company_email"
-                        value="{{$tempdata->designer_company_email ?? ''}}" readonly>
-                    <input type="hidden" name="design_requirement_text"
-                        value="{{$tempdata->design_requirement_text ?? ''}}" readonly="readonly">
+                    <input type="hidden" name="designer_company_email" value="{{$tempdata->designer_company_email ?? ''}}" readonly>
+                    <input type="hidden" name="design_requirement_text" value="{{$tempdata->design_requirement_text ?? ''}}" readonly="readonly">
 
 
                     <div class="row">
@@ -331,19 +328,18 @@
                                 <label class="fs-6 fw-bold mb-2" style="bottom:40px">
                                     <span class="required">Select Project:</span>
                                 </label>
-                                <select name="project_id" id="projects"
-                                    class="form-select form-select-lg form-select-solid" data-control="select2"
-                                    data-placeholder="Select an option" data-allow-clear="true" readonly>
+                                <select name="project_id" id="projects" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" readonly>
                                     <option value="">Select Option</option>
                                     <option value="{{$project->id}}" selected="selected">
-                                        {{$project->name .' - '. $project->no}}</option>
+                                        {{$project->name .' - '. $project->no}}
+                                    </option>
                                 </select>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6" >
-                            <div class="modalDiv d-block mt-md-11" id="drawingFieldDiv"> 
+                        <div class="col-md-6">
+                            <div class="modalDiv d-block mt-md-11" id="drawingFieldDiv">
                                 <label class="fs-6 fw-bold set">
                                     <span class="required">Select Drawing : </span>
                                 </label>
@@ -356,22 +352,22 @@
                             </div>
                         </div>
                         <div class="col-md-6" id="customFieldDiv">
-                          <div class="d-flex inputDiv d-block mb-0">
-                            <!--begin::Label-->
-                            <label class="d-flex align-items-center fs-6 fw-bold">
-                              <span>Upload Custom Drawing:</span>
-                            </label>
-                            <!--end::Label-->
-                            <input type="file" class="form-control" id="custom_drawing" name="custom_drawing" value="" accept="image/*;capture=camera">
-                          </div>
+                            <div class="d-flex inputDiv d-block mb-0">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-6 fw-bold">
+                                    <span>Upload Custom Drawing:</span>
+                                </label>
+                                <!--end::Label-->
+                                <input type="file" class="form-control" id="custom_drawing" name="custom_drawing" value="" accept="image/*;capture=camera">
+                            </div>
                         </div>
-                      </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-12">
-                        <div id="files_div">
-                        </div>
-                        <div id="new_div" class="m-md-2">
-                        </div>
+                            <div id="files_div">
+                            </div>
+                            <div id="new_div" class="m-md-2">
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -383,9 +379,7 @@
                                     <label class="fs-6 fw-bold mb-2">
                                         <span class="required">Project No:</span>
                                     </label>
-                                    <input readonly type="text" class="form-control form-control-solid"
-                                        placeholder="000" id="no" name="projno" value="{{$project->no}}"
-                                        readonly="readonly">
+                                    <input readonly type="text" class="form-control form-control-solid" placeholder="000" id="no" name="projno" value="{{$project->no}}" readonly="readonly">
                                 </div>
                             </div>
                             <div class="inputDiv d-block">
@@ -394,9 +388,7 @@
                                     <label class="fs-6 fw-bold mb-2">
                                         <span class="required">Project Name:</span>
                                     </label>
-                                    <input readonly type="text" class="form-control form-control-solid"
-                                        placeholder="Project Name" id="name" name="projname" value="{{$project->name}}"
-                                        readonly="readonly">
+                                    <input readonly type="text" class="form-control form-control-solid" placeholder="Project Name" id="name" name="projname" value="{{$project->name}}" readonly="readonly">
                                 </div>
                             </div>
                             <div class="inputDiv d-block">
@@ -405,8 +397,7 @@
                                     <label class="fs-6 fw-bold mb-2">
                                         <span class="required">Drawing No:</span>
                                     </label>
-                                    <input type="text" class="form-control" placeholder="Drawing Number" id="drawing_no"
-                                        name="drawing_no" value="{{$permitdata->drawing_no ?? ''}}">
+                                    <input type="text" class="form-control" placeholder="Drawing Number" id="drawing_no" name="drawing_no" value="{{$permitdata->drawing_no ?? ''}}">
                                 </div>
                             </div>
                             <div class="inputDiv d-block">
@@ -415,10 +406,8 @@
                                     <label class="fs-6 fw-bold mb-2">
                                         <span class="required">TWC Name:</span>
                                     </label>
-                                    <input type="text" class="form-control " placeholder="TWC Name" name="twc_name"
-                                        id="twc_name" value="{{$permitdata->twc_name ?? ''}}">
-                                    <input type="hidden" name="twc_email" value="{{$tempdata->twc_email ?? ''}}"
-                                        readonly>
+                                    <input type="text" class="form-control " placeholder="TWC Name" name="twc_name" id="twc_name" value="{{$permitdata->twc_name ?? ''}}">
+                                    <input type="hidden" name="twc_email" value="{{$tempdata->twc_email ?? ''}}" readonly>
                                 </div>
                             </div>
                         </div>
@@ -430,9 +419,7 @@
                                         <label class="fs-6 fw-bold mb-2">
                                             Date:
                                         </label>
-                                        <input type="date" value="{{ date('Y-m-d') }}"
-                                            class="form-control form-control-solid" placeholder="Date"
-                                            style="background-color:#f5f8fa" name="date">
+                                        <input type="date" value="{{ date('Y-m-d') }}" class="form-control form-control-solid" placeholder="Date" style="background-color:#f5f8fa" name="date">
                                     </div>
                                 </div>
                                 <div class=" inputDiv d-block">
@@ -441,9 +428,7 @@
                                         <label class="fs-6 fw-bold mb-2">
                                             <span class="required">Permit No:</span>
                                         </label>
-                                        <input type="text" class="form-control form-control-solid"
-                                            placeholder="Permit No" name="permit_no" value="{{$twc_id_no}}"
-                                            readonly="readonly">
+                                        <input type="text" class="form-control form-control-solid" placeholder="Permit No" name="permit_no" value="{{$twc_id_no}}" readonly="readonly">
                                     </div>
                                 </div>
                                 <div class=" inputDiv d-block">
@@ -452,9 +437,7 @@
                                         <label class="fs-6 fw-bold mb-2">
                                             <span class="required">Drawing Title:</span>
                                         </label>
-                                        <input type="text" class="form-control" placeholder="Drawing Title"
-                                            id="drawing_title" name="drawing_title"
-                                            value="{{$permitdata->drawing_title ?? ''}}">
+                                        <input type="text" class="form-control" placeholder="Drawing Title" id="drawing_title" name="drawing_title" value="{{$permitdata->drawing_title ?? ''}}">
                                     </div>
                                 </div>
                                 <div class=" inputDiv d-block">
@@ -463,8 +446,7 @@
                                         <label class="fs-6 fw-bold mb-2">
                                             <span class="required">TWS Name:</span>
                                         </label>
-                                        <input type="text" class="form-control" placeholder="TWS Name" id="tws_name"
-                                            name="tws_name" value="{{$permitdata->tws_name ?? ''}}">
+                                        <input type="text" class="form-control" placeholder="TWS Name" id="tws_name" name="tws_name" value="{{$permitdata->tws_name ?? ''}}">
                                     </div>
                                 </div>
                             </div>
@@ -476,8 +458,7 @@
                                     <label class="fs-6 fw-bold mb-2" style="bottom: 39px;">
                                         Location of the temporary works:
                                     </label>
-                                    <textarea name="location_temp_work" rows="2" cols="170"
-                                        placeholder=" Location of the temporary works">{{$permitdata->location_temp_work ?? ''}}</textarea>
+                                    <textarea name="location_temp_work" rows="2" cols="170" placeholder=" Location of the temporary works">{{$permitdata->location_temp_work ?? ''}}</textarea>
                                 </div>
                             </div>
                             <div class=" inputDiv d-block">
@@ -486,8 +467,7 @@
                                     <label class="fs-6 fw-bold mb-2" style="bottom: 39px;">
                                         Description of structure:
                                     </label>
-                                    <textarea name="description_structure" rows="2" cols="170"
-                                        placeholder="Description of structure:">{{$permitdata->description_structure ?? ''}}</textarea>
+                                    <textarea name="description_structure" rows="2" cols="170" placeholder="Description of structure:">{{$permitdata->description_structure ?? ''}}</textarea>
                                 </div>
                             </div>
                             <div class=" inputDiv d-block">
@@ -496,8 +476,7 @@
                                     <label class="fs-6 fw-bold mb-2">
                                         <span class="required">MS / RA Number:</span>
                                     </label>
-                                    <input type="text" class="form-control" placeholder="MS/RA Number" id="ms_ra_no"
-                                        name="ms_ra_no" value="{{$permitdata->ms_ra_no ?? ''}}">
+                                    <input type="text" class="form-control" placeholder="MS/RA Number" id="ms_ra_no" name="ms_ra_no" value="{{$permitdata->ms_ra_no ?? ''}}">
                                 </div>
                             </div>
                             <h5 style="color: #000; font-weight:600; font-size:24px">Permit to Unload / Strike</h5>
@@ -524,8 +503,7 @@
                         </div>
                         <div class="">
 
-                            <table class="table table-bordered"
-                                style="border:1px solid lightgray; border-radius: 8px; overflow: hidden; border-collapse: separate;">
+                            <table class="table table-bordered" style="border:1px solid lightgray; border-radius: 8px; overflow: hidden; border-collapse: separate;">
                                 <thead>
                                     <tr>
                                         <th style="text-align: left; padding-left: 24px" colspan="5">CONCRETE CUBE
@@ -536,49 +514,38 @@
                                 </thead>
                                 <tbody id="table-body">
                                     <tr>
-                                        <td class="col-md-4"
-                                            style="padding-left: 25px;text-align: left; font-weight:500">Mix Design
+                                        <td class="col-md-4" style="padding-left: 25px;text-align: left; font-weight:500">Mix Design
                                             Details</td>
                                         <td style="padding-right:28px">
-                                            <input type="text" name="mix_design_detail"
-                                                class="form-control form-control-solid tableinput"
-                                                placeholder="Enter Mix Design Details">
+                                            <input type="text" name="mix_design_detail" class="form-control form-control-solid tableinput" placeholder="Enter Mix Design Details">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td style="padding-left: 25px;text-align: left; font-weight:500">Unique Cube Ref
                                             No.</td>
                                         <td style="padding-right:28px">
-                                            <input type="text" name="unique_ref_no"
-                                                class="form-control form-control-solid tableinput"
-                                                placeholder="Enter Unique Cube Ref No">
+                                            <input type="text" name="unique_ref_no" class="form-control form-control-solid tableinput" placeholder="Enter Unique Cube Ref No">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td style="padding-left: 25px;text-align: left; font-weight:500">Age of Cube
                                         </td>
                                         <td style="padding-right:28px">
-                                            <input type="text" name="age_cube"
-                                                class="form-control form-control-solid tableinput"
-                                                placeholder="Enter Age of Cube">
+                                            <input type="text" name="age_cube" class="form-control form-control-solid tableinput" placeholder="Enter Age of Cube">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td style="padding-left: 25px;text-align: left; font-weight:500">Compressive
                                             Strength N/mm2</td>
                                         <td style="padding-right:28px">
-                                            <input type="text" name="compressive_strength"
-                                                class="form-control form-control-solid tableinput"
-                                                placeholder="Enter Compressive Strength N/mm2">
+                                            <input type="text" name="compressive_strength" class="form-control form-control-solid tableinput" placeholder="Enter Compressive Strength N/mm2">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td style="padding-left: 25px;text-align: left; font-weight:500">Method of
                                             Curing</td>
                                         <td style="padding-right:28px">
-                                            <input type="text" name="method_curing"
-                                                class="form-control form-control-solid tableinput"
-                                                placeholder="Enter Method of Curing">
+                                            <input type="text" name="method_curing" class="form-control form-control-solid tableinput" placeholder="Enter Method of Curing">
                                         </td>
                                     </tr>
                                 </tbody>
@@ -591,8 +558,7 @@
                                 <label style="color:black; bottom: 38px">TWC to define the extents, limits and controls
                                     for this PTS (where
                                     applicable)</label>
-                                <textarea name="twc_control_pts" class="twcTextArea" rows="2"
-                                    style="width:100%;"></textarea>
+                                <textarea name="twc_control_pts" class="twcTextArea" rows="2" style="width:100%;"></textarea>
                             </div>
 
                             <div class="inputDiv">
@@ -617,24 +583,21 @@
                                     <span>Approval via Email Required by the PCTWC</span>
                                 </label>
                                 <!--end::Label-->
-                                <input type="checkbox" checked name="principle_contractor" value="1" id="approval"
-                                    style="width: 12px;margin-left:11px;margin-right: 10px; opacity: 0.5">
+                                <input type="checkbox" checked name="principle_contractor" value="1" id="approval" style="width: 12px;margin-left:11px;margin-right: 10px; opacity: 0.5">
                                 <input type="hidden" name="approavalEmailReq" value="0">
                                 <span class="tickboxalign" style="padding-left:3px;color:#000">Select if
                                     approval is required.</span>
                             </div>
-                            
+
                         </div>
                         <div class="col-md-6 my-4" id="twc-email-box" class="twc-email-box">
                             <div class="inputDiv pc-twc mb-0 mt-6 d-flex" style="margin-top:10px !important;">
                                 <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2"
-                                    style="width:fit-content% !important">
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:fit-content !important;">
                                     <span>PC TWC Email:</span>
                                 </label>
                                 <!--end::Label-->
-                                <input type="email" class="form-control form-control-solid" name="pc_twc_email"
-                                    id="pc-twc-email" placeholder="Email" value="" required="required">
+                                <input type="email" class="form-control form-control-solid" name="pc_twc_email" id="pc-twc-email" placeholder="Email" value="" required="required">
                             </div>
                         </div>
                     </div>
@@ -642,12 +605,11 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class=" inputDiv upload_signature_div mt-0">
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2"
-                                    style="width: fit-content; bottom:124px;">
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: fit-content; bottom:124px;">
                                     Photo Upload
                                 </label>
                                 <!-- <div class="principleno"  style=""> -->
-                                <div class="" style="">
+                                <div class="">
                                     <!-- <div class="uploadingDiv"> -->
                                     <div class="">
                                         <!-- <div class="uploadDiv"> -->
@@ -663,37 +625,34 @@
                     <div class="row">
                         <div class="col-md-6   mt-0" style="    min-height: 40px;margin-left:7px; ">
                             <div class="d-flex inputDiv">
-                                <label class="fs-6 fw-bold mb-2" style="">
-                                    <span >Comments:</span>
+                                <label class="fs-6 fw-bold mb-2">
+                                    <span>Comments:</span>
                                 </label>
-                                <textarea  name="comments" class="form-control"></textarea>
+                                <textarea name="comments" class="form-control"></textarea>
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-6">
-                        <div class="d-flex inputDiv">
+                            <div class="d-flex inputDiv">
                                 <label class="fs-6 fw-bold mb-2" style="bottom: 27px;">
                                     <span class="required">Principle Contractor approval required?</span>
                                 </label>
-                                <div class=" justify-content-end"
-                                    style="position: relative; left:70%;background: white">
+                                <div class=" justify-content-end" style="position: relative; left:70%;background: white">
                                     <label style="position: initial; flex-grow: 0; background: white">
-                                        <input type="radio" class="btn-check" name="approval_PC" value="1" /> 
-                                        <span
-                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                                        <input type="radio" class="btn-check" name="approval_PC" value="1" />
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
                                     </label>
                                     <label style="position: initial; flex-grow: 0; background: white">
                                         <input type="radio" class="btn-check" checked name="approval_PC" value="2" />
-                                        <span
-                                            class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
                                     </label>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-md-6" id="second_member">
 
@@ -706,8 +665,7 @@
                                 </label>
                                 <!--end::Label-->
                                 <div class="input">
-                                    <input type="text" class="form-control" placeholder="Name" id="name2" name="name1"
-                                        value="{{old('name',$permitdata->name ?? '')}}">
+                                    <input type="text" class="form-control" placeholder="Name" id="name2" name="name1" value="{{old('name',$permitdata->name ?? '')}}">
                                 </div>
                             </div>
                             <div class="d-flex inputDiv principleno">
@@ -717,8 +675,7 @@
                                 </label>
                                 <!--end::Label-->
                                 <div class="input">
-                                    <input type="text" class="form-control" placeholder="Job title" id="job_title"
-                                        name="job_title1" value="{{old('job_title',$permitdata->job_title ?? '')}}">
+                                    <input type="text" class="form-control" placeholder="Job title" id="job_title" name="job_title1" value="{{old('job_title',$permitdata->job_title ?? '')}}">
                                 </div>
                             </div>
                             <div class="d-flex inputDiv d-block">
@@ -728,12 +685,8 @@
                                 </label>
                                 <!--end::Label-->
                                 <div class="input">
-                                    <input type="text" id="companyadmin" class="form-control form-control-solid"
-                                        placeholder="Company" name="company" value="{{$project->company->name ?? ''}}"
-                                        readonly="readonly">
-                                    <input type="hidden" id="companyid" class="form-control form-control-solid"
-                                        placeholder="Company" name="companyid" value="{{$project->company->id ?? ''}}"
-                                        readonly="readonly">
+                                    <input type="text" id="companyadmin" class="form-control form-control-solid" placeholder="Company" name="company" value="{{$project->company->name ?? ''}}" readonly="readonly">
+                                    <input type="hidden" id="companyid" class="form-control form-control-solid" placeholder="Company" name="companyid" value="{{$project->company->id ?? ''}}" readonly="readonly">
                                 </div>
                             </div>
                             <div class="d-flex inputDiv d-block">
@@ -743,40 +696,32 @@
                                 </label>
                                 <!--end::Label-->
                                 <div class="input">
-                                    <input type="date" name="date1" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}"
-                                        class="form-control form-control-solid">
+                                    <input type="date" name="date1" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="d-flex inputDiv mb-1" style="border: none">
                                     <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2"
-                                        style="width:40% !important;font-size: 600 !important; font-size: 16px !important; white-space: nowrap">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40% !important;font-size: 600 !important; font-size: 16px !important; white-space: nowrap">
                                         <span class="signatureTitle">Signature Type:</span>
                                     </label>
                                     <!--end::Label-->
                                     <div style="display:flex; align-items: center; padding-left:10px">
-                                        <input type="radio" class="checkbox-field" id="DrawCheck" checked=true
-                                            style="width: 12px;">
+                                        <input type="radio" class="checkbox-field" id="DrawCheck" checked=true style="width: 12px;">
                                         <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="0"> -->
-                                        <span
-                                            style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
+                                        <span style="padding-left:14px;font-family: 'Inter', sans-serif; color:#000;font-size:14px;line-height: 2">Draw</span>
                                     </div>
                                     <div style="display:flex; align-items: center; padding-left:10px">
                                         <input type="radio" class="" id="flexCheckChecked" style="width: 12px;">
-                                        <input type="hidden" id="signtype" name="signtype"
-                                            class="form-control form-control-solid" value="2">
-                                        <span
-                                            style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Name</span>
+                                        <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="2">
+                                        <span style="padding-left:14px;font-family: 'Inter', sans-serif; color:#000;font-size:14px;line-height: 2">Name</span>
                                     </div>
                                     &nbsp;
                                     <!--end::Label-->
                                     <div style="display:flex; align-items: center; padding-left:10px">
                                         <input type="radio" class="" id="pdfChecked" style="width: 12px;">
-                                        <input type="hidden" id="pdfsign" name="pdfsigntype"
-                                            class="form-control form-control-solid" value="0">
-                                        <span
-                                            style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2; min-width: fit-content; white-space: nowrap">PNG/JPG
+                                        <input type="hidden" id="pdfsign" name="pdfsigntype" class="form-control form-control-solid" value="0">
+                                        <span style="padding-left:14px;font-family: 'Inter', sans-serif; color:#000;font-size:14px;line-height: 2; min-width: fit-content; white-space: nowrap">PNG/JPG
                                             Upload </span>
                                     </div>
 
@@ -786,12 +731,10 @@
                                                 <span class="required">Signature:</span>
                                             </label>
                                             <br/> -->
-                                    <canvas id="sig" onblure="draw()"
-                                        style="background: lightgray; border-radius:10px"></canvas>
+                                    <canvas id="sig" onblure="draw()" style="background: lightgray; border-radius:10px"></canvas>
                                     <br />
                                     <textarea id="signature" name="signed" style="display: none"></textarea>
-                                    <span id="clear" class="fa fa-undo btn--clear cursor-pointer"
-                                        style="line-height: 6; position:relative; top:51px; right:26px"></span>
+                                    <span id="clear" class="fa fa-undo btn--clear cursor-pointer" style="line-height: 6; position:relative; top:51px; right:26px"></span>
                                 </div>
                                 <div class="inputDiv d-none" id="pdfsign">
                                     <label class="fs-6 fw-bold mb-2" style="width: fit-content">
@@ -829,8 +772,7 @@
                                         <span class="required" style="width: 27%">Job Title:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control" placeholder="Job title" id="job_title1"
-                                        name="job_title1">
+                                    <input type="text" class="form-control" placeholder="Job title" id="job_title1" name="job_title1">
                                     {{-- value="{{old('job_title1',$permitdata->job_title1 ?? '')}}" --}}
                                 </div>
                                 <div class="d-flex inputDiv d-block">
@@ -840,10 +782,8 @@
                                     </label>
                                     <!--end::Label-->
                                     <div class="input" style="width: 100%">
-                                        <input type="text" id="companyadmin1" class="form-control form-control-solid"
-                                            placeholder="Company" name="company1">
-                                        <input type="hidden" id="companyid1" class="form-control form-control-solid"
-                                            placeholder="Company" name="companyid1">
+                                        <input type="text" id="companyadmin1" class="form-control form-control-solid" placeholder="Company" name="company1">
+                                        <input type="hidden" id="companyid1" class="form-control form-control-solid" placeholder="Company" name="companyid1">
                                     </div>
                                 </div>
                                 <div class="d-flex inputDiv d-block">
@@ -853,56 +793,45 @@
                                     </label>
                                     <!--end::Label-->
                                     <div class="input">
-                                        <input type="date" name="date2" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}"
-                                            class="form-control form-control-solid">
+                                        <input type="date" name="date2" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="d-flex inputDiv mb-1" style="border: none">
                                         <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2"
-                                            style="width:40% !important;font-size: 600 !important; font-size: 16px !important; white-space: nowrap">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:40% !important;font-size: 600 !important; font-size: 16px !important; white-space: nowrap">
                                             <span class="signatureTitle">Signature Type:</span>
                                         </label>
                                         <!--end::Label-->
                                         <div style="display:flex; align-items: center; padding-left:10px">
-                                            <input type="radio" class="checkbox-field" id="DrawCheck1" checked=true
-                                                style="width: 12px;">
+                                            <input type="radio" class="checkbox-field" id="DrawCheck1" checked=true style="width: 12px;">
                                             <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="0"> -->
-                                            <span
-                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
+                                            <span style="padding-left:14px;font-family: 'Inter', sans-serif; color:#000;font-size:14px;line-height: 2">Draw</span>
                                         </div>
                                         <div style="display:flex; align-items: center; padding-left:10px">
                                             <input type="radio" class="" id="flexCheckChecked1" style="width: 12px;">
-                                            <input type="hidden" id="signtype1" name="signtype"
-                                                class="form-control form-control-solid" value="2">
-                                            <span
-                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Name</span>
+                                            <input type="hidden" id="signtype1" name="signtype" class="form-control form-control-solid" value="2">
+                                            <span style="padding-left:14px;font-family: 'Inter', sans-serif; color:#000;font-size:14px;line-height: 2">Name</span>
                                         </div>
                                         &nbsp;
                                         <!--end::Label-->
                                         <div style="display:flex; align-items: center; padding-left:10px">
                                             <input type="radio" class="" id="pdfChecked1" style="width: 12px;">
-                                            <input type="hidden" id="pdfsign1" name="pdfsigntype1"
-                                                class="form-control form-control-solid" value="0">
-                                            <span
-                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2; min-width: fit-content; white-space: nowrap">PNG/JPG
+                                            <input type="hidden" id="pdfsign1" name="pdfsigntype1" class="form-control form-control-solid" value="0">
+                                            <span style="padding-left:14px;font-family: 'Inter', sans-serif; color:#000;font-size:14px;line-height: 2; min-width: fit-content; white-space: nowrap">PNG/JPG
                                                 Upload </span>
                                         </div>
 
                                     </div>
-                                    <div class="d-flex inputDiv my-0" id="sign1"
-                                        style="align-items: center;border:none">
+                                    <div class="d-flex inputDiv my-0" id="sign1" style="align-items: center;border:none">
                                         <!-- <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                     <span class="required">Signature:</span>
                                                 </label>
                                                 <br/> -->
-                                        <canvas id="sig1" onblure="draw()"
-                                            style="background: lightgray; border-radius:10px"></canvas>
+                                        <canvas id="sig1" onblure="draw()" style="background: lightgray; border-radius:10px"></canvas>
                                         <br />
                                         <textarea id="signature1" name="signed1" style="display: none"></textarea>
-                                        <span id="clear1" class="fa fa-undo btn--clear cursor-pointer"
-                                            style="line-height: 6; position:relative; top:51px; right:26px"></span>
+                                        <span id="clear1" class="fa fa-undo btn--clear cursor-pointer" style="line-height: 6; position:relative; top:51px; right:26px"></span>
                                     </div>
                                     <div class="inputDiv d-none" id="pdfsign1">
                                         <label class="fs-6 fw-bold mb-2" style="width: fit-content">
@@ -918,8 +847,8 @@
                                         <input type="text" name="namesign1" class="form-control form-control-solid">
                                     </div>
                                 </div>
-
                             </div>
+
 
                             <!-- <div class="col">
                                 @if(isset($permitdata) && $permitdata->principle_contractor==1)
@@ -955,9 +884,245 @@
                             </div> -->
 
                         </div>
+                        <div class="col-md-6" id="third_member" style="display: none">
+                            <!-- <div class="d-flex inputDiv d-block">
+                                        </div> -->
+                            <div class="d-flex inputDiv principleno mt-0">
+                                <!--begin::Label-->
+                                <label class="fs-6 fw-bold mb-2">
+                                    <span class="required">Name:</span>
+                                </label>
+                                <!--end::Label-->
+                                <input type="text" class="form-control form-control-solid" placeholder="Name" id="name3" name="name3" style="color:#5e6278">
+                            </div>
+                            <div class="d-flex inputDiv principleno">
+                                <!--begin::Label-->
+                                <label class="fs-6 fw-bold mb-2">
+                                    <span class="required">Job Title:</span>
+                                </label>
+                                <!--end::Label-->
+                                <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title3" name="job_title3">
+                            </div>
+                            <div class="d-flex inputDiv ">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span class="required">Company: </span>
+                                </label>
+                                <!--end::Label-->
+                                <div class="input">
+                                    <input type="text" id="companyadmin3" class="form-control form-control-solid" placeholder="Company" name="company3">
+                                    <!-- name="company1" -->
+                                    <input type="hidden" id="companyid3" class="form-control form-control-solid" placeholder="Company" name="companyid3" readonly="readonly">
+                                </div>
+                            </div>
+                            <div class="d-flex inputDiv ">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
+                                    <span class="required">Date:</span>
+                                </label>
+                                <!--end::Label-->
+                                <div class="input">
+                                    <input type="date" name="date3" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                                    <!-- name="date1" -->
+                                </div>
+                            </div>
+
+                            <div class="d-flex inputDiv" style="border: none">
+                                <label class="fs-6 fw-bold mb-2" style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
+                                    <span class="signatureTitle" style="white-space: nowrap">Signature
+                                        Type:</span>
+                                </label>
+                                <div style="display:flex; align-items: center; padding-left:10px">
+                                    <input type="radio" class="checkbox-field" id="DrawCheck1" checked=true style="width: 12px;">
+                                    <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="2"> -->
+                                    <span style="padding-left:14px;font-family: 'Inter', sans-serif; color:#000;font-size:14px;line-height: 2">Draw</span>
+                                </div>
+                                &nbsp;
+                                <!--end::Label-->
+
+                            </div>
+
+
+                            {{-- //old COde --}}
+
+                            <div class="col-md-12">
+                                <div class="d-flex inputDiv" id="namesign3" style="display: none !important;">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Name Signature:</span>
+                                    </label>
+                                    <input type="text" name="namesign3" id="namesign_id3" class="form-control form-control-solid">
+                                </div>
+
+                                <div class="d-flex inputDiv principleno mb-0" id="sign3" style="border:none !important;">
+                                    <canvas id="sig3" style="border-radius: 9px; background: lightgray;"></canvas>
+                                    <span id="clear3" class="fa fa-undo cursor-pointer btn--clear" style="line-height: 11; position:relative; top:51px; right:26px"></span>
+                                </div>
+                                <div class="d-flex inputDiv principleno" id="sign3" style=" display: none !important">
+                                    <textarea id="signature3" name="signed3" style="opacity: 0"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" id="fourth_member" style="display: none">
+                            <!-- <div class="d-flex inputDiv d-block">
+                                        </div> -->
+                            <div class="d-flex inputDiv principleno mt-0">
+                                <!--begin::Label-->
+                                <label class="fs-6 fw-bold mb-2">
+                                    <span class="required">Name:</span>
+                                </label>
+                                <!--end::Label-->
+                                <input type="text" class="form-control form-control-solid" placeholder="Name" id="name4" name="name4" style="color:#5e6278">
+                            </div>
+                            <div class="d-flex inputDiv principleno">
+                                <!--begin::Label-->
+                                <label class="fs-6 fw-bold mb-2">
+                                    <span class="required">Job Title:</span>
+                                </label>
+                                <!--end::Label-->
+                                <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title4" name="job_title4">
+                            </div>
+                            <div class="d-flex inputDiv ">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span class="required">Company: </span>
+                                </label>
+                                <!--end::Label-->
+                                <div class="input">
+                                    <input type="text" id="companyadmin4" class="form-control form-control-solid" placeholder="Company" name="company4">
+                                    <!-- name="company1" -->
+                                    <input type="hidden" id="companyid4" class="form-control form-control-solid" placeholder="Company" name="companyid" readonly="readonly">
+                                </div>
+                            </div>
+                            <div class="d-flex inputDiv ">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
+                                    <span class="required">Date:</span>
+                                </label>
+                                <!--end::Label-->
+                                <div class="input">
+                                    <input type="date" name="date4" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                                    <!-- name="date1" -->
+                                </div>
+                            </div>
+
+                            <div class="d-flex inputDiv" style="border: none">
+                                <label class="fs-6 fw-bold mb-2" style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
+                                    <span class="signatureTitle" style="white-space: nowrap">Signature
+                                        Type:</span>
+                                </label>
+                                <div style="display:flex; align-items: center; padding-left:10px">
+                                    <input type="radio" class="checkbox-field" id="DrawCheck1" checked=true style="width: 12px;">
+                                    <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="2"> -->
+                                    <span style="padding-left:14px;font-family: 'Inter', sans-serif;color:#000;font-size:14px;line-height: 2">Draw</span>
+                                </div>
+                                <!--end::Label-->
+                            </div>
+
+
+                            {{-- //old COde --}}
+
+                            <div class="col-md-12">
+                                <div class="d-flex inputDiv" id="namesign1" style="display: none !important;">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Name Signature:</span>
+                                    </label>
+                                    <input type="text" name="namesign4" id="namesign_id4" class="form-control form-control-solid">
+                                </div>
+
+                                <div class="d-flex inputDiv principleno mb-0" id="sign4" style="border:none !important;">
+                                    {{-- <br /> --}}
+                                    <canvas id="sig4" style="border-radius: 9px; background: lightgray;"></canvas>
+                                    <span id="clear4" class="fa fa-undo cursor-pointer btn--clear" style="line-height: 11; position:relative; top:51px; right:26px"></span>
+                                </div>
+                                <div class="d-flex inputDiv principleno" id="sign4" style=" display: none !important">
+                                    <textarea id="signature4" name="signed4" style="opacity: 0"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" id="fifth_member" style="display: none">
+                            <div class="d-flex inputDiv principleno mt-0">
+                                <!--begin::Label-->
+                                <label class="fs-6 fw-bold mb-2">
+                                    <span class="required">Name:</span>
+                                </label>
+                                <!--end::Label-->
+                                <input type="text" class="form-control form-control-solid" placeholder="Name" id="name5" name="name5" style="color:#5e6278">
+                            </div>
+                            <div class="d-flex inputDiv principleno">
+                                <!--begin::Label-->
+                                <label class="fs-6 fw-bold mb-2">
+                                    <span class="required">Job Title:</span>
+                                </label>
+                                <!--end::Label-->
+                                <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title5" name="job_title5">
+                            </div>
+                            <div class="d-flex inputDiv ">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span class="required">Company: </span>
+                                </label>
+                                <!--end::Label-->
+                                <div class="input">
+                                    <input type="text" id="companyadmin5" class="form-control form-control-solid" placeholder="Company" name="company5">
+                                    <!-- name="company1" -->
+                                    <input type="hidden" id="company5" class="form-control form-control-solid" placeholder="Company" name="company5" readonly="readonly">
+                                </div>
+                            </div>
+                            <div class="d-flex inputDiv ">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
+                                    <span class="required">Date:</span>
+                                </label>
+                                <!--end::Label-->
+                                <div class="input">
+                                    <input type="date" name="date5" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                                    <!-- name="date1" -->
+                                </div>
+                            </div>
+
+                            <div class="d-flex inputDiv" style="border: none">
+                                <label class="fs-6 fw-bold mb-2" style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
+                                    <span class="signatureTitle" style="white-space: nowrap">Signature
+                                        Type:</span>
+                                </label>
+                                <div style="display:flex; align-items: center; padding-left:10px">
+                                    <input type="radio" class="checkbox-field" id="DrawCheck1" checked=true style="width: 12px;">
+                                    <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="2"> -->
+                                    <span style="padding-left:14px;font-family: 'Inter', sans-serif; color:#000;font-size:14px;line-height: 2">Draw</span>
+                                </div>
+                                <!--end::Label-->
+                            </div>
+
+
+                            {{-- //old COde --}}
+
+                            <div class="col-md-12">
+                                <div class="d-flex inputDiv" id="namesign1" style="display: none !important;">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Name Signature:</span>
+                                    </label>
+                                    <input type="text" name="namesign5" id="namesign_id5" class="form-control form-control-solid">
+                                </div>
+
+                                <div class="d-flex inputDiv principleno mb-0" id="sign5" style="border:none !important;">
+                                    {{-- <label style="width:33%"
+                                                class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                <span class="required">Signature:</span>
+                                            </label> --}}
+                                    {{-- <br /> --}}
+                                    <canvas id="sig5" style="border-radius: 9px; background: lightgray;"></canvas>
+                                    <span id="clear5" class="fa fa-undo cursor-pointer btn--clear" style="line-height: 11; position:relative; top:51px; right:26px"></span>
+                                </div>
+                                <div class="d-flex inputDiv principleno" id="sign4" style=" display: none !important">
+                                    <textarea id="signature5" name="signed5" style="opacity: 0"></textarea>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-
+                    <div>
+                        <button class="btn btn-success btn-sm" id="addMemberButton">Add New</button>
+                    </div>
 
                     <div class="row">
 
@@ -988,494 +1153,494 @@
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
     <div class="modal-dialog modal-dialog-centered modal-xl">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">PDF Editor</h5>
-          <button id="closeModal" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div id="outerContainer">
-            <div id="sidebarContainer">
-              <div id="toolbarSidebar">
-                <div id="toolbarSidebarLeft">
-                  <div id="sidebarViewButtons" class="splitToolbarButton toggled" role="radiogroup">
-                    <button id="viewThumbnail" class="toolbarButton toggled" title="Show Thumbnails" tabindex="2" data-l10n-id="thumbs" role="radio" aria-checked="true" aria-controls="thumbnailView">
-                      <span data-l10n-id="thumbs_label">Thumbnails</span>
-                    </button>
-                    <button id="viewOutline" class="toolbarButton" title="Show Document Outline (double-click to expand/collapse all items)" tabindex="3" data-l10n-id="document_outline" role="radio" aria-checked="false" aria-controls="outlineView">
-                      <span data-l10n-id="document_outline_label">Document Outline</span>
-                    </button>
-                    <button id="viewAttachments" class="toolbarButton" title="Show Attachments" tabindex="4" data-l10n-id="attachments" role="radio" aria-checked="false" aria-controls="attachmentsView">
-                      <span data-l10n-id="attachments_label">Attachments</span>
-                    </button>
-                    <button id="viewLayers" class="toolbarButton" title="Show Layers (double-click to reset all layers to the default state)" tabindex="5" data-l10n-id="layers" role="radio" aria-checked="false" aria-controls="layersView">
-                      <span data-l10n-id="layers_label">Layers</span>
-                    </button>
-                  </div>
-                </div>
-  
-                <div id="toolbarSidebarRight">
-                  <div id="outlineOptionsContainer" class="hidden">
-                    <div class="verticalToolbarSeparator"></div>
-  
-                    <button id="currentOutlineItem" class="toolbarButton" disabled="disabled" title="Find Current Outline Item" tabindex="6" data-l10n-id="current_outline_item">
-                      <span data-l10n-id="current_outline_item_label">Current Outline Item</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div id="sidebarContent">
-                <div id="thumbnailView"></div>
-                <div id="outlineView" class="hidden"></div>
-                <div id="attachmentsView" class="hidden"></div>
-                <div id="layersView" class="hidden"></div>
-              </div>
-              <div id="sidebarResizer"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">PDF Editor</h5>
+                <button id="closeModal" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <!-- sidebarContainer -->
-  
-            <div id="mainContainer">
-              <div class="findbar hidden doorHanger" id="findbar">
-                <div id="findbarInputContainer">
-                  <input id="findInput" class="toolbarField" title="Find" placeholder="Find in document…" tabindex="91" data-l10n-id="find_input" aria-invalid="false" />
-                  <div class="splitToolbarButton">
-                    <button id="findPrevious" class="toolbarButton" title="Find the previous occurrence of the phrase" tabindex="92" data-l10n-id="find_previous">
-                      <span data-l10n-id="find_previous_label">Previous</span>
-                    </button>
-                    <div class="splitToolbarButtonSeparator"></div>
-                    <button id="findNext" class="toolbarButton" title="Find the next occurrence of the phrase" tabindex="93" data-l10n-id="find_next">
-                      <span data-l10n-id="find_next_label">Next</span>
-                    </button>
-                  </div>
-                </div>
-  
-                <div id="findbarOptionsOneContainer">
-                  <input type="checkbox" id="findHighlightAll" class="toolbarField" tabindex="94" />
-                  <label for="findHighlightAll" class="toolbarLabel" data-l10n-id="find_highlight">Highlight All</label>
-                  <input type="checkbox" id="findMatchCase" class="toolbarField" tabindex="95" />
-                  <label for="findMatchCase" class="toolbarLabel" data-l10n-id="find_match_case_label">Match Case</label>
-                </div>
-                <div id="findbarOptionsTwoContainer">
-                  <input type="checkbox" id="findMatchDiacritics" class="toolbarField" tabindex="96" />
-                  <label for="findMatchDiacritics" class="toolbarLabel" data-l10n-id="find_match_diacritics_label">Match Diacritics</label>
-                  <input type="checkbox" id="findEntireWord" class="toolbarField" tabindex="97" />
-                  <label for="findEntireWord" class="toolbarLabel" data-l10n-id="find_entire_word_label">Whole Words</label>
-                </div>
-  
-                <div id="findbarMessageContainer" aria-live="polite">
-                  <span id="findResultsCount" class="toolbarLabel"></span>
-                  <span id="findMsg" class="toolbarLabel"></span>
-                </div>
-              </div>
-              <!-- findbar -->
-  
-              <div class="editorParamsToolbar hidden doorHangerRight" id="editorFreeTextParamsToolbar">
-                <div class="editorParamsToolbarContainer">
-                  <div class="editorParamsSetter">
-                    <label for="editorFreeTextColor" class="editorParamsLabel" data-l10n-id="editor_free_text_color">Color</label>
-                    <input type="color" id="editorFreeTextColor" class="editorParamsColor" tabindex="100" />
-                  </div>
-                  <div class="editorParamsSetter">
-                    <label for="editorFreeTextFontSize" class="editorParamsLabel" data-l10n-id="editor_free_text_size">Size</label>
-                    <input type="range" id="editorFreeTextFontSize" class="editorParamsSlider" value="10" min="5" max="100" step="1" tabindex="101" />
-                  </div>
-                </div>
-              </div>
-              <div class="editorParamsToolbar hidden doorHangerRight" id="editorInkParamsToolbar">
-                <div class="editorParamsToolbarContainer">
-                  <div class="editorParamsSetter">
-                    <label for="editorInkColor" class="editorParamsLabel" data-l10n-id="editor_ink_color">Color</label>
-                    <input type="color" id="editorInkColor" class="editorParamsColor" tabindex="102" />
-                  </div>
-                  <div class="editorParamsSetter">
-                    <label for="editorInkThickness" class="editorParamsLabel" data-l10n-id="editor_ink_thickness">Thickness</label>
-                    <input type="range" id="editorInkThickness" class="editorParamsSlider" value="1" min="1" max="100" step="1" tabindex="102" />
-                  </div>
-                  <div class="editorParamsSetter">
-                    <label for="editorInkOpacity" class="editorParamsLabel" data-l10n-id="editor_ink_opacity">Opacity</label>
-                    <input type="range" id="editorInkOpacity" class="editorParamsSlider" value="100" min="1" max="100" step="1" tabindex="103" />
-                  </div>
-                </div>
-              </div>
-              <div class="editorParamsToolbar hidden doorHangerRight" id="editorInkParamsToolbar2">
-                <div class="editorParamsToolbarContainer">
-                  <div class="editorParamsSetter">
-                    <label for="editorInk2Color" class="editorParamsLabel" data-l10n-id="editor_ink_color">Color</label>
-                    <input type="color" id="editorInk2Color" class="editorParamsColor" tabindex="104" />
-                  </div>
-                  <div class="editorParamsSetter">
-                    <label for="editorInk2Thickness" class="editorParamsLabel" data-l10n-id="editor_ink_thickness">Thickness</label>
-                    <input type="range" id="editorInk2Thickness" class="editorParamsSlider" value="1" min="1" max="500" step="15" tabindex="105" />
-                  </div>
-                </div>
-              </div>
-              <div class="editorParamsToolbar hidden doorHangerRight" id="editorRectParamsToolbar">
-                <div class="editorParamsToolbarContainer">
-                  <div class="editorParamsSetter">
-                    <label for="editorRectColor" class="editorParamsLabel" data-l10n-id="editor_rect_color">Color</label>
-                    <input type="color" id="editorRectColor" class="editorParamsColor" tabindex="106" />
-                  </div>
-                  <div class="editorParamsSetter">
-                    <label for="editorRectThickness" class="editorParamsLabel" data-l10n-id="editor_rect_thickness">Thickness</label>
-                    <input type="range" id="editorRectThickness" class="editorParamsSlider" value="1" min="1" max="100" step="1" tabindex="107" />
-                  </div>
-                  <div class="editorParamsSetter">
-                    <label for="editorRectOpacity" class="editorParamsLabel" data-l10n-id="editor_rect_opacity">Opacity</label>
-                    <input type="range" id="editorRectOpacity" class="editorParamsSlider" value="100" min="1" max="100" step="1" tabindex="108" />
-                  </div>
-                </div>
-              </div>
-              <div id="secondaryToolbar" class="secondaryToolbar hidden doorHangerRight">
-                <div id="secondaryToolbarButtonContainer">
-                  <!--#if GENERIC-->
-                  <button id="secondaryOpenFile" class="secondaryToolbarButton visibleLargeView" title="Open File" tabindex="51" data-l10n-id="open_file">
-                    <span data-l10n-id="open_file_label">Open</span>
-                  </button>
-                  <!--#endif-->
-  
-                  <button id="secondaryPrint" class="secondaryToolbarButton visibleMediumView" title="Print" tabindex="52" data-l10n-id="print">
-                    <span data-l10n-id="print_label">Print</span>
-                  </button>
-  
-                  <button id="secondaryDownload" class="secondaryToolbarButton visibleMediumView" title="Save" tabindex="53" data-l10n-id="save">
-                    <span data-l10n-id="save_label">Save</span>
-                  </button>
-  
-                  <!--#if GENERIC-->
-                  <div class="horizontalToolbarSeparator visibleLargeView"></div>
-                  <!--#else-->
-                  <!--        <div class="horizontalToolbarSeparator visibleMediumView"></div>-->
-                  <!--#endif-->
-  
-                  <button id="presentationMode" class="secondaryToolbarButton" title="Switch to Presentation Mode" tabindex="54" data-l10n-id="presentation_mode">
-                    <span data-l10n-id="presentation_mode_label">Presentation Mode</span>
-                  </button>
-  
-                  <a href="#" id="viewBookmark" class="secondaryToolbarButton" title="Current Page (View URL from Current Page)" tabindex="55" data-l10n-id="bookmark1">
-                    <span data-l10n-id="bookmark1_label">Current Page</span>
-                  </a>
-  
-                  <div id="viewBookmarkSeparator" class="horizontalToolbarSeparator"></div>
-  
-                  <button id="firstPage" class="secondaryToolbarButton" title="Go to First Page" tabindex="56" data-l10n-id="first_page">
-                    <span data-l10n-id="first_page_label">Go to First Page</span>
-                  </button>
-                  <button id="lastPage" class="secondaryToolbarButton" title="Go to Last Page" tabindex="57" data-l10n-id="last_page">
-                    <span data-l10n-id="last_page_label">Go to Last Page</span>
-                  </button>
-  
-                  <div class="horizontalToolbarSeparator"></div>
-  
-                  <button id="pageRotateCw" class="secondaryToolbarButton" title="Rotate Clockwise" tabindex="58" data-l10n-id="page_rotate_cw">
-                    <span data-l10n-id="page_rotate_cw_label">Rotate Clockwise</span>
-                  </button>
-                  <button id="pageRotateCcw" class="secondaryToolbarButton" title="Rotate Counterclockwise" tabindex="59" data-l10n-id="page_rotate_ccw">
-                    <span data-l10n-id="page_rotate_ccw_label">Rotate Counterclockwise</span>
-                  </button>
-  
-                  <div class="horizontalToolbarSeparator"></div>
-  
-                  <div id="cursorToolButtons" role="radiogroup">
-                    <button id="cursorSelectTool" class="secondaryToolbarButton toggled" title="Enable Text Selection Tool" tabindex="60" data-l10n-id="cursor_text_select_tool" role="radio" aria-checked="true">
-                      <span data-l10n-id="cursor_text_select_tool_label">Text Selection Tool</span>
-                    </button>
-                    <button id="cursorHandTool" class="secondaryToolbarButton" title="Enable Hand Tool" tabindex="61" data-l10n-id="cursor_hand_tool" role="radio" aria-checked="false">
-                      <span data-l10n-id="cursor_hand_tool_label">Hand Tool</span>
-                    </button>
-                  </div>
-  
-                  <div class="horizontalToolbarSeparator"></div>
-  
-                  <div id="scrollModeButtons" role="radiogroup">
-                    <button id="scrollPage" class="secondaryToolbarButton" title="Use Page Scrolling" tabindex="62" data-l10n-id="scroll_page" role="radio" aria-checked="false">
-                      <span data-l10n-id="scroll_page_label">Page Scrolling</span>
-                    </button>
-                    <button id="scrollVertical" class="secondaryToolbarButton toggled" title="Use Vertical Scrolling" tabindex="63" data-l10n-id="scroll_vertical" role="radio" aria-checked="true">
-                      <span data-l10n-id="scroll_vertical_label">Vertical Scrolling</span>
-                    </button>
-                    <button id="scrollHorizontal" class="secondaryToolbarButton" title="Use Horizontal Scrolling" tabindex="64" data-l10n-id="scroll_horizontal" role="radio" aria-checked="false">
-                      <span data-l10n-id="scroll_horizontal_label">Horizontal Scrolling</span>
-                    </button>
-                    <button id="scrollWrapped" class="secondaryToolbarButton" title="Use Wrapped Scrolling" tabindex="65" data-l10n-id="scroll_wrapped" role="radio" aria-checked="false">
-                      <span data-l10n-id="scroll_wrapped_label">Wrapped Scrolling</span>
-                    </button>
-                  </div>
-  
-                  <div class="horizontalToolbarSeparator"></div>
-  
-                  <div id="spreadModeButtons" role="radiogroup">
-                    <button id="spreadNone" class="secondaryToolbarButton toggled" title="Do not join page spreads" tabindex="66" data-l10n-id="spread_none" role="radio" aria-checked="true">
-                      <span data-l10n-id="spread_none_label">No Spreads</span>
-                    </button>
-                    <button id="spreadOdd" class="secondaryToolbarButton" title="Join page spreads starting with odd-numbered pages" tabindex="67" data-l10n-id="spread_odd" role="radio" aria-checked="false">
-                      <span data-l10n-id="spread_odd_label">Odd Spreads</span>
-                    </button>
-                    <button id="spreadEven" class="secondaryToolbarButton" title="Join page spreads starting with even-numbered pages" tabindex="68" data-l10n-id="spread_even" role="radio" aria-checked="false">
-                      <span data-l10n-id="spread_even_label">Even Spreads</span>
-                    </button>
-                  </div>
-  
-                  <div class="horizontalToolbarSeparator"></div>
-  
-                  <button id="documentProperties" class="secondaryToolbarButton" title="Document Properties…" tabindex="69" data-l10n-id="document_properties" aria-controls="documentPropertiesDialog">
-                    <span data-l10n-id="document_properties_label">Document Properties…</span>
-                  </button>
-                </div>
-              </div>
-              <!-- secondaryToolbar -->
-  
-              <div class="secondary-toolbar">
-                <div id="toolbarContainer">
-                  <div id="toolbarViewer">
-                    <div id="toolbarViewerLeft">
-                      <button id="sidebarToggle" class="toolbarButton" title="Toggle Sidebar" tabindex="11" data-l10n-id="toggle_sidebar" aria-expanded="false" aria-controls="sidebarContainer">
-                        <span data-l10n-id="toggle_sidebar_label">Toggle Sidebar</span>
-                      </button>
-                      <div class="toolbarButtonSpacer"></div>
-                      <button id="viewFind" class="toolbarButton" title="Find in Document" tabindex="12" data-l10n-id="findbar" aria-expanded="false" aria-controls="findbar">
-                        <span data-l10n-id="findbar_label">Find</span>
-                      </button>
-                      <div class="splitToolbarButton hiddenSmallView">
-                        <button class="toolbarButton" title="Previous Page" id="previous" tabindex="13" data-l10n-id="previous">
-                          <span data-l10n-id="previous_label">Previous</span>
-                        </button>
-                        <div class="splitToolbarButtonSeparator"></div>
-                        <button class="toolbarButton" title="Next Page" id="next" tabindex="14" data-l10n-id="next">
-                          <span data-l10n-id="next_label">Next</span>
-                        </button>
-                      </div>
-                      <input type="number" id="pageNumber" class="toolbarField" title="Page" value="1" min="1" tabindex="15" data-l10n-id="page" autocomplete="off" />
-                      <span id="numPages" class="toolbarLabel"></span>
+            <div class="modal-body">
+                <div id="outerContainer">
+                    <div id="sidebarContainer">
+                        <div id="toolbarSidebar">
+                            <div id="toolbarSidebarLeft">
+                                <div id="sidebarViewButtons" class="splitToolbarButton toggled" role="radiogroup">
+                                    <button id="viewThumbnail" class="toolbarButton toggled" title="Show Thumbnails" tabindex="2" data-l10n-id="thumbs" role="radio" aria-checked="true" aria-controls="thumbnailView">
+                                        <span data-l10n-id="thumbs_label">Thumbnails</span>
+                                    </button>
+                                    <button id="viewOutline" class="toolbarButton" title="Show Document Outline (double-click to expand/collapse all items)" tabindex="3" data-l10n-id="document_outline" role="radio" aria-checked="false" aria-controls="outlineView">
+                                        <span data-l10n-id="document_outline_label">Document Outline</span>
+                                    </button>
+                                    <button id="viewAttachments" class="toolbarButton" title="Show Attachments" tabindex="4" data-l10n-id="attachments" role="radio" aria-checked="false" aria-controls="attachmentsView">
+                                        <span data-l10n-id="attachments_label">Attachments</span>
+                                    </button>
+                                    <button id="viewLayers" class="toolbarButton" title="Show Layers (double-click to reset all layers to the default state)" tabindex="5" data-l10n-id="layers" role="radio" aria-checked="false" aria-controls="layersView">
+                                        <span data-l10n-id="layers_label">Layers</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div id="toolbarSidebarRight">
+                                <div id="outlineOptionsContainer" class="hidden">
+                                    <div class="verticalToolbarSeparator"></div>
+
+                                    <button id="currentOutlineItem" class="toolbarButton" disabled="disabled" title="Find Current Outline Item" tabindex="6" data-l10n-id="current_outline_item">
+                                        <span data-l10n-id="current_outline_item_label">Current Outline Item</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="sidebarContent">
+                            <div id="thumbnailView"></div>
+                            <div id="outlineView" class="hidden"></div>
+                            <div id="attachmentsView" class="hidden"></div>
+                            <div id="layersView" class="hidden"></div>
+                        </div>
+                        <div id="sidebarResizer"></div>
                     </div>
-                    <div id="toolbarViewerRight">
-                      <!--#if GENERIC-->
-                      <button id="openFile" class="toolbarButton hiddenLargeView" title="Open File" tabindex="31" data-l10n-id="open_file">
-                        <span data-l10n-id="open_file_label">Open</span>
-                      </button>
-                      <!--#endif-->
-  
-                      <button id="print" class="toolbarButton hiddenMediumView" title="Print" tabindex="32" data-l10n-id="print">
-                        <span data-l10n-id="print_label">Print</span>
-                      </button>
-  
-                      <button id="download" class="toolbarButton hiddenMediumView" title="Save" tabindex="33" data-l10n-id="save">
-                        <span data-l10n-id="save_label">Save</span>
-                      </button>
-  
-                      <div class="verticalToolbarSeparator hiddenMediumView"></div>
-  
-                      <div id="editorModeButtons" class="splitToolbarButton toggled" role="radiogroup">
-                        <button id="editorStamp" class="toolbarButton hidden" disabled="disabled" title="Image" role="radio" aria-checked="false" tabindex="34" data-l10n-id="editor_stamp">
-                          <span data-l10n-id="editor_stamp_label">Image</span>
-                        </button>
-                        <button id="editorFreeText" class="toolbarButton" disabled="disabled" title="Text" role="radio" aria-checked="false" aria-controls="editorFreeTextParamsToolbar" tabindex="35" data-l10n-id="editor_free_text2">
-                          <span data-l10n-id="editor_free_text2_label">Text</span>
-                        </button>
-                        <button id="editorInk" class="toolbarButton" disabled="disabled" title="Draw" role="radio" aria-checked="false" aria-controls="editorInkParamsToolbar" tabindex="36" data-l10n-id="editor_ink2">
-                          <span data-l10n-id="editor_ink2_label">Draw</span>
-                        </button>
-                        <button id="editorInk2" class="toolbarButton" disabled="disabled" title="Highlight" role="radio" aria-checked="false" aria-controls="editorInkParamsToolbar2" tabindex="37" data-l10n-id="editor_ink22">
-                          <span data-l10n-id="editor_ink2_label">Draw</span>
-                        </button>
-                        <button id="editorRect" class="toolbarButton d-none" disabled="disabled" title="Rect" role="radio" aria-checked="false" aria-controls="editorRectParamsToolbar" tabindex="38" data-l10n-id="editor_Rect2">
-                          <span data-l10n-id="editor_ink2_label">Draw</span>
-                        </button>
-                      </div>
-  
-                      <div id="editorModeSeparator" class="verticalToolbarSeparator"></div>
-  
-                      <button id="secondaryToolbarToggle" class="toolbarButton" title="Tools" tabindex="48" data-l10n-id="tools" aria-expanded="false" aria-controls="secondaryToolbar">
-                        <span data-l10n-id="tools_label">Tools</span>
-                      </button>
+                    <!-- sidebarContainer -->
+
+                    <div id="mainContainer">
+                        <div class="findbar hidden doorHanger" id="findbar">
+                            <div id="findbarInputContainer">
+                                <input id="findInput" class="toolbarField" title="Find" placeholder="Find in document…" tabindex="91" data-l10n-id="find_input" aria-invalid="false" />
+                                <div class="splitToolbarButton">
+                                    <button id="findPrevious" class="toolbarButton" title="Find the previous occurrence of the phrase" tabindex="92" data-l10n-id="find_previous">
+                                        <span data-l10n-id="find_previous_label">Previous</span>
+                                    </button>
+                                    <div class="splitToolbarButtonSeparator"></div>
+                                    <button id="findNext" class="toolbarButton" title="Find the next occurrence of the phrase" tabindex="93" data-l10n-id="find_next">
+                                        <span data-l10n-id="find_next_label">Next</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div id="findbarOptionsOneContainer">
+                                <input type="checkbox" id="findHighlightAll" class="toolbarField" tabindex="94" />
+                                <label for="findHighlightAll" class="toolbarLabel" data-l10n-id="find_highlight">Highlight All</label>
+                                <input type="checkbox" id="findMatchCase" class="toolbarField" tabindex="95" />
+                                <label for="findMatchCase" class="toolbarLabel" data-l10n-id="find_match_case_label">Match Case</label>
+                            </div>
+                            <div id="findbarOptionsTwoContainer">
+                                <input type="checkbox" id="findMatchDiacritics" class="toolbarField" tabindex="96" />
+                                <label for="findMatchDiacritics" class="toolbarLabel" data-l10n-id="find_match_diacritics_label">Match Diacritics</label>
+                                <input type="checkbox" id="findEntireWord" class="toolbarField" tabindex="97" />
+                                <label for="findEntireWord" class="toolbarLabel" data-l10n-id="find_entire_word_label">Whole Words</label>
+                            </div>
+
+                            <div id="findbarMessageContainer" aria-live="polite">
+                                <span id="findResultsCount" class="toolbarLabel"></span>
+                                <span id="findMsg" class="toolbarLabel"></span>
+                            </div>
+                        </div>
+                        <!-- findbar -->
+
+                        <div class="editorParamsToolbar hidden doorHangerRight" id="editorFreeTextParamsToolbar">
+                            <div class="editorParamsToolbarContainer">
+                                <div class="editorParamsSetter">
+                                    <label for="editorFreeTextColor" class="editorParamsLabel" data-l10n-id="editor_free_text_color">Color</label>
+                                    <input type="color" id="editorFreeTextColor" class="editorParamsColor" tabindex="100" />
+                                </div>
+                                <div class="editorParamsSetter">
+                                    <label for="editorFreeTextFontSize" class="editorParamsLabel" data-l10n-id="editor_free_text_size">Size</label>
+                                    <input type="range" id="editorFreeTextFontSize" class="editorParamsSlider" value="10" min="5" max="100" step="1" tabindex="101" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="editorParamsToolbar hidden doorHangerRight" id="editorInkParamsToolbar">
+                            <div class="editorParamsToolbarContainer">
+                                <div class="editorParamsSetter">
+                                    <label for="editorInkColor" class="editorParamsLabel" data-l10n-id="editor_ink_color">Color</label>
+                                    <input type="color" id="editorInkColor" class="editorParamsColor" tabindex="102" />
+                                </div>
+                                <div class="editorParamsSetter">
+                                    <label for="editorInkThickness" class="editorParamsLabel" data-l10n-id="editor_ink_thickness">Thickness</label>
+                                    <input type="range" id="editorInkThickness" class="editorParamsSlider" value="1" min="1" max="100" step="1" tabindex="102" />
+                                </div>
+                                <div class="editorParamsSetter">
+                                    <label for="editorInkOpacity" class="editorParamsLabel" data-l10n-id="editor_ink_opacity">Opacity</label>
+                                    <input type="range" id="editorInkOpacity" class="editorParamsSlider" value="100" min="1" max="100" step="1" tabindex="103" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="editorParamsToolbar hidden doorHangerRight" id="editorInkParamsToolbar2">
+                            <div class="editorParamsToolbarContainer">
+                                <div class="editorParamsSetter">
+                                    <label for="editorInk2Color" class="editorParamsLabel" data-l10n-id="editor_ink_color">Color</label>
+                                    <input type="color" id="editorInk2Color" class="editorParamsColor" tabindex="104" />
+                                </div>
+                                <div class="editorParamsSetter">
+                                    <label for="editorInk2Thickness" class="editorParamsLabel" data-l10n-id="editor_ink_thickness">Thickness</label>
+                                    <input type="range" id="editorInk2Thickness" class="editorParamsSlider" value="1" min="1" max="500" step="15" tabindex="105" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="editorParamsToolbar hidden doorHangerRight" id="editorRectParamsToolbar">
+                            <div class="editorParamsToolbarContainer">
+                                <div class="editorParamsSetter">
+                                    <label for="editorRectColor" class="editorParamsLabel" data-l10n-id="editor_rect_color">Color</label>
+                                    <input type="color" id="editorRectColor" class="editorParamsColor" tabindex="106" />
+                                </div>
+                                <div class="editorParamsSetter">
+                                    <label for="editorRectThickness" class="editorParamsLabel" data-l10n-id="editor_rect_thickness">Thickness</label>
+                                    <input type="range" id="editorRectThickness" class="editorParamsSlider" value="1" min="1" max="100" step="1" tabindex="107" />
+                                </div>
+                                <div class="editorParamsSetter">
+                                    <label for="editorRectOpacity" class="editorParamsLabel" data-l10n-id="editor_rect_opacity">Opacity</label>
+                                    <input type="range" id="editorRectOpacity" class="editorParamsSlider" value="100" min="1" max="100" step="1" tabindex="108" />
+                                </div>
+                            </div>
+                        </div>
+                        <div id="secondaryToolbar" class="secondaryToolbar hidden doorHangerRight">
+                            <div id="secondaryToolbarButtonContainer">
+                                <!--#if GENERIC-->
+                                <button id="secondaryOpenFile" class="secondaryToolbarButton visibleLargeView" title="Open File" tabindex="51" data-l10n-id="open_file">
+                                    <span data-l10n-id="open_file_label">Open</span>
+                                </button>
+                                <!--#endif-->
+
+                                <button id="secondaryPrint" class="secondaryToolbarButton visibleMediumView" title="Print" tabindex="52" data-l10n-id="print">
+                                    <span data-l10n-id="print_label">Print</span>
+                                </button>
+
+                                <button id="secondaryDownload" class="secondaryToolbarButton visibleMediumView" title="Save" tabindex="53" data-l10n-id="save">
+                                    <span data-l10n-id="save_label">Save</span>
+                                </button>
+
+                                <!--#if GENERIC-->
+                                <div class="horizontalToolbarSeparator visibleLargeView"></div>
+                                <!--#else-->
+                                <!--        <div class="horizontalToolbarSeparator visibleMediumView"></div>-->
+                                <!--#endif-->
+
+                                <button id="presentationMode" class="secondaryToolbarButton" title="Switch to Presentation Mode" tabindex="54" data-l10n-id="presentation_mode">
+                                    <span data-l10n-id="presentation_mode_label">Presentation Mode</span>
+                                </button>
+
+                                <a href="#" id="viewBookmark" class="secondaryToolbarButton" title="Current Page (View URL from Current Page)" tabindex="55" data-l10n-id="bookmark1">
+                                    <span data-l10n-id="bookmark1_label">Current Page</span>
+                                </a>
+
+                                <div id="viewBookmarkSeparator" class="horizontalToolbarSeparator"></div>
+
+                                <button id="firstPage" class="secondaryToolbarButton" title="Go to First Page" tabindex="56" data-l10n-id="first_page">
+                                    <span data-l10n-id="first_page_label">Go to First Page</span>
+                                </button>
+                                <button id="lastPage" class="secondaryToolbarButton" title="Go to Last Page" tabindex="57" data-l10n-id="last_page">
+                                    <span data-l10n-id="last_page_label">Go to Last Page</span>
+                                </button>
+
+                                <div class="horizontalToolbarSeparator"></div>
+
+                                <button id="pageRotateCw" class="secondaryToolbarButton" title="Rotate Clockwise" tabindex="58" data-l10n-id="page_rotate_cw">
+                                    <span data-l10n-id="page_rotate_cw_label">Rotate Clockwise</span>
+                                </button>
+                                <button id="pageRotateCcw" class="secondaryToolbarButton" title="Rotate Counterclockwise" tabindex="59" data-l10n-id="page_rotate_ccw">
+                                    <span data-l10n-id="page_rotate_ccw_label">Rotate Counterclockwise</span>
+                                </button>
+
+                                <div class="horizontalToolbarSeparator"></div>
+
+                                <div id="cursorToolButtons" role="radiogroup">
+                                    <button id="cursorSelectTool" class="secondaryToolbarButton toggled" title="Enable Text Selection Tool" tabindex="60" data-l10n-id="cursor_text_select_tool" role="radio" aria-checked="true">
+                                        <span data-l10n-id="cursor_text_select_tool_label">Text Selection Tool</span>
+                                    </button>
+                                    <button id="cursorHandTool" class="secondaryToolbarButton" title="Enable Hand Tool" tabindex="61" data-l10n-id="cursor_hand_tool" role="radio" aria-checked="false">
+                                        <span data-l10n-id="cursor_hand_tool_label">Hand Tool</span>
+                                    </button>
+                                </div>
+
+                                <div class="horizontalToolbarSeparator"></div>
+
+                                <div id="scrollModeButtons" role="radiogroup">
+                                    <button id="scrollPage" class="secondaryToolbarButton" title="Use Page Scrolling" tabindex="62" data-l10n-id="scroll_page" role="radio" aria-checked="false">
+                                        <span data-l10n-id="scroll_page_label">Page Scrolling</span>
+                                    </button>
+                                    <button id="scrollVertical" class="secondaryToolbarButton toggled" title="Use Vertical Scrolling" tabindex="63" data-l10n-id="scroll_vertical" role="radio" aria-checked="true">
+                                        <span data-l10n-id="scroll_vertical_label">Vertical Scrolling</span>
+                                    </button>
+                                    <button id="scrollHorizontal" class="secondaryToolbarButton" title="Use Horizontal Scrolling" tabindex="64" data-l10n-id="scroll_horizontal" role="radio" aria-checked="false">
+                                        <span data-l10n-id="scroll_horizontal_label">Horizontal Scrolling</span>
+                                    </button>
+                                    <button id="scrollWrapped" class="secondaryToolbarButton" title="Use Wrapped Scrolling" tabindex="65" data-l10n-id="scroll_wrapped" role="radio" aria-checked="false">
+                                        <span data-l10n-id="scroll_wrapped_label">Wrapped Scrolling</span>
+                                    </button>
+                                </div>
+
+                                <div class="horizontalToolbarSeparator"></div>
+
+                                <div id="spreadModeButtons" role="radiogroup">
+                                    <button id="spreadNone" class="secondaryToolbarButton toggled" title="Do not join page spreads" tabindex="66" data-l10n-id="spread_none" role="radio" aria-checked="true">
+                                        <span data-l10n-id="spread_none_label">No Spreads</span>
+                                    </button>
+                                    <button id="spreadOdd" class="secondaryToolbarButton" title="Join page spreads starting with odd-numbered pages" tabindex="67" data-l10n-id="spread_odd" role="radio" aria-checked="false">
+                                        <span data-l10n-id="spread_odd_label">Odd Spreads</span>
+                                    </button>
+                                    <button id="spreadEven" class="secondaryToolbarButton" title="Join page spreads starting with even-numbered pages" tabindex="68" data-l10n-id="spread_even" role="radio" aria-checked="false">
+                                        <span data-l10n-id="spread_even_label">Even Spreads</span>
+                                    </button>
+                                </div>
+
+                                <div class="horizontalToolbarSeparator"></div>
+
+                                <button id="documentProperties" class="secondaryToolbarButton" title="Document Properties…" tabindex="69" data-l10n-id="document_properties" aria-controls="documentPropertiesDialog">
+                                    <span data-l10n-id="document_properties_label">Document Properties…</span>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- secondaryToolbar -->
+
+                        <div class="secondary-toolbar">
+                            <div id="toolbarContainer">
+                                <div id="toolbarViewer">
+                                    <div id="toolbarViewerLeft">
+                                        <button id="sidebarToggle" class="toolbarButton" title="Toggle Sidebar" tabindex="11" data-l10n-id="toggle_sidebar" aria-expanded="false" aria-controls="sidebarContainer">
+                                            <span data-l10n-id="toggle_sidebar_label">Toggle Sidebar</span>
+                                        </button>
+                                        <div class="toolbarButtonSpacer"></div>
+                                        <button id="viewFind" class="toolbarButton" title="Find in Document" tabindex="12" data-l10n-id="findbar" aria-expanded="false" aria-controls="findbar">
+                                            <span data-l10n-id="findbar_label">Find</span>
+                                        </button>
+                                        <div class="splitToolbarButton hiddenSmallView">
+                                            <button class="toolbarButton" title="Previous Page" id="previous" tabindex="13" data-l10n-id="previous">
+                                                <span data-l10n-id="previous_label">Previous</span>
+                                            </button>
+                                            <div class="splitToolbarButtonSeparator"></div>
+                                            <button class="toolbarButton" title="Next Page" id="next" tabindex="14" data-l10n-id="next">
+                                                <span data-l10n-id="next_label">Next</span>
+                                            </button>
+                                        </div>
+                                        <input type="number" id="pageNumber" class="toolbarField" title="Page" value="1" min="1" tabindex="15" data-l10n-id="page" autocomplete="off" />
+                                        <span id="numPages" class="toolbarLabel"></span>
+                                    </div>
+                                    <div id="toolbarViewerRight">
+                                        <!--#if GENERIC-->
+                                        <button id="openFile" class="toolbarButton hiddenLargeView" title="Open File" tabindex="31" data-l10n-id="open_file">
+                                            <span data-l10n-id="open_file_label">Open</span>
+                                        </button>
+                                        <!--#endif-->
+
+                                        <button id="print" class="toolbarButton hiddenMediumView" title="Print" tabindex="32" data-l10n-id="print">
+                                            <span data-l10n-id="print_label">Print</span>
+                                        </button>
+
+                                        <button id="download" class="toolbarButton hiddenMediumView" title="Save" tabindex="33" data-l10n-id="save">
+                                            <span data-l10n-id="save_label">Save</span>
+                                        </button>
+
+                                        <div class="verticalToolbarSeparator hiddenMediumView"></div>
+
+                                        <div id="editorModeButtons" class="splitToolbarButton toggled" role="radiogroup">
+                                            <button id="editorStamp" class="toolbarButton hidden" disabled="disabled" title="Image" role="radio" aria-checked="false" tabindex="34" data-l10n-id="editor_stamp">
+                                                <span data-l10n-id="editor_stamp_label">Image</span>
+                                            </button>
+                                            <button id="editorFreeText" class="toolbarButton" disabled="disabled" title="Text" role="radio" aria-checked="false" aria-controls="editorFreeTextParamsToolbar" tabindex="35" data-l10n-id="editor_free_text2">
+                                                <span data-l10n-id="editor_free_text2_label">Text</span>
+                                            </button>
+                                            <button id="editorInk" class="toolbarButton" disabled="disabled" title="Draw" role="radio" aria-checked="false" aria-controls="editorInkParamsToolbar" tabindex="36" data-l10n-id="editor_ink2">
+                                                <span data-l10n-id="editor_ink2_label">Draw</span>
+                                            </button>
+                                            <button id="editorInk2" class="toolbarButton" disabled="disabled" title="Highlight" role="radio" aria-checked="false" aria-controls="editorInkParamsToolbar2" tabindex="37" data-l10n-id="editor_ink22">
+                                                <span data-l10n-id="editor_ink2_label">Draw</span>
+                                            </button>
+                                            <button id="editorRect" class="toolbarButton d-none" disabled="disabled" title="Rect" role="radio" aria-checked="false" aria-controls="editorRectParamsToolbar" tabindex="38" data-l10n-id="editor_Rect2">
+                                                <span data-l10n-id="editor_ink2_label">Draw</span>
+                                            </button>
+                                        </div>
+
+                                        <div id="editorModeSeparator" class="verticalToolbarSeparator"></div>
+
+                                        <button id="secondaryToolbarToggle" class="toolbarButton" title="Tools" tabindex="48" data-l10n-id="tools" aria-expanded="false" aria-controls="secondaryToolbar">
+                                            <span data-l10n-id="tools_label">Tools</span>
+                                        </button>
+                                    </div>
+                                    <div id="toolbarViewerMiddle">
+                                        <div class="splitToolbarButton">
+                                            <button id="zoomOut" class="toolbarButton" title="Zoom Out" tabindex="21" data-l10n-id="zoom_out">
+                                                <span data-l10n-id="zoom_out_label">Zoom Out</span>
+                                            </button>
+                                            <div class="splitToolbarButtonSeparator"></div>
+                                            <button id="zoomIn" class="toolbarButton" title="Zoom In" tabindex="22" data-l10n-id="zoom_in">
+                                                <span data-l10n-id="zoom_in_label">Zoom In</span>
+                                            </button>
+                                        </div>
+                                        <span id="scaleSelectContainer" class="dropdownToolbarButton">
+                                            <select id="scaleSelect" title="Zoom" tabindex="23" data-l10n-id="zoom">
+                                                <option id="pageAutoOption" title="" value="auto" selected="selected" data-l10n-id="page_scale_auto">
+                                                    Automatic Zoom
+                                                </option>
+                                                <option id="pageActualOption" title="" value="page-actual" data-l10n-id="page_scale_actual">
+                                                    Actual Size
+                                                </option>
+                                                <option id="pageFitOption" title="" value="page-fit" data-l10n-id="page_scale_fit">
+                                                    Page Fit
+                                                </option>
+                                                <option id="pageWidthOption" title="" value="page-width" data-l10n-id="page_scale_width">
+                                                    Page Width
+                                                </option>
+                                                <option id="customScaleOption" title="" value="custom" disabled="disabled" hidden="true"></option>
+                                                <option title="" value="0.5" data-l10n-id="page_scale_percent" data-l10n-args='{ "scale": 50 }'>
+                                                    50%
+                                                </option>
+                                                <option title="" value="0.75" data-l10n-id="page_scale_percent" data-l10n-args='{ "scale": 75 }'>
+                                                    75%
+                                                </option>
+                                                <option title="" value="1" data-l10n-id="page_scale_percent" data-l10n-args='{ "scale": 100 }'>
+                                                    100%
+                                                </option>
+                                                <option title="" value="1.25" data-l10n-id="page_scale_percent" data-l10n-args='{ "scale": 125 }'>
+                                                    125%
+                                                </option>
+                                                <option title="" value="1.5" data-l10n-id="page_scale_percent" data-l10n-args='{ "scale": 150 }'>
+                                                    150%
+                                                </option>
+                                                <option title="" value="2" data-l10n-id="page_scale_percent" data-l10n-args='{ "scale": 200 }'>
+                                                    200%
+                                                </option>
+                                                <option title="" value="3" data-l10n-id="page_scale_percent" data-l10n-args='{ "scale": 300 }'>
+                                                    300%
+                                                </option>
+                                                <option title="" value="4" data-l10n-id="page_scale_percent" data-l10n-args='{ "scale": 400 }'>
+                                                    400%
+                                                </option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div id="loadingBar">
+                                    <div class="progress">
+                                        <div class="glimmer"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="viewerContainer" tabindex="0">
+                            <div id="viewer" class="pdfViewer"></div>
+                        </div>
                     </div>
-                    <div id="toolbarViewerMiddle">
-                      <div class="splitToolbarButton">
-                        <button id="zoomOut" class="toolbarButton" title="Zoom Out" tabindex="21" data-l10n-id="zoom_out">
-                          <span data-l10n-id="zoom_out_label">Zoom Out</span>
-                        </button>
-                        <div class="splitToolbarButtonSeparator"></div>
-                        <button id="zoomIn" class="toolbarButton" title="Zoom In" tabindex="22" data-l10n-id="zoom_in">
-                          <span data-l10n-id="zoom_in_label">Zoom In</span>
-                        </button>
-                      </div>
-                      <span id="scaleSelectContainer" class="dropdownToolbarButton">
-                        <select id="scaleSelect" title="Zoom" tabindex="23" data-l10n-id="zoom">
-                          <option id="pageAutoOption" title="" value="auto" selected="selected" data-l10n-id="page_scale_auto">
-                            Automatic Zoom
-                          </option>
-                          <option id="pageActualOption" title="" value="page-actual" data-l10n-id="page_scale_actual">
-                            Actual Size
-                          </option>
-                          <option id="pageFitOption" title="" value="page-fit" data-l10n-id="page_scale_fit">
-                            Page Fit
-                          </option>
-                          <option id="pageWidthOption" title="" value="page-width" data-l10n-id="page_scale_width">
-                            Page Width
-                          </option>
-                          <option id="customScaleOption" title="" value="custom" disabled="disabled" hidden="true"></option>
-                          <option title="" value="0.5" data-l10n-id="page_scale_percent" data-l10n-args='{ "scale": 50 }'>
-                            50%
-                          </option>
-                          <option title="" value="0.75" data-l10n-id="page_scale_percent" data-l10n-args='{ "scale": 75 }'>
-                            75%
-                          </option>
-                          <option title="" value="1" data-l10n-id="page_scale_percent" data-l10n-args='{ "scale": 100 }'>
-                            100%
-                          </option>
-                          <option title="" value="1.25" data-l10n-id="page_scale_percent" data-l10n-args='{ "scale": 125 }'>
-                            125%
-                          </option>
-                          <option title="" value="1.5" data-l10n-id="page_scale_percent" data-l10n-args='{ "scale": 150 }'>
-                            150%
-                          </option>
-                          <option title="" value="2" data-l10n-id="page_scale_percent" data-l10n-args='{ "scale": 200 }'>
-                            200%
-                          </option>
-                          <option title="" value="3" data-l10n-id="page_scale_percent" data-l10n-args='{ "scale": 300 }'>
-                            300%
-                          </option>
-                          <option title="" value="4" data-l10n-id="page_scale_percent" data-l10n-args='{ "scale": 400 }'>
-                            400%
-                          </option>
-                        </select>
-                      </span>
+                    <!-- mainContainer -->
+
+                    <div id="dialogContainer">
+                        <dialog id="passwordDialog">
+                            <div class="row">
+                                <label for="password" id="passwordText" data-l10n-id="password_label">Enter the password to open this PDF file:</label>
+                            </div>
+                            <div class="row">
+                                <input type="password" id="password" class="toolbarField" />
+                            </div>
+                            <div class="buttonRow">
+                                <button id="passwordCancel" class="dialogButton">
+                                    <span data-l10n-id="password_cancel">Cancel</span>
+                                </button>
+                                <button id="passwordSubmit" class="dialogButton">
+                                    <span data-l10n-id="password_ok">OK</span>
+                                </button>
+                            </div>
+                        </dialog>
+                        <dialog id="documentPropertiesDialog">
+                            <div class="row">
+                                <span id="fileNameLabel" data-l10n-id="document_properties_file_name">File name:</span>
+                                <p id="fileNameField" aria-labelledby="fileNameLabel">-</p>
+                            </div>
+                            <div class="row">
+                                <span id="fileSizeLabel" data-l10n-id="document_properties_file_size">File size:</span>
+                                <p id="fileSizeField" aria-labelledby="fileSizeLabel">-</p>
+                            </div>
+                            <div class="separator"></div>
+                            <div class="row">
+                                <span id="titleLabel" data-l10n-id="document_properties_title">Title:</span>
+                                <p id="titleField" aria-labelledby="titleLabel">-</p>
+                            </div>
+                            <div class="row">
+                                <span id="authorLabel" data-l10n-id="document_properties_author">Author:</span>
+                                <p id="authorField" aria-labelledby="authorLabel">-</p>
+                            </div>
+                            <div class="row">
+                                <span id="subjectLabel" data-l10n-id="document_properties_subject">Subject:</span>
+                                <p id="subjectField" aria-labelledby="subjectLabel">-</p>
+                            </div>
+                            <div class="row">
+                                <span id="keywordsLabel" data-l10n-id="document_properties_keywords">Keywords:</span>
+                                <p id="keywordsField" aria-labelledby="keywordsLabel">-</p>
+                            </div>
+                            <div class="row">
+                                <span id="creationDateLabel" data-l10n-id="document_properties_creation_date">Creation Date:</span>
+                                <p id="creationDateField" aria-labelledby="creationDateLabel">
+                                    -
+                                </p>
+                            </div>
+                            <div class="row">
+                                <span id="modificationDateLabel" data-l10n-id="document_properties_modification_date">Modification Date:</span>
+                                <p id="modificationDateField" aria-labelledby="modificationDateLabel">
+                                    -
+                                </p>
+                            </div>
+                            <div class="row">
+                                <span id="creatorLabel" data-l10n-id="document_properties_creator">Creator:</span>
+                                <p id="creatorField" aria-labelledby="creatorLabel">-</p>
+                            </div>
+                            <div class="separator"></div>
+                            <div class="row">
+                                <span id="producerLabel" data-l10n-id="document_properties_producer">PDF Producer:</span>
+                                <p id="producerField" aria-labelledby="producerLabel">-</p>
+                            </div>
+                            <div class="row">
+                                <span id="versionLabel" data-l10n-id="document_properties_version">PDF Version:</span>
+                                <p id="versionField" aria-labelledby="versionLabel">-</p>
+                            </div>
+                            <div class="row">
+                                <span id="pageCountLabel" data-l10n-id="document_properties_page_count">Page Count:</span>
+                                <p id="pageCountField" aria-labelledby="pageCountLabel">
+                                    -
+                                </p>
+                            </div>
+                            <div class="row">
+                                <span id="pageSizeLabel" data-l10n-id="document_properties_page_size">Page Size:</span>
+                                <p id="pageSizeField" aria-labelledby="pageSizeLabel">-</p>
+                            </div>
+                            <div class="separator"></div>
+                            <div class="row">
+                                <span id="linearizedLabel" data-l10n-id="document_properties_linearized">Fast Web View:</span>
+                                <p id="linearizedField" aria-labelledby="linearizedLabel">
+                                    -
+                                </p>
+                            </div>
+                            <div class="buttonRow">
+                                <button id="documentPropertiesClose" class="dialogButton">
+                                    <span data-l10n-id="document_properties_close">Close</span>
+                                </button>
+                            </div>
+                        </dialog>
+                        <!--#if !MOZCENTRAL-->
+                        <dialog id="printServiceDialog" style="min-width: 200px">
+                            <div class="row">
+                                <span data-l10n-id="print_progress_message">Preparing document for printing…</span>
+                            </div>
+                            <div class="row">
+                                <progress value="0" max="100"></progress>
+                                <span data-l10n-id="print_progress_percent" data-l10n-args='{ "progress": 0 }' class="relative-progress">0%</span>
+                            </div>
+                            <div class="buttonRow">
+                                <button id="printCancel" class="dialogButton">
+                                    <span data-l10n-id="print_progress_close">Cancel</span>
+                                </button>
+                            </div>
+                        </dialog>
+                        <!--#endif-->
+                        <!--#if CHROME-->
+                        <!--#include viewer-snippet-chrome-overlays.html-->
+                        <!--#endif-->
                     </div>
-                  </div>
-                  <div id="loadingBar">
-                    <div class="progress">
-                      <div class="glimmer"></div>
-                    </div>
-                  </div>
+                    <!-- dialogContainer -->
                 </div>
-              </div>
-  
-              <div id="viewerContainer" tabindex="0">
-                <div id="viewer" class="pdfViewer"></div>
-              </div>
+                <!-- outerContainer -->
+                <div id="printContainer"></div>
+
+                <!--#if GENERIC-->
+                <input type="file" id="fileInput" class="hidden" />
+                <!--#endif-->
             </div>
-            <!-- mainContainer -->
-  
-            <div id="dialogContainer">
-              <dialog id="passwordDialog">
-                <div class="row">
-                  <label for="password" id="passwordText" data-l10n-id="password_label">Enter the password to open this PDF file:</label>
-                </div>
-                <div class="row">
-                  <input type="password" id="password" class="toolbarField" />
-                </div>
-                <div class="buttonRow">
-                  <button id="passwordCancel" class="dialogButton">
-                    <span data-l10n-id="password_cancel">Cancel</span>
-                  </button>
-                  <button id="passwordSubmit" class="dialogButton">
-                    <span data-l10n-id="password_ok">OK</span>
-                  </button>
-                </div>
-              </dialog>
-              <dialog id="documentPropertiesDialog">
-                <div class="row">
-                  <span id="fileNameLabel" data-l10n-id="document_properties_file_name">File name:</span>
-                  <p id="fileNameField" aria-labelledby="fileNameLabel">-</p>
-                </div>
-                <div class="row">
-                  <span id="fileSizeLabel" data-l10n-id="document_properties_file_size">File size:</span>
-                  <p id="fileSizeField" aria-labelledby="fileSizeLabel">-</p>
-                </div>
-                <div class="separator"></div>
-                <div class="row">
-                  <span id="titleLabel" data-l10n-id="document_properties_title">Title:</span>
-                  <p id="titleField" aria-labelledby="titleLabel">-</p>
-                </div>
-                <div class="row">
-                  <span id="authorLabel" data-l10n-id="document_properties_author">Author:</span>
-                  <p id="authorField" aria-labelledby="authorLabel">-</p>
-                </div>
-                <div class="row">
-                  <span id="subjectLabel" data-l10n-id="document_properties_subject">Subject:</span>
-                  <p id="subjectField" aria-labelledby="subjectLabel">-</p>
-                </div>
-                <div class="row">
-                  <span id="keywordsLabel" data-l10n-id="document_properties_keywords">Keywords:</span>
-                  <p id="keywordsField" aria-labelledby="keywordsLabel">-</p>
-                </div>
-                <div class="row">
-                  <span id="creationDateLabel" data-l10n-id="document_properties_creation_date">Creation Date:</span>
-                  <p id="creationDateField" aria-labelledby="creationDateLabel">
-                    -
-                  </p>
-                </div>
-                <div class="row">
-                  <span id="modificationDateLabel" data-l10n-id="document_properties_modification_date">Modification Date:</span>
-                  <p id="modificationDateField" aria-labelledby="modificationDateLabel">
-                    -
-                  </p>
-                </div>
-                <div class="row">
-                  <span id="creatorLabel" data-l10n-id="document_properties_creator">Creator:</span>
-                  <p id="creatorField" aria-labelledby="creatorLabel">-</p>
-                </div>
-                <div class="separator"></div>
-                <div class="row">
-                  <span id="producerLabel" data-l10n-id="document_properties_producer">PDF Producer:</span>
-                  <p id="producerField" aria-labelledby="producerLabel">-</p>
-                </div>
-                <div class="row">
-                  <span id="versionLabel" data-l10n-id="document_properties_version">PDF Version:</span>
-                  <p id="versionField" aria-labelledby="versionLabel">-</p>
-                </div>
-                <div class="row">
-                  <span id="pageCountLabel" data-l10n-id="document_properties_page_count">Page Count:</span>
-                  <p id="pageCountField" aria-labelledby="pageCountLabel">
-                    -
-                  </p>
-                </div>
-                <div class="row">
-                  <span id="pageSizeLabel" data-l10n-id="document_properties_page_size">Page Size:</span>
-                  <p id="pageSizeField" aria-labelledby="pageSizeLabel">-</p>
-                </div>
-                <div class="separator"></div>
-                <div class="row">
-                  <span id="linearizedLabel" data-l10n-id="document_properties_linearized">Fast Web View:</span>
-                  <p id="linearizedField" aria-labelledby="linearizedLabel">
-                    -
-                  </p>
-                </div>
-                <div class="buttonRow">
-                  <button id="documentPropertiesClose" class="dialogButton">
-                    <span data-l10n-id="document_properties_close">Close</span>
-                  </button>
-                </div>
-              </dialog>
-              <!--#if !MOZCENTRAL-->
-              <dialog id="printServiceDialog" style="min-width: 200px">
-                <div class="row">
-                  <span data-l10n-id="print_progress_message">Preparing document for printing…</span>
-                </div>
-                <div class="row">
-                  <progress value="0" max="100"></progress>
-                  <span data-l10n-id="print_progress_percent" data-l10n-args='{ "progress": 0 }' class="relative-progress">0%</span>
-                </div>
-                <div class="buttonRow">
-                  <button id="printCancel" class="dialogButton">
-                    <span data-l10n-id="print_progress_close">Cancel</span>
-                  </button>
-                </div>
-              </dialog>
-              <!--#endif-->
-              <!--#if CHROME-->
-              <!--#include viewer-snippet-chrome-overlays.html-->
-              <!--#endif-->
-            </div>
-            <!-- dialogContainer -->
-          </div>
-          <!-- outerContainer -->
-          <div id="printContainer"></div>
-  
-          <!--#if GENERIC-->
-          <input type="file" id="fileInput" class="hidden" />
-          <!--#endif-->
-        </div>
-        <!-- <div class="modal-footer">
+            <!-- <div class="modal-footer">
         <button
           type="button"
           class="btn btn-secondary"
@@ -1485,15 +1650,14 @@
         </button>
         <button type="button" class="btn btn-primary">Save changes</button>
       </div> -->
-      </div>
+        </div>
     </div>
-  </div>
-  {{-- this is newly added code for edit pdf modal --}}
+</div>
+{{-- this is newly added code for edit pdf modal --}}
 @endsection
 @section('scripts')
 <script>
-
-const canvas = document.getElementById("sig");
+    const canvas = document.getElementById("sig");
     const signaturePad = new SignaturePad(canvas);
     const canvas1 = document.getElementById("sig1");
     const signaturePad1 = new SignaturePad(canvas1);
@@ -1505,70 +1669,70 @@ const canvas = document.getElementById("sig");
     //     var signaturePad1 = new SignaturePad(canvas1);
     // }
 
-signaturePad.addEventListener('endStroke', function(){
+    signaturePad.addEventListener('endStroke', function() {
         pc_approval = document.querySelector('input[name="approval_PC"]:checked').value;
         $("#sigimage").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
-        if(pc_approval==2){
+        if (pc_approval == 2) {
             console.log("here");
-            if(signaturePad.toDataURL('image/png')!="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAAAXNSR0IArs4c6QAABGJJREFUeF7t1AEJAAAMAsHZv/RyPNwSyDncOQIECEQEFskpJgECBM5geQICBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAgQdWMQCX4yW9owAAAABJRU5ErkJggg=="){
+            if (signaturePad.toDataURL('image/png') != "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAAAXNSR0IArs4c6QAABGJJREFUeF7t1AEJAAAMAsHZv/RyPNwSyDncOQIECEQEFskpJgECBM5geQICBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAgQdWMQCX4yW9owAAAABJRU5ErkJggg==") {
                 $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
-            }else{
-                
+            } else {
+
                 $('#submitbutton').prop('disabled', true);
-                $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary");;//.removeAttr("disabled");
+                $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary");; //.removeAttr("disabled");
             }
-        }else{
+        } else {
             console.log("there");
             var signtype1 = $("#signtype1").val();
-            if(signtype1==1){
-                if(signaturePad.toDataURL('image/png')!="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAAAXNSR0IArs4c6QAABGJJREFUeF7t1AEJAAAMAsHZv/RyPNwSyDncOQIECEQEFskpJgECBM5geQICBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAgQdWMQCX4yW9owAAAABJRU5ErkJggg=="){
+            if (signtype1 == 1) {
+                if (signaturePad.toDataURL('image/png') != "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAAAXNSR0IArs4c6QAABGJJREFUeF7t1AEJAAAMAsHZv/RyPNwSyDncOQIECEQEFskpJgECBM5geQICBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAgQdWMQCX4yW9owAAAABJRU5ErkJggg==") {
                     $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
-                }else{
-                    $('#submitbutton').prop('disabled', true); 
-                    $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary");;//.removeAttr("disabled");
+                } else {
+                    $('#submitbutton').prop('disabled', true);
+                    $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary");; //.removeAttr("disabled");
                 }
-            }else{
-                if(signaturePad.toDataURL('image/png')!="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAAAXNSR0IArs4c6QAABGJJREFUeF7t1AEJAAAMAsHZv/RyPNwSyDncOQIECEQEFskpJgECBM5geQICBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAgQdWMQCX4yW9owAAAABJRU5ErkJggg==" && signaturePad1.toDataURL('image/png')!="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAAAXNSR0IArs4c6QAABGJJREFUeF7t1AEJAAAMAsHZv/RyPNwSyDncOQIECEQEFskpJgECBM5geQICBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAgQdWMQCX4yW9owAAAABJRU5ErkJggg=="){
-                $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
-            }else{
-                $('#submitbutton').prop('disabled', true);
-                $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary");;//.removeAttr("disabled");
+            } else {
+                if (signaturePad.toDataURL('image/png') != "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAAAXNSR0IArs4c6QAABGJJREFUeF7t1AEJAAAMAsHZv/RyPNwSyDncOQIECEQEFskpJgECBM5geQICBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAgQdWMQCX4yW9owAAAABJRU5ErkJggg==" && signaturePad1.toDataURL('image/png') != "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAAAXNSR0IArs4c6QAABGJJREFUeF7t1AEJAAAMAsHZv/RyPNwSyDncOQIECEQEFskpJgECBM5geQICBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAgQdWMQCX4yW9owAAAABJRU5ErkJggg==") {
+                    $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+                } else {
+                    $('#submitbutton').prop('disabled', true);
+                    $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary");; //.removeAttr("disabled");
+                }
             }
-         }   
         }
-    
-    
-       
-        
+
+
+
+
     })
-    
-    signaturePad1.addEventListener('endStroke', function(){
+
+    signaturePad1.addEventListener('endStroke', function() {
         $("#sigimage1").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
         signtype = $("#signtype").val();
         pdfsign = $("#pdfsign").val();
-        if(signtype==1 || pdfsign==1){
+        if (signtype == 1 || pdfsign == 1) {
             console.log("here");
-            if(signaturePad1.toDataURL('image/png')!="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAAAXNSR0IArs4c6QAABGJJREFUeF7t1AEJAAAMAsHZv/RyPNwSyDncOQIECEQEFskpJgECBM5geQICBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAgQdWMQCX4yW9owAAAABJRU5ErkJggg=="){
+            if (signaturePad1.toDataURL('image/png') != "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAAAXNSR0IArs4c6QAABGJJREFUeF7t1AEJAAAMAsHZv/RyPNwSyDncOQIECEQEFskpJgECBM5geQICBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAgQdWMQCX4yW9owAAAABJRU5ErkJggg==") {
 
                 $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
                 $('#submitbutton').prop('disabled', false);
-            }else{
-                 
+            } else {
+
             }
-        }else{
-            
-              if(signaturePad.toDataURL('image/png')!="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAAAXNSR0IArs4c6QAABGJJREFUeF7t1AEJAAAMAsHZv/RyPNwSyDncOQIECEQEFskpJgECBM5geQICBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAgQdWMQCX4yW9owAAAABJRU5ErkJggg==" && signaturePad1.toDataURL('image/png')!="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAAAXNSR0IArs4c6QAABGJJREFUeF7t1AEJAAAMAsHZv/RyPNwSyDncOQIECEQEFskpJgECBM5geQICBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAgQdWMQCX4yW9owAAAABJRU5ErkJggg=="){
-            $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
-        }else{
-            $('#submitbutton').prop('disabled', true);
-            $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary");;//.removeAttr("disabled");
+        } else {
+
+            if (signaturePad.toDataURL('image/png') != "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAAAXNSR0IArs4c6QAABGJJREFUeF7t1AEJAAAMAsHZv/RyPNwSyDncOQIECEQEFskpJgECBM5geQICBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAgQdWMQCX4yW9owAAAABJRU5ErkJggg==" && signaturePad1.toDataURL('image/png') != "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAAAXNSR0IArs4c6QAABGJJREFUeF7t1AEJAAAMAsHZv/RyPNwSyDncOQIECEQEFskpJgECBM5geQICBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAgQdWMQCX4yW9owAAAABJRU5ErkJggg==") {
+                $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+            } else {
+                $('#submitbutton').prop('disabled', true);
+                $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary");; //.removeAttr("disabled");
+            }
         }
-    }
-        })
+    })
 
 
     // document.getElementById("twc-email-box").classList.add("d-none");
-     $("#approval").change(function () {
+    $("#approval").change(function() {
         if ($(this).is(':checked')) {
             document.getElementById("twc-email-box").classList.remove("d-none")
             $(".pc-twc").removeClass('d-none').removeClass('d-flex');
@@ -1581,13 +1745,13 @@ signaturePad.addEventListener('endStroke', function(){
             $('input[name="approavalEmailReq"]').val(0);
         }
     })
-    $("input[name='approval_PC']").change(function () {
+    $("input[name='approval_PC']").change(function() {
         if ($(this).val() == 1) {
             $("#first_member").removeClass('d-none');
             $("input[name='name1']").attr('required', 'required');
             $("input[name='job_title1']").attr('required', 'required');
             // document.getElementById("twc-email-box").classList.remove("d-none")
-            
+
 
         } else {
             $("#first_member").addClass('d-none');
@@ -1599,7 +1763,7 @@ signaturePad.addEventListener('endStroke', function(){
 
 
 
-    $("input[name='works_coordinator']").change(function () {
+    $("input[name='works_coordinator']").change(function() {
         if ($(this).val() == 1) {
             $("textarea[name='description_approval_temp_works']").show();
         } else {
@@ -1609,14 +1773,13 @@ signaturePad.addEventListener('endStroke', function(){
     })
 
 
-    $("#DrawCheck").change(function(){
-        if($(this).is(':checked'))
-        {
-            $("#pdfChecked").prop('checked',false);
-            $("#flexCheckChecked").prop('checked',false);
+    $("#DrawCheck").change(function() {
+        if ($(this).is(':checked')) {
+            $("#pdfChecked").prop('checked', false);
+            $("#flexCheckChecked").prop('checked', false);
             $("#signtype").val(0);
-             $("#pdfsign").val(0);
-             $("#Drawtype").val(1);
+            $("#pdfsign").val(0);
+            $("#Drawtype").val(1);
             $("div#sign").removeClass('d-none').addClass('d-flex');
             $("div#pdfsign").removeClass('d-flex').addClass("d-none");
             $("#namesign").removeClass('d-flex').addClass("d-none");
@@ -1625,11 +1788,10 @@ signaturePad.addEventListener('endStroke', function(){
             //  $("input[name='pdfsign']").removeAttr('required');
             // $("input[name='namesign']").attr('required','required');
             $("#clear").show();
-            $("#sign").css('display','block');
+            $("#sign").css('display', 'block');
             $("#sign").removeClass('d-none');
-           
-        }
-        else{
+
+        } else {
             $("#signtype").val(2);
             $("#sign").addClass('d-flex').show();
             $("#namesign").removeClass('d-flex').hide();
@@ -1640,41 +1802,40 @@ signaturePad.addEventListener('endStroke', function(){
         }
     })
 
-    $("#DrawCheck1").change(function(){
-        if($(this).is(':checked'))
-        {
-            $("#signtype1").val(0); 
+    $("#DrawCheck1").change(function() {
+        if ($(this).is(':checked')) {
+            $("#signtype1").val(0);
             var signtype = $("#signtype").val();
             var signtype1 = $("#signtype1").val();
             var pdfsigntype = $("#pdfsign").val();
-           
+
             var pc_approval = document.querySelector('input[name="approval_PC"]:checked').value;
-            if(pc_approval==2){
-                if(signtype==1 || pdfsigntype==1){
+            if (pc_approval == 2) {
+                if (signtype == 1 || pdfsigntype == 1) {
                     $("#submitbutton").css("cursor", "pointer");
                     $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
-                }else{
+                } else {
                     $('#submitbutton').prop('disabled', true);
                     $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary");
                 }
-                
-            }else{
-                if((signtype==1 || pdfsigntype==1) && signtype1==1){
+
+            } else {
+                if ((signtype == 1 || pdfsigntype == 1) && signtype1 == 1) {
                     $("#submitbutton").css("cursor", "pointer");
                     $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
-                }else if(signtype1==0){
+                } else if (signtype1 == 0) {
                     $('#submitbutton').prop('disabled', true);
                     $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary");
-                }else{
+                } else {
                     $('#submitbutton').prop('disabled', true);
                     $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary");
                 }
             }
-            $("#pdfChecked1").prop('checked',false);
-            $("#flexCheckChecked1").prop('checked',false);
+            $("#pdfChecked1").prop('checked', false);
+            $("#flexCheckChecked1").prop('checked', false);
             $("#signtype").val(0);
-             $("#pdfsign").val(0);
-             $("#Drawtype").val(1);
+            $("#pdfsign").val(0);
+            $("#Drawtype").val(1);
             // $("div#pdfsign").removeClass('d-flex').addClass('d-none');
             // $("#pdfsign").removeClass('d-flex').addClass("d-none");
             // $(".customSubmitButton").removeClass("hideBtn");
@@ -1684,10 +1845,10 @@ signaturePad.addEventListener('endStroke', function(){
             // $("#clear").show();
             $("div#pdfsign1").removeClass('d-flex').addClass("d-none");
             $("div#namesign1").removeClass('d-flex').addClass("d-none");
-            $("#sign1").css('display','block');
+            $("#sign1").css('display', 'block');
             $("#sign1").removeClass('d-none');
             $("#sign1").addClass('d-flex');
-           
+
         }
         // else{
         //     $("#signtype").val(2);
@@ -1700,54 +1861,54 @@ signaturePad.addEventListener('endStroke', function(){
         // }
     })
 
-    $("#flexCheckChecked1").change(function () {
+    $("#flexCheckChecked1").change(function() {
         if ($(this).is(':checked')) {
             $("#signtype1").val(1);
             var signtype = $("#signtype").val();
             var signtype1 = $("#signtype1").val();
             var pdfsigntype = $("#pdfsign").val();
-           
+
             var pc_approval = document.querySelector('input[name="approval_PC"]:checked').value;
-            console.log(signtype,pdfsigntype, signtype1, pc_approval);
-            if(pc_approval==2){
-                if(signtype==1 || pdfsigntype==1){
+            console.log(signtype, pdfsigntype, signtype1, pc_approval);
+            if (pc_approval == 2) {
+                if (signtype == 1 || pdfsigntype == 1) {
                     $("#submitbutton").css("cursor", "pointer");
                     $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
-                }else{
+                } else {
                     $('#submitbutton').prop('disabled', true);
                     $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary");
                 }
-                
-            }else{
-                if((signtype==1 || pdfsigntype==1) && signtype1==1){
+
+            } else {
+                if ((signtype == 1 || pdfsigntype == 1) && signtype1 == 1) {
                     $("#submitbutton").css("cursor", "pointer");
                     $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
-                }else{
+                } else {
                     console.log(signaturePad.toDataURL('image/png'));
-                    if(signaturePad.toDataURL('image/png')!="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAAAXNSR0IArs4c6QAABGJJREFUeF7t1AEJAAAMAsHZv/RyPNwSyDncOQIECEQEFskpJgECBM5geQICBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAgQdWMQCX4yW9owAAAABJRU5ErkJggg=="){
+                    if (signaturePad.toDataURL('image/png') != "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAAAXNSR0IArs4c6QAABGJJREFUeF7t1AEJAAAMAsHZv/RyPNwSyDncOQIECEQEFskpJgECBM5geQICBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAgQdWMQCX4yW9owAAAABJRU5ErkJggg==") {
 
                         console.log("here");
                         $('#submitbutton').prop('disabled', true);
                         $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary");
-                    }else{
+                    } else {
                         console.log("there");
                         $('#submitbutton').prop('disabled', true);
                         $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary");
                     }
-                    
+
                 }
             }
 
             $("#sigimage1").hide();
-            $("#DrawCheck1").prop('checked',false);
+            $("#DrawCheck1").prop('checked', false);
 
             // $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
             $("#sigimage").hide();
-            $("#DrawCheck1").prop('checked',false);
-            $("#pdfChecked1").prop('checked',false);
+            $("#DrawCheck1").prop('checked', false);
+            $("#pdfChecked1").prop('checked', false);
             $("#namesign1").removeClass('d-none');
             $("#namesign1").addClass('d-flex');
-            $("div#pdfsign1").addClass('d-none'); 
+            $("div#pdfsign1").addClass('d-none');
             $("input[name='namesign1']").attr('required', 'required');
             $("#signature1").removeAttr('required', 'required');
             // $("#clear1").hide();
@@ -1762,10 +1923,10 @@ signaturePad.addEventListener('endStroke', function(){
             $("#clear1").show();
         }
     })
-    $("#pdfChecked1").change(function () {
+    $("#pdfChecked1").change(function() {
         if ($(this).is(':checked')) {
-            $("#DrawCheck1").prop('checked',false);
-            $("#flexCheckChecked1").prop('checked',false);
+            $("#DrawCheck1").prop('checked', false);
+            $("#flexCheckChecked1").prop('checked', false);
             $("#signtype1").val(1);
             $("div#pdfsign1").removeClass('d-none');
             $("#namesign1").addClass('d-none');
@@ -1803,7 +1964,7 @@ signaturePad.addEventListener('endStroke', function(){
     //         $("#signature").attr('required', 'required');
     //     }
     // })
-    $("#flexCheckChecked").change(function () {
+    $("#flexCheckChecked").change(function() {
         // document.getElementById("namesign").classList.remove("d-none") 
         // document.getElementById("namesign").style.display = 'block'; 
         // document.getElementById("sign").classList.add("d-none") 
@@ -1812,9 +1973,9 @@ signaturePad.addEventListener('endStroke', function(){
         // // pdfsign
         // alert();
         if ($(this).is(':checked')) {
-            if($("#DrawCheck1").is(':checked')==true){
+            if ($("#DrawCheck1").is(':checked') == true) {
                 $("#sigimage").hide();
-            }else{
+            } else {
                 $("#sigimage").hide();
                 $("#sigimage1").hide();
                 $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
@@ -1828,7 +1989,7 @@ signaturePad.addEventListener('endStroke', function(){
             $("div#sign").removeClass('d-flex').addClass('d-none');
             $("#namesign").removeClass('d-none').show();
             $("#namesign").addClass('d-flex').show();
-            $(".customSubmitButton").removeClass("hideBtn"); 
+            $(".customSubmitButton").removeClass("hideBtn");
             $(".customSubmitButton").addClass("showBtn");
             $("input[name='pdfsign']").removeAttr('required');
             $("input[name='namesign']").attr('required', 'required');
@@ -1847,7 +2008,7 @@ signaturePad.addEventListener('endStroke', function(){
         }
     })
 
-    $("#pdfChecked").change(function () {
+    $("#pdfChecked").change(function() {
 
         if ($(this).is(':checked')) {
             $("#flexCheckChecked").prop('checked', false);
@@ -1855,7 +2016,7 @@ signaturePad.addEventListener('endStroke', function(){
             $("#signtype").val(0);
             $('#Drawtype').val(0);
             $("#sigimage1").hide();
-            $("#DrawCheck").prop('checked',false);
+            $("#DrawCheck").prop('checked', false);
             $("input[name='pdfsign']").attr('required', 'required');
             $("div#sign").removeClass('d-flex').addClass('d-none');
             $("div#pdfsign").removeClass('d-none').addClass('d-flex');
@@ -1884,7 +2045,7 @@ signaturePad.addEventListener('endStroke', function(){
     // });
     const clearBtns = document.querySelectorAll('.btn--clear');
     clearBtns.forEach(clearbtn => {
-        clearbtn.addEventListener('click', function(e){
+        clearbtn.addEventListener('click', function(e) {
             console.log(e.target);
             if (e.target.getAttribute('id') === 'clear') {
                 e.preventDefault();
@@ -1903,40 +2064,40 @@ signaturePad.addEventListener('endStroke', function(){
         });
     });
 
-    $('#drawing_no').change(function () {
+    $('#drawing_no').change(function() {
         $('#drawing_no').css("background-color", "#f5f8fa ");
     });
-    $('#drawing_title').change(function () {
+    $('#drawing_title').change(function() {
         $('#drawing_title').css("background-color", "#f5f8fa ");
     });
-    $('#drawing_no').change(function () {
+    $('#drawing_no').change(function() {
         $('#drawing_no').css("background-color", "#f5f8fa ");
     });
-    $('#twc_name').change(function () {
+    $('#twc_name').change(function() {
         $('#twc_name').css("background-color", "#f5f8fa ");
     });
-    $('#tws_name').change(function () {
+    $('#tws_name').change(function() {
         $('#tws_name').css("background-color", "#f5f8fa ");
     });
-    $('#ms_ra_no').change(function () {
+    $('#ms_ra_no').change(function() {
         $('#ms_ra_no').css("background-color", "#f5f8fa ");
     });
-    $('#name1').change(function () {
+    $('#name1').change(function() {
         $('#name1').css("background-color", "#fff ");
     });
-    $('#job_title1').change(function () {
+    $('#job_title1').change(function() {
         $('#job_title1').css("background-color", "#fff");
     });
-    $('#name2').change(function () {
+    $('#name2').change(function() {
         $('#name2').css("background-color", "#f5f8fa ");
     });
-    $('#job_title').change(function () {
+    $('#job_title').change(function() {
         $('#job_title').css("background-color", "#f5f8fa ");
     });
-    $('#namesign_id').change(function () {
+    $('#namesign_id').change(function() {
         $('#namesign_id').css("background-color", "#f5f8fa ");
     });
-    $('#namesign_id2').change(function () {
+    $('#namesign_id2').change(function() {
         $('#namesign_id2').css("background-color", "#f5f8fa ");
     });
     // var canvas = document.getElementById("sig");
@@ -1955,7 +2116,7 @@ signaturePad.addEventListener('endStroke', function(){
     //     $("#permitunload").submit();
     // });
 
-    $("#submitbutton").on('click', function () {
+    $("#submitbutton").on('click', function() {
         if (signaturePad) {
             $("#signature").val(signaturePad.toDataURL('image/png'));
         }
@@ -1965,50 +2126,83 @@ signaturePad.addEventListener('endStroke', function(){
         $(this).attr('disabled', 'disabled');
         $("#permitunload").submit();
     })
-
-
 </script>
 <script>
     function deleteFile(id) {
-      console.log("id", id);
+        console.log("id", id);
         // Remove the corresponding file container (the parent div) by its id
         const fileContainer = document.getElementById(id);
-    
+
         if (fileContainer) {
             fileContainer.remove();
-    
+
             // Get the filename from the id (assuming your id is in the format "filename")
             const filename = id.split('_').pop();
-    
-             // Find all hidden inputs with the "design_upload[]" name attribute
-             const hiddenInputs = document.querySelectorAll('input[name="design_upload[]"]');
-    
+
+            // Find all hidden inputs with the "design_upload[]" name attribute
+            const hiddenInputs = document.querySelectorAll('input[name="design_upload[]"]');
+
             // Loop through hidden inputs to find the one with the matching value
             hiddenInputs.forEach(input => {
                 if (input.value == id) {
                     input.remove();
                 }
             });
-    
-            if(hiddenInputs){
-              // Make an AJAX request to delete the file on the server
-              fetch('{{ route("delete_drawing_file") }}', {
-                  method: 'POST',
-                  headers: {
-                      'Content-Type': 'application/json',
-                      'X-CSRF-TOKEN': '{{ csrf_token() }}' // Add CSRF token if necessary
-                  },
-                  body: JSON.stringify({ filename: id })
-              })
-              .then(response => response.json())
-              .then(data => {
-                  console.log(data.message); // Log the server's response
-              })
-              .catch(error => {
-                  console.error(error);
-              });
-          }
+
+            if (hiddenInputs) {
+                // Make an AJAX request to delete the file on the server
+                fetch('{{ route("delete_drawing_file") }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}' // Add CSRF token if necessary
+                        },
+                        body: JSON.stringify({
+                            filename: id
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data.message); // Log the server's response
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            }
         }
     }
-    </script
+</script>
+
+<script>
+    // JavaScript to handle adding new members
+    const addMemberButton = document.getElementById('addMemberButton');
+
+    addMemberButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        const third_member = document.getElementById('third_member');
+        const fourth_member = document.getElementById('fourth_member');
+        const fifth_member = document.getElementById('fifth_member');
+
+        // Check the display style of element1
+        const style3 = window.getComputedStyle(third_member);
+        const displayStyle3 = style3.getPropertyValue('display');
+
+        // Check the display style of element2
+        const style4 = window.getComputedStyle(fourth_member);
+        const displayStyle4 = style4.getPropertyValue('display');
+
+        // Check the display style of element2
+        const style5 = window.getComputedStyle(fifth_member);
+        const displayStyle5 = style5.getPropertyValue('display');
+        if (displayStyle3 === 'none') {
+            third_member.style.display = 'block';
+        } else if (displayStyle4 === 'none') {
+            fourth_member.style.display = 'block';
+        } else if (displayStyle5 === 'none') {
+            fifth_member.style.display = 'block';
+        } else {
+            alert("No new signature for added")
+        }
+    });
+</script>
 @endsection

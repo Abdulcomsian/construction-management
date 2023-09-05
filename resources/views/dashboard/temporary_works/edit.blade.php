@@ -1390,6 +1390,7 @@ $(document).ready(function(){
 
 $("#description").summernote({
     placeholder: 'Design Description',
+    disableDragAndDrop:true,
     tabsize: 2,
     height: 300
 });

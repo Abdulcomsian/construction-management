@@ -655,7 +655,6 @@
 
                     <div class="row">
                         <div class="col-md-6" id="second_member" style="margin-top: 2rem;">
-
                             {{-- <div class="d-flex inputDiv">
                             </div> --}}
                             <div class="d-flex inputDiv principleno mt-0">
@@ -700,31 +699,31 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <div class="d-flex align-items-center" style="border: none">
+                                <div class="d-flex flex-column" style="border: none">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold" style="width:40% !important;font-size: 600 !important; font-size: 16px !important; white-space: nowrap">
                                         <span class="signatureTitle">Signature Type:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <div style="display:flex; align-items: center; padding-left:10px">
-                                        <input type="radio" class="checkbox-field" id="DrawCheck" checked=true style="width: 12px;">
-                                        <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="0"> -->
-                                        <span style="padding-left:14px;font-family: 'Inter', sans-serif; color:#000;font-size:14px;line-height: 2">Draw</span>
+                                    <div class="d-flex flex-row">
+                                        <div style="display:flex; align-items: center; padding-left:10px">
+                                            <input type="radio" class="checkbox-field" id="DrawCheck" checked=true style="width: 12px;">
+                                            <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="0"> -->
+                                            <span style="padding-left:14px;font-family: 'Inter', sans-serif; color:#000;font-size:14px;line-height: 2">Draw</span>
+                                        </div>
+                                        <div style="display:flex; align-items: center; padding-left:10px">
+                                            <input type="radio" class="" id="flexCheckChecked" style="width: 12px;">
+                                            <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="2">
+                                            <span style="padding-left:14px;font-family: 'Inter', sans-serif; color:#000;font-size:14px;line-height: 2">Name</span>
+                                        </div>
+                                        <!--end::Label-->
+                                        <div style="display:flex; align-items: center; padding-left:10px">
+                                            <input type="radio" class="" id="pdfChecked" style="width: 12px;">
+                                            <input type="hidden" id="pdfsign" name="pdfsigntype" class="form-control form-control-solid" value="0">
+                                            <span style="padding-left:14px;font-family: 'Inter', sans-serif; color:#000;font-size:14px;line-height: 2; min-width: fit-content; white-space: nowrap">PNG/JPG
+                                                Upload </span>
+                                        </div>
                                     </div>
-                                    <div style="display:flex; align-items: center; padding-left:10px">
-                                        <input type="radio" class="" id="flexCheckChecked" style="width: 12px;">
-                                        <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="2">
-                                        <span style="padding-left:14px;font-family: 'Inter', sans-serif; color:#000;font-size:14px;line-height: 2">Name</span>
-                                    </div>
-                                    &nbsp;
-                                    <!--end::Label-->
-                                    <div style="display:flex; align-items: center; padding-left:10px">
-                                        <input type="radio" class="" id="pdfChecked" style="width: 12px;">
-                                        <input type="hidden" id="pdfsign" name="pdfsigntype" class="form-control form-control-solid" value="0">
-                                        <span style="padding-left:14px;font-family: 'Inter', sans-serif; color:#000;font-size:14px;line-height: 2; min-width: fit-content; white-space: nowrap">PNG/JPG
-                                            Upload </span>
-                                    </div>
-
                                 </div>
                                 <div class="d-flex inputDiv my-0" id="sign" style="align-items: center;border:none">
                                     <!-- <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -797,31 +796,32 @@
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <div class="d-flex align-items-center" style="border: none">
+                                    <div class="d-flex flex-column" style="border: none">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold" style="width:40% !important;font-size: 600 !important; font-size: 16px !important; white-space: nowrap">
                                             <span class="signatureTitle">Signature Type:</span>
                                         </label>
                                         <!--end::Label-->
-                                        <div style="display:flex; align-items: center; padding-left:10px">
-                                            <input type="radio" class="checkbox-field" id="DrawCheck1" checked=true style="width: 12px;">
-                                            <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="0"> -->
-                                            <span style="padding-left:14px;font-family: 'Inter', sans-serif; color:#000;font-size:14px;line-height: 2">Draw</span>
+                                        <div class="d-flex flex-row">
+                                            <div style="display:flex; align-items: center; padding-left:10px">
+                                                <input type="radio" class="checkbox-field" id="DrawCheck1" checked=true style="width: 12px;">
+                                                <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="0"> -->
+                                                <span style="padding-left:14px;font-family: 'Inter', sans-serif; color:#000;font-size:14px;line-height: 2">Draw</span>
+                                            </div>
+                                            <div style="display:flex; align-items: center; padding-left:10px">
+                                                <input type="radio" class="" id="flexCheckChecked1" style="width: 12px;">
+                                                <input type="hidden" id="signtype1" name="signtype" class="form-control form-control-solid" value="2">
+                                                <span style="padding-left:14px;font-family: 'Inter', sans-serif; color:#000;font-size:14px;line-height: 2">Name</span>
+                                            </div>
+                                            &nbsp;
+                                            <!--end::Label-->
+                                            <div style="display:flex; align-items: center; padding-left:10px">
+                                                <input type="radio" class="" id="pdfChecked1" style="width: 12px;">
+                                                <input type="hidden" id="pdfsign1" name="pdfsigntype1" class="form-control form-control-solid" value="0">
+                                                <span style="padding-left:14px;font-family: 'Inter', sans-serif; color:#000;font-size:14px;line-height: 2; min-width: fit-content; white-space: nowrap">PNG/JPG
+                                                    Upload </span>
+                                            </div>
                                         </div>
-                                        <div style="display:flex; align-items: center; padding-left:10px">
-                                            <input type="radio" class="" id="flexCheckChecked1" style="width: 12px;">
-                                            <input type="hidden" id="signtype1" name="signtype" class="form-control form-control-solid" value="2">
-                                            <span style="padding-left:14px;font-family: 'Inter', sans-serif; color:#000;font-size:14px;line-height: 2">Name</span>
-                                        </div>
-                                        &nbsp;
-                                        <!--end::Label-->
-                                        <div style="display:flex; align-items: center; padding-left:10px">
-                                            <input type="radio" class="" id="pdfChecked1" style="width: 12px;">
-                                            <input type="hidden" id="pdfsign1" name="pdfsigntype1" class="form-control form-control-solid" value="0">
-                                            <span style="padding-left:14px;font-family: 'Inter', sans-serif; color:#000;font-size:14px;line-height: 2; min-width: fit-content; white-space: nowrap">PNG/JPG
-                                                Upload </span>
-                                        </div>
-
                                     </div>
                                     <div class="d-flex inputDiv m-0" id="sign1" style="align-items: center;border:none">
                                         <!-- <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -928,7 +928,7 @@
                             </div>
 
                             <div class="col">
-                                <div class="d-flex align-items-center" style="border: none">
+                                <div class="d-flex flex-column" style="border: none">
                                     <label class="fs-6 fw-bold" style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
                                         <span class="signatureTitle" style="white-space: nowrap">Signature
                                             Type:</span>
@@ -1000,7 +1000,7 @@
                             </div>
 
                             <div class="col">
-                                <div class="d-flex align-items-center" style="border: none">
+                                <div class="d-flex flex-column" style="border: none">
                                     <label class="fs-6 fw-bold" style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
                                         <span class="signatureTitle" style="white-space: nowrap">Signature
                                             Type:</span>
@@ -1071,7 +1071,7 @@
                             </div>
 
                             <div class="col">
-                                <div class="d-flex align-items-center" style="border: none">
+                                <div class="d-flex flex-column" style="border: none">
                                     <label class="fs-6 fw-bold" style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
                                         <span class="signatureTitle" style="white-space: nowrap">Signature
                                             Type:</span>

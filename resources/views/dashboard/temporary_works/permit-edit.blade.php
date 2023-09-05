@@ -1323,10 +1323,6 @@
                                 </div>
             
                                 <div class="d-flex inputDiv principleno mb-0" id="sign5" style="border:none !important;">
-                                {{-- <label style="width:33%"
-                                                            class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                            <span class="required">Signature:</span>
-                                                        </label> --}}
                                 {{-- <br /> --}}
                                 <canvas id="sig5" style="border-radius: 9px; background: lightgray;"></canvas>
                                 <span id="clear5" class="fa fa-undo cursor-pointer btn--clear" style="line-height: 11; position:relative; top:51px; right:26px"></span>
@@ -1957,6 +1953,10 @@
     var canvas5 = document.getElementById("sig5");
     let signaturepad1 = false;
     let signaturepad2 = false;
+    let signaturepad3 = false;
+    let signaturepad4 = false;
+    let signaturepad5 = false;
+
     let isSecondMemEnable = true;
     if(canvas1)
     {
@@ -1969,7 +1969,6 @@
     if(canvas3)
     {
     var signaturePad3 = new SignaturePad(canvas3);
-    console.log("signature 3", signaturePad3)
     }
     if(canvas4)
     {
@@ -2049,10 +2048,6 @@
         }
         }   
     }
-
-
-
-
     })
 
     signaturePad1.addEventListener('endStroke', function(){
@@ -2080,12 +2075,11 @@
     })
     const clearBtns = document.querySelectorAll('.btn--clear');
 
-    console.log(clearBtns);
-
     clearBtns.forEach(clearbtn => {
     clearbtn.addEventListener('click', function(e){
         console.log(e.target);
         if (e.target.getAttribute('id') === 'clear') {
+            console.log("123123")
             e.preventDefault();
             signaturepad1 = false;
             console.log(signaturepad1);
@@ -2103,6 +2097,25 @@
             $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").prop("disabled", true);
             $("#sigimage1").text("Signature Not Added").removeClass('text-success').addClass('text-danger');
         }
+        if (e.target.getAttribute('id') === 'clear3') {
+            e.preventDefault();
+            signaturepad3 = false;
+            signaturePad3.clear();
+            $("#signature3").val('');
+        }
+        if (e.target.getAttribute('id') === 'clear4') {
+            e.preventDefault();
+            signaturepad4 = false;
+            signaturePad4.clear();
+            $("#signature4").val('');
+        }
+        if (e.target.getAttribute('id') === 'clear5') {
+            e.preventDefault();
+            signaturepad5 = false;
+            signaturePad5.clear();
+            $("#signature5").val('');
+        }
+        console.log("end",e.target.getAttribute('id'))
     });
     });
 

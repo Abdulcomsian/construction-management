@@ -988,7 +988,7 @@
                                             <input type="text" name="namesign" class="form-control form-control-solid">
                                         </div>
                                     @else
-                                        <img src="asset('temporary/signature/{{$permitdata->signature}}')" width="100%" />
+                                        <img src="{{asset('temporary/signature/'.$permitdata->signature)}}" width="100%" />
                                     @endif
                                 </div>
                             </div>
@@ -1099,7 +1099,7 @@
                                         </div>  -->
                                     </div>
                                 @else
-                                    <img src="asset('temporary/signature/{{$permitdata->signature1}}')" width="100%" />
+                                    <img src="{{asset('temporary/signature/'.$permitdata->signature1)}}" width="100%" />
                                 @endif
                             @endif
                         </div>
@@ -1176,7 +1176,7 @@
                               </div>
                             </div>
                             @else
-                                <img src="asset('temporary/signature/{{$permitdata->signatures[0]->signature}}')" width="100%" />
+                                <img src="{{asset('temporary/signature/'.$permitdata->signatures[0]->signature)}}" width="100%" />
                             @endif
                         </div>
                         <div class="col-md-6 mt-md-5" id="fourth_member" style="display: {{ isset($permitdata->signatures[1]->name) &&      $permitdata->signatures[1]->name != null ? 'block' : 'none' }}">
@@ -1255,7 +1255,7 @@
                                 </div>
                             </div>
                             @else
-                                <img src="asset('temporary/signature/{{$permitdata->signatures[1]->signature}}')" width="100%" />
+                                <img src="{{asset('temporary/signature/'.$permitdata->signatures[1]->signature)}}" width="100%" />
                             @endif
                         </div>
                         <div class="col-md-6 mt-md-5" id="fifth_member" style="display: {{ isset($permitdata->signatures[2]->name) && $permitdata->signatures[2]->name != null ? 'block' : 'none' }}">
@@ -1333,7 +1333,7 @@
                             </div>
                             </div>
                         @else
-                            <img src="asset('temporary/signature/{{$permitdata->signatures[2]->signature}}')" width="100%" />
+                            <img src="{{asset('temporary/signature/'.$permitdata->signatures[2]->signature)}}" width="100%" />
                         @endif
                         <div>
                             <button class="btn btn-success btn-sm" id="addMemberButton">Add New</button>

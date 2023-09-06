@@ -638,8 +638,7 @@ class TemporaryWorkController extends Controller
             }
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token','files' ,'date', 'company_id', 'projaddress', 'signed', 'signed3', 'signed4', 'signed5', 'images', 'namesign','namesign3','namesign4',
-            'namesign5','signtype', 'signtype3', 'signtype4', 'signtype5', 'pdfsigntype', 'pdfphoto', 'projno', 'projname', 'approval','req_type','req_name','req_check','req_notes', 'action', 'permitdata_status');
+            $all_inputs  = $request->except('_token','files' ,'date','companyid', 'company_id', 'projaddress', 'signed', 'images', 'namesign','namesign3','signtype', 'signtype3', 'signtype4', 'signtype5', 'namesign4', 'namesign5', 'pdfsigntype', 'pdfphoto', 'projno', 'projname', 'approval','req_type','req_name','req_check','req_notes', 'name3', 'job_title3', 'company3', 'companyid3', 'signed3', 'namesign3', 'date3', 'name4', 'job_title4', 'company4', 'companyid4', 'signed4', 'namesign4', 'date4', 'name5', 'job_title5', 'company5', 'companyid5', 'signed5', 'namesign5', 'date5', 'action', 'permitdata_status');
             
             //if design req details is exist
             
@@ -681,6 +680,8 @@ class TemporaryWorkController extends Controller
             if ($request->signtype3 == 1) {
                 $signature3 = $request->namesign3;
             } elseif($request->signed4 != HelperFunctions::defaultSign()) { 
+                $name3 = $request->name3;
+                $job_title3 = $request->job_title3;
                 $folderPath = public_path('temporary/signature/');
                 $image = explode(";base64,", $request->signed3);
                 $image_type = explode("image/", $image[0]);
@@ -697,6 +698,8 @@ class TemporaryWorkController extends Controller
             if ($request->signtype4 == 1) {
                 $signature4 = $request->namesign4;
             } elseif($request->signed4 != HelperFunctions::defaultSign()) { 
+                $name4 = $request->name4;
+                $job_title4 = $request->job_title4;
                 $folderPath = public_path('temporary/signature/');
                 $image = explode(";base64,", $request->signed4);
                 $image_type = explode("image/", $image[0]);
@@ -713,6 +716,8 @@ class TemporaryWorkController extends Controller
             if ($request->signtype5 == 1) {
                 $signature5 = $request->namesign5;
             } elseif($request->signed5 != HelperFunctions::defaultSign()) { 
+                $name5 = $request->name5;
+                $job_title5 = $request->job_title5;
                 $folderPath = public_path('temporary/signature/');
                 $image = explode(";base64,", $request->signed5);
                 $image_type = explode("image/", $image[0]);
@@ -790,6 +795,8 @@ class TemporaryWorkController extends Controller
             if(isset($signature3))
             {
                 $signature3_record = new Signature([
+                    'name' => $name3,
+                    'job_title' => $job_title3,
                     'signatureable_type' => get_class($temporary_work),  
                     'signature' => $signature3, 
                     'signatureable_id' => $temporary_work->id             
@@ -801,6 +808,8 @@ class TemporaryWorkController extends Controller
             if(isset($signature4))
             {
                 $signature4_record = new Signature([
+                    'name' => $name4,
+                    'job_title' => $job_title4,
                     'signatureable_type' => get_class($temporary_work),  
                     'signature' => $signature4, 
                     'signatureable_id' => $temporary_work->id             
@@ -812,6 +821,8 @@ class TemporaryWorkController extends Controller
             if(isset($signature5))
             {
                 $signature5_record = new Signature([
+                    'name' => $name5,
+                    'job_title' => $job_title5,
                     'signatureable_type' => get_class($temporary_work),  
                     'signature' => $signature5, 
                     'signatureable_id' => $temporary_work->id             
@@ -846,7 +857,7 @@ class TemporaryWorkController extends Controller
                 // dd($content);
                 // dd($request->all());
                 // dd($content);
-                $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $request->all(),  'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $twc_id_no, 'comments' => $attachcomments , "description" => $content]);
+                $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $request->all(),  'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $twc_id_no, 'comments' => $attachcomments , "description" => $content, 'image_name3' => $image_name3, 'image_name4' => $image_name4, 'image_name5' => $image_name5, 'company3' => $request->company3, 'company4' => $request->company4, 'company5' => $request->company5, 'date3'=>$request->date3, 'date4'=>$request->date4, 'date5'=>$request->date5]);
                 
                 // dd("now here");
                 $path = public_path('pdf');

@@ -453,9 +453,89 @@
             </div>
         </div>
 
+        <div class="tableDiv paddingTable" style="margin-top: 5px">
+            <table>
+                <tbody>
+                    <thead>
+                        <tr>
+                            <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; color:black; margin: 0px;"><b style="font-size:12px;">
+                                Name   </b></label></td>
+                            <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; color:black; margin: 0px;"><b style="font-size:12px;">
+                                Company   </b></label></td>
+                            <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; color:black; margin: 0px;"><b style="font-size:12px;">
+                                Job Title   </b></label></td>
+                            <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; color:black; margin: 0px;"><b style="font-size:12px;">
+                                Date   </b></label></td>
+                            <td><label for="" style="width: 100px;border: 1px solid; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; color:black; margin: 0px;"><b style="font-size:12px;">
+                                Signature   </b></label></td>
+                    </tr>
+                    <tbody>
+                        <tr>
+                            <td style="width: 200px; font-size:12px;"> {{$data['name']}}</td>
+                            <td style="width: 200px; font-size:12px;">{{$data['company']}}</td>
+                            <td style="width: 200px; font-size:12px;"> {{$data['job_title']}}</td>
+                            <td style="width: 200px; font-size:12px;"> {{ date('d-m-Y', strtotime($data['date'])) }}</td>
+                            <td style="font-size:12px;"> @if($data['signtype']=='1')
+                                <i> {{ucwords($data['namesign'])}}</i>
+                                 @else
+                                 @php 
+                                 $sign=\App\Models\TemporaryWork::find($image_name);@endphp
+                                 <img src="temporary/signature/{{$sign->signature}}" width="auto" height="120">
+                                 @endif
+                            </td>
+                        </tr>
+                        @if($data['name3'])
+                            <tr>
+                                <td style="width: 200px; font-size:12px;"> {{$data['name3']}}</td>
+                                <td style="width: 200px; font-size:12px;">{{$data['company3']}}</td>
+                                <td style="width: 200px; font-size:12px;"> {{$data['job_title3']}}</td>
+                                <td style="width: 200px; font-size:12px;"> {{ date('d-m-Y', strtotime($data['date3'])) }}</td>
+                                <td style="width: 200px; font-size:12px;"> 
+                                    @if(isset($image_name3) && $image_name3!='')
+                                        <img src="temporary/signature/{{$image_name3}}"  width="auto" height="50px" />
+                                    @else
+                                        {{ $data['namesign'] ?? ''}}
+                                    @endif
+                                </td>
+                            </tr>
+                        @endif
+                        @if($data['name4'])
+                            <tr>
+                                <td style="width: 200px; font-size:12px;"> {{$data['name4']}}</td>
+                                <td style="width: 200px; font-size:12px;">{{$data['company4']}}</td>
+                                <td style="width: 200px; font-size:12px;"> {{$data['job_title4']}}</td>
+                                <td style="width: 200px; font-size:12px;"> {{ date('d-m-Y', strtotime($data['date4'])) }}</td>
+                                <td style="width: 200px; font-size:12px;"> 
+                                    @if(isset($image_name4) && $image_name4 !='')
+                                        <img src="temporary/signature/{{$image_name4}}"  width="auto" height="50px" />
+                                    @else
+                                        {{ $data['namesign'] ?? ''}}
+                                    @endif
+                                </td>
+                            </tr>
+                        @endif
+                        @if($data['name5'])
+                            <tr>
+                                <td style="width: 200px; font-size:12px;"> {{$data['name5']}}</td>
+                                <td style="width: 200px; font-size:12px;">{{$data['company5']}}</td>
+                                <td style="width: 200px; font-size:12px;"> {{$data['job_title5']}}</td>
+                                <td style="width: 200px; font-size:12px;"> {{ date('d-m-Y', strtotime($data['date5'])) }}</td>
+                                <td style="width: 200px; font-size:12px;"> 
+                                    @if(isset($image_name5) && $image_name5 !='')
+                                        <img src="temporary/signature/{{$image_name5}}"  width="auto" height="50px" />
+                                    @else
+                                        {{ $data['namesign'] ?? ''}}
+                                    @endif
+                                </td>
+                            </tr>
+                        @endif
+                    </tbody>
+                    </thead>
+                </tbody>
+            </table>
+        </div>
 
-
-        <div class="tableDiv paddingTable" style="margin: 20px 0px;">
+        {{-- <div class="tableDiv paddingTable" style="margin: 20px 0px;">
             <table>
                 <tbody>
                     <tr>
@@ -495,7 +575,7 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </div> --}}
 
     </div>
 </page>

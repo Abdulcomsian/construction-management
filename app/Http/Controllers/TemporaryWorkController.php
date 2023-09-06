@@ -2253,12 +2253,12 @@ class TemporaryWorkController extends Controller
         DB::beginTransaction();
         Validations::storepermitload($request);
         try {
-            $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'company1','drawing','drawing_option','custom_drawing','design_upload','name3', 'job_title3', 'company3', 'companyid3', 'signed3', 'namesign3', 'name4', 'job_title4', 'company4', 'companyid4', 'signed4', 'namesign4', 'name5', 'job_title5', 'company5', 'companyid5', 'signed5', 'namesign5','date3','date4', 'date5','action', 'permitdata_status');            
+            $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'company1','drawing','drawing_option','custom_drawing','design_upload','name3', 'job_title3', 'company3', 'companyid3', 'signed3', 'namesign3', 'name4', 'job_title4', 'company4', 'companyid4', 'signed4', 'namesign4', 'name5', 'job_title5', 'company5', 'companyid5', 'signed5', 'namesign5','date3','date4', 'date5','action', 'permitdata_status','draft_status');            
             $all_inputs['created_by'] = auth()->user()->id;
             $all_inputs['custom_drawing'] = '';
             $all_inputs['design_upload'] = '';
             if($request->action == 'draft'){
-                $all_inputs['status'] = 8;
+                $all_inputs['draft_status'] = 1;
             }
             if($request->design_upload){
                 $designUpload = implode(', ', $request->design_upload);
@@ -2557,21 +2557,32 @@ class TemporaryWorkController extends Controller
                         $status = "Unloaded";
                     } elseif ($permit->status == 2) {
                         $status = "Pending";
+                        if ($permit->draft_status == 1) {
+                            $status = "Draft";
+                        }
                     } elseif ($permit->status == 5) {
                         $status = "<span class='permit-rejected  cursor-pointer btn btn-danger ' style='font-size: 13px;width: 70px;border-radius:8px; height: 20px;line-height: 0px;' data-id='" . \Crypt::encrypt($permit->id) . "'>DNL</span>";
                     }elseif ($permit->status == 6) {
                         $status = "Pending";
+                        if ($permit->draft_status == 1) {
+                            $status = "Draft";
+                        }
                     }elseif ($permit->status == 7) {
                         $status = "Pending";
-                    }elseif ($permit->status == 8) {
+                        if ($permit->draft_status == 1) {
+                            $status = "Draft";
+                        }
+                    }elseif ($permit->draft_status == 1) {
                         $status = "Draft";
                     }
 
                     if ($permit->status == 5) {
                         $dnl_status = "<a href=" . route("permit.edit", \Crypt::encrypt($permit->id)) . "><i style='text-align:center; font-size:20px;' class='fa fa-edit'></i></a>";
                     }
-                    if ($permit->status == 8 || $permit->status == 2 || $permit->status == 6 || $permit->status == 7) {
-                        $dnl_status = "<a href=" . route("permit.edit", \Crypt::encrypt($permit->id)) . "><i style='text-align:center; font-size:20px;' class='fa fa-edit'></i></a>";
+                    if ($permit->status == 2 || $permit->status == 6 || $permit->status == 7) {
+                        if ($permit->draft_status == 1) {
+                            $dnl_status = "<a href=" . route("permit.edit", \Crypt::encrypt($permit->id)) . "><i style='text-align:center; font-size:20px;' class='fa fa-edit'></i></a>";
+                        }
                     }
 
                     $path = config('app.url');
@@ -2654,9 +2665,9 @@ class TemporaryWorkController extends Controller
                 $designUpload = implode(', ', $request->design_upload);
                 $all_inputs['design_upload'] = $designUpload;
             }
-            if($request->action == 'draft'){
-                $all_inputs['status'] = 8;
-            }
+            // if($request->action == 'draft'){
+            //     $all_inputs['status'] = 8;
+            // }
 
             //first person signature and name
             $image_name1 = '';
@@ -2837,7 +2848,9 @@ class TemporaryWorkController extends Controller
             if (!isset($request->approval)) {
                 $all_inputs['status'] = 1;
             }
-            
+            if($request->action == 'draft'){
+                $all_inputs['draft_status'] = 1;
+            }
             $permitload->signatures()->delete();
 
             $permitload->update($all_inputs);

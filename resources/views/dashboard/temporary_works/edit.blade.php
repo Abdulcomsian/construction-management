@@ -951,6 +951,101 @@
                                     </label>
                                     <input type="text" name="namesign" class="form-control form-control-solid">
                                 </div>
+                                <div class="col-md-6" id="third_member" style="display: none">
+                                    <!-- <div class="d-flex inputDiv d-block">
+                                                        </div> -->
+                                    <div class="d-flex flex-column" style="border: none">
+                                        <label class="m-0 fw-bold" style="width:40% !important; font-size: 16px !important;font-family: 'Inter', sans-serif;">
+                                            <span class="signatureTitle" style="white-space: nowrap">Signature
+                                                Type:</span>
+                                        </label>
+                                        <div style="display:flex; align-items: center; padding-left:10px">
+                                            <input type="radio" class="checkbox-field" id="DrawCheck1" checked=true style="width: 12px;">
+                                            <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="2"> -->
+                                            <span style="padding-left:14px;font-family: 'Inter', sans-serif; color:#000;font-size:14px;line-height: 2">Draw</span>
+                                        </div>
+                                        <!--end::Label-->
+                                    </div>
+                                    {{-- //old COde --}}
+                                    <div class="d-flex inputDiv" id="namesign3" style="display: none !important;">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Name Signature:</span>
+                                        </label>
+                                        <input type="text" name="namesign3" id="namesign_id3" class="form-control form-control-solid">
+                                    </div>
+                                    <div class="d-flex inputDiv principleno m-0" id="sign3" style="border:none !important;">
+                                        <canvas id="sig3" style="border-radius: 9px; background: lightgray;"></canvas>
+                                        <span id="clear3" class="fa fa-undo cursor-pointer btn--clear" style="line-height: 11; position:relative; top:51px; right:26px"></span>
+                                    </div>
+                                    <div class="d-flex inputDiv principleno" id="sign3" style=" display: none !important">
+                                        <textarea id="signature3" name="signed3" style="opacity: 0"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" id="fourth_member" style="display: none">
+                                    <!-- <div class="d-flex inputDiv d-block">
+                                                        </div> -->
+                                    <div class="d-flex flex-column" style="border: none">
+                                        <label class="m-0 fw-bold" style="width:40% !important; font-size: 16px !important;font-family: 'Inter', sans-serif;">
+                                            <span class="signatureTitle" style="white-space: nowrap">Signature
+                                                Type:</span>
+                                        </label>
+                                        <div style="display:flex; align-items: center; padding-left:10px">
+                                            <input type="radio" class="checkbox-field" id="DrawCheck1" checked=true style="width: 12px;">
+                                            <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="2"> -->
+                                            <span style="padding-left:14px;font-family: 'Inter', sans-serif; color:#000;font-size:14px;line-height: 2">Draw</span>
+                                        </div>
+                                        <!--end::Label-->
+                                    </div>
+                                    {{-- //old COde --}}
+                                    <div class="d-flex" id="namesign1" style="display: none !important;">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Name Signature:</span>
+                                        </label>
+                                        <input type="text" name="namesign4" id="namesign_id4" class="form-control form-control-solid">
+                                    </div>
+                                    <div class="d-flex inputDiv principleno m-0" id="sign4" style="border:none !important;">
+                                        {{-- <br /> --}}
+                                        <canvas id="sig4" style="border-radius: 9px; background: lightgray;"></canvas>
+                                        <span id="clear4" class="fa fa-undo cursor-pointer btn--clear" style="line-height: 11; position:relative; top:51px; right:26px"></span>
+                                    </div>
+                                    <div class="d-flex inputDiv principleno" id="sign4" style=" display: none !important">
+                                        <textarea id="signature4" name="signed4" style="opacity: 0"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" id="fifth_member" style="display: none">
+                                    <div class="d-flex flex-column" style="border: none">
+                                        <label class="m-0 fw-bold" style="width:40% !important; font-size: 16px !important;font-family: 'Inter', sans-serif;">
+                                            <span class="signatureTitle" style="white-space: nowrap">Signature
+                                                Type:</span>
+                                        </label>
+                                        <div style="display:flex; align-items: center; padding-left:10px">
+                                            <input type="radio" class="checkbox-field" id="DrawCheck1" checked=true style="width: 12px;">
+                                            <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="2"> -->
+                                            <span style="padding-left:14px;font-family: 'Inter', sans-serif; color:#000;font-size:14px;line-height: 2">Draw</span>
+                                        </div>
+                                        <!--end::Label-->
+                                    </div>
+                                    {{-- //old COde --}}
+                                    <div class="d-flex align-items-center" id="namesign1" style="display: none !important;">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Name Signature:</span>
+                                        </label>
+                                        <input type="text" name="namesign5" id="namesign_id5" class="form-control form-control-solid">
+                                    </div>
+                
+                                    <div class="d-flex inputDiv principleno m-0" id="sign5" style="border:none !important;">
+                                        {{-- <label style="width:33%"
+                                                                class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                                <span class="required">Signature:</span>
+                                                            </label> --}}
+                                        {{-- <br /> --}}
+                                        <canvas id="sig5" style="border-radius: 9px; background: lightgray;"></canvas>
+                                        <span id="clear5" class="fa fa-undo cursor-pointer btn--clear" style="line-height: 11; position:relative; top:51px; right:26px"></span>
+                                    </div>
+                                    <div class="d-flex inputDiv principleno" id="sign4" style=" display: none !important">
+                                        <textarea id="signature5" name="signed5" style="opacity: 0"></textarea>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-4 d-flex justify-content-end align-items-end" style="bottom: 20px;">
                                 {{-- <div class="d-flex inputDiv" style="align-items: right;text-align:right;"> --}}
@@ -958,6 +1053,9 @@
 
                                     </label> --}}
                                     {{-- <br /> --}}
+                                    <div>
+                                        <button class="btn btn-success btn-sm mt-8" id="addMemberButton">Add New</button>
+                                    </div>
                                     <button type="submit" style="  top: 70% !important; left: 0;  padding: 10px 50px;font-size: 20px;font-weight: bold;" id="updateBtn" disabled
                                         class="updateBtn btn btn-secondary">Update</button>
                                     <!-- <button id="submitbutton" type="submit" style="margin-left: 10px;" class="btn btn-primary float-end">Update</button> -->

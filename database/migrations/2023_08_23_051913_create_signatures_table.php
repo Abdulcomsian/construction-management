@@ -18,10 +18,10 @@ class CreateSignaturesTable extends Migration
             $table->unsignedBigInteger('signatureable_id');
             $table->string('signature');
             $table->string('signatureable_type');
-            $table->string('name');
-            $table->string('job_title');
+            $table->string('name')->nullable();
+            $table->string('job_title')->nullable();
             $table->string('company')->nullable();
-            $table->date('date');
+            $table->date('date')->nullable();
             $table->timestamps();
         });
     }

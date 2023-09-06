@@ -475,7 +475,7 @@
                             <td style="width: 200px; font-size:12px;">{{$data['company']}}</td>
                             <td style="width: 200px; font-size:12px;"> {{$data['job_title']}}</td>
                             <td style="width: 200px; font-size:12px;"> {{ date('d-m-Y', strtotime($data['date'])) }}</td>
-                            <td style="font-size:12px;"> @if($data['signtype']=='1')
+                            <td style="font-size:12px;"> @if(isset($data['signtype']) && $data['signtype']=='1')
                                 <i> {{ucwords($data['namesign'])}}</i>
                                  @else
                                  @php 

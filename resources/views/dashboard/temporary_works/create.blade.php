@@ -1535,7 +1535,7 @@ $(document).ready(function(){
     });
 
 
-    // $(document).ready(function() {
+    // $(document).ready(function() { //
 
     //     $("#description").summernote({
     //         placeholder: 'Design Description',

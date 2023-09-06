@@ -1169,7 +1169,7 @@
                                 </div>
                             </div>
                             @else
-                            <img style="background-color: #D3D3D3; border-radius: 15px; width: 300px;" src="temporary/signature/{{$permitdata->signatures[0]->signature}}" width="100%" />
+                            <img style="background-color: #D3D3D3; border-radius: 15px; width: 300px;" src="asset('temporary/signature/{{$permitdata->signatures[0]->signature}}')" width="100%" />
                             @endif
                         </div>
                         <div class="col-md-6 mt-md-5" id="fourth_member" style="display: {{ isset($permitdata->signatures[1]->name) &&      $permitdata->signatures[1]->name != null ? 'block' : 'none' }}">
@@ -1247,7 +1247,7 @@
                                 </div>
                             </div>
                             @else
-                            <img style="background-color: #D3D3D3; border-radius: 15px; width: 300px;" src="temporary/signature/{{$permitdata->signatures[1]->signature}}" width="100%" />
+                            <img style="background-color: #D3D3D3; border-radius: 15px; width: 300px;" src="asset('temporary/signature/{{$permitdata->signatures[1]->signature}}')" width="100%" />
                             @endif
                         </div>
                         <div class="col-md-6 mt-md-5" id="fifth_member" style="display: {{ isset($permitdata->signatures[2]->name) && $permitdata->signatures[2]->name != null ? 'block' : 'none' }}">
@@ -1329,7 +1329,7 @@
                             </div>
                         </div>
                         @else
-                        <img style="background-color: #D3D3D3; border-radius: 15px; width: 300px;" src="temporary/signature/{{$permitdata->signatures[2]->signature}}" width="100%" />
+                        <img style="background-color: #D3D3D3; border-radius: 15px; width: 300px;" src="asset('temporary/signature/{{$permitdata->signatures[2]->signature}}')" width="100%" />
                         @endif
                         <div class="mt-5">
                             <button class="btn btn-success btn-sm" id="addMemberButton">Add New</button>

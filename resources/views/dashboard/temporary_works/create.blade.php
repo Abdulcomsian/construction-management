@@ -1487,12 +1487,12 @@
 
 $(document).ready(function(){
 
-    $("#description").summernote({
-        placeholder: 'Design Description',
-        disableDragAndDrop:true,
-        tabsize: 2,
-        height: 300
-    });
+    // $("#description").summernote({
+    //     placeholder: 'Design Description',
+    //     disableDragAndDrop:true,
+    //     tabsize: 2,
+    //     height: 300
+    // });
 
 })
 
@@ -1535,16 +1535,16 @@ $(document).ready(function(){
     });
 
 
-    // $(document).ready(function() { //
+    $(document).ready(function() {
 
-    //     $("#description").summernote({
-    //         placeholder: 'Design Description',
-    //         disableDragAndDrop:true,
-    //         tabsize: 2,
-    //         height: 300
-    //     });
+        $("#description").summernote({
+            placeholder: 'Design Description',
+            disableDragAndDrop:true,
+            tabsize: 2,
+            height: 300
+        });
 
-    // })
+    })
 </script>
 <script>
     // JavaScript to handle adding new members

@@ -590,8 +590,9 @@ class TemporaryWorkController extends Controller
     //store desing brief
     public function store(Request $request)
     {
+        DB::beginTransaction();
         Validations::storeTemporaryWork($request);
-        // try {
+        try {
             $scope_of_design = [];
             foreach ($request->keys() as $key) {
                 if (Str::contains($key, 'sod')) {
@@ -637,7 +638,8 @@ class TemporaryWorkController extends Controller
             }
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token','files' ,'date', 'company_id', 'projaddress', 'signed', 'images', 'namesign', 'signtype', 'pdfsigntype', 'pdfphoto', 'projno', 'projname', 'approval','req_type','req_name','req_check','req_notes');
+            $all_inputs  = $request->except('_token','files' ,'date', 'company_id', 'projaddress', 'signed', 'signed3', 'signed4', 'signed5', 'images', 'namesign','namesign3','namesign4',
+            'namesign5','signtype', 'signtype3', 'signtype4', 'signtype5', 'pdfsigntype', 'pdfphoto', 'projno', 'projname', 'approval','req_type','req_name','req_check','req_notes', 'action', 'permitdata_status');
             
             //if design req details is exist
             
@@ -674,10 +676,53 @@ class TemporaryWorkController extends Controller
                 file_put_contents($file, $image_base64);
             }
 
-            
+            //third person signature and name
+            $image_name3 = '';
+            if ($request->signtype3 == 1) {
+                $signature3 = $request->namesign3;
+            } elseif($request->signed4 != HelperFunctions::defaultSign()) { 
+                $folderPath = public_path('temporary/signature/');
+                $image = explode(";base64,", $request->signed3);
+                $image_type = explode("image/", $image[0]);
+                $image_type_png = $image_type[1];
+                $image_base64 = base64_decode($image[1]);
+                $image_name3 = uniqid() . '.' . $image_type_png;
+                $file = $folderPath . $image_name3;
+                file_put_contents($file, $image_base64);
+                $signature3 = $image_name3; 
+            }
 
-            // $image_name = HelperFunctions::savesignature($request);
-            
+            //fourth person signature and name
+            $image_name4 = '';
+            if ($request->signtype4 == 1) {
+                $signature4 = $request->namesign4;
+            } elseif($request->signed4 != HelperFunctions::defaultSign()) { 
+                $folderPath = public_path('temporary/signature/');
+                $image = explode(";base64,", $request->signed4);
+                $image_type = explode("image/", $image[0]);
+                $image_type_png = $image_type[1];
+                $image_base64 = base64_decode($image[1]);
+                $image_name4 = uniqid() . '.' . $image_type_png;
+                $file = $folderPath . $image_name4;
+                file_put_contents($file, $image_base64);
+                $signature4 = $image_name4; 
+            }
+
+            //fifth person signature and name
+            $image_name5 = '';
+            if ($request->signtype5 == 1) {
+                $signature5 = $request->namesign5;
+            } elseif($request->signed5 != HelperFunctions::defaultSign()) { 
+                $folderPath = public_path('temporary/signature/');
+                $image = explode(";base64,", $request->signed5);
+                $image_type = explode("image/", $image[0]);
+                $image_type_png = $image_type[1];
+                $image_base64 = base64_decode($image[1]);
+                $image_name5 = uniqid() . '.' . $image_type_png;
+                $file = $folderPath . $image_name5;
+                file_put_contents($file, $image_base64);
+                $signature5 = $image_name5; 
+            }            
 
 
             // $all_inputs['description_temporary_work_required'] = $content;
@@ -742,6 +787,38 @@ class TemporaryWorkController extends Controller
             $categorylabel=explode("-",$request->design_requirement_text);
             $all_inputs['category_label']=$categorylabel[0];
             $temporary_work = TemporaryWork::create($all_inputs);
+            if(isset($signature3))
+            {
+                $signature3_record = new Signature([
+                    'signatureable_type' => get_class($temporary_work),  
+                    'signature' => $signature3, 
+                    'signatureable_id' => $temporary_work->id             
+                ]);
+    
+                $temporary_work->signatures()->save($signature3_record);
+            }
+
+            if(isset($signature4))
+            {
+                $signature4_record = new Signature([
+                    'signatureable_type' => get_class($temporary_work),  
+                    'signature' => $signature4, 
+                    'signatureable_id' => $temporary_work->id             
+                ]);
+    
+                $temporary_work->signatures()->save($signature4_record);
+            }
+
+            if(isset($signature5))
+            {
+                $signature5_record = new Signature([
+                    'signatureable_type' => get_class($temporary_work),  
+                    'signature' => $signature5, 
+                    'signatureable_id' => $temporary_work->id             
+                ]);
+    
+                $temporary_work->signatures()->save($signature5_record);
+            }
             if ($temporary_work) {
                 ScopeOfDesign::create(array_merge($scope_of_design, ['temporary_work_id' => $temporary_work->id]));
                 Folder::create(array_merge($folder_attachements, ['temporary_work_id' => $temporary_work->id]));
@@ -881,13 +958,15 @@ class TemporaryWorkController extends Controller
                     $company_email->save();
                 }
             }
+            DB::commit();
             toastSuccess('Temporary Work successfully added!');
             return redirect()->route('temporary_works.index');
-        // } catch (\Exception $exception) {
-        //     // dd($exception->getMessage(), $exception->getLine());
-        //     toastError('Something went wrong, try again!');
-        //     return Redirect::back();
-        // }
+        } catch (\Exception $exception) {
+            DB::rollback();
+            dd($exception->getMessage(), $exception->getLine());
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
     }
 
     public function show(TemporaryWork $temporaryWork)
@@ -921,7 +1000,7 @@ class TemporaryWorkController extends Controller
 
                 $projects = Project::with('company')->whereIn('id', $ids)->get();
             }
-            $temporaryWork = TemporaryWork::with('designerCompanyEmails','scopdesign', 'folder', 'attachspeccomment', 'temp_work_images')->where('id', $temporaryWork->id)->first();
+            $temporaryWork = TemporaryWork::with('designerCompanyEmails','scopdesign', 'folder', 'attachspeccomment', 'temp_work_images', 'signatures')->where('id', $temporaryWork->id)->first();
             $selectedproject = Project::with('company')->find($temporaryWork->project_id);
             return view('dashboard.temporary_works.edit', compact('temporaryWork', 'projects', 'selectedproject'));
         } catch (\Exception $exception) {

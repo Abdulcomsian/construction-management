@@ -1096,7 +1096,7 @@
                         <textarea id="signature5" name="signed5" style="opacity: 0"></textarea>
                     </div>
                 </div>
-                <div class="col-md-4 d-flex flex-column align-items-start gap-3">
+                <div class="col-md-6 d-flex flex-column align-items-start gap-3">
                     <div>
                         <button class="btn btn-success btn-sm mt-8" id="addMemberButton">Add New</button>
                     </div>
@@ -1336,8 +1336,40 @@
 
 
 
+    // var canvas = document.getElementById("sig");
+    // var signaturePad = new SignaturePad(canvas);
     var canvas = document.getElementById("sig");
+    var canvas1 = document.getElementById("sig1");
+    var canvas3 = document.getElementById("sig3");
+    var canvas4 = document.getElementById("sig4");
+    var canvas5 = document.getElementById("sig5");
+    let signaturepad1 = false;
+    let signaturepad2 = false;
+    let signaturepad3 = false;
+    let signaturepad4 = false;
+    let signaturepad5 = false;
+
+    if(canvas)
+    {
     var signaturePad = new SignaturePad(canvas);
+    }
+    if(canvas1)
+    {
+    var signaturePad1 = new SignaturePad(canvas1);
+    }
+    if(canvas3)
+    {
+    var signaturePad3 = new SignaturePad(canvas3);
+    }
+    if(canvas4)
+    {
+    var signaturePad4 = new SignaturePad(canvas4);
+    }
+    if(canvas5)
+    {
+    var signaturePad5 = new SignaturePad(canvas5);
+    }
+
     signaturePad.addEventListener("endStroke", () => {
         console.log("hello");
         $("#signature").val(signaturePad.toDataURL('image/png'));
@@ -1354,6 +1386,7 @@
 
         $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary"); //.addAttr("disabled");
     });
+
     // $("#submitbutton").on('click',function(e){
     // if ( $("#desingform-form").valid() ) {
 
@@ -1366,15 +1399,38 @@
 
     // })
 
-    $("#submitbutton").on('click', function() {
+    $("#submitbutton, #draft").on('click', function(e) {
         if (signaturePad) {
             $("#signature").val(signaturePad.toDataURL('image/png'));
         }
+        if(signaturePad3)
+        {
+        $("#signature3").val(signaturePad3.toDataURL('image/png'));
+        }
+        if(signaturePad4)
+        {
+        $("#signature4").val(signaturePad4.toDataURL('image/png'));
+        }
+        if(signaturePad5)
+        {
+        $("#signature5").val(signaturePad5.toDataURL('image/png'));
+        }
+        var buttonValue = $(this).val();
+        var input = $("<input>")
+        .attr("type", "hidden")
+        .attr("name", "action")
+        .val(buttonValue);
+        // var status = $('#permitdata_status').val();
+        // if(status == 'pending' && buttonValue != 'draft')
+        // {
+        //     $("#permitrenew").attr('action', "{{route('permit.save')}}");
+        // }
         // if (signaturePad1) {
         //     $("#signature1").val(signaturePad1.toDataURL('image/png'));
         // }
         $('#submitbutton').prop('disabled', true);
         $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary"); //.prop("disabled", true);
+        $("#desingform").append(input);
         $("#desingform").submit();
     });
 

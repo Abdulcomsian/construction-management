@@ -172,5 +172,10 @@ class TemporaryWork extends Model
     {
         return $this->hasMany(PdfFilesHistory::class, 'tempwork_id')->where('type', '=', 'design_brief');
     }
+    
+    public function signatures()
+    {
+        return $this->hasMany(Signature::class, 'signatureable_id');
+    }
 
 }

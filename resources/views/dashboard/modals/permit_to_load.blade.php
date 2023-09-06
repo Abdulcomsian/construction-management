@@ -6,7 +6,7 @@
 
 <div class="modal fade" id="permit_modal_id" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
-    <div class="modal-dialog modal-dialog-centered mw-900px">
+    <div class="modal-dialog modal-dialog-centered mw-1000px">
         <!--begin::Modal content-->
         <div class="modal-content rounded">
             <!--begin::Modal header-->
@@ -55,11 +55,14 @@
                     <table class="table table-hover permitLoad-modal--table">
                         <thead style="height: 60px;">
                             <tr style="background: #f5f8fa;color:#000;">
-                                <td><b>Temporary Work</b></td>
+                                <td style="max-width:300px;"><b>Temporary Work</b></td>
                                 <td><b>Permit No</b></td>
                                 <td><b>Expiry Date</b></td>
                                 <td><b>Type</b></td>
-                                <td style="width:10%"><b>Status</b></td>
+                                <td><b>Location</b></td>
+                                <td style="width: 90px;"><b>Block</b></td>
+                                <td style="width: 60px;"><b>Date</b></td>
+                                <td style="width: 60px;"><b>Status</b></td>
                                 <td><b>Action</b></td>
                             </tr>
                         </thead>

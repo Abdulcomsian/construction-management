@@ -1538,7 +1538,7 @@
             $(".customDate::-webkit-calendar-picker-indicator").css("filter", "invert(0)")
         })
     });
-});
+// });
 
 
 $(document).ready(function(){

@@ -1095,6 +1095,7 @@ class TemporaryWorkController extends Controller
             $dom = new \DOMDocument();
             @$dom->loadHtml($designDocument, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
             $images = $dom->getElementsByTagName('img') ?? [];
+            dd($images);
             foreach($images as $item => $image){
                 $data = $image->getAttribute("src");
                 list($type, $data) = explode(';', $data);

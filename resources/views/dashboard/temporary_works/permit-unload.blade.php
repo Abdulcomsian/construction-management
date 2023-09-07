@@ -455,7 +455,7 @@
                             <div class=" inputDiv d-block">
                                 <div class=" modalDiv d-block">
                                     <!--begin::Label-->
-                                    <label class="fs-6 fw-bold mb-2" style="bottom: 39px;">
+                                    <label class="fs-6 fw-bold mb-2" style="bottom: 46px;">
                                         Location of the temporary works:
                                     </label>
                                     <textarea name="location_temp_work" rows="2" cols="170" placeholder=" Location of the temporary works">{{$permitdata->location_temp_work ?? ''}}</textarea>
@@ -464,7 +464,7 @@
                             <div class=" inputDiv d-block">
                                 <div class=" modalDiv d-block">
                                     <!--begin::Label-->
-                                    <label class="fs-6 fw-bold mb-2" style="bottom: 39px;">
+                                    <label class="fs-6 fw-bold mb-2" style="bottom: 46px;">
                                         Description of structure:
                                     </label>
                                     <textarea name="description_structure" rows="2" cols="170" placeholder="Description of structure:">{{$permitdata->description_structure ?? ''}}</textarea>
@@ -555,14 +555,14 @@
 
                         <div class="col-md-12">
                             <div class="inputDiv">
-                                <label style="color:black; bottom: 38px">TWC to define the extents, limits and controls
+                                <label style="color:black; bottom: 45px">TWC to define the extents, limits and controls
                                     for this PTS (where
                                     applicable)</label>
                                 <textarea name="twc_control_pts" class="twcTextArea" rows="2" style="width:100%;"></textarea>
                             </div>
 
                             <div class="inputDiv">
-                                <label style="color:black; bottom: 38px">Back-propping and additional requirements;
+                                <label style="color:black; bottom: 45px">Back-propping and additional requirements;
                                     limitations and
                                     exclusions; explanatory sketches references (if applicable)</label>
                                 <textarea name="back_propping" rows="2" style="width:100%;"></textarea>

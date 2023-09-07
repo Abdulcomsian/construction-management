@@ -180,6 +180,22 @@
                         </td>
                     </tr>
                     <tr>
+                        <td style="font-size:12px;">
+                            Minimum concrete strength required?
+                                <br>
+                            @if($data['minimum_concrete']==1)
+                            <span style="font-size:12px;">{{$data['description_minimum_concrete']}}</span>
+                            @endif
+                        </td>
+                        <td style="font-size:12px;">@if($data['minimum_concrete']==1){{'Y'}}@else{{'N'}}@endif
+                            <br>
+                            @if(isset($file_minimum_concrete) && !empty($file_minimum_concrete))
+                                <a target="_blank" href="{{asset($file_minimum_concrete)}}">File Uploaded</a>
+                            @else
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
                         <td colspan="2">
                             <label for="" style="width: 100%;color: black; border: 1px solid; padding: 10px;">
                                 <center>

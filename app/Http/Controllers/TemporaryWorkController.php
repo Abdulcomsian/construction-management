@@ -2316,7 +2316,7 @@ class TemporaryWorkController extends Controller
             $image_name3 = '';
             if ($request->signtype3 == 1) {
                 $signature3 = $request->namesign3;
-            } elseif($request->name3) { 
+            } elseif($request->signed3 != HelperFunctions::defaultSign()) { 
                 $name3 = $request->name3;
                 $job_title3 = $request->job_title3;
                 $company3 = $request->company3;
@@ -2336,7 +2336,7 @@ class TemporaryWorkController extends Controller
             $image_name4 = '';
             if ($request->signtype4 == 1) {
                 $signature4 = $request->namesign4;
-            } elseif($request->name4) { 
+            } elseif($request->signed4 != HelperFunctions::defaultSign()) { 
                 $name4 = $request->name4;
                 $job_title4 = $request->job_title4;
                 $company4 = $request->company4;
@@ -2356,7 +2356,7 @@ class TemporaryWorkController extends Controller
             $image_name5 = '';
             if ($request->signtype5 == 1) {
                 $signature4 = $request->namesign5;
-            } elseif($request->name5) { 
+            } elseif($request->signed5 != HelperFunctions::defaultSign()) { 
                 $name5 = $request->name5;
                 $job_title5 = $request->job_title5;
                 $company5 = $request->company5;
@@ -2378,7 +2378,7 @@ class TemporaryWorkController extends Controller
             }
             $permitload = PermitLoad::create($all_inputs);  
 
-            if($request->name3)
+            if($request->name3 && $request->signed3 != HelperFunctions::defaultSign())
             {
                 $signature3_record = new Signature([
                     'name' => $name3,
@@ -2393,7 +2393,7 @@ class TemporaryWorkController extends Controller
                 $permitload->signatures()->save($signature3_record);
             }
 
-            if($request->name4)
+            if($request->name4 && $request->signed4 != HelperFunctions::defaultSign())
             {
                 $signature4_record = new Signature([
                     'name' => $name4,
@@ -2408,7 +2408,7 @@ class TemporaryWorkController extends Controller
                 $permitload->signatures()->save($signature4_record);
             }
 
-            if($request->name5)
+            if($request->name5 && $request->signed5 != HelperFunctions::defaultSign())
             {
                 $signature5_record = new Signature([
                     'name' => $name5,

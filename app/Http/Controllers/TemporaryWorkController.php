@@ -2499,6 +2499,7 @@ class TemporaryWorkController extends Controller
     public function permit_get(Request $request)
     {
         $tempid = \Crypt::decrypt($request->id);
+        $unload_permit = true;
         //  if (isset($request->type)) {
         //    $permited = PermitLoad::where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->latest()->get();
         //     $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->latest()->get();
@@ -2518,7 +2519,25 @@ class TemporaryWorkController extends Controller
         if (count($permited) > 0) {
             $current =  \Carbon\Carbon::now();
             foreach ($permited as $permit) {
-               
+                if(isset($request->type)){
+                    if (($permit->draft_status == '1')) {
+                        if($permit->status == 3 || $permit->status == 6){
+                            $unload_permit = true;
+                        } else{
+                            $unload_permit = false;
+                        }
+                    } else{
+                        if($permit->status == 3 || $permit->status == 6 || $permit->status == 1){
+                            $unload_permit = true;
+                         } else{
+                            $unload_permit = false;
+                        }
+                    }
+                    if($unload_permit == false){
+                        continue;
+                    }  
+                }
+                              
                     $to = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $permit->created_at);
                     $diff_in_days = $to->diffInDays($current);
                     $class = '';
@@ -2529,7 +2548,7 @@ class TemporaryWorkController extends Controller
                     $days = (7 - $diff_in_days);
                     if ($permit->draft_status == '1') {
                         $status = "Draft";
-                    } elseif ($permit->status == '1') {
+                    }elseif ($permit->status == '1') {
                         $status = "Open";
                         $button = '<a style="line-height:15px;height: 50px;margin: 4px 0;" class="btn btn-primary" href="' . route("permit.renew", \Crypt::encrypt($permit->id)) . '"><span class="fa fa-plus-square"></span> Renew</a>';
                         if (isset($request->type)) {
@@ -2586,7 +2605,7 @@ class TemporaryWorkController extends Controller
                     if (auth()->user()->hasRole('scaffolder')) {
                         $button = '';
                     }
-                    $list .= '<tr data-permit-id="'.$permit->id.'" style="' . $class . '"><td><a style="    height: 50px;line-height: 15px;" target="_blank" href="' . $path . 'pdf/' . $permit->ped_url . '">' . $request->desc . '</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' . $days . ' days </td><td>Permit Load</td><td>'. $permit->location_temp_work .'</td><td>'. $permit->block_id .'</td><td>'. $permit->permit_date .'</td><td>' .  $status . '</td><td style="height: 48px;line-height: 15px;text-align:center;">' . $dnl_status . $button .'  '.$permit->status. '</td>/tr>';
+                    $list .= '<tr data-permit-id="'.$permit->id.'" style="' . $class . '"><td><a style="    height: 50px;line-height: 15px;" target="_blank" href="' . $path . 'pdf/' . $permit->ped_url . '">' . $request->desc . '</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' . $days . ' days </td><td>Permit Load</td><td>'. $permit->location_temp_work .'</td><td>'. $permit->block_id .'</td><td>'. $permit->permit_date .'</td><td>' .  $status . '</td><td style="height: 48px;line-height: 15px;text-align:center;">' . $dnl_status . $button . ' '.$permit->status. '</td>/tr>';
                 }
             $list .= '<hr>';
         }
@@ -3200,7 +3219,7 @@ class TemporaryWorkController extends Controller
     
                 $permitload->signatures()->save($signature5_record);
             }
-            
+
             if($request->principle_contractor==null){$request->principle_contractor=0;}
             $data['principle_contractor'] = $request->approval_PC;
             if ($permitload) {

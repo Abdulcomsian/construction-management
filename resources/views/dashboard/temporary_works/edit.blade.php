@@ -988,7 +988,7 @@
                                         <input type="text" name="namesign" class="form-control form-control-solid">
                                     </div>
                                 @else
-                                    <img src="temporary/signature/{{$temporaryWork->signature}}" width="100%" />
+                                    <img src="{{asset('temporary/signature/'.$temporaryWork->signature)}}" width="100%" />
                                 @endif
                             </div>
                         </div>

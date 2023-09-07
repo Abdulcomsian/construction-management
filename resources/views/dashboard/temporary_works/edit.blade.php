@@ -1677,6 +1677,37 @@ $("#description").summernote({
 //     $(this).parent().parent().prev().remove();
 //     $(this).remove();
 </script>
+<script>
+    // JavaScript to handle adding new members
+    const addMemberButton = document.getElementById('addMemberButton');
 
+    addMemberButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        const third_member = document.getElementById('third_member');
+        const fourth_member = document.getElementById('fourth_member');
+        const fifth_member = document.getElementById('fifth_member');
+
+        // Check the display style of element1
+        const style3 = window.getComputedStyle(third_member);
+        const displayStyle3 = style3.getPropertyValue('display');
+
+        // Check the display style of element2
+        const style4 = window.getComputedStyle(fourth_member);
+        const displayStyle4 = style4.getPropertyValue('display');
+
+        // Check the display style of element2
+        const style5 = window.getComputedStyle(fifth_member);
+        const displayStyle5 = style5.getPropertyValue('display');
+        if (displayStyle3 === 'none') {
+            third_member.style.display = 'block';
+        } else if (displayStyle4 === 'none') {
+            fourth_member.style.display = 'block';
+        } else if (displayStyle5 === 'none') {
+            fifth_member.style.display = 'block';
+        } else {
+            alert("No new signature for added")
+        }
+    });
+</script>
 
 @endsection

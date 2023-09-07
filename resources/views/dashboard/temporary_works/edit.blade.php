@@ -988,7 +988,7 @@
                                         <input type="text" name="namesign" class="form-control form-control-solid">
                                     </div>
                                 @else
-                                    <img src="{{asset('temporary/signature/'.$temporaryWork->signature)}}" width="100%" />
+                                    <img style="background-color: #D3D3D3; border-radius: 15px; width: 300px;" src="{{asset('temporary/signature/'.$temporaryWork->signature)}}" width="100%" />
                                 @endif
                             </div>
                         </div>
@@ -1065,7 +1065,7 @@
                                 </div>
                             </div>
                             @else
-                                <img src="{{asset('temporary/signature/'.$temporaryWork->signatures[0]->signature)}}" width="100%" />
+                                <img style="background-color: #D3D3D3; border-radius: 15px; width: 300px;" src="{{asset('temporary/signature/'.$temporaryWork->signatures[0]->signature)}}" width="100%" />
                             @endif
                         </div>
                         <div class="col-md-6 mt-md-5" id="fourth_member" style="display: {{ isset($temporaryWork->signatures[1]->name) &&      $temporaryWork->signatures[1]->name != null ? 'block' : 'none' }}">
@@ -1144,7 +1144,7 @@
                                 </div>
                             </div>
                             @else
-                                <img src="{{asset('temporary/signature/'.$temporaryWork->signatures[1]->signature)}}" width="100%" />
+                                <img style="background-color: #D3D3D3; border-radius: 15px; width: 300px;" src="{{asset('temporary/signature/'.$temporaryWork->signatures[1]->signature)}}" width="100%" />
                             @endif
                         </div>
                         <div class="col-md-6 mt-md-5" id="fifth_member" style="display: {{ isset($temporaryWork->signatures[2]->name) && $temporaryWork->signatures[2]->name != null ? 'block' : 'none' }}">

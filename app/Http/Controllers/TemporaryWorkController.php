@@ -679,7 +679,7 @@ class TemporaryWorkController extends Controller
             $image_name3 = '';
             if ($request->signtype3 == 1) {
                 $signature3 = $request->namesign3;
-            } elseif($request->signed4 != HelperFunctions::defaultSign()) { 
+            } elseif($request->signed3 != HelperFunctions::defaultSign()) { 
                 $name3 = $request->name3;
                 $job_title3 = $request->job_title3;
                 $company3 = $request->company3;
@@ -694,7 +694,6 @@ class TemporaryWorkController extends Controller
                 file_put_contents($file, $image_base64);
                 $signature3 = $image_name3; 
             }
-
             //fourth person signature and name
             $image_name4 = '';
             if ($request->signtype4 == 1) {
@@ -2377,7 +2376,6 @@ class TemporaryWorkController extends Controller
                 $all_inputs['status'] = 2;
             }
             $permitload = PermitLoad::create($all_inputs);  
-
             if($request->name3 && $request->signed3 != HelperFunctions::defaultSign())
             {
                 $signature3_record = new Signature([

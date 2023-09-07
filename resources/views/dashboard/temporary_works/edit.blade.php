@@ -1234,7 +1234,7 @@
                                 <button class="btn btn-success btn-sm mt-8" id="addMemberButton">Add New</button>
                             </div>
                             <button id="submitbutton" type="button" style="  top: 70% !important; left: 0;  padding: 10px 50px;font-size: 20px;font-weight: bold;" id="updateBtn"
-                                class="updateBtn btn btn-secondary">Update</button>
+                                class="updateBtn btn btn-primary">Update</button>
                             <!-- <button id="submitbutton" type="submit" style="margin-left: 10px;" class="btn btn-primary float-end">Update</button> -->
                             {{--
                         </div> --}}

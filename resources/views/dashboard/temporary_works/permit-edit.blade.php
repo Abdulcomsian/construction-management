@@ -1235,16 +1235,18 @@
                         @else
                         <img style="background-color: #D3D3D3; border-radius: 15px; width: 300px;" src="{{asset('temporary/signature/'.$permitdata->signatures[2]->signature)}}" width="100%" />
                         @endif
-                        <div>
-                            <button class="btn btn-success btn-sm mt-10" id="addMemberButton">Add New</button>
-                        </div>
+                        {{-- <div>
+                        </div> --}}
                     </div>
                     @if($permitdata->status == 2 || $permitdata->status == 6 || $permitdata->status == 7)
                     <input type="hidden" id="permitdata_status" name="permitdata_status" value="pending" />
                     @else
                     <input type="hidden" id="permitdata_status" name="permitdata_status" value="approved" />
                     @endif
-                    <div class="row mt-7">
+                    <div class="col-md-12 d-flex justify-content-end align-items-end" style="bottom: 20px;">
+                        <div class="col-md-5">
+                            <button class="btn btn-success btn-sm mt-10" id="addMemberButton" style="padding: 10px 40px;font-size: 20px;font-weight: bold;">Add New Signature</button>
+                        </div>
                         <div class="col-md-6">
                             <button id="submitbutton" type="button" class="btn btn-primary">Update</button>
                             <button name="action" id="draft" value="draft" type="button" class="btn btn-success set-button">Save as Draft</button>
@@ -2283,7 +2285,7 @@
                 } else if (displayStyle5 === 'none') {
                     fifth_member.style.display = 'block';
                 } else {
-                    alert("No new signature for added")
+                    alert("Max Signature Limit Reached")
                 }
             });
         </script>

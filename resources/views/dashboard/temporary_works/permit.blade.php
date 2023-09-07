@@ -1401,20 +1401,24 @@
                     </div>
                   </div>
                 </div>
-                <div>
-                  <button class="btn btn-success btn-sm mt-8" id="addMemberButton">Add New</button>
-                </div>
+                {{-- <div>
+                  
+                </div> --}}
               </div>
               <br>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-1"></div>
+            <div class="col-md-12 d-flex justify-content-end align-items-end" style="bottom: 20px;">
+            <div class="col-md-5">
+              <button class="btn btn-success btn-sm mt-8" id="addMemberButton" style="padding: 10px 40px;font-size: 20px;font-weight: bold;">Add New Signature</button>
+            </div>
             <div class="col-md-6 ">
               <button id="submitbutton" type="button" disabled class="btn btn-secondary  set-button" disabled>Submit</button>
               <button name="action" id="draft" value="draft" type="button" class="btn btn-success  set-button">Save as Draft</button>
             </div>
           </div>
+        </div>
         </form>
       </div>
     </div>
@@ -2649,7 +2653,7 @@
     } else if (displayStyle5 === 'none') {
       fifth_member.style.display = 'block';
     } else {
-      alert("No new signature for added")
+      alert("Max Signature Limit Reached")
     }
   });
 </script>

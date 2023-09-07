@@ -1065,7 +1065,7 @@
                                 </div>
                             </div>
                             @else
-                                <img src="temporary/signature/{{$temporaryWork->signatures[0]->signature}}" width="100%" />
+                                <img src="{{asset('temporary/signature/'.$temporaryWork->signatures[0]->signature)}}" width="100%" />
                             @endif
                         </div>
                         <div class="col-md-6 mt-md-5" id="fourth_member" style="display: {{ isset($temporaryWork->signatures[1]->name) &&      $temporaryWork->signatures[1]->name != null ? 'block' : 'none' }}">
@@ -1144,7 +1144,7 @@
                                 </div>
                             </div>
                             @else
-                                <img src="temporary/signature/{{$temporaryWork->signatures[1]->signature}}" width="100%" />
+                                <img src="{{asset('temporary/signature/'.$temporaryWork->signatures[1]->signature)}}" width="100%" />
                             @endif
                         </div>
                         <div class="col-md-6 mt-md-5" id="fifth_member" style="display: {{ isset($temporaryWork->signatures[2]->name) && $temporaryWork->signatures[2]->name != null ? 'block' : 'none' }}">
@@ -1220,7 +1220,7 @@
                                 </div>
                                 </div>
                             @else
-                                <img src="temporary/signature/{{$temporaryWork->signatures[2]->signature}}" width="100%" />
+                                <img src="{{asset('temporary/signature/'.$temporaryWork->signatures[2]->signature)}}" width="100%" />
                             @endif
                         </div>
                     </div>

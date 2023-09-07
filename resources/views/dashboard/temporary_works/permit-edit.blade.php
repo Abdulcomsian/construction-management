@@ -1855,7 +1855,7 @@
             let signaturepad5 = false;
 
             let isSecondMemEnable = true;
-            if (canvas1) {
+            if (canvas) {
                 var signaturePad = new SignaturePad(canvas);
             }
             if (canvas1) {

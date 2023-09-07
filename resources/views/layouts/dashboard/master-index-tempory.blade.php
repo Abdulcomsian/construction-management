@@ -133,7 +133,7 @@ License: -->
     </script>
 
     <!-- Using a CDN link for Spin.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
 <script>
     // Target the loader element
     var target = document.getElementById("kt_body");
@@ -150,7 +150,7 @@ License: -->
         // Hide the overlay
         document.getElementById("overlay").style.display = "none";
     });
-</script>
+</script> --}}
 
 @include('layouts.dashboard.scripts')
 @toastr_js

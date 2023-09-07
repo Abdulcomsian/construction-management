@@ -2258,7 +2258,9 @@ class TemporaryWorkController extends Controller
             $all_inputs['custom_drawing'] = '';
             $all_inputs['design_upload'] = '';
             if($request->action == 'draft'){
-                $all_inputs['draft_status'] = 1;
+                $all_inputs['draft_status'] = '1';
+            } else{
+                $all_inputs['draft_status'] = '0';
             }
             if($request->design_upload){
                 $designUpload = implode(', ', $request->design_upload);
@@ -2527,7 +2529,9 @@ class TemporaryWorkController extends Controller
                     $button = '';
                     $dnl_status = '';
                     $days = (7 - $diff_in_days);
-                    if ($permit->status == 1) {
+                    if ($permit->draft_status == '1') {
+                        $status = "Draft";
+                    } elseif ($permit->status == '1') {
                         $status = "Open";
                         $button = '<a style="line-height:15px;height: 50px;margin: 4px 0;" class="btn btn-primary" href="' . route("permit.renew", \Crypt::encrypt($permit->id)) . '"><span class="fa fa-plus-square"></span> Renew</a>';
                         if (isset($request->type)) {
@@ -2557,33 +2561,22 @@ class TemporaryWorkController extends Controller
                         $status = "Unloaded";
                     } elseif ($permit->status == 2) {
                         $status = "Pending";
-                        if ($permit->draft_status == 1) {
-                            $status = "Draft";
-                        }
                     } elseif ($permit->status == 5) {
                         $status = "<span class='permit-rejected  cursor-pointer btn btn-danger ' style='font-size: 13px;width: 70px;border-radius:8px; height: 20px;line-height: 0px;' data-id='" . \Crypt::encrypt($permit->id) . "'>DNL</span>";
                     }elseif ($permit->status == 6) {
                         $status = "Pending";
-                        if ($permit->draft_status == 1) {
-                            $status = "Draft";
-                        }
                     }elseif ($permit->status == 7) {
                         $status = "Pending";
-                        if ($permit->draft_status == 1) {
-                            $status = "Draft";
-                        }
-                    }elseif ($permit->draft_status == 1) {
-                        $status = "Draft";
                     }
 
-                    if ($permit->status == 5) {
+                    if ($permit->status == 5 || $permit->draft_status == '1') {
                         $dnl_status = "<a href=" . route("permit.edit", \Crypt::encrypt($permit->id)) . "><i style='text-align:center; font-size:20px;' class='fa fa-edit'></i></a>";
                     }
-                    if ($permit->status == 2 || $permit->status == 6 || $permit->status == 7) {
-                        if ($permit->draft_status == 1) {
-                            $dnl_status = "<a href=" . route("permit.edit", \Crypt::encrypt($permit->id)) . "><i style='text-align:center; font-size:20px;' class='fa fa-edit'></i></a>";
-                        }
-                    }
+                    // if ($permit->status == 2 || $permit->status == 6 || $permit->status == 7) {
+                        // if ($permit->draft_status == 1) {
+                        //     $dnl_status = "<a href=" . route("permit.edit", \Crypt::encrypt($permit->id)) . "><i style='text-align:center; font-size:20px;' class='fa fa-edit'></i></a>";
+                        // }
+                    // }
 
                     $path = config('app.url');
                     if (isset($request->scanuser)) {
@@ -2849,9 +2842,12 @@ class TemporaryWorkController extends Controller
                 $all_inputs['status'] = 1;
             }
             if($request->action == 'draft'){
-                $all_inputs['draft_status'] = 1;
+                $all_inputs['draft_status'] = '1';
+            } else{
+                $all_inputs['draft_status'] = '0';
             }
             $permitload->signatures()->delete();
+            // dd($all_inputs);
 
             $permitload->update($all_inputs);
             

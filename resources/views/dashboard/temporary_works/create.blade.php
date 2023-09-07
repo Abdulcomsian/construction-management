@@ -1216,11 +1216,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 d-flex flex-column align-items-start gap-3">
-                    <div>
-                        <button class="btn btn-success btn-sm mt-8" id="addMemberButton">Add New</button>
+                <div class="col-md-12 d-flex justify-content-end align-items-end"> 
+                    <div class="col-md-5">
+                        <button class="btn btn-success btn-sm mt-8" id="addMemberButton" style="padding: 10px 40px;font-size: 20px;font-weight: bold;">Add New Signature</button>
                     </div>
-                    <div>
+                    <div class="col-md-3">
                         @include('dashboard.modals.design-relief-modals')
                         <button id="submitbutton" type="submit" class="btn btn-secondary float-end submitbutton" disabled style="padding: 10px 50px; font-size: 20px; font-weight: bold;">Submit</button>
 
@@ -1750,7 +1750,7 @@ $(document).ready(function(){
         } else if (displayStyle5 === 'none') {
             fifth_member.style.display = 'block';
         } else {
-            alert("No new signature for added")
+            alert("Max Signature Limit Reached")
         }
     });
 </script>

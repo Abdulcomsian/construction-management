@@ -1124,6 +1124,7 @@
                             </div> -->
                         <br>
                         <button id="submitbutton" type="button" class="btn btn-secondary unload_button">Submit</button>
+                        <button name="action" id="draft" value="draft" type="button" class="btn btn-success  set-button">Save as Draft</button>
                         {{-- <div class="d-flex inputDiv principleno" id="sign">
                             <textarea id="signature" name="signed" style="opacity: 0" required></textarea>
                         </div> --}}
@@ -1644,11 +1645,55 @@
 @endsection
 @section('scripts')
 <script>
-    const canvas = document.getElementById("sig");
-    const signaturePad = new SignaturePad(canvas);
-    const canvas1 = document.getElementById("sig1");
-    const signaturePad1 = new SignaturePad(canvas1);
+    // const canvas = document.getElementById("sig");
+    // const signaturePad = new SignaturePad(canvas);
+    // const canvas1 = document.getElementById("sig1");
+    // const signaturePad1 = new SignaturePad(canvas1);
+  const canvas = document.getElementById("sig");
+  const signaturePad = new SignaturePad(canvas);
+  const canvas1 = document.getElementById("sig1");
+  const signaturePad1 = new SignaturePad(canvas1);
+  const canvas3 = document.getElementById("sig3");
+  const signaturePad3 = new SignaturePad(canvas3);
+  const canvas4 = document.getElementById("sig4");
+  const signaturePad4 = new SignaturePad(canvas4);
+  const canvas5 = document.getElementById("sig5");
+  const signaturePad5 = new SignaturePad(canvas5);
+  let first_sig = 0;
+  let second_sig = 0;
+  let third_sig = 0;
+  let fourth_sig = 0;
+  let fifth_sig = 0;
+  $("#submitbutton, #draft").on('click', function(e) {
+    e.preventDefault();
+    if (signaturePad) {
+      $("#signature").val(signaturePad.toDataURL('image/png'));
+    }
+    if (signaturePad1) {
+      $("#signature1").val(signaturePad1.toDataURL('image/png'));
+    }
+    if (signaturePad3) {
+      $("#signature3").val(signaturePad3.toDataURL('image/png'));
+    }
+    if (signaturePad4) {
+      $("#signature4").val(signaturePad4.toDataURL('image/png'));
+    }
+    if (signaturePad5) {
+      $("#signature5").val(signaturePad5.toDataURL('image/png'));
+    }
+    $(this).attr('disabled', 'disabled');
 
+    var buttonValue = $(this).val();
+    var input = $("<input>")
+      .attr("type", "hidden")
+      .attr("name", "action")
+      .val(buttonValue);
+
+    // Append the input element to the form
+    $("#permitunload").append(input);
+
+    $("#permitunload").submit();
+  })
     // var canvas = document.getElementById("sig");
     // var signaturePad = new SignaturePad(canvas);
     // var canvas1 = document.getElementById("sig1");

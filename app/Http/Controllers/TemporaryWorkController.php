@@ -2253,8 +2253,10 @@ class TemporaryWorkController extends Controller
                     $filePath  = 'permits_upload/';
                     $file = $request->file('file_minimum_concrete');
                     $all_inputs['file_minimum_concrete'] = HelperFunctions::saveFile(null, $file, $filePath);
-                    $file_minimum_concrete = $all_inputs['file_minimum_concrete'];
+                    $file_minimum_concrete = $all_inputs['file_minimum_concrete'] ?? '';
                 }
+            }else{
+                $file_minimum_concrete = $all_inputs['file_minimum_concrete'] ?? '';
             }
             //first person signature and name
             $image_name1 = '';
@@ -2677,6 +2679,8 @@ class TemporaryWorkController extends Controller
                     $all_inputs['file_minimum_concrete'] = HelperFunctions::saveFile($old_path, $file, $filePath);
                     $file_minimum_concrete = $all_inputs['file_minimum_concrete'];
                 }
+            }else{
+                $file_minimum_concrete = $all_inputs['file_minimum_concrete'] ?? '';
             }
             // if($request->action == 'draft'){
             //     $all_inputs['status'] = 8;

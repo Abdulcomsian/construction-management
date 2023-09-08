@@ -156,10 +156,8 @@ class TemporaryWorkController extends Controller
         try {
             if ($user->hasRole('admin')) {
                 $temporary_works = TemporaryWork::with('pdfFilesDesignBrief', 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits','riskassesment')->whereIn('status',$status)->where(['estimator'=>0])->latest()->paginate(20);
-               
                 
                 $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
-                // $projects = Project::with('company')->latest()->get();
                 $nominations=[];
                 $users=[];
                 $tot_emails = [];
@@ -237,7 +235,6 @@ class TemporaryWorkController extends Controller
                 // dd($tot_emails);
             }
            
-            //    dd($tot_emails);
             //work for datatable
             $scantempwork = '';
             return view('dashboard.temporary_works.index', compact('temporary_works', 'projects','assignedBlocks', 'scantempwork','nominations','users','block', 'tot_emails'));
@@ -2621,7 +2618,7 @@ class TemporaryWorkController extends Controller
                     if (auth()->user()->hasRole('scaffolder')) {
                         $button = '';
                     }
-                    $list .= '<tr data-permit-id="'.$permit->id.'" style="' . $class . '"><td><a style="    height: 50px;line-height: 15px;" target="_blank" href="' . $path . 'pdf/' . $permit->ped_url . '">' . $request->desc . '</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' . $days . ' days </td><td>Permit Load</td><td>'. $permit->location_temp_work .'</td><td>'. $permit->block_id .'</td><td>'. $permit->permit_date .'</td><td>' .  $status . '</td><td style="height: 48px;line-height: 15px;text-align:center;">' . $dnl_status . $button . ' '.$permit->status. '</td>/tr>';
+                    $list .= '<tr data-permit-id="'.$permit->id.'" style="' . $class . '"><td><a style="    height: 50px;line-height: 15px;" target="_blank" href="' . $path . 'pdf/' . $permit->ped_url . '">' . $request->desc . '</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' . $days . ' days </td><td>Permit Load</td><td>'. $permit->location_temp_work .'</td><td>'. $permit->block_id .'</td><td>'. $permit->permit_date .'</td><td>' .  $status . '</td><td style="height: 48px;line-height: 15px;text-align:center;">' . $dnl_status . $button . '</td>/tr>';
                 }
             $list .= '<hr>';
         }
@@ -4115,7 +4112,74 @@ class TemporaryWorkController extends Controller
         return response()->json(['message' => 'File not found'], 404);
     }
 
-    public function getReportsData(){
-        return view('dashboard.temporary_works.report');
+    public function getReportsData(Request $request)
+    {
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+        $type = $request->type;
+        $assignedBlocks = [];
+        $block = '';
+        if(auth::user()->hasRole('estimator'))
+        {
+            return redirect('Estimator/estimator');
+        }
+        if(Auth::user()->hasRole(['designer','supplier','Design Checker','Designer and Design Checker']) && !auth::user()->company_id)
+        {
+            return redirect('designer/designer');
+        }
+        $user = User::with('userCompany')->find(Auth::user()->id);
+        $status=[0,1,2,3];
+        try {
+            if ($user->hasRole('admin')) {
+                $temporary_works = TemporaryWork::with('pdfFilesDesignBrief', 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits','riskassesment')->whereIn('status',$status)->where(['estimator'=>0]) ->where(function ($query) use ($start_date, $end_date) {
+                    $query->where('created_at', '>=', $start_date)
+                          ->where('created_at', '<=', $end_date);
+                })->latest()->get();
+            } elseif ($user->hasRole('company')) {
+                $users = User::select(['id','name'])->where('company_id', $user->id)->get();
+                $ids = [];
+                $tot_emails = [];
+                foreach ($users as $u) {
+                    $ids[] = $u->id;
+                }
+                $ids[] = $user->id;
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereIn('created_by', $ids)->whereIn('status',$status)->where(['estimator'=>0])->where(function ($query) use ($start_date, $end_date) {
+                    $query->where('created_at', '>=', $start_date)
+                          ->where('created_at', '<=', $end_date);
+                })->latest()->get();      
+            } else {
+                $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
+                $ids = [];
+                $tot_emails = [];
+                foreach ($project_idds as $id) {
+                    $ids[] = $id->project_id;
+                }
+                $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereHas('project', function ($q) use ($ids) {
+                    $q->whereIn('project_id', $ids);
+                })->whereIn('status',$status)->where(['estimator'=>0])->where(function ($query) use ($start_date, $end_date) {
+                    $query->where('created_at', '>=', $start_date)
+                          ->where('created_at', '<=', $end_date);
+                })->latest()->get();
+            }
+            
+            //permit to load
+            $permited = PermitLoad::where('status','!=',3)->where('status','!=',6)->where(function ($query) use ($start_date, $end_date) {
+                $query->where('created_at', '>=', $start_date)
+                      ->where('created_at', '<=', $end_date);
+            })->latest()->get();
+
+            //permit to unload
+            $permit_unload = PermitLoad::where('status','!=',4)->where('status','!=',0)->where('status','!=',7)->where(function ($query) use ($start_date, $end_date) {
+                $query->where('created_at', '>=', $start_date)
+                      ->where('created_at', '<=', $end_date);
+            })->latest()->get();
+            
+            
+            return view('dashboard.temporary_works.report', compact('temporary_works','permited','permit_unload'));
+        } catch (\Exception $exception) {
+            dd($exception->getMessage(), $exception->getLine());
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
     }
 }

@@ -926,7 +926,7 @@
             </div>
             <!-- </div> -->
             <!-- <div class="row"> -->
-            <div class="col-12">
+            <div class="col-6">
                 <div class="d-flex inputDiv d-block my-0" id="photoDesign">
                     <!--begin::Label-->
                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -934,6 +934,16 @@
                     </label>
                     <!--end::Label-->
                     <input type="file" class="form-control" id="photo" name="photo" value="{{old('photo')}}" accept="image/*;capture=camera">
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="d-flex inputDiv d-block my-0" id="photoDesign">
+                    <!--begin::Label-->
+                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                        <span>Custom Design NO:</span>
+                    </label>
+                    <!--end::Label-->
+                    <input type="text" class="form-control" id="twc_id_no" name="twc_id_no" value="{{old('twc_id_no')}}">
                 </div>
             </div>
             <!-- </div> -->

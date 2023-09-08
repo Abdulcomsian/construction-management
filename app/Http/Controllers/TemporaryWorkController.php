@@ -778,7 +778,12 @@ class TemporaryWorkController extends Controller
             //work for qrcode
             $j = HelperFunctions::generatetempid($request->project_id);
             $all_inputs['tempid'] = $j;
-            $twc_id_no = HelperFunctions::generatetwcid($request->projno, $request->company, $request->project_id);
+            if($request->twc_id_no)
+            {
+                $twc_id_no = $request->twc_id_no;
+            } else{
+                $twc_id_no = HelperFunctions::generatetwcid($request->projno, $request->company, $request->project_id);
+            }
 
             $all_inputs['twc_id_no'] = $twc_id_no;
             if (isset($request->approval)) {

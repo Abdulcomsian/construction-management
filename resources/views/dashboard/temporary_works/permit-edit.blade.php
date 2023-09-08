@@ -831,6 +831,7 @@
                             </div>
                         </div>
                     </div>
+                    @if(isset($permitdata) && $permitdata->principle_contractor==1)
                     <div class="row">
                         <div class="col-md-6">
                             <div class="d-flex inputDiv">
@@ -864,6 +865,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                     <div class="row">
                         <div class="col-md-6 mt-15" id="second_member">
                             <div class="col" style="flex:100% !important;">

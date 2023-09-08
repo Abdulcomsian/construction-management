@@ -2565,9 +2565,12 @@ class TemporaryWorkController extends Controller
                                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Action
                                 </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a style="line-height:15px;height: 50px;margin: 4px 0;" class="" href="' . route("permit.unload", \Crypt::encrypt($permit->id)) . '" ><span class="fa fa-plus-square" ></span> Unload</a>
-                                <a class="confirm1 dropdown-item" href="' . route("permit.close", \Crypt::encrypt($permit->id)) . '" data-text="ARE YOU SURE?">Close</a>
+                                <div class="dropdown-menu " aria-labelledby="dropdownMenuButton">
+                                <div class="d-flex flex-column justify-content-start">
+                                <a class="dropdown-item" href="' . route("permit.unload", \Crypt::encrypt($permit->id)) . '" ><span class="fa fa-plus-square" ></span> Unload</a>
+                                <a class="dropdown-item" href="' . route("permit.unload.edit", \Crypt::encrypt($permit->id)) . '" ><span class="fa fa-pen-square" ></span> Edit</a>
+                                <a class="confirm1 dropdown-item" href="' . route("permit.close", \Crypt::encrypt($permit->id)) . '" data-text="ARE YOU SURE?"><span class="fa fa-minus-square" ></span> Close</a>
+                                </div>
                                 </div>
                             </div>
                             ';
@@ -3042,7 +3045,20 @@ class TemporaryWorkController extends Controller
     }
 
     public function permit_unload_edit($id) {
-        return view('dashboard.temporary_works.permit-unload-edit');
+        try {
+            $permitid =  \Crypt::decrypt($id);
+            $permitdata = PermitLoad::find($permitid);
+            $tempid = $permitdata->temporary_work_id;
+            $tempdata = TemporaryWork::select(['twc_email', 'twc_id_no', 'designer_company_email', 'design_requirement_text'])->find($tempid);
+            $twc_id_no = $permitdata->permit_no;
+            $project = Project::with('company')->where('id', $permitdata->project_id)->first();
+            $temporary_work_files = TempWorkUploadfiles::where([['file_type', 1],['temporary_work_id',$tempid]])->orderBy('id', 'desc')->get();
+            return view('dashboard.temporary_works.permit-unload-edit', compact('project', 'tempid', 'permitdata', 'twc_id_no', 'tempdata', 'temporary_work_files'));
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
+        // return view('dashboard.temporary_works.permit-unload-edit');
     }
     public function permit_unload_test($id)
     {

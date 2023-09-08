@@ -181,6 +181,7 @@
                     <!--begin::Card title-->
                     <div class="card-title">
                         <h2>Filters</h2>
+                        <a class="btn btn-primary pull-right" href="{{ route('export.csv', ['start_date' => request()->get('start_date') ?? '', 'end_date' => request()->get('end_date') ?? '', 'type' => request()->get('type') ?? '']) }}">Export to CSV</a>
                     </div>
                 </div>
                 <div class="card-body">

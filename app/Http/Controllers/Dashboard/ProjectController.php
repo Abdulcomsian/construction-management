@@ -258,7 +258,7 @@ class ProjectController extends Controller
         } catch (\Exception $exception) {
             DB::rollBack();
             // dd($exception->getMessage());
-            // toastError($exception->getMessage());
+            toastError($exception->getMessage());
             return Redirect::back();
         }
     }

@@ -258,7 +258,7 @@ class ProjectController extends Controller
         } catch (\Exception $exception) {
             DB::rollBack();
             // dd($exception->getMessage());
-            toastError($exception->getMessage());
+            toastError('Couldnt store project details', $exception->getMessage());
             return Redirect::back();
         }
     }

@@ -440,7 +440,7 @@ class AdminDesignerController extends Controller
             //upload cv
             $cv='';
             if ($request->file('cv')) {
-                $filePath = ;
+                $filePath = HelperFunctions::nominationCvPath();
                 $file = $request->file('cv');
                 $cv = HelperFunctions::saveFile(null, $file, $filePath);
             }

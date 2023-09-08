@@ -4242,23 +4242,26 @@ class TemporaryWorkController extends Controller
             "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
             "Expires" => "0"
         );
+        $path = public_path('test.csv');
+        $handle = fopen($path, 'w');
+
         $start_date = $request->start_date;
         $end_date = $request->end_date;
         $filter_type = $request->type;
-        $assignedBlocks = [];
-        $block = '';
-        if(auth::user()->hasRole('estimator'))
+        if($filter_type == 'all' && $filter_type == 'design_brief')
         {
-            return redirect('Estimator/estimator');
-        }
-        if(Auth::user()->hasRole(['designer','supplier','Design Checker','Designer and Design Checker']) && !auth::user()->company_id)
-        {
-            return redirect('designer/designer');
-        }
+            if(auth::user()->hasRole('estimator'))
+            {
+                return redirect('Estimator/estimator');
+            }
+            if(Auth::user()->hasRole(['designer','supplier','Design Checker','Designer and Design Checker']) && !auth::user()->company_id)
+            {
+                return redirect('designer/designer');
+            }
 
-        $user = User::with('userCompany')->find(Auth::user()->id);
-        $status=[0,1,2,3];
-        
+            $user = User::with('userCompany')->find(Auth::user()->id);
+            $status=[0,1,2,3];
+            
             if ($user->hasRole('admin')) {
 
                 $query = TemporaryWork::with('pdfFilesDesignBrief', 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign', 'unloadpermits', 'closedpermits', 'riskassesment')
@@ -4272,7 +4275,7 @@ class TemporaryWorkController extends Controller
                 if ($end_date !== null) {
                     $query->where('created_at', '<=', $end_date);
                 }            
-    
+
                 $temporary_works = $query->get();
                 // dd($temporary_works);
 
@@ -4293,7 +4296,7 @@ class TemporaryWorkController extends Controller
                 if ($end_date !== null) {
                     $query->where('created_at', '<=', $end_date);
                 }            
-    
+
 
                 $temporary_works = $query->get();
 
@@ -4316,15 +4319,12 @@ class TemporaryWorkController extends Controller
                 if ($end_date !== null) {
                     $query->where('created_at', '<=', $end_date);
                 }            
-    
+
 
                 $temporary_works = $query->get();
             }
-
-            if($filter_type == )
             //design brief file export
-            $path = public_path('test.csv');
-            $handle = fopen($path, 'w');
+
 
             // Add CSV headers
             fputcsv($handle, [
@@ -4339,12 +4339,9 @@ class TemporaryWorkController extends Controller
                     $item->twc_id_no,
                     $item->design_issued_date,
                     $value[1],
-
-                    // Add more columns as needed
                 ]);
             }
-
-            fclose($handle);
+        }
 
 
 
@@ -4373,6 +4370,8 @@ class TemporaryWorkController extends Controller
                 $permit_unload_query->where('created_at', '<=', $end_date);
             }  
             $permit_unload = $permit_unload_query->get();
+
+            fclose($handle);
 
         // Create the headers for the response.
         $headers = [

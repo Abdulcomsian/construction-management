@@ -38,6 +38,7 @@ Route::get('/cron-design', [TemporaryWorkController::class, 'cron_design']);
 Route::get('project/{id}', [TemporaryWorkController::class, 'load_scan_temporarywork'])->name('qrlink');
 Route::get('show-scan-temporary-work/{id}', [TemporaryWorkController::class, 'show_scan_temporarywork'])->name('show.scan.temporarywork');
 Route::get('permit-get', [TemporaryWorkController::class, 'permit_get'])->name('permit.get');
+Route::get('export-csv', [TemporaryWorkController::class, 'exportCsv'])->name('export.csv');
 
 Route::get('get-comments', [TemporaryWorkController::class, 'get_comments'])->name('temporarywork.get-comments');
 Route::get('get-emails', [TemporaryWorkController::class, 'get_emails'])->name('temporarywork.get-emails');

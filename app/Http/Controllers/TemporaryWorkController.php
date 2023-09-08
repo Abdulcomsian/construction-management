@@ -4252,7 +4252,7 @@ class TemporaryWorkController extends Controller
         $start_date = $request->start_date;
         $end_date = $request->end_date;
         $filter_type = $request->type;
-        if($filter_type == 'all' && $filter_type == 'design_brief')
+        if($filter_type == 'all' || $filter_type == 'design_brief')
         {
             if(auth::user()->hasRole('estimator'))
             {
@@ -4346,11 +4346,9 @@ class TemporaryWorkController extends Controller
                 ]);
             }
         }
-
-
-
-            //permitload query
-            
+        
+        //permitload query
+        if($filter_type == 'all' || $filter_type == 'permit_load'){
             $permit_query = PermitLoad::where('status','!=',3)->where('status','!=',6)->latest();
             if ($start_date !== null) {
                 $permit_query->where('created_at', '>=', $start_date);
@@ -4362,9 +4360,53 @@ class TemporaryWorkController extends Controller
 
             $permited = $permit_query->get();
 
+            // Add CSV headers
+            fputcsv($handle, [
+                'Permit Load'
+            ]);
+
+            // Add data rows
+            $current =  \Carbon\Carbon::now();
+            foreach ($permited as $permit) {
+                if ($permit->draft_status == '1') {
+                    $status = "Draft";
+                }elseif ($permit->status == '1') {
+                    $status = "Open";
+                } elseif ($permit->status == 0 ) {
+                    $status = "Closed";
+                } elseif($permit->status == 4)
+                {
+                    $status = "Unloaded";
+                } elseif ($permit->status == 3) {
+                    $status = "Unloaded";
+                } elseif ($permit->status == 2) {
+                    $status = "Pending";
+                } elseif ($permit->status == 5) {
+                    $status = "<span class='permit-rejected  cursor-pointer btn btn-danger ' style='font-size: 13px;width: 70px;border-radius:8px; height: 20px;line-height: 0px;' data-id='" . \Crypt::encrypt($permit->id) . "'>DNL</span>";
+                }elseif ($permit->status == 6) {
+                    $status = "Pending";
+                }elseif ($permit->status == 7) {
+                    $status = "Pending";
+                }
+                $to = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $permit->created_at);
+                                            $diff_in_days = $to->diffInDays($current);
+                                            $color = '';
+                                            $status = '';
+                                            $days = (7 - $diff_in_days);
+                fputcsv($handle, [
+                    $permit->created_at,
+                    $permit->tempwork->design_requirement_text,
+                    $permit->permit_no,
+                    $days.' days',
+                    $permit->location_temp_work,
+                    $status,
+                ]);
+            }
+        }
             
-            //permit unload query
-            
+        //permit unload query
+        if($filter_type == 'all' || $filter_type == 'permit_load'){
+
             $permit_unload_query = PermitLoad::where('status','!=',4)->where('status','!=',0)->where('status','!=',7)->latest();
             if ($start_date !== null) {
                 $permit_unload_query->where('created_at', '>=', $start_date);
@@ -4374,7 +4416,7 @@ class TemporaryWorkController extends Controller
                 $permit_unload_query->where('created_at', '<=', $end_date);
             }  
             $permit_unload = $permit_unload_query->get();
-
+        }
             fclose($handle);
 
         // Create the headers for the response.

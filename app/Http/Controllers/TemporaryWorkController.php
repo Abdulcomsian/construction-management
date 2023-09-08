@@ -3040,6 +3040,10 @@ class TemporaryWorkController extends Controller
             return Redirect::back();
         }
     }
+
+    public function permit_unload_edit($id) {
+        return view('dashboard.temporary_works.permit-unload-edit');
+    }
     public function permit_unload_test($id)
     {
         try {

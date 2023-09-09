@@ -2248,6 +2248,7 @@ class TemporaryWorkController extends Controller
                 $all_inputs['design_upload'] = $designUpload;
             }
             $all_inputs['file_minimum_concrete'] = '';
+            $file_minimum_concrete ='';
             if($request->minimum_concrete == 1){
                 if ($request->file('file_minimum_concrete')) {
                     $filePath  = 'permits_upload/';
@@ -2671,6 +2672,7 @@ class TemporaryWorkController extends Controller
                 $all_inputs['design_upload'] = $designUpload;
             }
             $all_inputs['file_minimum_concrete'] = '';
+            $file_minimum_concrete ='';
             if($request->minimum_concrete == 1){
                 if ($request->file('file_minimum_concrete')) {
                     $filePath  = 'permits_upload/';
@@ -2680,7 +2682,7 @@ class TemporaryWorkController extends Controller
                     $file_minimum_concrete = $all_inputs['file_minimum_concrete'];
                 }
             }else{
-                $file_minimum_concrete = $all_inputs['file_minimum_concrete'] ?? '';
+                $file_minimum_concrete = '';
             }
             // if($request->action == 'draft'){
             //     $all_inputs['status'] = 8;

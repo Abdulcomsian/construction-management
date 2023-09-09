@@ -642,9 +642,13 @@
                             </div>
                             <div class="d-flex ">
                                 <div class="d-flex modalDiv">
-                                    @if(isset($permitdata) && $permitdata->works_coordinator==1)
-                                    <textarea name="description_approval_temp_works" rows="2" style="border: 1px solid lightgray; border-radius: 8px; margin-bottom: 5px" class="form-control">{{$permitdata->description_approval_temp_works ?? ''}}</textarea>
+                                    {{-- @if(isset($permitdata) && $permitdata->works_coordinator==1) --}}
+                                    <textarea name="description_approval_temp_works" rows="2" style="
+                                    @if($permitdata->works_coordinator!=1)
+                                    display:none;
                                     @endif
+                                    border: 1px solid lightgray; border-radius: 8px; margin-bottom: 5px" class="form-control">{{$permitdata->description_approval_temp_works ?? ''}}</textarea>
+                                    {{-- @endif --}}
                                 </div>
                             </div>
                         </div>
@@ -827,6 +831,7 @@
                             </div>
                         </div>
                     </div>
+                    @if(isset($permitdata) && $permitdata->principle_contractor==1)
                     <div class="row">
                         <div class="col-md-6">
                             <div class="d-flex inputDiv">
@@ -860,6 +865,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                     <div class="row">
                         <div class="col-md-6 mt-15" id="second_member">
                             <div class="col" style="flex:100% !important;">
@@ -1847,6 +1853,7 @@
 
 
             $("input[name='works_coordinator']").change(function() {
+               
                 if ($(this).val() == 1) {
                     $("textarea[name='description_approval_temp_works']").show();
                 } else {
@@ -2098,7 +2105,6 @@
                 }
             })
             $("input[name='works_coordinator']").change(function() {
-                alert("OK")
                 if ($(this).val() == 1) {
                     $("textarea[name='description_approval_temp_works']").removeClass('d-none').addClass('d-flex');
                 } else {

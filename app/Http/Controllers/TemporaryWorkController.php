@@ -4407,7 +4407,7 @@ class TemporaryWorkController extends Controller
         }
             
         //permit unload query
-        if($filter_type == 'all' || $filter_type == 'permit_load'){
+        if($filter_type == 'all' || $filter_type == 'permit_unload'){
 
             $permit_unload_query = PermitLoad::where('status','!=',4)->where('status','!=',0)->where('status','!=',7)->latest();
             if ($start_date !== null) {
@@ -4418,6 +4418,66 @@ class TemporaryWorkController extends Controller
                 $permit_unload_query->where('created_at', '<=', $end_date);
             }  
             $permit_unload = $permit_unload_query->get();
+
+            // Add CSV headers
+            fputcsv($handle, [
+                'Permit to Unload'
+            ]);
+
+            // Add data rows
+            $current =  \Carbon\Carbon::now();
+            foreach ($permit_unload as $permit) {
+                if (($permit->draft_status == '1')) {
+                    if($permit->status == 3 || $permit->status == 6){
+                        $unload_permit = true;
+                    } else{
+                        $unload_permit = false;
+                    }
+                } else{
+                    if($permit->status == 3 || $permit->status == 6 || $permit->status == 1){
+                        $unload_permit = true;
+                     } else{
+                        $unload_permit = false;
+                    }
+                }
+                if($unload_permit == false){
+                    continue;
+                }  
+                if ($permit->draft_status == '1') {
+                    $status = "Draft";
+                }elseif ($permit->status == '1') {
+                    $status = "Open";
+                } elseif ($permit->status == 0 ) {
+                    $status = "Closed";
+                } elseif($permit->status == 4)
+                {
+                    $status = "Unloaded";
+                } elseif ($permit->status == 3) {
+                    $status = "Unloaded";
+                } elseif ($permit->status == 2) {
+                    $status = "Pending";
+                } elseif ($permit->status == 5) {
+                    $status = "<span class='permit-rejected  cursor-pointer btn btn-danger ' style='font-size: 13px;width: 70px;border-radius:8px; height: 20px;line-height: 0px;' data-id='" . \Crypt::encrypt($permit->id) . "'>DNL</span>";
+                }elseif ($permit->status == 6) {
+                    $status = "Pending";
+                }elseif ($permit->status == 7) {
+                    $status = "Pending";
+                }
+                $to = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $permit->created_at);
+                                            $diff_in_days = $to->diffInDays($current);
+                                            $color = '';
+                                            $status = '';
+                                            $days = (7 - $diff_in_days);
+                fputcsv($handle, [
+                    $permit->created_at,
+                    $permit->tempwork->design_requirement_text,
+                    $permit->permit_no,
+                    $days.' days',
+                    $permit->location_temp_work,
+                    $status,
+                ]);
+            }
+
         }
             fclose($handle);
 

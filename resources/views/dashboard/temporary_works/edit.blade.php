@@ -699,7 +699,25 @@
                                 </div>
                             </div>
                         </div>
-
+                        <div class="row">
+                            <div class="col-12" style="">
+                                <div class="d-flex  d-block my-0" id="">
+                                    <!--begin::Label-->
+                                        <p style="font-weight:bold;">** If custom TW ID number is not entered then it will be generated automatically by system:</p>
+            
+                                </div>
+                            </div>
+                            <div class="col-12" style="">
+                                <div class="d-flex inputDiv d-block my-0" id="photoDesign">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span>Custom TW ID #:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="form-control" id="twc_id_no" name="twc_id_no" value="{{old('twc_id_no', $temporaryWork->twc_id_no ?? '')}}">
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv mb-0"

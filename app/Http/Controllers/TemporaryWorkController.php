@@ -904,6 +904,22 @@ class TemporaryWorkController extends Controller
                         'Design Brief sent for approval'
                     );
                 }
+            
+            }
+            if ($temporary_work && is_array($request->designer_company_email)) {
+                $emails = $request->designer_company_email;
+            
+                // Remove the first email from the array
+                array_shift($emails);
+            
+                foreach ($emails as $email) {
+                    $company_email = new DesignerCompanyEmail();
+                    $company_email->temporary_work_id = $temporary_work->id;
+                    $company_email->email = $email;
+                    $company_email->save();
+                }
+            }
+            DB::commit();
                 //send mail to admin
                 $notify_admins_msg = [
                     'greeting' => 'Temporary Work Pdf',
@@ -968,21 +984,6 @@ class TemporaryWorkController extends Controller
                         Notification::route('mail', $request->desinger_email_2)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id, $request->desinger_email_2));
                     }
                 }
-            }
-            if ($temporary_work && is_array($request->designer_company_email)) {
-                $emails = $request->designer_company_email;
-            
-                // Remove the first email from the array
-                array_shift($emails);
-            
-                foreach ($emails as $email) {
-                    $company_email = new DesignerCompanyEmail();
-                    $company_email->temporary_work_id = $temporary_work->id;
-                    $company_email->email = $email;
-                    $company_email->save();
-                }
-            }
-            DB::commit();
             toastSuccess('Temporary Work successfully added!');
             return redirect()->route('temporary_works.index');
         } catch (\Exception $exception) {

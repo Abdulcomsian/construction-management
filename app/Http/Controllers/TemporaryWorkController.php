@@ -2622,7 +2622,8 @@ class TemporaryWorkController extends Controller
                     if (auth()->user()->hasRole('scaffolder')) {
                         $button = '';
                     }
-                    $list .= '<tr data-permit-id="'.$permit->id.'" style="' . $class . '"><td><a style="    height: 50px;line-height: 15px;" target="_blank" href="' . $path . 'pdf/' . $permit->ped_url . '">' . $request->desc . '</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' . $days . ' days </td><td>Permit Load</td><td>'. $permit->location_temp_work .'</td><td>'. $permit->block_id .'</td><td>'. $permit->permit_date .'</td><td>' .  $status . '</td><td style="height: 48px;line-height: 15px;text-align:center;">' . $dnl_status . $button . '</td>/tr>';
+                    $date = date('d-m-Y', strtotime($permit->created_at));
+                    $list .= '<tr data-permit-id="'.$permit->id.'" style="' . $class . '"><td style="text-align:center"><a style="    height: 50px;line-height: 15px;" target="_blank" href="' . $path . 'pdf/' . $permit->ped_url . '">' . $request->desc . '</a></td><td  style="text-align:center">' . $permit->permit_no . '</td><td  style="text-align:center" class="' . $color . '">' . $days . ' days </td><td  style="text-align:center">Permit Load</td><td  style="text-align:center">'. $permit->location_temp_work .'</td><td  style="text-align:center">'. $permit->block_id .'</td><td  style="text-align:center">'. $date .'</td><td  style="text-align:center">' .  $status . '</td><td style="height: 48px;line-height: 15px;text-align:center;">' . $dnl_status . $button . '</td>/tr>';
                 }
             $list .= '<hr>';
         }

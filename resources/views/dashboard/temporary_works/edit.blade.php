@@ -1759,11 +1759,11 @@ $("#description").summernote({
     toolbar: [
     // [groupName, [picture]]
     ['style', ['bold', 'italic', 'underline', 'clear']],
-    ['font', ['strikethrough', 'superscript', 'subscript']],
-    ['fontsize', ['fontsize']],
-    ['color', ['color']],
-    ['para', ['ul', 'ol', 'paragraph']],
-    ['height', ['height']],
+    ['font', ['strikethrough']],
+    ['fontsize', ['']],
+    ['color', ['']],
+    ['para', ['ul', 'ol', '']],
+    ['height', ['']],
     ['picture']
   ]
 });

@@ -1105,8 +1105,21 @@ class TemporaryWorkController extends Controller
             $images = $dom->getElementsByTagName('img');
             foreach($images as $item => $image){
                 $data = $image->getAttribute("src");
-                list($type, $data) = explode(';', $data);
+            // dd($data);
+
+            //     dd($data)(;
+            $image_explode = explode(';', $data);
+            if(count($image) == 2){
+                list($type, $data) = [$image_explode[0] , $image_explode[1]];
                 list(, $data)      = explode(',', $data);
+            }else{
+                continue;
+            }
+            
+                // list($type, $data) = explode(';', $data);
+                // list(, $data)      = explode(',', $data);
+    
+
                 $imgeData = base64_decode($data);
                 $image_name= time().$item.'.png';
                 $path = public_path().'/temporary/signature/' . $image_name;
@@ -1411,46 +1424,7 @@ class TemporaryWorkController extends Controller
                         'Design Brief sent for approval',
                     );
                 } 
-                //send mail to admin
-                $notify_admins_msg = [
-                    'greeting' => 'Temporary Work Pdf',
-                    'subject' => 'TWP – Design Brief Review - '.$request->projname . '-' . $request->projno,
-                    'body' => [
-                        'company' => $request->company,
-                        'filename' => $filename,
-                        'links' => '',
-                        'name' =>  $model->design_requirement_text . '-' . $model->twc_id_no,
-                        'designer' => '',
-                        'pc_twc' => '',
-                    ],
-                    'thanks_text' => 'Thanks For Using our site',
-                    'action_text' => '',
-                    'action_url' => '',
-                ];
-
-                if (isset($request->approval)) {
-                    $notify_admins_msg['body']['designer'] = '';
-                    $notify_admins_msg['body']['pc_twc'] = '1';
-                    Notification::route('mail', $request->pc_twc_email ?? '')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id));
-                } else {
-                    // Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id));
-                    Notification::route('mail', $request->twc_email ?? '')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id));
-                    //designer
-                    if ($request->designer_company_email) {
-                        foreach($request->designer_company_email as $email){
-                            if ($request->designer_company_email) {
-                                $notify_admins_msg['body']['designer'] = 'designer1';
-                                Notification::route('mail', $email)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id, $email));
-                            }
-                        }
-                    }
-
-                    //designer email second
-                    if ($request->desinger_email_2) {
-                        $notify_admins_msg['body']['designer'] = 'designer1';
-                        Notification::route('mail', $request->desinger_email_2)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id, $request->desinger_email_2));
-                    }
-                }
+             
             }
             if ($temporary_work && is_array($request->designer_company_email)) {
                 $designerCompanyEmails = DesignerCompanyEmail::where('temporary_work_id', $temporaryWork->id)->get();
@@ -1474,6 +1448,46 @@ class TemporaryWorkController extends Controller
                 }
             }
             DB::commit();
+               //send mail to admin
+               $notify_admins_msg = [
+                'greeting' => 'Temporary Work Pdf',
+                'subject' => 'TWP – Design Brief Review - '.$request->projname . '-' . $request->projno,
+                'body' => [
+                    'company' => $request->company,
+                    'filename' => $filename,
+                    'links' => '',
+                    'name' =>  $model->design_requirement_text . '-' . $model->twc_id_no,
+                    'designer' => '',
+                    'pc_twc' => '',
+                ],
+                'thanks_text' => 'Thanks For Using our site',
+                'action_text' => '',
+                'action_url' => '',
+            ];
+
+            if (isset($request->approval)) {
+                $notify_admins_msg['body']['designer'] = '';
+                $notify_admins_msg['body']['pc_twc'] = '1';
+                Notification::route('mail', $request->pc_twc_email ?? '')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id));
+            } else {
+                // Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id));
+                Notification::route('mail', $request->twc_email ?? '')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id));
+                //designer
+                if ($request->designer_company_email) {
+                    foreach($request->designer_company_email as $email){
+                        if ($request->designer_company_email) {
+                            $notify_admins_msg['body']['designer'] = 'designer1';
+                            Notification::route('mail', $email)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id, $email));
+                        }
+                    }
+                }
+
+                //designer email second
+                if ($request->desinger_email_2) {
+                    $notify_admins_msg['body']['designer'] = 'designer1';
+                    Notification::route('mail', $request->desinger_email_2)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id, $request->desinger_email_2));
+                }
+            }
             toastSuccess('Temporary Work successfully Updated!');
             return redirect()->route('temporary_works.index');
         } catch (\Exception $exception) {

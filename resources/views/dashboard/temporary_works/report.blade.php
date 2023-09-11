@@ -330,6 +330,13 @@
                                         $current =  \Carbon\Carbon::now();
                                     @endphp
                                     @forelse($permited as $permit)
+                                    @php
+                                    $to = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $permit->created_at);
+                                    $diff_in_days = $to->diffInDays($current);
+                                    $color = '';
+                                    $status = '';
+                                    $days = (7 - $diff_in_days);
+                                @endphp
                                         <?php
                                             if ($permit->draft_status == '1') {
                                                 $status = "Draft";
@@ -345,20 +352,13 @@
                                             } elseif ($permit->status == 2) {
                                                 $status = "Pending";
                                             } elseif ($permit->status == 5) {
-                                                $status = "<span class='permit-rejected  cursor-pointer btn btn-danger ' style='font-size: 13px;width: 70px;border-radius:8px; height: 20px;line-height: 0px;' data-id='" . \Crypt::encrypt($permit->id) . "'>DNL</span>";
+                                                $status = "Rejected";
                                             }elseif ($permit->status == 6) {
                                                 $status = "Pending";
                                             }elseif ($permit->status == 7) {
                                                 $status = "Pending";
                                             }
                                         ?>
-                                        @php
-                                            $to = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $permit->created_at);
-                                            $diff_in_days = $to->diffInDays($current);
-                                            $color = '';
-                                            $status = '';
-                                            $days = (7 - $diff_in_days);
-                                        @endphp
                                         <tr>
                                             <td>{{$permit->created_at}}</td>
                                             <td><a style="height: 50px;line-height: 15px;" target="_blank" href="{{asset('pdf/'.$permit->ped_url)}}">{{$permit->tempwork->design_requirement_text}}</a></td>
@@ -441,6 +441,13 @@
                                                     continue;
                                                 }  
                                         ?>
+                                         @php
+                                            $to = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $permit->created_at);
+                                            $diff_in_days = $to->diffInDays($current);
+                                            $color = '';
+                                            $status = '';
+                                            $days = (7 - $diff_in_days);
+                                         @endphp
                                         <?php
                                             if ($permit->draft_status == '1') {
                                                 $status = "Draft";
@@ -456,20 +463,14 @@
                                             } elseif ($permit->status == 2) {
                                                 $status = "Pending";
                                             } elseif ($permit->status == 5) {
-                                                $status = "<span class='permit-rejected  cursor-pointer btn btn-danger ' style='font-size: 13px;width: 70px;border-radius:8px; height: 20px;line-height: 0px;' data-id='" . \Crypt::encrypt($permit->id) . "'>DNL</span>";
+                                                $status = "Rejected";
                                             }elseif ($permit->status == 6) {
                                                 $status = "Pending";
                                             }elseif ($permit->status == 7) {
                                                 $status = "Pending";
                                             }
                                         ?>
-                                        @php
-                                            $to = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $permit->created_at);
-                                            $diff_in_days = $to->diffInDays($current);
-                                            $color = '';
-                                            $status = '';
-                                            $days = (7 - $diff_in_days);
-                                        @endphp
+                                       
                                         <tr>
                                             <td>{{$permit->created_at}}</td>
                                             <td><a style="height: 50px;line-height: 15px;" target="_blank" href="{{asset('pdf/'.$permit->ped_url)}}">{{$permit->tempwork->design_requirement_text}}</a></td>

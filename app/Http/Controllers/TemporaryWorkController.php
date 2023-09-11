@@ -155,13 +155,14 @@ class TemporaryWorkController extends Controller
         }
         try {
             if ($user->hasRole('admin')) {
-                $temporary_works = TemporaryWork::with('pdfFilesDesignBrief', 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits','riskassesment')->whereIn('status',$status)->where(['estimator'=>0])->latest()->paginate(20);
-                
+                $temporary_works = TemporaryWork::with('pdfFilesDesignBrief', 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits', 'unloadpermits_draft', 'closedpermits','riskassesment')->whereIn('status',$status)->where(['estimator'=>0])->latest()->paginate(20);
                 $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
                 $nominations=[];
                 $users=[];
                 $tot_emails = [];
                 foreach ($temporary_works as $temporary_work) {
+                    // dd($temporary_work->unloadpermits_draft);
+
                     $permit_loads = PermitLoad::where('temporary_work_id', $temporary_work->id)
                         ->pluck('block_id')
                         ->toArray();
@@ -2588,8 +2589,9 @@ class TemporaryWorkController extends Controller
                     }elseif ($permit->status == 7) {
                         $status = "Pending";
                     }
-
-                    if ($permit->status == 5 || $permit->draft_status == '1') {
+                    if ($permit->status ==3 && $permit->draft_status == '1') {
+                        $dnl_status = "<a href=" . route("permit.unload.edit", \Crypt::encrypt($permit->id)) . "><i style='text-align:center; font-size:20px;' class='fa fa-edit'></i></a>";
+                    }else if ($permit->status == 5 || $permit->draft_status == '1') {
                         $dnl_status = "<a href=" . route("permit.edit", \Crypt::encrypt($permit->id)) . "><i style='text-align:center; font-size:20px;' class='fa fa-edit'></i></a>";
                     }
                     // if ($permit->status == 2 || $permit->status == 6 || $permit->status == 7) {
@@ -3206,6 +3208,14 @@ class TemporaryWorkController extends Controller
             // $all_inputs['status'] = $request->principle_contractor == 1 ? 2 : 3;
             $all_inputs['status'] = $request->principle_contractor == 1 ? 6 : 3;
             
+            $all_inputs['mix_design_detail'] = $request->mix_design_detail;
+            $all_inputs['unique_ref_no'] = $request->unique_ref_no;
+            $all_inputs['age_cube'] = $request->age_cube;
+            $all_inputs['compressive_strength'] = $request->compressive_strength;
+            $all_inputs['method_curing'] = $request->method_curing;
+            $all_inputs['twc_control_pts'] = $request->twc_control_pts;
+            $all_inputs['back_propping'] = $request->back_propping;
+
             $all_inputs['created_by'] = auth()->user()->id;
             $permitload = PermitLoad::create($all_inputs);
             if($request->name3 && $request->signed3 != HelperFunctions::defaultSign())

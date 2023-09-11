@@ -517,35 +517,35 @@
                                         <td class="col-md-4" style="padding-left: 25px;text-align: left; font-weight:500">Mix Design
                                             Details</td>
                                         <td style="padding-right:28px">
-                                            <input type="text" name="mix_design_detail" class="form-control form-control-solid tableinput" placeholder="Enter Mix Design Details">
+                                            <input type="text" name="mix_design_detail" class="form-control form-control-solid tableinput" placeholder="Enter Mix Design Details" value= "{{$permitdata->mix_design_detail ?? ''}}">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td style="padding-left: 25px;text-align: left; font-weight:500">Unique Cube Ref
                                             No.</td>
                                         <td style="padding-right:28px">
-                                            <input type="text" name="unique_ref_no" class="form-control form-control-solid tableinput" placeholder="Enter Unique Cube Ref No">
+                                            <input type="text" name="unique_ref_no" class="form-control form-control-solid tableinput" placeholder="Enter Unique Cube Ref No" value= "{{$permitdata->unique_ref_no ?? ''}}">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td style="padding-left: 25px;text-align: left; font-weight:500">Age of Cube
                                         </td>
                                         <td style="padding-right:28px">
-                                            <input type="text" name="age_cube" class="form-control form-control-solid tableinput" placeholder="Enter Age of Cube">
+                                            <input type="text" name="age_cube" class="form-control form-control-solid tableinput" placeholder="Enter Age of Cube" value= "{{$permitdata->age_cube ?? ''}}">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td style="padding-left: 25px;text-align: left; font-weight:500">Compressive
                                             Strength N/mm2</td>
                                         <td style="padding-right:28px">
-                                            <input type="text" name="compressive_strength" class="form-control form-control-solid tableinput" placeholder="Enter Compressive Strength N/mm2">
+                                            <input type="text" name="compressive_strength" class="form-control form-control-solid tableinput" placeholder="Enter Compressive Strength N/mm2" value= "{{$permitdata->compressive_strength ?? ''}}">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td style="padding-left: 25px;text-align: left; font-weight:500">Method of
                                             Curing</td>
                                         <td style="padding-right:28px">
-                                            <input type="text" name="method_curing" class="form-control form-control-solid tableinput" placeholder="Enter Method of Curing">
+                                            <input type="text" name="method_curing" class="form-control form-control-solid tableinput" placeholder="Enter Method of Curing" value= "{{$permitdata->method_curing ?? ''}}">
                                         </td>
                                     </tr>
                                 </tbody>
@@ -558,14 +558,14 @@
                                 <label style="color:black; bottom: 45px">TWC to define the extents, limits and controls
                                     for this PTS (where
                                     applicable)</label>
-                                <textarea name="twc_control_pts" class="twcTextArea" rows="2" style="width:100%;"></textarea>
+                                <textarea name="twc_control_pts" class="twcTextArea" rows="2" style="width:100%;">{{$permitdata->twc_control_pts ?? ''}}</textarea>
                             </div>
 
                             <div class="inputDiv">
                                 <label style="color:black; bottom: 45px">Back-propping and additional requirements;
                                     limitations and
                                     exclusions; explanatory sketches references (if applicable)</label>
-                                <textarea name="back_propping" rows="2" style="width:100%;"></textarea>
+                                <textarea name="back_propping" rows="2" style="width:100%;">{{$permitdata->back_propping ?? ''}}</textarea>
                             </div>
                             <br>
                             <p style="color: black;"> I hereby authorise the temporary works to be struck out or removed
@@ -625,10 +625,10 @@
                     <div class="row">
                         <div class="col-md-6   mt-0" style="    min-height: 40px;margin-left:7px; ">
                             <div class="d-flex inputDiv">
-                                <label class="fs-6 fw-bold mb-2">
+                                <label class="fs-6 fw-bold mb-8">
                                     <span>Comments:</span>
                                 </label>
-                                <textarea name="comments" class="form-control"></textarea>
+                                <textarea name="comments" class="form-control pt-2">{{$permitdata->comments ?? ''}}</textarea>
                             </div>
                         </div>
                     </div>
@@ -823,6 +823,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    
                                     <div class="d-flex inputDiv m-0" id="sign1" style="align-items: center;border:none">
                                         <!-- <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                     <span class="required">Signature:</span>

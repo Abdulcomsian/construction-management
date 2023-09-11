@@ -173,16 +173,36 @@
                 </tbody>
             </table>
             <table>
-                <tr>
-                    <th style="font-size: 12px;">TWC to define the extents, limits and controls for this PTS (where applicable)
-                    </th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th style="font-size: 12px;">TWC to define the extents, limits and controls for this PTS (where applicable) <br>
+                        {{$data['twc_control_pts']}}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-size: 12px;">
+                        {{$data['twc_control_pts']}}
+                        </td>
+                    </tr>
+                </tbody>
             </table>
             <table>
-                <tr>
-                    <th style="font-size: 12px;">Back-propping and additional requirements; limitations and exclusions; explanatory sketches references (if applicable)</th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th style="font-size: 12px;">Back-propping and additional requirements; limitations and exclusions; explanatory sketches references (if applicable)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-size: 12px;">
+                        {{$data['back_propping']}}
+                        </td>
+                    </tr>
+                </tbody>
             </table>
+       
             <table>
                 <tr>
                     <th style="height: 50px;"></th>

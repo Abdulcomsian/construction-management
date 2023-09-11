@@ -988,6 +988,7 @@ class TemporaryWorkController extends Controller
         } catch (\Exception $exception) {
             if($exception->getLine()==459){
                 DB::commit();
+                toastError('Email could not be sent because of attachment size.');
                 return Redirect::back();
             }else{
                 DB::rollback();

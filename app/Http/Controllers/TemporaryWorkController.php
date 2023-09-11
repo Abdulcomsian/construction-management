@@ -4242,159 +4242,261 @@ class TemporaryWorkController extends Controller
     public function exportCsv(Request $request)
     {
         try {
-        // Define the CSV file name
-        $fileName = 'exported_data.csv';
+            // Define the CSV file name
+            $fileName = 'exported_data.csv';
 
-        // Generate the CSV file
-        $headers = array(
-            "Content-type" => "text/csv",
-            "Content-Disposition" => "attachment; filename=$fileName",
-            "Pragma" => "no-cache",
-            "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
-            "Expires" => "0"
-        );
-        $path = public_path('test.csv');
-        $handle = fopen($path, 'w');
+            // Generate the CSV file
+            $headers = array(
+                "Content-type" => "text/csv",
+                "Content-Disposition" => "attachment; filename=$fileName",
+                "Pragma" => "no-cache",
+                "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+                "Expires" => "0"
+            );
+            $path = public_path('test.csv');
+            $handle = fopen($path, 'w');
 
-        $start_date = $request->start_date;
-        $end_date = $request->end_date;
-        $filter_type = $request->type;
-        if($filter_type == 'all' && $filter_type == 'design_brief')
-        {
-            if(auth::user()->hasRole('estimator'))
+            $start_date = $request->start_date;
+            $end_date = $request->end_date;
+            $filter_type = $request->type;
+            if($filter_type == 'all' || $filter_type == 'design_brief')
             {
-                return redirect('Estimator/estimator');
-            }
-            if(Auth::user()->hasRole(['designer','supplier','Design Checker','Designer and Design Checker']) && !auth::user()->company_id)
-            {
-                return redirect('designer/designer');
-            }
-
-            $user = User::with('userCompany')->find(Auth::user()->id);
-            $status=[0,1,2,3];
-            
-            if ($user->hasRole('admin')) {
-
-                $query = TemporaryWork::with('pdfFilesDesignBrief', 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign', 'unloadpermits', 'closedpermits', 'riskassesment')
-                ->whereIn('status', $status)
-                ->where(['estimator' => 0])
-                ->latest();
-                if ($start_date !== null) {
-                    $query->where('created_at', '>=', $start_date);
+                if(auth::user()->hasRole('estimator'))
+                {
+                    return redirect('Estimator/estimator');
                 }
-            
-                if ($end_date !== null) {
-                    $query->where('created_at', '<=', $end_date);
-                }            
-
-                $temporary_works = $query->get();
-                // dd($temporary_works);
-
-            } elseif ($user->hasRole('company')) {
-                $users = User::select(['id','name'])->where('company_id', $user->id)->get();
-                $ids = [];
-                $tot_emails = [];
-                foreach ($users as $u) {
-                    $ids[] = $u->id;
-                }
-                $ids[] = $user->id; 
-                $query = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereIn('created_by', $ids)->whereIn('status',$status)->where(['estimator'=>0])->latest();
-
-                if ($start_date !== null) {
-                    $query->where('created_at', '>=', $start_date);
-                }
-            
-                if ($end_date !== null) {
-                    $query->where('created_at', '<=', $end_date);
-                }            
-
-
-                $temporary_works = $query->get();
-
-            } else {
-                $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
-                $ids = [];
-                $tot_emails = [];
-                foreach ($project_idds as $id) {
-                    $ids[] = $id->project_id;
+                if(Auth::user()->hasRole(['designer','supplier','Design Checker','Designer and Design Checker']) && !auth::user()->company_id)
+                {
+                    return redirect('designer/designer');
                 }
 
-                $query = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereHas('project', function ($q) use ($ids) {
-                    $q->whereIn('project_id', $ids);
-                })->whereIn('status',$status)->where(['estimator'=>0])->latest();
+                $user = User::with('userCompany')->find(Auth::user()->id);
+                $status=[0,1,2,3];
+                
+                if ($user->hasRole('admin')) {
 
-                if ($start_date !== null) {
-                    $query->where('created_at', '>=', $start_date);
+                    $query = TemporaryWork::with('pdfFilesDesignBrief', 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign', 'unloadpermits', 'closedpermits', 'riskassesment')
+                    ->whereIn('status', $status)
+                    ->where(['estimator' => 0])
+                    ->latest();
+                    if ($start_date !== null) {
+                        $query->where('created_at', '>=', $start_date);
+                    }
+                
+                    if ($end_date !== null) {
+                        $query->where('created_at', '<=', $end_date);
+                    }            
+
+                    $temporary_works = $query->get();
+                    // dd($temporary_works);
+
+                } elseif ($user->hasRole('company')) {
+                    $users = User::select(['id','name'])->where('company_id', $user->id)->get();
+                    $ids = [];
+                    $tot_emails = [];
+                    foreach ($users as $u) {
+                        $ids[] = $u->id;
+                    }
+                    $ids[] = $user->id; 
+                    $query = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereIn('created_by', $ids)->whereIn('status',$status)->where(['estimator'=>0])->latest();
+
+                    if ($start_date !== null) {
+                        $query->where('created_at', '>=', $start_date);
+                    }
+                
+                    if ($end_date !== null) {
+                        $query->where('created_at', '<=', $end_date);
+                    }            
+
+
+                    $temporary_works = $query->get();
+
+                } else {
+                    $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
+                    $ids = [];
+                    $tot_emails = [];
+                    foreach ($project_idds as $id) {
+                        $ids[] = $id->project_id;
+                    }
+
+                    $query = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereHas('project', function ($q) use ($ids) {
+                        $q->whereIn('project_id', $ids);
+                    })->whereIn('status',$status)->where(['estimator'=>0])->latest();
+
+                    if ($start_date !== null) {
+                        $query->where('created_at', '>=', $start_date);
+                    }
+                
+                    if ($end_date !== null) {
+                        $query->where('created_at', '<=', $end_date);
+                    }            
+
+
+                    $temporary_works = $query->get();
                 }
-            
-                if ($end_date !== null) {
-                    $query->where('created_at', '<=', $end_date);
-                }            
+                //design brief file export
 
 
-                $temporary_works = $query->get();
-            }
-            //design brief file export
-
-
-            // Add CSV headers
-            fputcsv($handle, [
-                'Design Brief'
-            ]);
-
-            // Add data rows
-            foreach ($temporary_works as $item) {
-                $value = explode('-', $item->design_requirement_text);
+                // Add CSV headers
                 fputcsv($handle, [
-                    $item->created_at,
-                    $item->twc_id_no,
-                    $item->design_issued_date,
-                    $value[1],
+                    'Design Brief'
                 ]);
+
+                // Add data rows
+                foreach ($temporary_works as $item) {
+                    $value = explode('-', $item->design_requirement_text);
+                    fputcsv($handle, [
+                        $item->created_at,
+                        $item->twc_id_no,
+                        $item->design_issued_date,
+                        $value[1],
+                    ]);
+                }
             }
-        }
-
-
-
+            
             //permitload query
+            if($filter_type == 'all' || $filter_type == 'permit_load'){
+                $permit_query = PermitLoad::where('status','!=',3)->where('status','!=',6)->latest();
+                if ($start_date !== null) {
+                    $permit_query->where('created_at', '>=', $start_date);
+                }
             
-            $permit_query = PermitLoad::where('status','!=',3)->where('status','!=',6)->latest();
-            if ($start_date !== null) {
-                $permit_query->where('created_at', '>=', $start_date);
+                if ($end_date !== null) {
+                    $permit_query->where('created_at', '<=', $end_date);
+                }            
+
+                $permited = $permit_query->get();
+
+                // Add CSV headers
+                fputcsv($handle, [
+                    'Permit Load'
+                ]);
+
+                // Add data rows
+                $current =  \Carbon\Carbon::now();
+                foreach ($permited as $permit) {
+                    $to = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $permit->created_at);
+                                                $diff_in_days = $to->diffInDays($current);
+                                                $color = '';
+                                                $status = '';
+                                                $days = (7 - $diff_in_days);
+                    if ($permit->draft_status == '1') {
+                        $status = "Draft";
+                    }elseif ($permit->status == '1') {
+                        $status = "Open";
+                    } elseif ($permit->status == 0 ) {
+                        $status = "Closed";
+                    } elseif($permit->status == 4)
+                    {
+                        $status = "Unloaded";
+                    } elseif ($permit->status == 3) {
+                        $status = "Unloaded";
+                    } elseif ($permit->status == 2) {
+                        $status = "Pending";
+                    } elseif ($permit->status == 5) {
+                        $status = "<span class='permit-rejected  cursor-pointer btn btn-danger ' style='font-size: 13px;width: 70px;border-radius:8px; height: 20px;line-height: 0px;' data-id='" . \Crypt::encrypt($permit->id) . "'>DNL</span>";
+                    }elseif ($permit->status == 6) {
+                        $status = "Pending";
+                    }elseif ($permit->status == 7) {
+                        $status = "Pending";
+                    }
+                    fputcsv($handle, [
+                        $permit->created_at,
+                        $permit->tempwork->design_requirement_text,
+                        $permit->permit_no,
+                        $days.' days',
+                        $permit->location_temp_work,
+                        $status,
+                    ]);
+                }
             }
-        
-            if ($end_date !== null) {
-                $permit_query->where('created_at', '<=', $end_date);
-            }            
-
-            $permited = $permit_query->get();
-
-            
+                
             //permit unload query
+            if($filter_type == 'all' || $filter_type == 'permit_unload'){
+
+                $permit_unload_query = PermitLoad::where('status','!=',4)->where('status','!=',0)->where('status','!=',7)->latest();
+                if ($start_date !== null) {
+                    $permit_unload_query->where('created_at', '>=', $start_date);
+                }
             
-            $permit_unload_query = PermitLoad::where('status','!=',4)->where('status','!=',0)->where('status','!=',7)->latest();
-            if ($start_date !== null) {
-                $permit_unload_query->where('created_at', '>=', $start_date);
+                if ($end_date !== null) {
+                    $permit_unload_query->where('created_at', '<=', $end_date);
+                }  
+                $permit_unload = $permit_unload_query->get();
+
+                // Add CSV headers
+                fputcsv($handle, [
+                    'Permit to Unload'
+                ]);
+
+                // Add data rows
+                $current =  \Carbon\Carbon::now();
+                foreach ($permit_unload as $permit) {
+                    $to = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $permit->created_at);
+                                                $diff_in_days = $to->diffInDays($current);
+                                                $color = '';
+                                                $status = '';
+                                                $days = (7 - $diff_in_days);
+                    if (($permit->draft_status == '1')) {
+                        if($permit->status == 3 || $permit->status == 6){
+                            $unload_permit = true;
+                        } else{
+                            $unload_permit = false;
+                        }
+                    } else{
+                        if($permit->status == 3 || $permit->status == 6 || $permit->status == 1){
+                            $unload_permit = true;
+                        } else{
+                            $unload_permit = false;
+                        }
+                    }
+                    if($unload_permit == false){
+                        continue;
+                    }  
+                    if ($permit->draft_status == '1') {
+                        $status = "Draft";
+                    }elseif ($permit->status == '1') {
+                        $status = "Open";
+                    } elseif ($permit->status == 0 ) {
+                        $status = "Closed";
+                    } elseif($permit->status == 4)
+                    {
+                        $status = "Unloaded";
+                    } elseif ($permit->status == 3) {
+                        $status = "Unloaded";
+                    } elseif ($permit->status == 2) {
+                        $status = "Pending";
+                    } elseif ($permit->status == 5) {
+                        $status = "Rejected";
+                    }elseif ($permit->status == 6) {
+                        $status = "Pending";
+                    }elseif ($permit->status == 7) {
+                        $status = "Pending";
+                    }
+                    fputcsv($handle, [
+                        $permit->created_at,
+                        $permit->tempwork->design_requirement_text,
+                        $permit->permit_no,
+                        $days.' days',
+                        $permit->location_temp_work,
+                        $status,
+                    ]);
+                }
+
             }
-        
-            if ($end_date !== null) {
-                $permit_unload_query->where('created_at', '<=', $end_date);
-            }  
-            $permit_unload = $permit_unload_query->get();
+                fclose($handle);
 
-            fclose($handle);
-
-        // Create the headers for the response.
-        $headers = [
-            'Content-Type' => 'text/csv',
-        ];
-        // Return a Laravel response that initiates the download of the generated CSV file.
-        return response()->download($path, 'test.csv', $headers);
-    } catch (\Exception $exception) {
-        dd($exception->getMessage(), $exception->getLine());
-        toastError('Something went wrong, try again!');
-        return Redirect::back();
-    }
+            // Create the headers for the response.
+            $headers = [
+                'Content-Type' => 'text/csv',
+            ];
+            // Return a Laravel response that initiates the download of the generated CSV file.
+            return response()->download($path, 'test.csv', $headers);
+        } catch (\Exception $exception) {
+            dd($exception->getMessage(), $exception->getLine());
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
         
     }
 }

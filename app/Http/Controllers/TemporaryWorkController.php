@@ -2942,6 +2942,7 @@ class TemporaryWorkController extends Controller
                 $model->ped_url = $filename;
                 $model->save();
                 $pdf->save($path . '/' . $filename);
+                DB::commit();
                 if($request->action != 'draft'){
                     $notify_admins_msg = [
                         'greeting' => 'Permit Pdf',
@@ -2967,7 +2968,6 @@ class TemporaryWorkController extends Controller
                         Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
                     }
                 }
-                DB::commit();
                 toastSuccess('Permit Updatd sucessfully!');
                 return redirect()->route('temporary_works.index');
             }

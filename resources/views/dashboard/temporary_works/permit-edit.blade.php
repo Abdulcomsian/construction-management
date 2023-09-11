@@ -865,6 +865,9 @@
                             </div>
                         </div>
                     </div>
+                    @else
+                    <input type="hidden" class="btn-check" name="principle_contractor" value="0"  />
+
                     @endif
                     <div class="row">
                         <div class="col-md-6 mt-15" id="second_member">
@@ -1290,10 +1293,14 @@
                         {{-- <div>
                         </div> --}}
                     </div>
-                    @if($permitdata->status == 2 || $permitdata->status == 6 || $permitdata->status == 7)
-                    <input type="hidden" id="permitdata_status" name="permitdata_status" value="pending" />
-                    @else
-                    <input type="hidden" id="permitdata_status" name="permitdata_status" value="approved" />
+                    @if($permitdata->draft_status == "1")
+                    <input type="hidden" id="permitdata_status" name="permitdata_status" value="approved" />  {{-- to update permit if it is draft--}} 
+                    @elseif($permitdata->status == 1 )
+                    <input type="hidden" id="permitdata_status" name="permitdata_status" value="open" /> {{-- to insert new permit--}}
+                    {{-- @elseif($permitdata->status == 2 || $permitdata->status == 6 || $permitdata->status == 7) --}}
+                    {{-- <input type="hidden" id="permitdata_status" name="permitdata_status" value="pending" /> --}}
+                    @else 
+                    <input type="hidden" id="permitdata_status" name="permitdata_status" value="approved" />   {{-- to update permit for other condition--}} 
                     @endif
                     <div class="col-md-12 d-flex justify-content-end align-items-end" style="bottom: 20px;">
                         <div class="col-md-5">
@@ -1949,9 +1956,8 @@
                     .attr("type", "hidden")
                     .attr("name", "action")
                     .val(buttonValue);
-
                 var status = $('#permitdata_status').val();
-                if (status == 'pending' && buttonValue != 'draft') {
+                if (status == 'open') {
                     $("#permitrenew").attr('action', "{{route('permit.save')}}");
                 }
 

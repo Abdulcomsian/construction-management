@@ -1109,7 +1109,7 @@ class TemporaryWorkController extends Controller
 
             //     dd($data)(;
             $image_explode = explode(';', $data);
-            if(count($image) == 2){
+            if(count($image_explode) == 2){
                 list($type, $data) = [$image_explode[0] , $image_explode[1]];
                 list(, $data)      = explode(',', $data);
             }else{

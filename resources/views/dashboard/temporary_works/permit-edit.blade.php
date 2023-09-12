@@ -856,7 +856,7 @@
                         </div>
                     </div>
                     @foreach($permitdata->permitLoadImages as $permit_load_images)
-                        <a target="_blank" href="/{{asset($permit_load_images->fileName)}}">File</a>
+                        <a target="_blank" href="{{asset($permit_load_images->fileName)}}">File</a>
                     @endforeach
                     @if(isset($permitdata) && $permitdata->principle_contractor==1)
                     <div class="row">

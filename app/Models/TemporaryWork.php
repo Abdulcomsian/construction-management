@@ -74,7 +74,7 @@ class TemporaryWork extends Model
 
     public function unloadpermits()
     {
-         return $this->hasMany(PermitLoad::class)->whereIn('status',[3]);
+         return $this->hasMany(PermitLoad::class)->whereIn('status',[3])->where('draft_status', '0');
     }
     public function unloadpermits_draft()
     {

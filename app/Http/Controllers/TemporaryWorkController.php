@@ -2575,7 +2575,6 @@ class TemporaryWorkController extends Controller
                                 <div class="dropdown-menu " aria-labelledby="dropdownMenuButton">
                                 <div class="d-flex flex-column justify-content-start">
                                 <a class="dropdown-item" href="' . route("permit.unload", \Crypt::encrypt($permit->id)) . '" ><span class="fa fa-plus-square" ></span> Unload</a>
-                                <a class="dropdown-item" href="' . route("permit.unload.edit", \Crypt::encrypt($permit->id)) . '" ><span class="fa fa-pen-square" ></span> Edit</a>
                                 <a class="confirm1 dropdown-item" href="' . route("permit.close", \Crypt::encrypt($permit->id)) . '" data-text="ARE YOU SURE?"><span class="fa fa-minus-square" ></span> Close</a>
                                 </div>
                                 </div>

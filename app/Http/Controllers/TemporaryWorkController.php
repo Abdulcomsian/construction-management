@@ -2459,6 +2459,7 @@ class TemporaryWorkController extends Controller
                 $model->ped_url = $filename;
                 $model->save();
                 $pdf->save($path . '/' . $filename);
+                 DB::commit();
                 if($request->action != 'draft'){
                     $notify_admins_msg = [
                         'greeting' => 'Permit to Load',
@@ -2524,7 +2525,7 @@ class TemporaryWorkController extends Controller
         //      $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->latest()->get();
         //  }
         if (isset($request->type)) {
-            $permited = PermitLoad::where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->where('status','!=',7)->latest()->get();
+            $permited = PermitLoad::where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->where('status','!=',7)->where('status','!=',9)->latest()->get();
              $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->latest()->get();
           }else{
               $permited = PermitLoad::where(['temporary_work_id' => $tempid])->where('status','!=',3)->where('status','!=',6)->latest()->get();
@@ -2563,7 +2564,7 @@ class TemporaryWorkController extends Controller
                     $days = (7 - $diff_in_days);
                     if ($permit->draft_status == '1') {
                         $status = "Draft";
-                    }elseif ($permit->status == '1') {
+                    }elseif ($permit->status == 1 || $permit->status == 9) {
                         $status = "Open";
                         $button = '<a style="line-height:15px;height: 50px;margin: 4px 0;" class="btn btn-primary" href="' . route("permit.renew", \Crypt::encrypt($permit->id)) . '"><span class="fa fa-plus-square"></span> Renew</a>';
                         if (isset($request->type)) {
@@ -3545,7 +3546,12 @@ class TemporaryWorkController extends Controller
             if ($permitload) {
                 //make status 0 if permit is 
                 // $request->principle_contractor == 1 ? PermitLoad::where( 'id' , $request->permitid)->update(['status' => 1]) :  PermitLoad::where( 'id' , $request->permitid)->update(['status' => 4]);
+
+                if($request->action != 'draft'){ //added this check because, if unloaded permit is saved as draft then it shouldnot update value of main open permit, open permit should remain open
                 $request->principle_contractor == 1 ? PermitLoad::where( 'id' , $request->permitid)->update(['status' => 7]) :  PermitLoad::where( 'id' , $request->permitid)->update(['status' => 4]);
+                }else{
+                    PermitLoad::where( 'id' , $request->permitid)->update(['status' => 9]);
+                }
                 //upload permit unload files
                 // dd("here" , $request->permitid , $permitload->id);
                 $image_links = $this->permitfiles($request, $permitload->id);
@@ -3557,6 +3563,7 @@ class TemporaryWorkController extends Controller
                 $model->ped_url = $filename;
                 $model->save();
                 $pdf->save($path . '/' . $filename);
+                DB::commit();
                 if($request->action != 'draft'){
                     $notify_admins_msg = [
                         'greeting' => 'Permit Unload Pdf',

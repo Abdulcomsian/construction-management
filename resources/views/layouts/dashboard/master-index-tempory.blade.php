@@ -39,7 +39,7 @@ License: -->
             left: 0;
             width: 100%;
             height: 100%;
-            backdrop-filter: blur(10px); /* Adjust the blur value as needed */
+            /* backdrop-filter: blur(10px); Adjust the blur value as needed */
             z-index: 9999; /* Ensure it's above other content */
             display: none; /* Initially hidden */
         }

@@ -3353,7 +3353,6 @@ class TemporaryWorkController extends Controller
     }
     public function permit_unload_update(Request $request)
     {
-        
         DB::beginTransaction();
         Validations::updatepermitunload($request);
         $permitload = PermitLoad::with('signatures')->find($request->permitid);
@@ -3424,8 +3423,8 @@ class TemporaryWorkController extends Controller
                 $all_inputs['signature'] = $image_name;
             }
         } else{
-            $all_inputs['name1'] = $request->name;
-            $all_inputs['job_title1'] = $request->job_title;
+            $all_inputs['name'] = $request->name;
+            $all_inputs['job_title'] = $request->job_title;
             $image_name = $permitload->signature;
             $all_inputs['signature'] = $image_name; 
         }
@@ -3561,10 +3560,24 @@ class TemporaryWorkController extends Controller
         }
         $permitload->signatures()->delete();
         // dd($all_inputs);
+        
+        $all_inputs['status'] = $request->principle_contractor == 1 ? 6 : 3;
+            
+        $all_inputs['mix_design_detail'] = $request->mix_design_detail;
+        $all_inputs['unique_ref_no'] = $request->unique_ref_no;
+        $all_inputs['age_cube'] = $request->age_cube;
+        $all_inputs['compressive_strength'] = $request->compressive_strength;
+        $all_inputs['method_curing'] = $request->method_curing;
+        $all_inputs['twc_control_pts'] = $request->twc_control_pts;
+        $all_inputs['back_propping'] = $request->back_propping;
+        $all_inputs['comments'] = $request->comments;
+        $all_inputs['location_temp_work'] = $request->location_temp_work;
+        $all_inputs['description_structure'] = $request->description_structure;
+        $all_inputs['ms_ra_no'] = $request->ms_ra_no;
 
+        $all_inputs['created_by'] = auth()->user()->id;
         $permitload->update($all_inputs);
-        
-        
+
         if($request->name3)
         {
             $signature3_record = new Signature([
@@ -3625,6 +3638,7 @@ class TemporaryWorkController extends Controller
                 // dd("here" , $request->permitid , $permitload->id);
                 $image_links = $this->permitfiles($request, $permitload->id);
                 $request->merge(['name' => $request->name1 , 'job_title' => $request->job_title1]);
+                // dd($image_name,$image_name1,$image_name3);
                 $pdf = PDF::loadView('layouts.pdf.permit_unload', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'image_name1' => $image_name1, 'principle_contractor' => $request->approval_PC, 'date1'=>$request->date1, 'date1'=>$request->date2, 'image_name3' => $image_name3, 'image_name4' => $image_name4, 'image_name5' => $image_name5, 'company1' => $request->company1, 'company3' => $request->company3, 'company4' => $request->company4, 'company5' => $request->company5, 'date1'=>$request->date1, 'date3'=>$request->date3, 'date4'=>$request->date4, 'date5'=>$request->date5]);
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';

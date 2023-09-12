@@ -436,6 +436,9 @@
                                 <label class="d-flex align-items-center fs-6 fw-bold">
                                     <span>Upload Custom Drawing:</span>
                                 </label>
+                                
+                                {{-- @dd($designUpload) --}}
+                                {{-- @foreach() --}}
                                 <!--end::Label-->
                                 <input type="file" style="border-radius: 9px;" class="form-control" id="custom_drawing" name="custom_drawing" value="" accept="image/*;capture=camera">
                             </div>
@@ -444,8 +447,29 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div id="files_div">
+                                @if($permitdata->design_upload)
+                                    @php
+                                        $designUpload = explode(', ', $permitdata->design_upload);
+                                        // $all_inputs['design_upload'] = $designUpload;
+                                    @endphp
+                                @endif
+                                @if(isset($designUpload))
+                                    @foreach($designUpload as $key=>$value)
+                                    <input type="hidden" value="{{$value}}" name="design_upload[]" class="{{$value}}" /> 
+                                    @endforeach
+                                @endif
                             </div>
                             <div id="new_div" class="m-md-2">
+                                @if(isset($designUpload))
+                                    @foreach($designUpload as $key=>$value)
+                                        <span id="{{$value}}" >
+                                            <a target="_blank" href="{{asset($value)}}">
+                                                <span class="badge badge-success badge-sm">File Uploaded</span>
+                                            </a>
+                                            <button type="button" onclick="deleteFile($value)" class="remove-file btn btn-danger btn-sm" data-filename="{{$value}}">&times;</button>
+                                        </span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -1955,18 +1979,17 @@
                 $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").prop("disabled", true);
 
                 var buttonValue = $(this).val();
-                var input = $("<input>")
-                    .attr("type", "hidden")
-                    .attr("name", "action")
-                    .val(buttonValue);
-                var status = $('#permitdata_status').val();
-                if (status == 'open') {
-                    $("#permitrenew").attr('action', "{{route('permit.save')}}");
-                }
+                // var input = $("<input>")
+                //     .attr("type", "hidden")
+                //     .attr("name", "action")
+                //     .val(buttonValue);
+                // var status = $('#permitdata_status').val();
+                // if (status == 'open') {
+                //     $("#permitrenew").attr('action', "{{route('permit.save')}}");
+                // }
 
                 // Append the input element to the form
-                $("#permitrenew").append(input);
-
+                // $("#permitrenew").append(input);
                 $("#permitrenew").submit();
             });
             if(signaturePad){

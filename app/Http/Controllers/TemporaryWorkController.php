@@ -3347,8 +3347,7 @@ class TemporaryWorkController extends Controller
     }
     public function permit_unload_update(Request $request)
     {
-        dd($request->all);
-        $permitid =  \Crypt::decrypt($request->id);
+        
         DB::beginTransaction();
         Validations::storepermitunload($request);
         try {
@@ -3495,7 +3494,8 @@ class TemporaryWorkController extends Controller
             $all_inputs['ms_ra_no'] = $request->ms_ra_no;
 
             $all_inputs['created_by'] = auth()->user()->id;
-            $permitload = PermitLoad::create($all_inputs);
+            $permitload = PermitLoad::find($request->permitid);
+            $permitload->update($all_inputs);
             if($request->name3 && $request->signed3 != HelperFunctions::defaultSign())
             {
                 $signature3_record = new Signature([

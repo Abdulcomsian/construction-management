@@ -303,7 +303,7 @@
 
             <!--begin::Card body-->
             <div class="card-body pt-0">
-                <form id="permitunload" action="{{route('permit.unload.save')}}" method="post" enctype="multipart/form-data">
+                <form id="permitunload" action="{{route('permit.unload.update')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     @if($errors->any())
                     <ul>
@@ -1124,7 +1124,6 @@
                                 <div class="input-images"></div>
                             </div> -->
                         <br>
-                        <input type = "hidden" name = "id" value = "{{$permitdata->id}}">
                         <button id="submitbutton" type="button" class="btn btn-secondary unload_button">Submit</button>
                         <button name="action" id="draft" value="draft" type="button" class="btn btn-success  set-button">Save as Draft</button>
                         {{-- <div class="d-flex inputDiv principleno" id="sign">

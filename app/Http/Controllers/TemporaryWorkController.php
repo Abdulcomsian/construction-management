@@ -3215,6 +3215,10 @@ class TemporaryWorkController extends Controller
             $all_inputs['method_curing'] = $request->method_curing;
             $all_inputs['twc_control_pts'] = $request->twc_control_pts;
             $all_inputs['back_propping'] = $request->back_propping;
+            $all_inputs['comments'] = $request->comments;
+            $all_inputs['location_temp_work'] = $request->location_temp_work;
+            $all_inputs['description_structure'] = $request->description_structure;
+            $all_inputs['ms_ra_no'] = $request->ms_ra_no;
 
             $all_inputs['created_by'] = auth()->user()->id;
             $permitload = PermitLoad::create($all_inputs);

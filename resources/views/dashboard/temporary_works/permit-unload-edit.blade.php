@@ -458,7 +458,7 @@
                                     <label class="fs-6 fw-bold mb-2" style="bottom: 46px;">
                                         Location of the temporary works:
                                     </label>
-                                    <textarea name="location_temp_work" rows="2" cols="170" placeholder=" Location of the temporary works">{{$permitdata->location_temp_work ?? ''}}</textarea>
+                                    <textarea name="location_temp_work"  rows="2" cols="170" placeholder=" Location of the temporary works">{{$permitdata->location_temp_work ?? ''}}</textarea>
                                 </div>
                             </div>
                             <div class=" inputDiv d-block">
@@ -562,10 +562,10 @@
                             </div>
 
                             <div class="inputDiv">
-                                <label style="color:black; bottom: 45px">Back-propping and additional requirements;
+                                <label style="color:black;" class="mb-5">Back-propping and additional requirements;
                                     limitations and
                                     exclusions; explanatory sketches references (if applicable)</label>
-                                <textarea name="back_propping" rows="2" style="width:100%;">{{$permitdata->back_propping ?? ''}}</textarea>
+                                <textarea name="back_propping" class="pt-2" rows="2" style="width:100%;">{{$permitdata->back_propping ?? ''}}</textarea>
                             </div>
                             <br>
                             <p style="color: black;"> I hereby authorise the temporary works to be struck out or removed
@@ -597,7 +597,7 @@
                                     <span>PC TWC Email:</span>
                                 </label>
                                 <!--end::Label-->
-                                <input type="email" class="form-control form-control-solid" name="pc_twc_email" id="pc-twc-email" placeholder="Email" value="" required="required">
+                                <input type="email" class="form-control form-control-solid" name="pc_twc_email" id="pc-twc-email" placeholder="Email" value="{{$permitdata->pc_twc_email ?? ''}}" required="required">
                             </div>
                         </div>
                     </div>

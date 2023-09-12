@@ -155,15 +155,14 @@ class TemporaryWorkController extends Controller
         }
         try {
             if ($user->hasRole('admin')) {
-                $temporary_works = TemporaryWork::with('pdfFilesDesignBrief', 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits','riskassesment')->whereIn('status',$status)->where(['estimator'=>0])->latest()->paginate(20);
-               
-                
+                $temporary_works = TemporaryWork::with('pdfFilesDesignBrief', 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits', 'unloadpermits_draft', 'closedpermits','riskassesment')->whereIn('status',$status)->where(['estimator'=>0])->latest()->paginate(20);
                 $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
-                // $projects = Project::with('company')->latest()->get();
                 $nominations=[];
                 $users=[];
                 $tot_emails = [];
                 foreach ($temporary_works as $temporary_work) {
+                    // dd($temporary_work->unloadpermits_draft);
+
                     $permit_loads = PermitLoad::where('temporary_work_id', $temporary_work->id)
                         ->pluck('block_id')
                         ->toArray();
@@ -237,7 +236,6 @@ class TemporaryWorkController extends Controller
                 // dd($tot_emails);
             }
            
-            //    dd($tot_emails);
             //work for datatable
             $scantempwork = '';
             return view('dashboard.temporary_works.index', compact('temporary_works', 'projects','assignedBlocks', 'scantempwork','nominations','users','block', 'tot_emails'));
@@ -907,6 +905,22 @@ class TemporaryWorkController extends Controller
                         'Design Brief sent for approval'
                     );
                 }
+            
+            }
+            if ($temporary_work && is_array($request->designer_company_email)) {
+                $emails = $request->designer_company_email;
+            
+                // Remove the first email from the array
+                array_shift($emails);
+            
+                foreach ($emails as $email) {
+                    $company_email = new DesignerCompanyEmail();
+                    $company_email->temporary_work_id = $temporary_work->id;
+                    $company_email->email = $email;
+                    $company_email->save();
+                }
+            }
+            DB::commit();
                 //send mail to admin
                 $notify_admins_msg = [
                     'greeting' => 'Temporary Work Pdf',
@@ -971,25 +985,16 @@ class TemporaryWorkController extends Controller
                         Notification::route('mail', $request->desinger_email_2)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporary_work->id, $request->desinger_email_2));
                     }
                 }
-            }
-            if ($temporary_work && is_array($request->designer_company_email)) {
-                $emails = $request->designer_company_email;
-            
-                // Remove the first email from the array
-                array_shift($emails);
-            
-                foreach ($emails as $email) {
-                    $company_email = new DesignerCompanyEmail();
-                    $company_email->temporary_work_id = $temporary_work->id;
-                    $company_email->email = $email;
-                    $company_email->save();
-                }
-            }
-            DB::commit();
             toastSuccess('Temporary Work successfully added!');
             return redirect()->route('temporary_works.index');
         } catch (\Exception $exception) {
-            DB::rollback();
+            if($exception->getLine()==459){
+                DB::commit();
+                toastError('Email could not be sent because of attachment size.');
+                return Redirect::back();
+            }else{
+                DB::rollback();
+            }
             dd($exception->getMessage(), $exception->getLine());
             toastError('Something went wrong, try again!');
             return Redirect::back();
@@ -1101,8 +1106,21 @@ class TemporaryWorkController extends Controller
             $images = $dom->getElementsByTagName('img');
             foreach($images as $item => $image){
                 $data = $image->getAttribute("src");
-                list($type, $data) = explode(';', $data);
+            // dd($data);
+
+            //     dd($data)(;
+            $image_explode = explode(';', $data);
+            if(count($image_explode) == 2){
+                list($type, $data) = [$image_explode[0] , $image_explode[1]];
                 list(, $data)      = explode(',', $data);
+            }else{
+                continue;
+            }
+            
+                // list($type, $data) = explode(';', $data);
+                // list(, $data)      = explode(',', $data);
+    
+
                 $imgeData = base64_decode($data);
                 $image_name= time().$item.'.png';
                 $path = public_path().'/temporary/signature/' . $image_name;
@@ -1407,46 +1425,7 @@ class TemporaryWorkController extends Controller
                         'Design Brief sent for approval',
                     );
                 } 
-                //send mail to admin
-                $notify_admins_msg = [
-                    'greeting' => 'Temporary Work Pdf',
-                    'subject' => 'TWP – Design Brief Review - '.$request->projname . '-' . $request->projno,
-                    'body' => [
-                        'company' => $request->company,
-                        'filename' => $filename,
-                        'links' => '',
-                        'name' =>  $model->design_requirement_text . '-' . $model->twc_id_no,
-                        'designer' => '',
-                        'pc_twc' => '',
-                    ],
-                    'thanks_text' => 'Thanks For Using our site',
-                    'action_text' => '',
-                    'action_url' => '',
-                ];
-
-                if (isset($request->approval)) {
-                    $notify_admins_msg['body']['designer'] = '';
-                    $notify_admins_msg['body']['pc_twc'] = '1';
-                    Notification::route('mail', $request->pc_twc_email ?? '')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id));
-                } else {
-                    // Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id));
-                    Notification::route('mail', $request->twc_email ?? '')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id));
-                    //designer
-                    if ($request->designer_company_email) {
-                        foreach($request->designer_company_email as $email){
-                            if ($request->designer_company_email) {
-                                $notify_admins_msg['body']['designer'] = 'designer1';
-                                Notification::route('mail', $email)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id, $email));
-                            }
-                        }
-                    }
-
-                    //designer email second
-                    if ($request->desinger_email_2) {
-                        $notify_admins_msg['body']['designer'] = 'designer1';
-                        Notification::route('mail', $request->desinger_email_2)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id, $request->desinger_email_2));
-                    }
-                }
+             
             }
             if ($temporary_work && is_array($request->designer_company_email)) {
                 $designerCompanyEmails = DesignerCompanyEmail::where('temporary_work_id', $temporaryWork->id)->get();
@@ -1470,6 +1449,46 @@ class TemporaryWorkController extends Controller
                 }
             }
             DB::commit();
+               //send mail to admin
+               $notify_admins_msg = [
+                'greeting' => 'Temporary Work Pdf',
+                'subject' => 'TWP – Design Brief Review - '.$request->projname . '-' . $request->projno,
+                'body' => [
+                    'company' => $request->company,
+                    'filename' => $filename,
+                    'links' => '',
+                    'name' =>  $model->design_requirement_text . '-' . $model->twc_id_no,
+                    'designer' => '',
+                    'pc_twc' => '',
+                ],
+                'thanks_text' => 'Thanks For Using our site',
+                'action_text' => '',
+                'action_url' => '',
+            ];
+
+            if (isset($request->approval)) {
+                $notify_admins_msg['body']['designer'] = '';
+                $notify_admins_msg['body']['pc_twc'] = '1';
+                Notification::route('mail', $request->pc_twc_email ?? '')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id));
+            } else {
+                // Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id));
+                Notification::route('mail', $request->twc_email ?? '')->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id));
+                //designer
+                if ($request->designer_company_email) {
+                    foreach($request->designer_company_email as $email){
+                        if ($request->designer_company_email) {
+                            $notify_admins_msg['body']['designer'] = 'designer1';
+                            Notification::route('mail', $email)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id, $email));
+                        }
+                    }
+                }
+
+                //designer email second
+                if ($request->desinger_email_2) {
+                    $notify_admins_msg['body']['designer'] = 'designer1';
+                    Notification::route('mail', $request->desinger_email_2)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id, $request->desinger_email_2));
+                }
+            }
             toastSuccess('Temporary Work successfully Updated!');
             return redirect()->route('temporary_works.index');
         } catch (\Exception $exception) {
@@ -2135,26 +2154,6 @@ class TemporaryWorkController extends Controller
 
     // Add this method to your controller
 
-// public function get_comments(Request $request)
-// {
-//     $type = $request->input('type');
-
-//     if ($type === 'twc') {
-//         // Logic for retrieving TWC comments
-//         $twcComments = Comment::where('type', 'twc')->get();
-//         $twcDesignComments = Comment::where('type', 'twc_designer')->get();
-
-//         return view('components.comments', ['comments' => $twcComments, 'twcdesigncomments' => $twcDesignComments]);
-//     } elseif ($type === 'other') {
-//         // Logic for retrieving comments of another type
-//         $otherComments = Comment::where('type', 'other')->get();
-
-//         return view('components.comments', ['comments' => $otherComments]);
-//     } else {
-//         // Invalid type
-//         abort(404);
-//     }
-// }
 
  
 
@@ -2271,13 +2270,16 @@ class TemporaryWorkController extends Controller
                 $all_inputs['design_upload'] = $designUpload;
             }
             $all_inputs['file_minimum_concrete'] = '';
+            $file_minimum_concrete ='';
             if($request->minimum_concrete == 1){
                 if ($request->file('file_minimum_concrete')) {
                     $filePath  = 'permits_upload/';
                     $file = $request->file('file_minimum_concrete');
                     $all_inputs['file_minimum_concrete'] = HelperFunctions::saveFile(null, $file, $filePath);
-                    $file_minimum_concrete = $all_inputs['file_minimum_concrete'];
+                    $file_minimum_concrete = $all_inputs['file_minimum_concrete'] ?? '';
                 }
+            }else{
+                $file_minimum_concrete = $all_inputs['file_minimum_concrete'] ?? '';
             }
             //first person signature and name
             $image_name1 = '';
@@ -2457,6 +2459,7 @@ class TemporaryWorkController extends Controller
                 $model->ped_url = $filename;
                 $model->save();
                 $pdf->save($path . '/' . $filename);
+                 DB::commit();
                 if($request->action != 'draft'){
                     $notify_admins_msg = [
                         'greeting' => 'Permit to Load',
@@ -2522,7 +2525,7 @@ class TemporaryWorkController extends Controller
         //      $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->latest()->get();
         //  }
         if (isset($request->type)) {
-            $permited = PermitLoad::where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->where('status','!=',7)->latest()->get();
+            $permited = PermitLoad::where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->where('status','!=',7)->where('status','!=',9)->latest()->get();
              $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->latest()->get();
           }else{
               $permited = PermitLoad::where(['temporary_work_id' => $tempid])->where('status','!=',3)->where('status','!=',6)->latest()->get();
@@ -2561,7 +2564,7 @@ class TemporaryWorkController extends Controller
                     $days = (7 - $diff_in_days);
                     if ($permit->draft_status == '1') {
                         $status = "Draft";
-                    }elseif ($permit->status == '1') {
+                    }elseif ($permit->status == 1 || $permit->status == 9) {
                         $status = "Open";
                         $button = '<a style="line-height:15px;height: 50px;margin: 4px 0;" class="btn btn-primary" href="' . route("permit.renew", \Crypt::encrypt($permit->id)) . '"><span class="fa fa-plus-square"></span> Renew</a>';
                         if (isset($request->type)) {
@@ -2573,7 +2576,6 @@ class TemporaryWorkController extends Controller
                                 <div class="dropdown-menu " aria-labelledby="dropdownMenuButton">
                                 <div class="d-flex flex-column justify-content-start">
                                 <a class="dropdown-item" href="' . route("permit.unload", \Crypt::encrypt($permit->id)) . '" ><span class="fa fa-plus-square" ></span> Unload</a>
-                                <a class="dropdown-item" href="' . route("permit.unload.edit", \Crypt::encrypt($permit->id)) . '" ><span class="fa fa-pen-square" ></span> Edit</a>
                                 <a class="confirm1 dropdown-item" href="' . route("permit.close", \Crypt::encrypt($permit->id)) . '" data-text="ARE YOU SURE?"><span class="fa fa-minus-square" ></span> Close</a>
                                 </div>
                                 </div>
@@ -2601,8 +2603,9 @@ class TemporaryWorkController extends Controller
                     }elseif ($permit->status == 7) {
                         $status = "Pending";
                     }
-
-                    if ($permit->status == 5 || $permit->draft_status == '1') {
+                    if ($permit->status ==3 && $permit->draft_status == '1') {
+                        $dnl_status = "<a href=" . route("permit.unload.edit", \Crypt::encrypt($permit->id)) . "><i style='text-align:center; font-size:20px;' class='fa fa-edit'></i></a>";
+                    }else if ($permit->status == 5 || $permit->draft_status == '1') {
                         $dnl_status = "<a href=" . route("permit.edit", \Crypt::encrypt($permit->id)) . "><i style='text-align:center; font-size:20px;' class='fa fa-edit'></i></a>";
                     }
                     // if ($permit->status == 2 || $permit->status == 6 || $permit->status == 7) {
@@ -2621,7 +2624,8 @@ class TemporaryWorkController extends Controller
                     if (auth()->user()->hasRole('scaffolder')) {
                         $button = '';
                     }
-                    $list .= '<tr data-permit-id="'.$permit->id.'" style="' . $class . '"><td><a style="    height: 50px;line-height: 15px;" target="_blank" href="' . $path . 'pdf/' . $permit->ped_url . '">' . $request->desc . '</a></td><td>' . $permit->permit_no . '</td><td class="' . $color . '">' . $days . ' days </td><td>Permit Load</td><td>'. $permit->location_temp_work .'</td><td>'. $permit->block_id .'</td><td>'. $permit->permit_date .'</td><td>' .  $status . '</td><td style="height: 48px;line-height: 15px;text-align:center;">' . $dnl_status . $button . ' '.$permit->status. '</td>/tr>';
+                    $date = date('d-m-Y', strtotime($permit->created_at));
+                    $list .= '<tr data-permit-id="'.$permit->id.'" style="' . $class . '"><td style="text-align:center"><a style="    height: 50px;line-height: 15px;" target="_blank" href="' . $path . 'pdf/' . $permit->ped_url . '">' . $request->desc . '</a></td><td  style="text-align:center">' . $permit->permit_no . '</td><td  style="text-align:center" class="' . $color . '">' . $days . ' days </td><td  style="text-align:center">Permit Load</td><td  style="text-align:center">'. $permit->location_temp_work .'</td><td  style="text-align:center">'. $permit->block_id .'</td><td  style="text-align:center">'. $date .'</td><td  style="text-align:center">' .  $status . '</td><td style="height: 48px;line-height: 15px;text-align:center;">' . $dnl_status . $button . '</td>/tr>';
                 }
             $list .= '<hr>';
         }
@@ -2692,6 +2696,7 @@ class TemporaryWorkController extends Controller
                 $all_inputs['design_upload'] = $designUpload;
             }
             $all_inputs['file_minimum_concrete'] = '';
+            $file_minimum_concrete ='';
             if($request->minimum_concrete == 1){
                 if ($request->file('file_minimum_concrete')) {
                     $filePath  = 'permits_upload/';
@@ -2700,6 +2705,8 @@ class TemporaryWorkController extends Controller
                     $all_inputs['file_minimum_concrete'] = HelperFunctions::saveFile($old_path, $file, $filePath);
                     $file_minimum_concrete = $all_inputs['file_minimum_concrete'];
                 }
+            }else{
+                $file_minimum_concrete = '';
             }
             // if($request->action == 'draft'){
             //     $all_inputs['status'] = 8;
@@ -2953,6 +2960,7 @@ class TemporaryWorkController extends Controller
                 $model->ped_url = $filename;
                 $model->save();
                 $pdf->save($path . '/' . $filename);
+                DB::commit();
                 if($request->action != 'draft'){
                     $notify_admins_msg = [
                         'greeting' => 'Permit Pdf',
@@ -2978,7 +2986,6 @@ class TemporaryWorkController extends Controller
                         Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
                     }
                 }
-                DB::commit();
                 toastSuccess('Permit Updatd sucessfully!');
                 return redirect()->route('temporary_works.index');
             }
@@ -3216,6 +3223,14 @@ class TemporaryWorkController extends Controller
             // $all_inputs['status'] = $request->principle_contractor == 1 ? 2 : 3;
             $all_inputs['status'] = $request->principle_contractor == 1 ? 6 : 3;
             
+            $all_inputs['mix_design_detail'] = $request->mix_design_detail;
+            $all_inputs['unique_ref_no'] = $request->unique_ref_no;
+            $all_inputs['age_cube'] = $request->age_cube;
+            $all_inputs['compressive_strength'] = $request->compressive_strength;
+            $all_inputs['method_curing'] = $request->method_curing;
+            $all_inputs['twc_control_pts'] = $request->twc_control_pts;
+            $all_inputs['back_propping'] = $request->back_propping;
+
             $all_inputs['created_by'] = auth()->user()->id;
             $permitload = PermitLoad::create($all_inputs);
             if($request->name3 && $request->signed3 != HelperFunctions::defaultSign())
@@ -3268,7 +3283,12 @@ class TemporaryWorkController extends Controller
             if ($permitload) {
                 //make status 0 if permit is 
                 // $request->principle_contractor == 1 ? PermitLoad::where( 'id' , $request->permitid)->update(['status' => 1]) :  PermitLoad::where( 'id' , $request->permitid)->update(['status' => 4]);
+
+                if($request->action != 'draft'){ //added this check because, if unloaded permit is saved as draft then it shouldnot update value of main open permit, open permit should remain open
                 $request->principle_contractor == 1 ? PermitLoad::where( 'id' , $request->permitid)->update(['status' => 7]) :  PermitLoad::where( 'id' , $request->permitid)->update(['status' => 4]);
+                }else{
+                    PermitLoad::where( 'id' , $request->permitid)->update(['status' => 9]);
+                }
                 //upload permit unload files
                 // dd("here" , $request->permitid , $permitload->id);
                 $image_links = $this->permitfiles($request, $permitload->id);
@@ -3280,6 +3300,7 @@ class TemporaryWorkController extends Controller
                 $model->ped_url = $filename;
                 $model->save();
                 $pdf->save($path . '/' . $filename);
+                DB::commit();
                 if($request->action != 'draft'){
                     $notify_admins_msg = [
                         'greeting' => 'Permit Unload Pdf',
@@ -4115,7 +4136,400 @@ class TemporaryWorkController extends Controller
         return response()->json(['message' => 'File not found'], 404);
     }
 
-    public function getReportsData(){
-        return view('dashboard.temporary_works.report');
+    public function getReportsData(Request $request)
+    {
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+        $type = $request->type;
+        $assignedBlocks = [];
+        $block = '';
+
+        if(auth::user()->hasRole('estimator'))
+        {
+            return redirect('Estimator/estimator');
+        }
+        if(Auth::user()->hasRole(['designer','supplier','Design Checker','Designer and Design Checker']) && !auth::user()->company_id)
+        {
+            return redirect('designer/designer');
+        }
+
+        $user = User::with('userCompany')->find(Auth::user()->id);
+        $status=[0,1,2,3];
+        try {
+            if ($user->hasRole('admin')) {
+                // $temporary_works = TemporaryWork::with('pdfFilesDesignBrief', 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits','riskassesment')->whereIn('status',$status)->where(['estimator'=>0]) ->where(function ($query) use ($start_date, $end_date) {
+                //     $query->where('created_at', '>=', $start_date)
+                //           ->where('created_at', '<=', $end_date);
+                // })->latest()->get();
+
+                $query = TemporaryWork::with('pdfFilesDesignBrief', 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign', 'unloadpermits', 'closedpermits', 'riskassesment')
+                ->whereIn('status', $status)
+                ->where(['estimator' => 0])
+                ->latest();
+                if ($start_date !== null) {
+                    $query->where('created_at', '>=', $start_date);
+                }
+            
+                if ($end_date !== null) {
+                    $query->where('created_at', '<=', $end_date);
+                }            
+    
+                $temporary_works = $query->get();
+                // dd($temporary_works);
+
+            } elseif ($user->hasRole('company')) {
+                $users = User::select(['id','name'])->where('company_id', $user->id)->get();
+                $ids = [];
+                $tot_emails = [];
+                foreach ($users as $u) {
+                    $ids[] = $u->id;
+                }
+                $ids[] = $user->id;
+                // $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereIn('created_by', $ids)->whereIn('status',$status)->where(['estimator'=>0])->where(function ($query) use ($start_date, $end_date) {
+                //     $query->where('created_at', '>=', $start_date)
+                //           ->where('created_at', '<=', $end_date);
+                // })->latest()->get();   
+                $query = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereIn('created_by', $ids)->whereIn('status',$status)->where(['estimator'=>0])->latest();
+
+                if ($start_date !== null) {
+                    $query->where('created_at', '>=', $start_date);
+                }
+            
+                if ($end_date !== null) {
+                    $query->where('created_at', '<=', $end_date);
+                }            
+    
+
+                $temporary_works = $query->get();
+
+            } else {
+                $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
+                $ids = [];
+                $tot_emails = [];
+                foreach ($project_idds as $id) {
+                    $ids[] = $id->project_id;
+                }
+                // $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereHas('project', function ($q) use ($ids) {
+                //     $q->whereIn('project_id', $ids);
+                // })->whereIn('status',$status)->where(['estimator'=>0])->where(function ($query) use ($start_date, $end_date) {
+                //     $query->where('created_at', '>=', $start_date)
+                //           ->where('created_at', '<=', $end_date);
+                // })->latest()->get();
+
+                $query = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereHas('project', function ($q) use ($ids) {
+                    $q->whereIn('project_id', $ids);
+                })->whereIn('status',$status)->where(['estimator'=>0])->latest();
+
+                if ($start_date !== null) {
+                    $query->where('created_at', '>=', $start_date);
+                }
+            
+                if ($end_date !== null) {
+                    $query->where('created_at', '<=', $end_date);
+                }            
+    
+
+                $temporary_works = $query->get();
+            }
+            
+            //permit to load
+            // $permited = PermitLoad::where('status','!=',3)->where('status','!=',6)->where(function ($query) use ($start_date, $end_date) {
+            //     $query->where('created_at', '>=', $start_date)
+            //           ->where('created_at', '<=', $end_date);
+            // })->latest()->get();
+            $permit_query = PermitLoad::where('status','!=',3)->where('status','!=',6)->latest();
+            if ($start_date !== null) {
+                $permit_query->where('created_at', '>=', $start_date);
+            }
+        
+            if ($end_date !== null) {
+                $permit_query->where('created_at', '<=', $end_date);
+            }            
+
+            $permited = $permit_query->get();
+            
+            //permit to unload
+            // $permit_unload = PermitLoad::where('status','!=',4)->where('status','!=',0)->where('status','!=',7)->where(function ($query) use ($start_date, $end_date) {
+            //     $query->where('created_at', '>=', $start_date)
+            //           ->where('created_at', '<=', $end_date);
+            // })->latest()->get();
+
+            $permit_unload_query = PermitLoad::where('status','!=',4)->where('status','!=',0)->where('status','!=',7)->latest();
+            if ($start_date !== null) {
+                $permit_unload_query->where('created_at', '>=', $start_date);
+            }
+        
+            if ($end_date !== null) {
+                $permit_unload_query->where('created_at', '<=', $end_date);
+            }  
+            $permit_unload = $permit_unload_query->get();
+            
+            return view('dashboard.temporary_works.report', compact('temporary_works','permited','permit_unload'));
+        } catch (\Exception $exception) {
+            dd($exception->getMessage(), $exception->getLine());
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
+    }
+
+    public function exportCsv(Request $request)
+    {
+        try {
+            // Define the CSV file name
+            $fileName = 'exported_data.csv';
+
+            // Generate the CSV file
+            $headers = array(
+                "Content-type" => "text/csv",
+                "Content-Disposition" => "attachment; filename=$fileName",
+                "Pragma" => "no-cache",
+                "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+                "Expires" => "0"
+            );
+            $path = public_path('test.csv');
+            $handle = fopen($path, 'w');
+
+            $start_date = $request->start_date;
+            $end_date = $request->end_date;
+            $filter_type = $request->type;
+            if($filter_type == 'all' || $filter_type == 'design_brief')
+            {
+                if(auth::user()->hasRole('estimator'))
+                {
+                    return redirect('Estimator/estimator');
+                }
+                if(Auth::user()->hasRole(['designer','supplier','Design Checker','Designer and Design Checker']) && !auth::user()->company_id)
+                {
+                    return redirect('designer/designer');
+                }
+
+                $user = User::with('userCompany')->find(Auth::user()->id);
+                $status=[0,1,2,3];
+                
+                if ($user->hasRole('admin')) {
+
+                    $query = TemporaryWork::with('pdfFilesDesignBrief', 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign', 'unloadpermits', 'closedpermits', 'riskassesment')
+                    ->whereIn('status', $status)
+                    ->where(['estimator' => 0])
+                    ->latest();
+                    if ($start_date !== null) {
+                        $query->where('created_at', '>=', $start_date);
+                    }
+                
+                    if ($end_date !== null) {
+                        $query->where('created_at', '<=', $end_date);
+                    }            
+
+                    $temporary_works = $query->get();
+                    // dd($temporary_works);
+
+                } elseif ($user->hasRole('company')) {
+                    $users = User::select(['id','name'])->where('company_id', $user->id)->get();
+                    $ids = [];
+                    $tot_emails = [];
+                    foreach ($users as $u) {
+                        $ids[] = $u->id;
+                    }
+                    $ids[] = $user->id; 
+                    $query = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereIn('created_by', $ids)->whereIn('status',$status)->where(['estimator'=>0])->latest();
+
+                    if ($start_date !== null) {
+                        $query->where('created_at', '>=', $start_date);
+                    }
+                
+                    if ($end_date !== null) {
+                        $query->where('created_at', '<=', $end_date);
+                    }            
+
+
+                    $temporary_works = $query->get();
+
+                } else {
+                    $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
+                    $ids = [];
+                    $tot_emails = [];
+                    foreach ($project_idds as $id) {
+                        $ids[] = $id->project_id;
+                    }
+
+                    $query = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereHas('project', function ($q) use ($ids) {
+                        $q->whereIn('project_id', $ids);
+                    })->whereIn('status',$status)->where(['estimator'=>0])->latest();
+
+                    if ($start_date !== null) {
+                        $query->where('created_at', '>=', $start_date);
+                    }
+                
+                    if ($end_date !== null) {
+                        $query->where('created_at', '<=', $end_date);
+                    }            
+
+
+                    $temporary_works = $query->get();
+                }
+                //design brief file export
+
+
+                // Add CSV headers
+                fputcsv($handle, [
+                    'Design Brief'
+                ]);
+
+                // Add data rows
+                foreach ($temporary_works as $item) {
+                    $value = explode('-', $item->design_requirement_text);
+                    fputcsv($handle, [
+                        $item->created_at,
+                        $item->twc_id_no,
+                        $item->design_issued_date,
+                        $value[1],
+                    ]);
+                }
+            }
+            
+            //permitload query
+            if($filter_type == 'all' || $filter_type == 'permit_load'){
+                $permit_query = PermitLoad::where('status','!=',3)->where('status','!=',6)->latest();
+                if ($start_date !== null) {
+                    $permit_query->where('created_at', '>=', $start_date);
+                }
+            
+                if ($end_date !== null) {
+                    $permit_query->where('created_at', '<=', $end_date);
+                }            
+
+                $permited = $permit_query->get();
+
+                // Add CSV headers
+                fputcsv($handle, [
+                    'Permit Load'
+                ]);
+
+                // Add data rows
+                $current =  \Carbon\Carbon::now();
+                foreach ($permited as $permit) {
+                    $to = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $permit->created_at);
+                                                $diff_in_days = $to->diffInDays($current);
+                                                $color = '';
+                                                $status = '';
+                                                $days = (7 - $diff_in_days);
+                    if ($permit->draft_status == '1') {
+                        $status = "Draft";
+                    }elseif ($permit->status == '1') {
+                        $status = "Open";
+                    } elseif ($permit->status == 0 ) {
+                        $status = "Closed";
+                    } elseif($permit->status == 4)
+                    {
+                        $status = "Unloaded";
+                    } elseif ($permit->status == 3) {
+                        $status = "Unloaded";
+                    } elseif ($permit->status == 2) {
+                        $status = "Pending";
+                    } elseif ($permit->status == 5) {
+                        $status = "<span class='permit-rejected  cursor-pointer btn btn-danger ' style='font-size: 13px;width: 70px;border-radius:8px; height: 20px;line-height: 0px;' data-id='" . \Crypt::encrypt($permit->id) . "'>DNL</span>";
+                    }elseif ($permit->status == 6) {
+                        $status = "Pending";
+                    }elseif ($permit->status == 7) {
+                        $status = "Pending";
+                    }
+                    fputcsv($handle, [
+                        $permit->created_at,
+                        $permit->tempwork->design_requirement_text,
+                        $permit->permit_no,
+                        $days.' days',
+                        $permit->location_temp_work,
+                        $status,
+                    ]);
+                }
+            }
+                
+            //permit unload query
+            if($filter_type == 'all' || $filter_type == 'permit_unload'){
+
+                $permit_unload_query = PermitLoad::where('status','!=',4)->where('status','!=',0)->where('status','!=',7)->latest();
+                if ($start_date !== null) {
+                    $permit_unload_query->where('created_at', '>=', $start_date);
+                }
+            
+                if ($end_date !== null) {
+                    $permit_unload_query->where('created_at', '<=', $end_date);
+                }  
+                $permit_unload = $permit_unload_query->get();
+
+                // Add CSV headers
+                fputcsv($handle, [
+                    'Permit to Unload'
+                ]);
+
+                // Add data rows
+                $current =  \Carbon\Carbon::now();
+                foreach ($permit_unload as $permit) {
+                    $to = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $permit->created_at);
+                                                $diff_in_days = $to->diffInDays($current);
+                                                $color = '';
+                                                $status = '';
+                                                $days = (7 - $diff_in_days);
+                    if (($permit->draft_status == '1')) {
+                        if($permit->status == 3 || $permit->status == 6){
+                            $unload_permit = true;
+                        } else{
+                            $unload_permit = false;
+                        }
+                    } else{
+                        if($permit->status == 3 || $permit->status == 6 || $permit->status == 1){
+                            $unload_permit = true;
+                        } else{
+                            $unload_permit = false;
+                        }
+                    }
+                    if($unload_permit == false){
+                        continue;
+                    }  
+                    if ($permit->draft_status == '1') {
+                        $status = "Draft";
+                    }elseif ($permit->status == '1') {
+                        $status = "Open";
+                    } elseif ($permit->status == 0 ) {
+                        $status = "Closed";
+                    } elseif($permit->status == 4)
+                    {
+                        $status = "Unloaded";
+                    } elseif ($permit->status == 3) {
+                        $status = "Unloaded";
+                    } elseif ($permit->status == 2) {
+                        $status = "Pending";
+                    } elseif ($permit->status == 5) {
+                        $status = "Rejected";
+                    }elseif ($permit->status == 6) {
+                        $status = "Pending";
+                    }elseif ($permit->status == 7) {
+                        $status = "Pending";
+                    }
+                    fputcsv($handle, [
+                        $permit->created_at,
+                        $permit->tempwork->design_requirement_text,
+                        $permit->permit_no,
+                        $days.' days',
+                        $permit->location_temp_work,
+                        $status,
+                    ]);
+                }
+
+            }
+                fclose($handle);
+
+            // Create the headers for the response.
+            $headers = [
+                'Content-Type' => 'text/csv',
+            ];
+            // Return a Laravel response that initiates the download of the generated CSV file.
+            return response()->download($path, 'test.csv', $headers);
+        } catch (\Exception $exception) {
+            dd($exception->getMessage(), $exception->getLine());
+            toastError('Something went wrong, try again!');
+            return Redirect::back();
+        }
+        
     }
 }

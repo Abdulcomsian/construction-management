@@ -179,12 +179,14 @@ class ProjectController extends Controller
     {
         abort_if(!auth()->user()->hasRole(['admin', 'company']), 403);
 
-        Validations::storeProject($request);
-        if ($request->has('id')) {
-            Validations::updateProjectId($request);
-        }
+      
 
         try {
+            Validations::storeProject($request);
+            if ($request->has('id')) {
+                Validations::updateProjectId($request);
+            }
+
             DB::beginTransaction();
 
             $all_inputs = $request->except('_token', 'qrcodeno', 'blocks');
@@ -255,8 +257,8 @@ class ProjectController extends Controller
             return Redirect::back();
         } catch (\Exception $exception) {
             DB::rollBack();
-            dd($exception->getMessage());
-            toastError($exception->getMessage());
+            // dd($exception->getMessage());
+            toastError('Project couldnt be saved');
             return Redirect::back();
         }
     }

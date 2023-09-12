@@ -64,7 +64,7 @@ class TemporaryWork extends Model
 
     public function permits() //this relation for open permit check in table
     {
-         return $this->hasMany(PermitLoad::class)->whereIn('status',[1,5])->where('draft_status', '0');
+         return $this->hasMany(PermitLoad::class)->whereIn('status',[1,5,9])->where('draft_status', '0');
     }
 
     public function closedpermits()
@@ -74,7 +74,11 @@ class TemporaryWork extends Model
 
     public function unloadpermits()
     {
-         return $this->hasMany(PermitLoad::class)->whereIn('status',[3]);
+         return $this->hasMany(PermitLoad::class)->whereIn('status',[3])->where('draft_status', '0');
+    }
+    public function unloadpermits_draft()
+    {
+         return $this->hasMany(PermitLoad::class)->whereIn('status',[3])->where('draft_status', '1');;
     }
     public function scaffold() //this relation for open permit check in table
     {

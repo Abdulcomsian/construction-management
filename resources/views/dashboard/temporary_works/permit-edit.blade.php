@@ -170,9 +170,9 @@
         color: white;
     }
 
-    canvas {
+    /* canvas {
         background: lightgray;
-    }
+    } */
 
     .uploaded {
         padding: 40px 0 !important;
@@ -642,9 +642,13 @@
                             </div>
                             <div class="d-flex ">
                                 <div class="d-flex modalDiv">
-                                    @if(isset($permitdata) && $permitdata->works_coordinator==1)
-                                    <textarea name="description_approval_temp_works" rows="2" style="border: 1px solid lightgray; border-radius: 8px; margin-bottom: 5px" class="form-control">{{$permitdata->description_approval_temp_works ?? ''}}</textarea>
+                                    {{-- @if(isset($permitdata) && $permitdata->works_coordinator==1) --}}
+                                    <textarea name="description_approval_temp_works" rows="2" style="
+                                    @if($permitdata->works_coordinator!=1)
+                                    display:none;
                                     @endif
+                                    border: 1px solid lightgray; border-radius: 8px; margin-bottom: 5px" class="form-control">{{$permitdata->description_approval_temp_works ?? ''}}</textarea>
+                                    {{-- @endif --}}
                                 </div>
                             </div>
                         </div>
@@ -827,6 +831,7 @@
                             </div>
                         </div>
                     </div>
+                    @if(isset($permitdata) && $permitdata->principle_contractor==1)
                     <div class="row">
                         <div class="col-md-6">
                             <div class="d-flex inputDiv">
@@ -860,6 +865,10 @@
                             </div>
                         </div>
                     </div>
+                    @else
+                    <input type="hidden" class="btn-check" name="principle_contractor" value="0"  />
+
+                    @endif
                     <div class="row">
                         <div class="col-md-6 mt-15" id="second_member">
                             <div class="col" style="flex:100% !important;">
@@ -1033,7 +1042,7 @@
                                                 <span class="required">Signature:</span>
                                             </label> --}}
                                     {{-- <br /> --}}
-                                    <canvas id="sig1" style="border-radius: 9px"></canvas>
+                                    <canvas style="background: lightgray; border-radius:10px"id="sig1" ></canvas>
                                     <textarea id="signature1" name="signed1" style="display: none"></textarea>
                                     <span id="clear1" class="fa fa-undo cursor-pointer btn--clear" style="line-height: 6; position:relative; top:83px; right:26px"></span>
                                     {{-- <span id="clear1" class="fa fa-undo cursor-pointer"
@@ -1284,10 +1293,14 @@
                         {{-- <div>
                         </div> --}}
                     </div>
-                    @if($permitdata->status == 2 || $permitdata->status == 6 || $permitdata->status == 7)
-                    <input type="hidden" id="permitdata_status" name="permitdata_status" value="pending" />
-                    @else
-                    <input type="hidden" id="permitdata_status" name="permitdata_status" value="approved" />
+                    @if($permitdata->draft_status == "1")
+                    <input type="hidden" id="permitdata_status" name="permitdata_status" value="approved" />  {{-- to update permit if it is draft--}} 
+                    @elseif($permitdata->status == 1 )
+                    <input type="hidden" id="permitdata_status" name="permitdata_status" value="open" /> {{-- to insert new permit--}}
+                    {{-- @elseif($permitdata->status == 2 || $permitdata->status == 6 || $permitdata->status == 7) --}}
+                    {{-- <input type="hidden" id="permitdata_status" name="permitdata_status" value="pending" /> --}}
+                    @else 
+                    <input type="hidden" id="permitdata_status" name="permitdata_status" value="approved" />   {{-- to update permit for other condition--}} 
                     @endif
                     <div class="col-md-12 d-flex justify-content-end align-items-end" style="bottom: 20px;">
                         <div class="col-md-5">
@@ -1847,6 +1860,7 @@
 
 
             $("input[name='works_coordinator']").change(function() {
+               
                 if ($(this).val() == 1) {
                     $("textarea[name='description_approval_temp_works']").show();
                 } else {
@@ -1942,9 +1956,8 @@
                     .attr("type", "hidden")
                     .attr("name", "action")
                     .val(buttonValue);
-
                 var status = $('#permitdata_status').val();
-                if (status == 'pending' && buttonValue != 'draft') {
+                if (status == 'open') {
                     $("#permitrenew").attr('action', "{{route('permit.save')}}");
                 }
 
@@ -2098,7 +2111,6 @@
                 }
             })
             $("input[name='works_coordinator']").change(function() {
-                alert("OK")
                 if ($(this).val() == 1) {
                     $("textarea[name='description_approval_temp_works']").removeClass('d-none').addClass('d-flex');
                 } else {

@@ -56,13 +56,13 @@
                         <thead style="height: 60px;">
                             <tr style="background: #f5f8fa;color:#000;">
                                 <td style="max-width:300px;"><b>Temporary Work</b></td>
-                                <td><b>Permit No</b></td>
-                                <td><b>Expiry Date</b></td>
-                                <td><b>Type</b></td>
-                                <td><b>Location</b></td>
-                                <td style="width: 90px;"><b>Block</b></td>
-                                <td style="width: 60px;"><b>Date</b></td>
-                                <td style="width: 60px;"><b>Status</b></td>
+                                <td style="width: 125px;text-align:center"><b>Permit No</b></td>
+                                <td style="width: 90px;text-align:center"><b>Expiry Date</b></td>
+                                <td style="width: 90px;text-align:center"><b>Type</b></td>
+                                <td style="width: 90px;text-align:center"><b>Location</b></td>
+                                <td style="width: 90px;text-align:center"><b>Block</b></td>
+                                <td style="width: 90px;text-align:center"><b>Date</b></td>
+                                <td style="width: 60px;text-align:center"><b>Status</b></td>
                                 <td><b>Action</b></td>
                             </tr>
                         </thead>

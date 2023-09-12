@@ -1565,7 +1565,7 @@ $tempWorkClass = "d-none";
                                                                     <div
                                                                         style="@if(count($item->permits) > 0 || count($item->scaffold) > 0) background: #07D56426; @endif padding: 4px; border-radius: 4px;width: 20px; height:20px;">
                                                                         @if(count($item->permits) > 0 ||
-                                                                        count($item->scaffold) > 0)
+                                                                        count($item->scaffold) > 0  || count($item->unloadpermits_draft) > 0)
                                                                         <p class="permit-to-unload cursor-pointer"
                                                                             style="font-weight: 400;font-size: 14px;bottom: 4px;"
                                                                             data-id="{{Crypt::encrypt($item->id)}}"

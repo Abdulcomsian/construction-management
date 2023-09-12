@@ -228,6 +228,23 @@ class Validations
             'signed' => 'required_if:signtype,0',
         ]);
     }
+    public static function updatepermitunload($request)
+    {
+        $request->validate([
+            'project_id' => ['required', 'max:255', 'exists:projects,id'],
+            'twc_name' => ['required'],
+            'drawing_no' => ['required'],
+            'permit_no' => ['required'],
+            'drawing_title' => ['required'],
+            'tws_name' => ['required'],
+            // 'ms_ra_no' => ['required'],
+            'name1' => 'required_if:approval_PC,1',
+            'job_title1' => 'required_if:approval_PC,1',
+            'pc_twc_email' => 'required_if:principle_contractor,1',
+            'company' => ['required'],
+            'signed' => 'required_if:signtype,0',
+        ]);
+    }
 
     //validation scafffolding
     public static function storescaffolding($request)

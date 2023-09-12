@@ -3059,7 +3059,7 @@ class TemporaryWorkController extends Controller
     public function permit_unload_edit($id) {
         try {
             $permitid =  \Crypt::decrypt($id);
-            $permitdata = PermitLoad::find($permitid);
+            $permitdata = PermitLoad::with('signatures')->find($permitid);
             $tempid = $permitdata->temporary_work_id;
             $tempdata = TemporaryWork::select(['twc_email', 'twc_id_no', 'designer_company_email', 'design_requirement_text'])->find($tempid);
             $twc_id_no = $permitdata->permit_no;
@@ -3287,7 +3287,11 @@ class TemporaryWorkController extends Controller
             if ($permitload) {
                 //make status 0 if permit is 
                 // $request->principle_contractor == 1 ? PermitLoad::where( 'id' , $request->permitid)->update(['status' => 1]) :  PermitLoad::where( 'id' , $request->permitid)->update(['status' => 4]);
+                if($request->action != 'draft'){
                 $request->principle_contractor == 1 ? PermitLoad::where( 'id' , $request->permitid)->update(['status' => 7]) :  PermitLoad::where( 'id' , $request->permitid)->update(['status' => 4]);
+                }else{
+                    PermitLoad::where( 'id' , $request->permitid)->update(['status' => 9]);
+                }
                 //upload permit unload files
                 // dd("here" , $request->permitid , $permitload->id);
                 $image_links = $this->permitfiles($request, $permitload->id);
@@ -3349,7 +3353,8 @@ class TemporaryWorkController extends Controller
     {
         
         DB::beginTransaction();
-        Validations::storepermitunload($request);
+        Validations::updatepermitunload($request);
+        $permitload = PermitLoad::with('signatures')->find($request->permitid);
         try {
             $all_inputs  = $request->except('_token', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'approavalEmailReq', 'approval_PC', 'company1','companyid1', 'pdfsigntype1', 'date1', 'date2','drawing','drawing_option','custom_drawing','design_upload', 'name3', 'job_title3', 'company3', 'companyid3', 'signed3', 'namesign3', 'name4', 'job_title4', 'company4', 'companyid4', 'signed4', 'namesign4', 'name5', 'job_title5', 'company5', 'companyid5', 'signed5', 'namesign5','date3','date4', 'date5','action', 'permitdata_status','draft_status');
             $all_inputs['created_by'] = auth()->user()->id;
@@ -3368,44 +3373,42 @@ class TemporaryWorkController extends Controller
                 $designUpload = implode(', ', $request->design_upload);
                 $all_inputs['design_upload'] = $designUpload;
             }
+        //first person signature and name
+        $image_name1 = '';
+        if ($request->principle_contractor == 1) {
+            if(!$permitload->signature){
 
-            $image_name1 = '';
-            
-            
-            if ($request->signtype1 == 1) {
-                $all_inputs['signature1'] = $request->namesign1;
-            }elseif ($request->pdfsigntype == 1) {
-                $folderPath = public_path('temporary/signature/');
-                $file = $request->file('pdfphoto1');
-                $filename = time() . rand(10000, 99999) . '.' . $file->getClientOriginalExtension();
-                $file->move($folderPath, $filename);
-                $image_name1 = $filename;
-                $all_inputs['signature'] = $image_name1;
-            }else{
-                $folderPath = public_path('temporary/signature/');
+                $all_inputs['name1'] = $request->name1;
+                $all_inputs['job_title1'] = $request->job_title1;
+                if ($request->signtype1 == 1) {
+                    $all_inputs['signature1'] = $request->namesign1;
+                } else {
+
+                    $folderPath = public_path('temporary/signature/');
                     $image = explode(";base64,", $request->signed1);
                     $image_type = explode("image/", $image[0]);
-                    
                     $image_type_png = $image_type[1];
                     $image_base64 = base64_decode($image[1]);
                     $image_name1 = uniqid() . '.' . $image_type_png;
                     $file = $folderPath . $image_name1;
+                    @unlink($folderPath . $permitload->signature1);
                     file_put_contents($file, $image_base64);
                     $all_inputs['signature1'] = $image_name1;
+                }
+            } else {
+                $all_inputs['name1'] = $request->name1;
+                $all_inputs['job_title1'] = $request->job_title1;
+                $image_name1 = $permitload->signature1;
+                $all_inputs['signature1'] = $image_name1; 
             }
-            
-            //for 2
-            $image_name = '';
+        } 
+
+        //second person signature and name
+        $image_name = '';
+        if(!$permitload->signature){
+
             if ($request->signtype == 1) {
                 $all_inputs['signature'] = $request->namesign;
-            } elseif ($request->pdfsigntype == 1) {
-                $folderPath = public_path('temporary/signature/');
-                $file = $request->file('pdfphoto');
-                $filename = time() . rand(10000, 99999) . '.' . $file->getClientOriginalExtension();
-                $file->move($folderPath, $filename);
-                $image_name = $filename;
-                $all_inputs['signature'] = $image_name;
-                $all_input['pc_twc_email'] = $request->pc_twc_email;
             } else {
                 $folderPath = public_path('temporary/signature/');
                 $image = explode(";base64,", $request->signed);
@@ -3414,15 +3417,24 @@ class TemporaryWorkController extends Controller
                 $image_base64 = base64_decode($image[1]);
                 $image_name = uniqid() . '.' . $image_type_png;
                 $file = $folderPath . $image_name;
+                @unlink($folderPath . $permitload->signature);
                 file_put_contents($file, $image_base64);
-               $all_inputs['signature'] = $image_name;
+                $all_inputs['signature'] = $image_name;
             }
+        } else{
+            $all_inputs['name1'] = $request->name;
+            $all_inputs['job_title1'] = $request->job_title;
+            $image_name = $permitload->signature;
+            $all_inputs['signature'] = $image_name; 
+        }
 
-            //third person signature and name
-            $image_name3 = '';
+        //third person signature and name
+        $image_name3 = '';
+        if(!isset($permitload->signatures[0]) && empty($permitload->signatures[0]->signature)){
+        // if(!$permitload->signatures[0]->name){
             if ($request->signtype3 == 1) {
                 $signature3 = $request->namesign3;
-            } elseif($request->signed3 != HelperFunctions::defaultSign()) { 
+            } elseif($request->name3) {
                 $name3 = $request->name3;
                 $job_title3 = $request->job_title3;
                 $company3 = $request->company3;
@@ -3436,13 +3448,53 @@ class TemporaryWorkController extends Controller
                 $file = $folderPath . $image_name3;
                 file_put_contents($file, $image_base64);
                 $signature3 = $image_name3; 
-            }
-
-            //fourth person signature and name
-            $image_name4 = '';
+            } 
+        } else{
+            $name3 = $permitload->signatures[0]->name;
+            $job_title3 = $permitload->signatures[0]->job_title;
+            $company3 = $permitload->signatures[0]->company;
+            $date3 = $permitload->signatures[0]->date;
+            $image_name3 = $permitload->signatures[0]->signature;
+            $signature3 = $image_name3; 
+        }
+        // dd("yyyy");
+        
+        // $signature_exist = $permitload->signatures[0] ?? null;
+        // if(!empty($signature_exist)){
+        //     if(empty($permitload->signatures[0]->signature)){
+        //         if ($request->signtype3 == 1) {
+        //             $signature3 = $request->namesign3;
+        //         } elseif($request->name3) {
+        //             $name3 = $request->name3;
+        //             $job_title3 = $request->job_title3;
+        //             $company3 = $request->company3;
+        //             $date3 = $request->date3;
+        //             $folderPath = public_path('temporary/signature/');
+        //             $image = explode(";base64,", $request->signed3);
+        //             $image_type = explode("image/", $image[0]);
+        //             $image_type_png = $image_type[1];
+        //             $image_base64 = base64_decode($image[1]);
+        //             $image_name3 = uniqid() . '.' . $image_type_png;
+        //             $file = $folderPath . $image_name3;
+        //             file_put_contents($file, $image_base64);
+        //             $signature3 = $image_name3; 
+        //         } 
+        //     } else{
+        //         $name3 = $permitload->signatures[0]->name;
+        //         $job_title3 = $permitload->signatures[0]->job_title;
+        //         $company3 = $permitload->signatures[0]->company;
+        //         $date3 = $permitload->signatures[0]->date;
+        //         $image_name3 = $permitload->signatures[0]->signature;
+        //         $signature3 = $image_name3; 
+        //     }
+        // }
+        //fourth person signature and name
+        $image_name4 = '';
+        if(!isset($permitload->signatures[1]) && empty($permitload->signatures[1]->signature)){
+        // if(!$permitload->signatures[0]->name){
             if ($request->signtype4 == 1) {
                 $signature4 = $request->namesign4;
-            } elseif($request->signed4 != HelperFunctions::defaultSign()) { 
+            } elseif($request->name4) { 
                 $name4 = $request->name4;
                 $job_title4 = $request->job_title4;
                 $company4 = $request->company4;
@@ -3457,12 +3509,22 @@ class TemporaryWorkController extends Controller
                 file_put_contents($file, $image_base64);
                 $signature4 = $image_name4; 
             }
+        } else{
+            $name4 = $permitload->signatures[1]->name;
+            $job_title4 = $permitload->signatures[1]->job_title;
+            $company4 = $permitload->signatures[1]->company;
+            $date4 = $permitload->signatures[1]->date;
+            $image_name4 = $permitload->signatures[1]->signature;
+            $signature4 = $image_name4; 
+        }
 
-            //fifth person signature and name
-            $image_name5 = '';
+        //fifth person signature and name
+        $image_name5 = '';
+        if(!isset($permitload->signatures[2]) && empty($permitload->signatures[2]->signature)){
+        // if(!$permitload->signatures[0]->name){
             if ($request->signtype5 == 1) {
                 $signature4 = $request->namesign5;
-            } elseif($request->signed5 != HelperFunctions::defaultSign()) { 
+            } elseif($request->name5) { 
                 $name5 = $request->name5;
                 $job_title5 = $request->job_title5;
                 $company5 = $request->company5;
@@ -3477,69 +3539,74 @@ class TemporaryWorkController extends Controller
                 file_put_contents($file, $image_base64);
                 $signature5 = $image_name5; 
             }
-            // $all_inputs['status'] = 3;
-            // $all_inputs['status'] = $request->principle_contractor == 1 ? 2 : 3;
-            $all_inputs['status'] = $request->principle_contractor == 1 ? 6 : 3;
-            
-            $all_inputs['mix_design_detail'] = $request->mix_design_detail;
-            $all_inputs['unique_ref_no'] = $request->unique_ref_no;
-            $all_inputs['age_cube'] = $request->age_cube;
-            $all_inputs['compressive_strength'] = $request->compressive_strength;
-            $all_inputs['method_curing'] = $request->method_curing;
-            $all_inputs['twc_control_pts'] = $request->twc_control_pts;
-            $all_inputs['back_propping'] = $request->back_propping;
-            $all_inputs['comments'] = $request->comments;
-            $all_inputs['location_temp_work'] = $request->location_temp_work;
-            $all_inputs['description_structure'] = $request->description_structure;
-            $all_inputs['ms_ra_no'] = $request->ms_ra_no;
+        } else{
+            $name5 = $permitload->signatures[2]->name;
+            $job_title5 = $permitload->signatures[2]->job_title;
+            $company5 = $permitload->signatures[2]->company;
+            $date5 = $permitload->signatures[2]->date;
+            $image_name5 = $permitload->signatures[2]->signature;
+            $signature5 = $image_name5; 
+        }
 
-            $all_inputs['created_by'] = auth()->user()->id;
-            $permitload = PermitLoad::find($request->permitid);
-            $permitload->update($all_inputs);
-            if($request->name3 && $request->signed3 != HelperFunctions::defaultSign())
-            {
-                $signature3_record = new Signature([
-                    'name' => $name3,
-                    'job_title' => $job_title3,
-                    'company' => $company3,
-                    'date' => $date3,
-                    'signatureable_type' => get_class($permitload),  
-                    'signature' => $signature3, 
-                    'signatureable_id' => $permitload->id             
-                ]);
-    
-                $permitload->signatures()->save($signature3_record);
-            }
+        $all_inputs['created_by'] = auth()->user()->id;
+        if (!isset($request->approval)) {
+            $all_inputs['status'] = 1;
+        }
+        if($request->action == 'draft'){
+            $all_inputs['draft_status'] = '1';
+        } else{
+            $all_inputs['draft_status'] = '0';
+        }
+        $permitload->signatures()->delete();
+        // dd($all_inputs);
 
-            if($request->name4 && $request->signed4 != HelperFunctions::defaultSign())
-            {
-                $signature4_record = new Signature([
-                    'name' => $name4,
-                    'job_title' => $job_title4,
-                    'company' => $company4,
-                    'date' => $date4,
-                    'signatureable_type' => get_class($permitload),  
-                    'signature' => $signature4, 
-                    'signatureable_id' => $permitload->id             
-                ]);
-    
-                $permitload->signatures()->save($signature4_record);
-            }
+        $permitload->update($all_inputs);
+        
+        
+        if($request->name3)
+        {
+            $signature3_record = new Signature([
+                'name' => $name3,
+                'job_title' => $job_title3,
+                'company' => $company3,
+                'date' => $date3,
+                'signatureable_type' => get_class($permitload),  
+                'signature' => $signature3, 
+                'signatureable_id' => $permitload->id             
+            ]);
 
-            if($request->name5 && $request->signed5 != HelperFunctions::defaultSign())
-            {
-                $signature5_record = new Signature([
-                    'name' => $name5,
-                    'job_title' => $job_title5,
-                    'company' => $company5,
-                    'date' => $date5,
-                    'signatureable_type' => get_class($permitload),  
-                    'signature' => $signature5, 
-                    'signatureable_id' => $permitload->id             
-                ]);
-    
-                $permitload->signatures()->save($signature5_record);
-            }
+            $permitload->signatures()->save($signature3_record);
+        }
+        
+        if($request->name4)
+        {
+            $signature4_record = new Signature([
+                'name' => $name4,
+                'job_title' => $job_title4,
+                'company' => $company4,
+                'date' => $date4,
+                'signatureable_type' => get_class($permitload),  
+                'signature' => $signature4, 
+                'signatureable_id' => $permitload->id             
+            ]);
+
+            $permitload->signatures()->save($signature4_record);
+        }
+
+        if($request->name5)
+        {
+            $signature5_record = new Signature([
+                'name' => $name5,
+                'job_title' => $job_title5,
+                'company' => $company5,
+                'date' => $date5,
+                'signatureable_type' => get_class($permitload),  
+                'signature' => $signature5, 
+                'signatureable_id' => $permitload->id             
+            ]);
+
+            $permitload->signatures()->save($signature5_record);
+        }
 
             if($request->principle_contractor==null){$request->principle_contractor=0;}
             $data['principle_contractor'] = $request->approval_PC;
@@ -3550,7 +3617,7 @@ class TemporaryWorkController extends Controller
                 if($request->action != 'draft'){ //added this check because, if unloaded permit is saved as draft then it shouldnot update value of main open permit, open permit should remain open
                 $request->principle_contractor == 1 ? PermitLoad::where( 'id' , $request->permitid)->update(['status' => 7]) :  PermitLoad::where( 'id' , $request->permitid)->update(['status' => 4]);
                 }else{
-                    PermitLoad::where( 'id' , $request->permitid)->update(['status' => 9]);
+                    // PermitLoad::where( 'id' , $request->permitid)->update(['status' => 9]);
                 }
                 //upload permit unload files
                 // dd("here" , $request->permitid , $permitload->id);

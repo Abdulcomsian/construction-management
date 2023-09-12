@@ -664,7 +664,7 @@
                                 </label>
                                 <!--end::Label-->
                                 <div class="input">
-                                    <input type="text" class="form-control" placeholder="Name" id="name2" name="name1" value="{{old('name',$permitdata->name ?? '')}}" {{ isset($permitdata->name) && $permitdata->name != null ? 'readonly' : '' }}>
+                                    <input type="text" class="form-control" placeholder="Name" id="name" name="name" value="{{$permitdata->name ?? ''}}">
                                 </div>
                             </div>
                             <div class="d-flex inputDiv principleno">
@@ -674,7 +674,7 @@
                                 </label>
                                 <!--end::Label-->
                                 <div class="input">
-                                    <input type="text" class="form-control" placeholder="Job title" id="job_title" name="job_title1" value="{{old('job_title',$permitdata->job_title ?? '')}}" {{ isset($permitdata->job_title) && $permitdata->job_title != null ? 'readonly' : '' }}>
+                                    <input type="text" class="form-control" placeholder="Job title" id="job_title" name="job_title" value="{{$permitdata->job_title ?? ''}}">
                                 </div>
                             </div>
                             <div class="d-flex inputDiv d-block">
@@ -684,7 +684,7 @@
                                 </label>
                                 <!--end::Label-->
                                 <div class="input">
-                                    <input type="text" id="companyadmin" class="form-control form-control-solid" placeholder="Company" name="company" value="{{$project->company->name ?? ''}}" {{ isset($project->company->name) && $project->company->name != null ? 'readonly' : '' }}>
+                                    <input type="text" id="companyadmin" class="form-control form-control-solid" placeholder="Company" name="company" value="{{$project->company->name ?? ''}}" readonly="readonly">
                                     <input type="hidden" id="companyid" class="form-control form-control-solid" placeholder="Company" name="companyid" value="{{$project->company->id ?? ''}}" readonly="readonly">
                                 </div>
                             </div>
@@ -714,7 +714,7 @@
                                         </div>
                                         <div style="display:flex; align-items: center; padding-left:10px">
                                             <input type="radio" class="" id="flexCheckChecked" style="width: 12px;">
-                                            <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="2">
+                                            <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="1">
                                             <span style="padding-left:14px;font-family: 'Inter', sans-serif; color:#000;font-size:14px;line-height: 2">Name</span>
                                         </div>
                                         <!--end::Label-->
@@ -754,107 +754,112 @@
                             <img style="background-color: #D3D3D3; border-radius: 15px; width: 300px;" src="{{asset('temporary/signature/'.$permitdata->signature)}}" width="100%" />
                             @endif
                         </div>
-                        <div class="col-md-6" id="first_member" style="margin-top: 2rem;">
+                        <div class="col-md-6" id="first_member" style="display: {{ (isset($permitdata->name1) && $permitdata->name1 != null) ? 'block' : 'none' }}; margin-top: 2rem;">
                             <div class="col" style="flex:100% !important;">
                                 {{-- <div class="d-flex inputDiv">
                                 </div> --}}
                                 <!-- @if(isset($permitdata) && $permitdata->principle_contractor==1)
                                 @endif -->
                                 @if(isset($permitdata) && $permitdata->principle_contractor==1)
-                            <div class="d-flex inputDiv principleno">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span class="required">Name::</span>
-                                </label>
-                                <!--end::Label-->
-                                <input type="text" class="form-control" placeholder="Name" name="name1" value="{{$permitdata->name1 ?? ''}}">
-                            </div>
-                            <div class="d-flex inputDiv principleno">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span class="required">Job title:</span>
-                                </label>
-                                <!--end::Label-->
-                                <input type="text" class="form-control" placeholder="Job title" name="job_title1" value="{{$permitdata->job_title1 ?? ''}}">
-                            </div>
-                            <div class="d-flex inputDiv principleno">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span class="required">Company: </span>
-                                </label>
-                                <!--end::Label-->
-                                <input type="text" id="companyadmin" class="form-control" placeholder="Company" name="company" value="{{$project->company->name ?? ''}}">
-                                <input type="hidden" id="companyid" class="form-control form-control-solid" placeholder="Company" name="companyid" value="{{$project->company->id ?? ''}}" readonly="readonly">
-                            </div>
-                            <div class="d-flex inputDiv principleno">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
-                                    <span class="required">Date:</span>
-                                </label>
-                                <!--end::Label-->
-                                <input type="date" value="{{ date('Y-m-d') }}" class="form-control">
-                            </div>
-                            @endif
-                            @if(isset($permitdata) && $permitdata->principle_contractor==1)
-                            @if(!isset($permitdata->signature1) && empty($permitdata->signature1))
-                            <div class="col">
-                                <div class="d-flex flex-column" style="border: none">
-                                    <label class="fs-6 fw-bold" style="font-size: 16px !important">
-                                        <span class="signatureTitle" style="white-space: nowrap">Signature Type:</span>
+                                <div class="d-flex inputDiv principleno mt-0">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-bold mb-2">
+                                        <span class="required" style="width: 27%">Name:</span>
                                     </label>
-                                    <div style="display:flex; align-items: center; padding-left:10px">
-                                        <input type="radio" class="checkbox-field" id="DrawCheck1" checked=true style="width: 12px;">
-                                        <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="2"> -->
-                                        <span style="padding-left:14px;font-family: 'Inter', sans-serif;color:#000;font-size:14px;line-height: 2">Draw</span>
-                                    </div>
                                     <!--end::Label-->
-                                    <div style="display:flex; align-items: center; padding-left:10px">
-                                        <input type="radio" class="" id="flexCheckChecked1" style="width: 12px;">
-                                        <input type="hidden" id="signtype1" name="signtype1" class="form-control form-control-solid" value="2">
-                                        <span style="padding-left:14px;font-family: 'Inter', sans-serif;color:#000;font-size:14px;line-height: 2">Name</span>
-                                    </div>
-                                    <!--end::Label-->
+                                    <input type="text" class="form-control" placeholder="Name" id="name1" name="name1" value = "">
+                                    
                                 </div>
-                                {{-- <div class="d-flex inputDiv" style="">
-                                            <label class="fs-6 fw-bold mb-2" style="">
-                                                <span>Name/signature:</span>
-                                            </label>
-                                            <input type="checkbox" id="flexCheckChecked1" style="width: 12px;margin-top:5px">
-                                            <input type="hidden" id="signtype1" name="signtype1"
-                                                class="form-control form-control-solid" value="0">
-                                            <span class="tickboxalign" style="padding-left:3px;color:#000">Do you want
-                                                name signature?</span>
-                                        </div> --}}
-                                <div class="d-flex inputDiv" id="namesign1" style="display: none !important;">
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="required">Name Signature:</span>
+                                <div class="d-flex inputDiv principleno">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-bold mb-2">
+                                        <span class="required" style="width: 27%">Job Title:</span>
                                     </label>
-                                    <input type="text" name="namesign1" id="namesign_id2" class="form-control form-control-solid">
+                                    <!--end::Label-->
+                                    <input type="text" class="form-control" placeholder="Job title" id="job_title1" name="job_title1" value = "{{$permitdata->job_title1 ?? ''}}">
+                                    {{-- value="{{old('job_title1',$permitdata->job_title1 ?? '')}}" --}}
                                 </div>
+                                <div class="d-flex inputDiv d-block">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width: 27%">
+                                        <span class="required">Company: </span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <div class="input" style="width: 100%">
+                                        <input type="text" id="companyadmin1" class="form-control form-control-solid" placeholder="Company" name="company1" value = "{{$project->company->name ?? ''}}">
+                                        <input type="hidden" id="companyid1" class="form-control form-control-solid" placeholder="Company" name="companyid1" value="{{$project->company->id ?? ''}}">
+                                    </div>
+                                </div>
+                                <div class="d-flex inputDiv d-block">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2" style="width: 27%">
+                                        <span class="required">Date:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <div class="input">
+                                        <input type="date" name="date2" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                                    </div>
+                                </div>
+                                @endif
+                                @if(isset($permitdata) && $permitdata->principle_contractor==1)
+                                @if(!isset($permitdata->signature1) && empty($permitdata->signature1))
+                                <div class="col">
+                                    <div class="d-flex flex-column" style="border: none">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold" style="width:40% !important;font-size: 600 !important; font-size: 16px !important; white-space: nowrap">
+                                            <span class="signatureTitle">Signature Type:</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <div class="d-flex flex-row">
+                                            <div style="display:flex; align-items: center; padding-left:10px">
+                                                <input type="radio" class="checkbox-field" id="DrawCheck1" checked=true style="width: 12px;">
+                                                <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="0"> -->
+                                                <span style="padding-left:14px;font-family: 'Inter', sans-serif; color:#000;font-size:14px;line-height: 2">Draw</span>
+                                            </div>
+                                            <div style="display:flex; align-items: center; padding-left:10px">
+                                                <input type="radio" class="" id="flexCheckChecked1" style="width: 12px;">
+                                                <input type="hidden" id="signtype1" name="signtype1" class="form-control form-control-solid" value="2">
+                                                <span style="padding-left:14px;font-family: 'Inter', sans-serif; color:#000;font-size:14px;line-height: 2">Name</span>
+                                            </div>
+                                            &nbsp;
+                                            <!--end::Label-->
+                                            <div style="display:flex; align-items: center; padding-left:10px">
+                                                <input type="radio" class="" id="pdfChecked1" style="width: 12px;">
+                                                <input type="hidden" id="pdfsign1" name="pdfsigntype1" class="form-control form-control-solid" value="0">
+                                                <span style="padding-left:14px;font-family: 'Inter', sans-serif; color:#000;font-size:14px;line-height: 2; min-width: fit-content; white-space: nowrap">PNG/JPG
+                                                    Upload </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="d-flex inputDiv m-0" id="sign1" style="align-items: center;border:none">
+                                        <!-- <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                    <span class="required">Signature:</span>
+                                                </label>
+                                                <br/> -->
+                                        <canvas id="sig1" onblure="draw()" style="background: lightgray; border-radius:10px"></canvas>
+                                        <br />
+                                        <textarea id="signature1" name="signed1" style="display: none"></textarea>
+                                        <span id="clear1" class="fa fa-undo btn--clear cursor-pointer" style="line-height: 6; position:relative; top:51px; right:26px"></span>
+                                    </div>
+                                    <div class="inputDiv d-none" id="pdfsign1">
+                                        <label class="fs-6 fw-bold mb-2" style="width: fit-content">
+                                            <span class="required">Upload Signature: Allowed format (PNG, JPG)</span>
+                                        </label>
+                                        <input type="file" name="pdfphoto1" class="form-control" accept="image/*">
+                                    </div>
 
-                                <div class="d-flex" id="sign1" style="border:none !important;">
-                                    {{-- <label style="width:33%" class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Signature:</span>
-                                            </label> --}}
-                                    {{-- <br /> --}}
-                                    <canvas style="background: lightgray; border-radius:10px"id="sig1" ></canvas>
-                                    <textarea id="signature1" name="signed1" style="display: none"></textarea>
-                                    <span id="clear1" class="fa fa-undo cursor-pointer btn--clear" style="line-height: 6; position:relative; top:83px; right:26px"></span>
-                                    {{-- <span id="clear1" class="fa fa-undo cursor-pointer"
-                                                style="line-height: 6; position:relative; top:51px; right:26px"></span> --}}
+                                    <div class="d-none inputDiv" id="namesign1">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Name Signature:</span>
+                                        </label>
+                                        <input type="text" name="namesign1" class="form-control form-control-solid">
+                                    </div>
                                 </div>
-                                <span id="sigimage1" class="text-danger" style="font-size: 15px">Signature Not
-                                    Added</span>
-                                <!-- <div class="d-flex inputDiv principleno" id="sign1"
-                                            style=" display: none !important">
-                                            <textarea id="signature1" name="signed1" style="opacity: 0"></textarea>
-                                        </div>  -->
-                            </div>
-                            @else
-                            <img style="background-color: #D3D3D3; border-radius: 15px; width: 300px;" src="{{asset('temporary/signature/'.$permitdata->signature1)}}" width="100%" />
-                            @endif
-                            @endif
-                                </div>
+                                @else
+                                <img style="background-color: #D3D3D3; border-radius: 15px; width: 300px;" src="{{asset('temporary/signature/'.$permitdata->signature1)}}" width="100%" />
+                                @endif
+                                @endif
                             </div>
 
 
@@ -892,7 +897,7 @@
                             </div> -->
 
                         </div>
-                        <div class="col-md-6" id="third_member" style="display: {{ isset($permitdata->signatures[0]->name) && $permitdata->signatures[0]->name != null ? 'block' : 'none' }}; margin-top: 2rem;">
+                        <div class="col-md-6" id="third_member" style="display: {{ (isset($permitdata->signatures[0]->name) && $permitdata->signatures[0]->name != null) ? 'block' : 'none' }}; margin-top: 2rem;">
                             <!-- <div class="d-flex inputDiv d-block">
                                         </div> -->
                             <div class="d-flex inputDiv principleno mt-0">
@@ -901,7 +906,7 @@
                                     <span class="required">Name:</span>
                                 </label>
                                 <!--end::Label-->
-                                <input type="text" class="form-control form-control-solid" placeholder="Name" id="name3" name="name3" style="color:#5e6278">
+                                <input type="text" class="form-control form-control-solid" placeholder="Name" id="name3" name="name3" value="{{$permitdata->signatures[0]->name ?? ''}}" style="color:#5e6278" {{ isset($permitdata->signatures[0]->name) && $permitdata->signatures[0]->name != null ? 'readonly' : '' }}>
                             </div>
                             <div class="d-flex inputDiv principleno">
                                 <!--begin::Label-->
@@ -909,7 +914,7 @@
                                     <span class="required">Job Title:</span>
                                 </label>
                                 <!--end::Label-->
-                                <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title3" name="job_title3">
+                                <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title3" name="job_title3" value="{{$permitdata->signatures[0]->job_title ?? ''}}" {{ isset($permitdata->signatures[0]->job_title) && $permitdata->signatures[0]->job_title != null ? 'readonly' : '' }}>
                             </div>
                             <div class="d-flex inputDiv ">
                                 <!--begin::Label-->
@@ -918,7 +923,7 @@
                                 </label>
                                 <!--end::Label-->
                                 <div class="input">
-                                    <input type="text" id="companyadmin3" class="form-control form-control-solid" placeholder="Company" name="company3">
+                                    <input type="text" id="companyadmin3" class="form-control form-control-solid" placeholder="Company" name="company3" value="{{$permitdata->signatures[0]->company ?? ''}}" {{ isset($permitdata->signatures[0]->company) && $permitdata->signatures[0]->company != null ? 'readonly' : '' }}>
                                     <!-- name="company1" -->
                                     <input type="hidden" id="companyid3" class="form-control form-control-solid" placeholder="Company" name="companyid3" readonly="readonly">
                                 </div>
@@ -930,11 +935,11 @@
                                 </label>
                                 <!--end::Label-->
                                 <div class="input">
-                                    <input type="date" name="date3" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                                    <input type="date" name="date3" style="background-color:#f5f8fa" value="{{$permitdata->signatures[0]->date ?? ''}}" class="form-control form-control-solid" {{ isset($permitdata->signatures[0]->date) && $permitdata->signatures[0]->date != null ? 'readonly' : '' }}>
                                     <!-- name="date1" -->
                                 </div>
                             </div>
-
+                            @if(!isset($permitdata->signatures[0]) && empty($permitdata->signatures[0]->signature))
                             <div class="col">
                                 <div class="d-flex flex-column" style="border: none">
                                     <label class="fs-6 fw-bold" style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
@@ -963,6 +968,9 @@
                                     <textarea id="signature3" name="signed3" style="opacity: 0"></textarea>
                                 </div>
                             </div>
+                            @else
+                            <img style="background-color: #D3D3D3; border-radius: 15px; width: 300px;" src="{{asset('temporary/signature/'.$permitdata->signatures[0]->signature)}}" width="100%" />
+                            @endif
                         </div>
                         <div class="col-md-6" id="fourth_member" style="display: {{ isset($permitdata->signatures[1]->name) &&      $permitdata->signatures[1]->name != null ? 'block' : 'none' }}; margin-top: 2rem;">
                             <!-- <div class="d-flex inputDiv d-block">
@@ -973,7 +981,7 @@
                                     <span class="required">Name:</span>
                                 </label>
                                 <!--end::Label-->
-                                <input type="text" class="form-control form-control-solid" placeholder="Name" id="name4" name="name4" style="color:#5e6278">
+                                <input type="text" class="form-control form-control-solid" placeholder="Name" id="name4" name="name4" style="color:#5e6278" value = "{{$permitdata->signatures[1]->name ?? ''}}">
                             </div>
                             <div class="d-flex inputDiv principleno">
                                 <!--begin::Label-->
@@ -981,7 +989,7 @@
                                     <span class="required">Job Title:</span>
                                 </label>
                                 <!--end::Label-->
-                                <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title4" name="job_title4">
+                                <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title4" name="job_title4" value = "{{$permitdata->job_title4 ?? ''}} ">
                             </div>
                             <div class="d-flex inputDiv ">
                                 <!--begin::Label-->
@@ -990,7 +998,7 @@
                                 </label>
                                 <!--end::Label-->
                                 <div class="input">
-                                    <input type="text" id="companyadmin4" class="form-control form-control-solid" placeholder="Company" name="company4">
+                                    <input type="text" id="companyadmin4" class="form-control form-control-solid" placeholder="Company" name="company4" value = "{{$permitdata->signatures[1]->company ?? ''}}">
                                     <!-- name="company1" -->
                                     <input type="hidden" id="companyid4" class="form-control form-control-solid" placeholder="Company" name="companyid" readonly="readonly">
                                 </div>
@@ -1002,11 +1010,11 @@
                                 </label>
                                 <!--end::Label-->
                                 <div class="input">
-                                    <input type="date" name="date4" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                                    <input type="date" name="date4" style="background-color:#f5f8fa" value="{{$permitdata->signatures[1]->date ?? ''}}" class="form-control form-control-solid">
                                     <!-- name="date1" -->
                                 </div>
                             </div>
-
+                            @if(!isset($permitdata->signatures[1]) && empty($permitdata->signatures[1]->signature))
                             <div class="col">
                                 <div class="d-flex flex-column" style="border: none">
                                     <label class="fs-6 fw-bold" style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
@@ -1036,15 +1044,18 @@
                                     <textarea id="signature4" name="signed4" style="opacity: 0"></textarea>
                                 </div>
                             </div>
+                            @else
+                            <img style="background-color: #D3D3D3; border-radius: 15px; width: 300px;" src="{{asset('temporary/signature/'.$permitdata->signatures[1]->signature)}}" width="100%" />
+                            @endif
                         </div>
-                        <div class="col-md-6" id="fifth_member" style="display: {{ isset($permitdata->signatures[2]->name) && $permitdata->signatures[2]->name != null ? 'block' : 'none' }}; margin-top: 2rem;">
+                        <div class="col-md-6" id="fifth_member" style="display: {{ isset($permitdata->signatures[2]->name) && $permitdata->signatures[2]->name != null ? 'block' : 'none' }}: none; margin-top: 2rem;">
                             <div class="d-flex inputDiv principleno mt-0">
                                 <!--begin::Label-->
                                 <label class="fs-6 fw-bold mb-2">
                                     <span class="required">Name:</span>
                                 </label>
                                 <!--end::Label-->
-                                <input type="text" class="form-control form-control-solid" placeholder="Name" id="name5" name="name5" style="color:#5e6278">
+                                <input type="text" class="form-control form-control-solid" placeholder="Name" id="name5" name="name5" style="color:#5e6278" value = "{{$permitdata->signatures[2]->name ?? ''}}">
                             </div>
                             <div class="d-flex inputDiv principleno">
                                 <!--begin::Label-->
@@ -1052,7 +1063,7 @@
                                     <span class="required">Job Title:</span>
                                 </label>
                                 <!--end::Label-->
-                                <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title5" name="job_title5">
+                                <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title5" name="job_title5" value = "{{$permitdata->signatures[2]->job_title ?? ''}}">
                             </div>
                             <div class="d-flex inputDiv ">
                                 <!--begin::Label-->
@@ -1061,7 +1072,7 @@
                                 </label>
                                 <!--end::Label-->
                                 <div class="input">
-                                    <input type="text" id="companyadmin5" class="form-control form-control-solid" placeholder="Company" name="company5">
+                                    <input type="text" id="companyadmin5" class="form-control form-control-solid" placeholder="Company" name="company5" value="{{$permitdata->signatures[2]->company5 ?? ''}}">
                                     <!-- name="company1" -->
                                     <input type="hidden" id="company5" class="form-control form-control-solid" placeholder="Company" name="company5" readonly="readonly">
                                 </div>
@@ -1073,11 +1084,11 @@
                                 </label>
                                 <!--end::Label-->
                                 <div class="input">
-                                    <input type="date" name="date5" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                                    <input type="date" name="date5" style="background-color:#f5f8fa" value="{{$permitdata->signatures[2]->date ?? ''}}" class="form-control form-control-solid">
                                     <!-- name="date1" -->
                                 </div>
                             </div>
-
+                            @if(!isset($permitdata->signatures[2]) && empty($permitdata->signatures[2]->signature))
                             <div class="col">
                                 <div class="d-flex flex-column" style="border: none">
                                     <label class="fs-6 fw-bold" style="width:40% !important;font-size: 600 !important; font-size: 16px !important">
@@ -1113,6 +1124,9 @@
                                 </div>
                             </div>
                         </div>
+                        @else
+                        <img style="background-color: #D3D3D3; border-radius: 15px; width: 300px;" src="{{asset('temporary/signature/'.$permitdata->signatures[2]->signature)}}" width="100%" />
+                        @endif
                     </div>
 
                     <div>
@@ -1131,6 +1145,7 @@
                                 <div class="input-images"></div>
                             </div> -->
                         <br>
+                        <input type = "hidden" name = "id" value = "{{$permitdata->id}}">
                         <button id="submitbutton" type="button" class="btn btn-secondary unload_button">Submit</button>
                         <button name="action" id="draft" value="draft" type="button" class="btn btn-success  set-button">Save as Draft</button>
                         {{-- <div class="d-flex inputDiv principleno" id="sign">
@@ -1270,19 +1285,19 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="editorParamsToolbar hidden doorHangerRight" id="editorLineParamsToolbar">
+                        <div class="editorParamsToolbar hidden doorHangerRight" id="editorRectParamsToolbar">
                             <div class="editorParamsToolbarContainer">
                                 <div class="editorParamsSetter">
-                                    <label for="editorLineColor" class="editorParamsLabel" data-l10n-id="editor_line_color">Color</label>
-                                    <input type="color" id="editorLineColor" class="editorParamsColor" tabindex="106" />
+                                    <label for="editorRectColor" class="editorParamsLabel" data-l10n-id="editor_rect_color">Color</label>
+                                    <input type="color" id="editorRectColor" class="editorParamsColor" tabindex="106" />
                                 </div>
                                 <div class="editorParamsSetter">
-                                    <label for="editorLineThickness" class="editorParamsLabel" data-l10n-id="editor_Line_thickness">Thickness</label>
-                                    <input type="range" id="editorLineThickness" class="editorParamsSlider" value="1" min="1" max="100" step="1" tabindex="107" />
+                                    <label for="editorRectThickness" class="editorParamsLabel" data-l10n-id="editor_rect_thickness">Thickness</label>
+                                    <input type="range" id="editorRectThickness" class="editorParamsSlider" value="1" min="1" max="100" step="1" tabindex="107" />
                                 </div>
                                 <div class="editorParamsSetter">
-                                    <label for="editorLineOpacity" class="editorParamsLabel" data-l10n-id="editor_Line_opacity">Opacity</label>
-                                    <input type="range" id="editorLineOpacity" class="editorParamsSlider" value="100" min="1" max="100" step="1" tabindex="108" />
+                                    <label for="editorRectOpacity" class="editorParamsLabel" data-l10n-id="editor_rect_opacity">Opacity</label>
+                                    <input type="range" id="editorRectOpacity" class="editorParamsSlider" value="100" min="1" max="100" step="1" tabindex="108" />
                                 </div>
                             </div>
                         </div>
@@ -1438,7 +1453,7 @@
                                             <button id="editorInk2" class="toolbarButton" disabled="disabled" title="Highlight" role="radio" aria-checked="false" aria-controls="editorInkParamsToolbar2" tabindex="37" data-l10n-id="editor_ink22">
                                                 <span data-l10n-id="editor_ink2_label">Draw</span>
                                             </button>
-                                            <button id="editorLine" class="toolbarButton" disabled="disabled" title="Line" role="radio" aria-checked="false" aria-controls="editorLineParamsToolbar" tabindex="38" data-l10n-id="editor_Line2">
+                                            <button id="editorRect" class="toolbarButton d-none" disabled="disabled" title="Rect" role="radio" aria-checked="false" aria-controls="editorRectParamsToolbar" tabindex="38" data-l10n-id="editor_Rect2">
                                                 <span data-l10n-id="editor_ink2_label">Draw</span>
                                             </button>
                                         </div>
@@ -1657,58 +1672,75 @@
     // const signaturePad = new SignaturePad(canvas);
     // const canvas1 = document.getElementById("sig1");
     // const signaturePad1 = new SignaturePad(canvas1);
-    const canvas = document.getElementById("sig");
-    const signaturePad = new SignaturePad(canvas);
-    const canvas1 = document.getElementById("sig1");
-    const signaturePad1 = new SignaturePad(canvas1);
-    const canvas3 = document.getElementById("sig3");
-    const signaturePad3 = new SignaturePad(canvas3);
-    const canvas4 = document.getElementById("sig4");
-    const signaturePad4 = new SignaturePad(canvas4);
-    const canvas5 = document.getElementById("sig5");
-    const signaturePad5 = new SignaturePad(canvas5);
-    let first_sig = 0;
-    let second_sig = 0;
-    let third_sig = 0;
-    let fourth_sig = 0;
-    let fifth_sig = 0;
-    $("#submitbutton, #draft").on('click', function(e) {
-        e.preventDefault();
-        if (signaturePad) {
-            $("#signature").val(signaturePad.toDataURL('image/png'));
-        }
-        if (signaturePad1) {
-            $("#signature1").val(signaturePad1.toDataURL('image/png'));
-        }
-        if (signaturePad3) {
-            $("#signature3").val(signaturePad3.toDataURL('image/png'));
-        }
-        if (signaturePad4) {
-            $("#signature4").val(signaturePad4.toDataURL('image/png'));
-        }
-        if (signaturePad5) {
-            $("#signature5").val(signaturePad5.toDataURL('image/png'));
-        }
-        $(this).attr('disabled', 'disabled');
+    // let signaturepad = false;
+    let signaturepad1 = false;
+            let signaturepad2 = false;
+            let signaturepad3 = false;
+            let signaturepad4 = false;
+            let signaturepad5 = false;
+  var canvas = document.getElementById("sig");
+  var canvas1 = document.getElementById("sig1");
+  var canvas3 = document.getElementById("sig3");
+  var canvas4 = document.getElementById("sig4");
+  var canvas5 = document.getElementById("sig5");
 
-        var buttonValue = $(this).val();
-        var input = $("<input>")
-            .attr("type", "hidden")
-            .attr("name", "action")
-            .val(buttonValue);
+  if (canvas) {
+  var signaturePad = new SignaturePad(canvas);
+  }
+  if (canvas1) {
+  var signaturePad1 = new SignaturePad(canvas1);
+  }
+  if (canvas3) {
+  var signaturePad3 = new SignaturePad(canvas3);
+  }
+  if (canvas4) {
+    var signaturePad4 = new SignaturePad(canvas4);
+  }
+  if (canvas5) {
+  var signaturePad5 = new SignaturePad(canvas5);
+  }
+  let first_sig = 0;
+  let second_sig = 0;
+  let third_sig = 0;
+  let fourth_sig = 0;
+  let fifth_sig = 0;
+  $("#submitbutton, #draft").on('click', function(e) {
+    e.preventDefault();
+    if (signaturePad) {
+      $("#signature").val(signaturePad.toDataURL('image/png'));
+    }
+    if (signaturePad1) {
+      $("#signature1").val(signaturePad1.toDataURL('image/png'));
+    }
+    if (signaturePad3) {
+      $("#signature3").val(signaturePad3.toDataURL('image/png'));
+    }
+    if (signaturePad4) {
+      $("#signature4").val(signaturePad4.toDataURL('image/png'));
+    }
+    if (signaturePad5) {
+      $("#signature5").val(signaturePad5.toDataURL('image/png'));
+    }
+    $(this).attr('disabled', 'disabled');
 
-        // Append the input element to the form
-        $("#permitunload").append(input);
+    var buttonValue = $(this).val();
+    var input = $("<input>")
+      .attr("type", "hidden")
+      .attr("name", "action")
+      .val(buttonValue);
 
-        $("#permitunload").submit();
-    })
+    // Append the input element to the form
+    $("#permitunload").append(input);
+
+    $("#permitunload").submit();
+  })
     // var canvas = document.getElementById("sig");
     // var signaturePad = new SignaturePad(canvas);
     // var canvas1 = document.getElementById("sig1");
     // if (canvas1) {
     //     var signaturePad1 = new SignaturePad(canvas1);
     // }
-
+    if(signaturePad){
     signaturePad.addEventListener('endStroke', function() {
         pc_approval = document.querySelector('input[name="approval_PC"]:checked').value;
         $("#sigimage").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
@@ -1745,7 +1777,8 @@
 
 
     })
-
+    }
+    if(signaturePad1){
     signaturePad1.addEventListener('endStroke', function() {
         $("#sigimage1").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
         signtype = $("#signtype").val();
@@ -1761,7 +1794,7 @@
             }
         } else {
 
-            if (signaturePad.toDataURL('image/png') != "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAAAXNSR0IArs4c6QAABGJJREFUeF7t1AEJAAAMAsHZv/RyPNwSyDncOQIECEQEFskpJgECBM5geQICBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAgQdWMQCX4yW9owAAAABJRU5ErkJggg==" && signaturePad1.toDataURL('image/png') != "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAAAXNSR0IArs4c6QAABGJJREFUeF7t1AEJAAAMAsHZv/RyPNwSyDncOQIECEQEFskpJgECBM5geQICBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAgQdWMQCX4yW9owAAAABJRU5ErkJggg==") {
+            if (signaturePad1.toDataURL('image/png') != "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAAAXNSR0IArs4c6QAABGJJREFUeF7t1AEJAAAMAsHZv/RyPNwSyDncOQIECEQEFskpJgECBM5geQICBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAgQdWMQCX4yW9owAAAABJRU5ErkJggg==" && signaturePad1.toDataURL('image/png') != "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAAAXNSR0IArs4c6QAABGJJREFUeF7t1AEJAAAMAsHZv/RyPNwSyDncOQIECEQEFskpJgECBM5geQICBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAgQdWMQCX4yW9owAAAABJRU5ErkJggg==") {
                 $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
             } else {
                 $('#submitbutton').prop('disabled', true);
@@ -1769,7 +1802,7 @@
             }
         }
     })
-
+    }
 
     // document.getElementById("twc-email-box").classList.add("d-none");
     $("#approval").change(function() {

@@ -170,9 +170,9 @@
         color: white;
     }
 
-    canvas {
+    /* canvas {
         background: lightgray;
-    }
+    } */
 
     .uploaded {
         padding: 40px 0 !important;
@@ -1042,7 +1042,7 @@
                                                 <span class="required">Signature:</span>
                                             </label> --}}
                                     {{-- <br /> --}}
-                                    <canvas id="sig1" style="border-radius: 9px"></canvas>
+                                    <canvas style="background: lightgray; border-radius:10px"id="sig1" ></canvas>
                                     <textarea id="signature1" name="signed1" style="display: none"></textarea>
                                     <span id="clear1" class="fa fa-undo cursor-pointer btn--clear" style="line-height: 6; position:relative; top:83px; right:26px"></span>
                                     {{-- <span id="clear1" class="fa fa-undo cursor-pointer"

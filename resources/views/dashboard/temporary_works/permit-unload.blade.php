@@ -139,9 +139,9 @@
         color: #000;
     }
 
-    canvas {
+  /* canvas {
         background: lightgray;
-    }
+    }   */
 
 
     .inputDiv {

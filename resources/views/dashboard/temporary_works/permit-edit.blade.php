@@ -425,7 +425,7 @@
                                 <select id="drawingDropDown" class="form-select" name="drawing" style="border-radius: 9px;">
                                     <option value="">Select PDF</option>
                                     @foreach($temporary_work_files as $upload)
-                                    <option value="{{ env('APP_URL').$upload->file_name }}">{{ $upload->drawing_number }}</option>
+                                    <option value="{{ asset($upload->file_name) }}">{{ $upload->drawing_number }}</option>
                                     @endforeach
                                 </select>
                             </div>

@@ -31,4 +31,8 @@ class PermitLoad extends Model
     {
         return $this->hasMany(Signature::class, 'signatureable_id');
     }
+    public function permitLoadImages()
+    {
+        return $this->hasMany(PermitLoadImages::class, 'permit_load_id');
+    }
 }

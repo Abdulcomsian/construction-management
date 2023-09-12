@@ -1263,19 +1263,19 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="editorParamsToolbar hidden doorHangerRight" id="editorRectParamsToolbar">
+                        <div class="editorParamsToolbar hidden doorHangerRight" id="editorLineParamsToolbar">
                             <div class="editorParamsToolbarContainer">
                                 <div class="editorParamsSetter">
-                                    <label for="editorRectColor" class="editorParamsLabel" data-l10n-id="editor_rect_color">Color</label>
-                                    <input type="color" id="editorRectColor" class="editorParamsColor" tabindex="106" />
+                                    <label for="editorLineColor" class="editorParamsLabel" data-l10n-id="editor_line_color">Color</label>
+                                    <input type="color" id="editorLineColor" class="editorParamsColor" tabindex="106" />
                                 </div>
                                 <div class="editorParamsSetter">
-                                    <label for="editorRectThickness" class="editorParamsLabel" data-l10n-id="editor_rect_thickness">Thickness</label>
-                                    <input type="range" id="editorRectThickness" class="editorParamsSlider" value="1" min="1" max="100" step="1" tabindex="107" />
+                                    <label for="editorLineThickness" class="editorParamsLabel" data-l10n-id="editor_Line_thickness">Thickness</label>
+                                    <input type="range" id="editorLineThickness" class="editorParamsSlider" value="1" min="1" max="100" step="1" tabindex="107" />
                                 </div>
                                 <div class="editorParamsSetter">
-                                    <label for="editorRectOpacity" class="editorParamsLabel" data-l10n-id="editor_rect_opacity">Opacity</label>
-                                    <input type="range" id="editorRectOpacity" class="editorParamsSlider" value="100" min="1" max="100" step="1" tabindex="108" />
+                                    <label for="editorLineOpacity" class="editorParamsLabel" data-l10n-id="editor_Line_opacity">Opacity</label>
+                                    <input type="range" id="editorLineOpacity" class="editorParamsSlider" value="100" min="1" max="100" step="1" tabindex="108" />
                                 </div>
                             </div>
                         </div>
@@ -1431,7 +1431,7 @@
                                             <button id="editorInk2" class="toolbarButton" disabled="disabled" title="Highlight" role="radio" aria-checked="false" aria-controls="editorInkParamsToolbar2" tabindex="37" data-l10n-id="editor_ink22">
                                                 <span data-l10n-id="editor_ink2_label">Draw</span>
                                             </button>
-                                            <button id="editorRect" class="toolbarButton d-none" disabled="disabled" title="Rect" role="radio" aria-checked="false" aria-controls="editorRectParamsToolbar" tabindex="38" data-l10n-id="editor_Rect2">
+                                            <button id="editorLine" class="toolbarButton" disabled="disabled" title="Line" role="radio" aria-checked="false" aria-controls="editorLineParamsToolbar" tabindex="38" data-l10n-id="editor_Line2">
                                                 <span data-l10n-id="editor_ink2_label">Draw</span>
                                             </button>
                                         </div>
@@ -1650,51 +1650,51 @@
     // const signaturePad = new SignaturePad(canvas);
     // const canvas1 = document.getElementById("sig1");
     // const signaturePad1 = new SignaturePad(canvas1);
-  const canvas = document.getElementById("sig");
-  const signaturePad = new SignaturePad(canvas);
-  const canvas1 = document.getElementById("sig1");
-  const signaturePad1 = new SignaturePad(canvas1);
-  const canvas3 = document.getElementById("sig3");
-  const signaturePad3 = new SignaturePad(canvas3);
-  const canvas4 = document.getElementById("sig4");
-  const signaturePad4 = new SignaturePad(canvas4);
-  const canvas5 = document.getElementById("sig5");
-  const signaturePad5 = new SignaturePad(canvas5);
-  let first_sig = 0;
-  let second_sig = 0;
-  let third_sig = 0;
-  let fourth_sig = 0;
-  let fifth_sig = 0;
-  $("#submitbutton, #draft").on('click', function(e) {
-    e.preventDefault();
-    if (signaturePad) {
-      $("#signature").val(signaturePad.toDataURL('image/png'));
-    }
-    if (signaturePad1) {
-      $("#signature1").val(signaturePad1.toDataURL('image/png'));
-    }
-    if (signaturePad3) {
-      $("#signature3").val(signaturePad3.toDataURL('image/png'));
-    }
-    if (signaturePad4) {
-      $("#signature4").val(signaturePad4.toDataURL('image/png'));
-    }
-    if (signaturePad5) {
-      $("#signature5").val(signaturePad5.toDataURL('image/png'));
-    }
-    $(this).attr('disabled', 'disabled');
+    const canvas = document.getElementById("sig");
+    const signaturePad = new SignaturePad(canvas);
+    const canvas1 = document.getElementById("sig1");
+    const signaturePad1 = new SignaturePad(canvas1);
+    const canvas3 = document.getElementById("sig3");
+    const signaturePad3 = new SignaturePad(canvas3);
+    const canvas4 = document.getElementById("sig4");
+    const signaturePad4 = new SignaturePad(canvas4);
+    const canvas5 = document.getElementById("sig5");
+    const signaturePad5 = new SignaturePad(canvas5);
+    let first_sig = 0;
+    let second_sig = 0;
+    let third_sig = 0;
+    let fourth_sig = 0;
+    let fifth_sig = 0;
+    $("#submitbutton, #draft").on('click', function(e) {
+        e.preventDefault();
+        if (signaturePad) {
+            $("#signature").val(signaturePad.toDataURL('image/png'));
+        }
+        if (signaturePad1) {
+            $("#signature1").val(signaturePad1.toDataURL('image/png'));
+        }
+        if (signaturePad3) {
+            $("#signature3").val(signaturePad3.toDataURL('image/png'));
+        }
+        if (signaturePad4) {
+            $("#signature4").val(signaturePad4.toDataURL('image/png'));
+        }
+        if (signaturePad5) {
+            $("#signature5").val(signaturePad5.toDataURL('image/png'));
+        }
+        $(this).attr('disabled', 'disabled');
 
-    var buttonValue = $(this).val();
-    var input = $("<input>")
-      .attr("type", "hidden")
-      .attr("name", "action")
-      .val(buttonValue);
+        var buttonValue = $(this).val();
+        var input = $("<input>")
+            .attr("type", "hidden")
+            .attr("name", "action")
+            .val(buttonValue);
 
-    // Append the input element to the form
-    $("#permitunload").append(input);
+        // Append the input element to the form
+        $("#permitunload").append(input);
 
-    $("#permitunload").submit();
-  })
+        $("#permitunload").submit();
+    })
     // var canvas = document.getElementById("sig");
     // var signaturePad = new SignaturePad(canvas);
     // var canvas1 = document.getElementById("sig1");

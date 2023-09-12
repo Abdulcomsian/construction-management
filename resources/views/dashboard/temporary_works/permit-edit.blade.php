@@ -1979,17 +1979,17 @@
                 $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").prop("disabled", true);
 
                 var buttonValue = $(this).val();
-                // var input = $("<input>")
-                //     .attr("type", "hidden")
-                //     .attr("name", "action")
-                //     .val(buttonValue);
-                // var status = $('#permitdata_status').val();
-                // if (status == 'open') {
-                //     $("#permitrenew").attr('action', "{{route('permit.save')}}");
-                // }
+                var input = $("<input>")
+                    .attr("type", "hidden")
+                    .attr("name", "action")
+                    .val(buttonValue);
+                var status = $('#permitdata_status').val();
+                if (status == 'open') {
+                    $("#permitrenew").attr('action', "{{route('permit.save')}}");
+                }
 
                 // Append the input element to the form
-                // $("#permitrenew").append(input);
+                $("#permitrenew").append(input);
                 $("#permitrenew").submit();
             });
             if(signaturePad){

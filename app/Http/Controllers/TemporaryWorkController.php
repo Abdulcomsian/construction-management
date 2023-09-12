@@ -2280,6 +2280,7 @@ class TemporaryWorkController extends Controller
                 }
             }else{
                 $file_minimum_concrete = $all_inputs['file_minimum_concrete'] ?? '';
+                $all_inputs['description_minimum_concrete'] = "";
             }
             //first person signature and name
             $image_name1 = '';

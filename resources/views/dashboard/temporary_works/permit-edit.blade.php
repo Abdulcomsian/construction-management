@@ -425,7 +425,7 @@
                                 <select id="drawingDropDown" class="form-select" name="drawing" style="border-radius: 9px;">
                                     <option value="">Select PDF</option>
                                     @foreach($temporary_work_files as $upload)
-                                    <option value="{{ asset($upload->file_name) }}">{{ $upload->drawing_number }}</option>
+                                    <option value="{{ env('APP_URL').$upload->file_name }}">{{ $upload->drawing_number }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -856,7 +856,7 @@
                         </div>
                     </div>
                     @foreach($permitdata->permitLoadImages as $permit_load_images)
-                        <a target="_blank" href="{{$permit_load_images->fileName}}">File</a>
+                        <a target="_blank" href="{{asset($permit_load_images->fileName)}}">File</a>
                     @endforeach
                     @if(isset($permitdata) && $permitdata->principle_contractor==1)
                     <div class="row">

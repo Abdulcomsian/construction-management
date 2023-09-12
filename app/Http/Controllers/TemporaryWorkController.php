@@ -3288,7 +3288,11 @@ class TemporaryWorkController extends Controller
             if ($permitload) {
                 //make status 0 if permit is 
                 // $request->principle_contractor == 1 ? PermitLoad::where( 'id' , $request->permitid)->update(['status' => 1]) :  PermitLoad::where( 'id' , $request->permitid)->update(['status' => 4]);
+                if($request->action != 'draft'){
                 $request->principle_contractor == 1 ? PermitLoad::where( 'id' , $request->permitid)->update(['status' => 7]) :  PermitLoad::where( 'id' , $request->permitid)->update(['status' => 4]);
+                }else{
+                    PermitLoad::where( 'id' , $request->permitid)->update(['status' => 9]);
+                }
                 //upload permit unload files
                 // dd("here" , $request->permitid , $permitload->id);
                 $image_links = $this->permitfiles($request, $permitload->id);
@@ -3551,7 +3555,7 @@ class TemporaryWorkController extends Controller
                 if($request->action != 'draft'){ //added this check because, if unloaded permit is saved as draft then it shouldnot update value of main open permit, open permit should remain open
                 $request->principle_contractor == 1 ? PermitLoad::where( 'id' , $request->permitid)->update(['status' => 7]) :  PermitLoad::where( 'id' , $request->permitid)->update(['status' => 4]);
                 }else{
-                    PermitLoad::where( 'id' , $request->permitid)->update(['status' => 9]);
+                //    PermitLoad::where( 'id' , $request->permitid)->update(['status' => 9]);
                 }
                 //upload permit unload files
                 // dd("here" , $request->permitid , $permitload->id);

@@ -964,7 +964,7 @@
                                         <span class="required">Date:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="date" name = "date" value="{{ $permitdata->date ?? date('Y-m-d')  }}" class="form-control">
+                                    <input type="date" value="{{ date('Y-m-d') }}" class="form-control">
                                 </div>
                                 <!-- Approval div -->
 
@@ -1025,39 +1025,39 @@
                         </div>
                         <div class="col-md-6 mt-15" id="first_member">
                             @if(isset($permitdata) && $permitdata->principle_contractor==1)
-                            <div class="d-flex inputDiv principleno">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span class="required">Name::</span>
-                                </label>
-                                <!--end::Label-->
-                                <input type="text" class="form-control" placeholder="Name" name="name1" value="{{$permitdata->name1 ?? ''}}">
-                            </div>
-                            <div class="d-flex inputDiv principleno">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span class="required">Job title:</span>
-                                </label>
-                                <!--end::Label-->
-                                <input type="text" class="form-control" placeholder="Job title" name="job_title1" value="{{$permitdata->job_title1 ?? ''}}">
-                            </div>
-                            <div class="d-flex inputDiv principleno">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span class="required">Company: </span>
-                                </label>
-                                <!--end::Label-->
-                                <input type="text" id="companyadmin" class="form-control" placeholder="Company" name="company1" value="{{$permitdata->company1 ?? ''}}">
-                                <input type="hidden" id="companyid" class="form-control form-control-solid" placeholder="Company" name="companyid" value="{{$project->company->id ?? ''}}" readonly="readonly">
-                            </div>
-                            <div class="d-flex inputDiv principleno">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
-                                    <span class="required">Date:</span>
-                                </label>
-                                <!--end::Label-->
-                                <input type="date" name = "date1" value="{{ $permitdata->date1 ?? date('Y-m-d')  }}" class="form-control">
-                            </div>
+                                <div class="d-flex inputDiv principleno">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Name::</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="form-control" placeholder="Name" name="name1" value="{{$permitdata->name1 ?? ''}}">
+                                </div>
+                                <div class="d-flex inputDiv principleno">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Job title:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="form-control" placeholder="Job title" name="job_title1" value="{{$permitdata->job_title1 ?? ''}}">
+                                </div>
+                                <div class="d-flex inputDiv principleno">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Company: </span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" id="companyadmin" class="form-control" placeholder="Company" name="company" value="{{$project->company->name ?? ''}}">
+                                    <input type="hidden" id="companyid" class="form-control form-control-solid" placeholder="Company" name="companyid" value="{{$project->company->id ?? ''}}" readonly="readonly">
+                                </div>
+                                <div class="d-flex inputDiv principleno">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
+                                        <span class="required">Date:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="date" value="{{ date('Y-m-d') }}" class="form-control">
+                                </div>
                             @endif
                             @if(isset($permitdata) && $permitdata->principle_contractor==1)
                             @if(!isset($permitdata->signature1) && empty($permitdata->signature1))
@@ -1115,7 +1115,9 @@
                                         </div>  -->
                             </div>
                             @else
+                            <div class="d-flex inputDiv principleno" style="border: none;">
                             <img style="background-color: #D3D3D3; border-radius: 15px; width: 300px;" src="{{asset('temporary/signature/'.$permitdata->signature1)}}" width="100%" />
+                            </div>
                             @endif
                             @endif
                         </div>

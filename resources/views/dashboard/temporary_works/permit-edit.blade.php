@@ -1,4 +1,5 @@
 @extends('layouts.dashboard.master',['title' => 'Permit To Load'])
+<link href="{{asset('css/imageuploadify.min.css')}}" rel="stylesheet">
 @section('styles')
 <style>
     .aside-enabled.aside-fixed.header-fixed .header {
@@ -2388,4 +2389,5 @@
                 }
             });
         </script>
+         <script type="text/javascript" src="{{asset('js/imageuploadify.min.js')}}"></script>
         @endsection

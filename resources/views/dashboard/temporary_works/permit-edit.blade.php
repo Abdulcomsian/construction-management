@@ -860,9 +860,33 @@
                             </div>
                         </div>
                     </div>
-                    @foreach($permitdata->permitLoadImages as $permit_load_images)
-                        <a target="_blank" href="{{asset($permit_load_images->fileName)}}">File</a>
-                    @endforeach
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="files_div">
+                                @if(isset($permitdata->permitLoadImages))
+                                    @foreach($permitdata->permitLoadImages as $index=>$permitLoadImage)
+                                    <input type="hidden" value="{{$permitLoadImage->id}}" name="load_images[]" class="{{$permitLoadImage->id}}" /> 
+                                    @endforeach
+                                @endif
+                            </div>
+                            <div id="new_div" class="m-md-2">
+                                @if(isset($permitdata->permitLoadImages))
+                                    @foreach($permitdata->permitLoadImages as $key=>$permitLoadImage)
+                                     @php
+                                            $permitImageObject = json_decode($permitLoadImage); // Convert JSON to PHP object
+                                            $permitImage = asset($permitImageObject->fileName); 
+                                     @endphp
+                                        <span id="{{$permitLoadImage->id}}" >
+                                            <a target="_blank" href="{{ $permitImage }}">
+                                                <span class="badge badge-success badge-sm">File Uploaded</span>
+                                            </a>
+                                            <button type="button" onclick="deleteImageFile({{$permitLoadImage->id}})" class="remove-file btn btn-danger btn-sm" data-filename="{{$permitLoadImage->id}}">&times;</button>
+                                        </span>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
+                    </div>
                     @if(isset($permitdata) && $permitdata->principle_contractor==1)
                     <div class="row">
                         <div class="col-md-6">
@@ -2387,6 +2411,48 @@
                             .catch(error => {
                                 console.error(error);
                             });
+            }
+            function deleteImageFile(id) {
+                console.log("id", id);
+                // Remove the corresponding file container (the parent div) by its id
+                const fileContainer = document.getElementById(id);
+
+                if (fileContainer) {
+                    fileContainer.remove();
+
+                    // Get the filename from the id (assuming your id is in the format "filename")
+
+                    // Find all hidden inputs with the "design_upload[]" name attribute
+                    const hiddenInputs = document.querySelectorAll('input[name="load_images[]"]');
+
+                    // Loop through hidden inputs to find the one with the matching value
+                    hiddenInputs.forEach(input => {
+                        if (input.value == id) {
+                            input.remove();
+                        }
+                    });
+
+                    if (hiddenInputs) {
+                        // Make an AJAX request to delete the file on the server
+                        fetch('{{ route("permit.delete.image") }}', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // Add CSRF token if necessary
+                                },
+                                body: JSON.stringify({
+                                    filename_id: id
+                                })
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log(data.message); // Log the server's response
+                            })
+                            .catch(error => {
+                                console.error(error);
+                            });
+                    }
+                }
             }
         </script>
         <script>

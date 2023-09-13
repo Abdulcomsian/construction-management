@@ -365,6 +365,35 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div id="files_div">
+                                @if($permitdata->design_upload)
+                                    @php
+                                        $designUpload = explode(', ', $permitdata->design_upload);
+                                        // $all_inputs['design_upload'] = $designUpload;
+                                    @endphp
+                                @endif
+                                @if(isset($designUpload))
+                                    @foreach($designUpload as $key=>$value)
+                                    <input type="hidden" value="{{$value}}" name="design_upload[]" class="{{$value}}" /> 
+                                    @endforeach
+                                @endif
+                            </div>
+                            <div id="new_div" class="m-md-2">
+                                @if(isset($designUpload))
+                                    @foreach($designUpload as $key=>$value)
+                                        <span id="{{$value}}" >
+                                            <a target="_blank" href="{{asset($value)}}">
+                                                <span class="badge badge-success badge-sm">File Uploaded</span>
+                                            </a>
+                                            <button type="button" onclick="deletePDFFile('{{$value}}', '{{$permitdata->id}}')" class="remove-file btn btn-danger btn-sm" data-filename="{{$value}}">&times;</button>
+                                        </span>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="files_div">
                             </div>
                             <div id="new_div" class="m-md-2">
                             </div>
@@ -623,6 +652,34 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-md-12">
+                            <div id="files_div">
+                               
+                                @if(isset($permitdata->permitLoadImages))
+                                    @foreach($permitdata->permitLoadImages as $index=>$permitLoadImage)
+                                    <input type="hidden" value="{{$permitLoadImage->id}}" name="unload_images[]" class="{{$permitLoadImage->id}}" /> 
+                                    @endforeach
+                                @endif
+                            </div>
+                            <div id="new_div" class="m-md-2">
+                                @if(isset($permitdata->permitLoadImages))
+                                    @foreach($permitdata->permitLoadImages as $key=>$permitLoadImage)
+                                     @php
+                                            $permitImageObject = json_decode($permitLoadImage); // Convert JSON to PHP object
+                                            $permitImage = asset($permitImageObject->fileName); 
+                                     @endphp
+                                        <span id="{{$permitLoadImage->id}}" >
+                                            <a target="_blank" href="{{ $permitImage }}">
+                                                <span class="badge badge-success badge-sm">File Uploaded</span>
+                                            </a>
+                                            <button type="button" onclick="deleteImageFile({{$permitLoadImage->id}})" class="remove-file btn btn-danger btn-sm" data-filename="{{$permitLoadImage->id}}">&times;</button>
+                                        </span>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-6   mt-0" style="    min-height: 40px;margin-left:7px; ">
                             <div class="d-flex inputDiv">
                                 <label class="fs-6 fw-bold mb-8">
@@ -652,7 +709,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-md-6" id="second_member" style="margin-top: 2rem;">
                             {{-- <div class="d-flex inputDiv">
@@ -1048,7 +1104,7 @@
                             <img style="background-color: #D3D3D3; border-radius: 15px; width: 300px;" src="{{asset('temporary/signature/'.$permitdata->signatures[1]->signature)}}" width="100%" />
                             @endif
                         </div>
-                        <div class="col-md-6" id="fifth_member" style="display: {{ isset($permitdata->signatures[2]->name) && $permitdata->signatures[2]->name != null ? 'block' : 'none' }}: none; margin-top: 2rem;">
+                        <div class="col-md-6" id="fifth_member" style="display: {{ isset($permitdata->signatures[2]->name) && $permitdata->signatures[2]->name != null ? 'block' : 'none' }}; margin-top: 2rem;">
                             <div class="d-flex inputDiv principleno mt-0">
                                 <!--begin::Label-->
                                 <label class="fs-6 fw-bold mb-2">
@@ -2201,7 +2257,7 @@
     })
 </script>
 <script>
-    function deleteFile(id) {
+    function deleteImageFile(id) {
         console.log("id", id);
         // Remove the corresponding file container (the parent div) by its id
         const fileContainer = document.getElementById(id);
@@ -2210,10 +2266,9 @@
             fileContainer.remove();
 
             // Get the filename from the id (assuming your id is in the format "filename")
-            const filename = id.split('_').pop();
 
             // Find all hidden inputs with the "design_upload[]" name attribute
-            const hiddenInputs = document.querySelectorAll('input[name="design_upload[]"]');
+            const hiddenInputs = document.querySelectorAll('input[name="unload_images[]"]');
 
             // Loop through hidden inputs to find the one with the matching value
             hiddenInputs.forEach(input => {
@@ -2224,14 +2279,14 @@
 
             if (hiddenInputs) {
                 // Make an AJAX request to delete the file on the server
-                fetch('{{ route("delete_drawing_file") }}', {
+                fetch('{{ route("permit.delete.image") }}', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                             'X-CSRF-TOKEN': '{{ csrf_token() }}' // Add CSRF token if necessary
                         },
                         body: JSON.stringify({
-                            filename: id
+                            filename_id: id
                         })
                     })
                     .then(response => response.json())
@@ -2244,6 +2299,49 @@
             }
         }
     }
+    function deletePDFFile(path,id) {
+                // Remove the corresponding file container (the parent div) by its id
+                const fileContainer = document.getElementById(path);
+
+                if (fileContainer) {
+                    fileContainer.remove();
+
+                    // Get the filename from the id (assuming your id is in the format "filename")
+                    const filename = path.split('_').pop();
+
+                    // Find all hidden inputs with the "design_upload[]" name attribute
+                    const hiddenInputs = document.querySelectorAll('input[name="design_upload[]"]');
+
+                    // Loop through hidden inputs to find the one with the matching value
+                    hiddenInputs.forEach(input => {
+                        if (input.value == path) {
+                            input.remove();
+                        }
+                    });
+
+                    if (hiddenInputs) {
+                        // Make an AJAX request to delete the file on the server
+                        fetch('{{ route("delete_drawing_file") }}', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // Add CSRF token if necessary
+                                },
+                                body: JSON.stringify({
+                                    filename: path,
+                                    permit_id: id
+                                })
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log(data.message); // Log the server's response
+                            })
+                            .catch(error => {
+                                console.error(error);
+                            });
+                    }
+                }
+            }
 </script>
 
 <script>

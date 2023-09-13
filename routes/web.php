@@ -227,6 +227,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('permit-unload-test/{id}', [TemporaryWorkController::class, 'permit_unload_test']);
     Route::post('permit-unload-save', [TemporaryWorkController::class, 'permit_unload_save'])->name('permit.unload.save');
     Route::post('permit-unload-update', [TemporaryWorkController::class, 'permit_unload_update'])->name('permit.unload.update');
+    Route::post('/delete-permit-image', [TemporaryWorkController::class,'delete_permit_image'])->name('permit.delete.image');
     Route::get('permit-close/{id}', [TemporaryWorkController::class, 'permit_close'])->name('permit.close');
 
     //working for permit edit and update

@@ -1,4 +1,5 @@
 @extends('layouts.dashboard.master',['title' => 'Permit To Load'])
+<link href="{{asset('css/imageuploadify.min.css')}}" rel="stylesheet">
 @section('styles')
 <style>
     .aside-enabled.aside-fixed.header-fixed .header {
@@ -436,6 +437,9 @@
                                 <label class="d-flex align-items-center fs-6 fw-bold">
                                     <span>Upload Custom Drawing:</span>
                                 </label>
+                                
+                                {{-- @dd($designUpload) --}}
+                                {{-- @foreach() --}}
                                 <!--end::Label-->
                                 <input type="file" style="border-radius: 9px;" class="form-control" id="custom_drawing" name="custom_drawing" value="" accept="image/*;capture=camera">
                             </div>
@@ -444,8 +448,29 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div id="files_div">
+                                @if($permitdata->design_upload)
+                                    @php
+                                        $designUpload = explode(', ', $permitdata->design_upload);
+                                        // $all_inputs['design_upload'] = $designUpload;
+                                    @endphp
+                                @endif
+                                @if(isset($designUpload))
+                                    @foreach($designUpload as $key=>$value)
+                                    <input type="hidden" value="{{$value}}" name="design_upload[]" class="{{$value}}" /> 
+                                    @endforeach
+                                @endif
                             </div>
                             <div id="new_div" class="m-md-2">
+                                @if(isset($designUpload))
+                                    @foreach($designUpload as $key=>$value)
+                                        <span id="{{$value}}" >
+                                            <a target="_blank" href="{{asset($value)}}">
+                                                <span class="badge badge-success badge-sm">File Uploaded</span>
+                                            </a>
+                                            <button type="button" onclick="deleteFile($value)" class="remove-file btn btn-danger btn-sm" data-filename="{{$value}}">&times;</button>
+                                        </span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -821,16 +846,20 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="d-flex inputDiv " id="sign">
                                 <div class="uploadingDiv">
                                     <div class="uploadDiv" style="padding-left: 10px;">
-                                        <div class="input-images"></div>
+                                        {{-- <div class="input-images"></div> --}}
+                                        <input type="file" name="images[]" accept=".DWG, .dwg, .mp4, .mp3, .jpg, .jpeg, .gif, .svg, .png, .xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf" multiple>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    @foreach($permitdata->permitLoadImages as $permit_load_images)
+                        <a target="_blank" href="{{asset($permit_load_images->fileName)}}">File</a>
+                    @endforeach
                     @if(isset($permitdata) && $permitdata->principle_contractor==1)
                     <div class="row">
                         <div class="col-md-6">
@@ -1963,7 +1992,6 @@
 
                 // Append the input element to the form
                 $("#permitrenew").append(input);
-
                 $("#permitrenew").submit();
             });
             if(signaturePad){
@@ -2361,5 +2389,11 @@
                     alert("Max Signature Limit Reached")
                 }
             });
+        </script>
+         <script type="text/javascript" src="{{asset('js/imageuploadify.min.js')}}"></script>
+         <script type="text/javascript">
+            $(document).ready(function() {
+                $('input[type="file"]').imageuploadify();
+            })
         </script>
         @endsection

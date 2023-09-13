@@ -86,7 +86,7 @@ function savePdfToDatabase(blobUrl, filename) {
                         const newContainerDiv = document.getElementById("new_div");
                         console.log("filename", cleanedFileName)
                         // const divString = '<div>' + baseUrl + cleanedFileName + '</div>';
-                        const divString ='<span id="'+cleanedFileName+'" ><atarget="_blank" href="' + baseUrl + cleanedFileName + '">'
+                        const divString ='<span id="'+cleanedFileName+'" ><a target="_blank" href="' + baseUrl + cleanedFileName + '">'
                         +'<span class="badge badge-success badge-sm">File Uploaded</span>'
                         +'</a>'
                         +'<button type="button" onclick="deleteFile(\'' + cleanedFileName + '\')" class="remove-file btn btn-danger btn-sm" data-filename="' + cleanedFileName + '">&times;</button>'

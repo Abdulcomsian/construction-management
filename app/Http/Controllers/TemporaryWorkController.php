@@ -4466,17 +4466,41 @@ class TemporaryWorkController extends Controller
 
     public function deleteDrawingFile(Request $request)
     {
-        $filename = $request->input('filename');
-        $filePath = public_path($filename);
-
-        // Check if the file exists
-        if (file_exists($filePath)) {
-            // Delete the file
-            unlink($filePath);
-            // You can also delete the file from the database if necessary
-            // Example: YourFileModel::where('filename', $filename)->delete();
-            
+        if($request->type == 'concrete'){
+            $permit_load = PermitLoad::find($request->permit_id);
+            $permit_load->file_minimum_concrete = null;
+            $permit_load->save();
             return response()->json(['message' => 'File deleted successfully']);
+        } else{
+
+            $filename = $request->input('filename');
+            $filePath = public_path($filename);
+            if ($request->permit_id) {
+                $permit_load = PermitLoad::find($request->permit_id);
+                $images = explode(',', $permit_load->design_upload);
+            
+                // Check if $filename exists in $images array
+                $key = array_search($filename, $images);
+            
+                if ($key !== false) {
+                    // Remove $filename from $images array
+                    unset($images[$key]);
+            
+                    // Update the database column with the modified $images array
+                    $permit_load->design_upload = implode(',', $images);
+                    $permit_load->save();
+                }   
+            }     
+            // Check if the file exists
+            if (file_exists($filePath)) {
+                // Delete the file
+                unlink($filePath);
+    
+                // You can also delete the file from the database if necessary
+                // Example: YourFileModel::where('filename', $filename)->delete();
+                
+                return response()->json(['message' => 'File deleted successfully']);
+            }
         }
 
         return response()->json(['message' => 'File not found'], 404);

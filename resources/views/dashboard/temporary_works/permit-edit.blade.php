@@ -937,7 +937,7 @@
                                         <span class="required">Date:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="date" value="{{ date('Y-m-d') }}" class="form-control">
+                                    <input type="date" name = "date" value="{{ $permitdata->date ?? date('Y-m-d')  }}" class="form-control">
                                 </div>
                                 <!-- Approval div -->
 
@@ -1020,7 +1020,7 @@
                                     <span class="required">Company: </span>
                                 </label>
                                 <!--end::Label-->
-                                <input type="text" id="companyadmin" class="form-control" placeholder="Company" name="company" value="{{$project->company->name ?? ''}}">
+                                <input type="text" id="companyadmin" class="form-control" placeholder="Company" name="company1" value="{{$permitdata->company1 ?? ''}}">
                                 <input type="hidden" id="companyid" class="form-control form-control-solid" placeholder="Company" name="companyid" value="{{$project->company->id ?? ''}}" readonly="readonly">
                             </div>
                             <div class="d-flex inputDiv principleno">
@@ -1029,7 +1029,7 @@
                                     <span class="required">Date:</span>
                                 </label>
                                 <!--end::Label-->
-                                <input type="date" value="{{ date('Y-m-d') }}" class="form-control">
+                                <input type="date" name = "date1" value="{{ $permitdata->date1 ?? date('Y-m-d')  }}" class="form-control">
                             </div>
                             @endif
                             @if(isset($permitdata) && $permitdata->principle_contractor==1)

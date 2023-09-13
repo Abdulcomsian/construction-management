@@ -1084,7 +1084,7 @@
                     </label>
                     <!--end::Label-->
                     <div class="input">
-                      <input type="date" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                      <input type="date" name ="date" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
                     </div>
                   </div>
                   <div class="col">
@@ -1177,7 +1177,7 @@
                     </label>
                     <!--end::Label-->
                     <div class="input">
-                      <input type="date" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                      <input type="date" name = "date1" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
                       <!-- name="date1" -->
                     </div>
                   </div>

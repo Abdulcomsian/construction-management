@@ -615,7 +615,27 @@
                                         <!-- <div class="uploadDiv"> -->
                                         <div class="">
                                             <!-- <div class="input-images"></div> -->
-                                            <div class="input-images"></div>
+                                          
+                                            <div class="input-images">
+                                                <div class="image-uploader has-files">
+                                                    <input type="file" id="images-1694583339879" name="images[]" accept=".jpg,.JPG,.jpeg,.png,.gif,.svg,.pdf,.docx,.dwg,.PNG,.DWG,.xlsx,.xls,.txt,.doc,.mp3,.mp4" multiple="multiple">
+                                                    <div class="uploaded">
+                                                        @isset($permitdata->permitLoadImages)
+                                                        @foreach($permitdata->permitLoadImages as $index=>$permitImage)
+                                                        <div class="uploaded-image" data-index="$index">
+                                                            <img src="blob:http://127.0.0.1:8000/27cc4765-e245-47ee-891b-aa5e8ab347bb">
+                                                            <button class="delete-image"><i class="iui-close"></i></button>
+                                                        </div>
+                                                        @endisset
+                                                        <div class="uploaded-image" data-index="1">
+                                                            <img src="blob:http://127.0.0.1:8000/4466c01d-72fa-4225-bdc3-3fd739ab14fa">
+                                                            <button class="delete-image"><i class="iui-close"></i></button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="upload-text">
+                                                        <i class="iui-cloud-upload"></i><span>Drag &amp; Drop files here or click to browse</span></div></div>
+                                            </div>
+                                          
                                         </div>
                                     </div>
                                 </div>

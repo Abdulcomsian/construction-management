@@ -180,15 +180,27 @@
                         </th>
                     </tr>
                 </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-size: 12px;">
+                        {{$data['twc_control_pts']}}
+                        </td>
+                    </tr>
+                </tbody>
             </table>
             <table>
                 <thead>
                     <tr>
-                        <th style="font-size: 12px;">Back-propping and additional requirements; limitations and exclusions; explanatory sketches references (if applicable)<br>
-                        {{$data['back_propping']}}
-                    </th>
+                        <th style="font-size: 12px;">Back-propping and additional requirements; limitations and exclusions; explanatory sketches references (if applicable)</th>
                     </tr>
                 </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-size: 12px;">
+                        {{$data['back_propping']}}
+                        </td>
+                    </tr>
+                </tbody>
             </table>
        
             <table>

@@ -3061,7 +3061,7 @@ class TemporaryWorkController extends Controller
     public function permit_unload_edit($id) {
         try {
             $permitid =  \Crypt::decrypt($id);
-            $permitdata = PermitLoad::with('signatures')->find($permitid);
+            $permitdata = PermitLoad::with('permitLoadImages','signatures')->find($permitid);
             $tempid = $permitdata->temporary_work_id;
             $tempdata = TemporaryWork::select(['twc_email', 'twc_id_no', 'designer_company_email', 'design_requirement_text'])->find($tempid);
             $twc_id_no = $permitdata->permit_no;

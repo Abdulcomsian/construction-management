@@ -3115,6 +3115,9 @@ class TemporaryWorkController extends Controller
                 $designUpload = implode(', ', $request->design_upload);
                 $all_inputs['design_upload'] = $designUpload;
             }
+            else{
+                $all_inputs['design_upload'] = $permitload->design_upload;
+            }
             if($request->action == 'draft'){
                 $all_inputs['draft_status'] = '1';
             } else{
@@ -3375,7 +3378,10 @@ class TemporaryWorkController extends Controller
             $all_inputs['design_upload'] = '';
             if($request->design_upload){
                 $designUpload = implode(', ', $request->design_upload);
-                $all_inputs['design_upload'] = $designUpload;
+                $all_inputs['design_upload'] = $permitload->design_upload;
+            }
+            else{
+                $all_inputs['design_upload'] = $permitload->design_upload;
             }
             if($request->action == 'draft'){
                 $all_inputs['draft_status'] = '1';

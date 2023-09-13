@@ -384,7 +384,7 @@
                                             <a target="_blank" href="{{asset($value)}}">
                                                 <span class="badge badge-success badge-sm">File Uploaded</span>
                                             </a>
-                                            <button type="button" onclick="deleteFile($value)" class="remove-file btn btn-danger btn-sm" data-filename="{{$value}}">&times;</button>
+                                            <button type="button" onclick="deletePDFFile('{{$value}}', '{{$permitdata->id}}')" class="remove-file btn btn-danger btn-sm" data-filename="{{$value}}">&times;</button>
                                         </span>
                                     @endforeach
                                 @endif
@@ -672,7 +672,7 @@
                                             <a target="_blank" href="{{ $permitImage }}">
                                                 <span class="badge badge-success badge-sm">File Uploaded</span>
                                             </a>
-                                            <button type="button" onclick="deleteFile({{$permitLoadImage->id}})" class="remove-file btn btn-danger btn-sm" data-filename="{{$permitLoadImage->id}}">&times;</button>
+                                            <button type="button" onclick="deleteImageFile({{$permitLoadImage->id}})" class="remove-file btn btn-danger btn-sm" data-filename="{{$permitLoadImage->id}}">&times;</button>
                                         </span>
                                     @endforeach
                                 @endif
@@ -2257,7 +2257,7 @@
     })
 </script>
 <script>
-    function deleteFile(id) {
+    function deleteImageFile(id) {
         console.log("id", id);
         // Remove the corresponding file container (the parent div) by its id
         const fileContainer = document.getElementById(id);
@@ -2299,6 +2299,49 @@
             }
         }
     }
+    function deletePDFFile(path,id) {
+                // Remove the corresponding file container (the parent div) by its id
+                const fileContainer = document.getElementById(path);
+
+                if (fileContainer) {
+                    fileContainer.remove();
+
+                    // Get the filename from the id (assuming your id is in the format "filename")
+                    const filename = path.split('_').pop();
+
+                    // Find all hidden inputs with the "design_upload[]" name attribute
+                    const hiddenInputs = document.querySelectorAll('input[name="design_upload[]"]');
+
+                    // Loop through hidden inputs to find the one with the matching value
+                    hiddenInputs.forEach(input => {
+                        if (input.value == path) {
+                            input.remove();
+                        }
+                    });
+
+                    if (hiddenInputs) {
+                        // Make an AJAX request to delete the file on the server
+                        fetch('{{ route("delete_drawing_file") }}', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // Add CSRF token if necessary
+                                },
+                                body: JSON.stringify({
+                                    filename: path,
+                                    permit_id: id
+                                })
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log(data.message); // Log the server's response
+                            })
+                            .catch(error => {
+                                console.error(error);
+                            });
+                    }
+                }
+            }
 </script>
 
 <script>

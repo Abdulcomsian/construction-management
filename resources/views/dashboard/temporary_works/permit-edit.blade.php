@@ -846,11 +846,12 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="d-flex inputDiv " id="sign">
                                 <div class="uploadingDiv">
                                     <div class="uploadDiv" style="padding-left: 10px;">
-                                        <div class="input-images"></div>
+                                        {{-- <div class="input-images"></div> --}}
+                                        <input type="file" name="images[]" accept=".DWG, .dwg, .mp4, .mp3, .jpg, .jpeg, .gif, .svg, .png, .xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf" multiple>
                                     </div>
                                 </div>
                             </div>
@@ -2390,4 +2391,9 @@
             });
         </script>
          <script type="text/javascript" src="{{asset('js/imageuploadify.min.js')}}"></script>
+         <script type="text/javascript">
+            $(document).ready(function() {
+                $('input[type="file"]').imageuploadify();
+            })
+        </script>
         @endsection

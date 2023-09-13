@@ -689,20 +689,19 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-md-6">
                             <div class="d-flex inputDiv">
                                 <label class="fs-6 fw-bold mb-2" style="bottom: 27px;">
                                     <span class="required">Principle Contractor approval required?</span>
-                                </label>
+                                </label> 
                                 <div class=" justify-content-end" style="position: relative; left:70%;background: white">
                                     <label style="position: initial; flex-grow: 0; background: white">
-                                        <input type="radio" class="btn-check" name="approval_PC" value="1" />
-                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Y</span>
+                                        <input type="radio" class="btn-check" @if(isset($permitdata) && $permitdata->principle_contractor==1){{'checked'}} @endif name="approval_PC" value="1" />
+                                        <span class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4" >Y</span>
                                     </label>
                                     <label style="position: initial; flex-grow: 0; background: white">
-                                        <input type="radio" class="btn-check" checked name="approval_PC" value="2" />
+                                        <input type="radio" class="btn-check" checked name="approval_PC" value="2" @if(isset($permitdata) && $permitdata->principle_contractor==2){{'checked'}} @endif />
                                         <span class="btn btn-sm btn-color-muted btn-active btn-active-primary2 px-4">N</span>
                                     </label>
                                 </div>
@@ -823,7 +822,7 @@
                                         <span class="required" style="width: 27%">Name:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control" placeholder="Name" id="name1" name="name1" value = "">
+                                    <input type="text" class="form-control" placeholder="Name" id="name1" name="name1" value = "{{$permitdata->name1 ?? ''}}">
                                     
                                 </div>
                                 <div class="d-flex inputDiv principleno">

@@ -3130,6 +3130,10 @@ class TemporaryWorkController extends Controller
             
             if ($request->signtype1 == 1) {
                 $all_inputs['signature1'] = $request->namesign1;
+                $all_inputs['name'] = $request->name;
+                $all_inputs['job_title'] = $request->job_title;
+                $all_inputs['company'] = $request->company;
+            $all_inputs['name'] = $request->name;
             }elseif ($request->pdfsigntype == 1) {
                 $folderPath = public_path('temporary/signature/');
                 $file = $request->file('pdfphoto1');
@@ -3137,6 +3141,9 @@ class TemporaryWorkController extends Controller
                 $file->move($folderPath, $filename);
                 $image_name1 = $filename;
                 $all_inputs['signature'] = $image_name1;
+                $all_inputs['name'] = $request->name;
+                $all_inputs['job_title'] = $request->job_title;
+                $all_inputs['company'] = $request->company;
             }else{
                 $folderPath = public_path('temporary/signature/');
                     $image = explode(";base64,", $request->signed1);
@@ -3148,12 +3155,18 @@ class TemporaryWorkController extends Controller
                     $file = $folderPath . $image_name1;
                     file_put_contents($file, $image_base64);
                     $all_inputs['signature1'] = $image_name1;
+                    $all_inputs['name'] = $request->name;
+                    $all_inputs['job_title'] = $request->job_title;
+                    $all_inputs['company'] = $request->company;
             }
             
             //for 2
             $image_name = '';
             if ($request->signtype == 1) {
                 $all_inputs['signature'] = $request->namesign;
+                $all_inputs['name1'] = $request->name1;
+                $all_inputs['job_title1'] = $request->job_title1;
+                $all_inputs['company'] = $request->company; //this should be company1
             } elseif ($request->pdfsigntype == 1) {
                 $folderPath = public_path('temporary/signature/');
                 $file = $request->file('pdfphoto');
@@ -3162,6 +3175,9 @@ class TemporaryWorkController extends Controller
                 $image_name = $filename;
                 $all_inputs['signature'] = $image_name;
                 $all_input['pc_twc_email'] = $request->pc_twc_email;
+                $all_inputs['name1'] = $request->name1;
+                $all_inputs['job_title1'] = $request->job_title1;
+                $all_inputs['company'] = $request->company; //this should be company1
             } else {
                 $folderPath = public_path('temporary/signature/');
                 $image = explode(";base64,", $request->signed);
@@ -3172,6 +3188,9 @@ class TemporaryWorkController extends Controller
                 $file = $folderPath . $image_name;
                 file_put_contents($file, $image_base64);
                $all_inputs['signature'] = $image_name;
+               $all_inputs['name1'] = $request->name1;
+                $all_inputs['job_title1'] = $request->job_title1;
+                $all_inputs['company'] = $request->company; //this should be company1
             }
 
             //third person signature and name
@@ -3250,6 +3269,10 @@ class TemporaryWorkController extends Controller
             $all_inputs['ms_ra_no'] = $request->ms_ra_no;
 
             $all_inputs['created_by'] = auth()->user()->id;
+            if($request->principle_contractor==null){$request->principle_contractor=0;}
+            $data['principle_contractor'] = $request->approval_PC;
+            $all_inputs['principle_contractor'] = $request->approval_PC;
+
             $permitload = PermitLoad::create($all_inputs);
             if($request->name3 && $request->signed3 != HelperFunctions::defaultSign())
             {
@@ -3295,9 +3318,7 @@ class TemporaryWorkController extends Controller
     
                 $permitload->signatures()->save($signature5_record);
             }
-
-            if($request->principle_contractor==null){$request->principle_contractor=0;}
-            $data['principle_contractor'] = $request->approval_PC;
+            
             if ($permitload) {
                 //make status 0 if permit is 
                 // $request->principle_contractor == 1 ? PermitLoad::where( 'id' , $request->permitid)->update(['status' => 1]) :  PermitLoad::where( 'id' , $request->permitid)->update(['status' => 4]);
@@ -3388,10 +3409,12 @@ class TemporaryWorkController extends Controller
         if ($request->principle_contractor == 1) {
             if(!$permitload->signature){
 
-                $all_inputs['name1'] = $request->name1;
-                $all_inputs['job_title1'] = $request->job_title1;
+                
                 if ($request->signtype1 == 1) {
                     $all_inputs['signature1'] = $request->namesign1;
+                    $all_inputs['name1'] = $request->name1;
+                    $all_inputs['job_title1'] = $request->job_title1;
+                    $all_inputs['company'] = $request->company; //this should be company1
                 } else {
 
                     $folderPath = public_path('temporary/signature/');
@@ -3404,6 +3427,9 @@ class TemporaryWorkController extends Controller
                     @unlink($folderPath . $permitload->signature1);
                     file_put_contents($file, $image_base64);
                     $all_inputs['signature1'] = $image_name1;
+                    $all_inputs['name1'] = $request->name1;
+                    $all_inputs['job_title1'] = $request->job_title1;
+                    $all_inputs['company'] = $request->company; //this should be company1
                 }
             } else {
                 $all_inputs['name1'] = $request->name1;
@@ -3419,6 +3445,9 @@ class TemporaryWorkController extends Controller
 
             if ($request->signtype == 1) {
                 $all_inputs['signature'] = $request->namesign;
+                $all_inputs['name1'] = $request->name;
+                $all_inputs['job_title1'] = $request->job_title;
+                $all_inputs['company'] = $request->company; 
             } else {
                 $folderPath = public_path('temporary/signature/');
                 $image = explode(";base64,", $request->signed);
@@ -3430,6 +3459,9 @@ class TemporaryWorkController extends Controller
                 @unlink($folderPath . $permitload->signature);
                 file_put_contents($file, $image_base64);
                 $all_inputs['signature'] = $image_name;
+                $all_inputs['name1'] = $request->name;
+                $all_inputs['job_title1'] = $request->job_title;
+                $all_inputs['company'] = $request->company; 
             }
         } else{
             $all_inputs['name'] = $request->name;

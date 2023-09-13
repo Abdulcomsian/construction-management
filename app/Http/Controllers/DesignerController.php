@@ -382,6 +382,9 @@ class DesignerController extends Controller
         $mail=$_GET['mail'];
         
         $id = \Crypt::decrypt($id);
+
+        ChangeEmailHistory::where(['foreign_idd'=>$id,'email'=>$mail])->update(['status'=>1]);
+
         $designer_certificate=DesignerCertificate::where('temporary_work_id',$id)->first();
         $tempdata=TemporaryWork::select('designer_company_name', 'designer_company_email', 'desinger_company_name2', 'desinger_email_2', 'design_requirement_text', 'ped_url')->find($id);
         if($mail==$tempdata->designer_company_email)

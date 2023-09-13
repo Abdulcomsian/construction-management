@@ -451,6 +451,7 @@
                                 @if($permitdata->design_upload)
                                     @php
                                         $designUpload = explode(', ', $permitdata->design_upload);
+                                        // $all_inputs['design_upload'] = $designUpload;
                                     @endphp
                                 @endif
                                 @if(isset($designUpload))
@@ -707,22 +708,23 @@
                               </div>
                               <div class="d-flex ">
                                 <div class="d-flex modalDiv">
-                                  <textarea name="description_minimum_concrete" rows="2" class="form-control" style="display: {{$permitdata->minimum_concrete == 1 ? 'block' : none}}; border: 1px solid lightgray; border-radius: 5px; margin-bottom: 10px" placeholder="Please specify">{{$permitdata->description_minimum_concrete ?? ''}}</textarea>
+                                  <textarea name="description_minimum_concrete" rows="2" class="form-control" style="display: {{$permitdata->minimum_concrete == 1 ? 'block' : 'none'}}; border: 1px solid lightgray; border-radius: 5px; margin-bottom: 10px" placeholder="Please specify">{{$permitdata->description_minimum_concrete ?? ''}}</textarea>
                                 </div>
                               </div>
                               <div class="d-flex ">
                                 <div class="d-flex modalDiv">
-                                    <input type="file" name="file_minimum_concrete" rows="2" class="form-control" style="display: {{$permitdata->minimum_concrete == 1 ? 'block' : none}}; border: 1px solid lightgray; border-radius: 5px; margin-bottom: 10px" placeholder="Please specify">
+                                  <input type="file" name="file_minimum_concrete" rows="2" class="form-control" style="display: {{$permitdata->minimum_concrete == 1 ? 'block' : 'none'}}; border: 1px solid lightgray; border-radius: 5px; margin-bottom: 10px" placeholder="Please specify">
                                 </div>
+                                 
+                                </div>
+                                @if(isset($permitdata) && !empty($permitdata->file_minimum_concrete))
+                                <div id="concrete_div">
+                                <a class="badge badge-success badge-sm" target="_blank" href="{{asset($permitdata->file_minimum_concrete)}}">File Uploaded</a>
+                                <button onclick="deleteMinimumConcrete('{{$permitdata->id}}')" class="badge badge-danger badge-sm">&times;</button>
+                                </div>
+                                @else
+                                @endif
                               </div>
-
-                              @if(isset($permitdata) && !empty($permitdata->file_minimum_concrete))
-                              <div id="concrete_div">
-                              <a class="badge badge-success badge-sm" target="_blank" href="{{asset($permitdata->file_minimum_concrete)}}">File Uploaded</a>
-                              <button onclick="deleteMinimumConcrete('{{$permitdata->id}}')" class="badge badge-danger badge-sm">&times;</button>
-                              </div>
-                              @else
-                              @endif
                         </div>
                         <div class="col-12">
                             <!-- rate of rise work -->
@@ -2147,6 +2149,7 @@
 
                 }
             })
+
             $("input[name='minimum_concrete']").change(function() {
                 if ($(this).val() == 1) {
                     $("textarea[name='description_minimum_concrete']").show();
@@ -2345,7 +2348,7 @@
                                 },
                                 body: JSON.stringify({
                                     filename: path,
-                                    'permit_id': id
+                                    permit_id: id
                                 })
                             })
                             .then(response => response.json())
@@ -2360,6 +2363,7 @@
             }
             function deleteMinimumConcrete(id) {
                 const fileContainer = document.getElementById('concrete_div');
+                event.preventDefault();
 
                 
                 // Remove the corresponding file container (the parent div) by its id

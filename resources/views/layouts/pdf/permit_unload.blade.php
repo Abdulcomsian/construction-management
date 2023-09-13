@@ -442,9 +442,27 @@
             </table>
         </div> --}}
         @if(isset($image_links))
-        <div class="tableDiv paddingTable" style="margin: 5px">
+        <div class="tableDiv paddingTable" style="margin: 5px"> 
             <table>
                 <tbody>
+                @if(isset($old_permit_images))    
+                    @foreach($old_permit_images as $image)
+                        @php 
+                            $n = strrpos($image, '.');
+                            $ext=substr($image, $n+1);
+                            
+                        @endphp
+                        <tr>
+                            <td>
+                                @if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
+                                <img src="{{asset($image->fileName)}}" width="500" alt="img"/>
+                                @else
+                                <a href="{{asset($image->fileName)}}" target="_blank">Attachment</a>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach 
+                @endif  
                 @foreach($image_links as $image)
                 @php 
                     $n = strrpos($image, '.');

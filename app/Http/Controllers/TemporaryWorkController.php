@@ -2683,7 +2683,7 @@ class TemporaryWorkController extends Controller
     }
     //permit update
     public function permit_update(Request $request)
-    { 
+    { dd($request);
         DB::beginTransaction();
         Validations::storepermitload($request);
         $permitload = PermitLoad::with('permitLoadImages','signatures')->find($request->permitid);
@@ -3115,9 +3115,6 @@ class TemporaryWorkController extends Controller
                 $designUpload = implode(', ', $request->design_upload);
                 $all_inputs['design_upload'] = $designUpload;
             }
-            else{
-                $all_inputs['design_upload'] = $permitload->design_upload;
-            }
             if($request->action == 'draft'){
                 $all_inputs['draft_status'] = '1';
             } else{
@@ -3378,20 +3375,14 @@ class TemporaryWorkController extends Controller
             $all_inputs['design_upload'] = '';
             if($request->design_upload){
                 $designUpload = implode(', ', $request->design_upload);
-                $all_inputs['design_upload'] = $permitload->design_upload;
+                $all_inputs['design_upload'] = $designUpload;
             }
-            else{
-                $all_inputs['design_upload'] = $permitload->design_upload;
-            }
+
             if($request->action == 'draft'){
                 $all_inputs['draft_status'] = '1';
             } else{
                 $all_inputs['draft_status'] = '0';
-            }
-            if($request->design_upload){
-                $designUpload = implode(', ', $request->design_upload);
-                $all_inputs['design_upload'] = $designUpload;
-            }
+            }   
         //first person signature and name
         $image_name1 = '';
         if ($request->principle_contractor == 1) {
@@ -3657,7 +3648,7 @@ class TemporaryWorkController extends Controller
                 $image_links = $this->permitfiles($request, $permitload->id);
                 $request->merge(['name' => $request->name1 , 'job_title' => $request->job_title1]);
                 // dd($image_name,$image_name1,$image_name3);
-                $pdf = PDF::loadView('layouts.pdf.permit_unload', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'image_name1' => $image_name1, 'principle_contractor' => $request->approval_PC, 'date1'=>$request->date1, 'date1'=>$request->date2, 'image_name3' => $image_name3, 'image_name4' => $image_name4, 'image_name5' => $image_name5, 'company1' => $request->company1, 'company3' => $request->company3, 'company4' => $request->company4, 'company5' => $request->company5, 'date1'=>$request->date1, 'date3'=>$request->date3, 'date4'=>$request->date4, 'date5'=>$request->date5]);
+                $pdf = PDF::loadView('layouts.pdf.permit_unload', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'image_name1' => $image_name1, 'principle_contractor' => $request->approval_PC, 'date1'=>$request->date1, 'date1'=>$request->date2, 'image_name3' => $image_name3, 'image_name4' => $image_name4, 'image_name5' => $image_name5, 'company1' => $request->company1, 'company3' => $request->company3, 'company4' => $request->company4, 'company5' => $request->company5, 'date1'=>$request->date1, 'date3'=>$request->date3, 'date4'=>$request->date4, 'date5'=>$request->date5, 'old_permit_images' => $permitload->permitLoadImages]);
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
                 $model = PermitLoad::find($permitload->id);

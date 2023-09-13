@@ -2683,7 +2683,7 @@ class TemporaryWorkController extends Controller
     }
     //permit update
     public function permit_update(Request $request)
-    { dd($request);
+    {
         DB::beginTransaction();
         Validations::storepermitload($request);
         $permitload = PermitLoad::with('permitLoadImages','signatures')->find($request->permitid);

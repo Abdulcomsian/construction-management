@@ -365,6 +365,35 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div id="files_div">
+                                @if($permitdata->design_upload)
+                                    @php
+                                        $designUpload = explode(', ', $permitdata->design_upload);
+                                        // $all_inputs['design_upload'] = $designUpload;
+                                    @endphp
+                                @endif
+                                @if(isset($designUpload))
+                                    @foreach($designUpload as $key=>$value)
+                                    <input type="hidden" value="{{$value}}" name="design_upload[]" class="{{$value}}" /> 
+                                    @endforeach
+                                @endif
+                            </div>
+                            <div id="new_div" class="m-md-2">
+                                @if(isset($designUpload))
+                                    @foreach($designUpload as $key=>$value)
+                                        <span id="{{$value}}" >
+                                            <a target="_blank" href="{{asset($value)}}">
+                                                <span class="badge badge-success badge-sm">File Uploaded</span>
+                                            </a>
+                                            <button type="button" onclick="deleteFile($value)" class="remove-file btn btn-danger btn-sm" data-filename="{{$value}}">&times;</button>
+                                        </span>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="files_div">
                             </div>
                             <div id="new_div" class="m-md-2">
                             </div>
@@ -615,30 +644,38 @@
                                         <!-- <div class="uploadDiv"> -->
                                         <div class="">
                                             <!-- <div class="input-images"></div> -->
-                                          
-                                            <div class="input-images">
-                                                <div class="image-uploader has-files">
-                                                    <input type="file" id="images-1694583339879" name="images[]" accept=".jpg,.JPG,.jpeg,.png,.gif,.svg,.pdf,.docx,.dwg,.PNG,.DWG,.xlsx,.xls,.txt,.doc,.mp3,.mp4" multiple="multiple">
-                                                    <div class="uploaded">
-                                                        @isset($permitdata->permitLoadImages)
-                                                        @foreach($permitdata->permitLoadImages as $index=>$permitImage)
-                                                        <div class="uploaded-image" data-index="$index">
-                                                            <img src="blob:http://127.0.0.1:8000/27cc4765-e245-47ee-891b-aa5e8ab347bb">
-                                                            <button class="delete-image"><i class="iui-close"></i></button>
-                                                        </div>
-                                                        @endisset
-                                                        <div class="uploaded-image" data-index="1">
-                                                            <img src="blob:http://127.0.0.1:8000/4466c01d-72fa-4225-bdc3-3fd739ab14fa">
-                                                            <button class="delete-image"><i class="iui-close"></i></button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="upload-text">
-                                                        <i class="iui-cloud-upload"></i><span>Drag &amp; Drop files here or click to browse</span></div></div>
-                                            </div>
-                                          
+                                            <div class="input-images"></div>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="files_div">
+                               
+                                @if(isset($permitdata->permitLoadImages))
+                                    @foreach($permitdata->permitLoadImages as $index=>$permitLoadImage)
+                                    <input type="hidden" value="{{$permitLoadImage->id}}" name="unload_images[]" class="{{$permitLoadImage->id}}" /> 
+                                    @endforeach
+                                @endif
+                            </div>
+                            <div id="new_div" class="m-md-2">
+                                @if(isset($permitdata->permitLoadImages))
+                                    @foreach($permitdata->permitLoadImages as $key=>$permitLoadImage)
+                                     @php
+                                            $permitImageObject = json_decode($permitLoadImage); // Convert JSON to PHP object
+                                            $permitImage = asset($permitImageObject->fileName); 
+                                     @endphp
+                                        <span id="{{$permitLoadImage->id}}" >
+                                            <a target="_blank" href="{{ $permitImage }}">
+                                                <span class="badge badge-success badge-sm">File Uploaded</span>
+                                            </a>
+                                            <button type="button" onclick="deleteFile({{$permitLoadImage->id}})" class="remove-file btn btn-danger btn-sm" data-filename="{{$permitLoadImage->id}}">&times;</button>
+                                        </span>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -672,7 +709,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-md-6" id="second_member" style="margin-top: 2rem;">
                             {{-- <div class="d-flex inputDiv">
@@ -1068,7 +1104,7 @@
                             <img style="background-color: #D3D3D3; border-radius: 15px; width: 300px;" src="{{asset('temporary/signature/'.$permitdata->signatures[1]->signature)}}" width="100%" />
                             @endif
                         </div>
-                        <div class="col-md-6" id="fifth_member" style="display: {{ isset($permitdata->signatures[2]->name) && $permitdata->signatures[2]->name != null ? 'block' : 'none' }}: none; margin-top: 2rem;">
+                        <div class="col-md-6" id="fifth_member" style="display: {{ isset($permitdata->signatures[2]->name) && $permitdata->signatures[2]->name != null ? 'block' : 'none' }}; margin-top: 2rem;">
                             <div class="d-flex inputDiv principleno mt-0">
                                 <!--begin::Label-->
                                 <label class="fs-6 fw-bold mb-2">
@@ -2230,10 +2266,9 @@
             fileContainer.remove();
 
             // Get the filename from the id (assuming your id is in the format "filename")
-            const filename = id.split('_').pop();
 
             // Find all hidden inputs with the "design_upload[]" name attribute
-            const hiddenInputs = document.querySelectorAll('input[name="design_upload[]"]');
+            const hiddenInputs = document.querySelectorAll('input[name="unload_images[]"]');
 
             // Loop through hidden inputs to find the one with the matching value
             hiddenInputs.forEach(input => {
@@ -2244,14 +2279,14 @@
 
             if (hiddenInputs) {
                 // Make an AJAX request to delete the file on the server
-                fetch('{{ route("delete_drawing_file") }}', {
+                fetch('{{ route("permit.delete.image") }}', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                             'X-CSRF-TOKEN': '{{ csrf_token() }}' // Add CSRF token if necessary
                         },
                         body: JSON.stringify({
-                            filename: id
+                            filename_id: id
                         })
                     })
                     .then(response => response.json())

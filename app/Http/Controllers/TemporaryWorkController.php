@@ -2252,7 +2252,7 @@ class TemporaryWorkController extends Controller
     
     //save permit
     public function permit_save(Request $request)
-    { 
+    {
         DB::beginTransaction();
         Validations::storepermitload($request);
         try {
@@ -2683,7 +2683,7 @@ class TemporaryWorkController extends Controller
     }
     //permit update
     public function permit_update(Request $request)
-    { dd($request);
+    {
         DB::beginTransaction();
         Validations::storepermitload($request);
         $permitload = PermitLoad::with('permitLoadImages','signatures')->find($request->permitid);
@@ -3041,6 +3041,18 @@ class TemporaryWorkController extends Controller
         return view('dashboard.temporary_works.permit-renew-test', compact('project', 'tempid', 'permitdata', 'twc_id_no', 'tempdata'));
     }
     //permit unlaod
+    public function delete_permit_image(Request $request)
+    {
+        $fileData = PermitLoadImages::find($request->filename_id);
+        $filePath = public_path($fileData->fileName); // Replace with the actual file path
+        if (file_exists($filePath)) {
+            unlink($filePath); // Delete the file
+            $fileData->delete();
+            return response()->json(['message' => 'File deleted successfully']);
+        }
+
+        return response()->json(['message' => 'File not found'], 404);  
+    }
     public function permit_unload($id)
     {
         try {
@@ -3357,7 +3369,7 @@ class TemporaryWorkController extends Controller
         Validations::updatepermitunload($request);
         $permitload = PermitLoad::with('signatures')->find($request->permitid);
         try {
-            $all_inputs  = $request->except('_token', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'approavalEmailReq', 'approval_PC', 'company1','companyid1', 'pdfsigntype1', 'date1', 'date2','drawing','drawing_option','custom_drawing','design_upload', 'name3', 'job_title3', 'company3', 'companyid3', 'signed3', 'namesign3', 'name4', 'job_title4', 'company4', 'companyid4', 'signed4', 'namesign4', 'name5', 'job_title5', 'company5', 'companyid5', 'signed5', 'namesign5','date3','date4', 'date5','action', 'permitdata_status','draft_status');
+            $all_inputs  = $request->except('_token','unload_images', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'approavalEmailReq', 'approval_PC', 'company1','companyid1', 'pdfsigntype1', 'date1', 'date2','drawing','drawing_option','custom_drawing','design_upload', 'name3', 'job_title3', 'company3', 'companyid3', 'signed3', 'namesign3', 'name4', 'job_title4', 'company4', 'companyid4', 'signed4', 'namesign4', 'name5', 'job_title5', 'company5', 'companyid5', 'signed5', 'namesign5','date3','date4', 'date5','action', 'permitdata_status','draft_status');
             $all_inputs['created_by'] = auth()->user()->id;
             $all_inputs['custom_drawing'] = '';
             $all_inputs['design_upload'] = '';

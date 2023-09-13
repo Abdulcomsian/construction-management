@@ -288,7 +288,7 @@
                                 <td style="width: 200px; font-size: 12px;"> @if($data['principle_contractor']==1){{$data['job_title1']}}@endif</td>
                                 <td style="width: 200px; font-size:12px;"> 
                                     @if($data['principle_contractor']==1)
-                                    {{ date('d-m-Y', strtotime($data['date'])) }}
+                                    {{ date('d-m-Y', strtotime($data['date1'])) }}
                                     @endif
                                 </td>
                                 <td style="width: 200px; font-size:12px;">

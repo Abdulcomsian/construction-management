@@ -2326,9 +2326,9 @@ class TemporaryWorkController extends Controller
                 file_put_contents($file, $image_base64);
                $all_inputs['signature'] = $image_name; 
             }
-
             //third person signature and name
             $image_name3 = '';
+        if($request->signed3!=NULL){
             if ($request->signtype3 == 1) {
                 $signature3 = $request->namesign3;
             } elseif($request->signed3 != HelperFunctions::defaultSign()) { 
@@ -2346,9 +2346,10 @@ class TemporaryWorkController extends Controller
                 file_put_contents($file, $image_base64);
                 $signature3 = $image_name3; 
             }
-
+        }
             //fourth person signature and name
             $image_name4 = '';
+        if($request->signtype4!=NULL){
             if ($request->signtype4 == 1) {
                 $signature4 = $request->namesign4;
             } elseif($request->signed4 != HelperFunctions::defaultSign()) { 
@@ -2366,9 +2367,10 @@ class TemporaryWorkController extends Controller
                 file_put_contents($file, $image_base64);
                 $signature4 = $image_name4; 
             }
-
+        }
             //fifth person signature and name
             $image_name5 = '';
+        if($request->signtype5!=NULL){
             if ($request->signtype5 == 1) {
                 $signature4 = $request->namesign5;
             } elseif($request->signed5 != HelperFunctions::defaultSign()) { 
@@ -2386,7 +2388,7 @@ class TemporaryWorkController extends Controller
                 file_put_contents($file, $image_base64);
                 $signature5 = $image_name5; 
             }
-
+        }
             $all_inputs['created_by'] = auth()->user()->id;
             if (isset($request->approval)) {
                 $all_inputs['status'] = 2;

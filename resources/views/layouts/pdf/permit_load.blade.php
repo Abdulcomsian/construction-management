@@ -185,11 +185,11 @@
                         <td style="font-size:12px;">
                             Minimum concrete strength required?
                                 <br>
-                            @if($data['minimum_concrete']==1)
+                            @if(isset($data['minimum_concrete']) && $data['minimum_concrete']==1)
                             <span style="font-size:12px;">{{$data['description_minimum_concrete']}}</span>
                             @endif
                         </td>
-                        <td style="font-size:12px;">@if($data['minimum_concrete']==1){{'Y'}}@else{{'N'}}@endif
+                        <td style="font-size:12px;">@if(isset($data['minimum_concrete']) && $data['minimum_concrete']==1){{'Y'}}@else{{'N'}}@endif
                             <br>
                             @if(isset($file_minimum_concrete) && !empty($file_minimum_concrete))
                                 <a target="_blank" href="{{asset($file_minimum_concrete)}}">File Uploaded</a>
@@ -300,7 +300,7 @@
                                 </td>            
                             </tr>
                         @endif
-                        @if($data['name3'])
+                        @if(isset($data['name3']) && $data['name3'])
                             <tr>
                                 <td style="width: 200px; font-size:12px;"> {{$data['name3']}}</td>
                                 <td style="width: 200px; font-size:12px;">{{$data['company3']}}</td>
@@ -315,7 +315,7 @@
                                 </td>
                             </tr>
                         @endif
-                        @if($data['name4'])
+                        @if(isset($data['name4']) &&  $data['name4'])
                             <tr>
                                 <td style="width: 200px; font-size:12px;"> {{$data['name4']}}</td>
                                 <td style="width: 200px; font-size:12px;">{{$data['company4']}}</td>
@@ -330,7 +330,7 @@
                                 </td>
                             </tr>
                         @endif
-                        @if($data['name5'])
+                        @if(isset($data['name3']) &&  $data['name5'])
                             <tr>
                                 <td style="width: 200px; font-size:12px;"> {{$data['name5']}}</td>
                                 <td style="width: 200px; font-size:12px;">{{$data['company5']}}</td>

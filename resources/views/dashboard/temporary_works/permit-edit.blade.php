@@ -467,7 +467,7 @@
                                             <a target="_blank" href="{{asset($value)}}">
                                                 <span class="badge badge-success badge-sm">File Uploaded</span>
                                             </a>
-                                            <button type="button" onclick="deleteFile($value)" class="remove-file btn btn-danger btn-sm" data-filename="{{$value}}">&times;</button>
+                                            <button type="button" onclick="deleteFile('{{$value}}', '{{$permitdata->id}}')" class="remove-file badge badge-danger badge-sm" data-filename="{{$value}}">&times;</button>
                                         </span>
                                     @endforeach
                                 @endif
@@ -708,19 +708,22 @@
                               </div>
                               <div class="d-flex ">
                                 <div class="d-flex modalDiv">
-                                  <textarea name="description_minimum_concrete" rows="2" class="form-control" style="display: none; border: 1px solid lightgray; border-radius: 5px; margin-bottom: 10px" placeholder="Please specify">{{$permitdata->description_minimum_concrete ?? ''}}</textarea>
+                                  <textarea name="description_minimum_concrete" rows="2" class="form-control" style="display: {{$permitdata->minimum_concrete == 1 ? 'block' : 'none'}}; border: 1px solid lightgray; border-radius: 5px; margin-bottom: 10px" placeholder="Please specify">{{$permitdata->description_minimum_concrete ?? ''}}</textarea>
                                 </div>
                               </div>
                               <div class="d-flex ">
                                 <div class="d-flex modalDiv">
-                                  <input type="file" name="file_minimum_concrete" rows="2" class="form-control" style="display: none; border: 1px solid lightgray; border-radius: 5px; margin-bottom: 10px" placeholder="Please specify">
-                                  @if(isset($permitdata) && !empty($permitdata->file_minimum_concrete))
-                                  <a target="_blank" href="{{asset($permitdata->file_minimum_concrete)}}">File Uploaded</a>
-                                  @else
-                                  @endif
+                                  <input type="file" name="file_minimum_concrete" rows="2" class="form-control" style="display: {{$permitdata->minimum_concrete == 1 ? 'block' : 'none'}}; border: 1px solid lightgray; border-radius: 5px; margin-bottom: 10px" placeholder="Please specify">
                                 </div>
                                  
                                 </div>
+                                @if(isset($permitdata) && !empty($permitdata->file_minimum_concrete))
+                                <div id="concrete_div">
+                                <a class="badge badge-success badge-sm" target="_blank" href="{{asset($permitdata->file_minimum_concrete)}}">File Uploaded</a>
+                                <button onclick="deleteMinimumConcrete('{{$permitdata->id}}')" class="badge badge-danger badge-sm">&times;</button>
+                                </div>
+                                @else
+                                @endif
                               </div>
                         </div>
                         <div class="col-12">
@@ -2315,22 +2318,22 @@
             })
         </script>
         <script>
-            function deleteFile(id) {
+            function deleteFile(path,id) {
                 // Remove the corresponding file container (the parent div) by its id
-                const fileContainer = document.getElementById(id);
+                const fileContainer = document.getElementById(path);
 
                 if (fileContainer) {
                     fileContainer.remove();
 
                     // Get the filename from the id (assuming your id is in the format "filename")
-                    const filename = id.split('_').pop();
+                    const filename = path.split('_').pop();
 
                     // Find all hidden inputs with the "design_upload[]" name attribute
                     const hiddenInputs = document.querySelectorAll('input[name="design_upload[]"]');
 
                     // Loop through hidden inputs to find the one with the matching value
                     hiddenInputs.forEach(input => {
-                        if (input.value == id) {
+                        if (input.value == path) {
                             input.remove();
                         }
                     });
@@ -2344,7 +2347,8 @@
                                     'X-CSRF-TOKEN': '{{ csrf_token() }}' // Add CSRF token if necessary
                                 },
                                 body: JSON.stringify({
-                                    filename: id
+                                    filename: path,
+                                    permit_id: id
                                 })
                             })
                             .then(response => response.json())
@@ -2356,6 +2360,33 @@
                             });
                     }
                 }
+            }
+            function deleteMinimumConcrete(id) {
+                const fileContainer = document.getElementById('concrete_div');
+                event.preventDefault();
+
+                
+                // Remove the corresponding file container (the parent div) by its id
+                        // Make an AJAX request to delete the file on the server
+                        fetch('{{ route("delete_drawing_file") }}', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // Add CSRF token if necessary
+                                },
+                                body: JSON.stringify({
+                                    'permit_id': id,
+                                    'type':'concrete'
+                                })
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                fileContainer.remove();
+                                console.log(data.message); // Log the server's response
+                            })
+                            .catch(error => {
+                                console.error(error);
+                            });
             }
         </script>
         <script>

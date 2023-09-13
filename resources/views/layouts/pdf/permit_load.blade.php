@@ -362,9 +362,9 @@
                         <tr>
                             <td>
                                 @if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
-                                <img src="{{$image}}" width="500" alt="img"/>
+                                <img src="{{asset($image->fileName)}}" width="500" alt="img"/>
                                 @else
-                                <a href="{{asset($image)}}" target="_blank">Attachment</a>
+                                <a href="{{asset($image->fileName)}}" target="_blank">Attachment</a>
                                 @endif
                             </td>
                         </tr>

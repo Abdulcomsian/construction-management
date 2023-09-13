@@ -2739,6 +2739,8 @@ class TemporaryWorkController extends Controller
                     }
                 } else {
                     $all_inputs['name1'] = $request->name1;
+                    $all_inputs['date1'] = $request->date1;
+                    $all_inputs['company1'] = $request->company1;
                     $all_inputs['job_title1'] = $request->job_title1;
                     $image_name1 = $permitload->signature1;
                     $all_inputs['signature1'] = $image_name1; 
@@ -2764,8 +2766,10 @@ class TemporaryWorkController extends Controller
                     $all_inputs['signature'] = $image_name;
                 }
             } else{
-                $all_inputs['name1'] = $request->name;
-                $all_inputs['job_title1'] = $request->job_title;
+                $all_inputs['name'] = $request->name;
+                $all_inputs['job_title'] = $request->job_title;
+                $all_inputs['company'] = $request->company;
+                $all_inputs['date'] = $request->date;
                 $image_name = $permitload->signature;
                 $all_inputs['signature'] = $image_name; 
             }

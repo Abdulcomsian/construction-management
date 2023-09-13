@@ -171,14 +171,16 @@
                         <td style="font-size:12px;">Approval by TWC required?</td>
                         <td style="font-size:12px;">@if($data['works_coordinator']==1){{'Y'}}@else{{'N'}}@endif</td>
                     </tr>
+                    @if($data['works_coordinator']==1)
                     <tr style="height: 40px;">
-                        <td style="font-size:10px;">
-                            @if($data['works_coordinator']==1)
-                            Other specified criteria satisfied? (e.g. strength of supporting structure, back propping, ground tests, anchor tests)<br>
+                        <td style="font-size:10px;" colspan="2">
+                            
+                            {{-- Other specified criteria satisfied? (e.g. strength of supporting structure, back propping, ground tests, anchor tests)<br> --}}
                             <span style="font-size:12px;">{{$data['description_approval_temp_works']}}</span>
-                            @endif
+                            
                         </td>
                     </tr>
+                    @endif
                     <tr>
                         <td style="font-size:12px;">
                             Minimum concrete strength required?

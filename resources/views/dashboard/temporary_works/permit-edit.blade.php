@@ -635,10 +635,7 @@
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">Approval by Temp Works Coordinator Required? <br>
-                                        completed Other criteria specified (e.g. strength of supporting structure, any
-                                        back propping,
-                                        ground tests, anchor tests) are checked and satisfied (IF YES, SPECIFY
-                                        BELOW)</span>
+                                       </span>
 
                                 </label>
                                 <!--begin::Radio group-->
@@ -665,16 +662,22 @@
                                 </div>
                                 <!--end::Radio group-->
                             </div>
-                            <div class="d-flex ">
-                                <div class="d-flex modalDiv">
+                            <div class="col-12">
+                                {{-- <div class="d-flex modalDiv" > --}}
                                     {{-- @if(isset($permitdata) && $permitdata->works_coordinator==1) --}}
+                                    {{-- <label class="extra_field" style="
+                                    @if($permitdata->works_coordinator!=1)
+                                    display:none;
+                                    @endif font-weight:500; ">
+                                        Other specified criteria satisfied? (e.g. strength of supporting structure, back propping, ground tests, anchor tests)
+                                    </label> --}}
                                     <textarea name="description_approval_temp_works" rows="2" style="
                                     @if($permitdata->works_coordinator!=1)
                                     display:none;
                                     @endif
                                     border: 1px solid lightgray; border-radius: 8px; margin-bottom: 5px" class="form-control">{{$permitdata->description_approval_temp_works ?? ''}}</textarea>
                                     {{-- @endif --}}
-                                </div>
+                                {{-- </div> --}}
                             </div>
                         </div>
                         <div class="col-12">
@@ -1895,8 +1898,9 @@
                
                 if ($(this).val() == 1) {
                     $("textarea[name='description_approval_temp_works']").show();
+                    $(".extra_field").show();
                 } else {
-                    $("textarea[name='description_approval_temp_works']").hide();
+                    $(".extra_field").hide();
 
                 }
             })
@@ -2144,7 +2148,9 @@
             $("input[name='works_coordinator']").change(function() {
                 if ($(this).val() == 1) {
                     $("textarea[name='description_approval_temp_works']").removeClass('d-none').addClass('d-flex');
+                    $(".extra_field").show();
                 } else {
+                    $(".extra_field").hide();
                     $("textarea[name='description_approval_temp_works']").removeClass('d-flex').addClass('d-none');
 
                 }

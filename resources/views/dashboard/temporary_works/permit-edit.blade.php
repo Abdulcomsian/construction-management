@@ -467,7 +467,7 @@
                                             <a target="_blank" href="{{asset($value)}}">
                                                 <span class="badge badge-success badge-sm">File Uploaded</span>
                                             </a>
-                                            <button type="button" onclick="deleteFile($value)" class="remove-file btn btn-danger btn-sm" data-filename="{{$value}}">&times;</button>
+                                            <button type="button" onclick="deleteFile('{{$value}}')" class="remove-file badge badge-danger badge-sm" data-filename="{{$value}}">&times;</button>
                                         </span>
                                     @endforeach
                                 @endif

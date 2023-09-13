@@ -89,7 +89,7 @@ function savePdfToDatabase(blobUrl, filename) {
                         const divString ='<span id="'+cleanedFileName+'" ><a target="_blank" href="' + baseUrl + cleanedFileName + '">'
                         +'<span class="badge badge-success badge-sm">File Uploaded</span>'
                         +'</a>'
-                        +'<button type="button" onclick="deleteFile(\'' + cleanedFileName + '\')" class="remove-file btn btn-danger btn-sm" data-filename="' + cleanedFileName + '">&times;</button>'
+                        +'<button type="button" onclick="deleteFile(\'' + cleanedFileName + '\')" class="remove-file badge badge-danger badge-sm" data-filename="' + cleanedFileName + '">&times;</button>'
                         +'</span>';
                         // Use insertAdjacentHTML to add the divString as HTML content inside the newContainerDiv
                         newContainerDiv.insertAdjacentHTML("beforeend", divString);

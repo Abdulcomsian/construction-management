@@ -845,6 +845,18 @@ class TemporaryWorkController extends Controller
                 $temporary_work->signatures()->save($signature5_record);
             }
             if ($temporary_work) {
+                //2 means READ / UNREAD status is EMPTY
+              
+
+                $chm= new ChangeEmailHistory();
+                $chm->email=Auth::user()->email;
+                $chm->type ='Design Brief';
+                $chm->foreign_idd=$temporary_work->id;
+                $chm->message='New Design Brief Created';
+                $chm->status = 2;
+                // $chm->user_type = 'checker';
+                $chm->save();
+
                 ScopeOfDesign::create(array_merge($scope_of_design, ['temporary_work_id' => $temporary_work->id]));
                 Folder::create(array_merge($folder_attachements, ['temporary_work_id' => $temporary_work->id]));
                 AttachSpeComment::create(array_merge($attachcomments, ['temporary_work_id' => $temporary_work->id]));
@@ -1351,6 +1363,15 @@ class TemporaryWorkController extends Controller
 
 
             if ($temporary_work) {
+                HelperFunctions::EmailHistory(
+                    Auth::user()->email,
+                    'Design Brief',
+                    $temporaryWork->id,
+                    'Design Brief Updated',
+                    Null,
+                    2 //2 means READ / UNREAD status is EMPTY
+                );
+
                 ScopeOfDesign::where('temporary_work_id', $temporaryWork->id)->update(array_merge($scope_of_design, ['temporary_work_id' => $temporaryWork->id]));
                 Folder::where('temporary_work_id', $temporaryWork->id)->update(array_merge($folder_attachements, ['temporary_work_id' => $temporaryWork->id]));
                 AttachSpeComment::where('temporary_work_id', $temporaryWork->id)->update(array_merge($attachcomments, ['temporary_work_id' => $temporaryWork->id]));

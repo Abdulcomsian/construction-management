@@ -366,7 +366,7 @@ class HelperFunctions
         return $html;
     }    
 
-    public static function EmailHistory($email, $type, $foreignId, $message, $userType = null)
+    public static function EmailHistory($email, $type, $foreignId, $message, $userType = null, $status=0)
     {
         $chm = new ChangeEmailHistory();
         $chm->email = $email;
@@ -374,6 +374,7 @@ class HelperFunctions
         $chm->foreign_idd = $foreignId;
         $chm->message = $message;
         $chm->user_type = $userType;
+        $chm->status = $status;
         $chm->save();
     }
 

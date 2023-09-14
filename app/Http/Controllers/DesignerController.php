@@ -1396,11 +1396,11 @@ class DesignerController extends Controller
     public function pc_index($id)
     {
         $id = \Crypt::decrypt($id);
-        ChangeEmailHistory::where(['foreign_idd'=>$id,'type'=>'Design Brief'])->orderBy('id','desc')->limit(1)->update(['status'=>1]);
+        
         $tempworkdetail = TemporaryWork::find($id);
         $comments=TemporaryWorkComment::where(['temporary_work_id'=>$id,'type'=>'pc'])->get();
         $rejectedcomments=TemporaryWorkRejected::where(['temporary_work_id'=>$id])->get();
-        //dd($rejectedcomments);
+        ChangeEmailHistory::where(['foreign_idd'=>$id,'email'=>$tempworkdetail->pc_twc_email])->orderBy('id','desc')->limit(1)->update(['status'=>1]);
         return view('dashboard.designer.pc_index', compact('tempworkdetail','comments','rejectedcomments'));
     }
 

@@ -1,4 +1,5 @@
 @extends('layouts.dashboard.master',['title' => 'Temporary Works'])
+<link href="{{asset('css/imageuploadify.min.css')}}" rel="stylesheet">
 
 @section('styles')
 <style>
@@ -311,6 +312,7 @@
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
+<link href="{{asset('css/imageuploadify.min.css')}}" rel="stylesheet">
 <link rel="stylesheet" href="{{asset('css/signature-twitter-bootstrap.css')}}" />
 <link rel="stylesheet" href="{{asset('css/Jquery-ui-min.css')}}" />
 <link rel="stylesheet" href="{{asset('css/signature.css')}}" />
@@ -815,8 +817,8 @@
 
                         <div class="row">
                             <div class="col-12">
-                                <div class="d-flex inputDiv d-block mb-0">
-                                    <div class="d-flex modalDiv d-block" data-bs-toggle="modal"
+                                <div class="d-flex inputDiv d-block mb-0" id="attachment_specs">
+                                    <div style="position:relative;" class="modalDiv d-block" data-bs-toggle="modal"
                                         data-bs-target="#attachment-of-design">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -1357,15 +1359,19 @@
 <script type="text/javascript" src="{{asset('js/image-uploader.min.js')}}"></script>
 <script type="text/javascript">
     $("#signtype").val(2);
-    $('.input-imagess').imageUploader({
-        preloaded: 
-        [
-         @foreach($temporaryWork->temp_work_images as $img)
-            {id:'{{$img->image}}', src: '{{asset($img->image)}}'},
-         @endforeach
-       ]
-   });
+    // $('.input-images1').imageUploader();
+
 </script>
+
+<script type="text/javascript" src="{{asset('js/imageuploadify.min.js')}}"></script>
+         <script type="text/javascript">
+            $(document).ready(function() {
+            
+                $('input[type="file"]').imageuploadify();
+                
+            })
+        </script>
+        
 <script>
     var projects = {!!$projects!!};
     $('#projects').change(function() {
@@ -1638,6 +1644,7 @@
         $("#desingform").append(input);
         $("#desingform").submit();
     });
+    if (signaturePad) {
     signaturePad.addEventListener("endStroke", () => {
     console.log("hello");
     $("#signature").val(signaturePad.toDataURL('image/png'));
@@ -1645,6 +1652,7 @@
     $("#updateBtn").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
     // $('#submitbutton')
     });
+}
     $('#clear').click(function(e) {
         e.preventDefault();
         signaturePad.clear();
@@ -1808,4 +1816,5 @@ $("#description").summernote({
     });
 </script>
 
+              
 @endsection

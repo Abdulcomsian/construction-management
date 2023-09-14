@@ -306,7 +306,11 @@
                     <tr>
                         <td>
                             <span style="font-size:12px;">Attachments (sketches / photos / specifications / drawings, etc)</span>
-                            <p style="font-size:11px;"> <b>Comment: <span style="font-size:14px;">{{$comments['list_of_attachments_comment'] ?? '' }}</span></b></p>
+                            <p style="font-size:11px;"> <b>Comment: <span style="font-size:14px;white-space: pre-wrap;">
+                                @php
+                                    echo preg_replace('/\v+|\\\r\\\n/Ui','<br/>',$comments['list_of_attachments_comment'] ?? '');
+                                @endphp
+                                </span></b></p>
                         </td>
                         <td style="font-size:12px;">@if(isset($folderattac['list_of_attachments']) && $folderattac['list_of_attachments']=="yes"){{'Y'}}@endif</td>
                         <td style="font-size:12px;">
@@ -318,7 +322,11 @@
                     @if(isset($folderattac['reports_including_site_investigations']) && $folderattac['reports_including_site_investigations']=="yes")
                     <tr>
                         <td><span style="font-size:12px;">Reports Including Site Investigations (relevant boreholes / trial pits / site investigation</span>
-                            <p style="font-size:11px;"> <b>Comment: <span style="font-size:14px;">{{$comments['reports_including_site_investigations_comment'] ?? '' }}</span></b></p>
+                            <p style="font-size:11px;"> <b>Comment: <span style="font-size:14px;white-space: pre-wrap;">
+                                @php
+                                    echo preg_replace('/\v+|\\\r\\\n/Ui','<br/>',$comments['reports_including_site_investigations_comment'] ?? '');
+                                @endphp
+                                </span></b></p>
                         </td>
                         <td style="font-size:12px;">@if(isset($folderattac['reports_including_site_investigations']) && $folderattac['reports_including_site_investigations']=="yes"){{'Y'}}@endif</td>
                         <td style="font-size:12px;">
@@ -331,7 +339,11 @@
                     <tr>
                         <td>
                             <span style="font-size:12px;">Existing Ground Conditions</span>
-                            <p style="font-size:11px;"> <b>Comment: <span style="font-size:14px;">{{$comments['existing_ground_conditions_comment'] ?? '' }}</span></b></p>
+                            <p style="font-size:11px;"> <b>Comment: <span style="font-size:14px;white-space: pre-wrap;">
+                                @php
+                                    echo preg_replace('/\v+|\\\r\\\n/Ui','<br/>',$comments['existing_ground_conditions_comment'] ?? '');
+                                @endphp
+                                </span></b></p>
                         </td>
                         <td style="font-size:12px;">@if(isset($folderattac['existing_ground_conditions']) && $folderattac['existing_ground_conditions']=="yes"){{'Y'}}@endif</td>
                         <td style="font-size:12px;">
@@ -344,7 +356,11 @@
                     <tr>
                         <td>
                             <span style="font-size:12px;">Preferred/non-preferred methods, systems or types of equipment</span>
-                            <p style="font-size:11px;"> <b>Comment: <span style="font-size:14px;">{{$comments['preferred_non_preferred_methods_comment'] ?? '' }}</span></b></p>
+                            <p style="font-size:11px;"> <b>Comment: <span style="font-size:14px;white-space: pre-wrap;">
+                                @php
+                                    echo preg_replace('/\v+|\\\r\\\n/Ui','<br/>',$comments['preferred_non_preferred_methods_comment'] ?? '');
+                                @endphp
+                                </span></b></p>
                         </td>
                         <td style="font-size:12px;">@if(isset($folderattac['preferred_non_preferred_methods']) && $folderattac['preferred_non_preferred_methods']=="yes"){{'Y'}}@endif</td>
                         <td style="font-size:12px;">
@@ -357,7 +373,11 @@
                     <tr>
                         <td>
                             <span style="font-size:12px;">Access Limitations (or edge protection requirements)</span>
-                            <p style="font-size:11px;"> <b>Comment: <span style="font-size:14px;">{{$comments['access_limitations_comment'] ?? '' }}</span></b></p>
+                            <p style="font-size:11px;"> <b>Comment: <span style="font-size:14px;white-space: pre-wrap;">
+                                @php
+                                    echo preg_replace('/\v+|\\\r\\\n/Ui','<br/>',$comments['access_limitations_comment'] ?? '');
+                                @endphp
+                                </span></b></p>
                         </td>
                         <td style="font-size:12px;">@if(isset($folderattac['access_limitations']) && $folderattac['access_limitations']=="yes"){{'Y'}}@endif</td>
                         <td style="font-size:12px;">
@@ -369,7 +389,11 @@
                     @if(isset($folderattac['back_propping']) && $folderattac['back_propping']=="yes")
                     <tr>
                         <td><span style="font-size:12px;">Back Propping / Re-Propping Sequence</span>
-                            <p style="font-size:11px;"> <b>Comment: <span style="font-size:14px;">{{$comments['back_propping_comment'] ?? '' }}</b></span></p>
+                            <p style="font-size:11px;"> <b>Comment: <span style="font-size:14px;white-space: pre-wrap;">
+                                @php
+                                    echo preg_replace('/\v+|\\\r\\\n/Ui','<br/>',$comments['back_propping_comment'] ?? '');
+                                @endphp
+                                </b></span></p>
                         </td>
                         <td style="font-size:12px;">@if(isset($folderattac['back_propping']) && $folderattac['back_propping']=="yes"){{'Y'}}@endif</td>
                         <td style="font-size:12px;">
@@ -381,7 +405,11 @@
                     @if(isset($folderattac['limitations_on_temporary_works_design']) && $folderattac['limitations_on_temporary_works_design']=="yes")
                     <tr>
                         <td><span style="font-size:12px;">Limitations on Temporary Works Design: (please attach)</span>
-                            <p style="font-size:11px;"><b>Comment: <span style="font-size:14px;">{{$comments['limitations_on_temporary_works_design_comment'] ?? '' }}</span><b></p>
+                            <p style="font-size:11px;"><b>Comment: <span style="font-size:14px;white-space: pre-wrap;">
+                                @php
+                                    echo preg_replace('/\v+|\\\r\\\n/Ui','<br/>',$comments['limitations_on_temporary_works_design_comment'] ?? '');
+                                @endphp
+                            </span><b></p>
                         </td>
                         <td style="font-size:12px;">@if(isset($folderattac['limitations_on_temporary_works_design']) && $folderattac['limitations_on_temporary_works_design']=="yes"){{'Y'}}@endif</td>
                         <td style="font-size:12px;">
@@ -393,7 +421,11 @@
                     @if(isset($folderattac['details_of_any_hazards']) && $folderattac['details_of_any_hazards']=="yes")
                     <tr>
                         <td><span style="font-size:12px;">Details of any hazards identified during the risk or hazard assessment that require action by the Temporary Works Designer to eliminate or control all risks or hazard</span>
-                            <p style="font-size:11px;"> <b>Comment: <span style="font-size:14px;">{{$comments['details_of_any_hazards_comment'] ?? '' }}</span></b></p>
+                            <p style="font-size:11px;"> <b>Comment: <span style="font-size:14px;white-space: pre-wrap;">
+                                @php
+                                    echo preg_replace('/\v+|\\\r\\\n/Ui','<br/>',$comments['details_of_any_hazards_comment'] ?? '');
+                                @endphp
+                                </span></b></p>
                         </td>
                         <td style="font-size:12px;">@if(isset($folderattac['details_of_any_hazards']) && $folderattac['details_of_any_hazards']=="yes"){{'Y'}}@endif</td>
                         <td style="font-size:12px;">
@@ -406,7 +438,11 @@
                     <tr>
                         <td>
                             <span style="font-size:12px;">3rd Party Requirements</span>
-                            <p style="font-size:11px;"> <b>Comment: <span style="font-size:14px;">{{$comments['3rd_party_requirements_comment'] ?? '' }}</span></b></p>
+                            <p style="font-size:11px;white-space: pre-wrap;"> <b>Comment: <span style="font-size:14px;white-space: pre-wrap;">
+                                @php
+                                    echo preg_replace('/\v+|\\\r\\\n/Ui','<br/>',$comments['3rd_party_requirements_comment'] ?? '');
+                                @endphp
+                            </span></b></p>
                         </td>
                         <td style="font-size:12px;">@if(isset($folderattac['3rd_party_requirements']) && $folderattac['3rd_party_requirements']=="yes"){{'Y'}}@endif</td>
                         <td style="font-size:12px;">

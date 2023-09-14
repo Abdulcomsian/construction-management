@@ -417,7 +417,7 @@
                                 <div class="d-flex inputDiv d-block mb-0">
                                     <!--begin::Label-->
                                     <label class="fs-6 fw-bold mb-2">
-                                        <span class="required">Design Issued Date:</span>
+                                        <span class="required">Design Brief Issued Date:</span>
                                     </label>
                                     <!--end::Label-->
                                     <input readonly type="date" class="customDate form-control" placeholder="Date"

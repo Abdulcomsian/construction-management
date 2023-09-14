@@ -663,7 +663,9 @@
                                     @endphp
                                     <tr style="background: {{$background ?? ''}}  !important">
                                         <td>{{$loop->index+1}}</td>
-                                        <td>{{$uploads->drawing_number}}</td>
+                                        <td>{{$uploads->drawing_number}} <br>
+                                            <a target="_blank" href="{{asset($uploads->file_name)}}"><i  style="color:#000;"  class="fa fa-eye"></i></a>
+                                        </td>
                                         <td style="white-space:pre-wrap;">{{$uploads->comments}}</td>
                                         <td>{{$uploads->twd_name}}</td>
                                         <td>{{$uploads->drawing_title}}</td>

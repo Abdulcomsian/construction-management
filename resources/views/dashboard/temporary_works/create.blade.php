@@ -597,7 +597,7 @@
                                 <div class="d-flex inputDiv d-block m-0" id="designIssueDate">
                                     <!--begin::Label-->
                                     <label class=" fs-6 fw-bold mb-2">
-                                        <span class="required">Design Issued Date:</span>
+                                        <span class="required">Design Brief Issued Date:</span>
                                     </label>
                                     <!--end::Label-->
                                     <input data-date-inline-picker="true" readonly type="date" value="{{ date('Y-m-d') }}" class="blackBack form-control form-control-solid" placeholder="Date" name="design_issued_date" id="design_issued_date" value="{{old('design_issued_date')}}" required>
@@ -905,59 +905,20 @@
             </div>
 
             <!-- <div class="row"> -->
-            <div class="col-md-6">
-                <div class="d-flex inputDiv d-block">
-                    <!--begin::Label-->
-                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                        <span class="required">Name:</span>
-                    </label>
-                    <!--end::Label-->
-                    <input type="text" class="blackBack form-control form-control-solid" placeholder="Name" name="name" id="admin_name" value="{{\Auth::user()->name ?? ''}}" readonly="readonly" required>
+                <div class="col-md-6" style="margin-top:20px;">
+                    <div class="d-flex inputDiv d-block my-0" id="photoDesign">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span>Photo or Document:</span>
+                        </label>
+                        <!--end::Label-->
+                        <input type="file" class="form-control" id="photo" name="photo" value="{{old('photo')}}" accept="image/*;capture=camera">
+                    </div>
                 </div>
-                <div class="d-flex inputDiv d-block" id="designBriefCompany">
-                    <!--begin::Label-->
-                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                        <span class="required">Company: </span>
-                    </label>
-                    <!--end::Label-->
-                    <input type="text" id="companyadmin" class="blackBack form-control form-control-solid" style="background-color:#f5f8fa" placeholder="Company" name="company" required>
-                    <input type="hidden" id="company_id" name="company_id">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="d-flex inputDiv d-block" id='designBriefJobTitle'>
-                    <!--begin::Label-->
-                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                        <span class="required">Job title:</span>
-                    </label>
-                    <!--end::Label-->
-                    <input type="text" class="blackBack form-control form-control-solid" placeholder="Job title" name="job_title" id="job_title" value="{{\Auth::user()->job_title ?? ''}}" readonly="readonly" required>
-                </div>
-                <div class="d-flex inputDiv d-block">
-                    <!--begin::Label-->
-                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                        <span class="required">Date:</span>
-                    </label>
-                    <!--end::Label-->
-                    <input data-date-inline-picker="true" type="date" name="date" value="{{ date('Y-m-d') }}" style="background-color:#fff" class="form-control form-control-solid">
-                </div>
-            </div>
-            <!-- </div> -->
-            <!-- <div class="row"> -->
-            <div class="col-6">
-                <div class="d-flex inputDiv d-block my-0" id="photoDesign">
-                    <!--begin::Label-->
-                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                        <span>Photo or Document:</span>
-                    </label>
-                    <!--end::Label-->
-                    <input type="file" class="form-control" id="photo" name="photo" value="{{old('photo')}}" accept="image/*;capture=camera">
-                </div>
-            </div>
             </div>
                 
             <!-- </div> -->
-            <div class="col-12">
+            <div class="col-12" style="padding-left:0px; padding-right:0px;">
                 {{-- <div class="d-flex inputDiv d-block">
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span>Description:</span>
@@ -968,7 +929,44 @@
                 {{-- description code ends here --}}
             </div>
             <div class="row">
+                    
+               
+                    
+                
                 <div class="col-md-6">
+                    <div class="d-flex inputDiv d-block">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span class="required">Name:</span>
+                        </label>
+                        <!--end::Label-->
+                        <input type="text" class="blackBack form-control form-control-solid" placeholder="Name" name="name" id="admin_name" value="{{\Auth::user()->name ?? ''}}" readonly="readonly" required>
+                    </div>
+                    <div class="d-flex inputDiv d-block" id="designBriefCompany">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span class="required">Company: </span>
+                        </label>
+                        <!--end::Label-->
+                        <input type="text" id="companyadmin" class="blackBack form-control form-control-solid" style="background-color:#f5f8fa" placeholder="Company" name="company" required>
+                        <input type="hidden" id="company_id" name="company_id">
+                    </div>
+                    <div class="d-flex inputDiv d-block" id='designBriefJobTitle'>
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span class="required">Job title:</span>
+                        </label>
+                        <!--end::Label-->
+                        <input type="text" class="blackBack form-control form-control-solid" placeholder="Job title" name="job_title" id="job_title" value="{{\Auth::user()->job_title ?? ''}}" readonly="readonly" required>
+                    </div>
+                    <div class="d-flex inputDiv d-block">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span class="required">Date:</span>
+                        </label>
+                        <!--end::Label-->
+                        <input data-date-inline-picker="true" type="date" name="date" value="{{ date('Y-m-d') }}" style="background-color:#fff" class="form-control form-control-solid">
+                    </div>
                     <div class="d-flex flex-column" style="border: none">
                         <!--begin::Label-->
                         <label class="m-0 fw-bold" style="width:40% !important; font-size: 16px !important;font-family: 'Inter', sans-serif;">
@@ -1741,11 +1739,11 @@ $(document).ready(function(){
             toolbar: [
     // [groupName, [picture]]
     ['style', ['bold', 'italic', 'underline', 'clear']],
-    ['font', ['strikethrough', 'superscript', 'subscript']],
-    ['fontsize', ['fontsize']],
-    ['color', ['color']],
-    ['para', ['ul', 'ol', 'paragraph']],
-    ['height', ['height']],
+    ['font', ['strikethrough']],
+    ['fontsize', ['']],
+    ['color', ['']],
+    ['para', ['ul', 'ol', '']],
+    ['height', ['']],
     ['picture']
   ]
         });

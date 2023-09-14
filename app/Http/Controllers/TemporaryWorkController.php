@@ -2483,8 +2483,16 @@ class TemporaryWorkController extends Controller
                 $model->ped_url = $filename;
                 $model->save();
                 $pdf->save($path . '/' . $filename);
+
                  DB::commit();
                 if($request->action != 'draft'){
+                    $cmh= new ChangeEmailHistory();
+                    $cmh->email=$request->twc_email;
+                    $cmh->type ='Permit to Load';
+                    $cmh->status =2;
+                    $cmh->foreign_idd=$request->temporary_work_id;
+                    $cmh->message='Permit to Load created';
+                    $cmh->save();
                     $notify_admins_msg = [
                         'greeting' => 'Permit to Load',
                         'subject' => 'TWP– Permit to Load - '.$pojectdata->name . '-' . $pojectdata->no,
@@ -2500,6 +2508,10 @@ class TemporaryWorkController extends Controller
                         'action_text' => $actiontext,
                         'action_url' => '',
                     ];
+                    
+                    // Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new PermitNotification($notify_admins_msg));
+                    Notification::route('mail', $request->twc_email ?? '')->notify(new PermitNotification($notify_admins_msg));
+
                     if (isset($request->approval)) {
                         $cmh= new ChangeEmailHistory();
                         $cmh->email=$request->pc_twc_email;
@@ -2510,18 +2522,15 @@ class TemporaryWorkController extends Controller
                         $cmh->save();
                     $notify_admins_msg['body']['pc_twc'] = '1';
                         Notification::route('mail', $request->pc_twc_email ?? '')->notify(new PermitNotification($notify_admins_msg));
-                    } else {
-                        // $notify_admins_msg['body']['pc_twc'] = '1';
-                        $cmh= new ChangeEmailHistory();
-                        $cmh->email=$request->twc_email;
-                        $cmh->type ='Permit to Load';
-                        $cmh->status =2;
-                        $cmh->foreign_idd=$request->temporary_work_id;
-                        $cmh->message='Permit to Load created';
-                        $cmh->save();
-                        // Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new PermitNotification($notify_admins_msg));
-                        Notification::route('mail', $request->twc_email ?? '')->notify(new PermitNotification($notify_admins_msg));
-                    }
+                    } 
+                }else{
+                    $cmh= new ChangeEmailHistory();
+                    $cmh->email=$request->twc_email;
+                    $cmh->type ='Permit to Load created (Draft)';
+                    $cmh->status =2;
+                    $cmh->foreign_idd=$request->temporary_work_id;
+                    $cmh->message='Permit to Load created as Draft';
+                    $cmh->save();
                 }
 
                 DB::commit();
@@ -3005,7 +3014,16 @@ class TemporaryWorkController extends Controller
                 $model->save();
                 $pdf->save($path . '/' . $filename);
                 DB::commit();
+
+                
                 if($request->action != 'draft'){
+                    $cmh= new ChangeEmailHistory();
+                    $cmh->email=$request->twc_email;
+                    $cmh->type ='Permit to Load';
+                    $cmh->status =2;
+                    $cmh->foreign_idd=$request->temporary_work_id;
+                    $cmh->message='Permit to Load Updated';
+                    $cmh->save();
                     $notify_admins_msg = [
                         'greeting' => 'Permit Pdf',
                         'subject' => 'TWP– Permit to Load - '.$pojectdata->name . '-' . $pojectdata->no,
@@ -3023,12 +3041,28 @@ class TemporaryWorkController extends Controller
                     ];
 
                     if (isset($request->approval)) {
+                        $cmh= new ChangeEmailHistory();
+                        $cmh->email=$request->pc_twc_email;
+                        $cmh->type ='Permit to Load';
+                        $cmh->status =2;
+                        $cmh->foreign_idd=$request->temporary_work_id;
+                        $cmh->message='Permit to Load sent for PC TWC Approval';
+                        $cmh->save();
+
                         $notify_admins_msg['body']['pc_twc'] = '1';
                         Notification::route('mail', $request->pc_twc_email)->notify(new PermitNotification($notify_admins_msg));
                     } else {
                         // Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new PermitNotification($notify_admins_msg));
                         Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
                     }
+                }else{
+                    $cmh= new ChangeEmailHistory();
+                    $cmh->email=$request->twc_email;
+                    $cmh->type ='Permit to Load Update (Draft)';
+                    $cmh->status =2;
+                    $cmh->foreign_idd=$request->temporary_work_id;
+                    $cmh->message='Permit to Load Update as Draft';
+                    $cmh->save();
                 }
                 toastSuccess('Permit Updatd sucessfully!');
                 return redirect()->route('temporary_works.index');
@@ -3380,6 +3414,8 @@ class TemporaryWorkController extends Controller
                 $model->ped_url = $filename;
                 $model->save();
                 $pdf->save($path . '/' . $filename);
+
+                
                 if($request->action != 'draft'){
                     $notify_admins_msg = [
                         'greeting' => 'Permit Unload Pdf',
@@ -3396,7 +3432,13 @@ class TemporaryWorkController extends Controller
                         'action_text' => 'View Permit',
                         'action_url' => '',
                     ];
-                    
+                    $cmh= new ChangeEmailHistory();
+                    $cmh->email=$request->twc_email;
+                    $cmh->type ='Permit to Unload';
+                    $cmh->status =2;
+                    $cmh->foreign_idd=$request->temporary_work_id;
+                    $cmh->message='Permit to unload Created';
+                    $cmh->save();
                     if($request->principle_contractor == 1)
                     {
                         // $pojectdata=Project::select('name','no')->find($request->project_id);
@@ -3405,15 +3447,17 @@ class TemporaryWorkController extends Controller
                         Mail::to($request->pc_twc_email)->send(new PermitUnloadMail($request->name1 , $url , $msg ));
                         
                     }else{
-                        $cmh= new ChangeEmailHistory();
-                        $cmh->email=$request->twc_email;
-                        $cmh->type ='Permit Unloaded';
-                        $cmh->status =2;
-                        $cmh->foreign_idd=$request->temporary_work_id;
-                        $cmh->message='Permit Unloaded';
-                        $cmh->save();
+                       
                         Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
                     }
+                }else{
+                    $cmh= new ChangeEmailHistory();
+                    $cmh->email=$request->twc_email;
+                    $cmh->type ='Permit to Unload (Draft)';
+                    $cmh->status =2;
+                    $cmh->foreign_idd=$request->temporary_work_id;
+                    $cmh->message='Permit to unload saved as Draft';
+                    $cmh->save();
                 }
                 DB::commit();
                 toastSuccess('Permit Unloaded sucessfully!');
@@ -3731,6 +3775,14 @@ class TemporaryWorkController extends Controller
                 $pdf->save($path . '/' . $filename);
                 DB::commit();
                 if($request->action != 'draft'){
+                    $cmh= new ChangeEmailHistory();
+                    $cmh->email=$request->twc_email;
+                    $cmh->type ='Permit to Unload';
+                    $cmh->status =2;
+                    $cmh->foreign_idd=$request->temporary_work_id;
+                    $cmh->message='Permit to unload Created';
+                    $cmh->save();
+
                     $notify_admins_msg = [
                         'greeting' => 'Permit Unload Pdf',
                         'subject' => $request->projname . '-' . $request->projno,
@@ -3755,15 +3807,16 @@ class TemporaryWorkController extends Controller
                         Mail::to($request->pc_twc_email)->send(new PermitUnloadMail($request->name1 , $url , $msg ));
                         
                     }else{
-                        $cmh= new ChangeEmailHistory();
-                        $cmh->email=$request->twc_email;
-                        $cmh->type ='Permit Unloaded';
-                        $cmh->status =2;
-                        $cmh->foreign_idd=$request->temporary_work_id;
-                        $cmh->message='Permit Unloaded';
-                        $cmh->save();
                         Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
                     }
+                }else{
+                    $cmh= new ChangeEmailHistory();
+                    $cmh->email=$request->twc_email;
+                    $cmh->type ='Permit to Unload (Draft)';
+                    $cmh->status =2;
+                    $cmh->foreign_idd=$request->temporary_work_id;
+                    $cmh->message='Permit to unload saved as Draft';
+                    $cmh->save();
                 }
                 DB::commit();
                 toastSuccess('Permit Unloaded sucessfully!');

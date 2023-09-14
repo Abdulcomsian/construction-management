@@ -1814,6 +1814,49 @@ $("#description").summernote({
             alert("Max Signature Limit Reached")
         }
     });
+
+    function deleteImageFile(id) {
+        console.log("id", id);
+        // Remove the corresponding file container (the parent div) by its id
+        const fileContainer = document.getElementById(id);
+
+        if (fileContainer) {
+            fileContainer.remove();
+
+            // Get the filename from the id (assuming your id is in the format "filename")
+
+            // Find all hidden inputs with the "design_upload[]" name attribute
+            const hiddenInputs = document.querySelectorAll('input[name="unload_images[]"]');
+
+            // Loop through hidden inputs to find the one with the matching value
+            hiddenInputs.forEach(input => {
+                if (input.value == id) {
+                    input.remove();
+                }
+            });
+
+            if (hiddenInputs) {
+                // Make an AJAX request to delete the file on the server
+                fetch('{{ route("delete.temporaryworkimage") }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}' // Add CSRF token if necessary
+                        },
+                        body: JSON.stringify({
+                            filename_id: id
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data.message); // Log the server's response
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+                }
+            }
+        }
 </script>
 
               

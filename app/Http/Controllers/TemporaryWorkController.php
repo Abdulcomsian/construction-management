@@ -1625,16 +1625,25 @@ class TemporaryWorkController extends Controller
             if (isset($request->type) && $request->type == 'twc') {
                 $model->type = 'twc';
                 $twc="twc";
+
+                $cmh= new ChangeEmailHistory();
+                $cmh->email=Auth::user()->email;
+                $cmh->type ='Notes added';
+                $cmh->status =2;
+                $cmh->foreign_idd=$request->temp_work_id;
+                $cmh->message='Notes added by ' . Auth::user()->email;
+                // $chm->user_type = 'designer';
+                $cmh->save();
             }
             if (isset($request->type) && $request->type == 'twctodesigner') {
                 $model->type = 'twctodesigner';
                 $twc="twctodesigner";
                 //Adding mail history
                 $cmh= new ChangeEmailHistory();
-                $cmh->email=$tempdata->twc_email;
+                $cmh->email=$tempdata->designer_company_email;
                 $cmh->type ='TWC to Designer';
                 $cmh->foreign_idd=$request->temp_work_id;
-                $cmh->message='Comment added for Designer';
+                $cmh->message='Comment added for Designer by '. $tempdata->twc_email;
                 // $chm->user_type = 'designer';
                 $cmh->save();
             }
@@ -1682,6 +1691,17 @@ class TemporaryWorkController extends Controller
                  }else if($twc=="twctodesigner"){
                    
                     Notification::route('mail', $tempdata->designer_company_email)->notify(new CommentsNotification($request->comment, 'comment', $request->temp_work_id, $tempdata->designer_company_email ,'test'));
+
+                    $designerCompanyEmails = DesignerCompanyEmail::where('temporary_work_id', $request->temp_work_id)->get();
+                   foreach($designerCompanyEmails as $designeremail){
+                    $cmh= new ChangeEmailHistory();
+                    $cmh->email=$designeremail->email;
+                    $cmh->type ='TWC to Designer';
+                    $cmh->foreign_idd=$request->temp_work_id;
+                    $cmh->message='Comment added for Designer by ' . $tempdata->twc_email;
+                    $cmh->save();
+                        Notification::route('mail', $designeremail->email)->notify(new CommentsNotification($request->comment, 'comment', $request->temp_work_id, $designeremail->email ,'test'));
+                   }
                  }
 
                 toastSuccess('Comment submitted successfully');
@@ -1746,7 +1766,6 @@ class TemporaryWorkController extends Controller
                
            
             if ($res) {
-
                 $cmh= new ChangeEmailHistory();
                         $cmh->email=$data->sender_email;
                         $cmh->type ='Comment Replied';

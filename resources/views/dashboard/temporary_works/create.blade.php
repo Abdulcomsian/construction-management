@@ -1744,7 +1744,8 @@ $(document).ready(function(){
     ['color', ['']],
     ['para', ['ul', 'ol', '']],
     ['height', ['']],
-    ['picture']
+    ['picture'],
+    ['view', ['fullscreen', 'codeview']],
   ]
         });
 

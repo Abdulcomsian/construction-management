@@ -746,6 +746,7 @@ class TemporaryWorkController extends Controller
 
             foreach($images as $item => $image){
                 $data = $image->getAttribute("src");
+                $styles = $image->getAttribute("style");
                 list($type, $data) = explode(';', $data);
                 list(, $data)      = explode(',', $data);
                 $imgeData = base64_decode($data);
@@ -754,8 +755,8 @@ class TemporaryWorkController extends Controller
                 file_put_contents($path, $imgeData);
                 $image->removeAttribute('src');
                 $image->setAttribute('src', 'temporary/signature/'.$image_name);
-                $image->setAttribute('width' , "120");
-                $image->setAttribute('height' , "120");
+                $image->setAttribute('width' , $styles);
+                $image->setAttribute('height' , 'auto');
                 $image->removeAttribute("style");
             }
             $content = $dom->saveHTML();

@@ -1929,6 +1929,14 @@ class DesignerController extends Controller
          $model->temporary_work_id=$request->tempworkid;
         if($model->save())
         {
+            $chm= new ChangeEmailHistory();
+            $chm->email=$tempworkdata->twc_email;
+            $chm->type ='Document Uploaded';
+            $chm->foreign_idd=$tempworkdata->id;
+            $chm->message='Other Document uploaded by Designer ' . $request->designermail;
+            $chm->user_type = 'designer';
+            $chm->status = 2;
+            $chm->save();
             $subject = 'TWP– Risk Assessment Uploaded -  ' . $tempworkdata->project->name . '-' . $tempworkdata->project->no;
             $text = $request->designermail.' has uploaded a risk assessment to the Temporary Works Portal.';
             if($request->type==6)

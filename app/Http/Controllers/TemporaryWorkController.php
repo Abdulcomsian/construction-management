@@ -755,6 +755,7 @@ class TemporaryWorkController extends Controller
                 file_put_contents($path, $imgeData);
                 $image->removeAttribute('src');
                 $image->setAttribute('src', 'temporary/signature/'.$image_name);
+                $image->setAttribute('max-width' , '100% !important;');
                 $image->setAttribute('width' , $styles);
                 $image->setAttribute('height' , 'auto');
                 $image->removeAttribute("style");

@@ -379,7 +379,7 @@
                                         <td class="twc-reply">
                                             @php $i=0;@endphp
                                             @foreach($cments->replay as $reply)
-                                            <p>{{$cments->reply_email}}<br><b>{{$reply}}</b><br><b>{{date('H:i
+                                            <p style="white-space:pre-wrap; text-align:center;">{{$cments->reply_email}}<br><b>{{$reply}}</b><br><b style="white-space:normal;">{{date('H:i
                                                     d-m-Y',strtotime($cments->reply_date[$i] ?? ''))}}</b></p>
                                             @php $i++; @endphp
                                             @endforeach

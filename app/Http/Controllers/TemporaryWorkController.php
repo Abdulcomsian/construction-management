@@ -155,7 +155,7 @@ class TemporaryWorkController extends Controller
         }
         try {
             if ($user->hasRole('admin')) {
-                $temporary_works = TemporaryWork::with('pdfFilesDesignBrief', 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits', 'unloadpermits_draft', 'closedpermits','riskassesment')->whereIn('status',$status)->where(['estimator'=>0])->latest()->paginate(20);
+                $temporary_works = TemporaryWork::with('pdfFilesDesignBrief', 'project', 'uploadfile', 'uploadedemails', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits', 'unloadpermits_draft', 'closedpermits','riskassesment')->whereIn('status',$status)->where(['estimator'=>0])->latest()->paginate(20);
                 $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
                 $nominations=[];
                 $users=[];
@@ -1673,7 +1673,7 @@ class TemporaryWorkController extends Controller
                         $cmh->email=$tempdata->twc_email;
                         $cmh->type ='Designer to TWC';
                         $cmh->foreign_idd=$request->temp_work_id;
-                        $cmh->message='Query Posted by Designer';
+                        $cmh->message='Query Posted by Designer ' . $request->mail;
                         $cmh->user_type = 'designer';
                         $cmh->save();
                     }   
@@ -1696,7 +1696,7 @@ class TemporaryWorkController extends Controller
 
     public function temp_savecommentreplay(Request $request)
     {
-        // dd($request);
+        // dd($request->tempid);
         try {
             $commentid = $request->commentid;
             $tempid = $request->tempid;
@@ -1746,6 +1746,14 @@ class TemporaryWorkController extends Controller
                
            
             if ($res) {
+
+                $cmh= new ChangeEmailHistory();
+                        $cmh->email=$data->sender_email;
+                        $cmh->type ='Comment Replied';
+                        $cmh->foreign_idd=$tempid;
+                        $cmh->message='Comment Replied by ' . Auth::user()->email;
+                        $cmh->user_type = 'designer';
+                        $cmh->save();
                 Notification::route('mail',  $data->sender_email)->notify(new CommentsNotification($request->replay, 'reply', $tempid, $data->sender_email, $scan));
                 // Notification::route('mail', $tempdata->designer_company_email)->notify(new CommentsNotification($request->comment, 'comment', $request->temp_work_id,'','test'));
                 toastSuccess('Thank you for your reply');

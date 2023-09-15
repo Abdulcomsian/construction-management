@@ -449,6 +449,7 @@ class DesignerController extends Controller
                  $imagename = HelperFunctions::saveFile(null, $file, $filePath);
                  $model->file_name = $imagename;
             } else {
+                
                 $file_type = 1;
                 if($request->file('file'))
                 {
@@ -497,7 +498,7 @@ class DesignerController extends Controller
                         $chm->email=$tempworkdata->twc_email;
                         $chm->type ='Certificate Uploaded';
                         $chm->foreign_idd=$tempworkdata->id;
-                        $chm->message='Design Checker Uploaded Certificate';
+                        $chm->message='Design Checker Uploaded Certificate '  . $request->designermail;
                         $chm->status = 2;
                         $chm->user_type = 'checker';
                         $chm->save();
@@ -506,7 +507,7 @@ class DesignerController extends Controller
                         $chm->email=$tempworkdata->twc_email;
                         $chm->type ='Drawing Uploaded';
                         $chm->foreign_idd=$tempworkdata->id;
-                        $chm->message='Design Checker Uploaded Drawing';
+                        $chm->message='Design Checker Uploaded Drawing ' . $request->designermail;
                         $chm->status = 2;
                         $chm->user_type = 'checker';
                         $chm->save();
@@ -517,7 +518,7 @@ class DesignerController extends Controller
                         $chm->email=$tempworkdata->twc_email;
                         $chm->type ='Certificate Uploaded';
                         $chm->foreign_idd=$tempworkdata->id;
-                        $chm->message='Designer Uploaded Certificate';
+                        $chm->message='Designer Uploaded Certificate ' . $request->designermail;
                         $chm->user_type = 'designer';
                         $chm->status = 2;
                         $chm->save();
@@ -526,7 +527,27 @@ class DesignerController extends Controller
                         $chm->email=$tempworkdata->twc_email;
                         $chm->type ='Design Upload';
                         $chm->foreign_idd=$tempworkdata->id;
-                        $chm->message='Designer Uploaded Drawing';
+                        $chm->message='Designer Uploaded Drawing ' . $request->designermail;
+                        $chm->status = 2;
+                        $chm->user_type = 'designer';
+                        $chm->save();
+                    }
+                }else{ //if email doesnt match meaning by, designer is from other table
+                    if (isset($request->designcheckfile)) {
+                        $chm= new ChangeEmailHistory();
+                        $chm->email=$tempworkdata->twc_email;
+                        $chm->type ='Certificate Uploaded';
+                        $chm->foreign_idd=$tempworkdata->id;
+                        $chm->message='Designer Uploaded Certificate '  . $request->designermail ;
+                        $chm->user_type = 'designer';
+                        $chm->status = 2;
+                        $chm->save();
+                    }else{
+                        $chm= new ChangeEmailHistory();
+                        $chm->email=$tempworkdata->twc_email;
+                        $chm->type ='Design Upload';
+                        $chm->foreign_idd=$tempworkdata->id;
+                        $chm->message='Designer Uploaded Drawing ' . $request->designermail;
                         $chm->status = 2;
                         $chm->user_type = 'designer';
                         $chm->save();

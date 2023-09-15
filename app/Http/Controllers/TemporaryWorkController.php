@@ -2337,8 +2337,8 @@ class TemporaryWorkController extends Controller
             if ($request->principle_contractor == 1) { 
                 $all_inputs['name1'] = $request->name1;
                 $all_inputs['job_title1'] = $request->job_title1;
-                // $all_inputs['company1'] = $request->company1;
-                // $all_inputs['date1'] = $request->date1;
+                $all_inputs['company1'] = $request->company1;
+                $all_inputs['date1'] = $request->date1;
                 //old work =================================================
                 if ($request->signtype1 == 1) { 
                     $all_inputs['signature1'] = $request->namesign1;

@@ -1162,7 +1162,7 @@ class TemporaryWorkController extends Controller
             }
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token', 'files', 'date','companyid', 'company_id', 'projaddress', 'signed', 'images', 'preloaded', 'namesign', 'signtype','pdfsigntype', 'pdfphoto','projno', 'projname', 'approval', 'req_type', 'req_name', 'req_check', 'req_notes', 'name3', 'job_title3', 'company3', 'date3','companyid3', 'signed3', 'namesign3', 'name4','date4', 'job_title4', 'company4', 'companyid4', 'signed4', 'namesign4', 'name5', 'job_title5', 'company5','date5', 'companyid5', 'signed5', 'namesign5','action');
+            $all_inputs  = $request->except('_token', 'files', 'unload_images', 'date','companyid', 'company_id', 'projaddress', 'signed', 'images', 'preloaded', 'namesign', 'signtype','pdfsigntype', 'pdfphoto','projno', 'projname', 'approval', 'req_type', 'req_name', 'req_check', 'req_notes', 'name3', 'job_title3', 'company3', 'date3','companyid3', 'signed3', 'namesign3', 'name4','date4', 'job_title4', 'company4', 'companyid4', 'signed4', 'namesign4', 'name5', 'job_title5', 'company5','date5', 'companyid5', 'signed5', 'namesign5','action');
 
             //if design req details is exist
             

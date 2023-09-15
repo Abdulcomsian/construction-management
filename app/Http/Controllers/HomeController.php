@@ -13,6 +13,7 @@ use App\Notifications\NominatinCompanyEmail;
 use App\Notifications\DatabaseNotification;
 use App\Models\User;
 use App\Models\NominationComment;
+use App\Models\NominationExtra;
 use App\Models\Project;
 use App\Models\ReviewRating;
 use App\Utils\HelperFunctions;
@@ -20,7 +21,9 @@ use PDF;
 use Notification;
 use Redirect;
 use DB;
+use App\Notifications\ResendNomination;
 use Webklex\PDFMerger\Facades\PDFMergerFacade as PDFMerger;
+use Crypt;
 class HomeController extends Controller
 {
     // nomination form
@@ -96,6 +99,23 @@ class HomeController extends Controller
        
     }
 
+    public function resend_nomination_form($user_id,$project_id)
+    {
+  
+        try{
+            $nomination = Nomination::where(['project'=>$project_id,'user_id'=>$user_id])->first();
+            $user = User::find($user_id);
+            $user->nominationId = $nomination->id;
+            $url = url('Nomination/nomination-edit',Crypt::encrypt($nomination->id));
+            Notification::route('mail',$user->email ?? '')->notify(new ResendNomination($user,$url));
+            toastSuccess('status changed successfully');
+            return Redirect::back();
+         } catch (\Exception $exception) {
+            DB::rollback();
+            toastError($exception->getMessage());
+            return back();
+        }
+    }
     //save nomination form
     public function nomination_save(Request $request)
     {
@@ -693,8 +713,8 @@ class HomeController extends Controller
                 $model->save();
                $pdf = PDF::loadView('layouts.pdf.nomination',['data'=>$request->all(),'signature'=>$image_name,'project_name'=>$projectdata->name, 'project_no'=>$projectdata->no,'images'=>$images,'qimages'=>$qimages,'cimages'=>$cimages,'user'=>$user,'company'=>$company,'cv'=>$cv]);
                     $path = public_path('pdf');
-                    $filename =rand().'nomination.pdf';
-                    @unlink($nomination->pdf_url);
+                    $filename =uniqid().'-nomination.pdf';
+                    // @unlink($nomination->pdf_url);
                     $pdf->save($path . '/' . $filename);
                      
                     //merge pdf files
@@ -717,7 +737,16 @@ class HomeController extends Controller
                     $pdf->merge();
                     $pdf->save($path . '/' . $filename);
                   
-                   
+                   if(empty($nomination->pdf_url))
+                   {
+                    Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
+                   }
+                   else{
+                    $nomination_extras = new NominationExtra();
+                    $nomination_extras->fileName = $filename;
+                    $nomination_extras->nomination_id = $nomination->id;
+                    $nomination_extras->save();
+                   }
                     Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
                     Notification::route('mail',$company->email ?? '')->notify(new NominatinCompanyEmail($company,$filename,$user));
 

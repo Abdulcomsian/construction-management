@@ -184,6 +184,7 @@ Route::group(['prefix' => 'Nomination'], function () {
     Route::get('/nomination-get-commetns',[UserController::class,'nomination_get_comments']);
     //noimination Form
     Route::get('/nomination-form/{id}',[HomeController::class,'nomination_form'])->name('nomination-form');
+    Route::get('/resend-nomination-form/{user_id}/{project_id}',[HomeController::class,'resend_nomination_form'])->name('resend-nomination-form');
     Route::get('/nomination-formm/{id}',[HomeController::class,'nomination_formm'])->name('nomination-formm');
     Route::post('/nomination-save',[HomeController::class,'nomination_save']);
     Route::get('/nomination-edit/{id}',[HomeController::class,'nomination_edit'])->name('nomination-edit');

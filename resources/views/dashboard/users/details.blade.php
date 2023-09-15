@@ -222,7 +222,14 @@
                                     <td>{{$nomination->user->email}}</td>
                                     <td>{{$nomination->user->userCompany->name}}</td>
                                     <td>{{$nomination->projectt->name}}</td>
-                                    <td><a href="{{asset('pdf').'/'.$nomination->pdf_url}}">PDF</a><br>
+                                    <td>
+                                        <a href="{{asset('pdf').'/'.$nomination->pdf_url}}"><span class="badge badge-success badge-sm">PDF</span></a>
+                                        @isset($nomination->nominationExtra)
+                                        @foreach($nomination->nominationExtra as $key=>$nomination_extra)
+                                        <a href="{{asset('pdf').'/'.$nomination_extra->fileName}}"><span class="badge badge-success badge-sm">PDF-{{$key+1}}</span></a>
+                                         @endforeach
+                                         @endisset
+                                    <br>
                                         <a href="{{$url}}">Nomination link<a>
                                     </td>
                                     <td>

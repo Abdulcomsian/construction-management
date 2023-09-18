@@ -641,7 +641,7 @@
                             </thead>
                             <tbody>
                             @php
-                                $data= $competence->Site_establishment;
+                                $data= $competence->Site_establishment ?? '';
                                 @endphp
                                 <tr>
                                     <td rowspan="10">Site establishment</td>
@@ -801,7 +801,7 @@
                                 </tr>
                                 <!-- 2 -->
                                 @php
-                                $data= $competence->Access_scaffolding;
+                                $data= $competence->Access_scaffolding ?? '';
                                 @endphp
                                 <tr>
                                     <td rowspan="9">Access/ scaffolding</td>
@@ -930,7 +930,7 @@
                                 </tr>
                                 <!-- 3 -->
                                 @php
-                                $data= $competence->Formwork_falsework;
+                                $data= $competence->Formwork_falsework ?? '';
                                 @endphp
                                 <tr>
                                     <td rowspan="4">Formwork/ falsework</td>
@@ -991,7 +991,7 @@
                                 </tr>
                                 <!-- 4 -->
                                 @php
-                                $data= $competence->Construction_plant;
+                                $data= $competence->Construction_plant ?? '';
                                 @endphp
                                 <tr>
                                     <td rowspan="7">Construction plant</td>
@@ -1086,7 +1086,7 @@
                                 </tr>
                                 <!-- 5 -->
                                     @php
-                                    $data=$competence->Excavation_earthworks;
+                                    $data=$competence->Excavation_earthworks ?? '';
                                     @endphp
                                 <tr>
                                     <td rowspan="6">Excavation/ earthworks</td>
@@ -1166,7 +1166,7 @@
                                 </tr>
                                 <!--  -->
                                 @php
-                                $data=$competence->Structural_stability;
+                                $data=$competence->Structural_stability ?? '';
                                 @endphp
                                 <tr>
                                     <td rowspan="6">Structural stability</td>
@@ -1269,7 +1269,7 @@
                                 </tr>
                                 <!--  -->
                                 @php
-                                $data=$competence->Permanent_works;
+                                $data=$competence->Permanent_works ?? '';
                                 @endphp
                                 <tr>
                                     <td rowspan="2">Permanent works</td>

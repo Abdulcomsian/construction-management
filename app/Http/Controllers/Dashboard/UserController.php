@@ -20,6 +20,7 @@ use mysql_xdevapi\Exception;
 use Yajra\DataTables\DataTables;
 use function GuzzleHttp\Promise\all;
 use App\Notifications\Nominations;
+use App\Models\NominationExtra;
 use App\Models\NominationComment;
 use Notification;
 use Auth;
@@ -528,7 +529,8 @@ class UserController extends Controller
 
     public function User_Project_Nomination($id)
     {
-        $project_wise_nominations=Nomination::with('user.userCompany','projectt')->where('user_id',$id)->get();
+        $project_wise_nominations=Nomination::with('nominationExtra','user.userCompany','projectt')->where('user_id',$id)->get();
+        // dd($project_wise_nominations->nominationExtra);
         // $user = User::find($id)->update(['user_notify'=>0]);
         return view('dashboard.users.details',compact('project_wise_nominations'));
     }

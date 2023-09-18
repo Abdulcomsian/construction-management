@@ -263,8 +263,11 @@
                                 <td>{{$user->email}}</td>
                                 <td>{{$project->name}}</td>
                                 <td>
-                                    @if($project->pivot->nomination==1)
+                                    @if($project->pivot->nomination=='1')
                                     <a href="{{url('Nomination/nomination-formm',Crypt::encrypt($user->id)).'?project='.Crypt::encrypt($project->id)}}" target="_blink">Link</a>
+                                    @endif
+                                    @if($project->pivot->nomination=='1')
+                                    <a href="{{route('resend-nomination-form',['user_id'=>$project->pivot->user_id,'project_id'=>$project->id])}}">Resend Link</a>
                                     @endif
                                 </td>
                             </tr>

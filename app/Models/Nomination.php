@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\NominationExtra;
 class Nomination extends Model
 {
     use HasFactory;
@@ -18,5 +18,10 @@ class Nomination extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function nominationExtra()
+    {
+        return $this->hasMany(NominationExtra::class, 'nomination_id');
     }
 }

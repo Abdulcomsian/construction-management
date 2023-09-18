@@ -635,10 +635,7 @@
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">Approval by Temp Works Coordinator Required? <br>
-                                        completed Other criteria specified (e.g. strength of supporting structure, any
-                                        back propping,
-                                        ground tests, anchor tests) are checked and satisfied (IF YES, SPECIFY
-                                        BELOW)</span>
+                                       </span>
 
                                 </label>
                                 <!--begin::Radio group-->
@@ -665,16 +662,22 @@
                                 </div>
                                 <!--end::Radio group-->
                             </div>
-                            <div class="d-flex ">
-                                <div class="d-flex modalDiv">
+                            <div class="col-12">
+                                {{-- <div class="d-flex modalDiv" > --}}
                                     {{-- @if(isset($permitdata) && $permitdata->works_coordinator==1) --}}
+                                    {{-- <label class="extra_field" style="
+                                    @if($permitdata->works_coordinator!=1)
+                                    display:none;
+                                    @endif font-weight:500; ">
+                                        Other specified criteria satisfied? (e.g. strength of supporting structure, back propping, ground tests, anchor tests)
+                                    </label> --}}
                                     <textarea name="description_approval_temp_works" rows="2" style="
                                     @if($permitdata->works_coordinator!=1)
                                     display:none;
                                     @endif
                                     border: 1px solid lightgray; border-radius: 8px; margin-bottom: 5px" class="form-control">{{$permitdata->description_approval_temp_works ?? ''}}</textarea>
                                     {{-- @endif --}}
-                                </div>
+                                {{-- </div> --}}
                             </div>
                         </div>
                         <div class="col-12">
@@ -860,9 +863,33 @@
                             </div>
                         </div>
                     </div>
-                    @foreach($permitdata->permitLoadImages as $permit_load_images)
-                        <a target="_blank" href="{{asset($permit_load_images->fileName)}}">File</a>
-                    @endforeach
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="files_div">
+                                @if(isset($permitdata->permitLoadImages))
+                                    @foreach($permitdata->permitLoadImages as $index=>$permitLoadImage)
+                                    <input type="hidden" value="{{$permitLoadImage->id}}" name="load_images[]" class="{{$permitLoadImage->id}}" /> 
+                                    @endforeach
+                                @endif
+                            </div>
+                            <div id="new_div" class="m-md-2">
+                                @if(isset($permitdata->permitLoadImages))
+                                    @foreach($permitdata->permitLoadImages as $key=>$permitLoadImage)
+                                     @php
+                                            $permitImageObject = json_decode($permitLoadImage); // Convert JSON to PHP object
+                                            $permitImage = asset($permitImageObject->fileName); 
+                                     @endphp
+                                        <span id="{{$permitLoadImage->id}}" >
+                                            <a target="_blank" href="{{ $permitImage }}">
+                                                <span class="badge badge-success badge-sm">File Uploaded</span>
+                                            </a>
+                                            <button type="button" onclick="deleteImageFile({{$permitLoadImage->id}})" class="remove-file btn btn-danger btn-sm" data-filename="{{$permitLoadImage->id}}">&times;</button>
+                                        </span>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
+                    </div>
                     @if(isset($permitdata) && $permitdata->principle_contractor==1)
                     <div class="row">
                         <div class="col-md-6">
@@ -937,7 +964,7 @@
                                         <span class="required">Date:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="date" name = "date" value="{{ $permitdata->date ?? date('Y-m-d')  }}" class="form-control">
+                                    <input type="date" value="{{ date('Y-m-d') }}" name="date1" class="form-control">
                                 </div>
                                 <!-- Approval div -->
 
@@ -998,39 +1025,39 @@
                         </div>
                         <div class="col-md-6 mt-15" id="first_member">
                             @if(isset($permitdata) && $permitdata->principle_contractor==1)
-                            <div class="d-flex inputDiv principleno">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span class="required">Name::</span>
-                                </label>
-                                <!--end::Label-->
-                                <input type="text" class="form-control" placeholder="Name" name="name1" value="{{$permitdata->name1 ?? ''}}">
-                            </div>
-                            <div class="d-flex inputDiv principleno">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span class="required">Job title:</span>
-                                </label>
-                                <!--end::Label-->
-                                <input type="text" class="form-control" placeholder="Job title" name="job_title1" value="{{$permitdata->job_title1 ?? ''}}">
-                            </div>
-                            <div class="d-flex inputDiv principleno">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span class="required">Company: </span>
-                                </label>
-                                <!--end::Label-->
-                                <input type="text" id="companyadmin" class="form-control" placeholder="Company" name="company1" value="{{$permitdata->company1 ?? ''}}">
-                                <input type="hidden" id="companyid" class="form-control form-control-solid" placeholder="Company" name="companyid" value="{{$project->company->id ?? ''}}" readonly="readonly">
-                            </div>
-                            <div class="d-flex inputDiv principleno">
-                                <!--begin::Label-->
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
-                                    <span class="required">Date:</span>
-                                </label>
-                                <!--end::Label-->
-                                <input type="date" name = "date1" value="{{ $permitdata->date1 ?? date('Y-m-d')  }}" class="form-control">
-                            </div>
+                                <div class="d-flex inputDiv principleno">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Name::</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="form-control" placeholder="Name" name="name1" value="{{$permitdata->name1 ?? ''}}">
+                                </div>
+                                <div class="d-flex inputDiv principleno">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Job title:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="form-control" placeholder="Job title" name="job_title1" value="{{$permitdata->job_title1 ?? ''}}">
+                                </div>
+                                <div class="d-flex inputDiv principleno">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Company: </span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" id="companyadmin" class="form-control" placeholder="Company" name="company1" value="{{$permitdata->company1 ?? ''}}">
+                                    <input type="hidden" id="companyid" class="form-control form-control-solid" placeholder="Company" name="companyid" value="{{$project->company->id ?? ''}}" readonly="readonly">
+                                </div>
+                                <div class="d-flex inputDiv principleno">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
+                                        <span class="required">Date:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="date" value="{{ date('Y-m-d') }}"  name="date2" class="form-control">
+                                </div>
                             @endif
                             @if(isset($permitdata) && $permitdata->principle_contractor==1)
                             @if(!isset($permitdata->signature1) && empty($permitdata->signature1))
@@ -1088,7 +1115,9 @@
                                         </div>  -->
                             </div>
                             @else
+                            <div class="d-flex inputDiv principleno" style="border: none;">
                             <img style="background-color: #D3D3D3; border-radius: 15px; width: 300px;" src="{{asset('temporary/signature/'.$permitdata->signature1)}}" width="100%" />
+                            </div>
                             @endif
                             @endif
                         </div>
@@ -1895,8 +1924,9 @@
                
                 if ($(this).val() == 1) {
                     $("textarea[name='description_approval_temp_works']").show();
+                    $(".extra_field").show();
                 } else {
-                    $("textarea[name='description_approval_temp_works']").hide();
+                    $(".extra_field").hide();
 
                 }
             })
@@ -2144,7 +2174,9 @@
             $("input[name='works_coordinator']").change(function() {
                 if ($(this).val() == 1) {
                     $("textarea[name='description_approval_temp_works']").removeClass('d-none').addClass('d-flex');
+                    $(".extra_field").show();
                 } else {
+                    $(".extra_field").hide();
                     $("textarea[name='description_approval_temp_works']").removeClass('d-flex').addClass('d-none');
 
                 }
@@ -2387,6 +2419,48 @@
                             .catch(error => {
                                 console.error(error);
                             });
+            }
+            function deleteImageFile(id) {
+                console.log("id", id);
+                // Remove the corresponding file container (the parent div) by its id
+                const fileContainer = document.getElementById(id);
+
+                if (fileContainer) {
+                    fileContainer.remove();
+
+                    // Get the filename from the id (assuming your id is in the format "filename")
+
+                    // Find all hidden inputs with the "design_upload[]" name attribute
+                    const hiddenInputs = document.querySelectorAll('input[name="load_images[]"]');
+
+                    // Loop through hidden inputs to find the one with the matching value
+                    hiddenInputs.forEach(input => {
+                        if (input.value == id) {
+                            input.remove();
+                        }
+                    });
+
+                    if (hiddenInputs) {
+                        // Make an AJAX request to delete the file on the server
+                        fetch('{{ route("permit.delete.image") }}', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // Add CSRF token if necessary
+                                },
+                                body: JSON.stringify({
+                                    filename_id: id
+                                })
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log(data.message); // Log the server's response
+                            })
+                            .catch(error => {
+                                console.error(error);
+                            });
+                    }
+                }
             }
         </script>
         <script>

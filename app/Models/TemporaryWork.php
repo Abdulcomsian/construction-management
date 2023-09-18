@@ -20,6 +20,10 @@ class TemporaryWork extends Model
     {
         return $this->hasMany(TempWorkUploadFiles::class);
     }
+    public function uploadedemails()
+    {
+        return $this->hasMany(TempWorkUploadFiles::class)->where('file_type','=',4);
+    }
     public function checkdesignuploadfile()
     {
         return $this->hasMany(TempWorkUploadFiles::class);

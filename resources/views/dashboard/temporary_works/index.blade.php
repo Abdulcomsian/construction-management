@@ -1300,7 +1300,9 @@ $tempWorkClass = "d-none";
                                                             <div>
                                                                 @php $i=0;
                                                                 
-                                                                $tot = count($item->uploadfile ); @endphp
+                                                                $tot = count($item->uploadfile ); 
+                                                                $tot = count($item->uploadedemails);
+                                                                @endphp
                                                                 <!-- @foreach($item->uploadfile as $file)
                                                         @if($file->file_type==4)
                                                         @php $i++ @endphp -->
@@ -1312,7 +1314,7 @@ $tempWorkClass = "d-none";
                                                                     data-id="{{$item->id}}" data-type="4">
                                                                     <!-- <span class="fa fa-plus"></span> -->
                                                                     Emails 
-                                                                    <!-- ({{$tot}})  -->
+                                                                     ({{$tot}})  
                                                                    
                                                                 </p>
                                                             </div>

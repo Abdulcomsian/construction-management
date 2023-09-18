@@ -155,7 +155,7 @@ class TemporaryWorkController extends Controller
         }
         try {
             if ($user->hasRole('admin')) {
-                $temporary_works = TemporaryWork::with('pdfFilesDesignBrief', 'project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits', 'unloadpermits_draft', 'closedpermits','riskassesment')->whereIn('status',$status)->where(['estimator'=>0])->latest()->paginate(20);
+                $temporary_works = TemporaryWork::with('pdfFilesDesignBrief', 'project', 'uploadfile', 'uploadedemails', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits', 'unloadpermits_draft', 'closedpermits','riskassesment')->whereIn('status',$status)->where(['estimator'=>0])->latest()->paginate(20);
                 $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
                 $nominations=[];
                 $users=[];
@@ -746,6 +746,7 @@ class TemporaryWorkController extends Controller
 
             foreach($images as $item => $image){
                 $data = $image->getAttribute("src");
+                $styles = $image->getAttribute("style");
                 list($type, $data) = explode(';', $data);
                 list(, $data)      = explode(',', $data);
                 $imgeData = base64_decode($data);
@@ -754,8 +755,9 @@ class TemporaryWorkController extends Controller
                 file_put_contents($path, $imgeData);
                 $image->removeAttribute('src');
                 $image->setAttribute('src', 'temporary/signature/'.$image_name);
-                $image->setAttribute('width' , "120");
-                $image->setAttribute('height' , "120");
+                $image->setAttribute('max-width' , '100% !important;');
+                $image->setAttribute('width' , $styles);
+                $image->setAttribute('height' , 'auto');
                 $image->removeAttribute("style");
             }
             $content = $dom->saveHTML();
@@ -845,6 +847,18 @@ class TemporaryWorkController extends Controller
                 $temporary_work->signatures()->save($signature5_record);
             }
             if ($temporary_work) {
+                //2 means READ / UNREAD status is EMPTY
+              
+
+                $chm= new ChangeEmailHistory();
+                $chm->email=Auth::user()->email;
+                $chm->type ='Design Brief';
+                $chm->foreign_idd=$temporary_work->id;
+                $chm->message='New Design Brief Created';
+                $chm->status = 2;
+                // $chm->user_type = 'checker';
+                $chm->save();
+
                 ScopeOfDesign::create(array_merge($scope_of_design, ['temporary_work_id' => $temporary_work->id]));
                 Folder::create(array_merge($folder_attachements, ['temporary_work_id' => $temporary_work->id]));
                 AttachSpeComment::create(array_merge($attachcomments, ['temporary_work_id' => $temporary_work->id]));
@@ -1352,6 +1366,15 @@ class TemporaryWorkController extends Controller
 
 
             if ($temporary_work) {
+                HelperFunctions::EmailHistory(
+                    Auth::user()->email,
+                    'Design Brief',
+                    $temporaryWork->id,
+                    'Design Brief Updated',
+                    Null,
+                    2 //2 means READ / UNREAD status is EMPTY
+                );
+
                 ScopeOfDesign::where('temporary_work_id', $temporaryWork->id)->update(array_merge($scope_of_design, ['temporary_work_id' => $temporaryWork->id]));
                 Folder::where('temporary_work_id', $temporaryWork->id)->update(array_merge($folder_attachements, ['temporary_work_id' => $temporaryWork->id]));
                 AttachSpeComment::where('temporary_work_id', $temporaryWork->id)->update(array_merge($attachcomments, ['temporary_work_id' => $temporaryWork->id]));
@@ -1602,16 +1625,25 @@ class TemporaryWorkController extends Controller
             if (isset($request->type) && $request->type == 'twc') {
                 $model->type = 'twc';
                 $twc="twc";
+
+                $cmh= new ChangeEmailHistory();
+                $cmh->email=Auth::user()->email;
+                $cmh->type ='Notes added';
+                $cmh->status =2;
+                $cmh->foreign_idd=$request->temp_work_id;
+                $cmh->message='Notes added by ' . Auth::user()->email;
+                // $chm->user_type = 'designer';
+                $cmh->save();
             }
             if (isset($request->type) && $request->type == 'twctodesigner') {
                 $model->type = 'twctodesigner';
                 $twc="twctodesigner";
                 //Adding mail history
                 $cmh= new ChangeEmailHistory();
-                $cmh->email=$tempdata->twc_email;
+                $cmh->email=$tempdata->designer_company_email;
                 $cmh->type ='TWC to Designer';
                 $cmh->foreign_idd=$request->temp_work_id;
-                $cmh->message='Comment added for Designer';
+                $cmh->message='Comment added for Designer by '. $tempdata->twc_email;
                 // $chm->user_type = 'designer';
                 $cmh->save();
             }
@@ -1650,7 +1682,7 @@ class TemporaryWorkController extends Controller
                         $cmh->email=$tempdata->twc_email;
                         $cmh->type ='Designer to TWC';
                         $cmh->foreign_idd=$request->temp_work_id;
-                        $cmh->message='Query Posted by Designer';
+                        $cmh->message='Query Posted by Designer ' . $request->mail;
                         $cmh->user_type = 'designer';
                         $cmh->save();
                     }   
@@ -1659,6 +1691,17 @@ class TemporaryWorkController extends Controller
                  }else if($twc=="twctodesigner"){
                    
                     Notification::route('mail', $tempdata->designer_company_email)->notify(new CommentsNotification($request->comment, 'comment', $request->temp_work_id, $tempdata->designer_company_email ,'test'));
+
+                    $designerCompanyEmails = DesignerCompanyEmail::where('temporary_work_id', $request->temp_work_id)->get();
+                   foreach($designerCompanyEmails as $designeremail){
+                    $cmh= new ChangeEmailHistory();
+                    $cmh->email=$designeremail->email;
+                    $cmh->type ='TWC to Designer';
+                    $cmh->foreign_idd=$request->temp_work_id;
+                    $cmh->message='Comment added for Designer by ' . $tempdata->twc_email;
+                    $cmh->save();
+                        Notification::route('mail', $designeremail->email)->notify(new CommentsNotification($request->comment, 'comment', $request->temp_work_id, $designeremail->email ,'test'));
+                   }
                  }
 
                 toastSuccess('Comment submitted successfully');
@@ -1673,7 +1716,7 @@ class TemporaryWorkController extends Controller
 
     public function temp_savecommentreplay(Request $request)
     {
-        // dd($request);
+        // dd($request->tempid);
         try {
             $commentid = $request->commentid;
             $tempid = $request->tempid;
@@ -1723,6 +1766,13 @@ class TemporaryWorkController extends Controller
                
            
             if ($res) {
+                $cmh= new ChangeEmailHistory();
+                        $cmh->email=$data->sender_email;
+                        $cmh->type ='Comment Replied';
+                        $cmh->foreign_idd=$tempid;
+                        $cmh->message='Comment Replied by ' . Auth::user()->email;
+                        $cmh->user_type = 'designer';
+                        $cmh->save();
                 Notification::route('mail',  $data->sender_email)->notify(new CommentsNotification($request->replay, 'reply', $tempid, $data->sender_email, $scan));
                 // Notification::route('mail', $tempdata->designer_company_email)->notify(new CommentsNotification($request->comment, 'comment', $request->temp_work_id,'','test'));
                 toastSuccess('Thank you for your reply');
@@ -2287,8 +2337,8 @@ class TemporaryWorkController extends Controller
             if ($request->principle_contractor == 1) { 
                 $all_inputs['name1'] = $request->name1;
                 $all_inputs['job_title1'] = $request->job_title1;
-                // $all_inputs['company1'] = $request->company1;
-                // $all_inputs['date1'] = $request->date1;
+                $all_inputs['company1'] = $request->company1;
+                $all_inputs['date1'] = $request->date1;
                 //old work =================================================
                 if ($request->signtype1 == 1) { 
                     $all_inputs['signature1'] = $request->namesign1;
@@ -2326,9 +2376,9 @@ class TemporaryWorkController extends Controller
                 file_put_contents($file, $image_base64);
                $all_inputs['signature'] = $image_name; 
             }
-
             //third person signature and name
             $image_name3 = '';
+        if($request->signed3!=NULL){
             if ($request->signtype3 == 1) {
                 $signature3 = $request->namesign3;
             } elseif($request->signed3 != HelperFunctions::defaultSign()) { 
@@ -2346,9 +2396,10 @@ class TemporaryWorkController extends Controller
                 file_put_contents($file, $image_base64);
                 $signature3 = $image_name3; 
             }
-
+        }
             //fourth person signature and name
             $image_name4 = '';
+        if($request->signtype4!=NULL){
             if ($request->signtype4 == 1) {
                 $signature4 = $request->namesign4;
             } elseif($request->signed4 != HelperFunctions::defaultSign()) { 
@@ -2366,9 +2417,10 @@ class TemporaryWorkController extends Controller
                 file_put_contents($file, $image_base64);
                 $signature4 = $image_name4; 
             }
-
+        }
             //fifth person signature and name
             $image_name5 = '';
+        if($request->signtype5!=NULL){
             if ($request->signtype5 == 1) {
                 $signature4 = $request->namesign5;
             } elseif($request->signed5 != HelperFunctions::defaultSign()) { 
@@ -2386,7 +2438,7 @@ class TemporaryWorkController extends Controller
                 file_put_contents($file, $image_base64);
                 $signature5 = $image_name5; 
             }
-
+        }
             $all_inputs['created_by'] = auth()->user()->id;
             if (isset($request->approval)) {
                 $all_inputs['status'] = 2;
@@ -2460,8 +2512,16 @@ class TemporaryWorkController extends Controller
                 $model->ped_url = $filename;
                 $model->save();
                 $pdf->save($path . '/' . $filename);
+
                  DB::commit();
                 if($request->action != 'draft'){
+                    $cmh= new ChangeEmailHistory();
+                    $cmh->email=$request->twc_email;
+                    $cmh->type ='Permit to Load';
+                    $cmh->status =2;
+                    $cmh->foreign_idd=$request->temporary_work_id;
+                    $cmh->message='Permit to Load created';
+                    $cmh->save();
                     $notify_admins_msg = [
                         'greeting' => 'Permit to Load',
                         'subject' => 'TWP– Permit to Load - '.$pojectdata->name . '-' . $pojectdata->no,
@@ -2477,6 +2537,10 @@ class TemporaryWorkController extends Controller
                         'action_text' => $actiontext,
                         'action_url' => '',
                     ];
+                    
+                    // Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new PermitNotification($notify_admins_msg));
+                    Notification::route('mail', $request->twc_email ?? '')->notify(new PermitNotification($notify_admins_msg));
+
                     if (isset($request->approval)) {
                         $cmh= new ChangeEmailHistory();
                         $cmh->email=$request->pc_twc_email;
@@ -2487,18 +2551,15 @@ class TemporaryWorkController extends Controller
                         $cmh->save();
                     $notify_admins_msg['body']['pc_twc'] = '1';
                         Notification::route('mail', $request->pc_twc_email ?? '')->notify(new PermitNotification($notify_admins_msg));
-                    } else {
-                        // $notify_admins_msg['body']['pc_twc'] = '1';
-                        $cmh= new ChangeEmailHistory();
-                        $cmh->email=$request->twc_email;
-                        $cmh->type ='Permit to Load';
-                        $cmh->status =2;
-                        $cmh->foreign_idd=$request->temporary_work_id;
-                        $cmh->message='Permit to Load created';
-                        $cmh->save();
-                        // Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new PermitNotification($notify_admins_msg));
-                        Notification::route('mail', $request->twc_email ?? '')->notify(new PermitNotification($notify_admins_msg));
-                    }
+                    } 
+                }else{
+                    $cmh= new ChangeEmailHistory();
+                    $cmh->email=$request->twc_email;
+                    $cmh->type ='Permit to Load created (Draft)';
+                    $cmh->status =2;
+                    $cmh->foreign_idd=$request->temporary_work_id;
+                    $cmh->message='Permit to Load created as Draft';
+                    $cmh->save();
                 }
 
                 DB::commit();
@@ -2604,7 +2665,7 @@ class TemporaryWorkController extends Controller
                     }elseif ($permit->status == 7) {
                         $status = "Pending";
                     }
-                    if ($permit->status ==3 && $permit->draft_status == '1') {
+                    if (($permit->status ==3 || $permit->status ==6) && $permit->draft_status == '1') {
                         $dnl_status = "<a href=" . route("permit.unload.edit", \Crypt::encrypt($permit->id)) . "><i style='text-align:center; font-size:20px;' class='fa fa-edit'></i></a>";
                     }else if ($permit->status == 5 || $permit->draft_status == '1') {
                         $dnl_status = "<a href=" . route("permit.edit", \Crypt::encrypt($permit->id)) . "><i style='text-align:center; font-size:20px;' class='fa fa-edit'></i></a>";
@@ -2688,7 +2749,7 @@ class TemporaryWorkController extends Controller
         Validations::storepermitload($request);
         $permitload = PermitLoad::with('permitLoadImages','signatures')->find($request->permitid);
         try {
-            $all_inputs  = $request->except('_token', 'approval', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed', 'pdfsigntype','pdfphoto', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'company1', 'drawing','drawing_option','custom_drawing','design_upload', 'name3', 'job_title3', 'company3', 'companyid3', 'signed3', 'namesign3', 'name4', 'job_title4', 'company4', 'companyid4', 'signed4', 'namesign4', 'name5', 'job_title5', 'company5', 'companyid5', 'signed5', 'namesign5','date3','date4', 'date5', 'action', 'permitdata_status');        
+            $all_inputs  = $request->except('_token', 'approval', 'load_images', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed', 'pdfsigntype','pdfphoto', 'signed1', 'projno', 'projname', 'date', 'type', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'company1', 'drawing','drawing_option','custom_drawing','design_upload', 'name3', 'job_title3', 'company3', 'companyid3', 'signed3', 'namesign3', 'name4', 'job_title4', 'company4', 'companyid4', 'signed4', 'namesign4', 'name5', 'job_title5', 'company5', 'companyid5', 'signed5', 'namesign5','date2','date3','date4', 'date5', 'action', 'permitdata_status');      
             $all_inputs['created_by'] = auth()->user()->id;
             $all_inputs['custom_drawing'] = '';
             $all_inputs['design_upload'] = '';
@@ -2722,6 +2783,10 @@ class TemporaryWorkController extends Controller
                     $all_inputs['job_title1'] = $request->job_title1;
                     if ($request->signtype1 == 1) {
                         $all_inputs['signature1'] = $request->namesign1;
+                        $all_inputs['name1'] = $request->name1;
+                        $all_inputs['job_title1'] = $request->job_title1;
+                        $all_inputs['company1'] = $request->company1; //this should be company1
+                        $all_inputs['date1'] = $request->date2; //this should be company1
                     } else {
 
                         $folderPath = public_path('temporary/signature/');
@@ -2734,10 +2799,15 @@ class TemporaryWorkController extends Controller
                         @unlink($folderPath . $permitload->signature1);
                         file_put_contents($file, $image_base64);
                         $all_inputs['signature1'] = $image_name1;
+
+                        $all_inputs['name1'] = $request->name1;
+                        $all_inputs['job_title1'] = $request->job_title1;
+                        $all_inputs['company1'] = $request->company1; //this should be company1
+                        $all_inputs['date1'] = $request->date2; //this should be company1
                     }
                 } else {
                     $all_inputs['name1'] = $request->name1;
-                    $all_inputs['date1'] = $request->date1;
+                    $all_inputs['date1'] = $request->date2;
                     $all_inputs['company1'] = $request->company1;
                     $all_inputs['job_title1'] = $request->job_title1;
                     $image_name1 = $permitload->signature1;
@@ -2751,6 +2821,9 @@ class TemporaryWorkController extends Controller
 
                 if ($request->signtype == 1) {
                     $all_inputs['signature'] = $request->namesign;
+                    $all_inputs['name'] = $request->name;
+                    $all_inputs['job_title'] = $request->job_title;
+                    $all_inputs['company'] = $request->company; 
                 } else {
                     $folderPath = public_path('temporary/signature/');
                     $image = explode(";base64,", $request->signed);
@@ -2762,6 +2835,9 @@ class TemporaryWorkController extends Controller
                     @unlink($folderPath . $permitload->signature);
                     file_put_contents($file, $image_base64);
                     $all_inputs['signature'] = $image_name;
+                    $all_inputs['name'] = $request->name;
+                    $all_inputs['job_title'] = $request->job_title;
+                    $all_inputs['company'] = $request->company; 
                 }
             } else{
                 $all_inputs['name'] = $request->name;
@@ -2967,7 +3043,16 @@ class TemporaryWorkController extends Controller
                 $model->save();
                 $pdf->save($path . '/' . $filename);
                 DB::commit();
+
+                
                 if($request->action != 'draft'){
+                    $cmh= new ChangeEmailHistory();
+                    $cmh->email=$request->twc_email;
+                    $cmh->type ='Permit to Load';
+                    $cmh->status =2;
+                    $cmh->foreign_idd=$request->temporary_work_id;
+                    $cmh->message='Permit to Load Updated';
+                    $cmh->save();
                     $notify_admins_msg = [
                         'greeting' => 'Permit Pdf',
                         'subject' => 'TWP– Permit to Load - '.$pojectdata->name . '-' . $pojectdata->no,
@@ -2985,12 +3070,28 @@ class TemporaryWorkController extends Controller
                     ];
 
                     if (isset($request->approval)) {
+                        $cmh= new ChangeEmailHistory();
+                        $cmh->email=$request->pc_twc_email;
+                        $cmh->type ='Permit to Load';
+                        $cmh->status =2;
+                        $cmh->foreign_idd=$request->temporary_work_id;
+                        $cmh->message='Permit to Load sent for PC TWC Approval';
+                        $cmh->save();
+
                         $notify_admins_msg['body']['pc_twc'] = '1';
                         Notification::route('mail', $request->pc_twc_email)->notify(new PermitNotification($notify_admins_msg));
                     } else {
                         // Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new PermitNotification($notify_admins_msg));
                         Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
                     }
+                }else{
+                    $cmh= new ChangeEmailHistory();
+                    $cmh->email=$request->twc_email;
+                    $cmh->type ='Permit to Load Update (Draft)';
+                    $cmh->status =2;
+                    $cmh->foreign_idd=$request->temporary_work_id;
+                    $cmh->message='Permit to Load Update as Draft';
+                    $cmh->save();
                 }
                 toastSuccess('Permit Updatd sucessfully!');
                 return redirect()->route('temporary_works.index');
@@ -3134,6 +3235,10 @@ class TemporaryWorkController extends Controller
             
             if ($request->signtype1 == 1) {
                 $all_inputs['signature1'] = $request->namesign1;
+                $all_inputs['name'] = $request->name;
+                $all_inputs['job_title'] = $request->job_title;
+                $all_inputs['company'] = $request->company;
+            $all_inputs['name'] = $request->name;
             }elseif ($request->pdfsigntype == 1) {
                 $folderPath = public_path('temporary/signature/');
                 $file = $request->file('pdfphoto1');
@@ -3141,6 +3246,9 @@ class TemporaryWorkController extends Controller
                 $file->move($folderPath, $filename);
                 $image_name1 = $filename;
                 $all_inputs['signature'] = $image_name1;
+                $all_inputs['name'] = $request->name;
+                $all_inputs['job_title'] = $request->job_title;
+                $all_inputs['company'] = $request->company;
             }else{
                 $folderPath = public_path('temporary/signature/');
                     $image = explode(";base64,", $request->signed1);
@@ -3152,12 +3260,18 @@ class TemporaryWorkController extends Controller
                     $file = $folderPath . $image_name1;
                     file_put_contents($file, $image_base64);
                     $all_inputs['signature1'] = $image_name1;
+                    $all_inputs['name'] = $request->name;
+                    $all_inputs['job_title'] = $request->job_title;
+                    $all_inputs['company'] = $request->company;
             }
             
             //for 2
             $image_name = '';
             if ($request->signtype == 1) {
                 $all_inputs['signature'] = $request->namesign;
+                $all_inputs['name1'] = $request->name1;
+                $all_inputs['job_title1'] = $request->job_title1;
+                $all_inputs['company1'] = $request->company1; //this should be company1
             } elseif ($request->pdfsigntype == 1) {
                 $folderPath = public_path('temporary/signature/');
                 $file = $request->file('pdfphoto');
@@ -3166,6 +3280,9 @@ class TemporaryWorkController extends Controller
                 $image_name = $filename;
                 $all_inputs['signature'] = $image_name;
                 $all_input['pc_twc_email'] = $request->pc_twc_email;
+                $all_inputs['name1'] = $request->name1;
+                $all_inputs['job_title1'] = $request->job_title1;
+                $all_inputs['company1'] = $request->company1; //this should be company1
             } else {
                 $folderPath = public_path('temporary/signature/');
                 $image = explode(";base64,", $request->signed);
@@ -3176,6 +3293,9 @@ class TemporaryWorkController extends Controller
                 $file = $folderPath . $image_name;
                 file_put_contents($file, $image_base64);
                $all_inputs['signature'] = $image_name;
+               $all_inputs['name1'] = $request->name1;
+                $all_inputs['job_title1'] = $request->job_title1;
+                $all_inputs['company1'] = $request->company1; //this should be company1
             }
 
             //third person signature and name
@@ -3254,6 +3374,10 @@ class TemporaryWorkController extends Controller
             $all_inputs['ms_ra_no'] = $request->ms_ra_no;
 
             $all_inputs['created_by'] = auth()->user()->id;
+            if($request->principle_contractor==null){$request->principle_contractor=0;}
+            $data['principle_contractor'] = $request->approval_PC;
+            $all_inputs['principle_contractor'] = $request->approval_PC;
+
             $permitload = PermitLoad::create($all_inputs);
             if($request->name3 && $request->signed3 != HelperFunctions::defaultSign())
             {
@@ -3299,9 +3423,7 @@ class TemporaryWorkController extends Controller
     
                 $permitload->signatures()->save($signature5_record);
             }
-
-            if($request->principle_contractor==null){$request->principle_contractor=0;}
-            $data['principle_contractor'] = $request->approval_PC;
+            
             if ($permitload) {
                 //make status 0 if permit is 
                 // $request->principle_contractor == 1 ? PermitLoad::where( 'id' , $request->permitid)->update(['status' => 1]) :  PermitLoad::where( 'id' , $request->permitid)->update(['status' => 4]);
@@ -3314,13 +3436,15 @@ class TemporaryWorkController extends Controller
                 // dd("here" , $request->permitid , $permitload->id);
                 $image_links = $this->permitfiles($request, $permitload->id);
                 $request->merge(['name' => $request->name1 , 'job_title' => $request->job_title1]);
-                $pdf = PDF::loadView('layouts.pdf.permit_unload', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'image_name1' => $image_name1, 'principle_contractor' => $request->approval_PC, 'date1'=>$request->date1, 'date1'=>$request->date2, 'image_name3' => $image_name3, 'image_name4' => $image_name4, 'image_name5' => $image_name5, 'company1' => $request->company1, 'company3' => $request->company3, 'company4' => $request->company4, 'company5' => $request->company5, 'date1'=>$request->date1, 'date3'=>$request->date3, 'date4'=>$request->date4, 'date5'=>$request->date5]);
+                $pdf = PDF::loadView('layouts.pdf.permit_unload', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'image_name1' => $image_name1, 'principle_contractor' => $request->approval_PC, 'date1'=>$request->date1, 'date2'=>$request->date2, 'image_name3' => $image_name3, 'image_name4' => $image_name4, 'image_name5' => $image_name5, 'company1' => $request->company1, 'company3' => $request->company3, 'company4' => $request->company4, 'company5' => $request->company5, 'date1'=>$request->date1, 'date3'=>$request->date3, 'date4'=>$request->date4, 'date5'=>$request->date5]);
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
                 $model = PermitLoad::find($permitload->id);
                 $model->ped_url = $filename;
                 $model->save();
                 $pdf->save($path . '/' . $filename);
+                DB::commit();
+                
                 if($request->action != 'draft'){
                     $notify_admins_msg = [
                         'greeting' => 'Permit Unload Pdf',
@@ -3337,7 +3461,13 @@ class TemporaryWorkController extends Controller
                         'action_text' => 'View Permit',
                         'action_url' => '',
                     ];
-                    
+                    $cmh= new ChangeEmailHistory();
+                    $cmh->email=$request->twc_email;
+                    $cmh->type ='Permit to Unload';
+                    $cmh->status =2;
+                    $cmh->foreign_idd=$request->temporary_work_id;
+                    $cmh->message='Permit to unload Created';
+                    $cmh->save();
                     if($request->principle_contractor == 1)
                     {
                         // $pojectdata=Project::select('name','no')->find($request->project_id);
@@ -3346,15 +3476,17 @@ class TemporaryWorkController extends Controller
                         Mail::to($request->pc_twc_email)->send(new PermitUnloadMail($request->name1 , $url , $msg ));
                         
                     }else{
-                        $cmh= new ChangeEmailHistory();
-                        $cmh->email=$request->twc_email;
-                        $cmh->type ='Permit Unloaded';
-                        $cmh->status =2;
-                        $cmh->foreign_idd=$request->temporary_work_id;
-                        $cmh->message='Permit Unloaded';
-                        $cmh->save();
+                       
                         Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
                     }
+                }else{
+                    $cmh= new ChangeEmailHistory();
+                    $cmh->email=$request->twc_email;
+                    $cmh->type ='Permit to Unload (Draft)';
+                    $cmh->status =2;
+                    $cmh->foreign_idd=$request->temporary_work_id;
+                    $cmh->message='Permit to unload saved as Draft';
+                    $cmh->save();
                 }
                 DB::commit();
                 toastSuccess('Permit Unloaded sucessfully!');
@@ -3372,6 +3504,7 @@ class TemporaryWorkController extends Controller
         DB::beginTransaction();
         Validations::updatepermitunload($request);
         $permitload = PermitLoad::with('signatures')->find($request->permitid);
+        $permit_load_orig = PermitLoad::where('permit_no', $permitload->permit_no)->first();
         try {
             $all_inputs  = $request->except('_token','unload_images', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'approavalEmailReq', 'approval_PC', 'company1','companyid1', 'pdfsigntype1', 'date1', 'date2','drawing','drawing_option','custom_drawing','design_upload', 'name3', 'job_title3', 'company3', 'companyid3', 'signed3', 'namesign3', 'name4', 'job_title4', 'company4', 'companyid4', 'signed4', 'namesign4', 'name5', 'job_title5', 'company5', 'companyid5', 'signed5', 'namesign5','date3','date4', 'date5','action', 'permitdata_status','draft_status');
             $all_inputs['created_by'] = auth()->user()->id;
@@ -3392,10 +3525,12 @@ class TemporaryWorkController extends Controller
         if ($request->principle_contractor == 1) {
             if(!$permitload->signature){
 
-                $all_inputs['name1'] = $request->name1;
-                $all_inputs['job_title1'] = $request->job_title1;
+                
                 if ($request->signtype1 == 1) {
                     $all_inputs['signature1'] = $request->namesign1;
+                    $all_inputs['name1'] = $request->name1;
+                    $all_inputs['job_title1'] = $request->job_title1;
+                    $all_inputs['company1'] = $request->company1; //this should be company1
                 } else {
 
                     $folderPath = public_path('temporary/signature/');
@@ -3408,6 +3543,9 @@ class TemporaryWorkController extends Controller
                     @unlink($folderPath . $permitload->signature1);
                     file_put_contents($file, $image_base64);
                     $all_inputs['signature1'] = $image_name1;
+                    $all_inputs['name1'] = $request->name1;
+                    $all_inputs['job_title1'] = $request->job_title1;
+                    $all_inputs['company1'] = $request->company1; //this should be company1
                 }
             } else {
                 $all_inputs['name1'] = $request->name1;
@@ -3423,6 +3561,9 @@ class TemporaryWorkController extends Controller
 
             if ($request->signtype == 1) {
                 $all_inputs['signature'] = $request->namesign;
+                $all_inputs['name1'] = $request->name;
+                $all_inputs['job_title1'] = $request->job_title;
+                $all_inputs['company'] = $request->company; 
             } else {
                 $folderPath = public_path('temporary/signature/');
                 $image = explode(";base64,", $request->signed);
@@ -3434,6 +3575,9 @@ class TemporaryWorkController extends Controller
                 @unlink($folderPath . $permitload->signature);
                 file_put_contents($file, $image_base64);
                 $all_inputs['signature'] = $image_name;
+                $all_inputs['name1'] = $request->name;
+                $all_inputs['job_title1'] = $request->job_title;
+                $all_inputs['company'] = $request->company; 
             }
         } else{
             $all_inputs['name'] = $request->name;
@@ -3643,7 +3787,8 @@ class TemporaryWorkController extends Controller
                 // $request->principle_contractor == 1 ? PermitLoad::where( 'id' , $request->permitid)->update(['status' => 1]) :  PermitLoad::where( 'id' , $request->permitid)->update(['status' => 4]);
 
                 if($request->action != 'draft'){ //added this check because, if unloaded permit is saved as draft then it shouldnot update value of main open permit, open permit should remain open
-                $request->principle_contractor == 1 ? PermitLoad::where( 'id' , $request->permitid)->update(['status' => 7]) :  PermitLoad::where( 'id' , $request->permitid)->update(['status' => 4]);
+                $request->principle_contractor == 1 ? PermitLoad::where( 'id' , $permit_load_orig->id)->update(['status' => 7]) :  PermitLoad::where( 'id' , $permit_load_orig->id)->update(['status' => 4]);
+                // $request->principle_contractor == 1 ? PermitLoad::where( 'id' , $request->permitid)->update(['status' => 7]) :  PermitLoad::where( 'id' , $request->permitid)->update(['status' => 4]); //this code was in permit unload save function. we were passing permitid in request, but now in permit unload update function we are passing id of draft permit, whereas we need to update id of open permit.
                 }else{
                 //    PermitLoad::where( 'id' , $request->permitid)->update(['status' => 9]);
                 }
@@ -3652,7 +3797,7 @@ class TemporaryWorkController extends Controller
                 $image_links = $this->permitfiles($request, $permitload->id);
                 $request->merge(['name' => $request->name1 , 'job_title' => $request->job_title1]);
                 // dd($image_name,$image_name1,$image_name3);
-                $pdf = PDF::loadView('layouts.pdf.permit_unload', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'image_name1' => $image_name1, 'principle_contractor' => $request->approval_PC, 'date1'=>$request->date1, 'date1'=>$request->date2, 'image_name3' => $image_name3, 'image_name4' => $image_name4, 'image_name5' => $image_name5, 'company1' => $request->company1, 'company3' => $request->company3, 'company4' => $request->company4, 'company5' => $request->company5, 'date1'=>$request->date1, 'date3'=>$request->date3, 'date4'=>$request->date4, 'date5'=>$request->date5, 'old_permit_images' => $permitload->permitLoadImages]);
+                $pdf = PDF::loadView('layouts.pdf.permit_unload', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'image_name1' => $image_name1, 'principle_contractor' => $request->approval_PC, 'date1'=>$request->date1, 'date2'=>$request->date2, 'image_name3' => $image_name3, 'image_name4' => $image_name4, 'image_name5' => $image_name5, 'company1' => $request->company1, 'company3' => $request->company3, 'company4' => $request->company4, 'company5' => $request->company5, 'date1'=>$request->date1, 'date3'=>$request->date3, 'date4'=>$request->date4, 'date5'=>$request->date5, 'old_permit_images' => $permitload->permitLoadImages]);
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
                 $model = PermitLoad::find($permitload->id);
@@ -3661,6 +3806,14 @@ class TemporaryWorkController extends Controller
                 $pdf->save($path . '/' . $filename);
                 DB::commit();
                 if($request->action != 'draft'){
+                    $cmh= new ChangeEmailHistory();
+                    $cmh->email=$request->twc_email;
+                    $cmh->type ='Permit to Unload';
+                    $cmh->status =2;
+                    $cmh->foreign_idd=$request->temporary_work_id;
+                    $cmh->message='Permit to unload Created';
+                    $cmh->save();
+
                     $notify_admins_msg = [
                         'greeting' => 'Permit Unload Pdf',
                         'subject' => $request->projname . '-' . $request->projno,
@@ -3685,15 +3838,16 @@ class TemporaryWorkController extends Controller
                         Mail::to($request->pc_twc_email)->send(new PermitUnloadMail($request->name1 , $url , $msg ));
                         
                     }else{
-                        $cmh= new ChangeEmailHistory();
-                        $cmh->email=$request->twc_email;
-                        $cmh->type ='Permit Unloaded';
-                        $cmh->status =2;
-                        $cmh->foreign_idd=$request->temporary_work_id;
-                        $cmh->message='Permit Unloaded';
-                        $cmh->save();
                         Notification::route('mail', $request->twc_email)->notify(new PermitNotification($notify_admins_msg));
                     }
+                }else{
+                    $cmh= new ChangeEmailHistory();
+                    $cmh->email=$request->twc_email;
+                    $cmh->type ='Permit to Unload (Draft)';
+                    $cmh->status =2;
+                    $cmh->foreign_idd=$request->temporary_work_id;
+                    $cmh->message='Permit to unload saved as Draft';
+                    $cmh->save();
                 }
                 DB::commit();
                 toastSuccess('Permit Unloaded sucessfully!');

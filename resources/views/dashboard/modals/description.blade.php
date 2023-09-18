@@ -1,6 +1,9 @@
+<style>
+    #desc_modal_id p img{max-width:100% !important;}
+</style>
 <div class="modal fade" id="desc_modal_id" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
-    <div class="modal-dialog modal-dialog-centered mw-650px">
+    <div class="modal-dialog modal-dialog-centered mw-900px">
         <!--begin::Modal content-->
         <div class="modal-content rounded">
             <!--begin::Modal header-->

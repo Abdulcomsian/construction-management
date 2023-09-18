@@ -382,6 +382,8 @@ class DesignerController extends Controller
         $mail=$_GET['mail'];
         
         $id = \Crypt::decrypt($id);
+        ChangeEmailHistory::where(['foreign_idd'=>$id,'email'=>$mail])->update(['status'=>1]);
+
         $designer_certificate=DesignerCertificate::where('temporary_work_id',$id)->first();
         $tempdata=TemporaryWork::select('designer_company_name', 'designer_company_email', 'desinger_company_name2', 'desinger_email_2', 'design_requirement_text', 'ped_url')->find($id);
         if($mail==$tempdata->designer_company_email)
@@ -447,6 +449,7 @@ class DesignerController extends Controller
                  $imagename = HelperFunctions::saveFile(null, $file, $filePath);
                  $model->file_name = $imagename;
             } else {
+                
                 $file_type = 1;
                 if($request->file('file'))
                 {
@@ -495,7 +498,7 @@ class DesignerController extends Controller
                         $chm->email=$tempworkdata->twc_email;
                         $chm->type ='Certificate Uploaded';
                         $chm->foreign_idd=$tempworkdata->id;
-                        $chm->message='Design Checker Uploaded Certificate';
+                        $chm->message='Design Checker Uploaded Certificate '  . $request->designermail;
                         $chm->status = 2;
                         $chm->user_type = 'checker';
                         $chm->save();
@@ -504,7 +507,7 @@ class DesignerController extends Controller
                         $chm->email=$tempworkdata->twc_email;
                         $chm->type ='Drawing Uploaded';
                         $chm->foreign_idd=$tempworkdata->id;
-                        $chm->message='Design Checker Uploaded Drawing';
+                        $chm->message='Design Checker Uploaded Drawing ' . $request->designermail;
                         $chm->status = 2;
                         $chm->user_type = 'checker';
                         $chm->save();
@@ -515,7 +518,7 @@ class DesignerController extends Controller
                         $chm->email=$tempworkdata->twc_email;
                         $chm->type ='Certificate Uploaded';
                         $chm->foreign_idd=$tempworkdata->id;
-                        $chm->message='Designer Uploaded Certificate';
+                        $chm->message='Designer Uploaded Certificate ' . $request->designermail;
                         $chm->user_type = 'designer';
                         $chm->status = 2;
                         $chm->save();
@@ -524,7 +527,27 @@ class DesignerController extends Controller
                         $chm->email=$tempworkdata->twc_email;
                         $chm->type ='Design Upload';
                         $chm->foreign_idd=$tempworkdata->id;
-                        $chm->message='Designer Uploaded Drawing';
+                        $chm->message='Designer Uploaded Drawing ' . $request->designermail;
+                        $chm->status = 2;
+                        $chm->user_type = 'designer';
+                        $chm->save();
+                    }
+                }else{ //if email doesnt match meaning by, designer is from other table
+                    if (isset($request->designcheckfile)) {
+                        $chm= new ChangeEmailHistory();
+                        $chm->email=$tempworkdata->twc_email;
+                        $chm->type ='Certificate Uploaded';
+                        $chm->foreign_idd=$tempworkdata->id;
+                        $chm->message='Designer Uploaded Certificate '  . $request->designermail ;
+                        $chm->user_type = 'designer';
+                        $chm->status = 2;
+                        $chm->save();
+                    }else{
+                        $chm= new ChangeEmailHistory();
+                        $chm->email=$tempworkdata->twc_email;
+                        $chm->type ='Design Upload';
+                        $chm->foreign_idd=$tempworkdata->id;
+                        $chm->message='Designer Uploaded Drawing ' . $request->designermail;
                         $chm->status = 2;
                         $chm->user_type = 'designer';
                         $chm->save();
@@ -1393,11 +1416,11 @@ class DesignerController extends Controller
     public function pc_index($id)
     {
         $id = \Crypt::decrypt($id);
-        ChangeEmailHistory::where(['foreign_idd'=>$id,'type'=>'Design Brief'])->orderBy('id','desc')->limit(1)->update(['status'=>1]);
+        
         $tempworkdetail = TemporaryWork::find($id);
         $comments=TemporaryWorkComment::where(['temporary_work_id'=>$id,'type'=>'pc'])->get();
         $rejectedcomments=TemporaryWorkRejected::where(['temporary_work_id'=>$id])->get();
-        //dd($rejectedcomments);
+        ChangeEmailHistory::where(['foreign_idd'=>$id,'email'=>$tempworkdetail->pc_twc_email])->orderBy('id','desc')->limit(1)->update(['status'=>1]);
         return view('dashboard.designer.pc_index', compact('tempworkdetail','comments','rejectedcomments'));
     }
 
@@ -1906,6 +1929,14 @@ class DesignerController extends Controller
          $model->temporary_work_id=$request->tempworkid;
         if($model->save())
         {
+            $chm= new ChangeEmailHistory();
+            $chm->email=$tempworkdata->twc_email;
+            $chm->type ='Document Uploaded';
+            $chm->foreign_idd=$tempworkdata->id;
+            $chm->message='Other Document uploaded by Designer ' . $request->designermail;
+            $chm->user_type = 'designer';
+            $chm->status = 2;
+            $chm->save();
             $subject = 'TWP– Risk Assessment Uploaded -  ' . $tempworkdata->project->name . '-' . $tempworkdata->project->no;
             $text = $request->designermail.' has uploaded a risk assessment to the Temporary Works Portal.';
             if($request->type==6)

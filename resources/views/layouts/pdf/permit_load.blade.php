@@ -171,23 +171,25 @@
                         <td style="font-size:12px;">Approval by TWC required?</td>
                         <td style="font-size:12px;">@if($data['works_coordinator']==1){{'Y'}}@else{{'N'}}@endif</td>
                     </tr>
+                    @if($data['works_coordinator']==1)
                     <tr style="height: 40px;">
-                        <td style="font-size:10px;">
-                            @if($data['works_coordinator']==1)
-                            Other specified criteria satisfied? (e.g. strength of supporting structure, back propping, ground tests, anchor tests)<br>
+                        <td style="font-size:10px;" colspan="2">
+                            
+                            {{-- Other specified criteria satisfied? (e.g. strength of supporting structure, back propping, ground tests, anchor tests)<br> --}}
                             <span style="font-size:12px;">{{$data['description_approval_temp_works']}}</span>
-                            @endif
+                            
                         </td>
                     </tr>
+                    @endif
                     <tr>
                         <td style="font-size:12px;">
                             Minimum concrete strength required?
                                 <br>
-                            @if($data['minimum_concrete']==1)
+                            @if(isset($data['minimum_concrete']) && $data['minimum_concrete']==1)
                             <span style="font-size:12px;">{{$data['description_minimum_concrete']}}</span>
                             @endif
                         </td>
-                        <td style="font-size:12px;">@if($data['minimum_concrete']==1){{'Y'}}@else{{'N'}}@endif
+                        <td style="font-size:12px;">@if(isset($data['minimum_concrete']) && $data['minimum_concrete']==1){{'Y'}}@else{{'N'}}@endif
                             <br>
                             @if(isset($file_minimum_concrete) && !empty($file_minimum_concrete))
                                 <a target="_blank" href="{{asset($file_minimum_concrete)}}">File Uploaded</a>
@@ -285,7 +287,7 @@
                                 <td style="width:200px; font-size:12px;">{{$company1 ?? ''}} </td>
                                 <td style="width: 200px; font-size: 12px;"> @if($data['principle_contractor']==1){{$data['job_title1']}}@endif</td>
                                 <td style="width: 200px; font-size:12px;"> 
-                                    @if($data['principle_contractor']==1)
+                                    @if(isset($data['date1']) && $data['principle_contractor']==1)
                                     {{ date('d-m-Y', strtotime($data['date1'])) }}
                                     @endif
                                 </td>
@@ -298,7 +300,7 @@
                                 </td>            
                             </tr>
                         @endif
-                        @if($data['name3'])
+                        @if(isset($data['name3']) && $data['name3'])
                             <tr>
                                 <td style="width: 200px; font-size:12px;"> {{$data['name3']}}</td>
                                 <td style="width: 200px; font-size:12px;">{{$data['company3']}}</td>
@@ -313,7 +315,7 @@
                                 </td>
                             </tr>
                         @endif
-                        @if($data['name4'])
+                        @if(isset($data['name4']) &&  $data['name4'])
                             <tr>
                                 <td style="width: 200px; font-size:12px;"> {{$data['name4']}}</td>
                                 <td style="width: 200px; font-size:12px;">{{$data['company4']}}</td>
@@ -328,7 +330,7 @@
                                 </td>
                             </tr>
                         @endif
-                        @if($data['name5'])
+                        @if(isset($data['name3']) &&  $data['name5'])
                             <tr>
                                 <td style="width: 200px; font-size:12px;"> {{$data['name5']}}</td>
                                 <td style="width: 200px; font-size:12px;">{{$data['company5']}}</td>

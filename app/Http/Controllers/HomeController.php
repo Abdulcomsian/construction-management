@@ -39,6 +39,7 @@ class HomeController extends Controller
             $user=User::with('userCompany')->find($userid);
             //check if already nomination is submited
             $nomination=Nomination::with('projectt')->where(['user_id'=>$userid,'project'=>$projectid])->first();
+            $latest_nomination = Nomination::with('projectt')->where('user_id',$userid)->latest()->first();
 // dd($nomination->id);
             // dd($user);
           
@@ -57,9 +58,18 @@ class HomeController extends Controller
                 $model->save();
 
                  return view('nomination',compact('nomination','user'));
+            }elseif($latest_nomination)
+            {
+                $user=User::with('userCompany')->find($latest_nomination->user_id);
+                $project_data= DB::table('users_has_projects')->where(['user_id'=>$userid,'project_id'=>$projectid])->first();
+                $projects = Project::with('company')->where('id', $project_data->project_id)->get();
+                $courses=NominationCourses::where('nomination_id',$latest_nomination->id)->get();
+                $qualifications=NominationQualification::where('nomination_id', $latest_nomination->id)->get();
+                $experience=NominationExperience::where('nomination_id',$latest_nomination->id)->get();
+                $competence=NominationCompetence::where('nomination_id', $latest_nomination->id)->first();
+                return view('nomination',compact('latest_nomination','user','projects','project_data','courses','qualifications','experience','competence'));
             }
             else{
-                
                 $project_data= DB::table('users_has_projects')->where(['user_id'=>$user->id,'project_id'=>$projectid])->first();
                 $projects = Project::with('company')->where('id', $project_data->project_id)->get();
                 return view('nomination',compact('user','projects','project_data'));

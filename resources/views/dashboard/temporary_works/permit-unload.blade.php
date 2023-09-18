@@ -1779,6 +1779,7 @@
     })
     $("input[name='approval_PC']").change(function() {
         if ($(this).val() == 1) {
+            $("#addMemberButton").show();
             $("#first_member").removeClass('d-none');
             $("input[name='name1']").attr('required', 'required');
             $("input[name='job_title1']").attr('required', 'required');
@@ -1786,13 +1787,14 @@
 
 
         } else {
+            $("#addMemberButton").hide();
             $("#first_member").addClass('d-none');
             $("input[name='name1']").removeAttr('required');
             $("input[name='job_title1']").removeAttr('required');
             // document.getElementById("twc-email-box").classList.add("d-none")
         }
     })
-
+    $("#addMemberButton").hide();
 
 
     $("input[name='works_coordinator']").change(function() {

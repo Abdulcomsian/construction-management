@@ -2115,7 +2115,7 @@
 
   $("input[name='principle_contractor']").change(function() {
     if ($(this).val() == 1) {
-
+      $("#addMemberButton").show();
       $("#first_member").show();
       // $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary").addAttr("disabled");
       $('#submitbutton').prop('disabled', true);
@@ -2124,6 +2124,7 @@
       $("input[name='job_title1']").attr('required', 'required');
 
     } else {
+      $("#addMemberButton").hide();
       $("#first_member").hide();
       $("input[name='name1']").removeAttr('required');
       $("input[name='job_title1']").removeAttr('required');
@@ -2131,7 +2132,7 @@
     }
   })
 
-
+  $("#addMemberButton").hide();
 
   $("input[name='works_coordinator']").change(function() {
     if ($(this).val() == 1) {

@@ -430,6 +430,28 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php   
+                                        $app_url = env('APP_URL');
+                                    @endphp
+                                    @isset($qualifications)                
+                                    @foreach($qualifications as $qf)
+                                    <tr>
+                                        <input type="hidden" name="qualifications_ids[]" value="{{$qf->id}}">
+                                        <td class="tdhight"><input type="text" name="qualification[]"
+                                                value="{{$qf->qualification}}" required></td>
+                                        <td class="tdhight" style="width:25%"><input type="date"
+                                                name="qualification_date[]" value="{{$qf->date}}" required></td>
+                                        <td class="tdhight" style="width:35%">
+                                            <a target="_blank" href="{{$app_url.$qf->qualification_certificate}}"> Use Uploaded
+                                                File</a>
+                                            <span>Or</span>
+                                            <input type="file" style="display:inline-block;width:200px;"
+                                                name="qualification_file[]">
+
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    @endisset
                                     <tr>
                                         <td class="tdhight"><input type="text" name="qualification[]" required></td>
                                         <td class="tdhight" style="width:25%"><input type="date"
@@ -460,6 +482,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @isset($courses)
+                                    @foreach($courses as $cs)
+                                    <tr>
+                                        <input type="hidden" name="course_ids[]" value="{{$cs->id}}">
+                                        <td class="tdhight"><input type="text" name="course[]" value="{{$cs->course}}"
+                                                required></td>
+                                        <td class="tdhight" style="width:25%"><input type="date" name="course_date[]"
+                                                value="{{$cs->date}}" required></td>
+                                        <td class="tdhight" style="width:35%">
+                                            <a target="_blank" href="{{$app_url.$cs->course_certificate}}"> Use Uploaded File</a>
+                                            <span>Or</span>
+                                            <input type="file" style="display:inline-block;width:200px;"
+                                                name="course_file[]">
+
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    @endisset
                                     <tr>
                                         <td class="tdhight"><input type="text" name="course[]" required></td>
                                         <td class="tdhight" style="width:25%"><input type="date" name="course_date[]"
@@ -490,6 +530,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @isset($experience)
+                                    @foreach($experience as $ex)
+                                    <tr>
+                                        <input type="hidden" name="experience_ids[]" value="{{$ex->id}}">
+                                        <td class="tdhight"><input type="text" name="project_title[]"
+                                                value="{{$ex->project_title}}" required></td>
+                                        <td class="tdhight"><input type="text" name="project_role[]"
+                                                value="{{$ex->role}}" required></td>
+                                        <td class="tdhight"><input type="text" name="desc_of_involvement[]"
+                                                value="{{$ex->description_involvment}}" required></td>
+                                    </tr>
+                                    @endforeach
+                                    @endisset
                                     <tr>
                                         <td class="tdhight"><input type="text" name="project_title[]" required></td>
                                         <td class="tdhight"><input type="text" name="project_role[]" required></td>
@@ -507,7 +560,17 @@
 
                         <div class="table-responsive bordered">
                             <div class="bg_grey p-3">
+                                @if(isset($latest_nomination))
+                                <h5>You can upload your cv if applicable 
+                                    @php
+                                    if($latest_nomination->cv){
+                                    @endphp
+                                    <a href="{{$app_url.$latest_nomination->cv}}" target="_blank">View CV</a></h5>
+                                    @php } @endphp
+                                <h5>You can upload your cv if applicable {{$app_url.$latest_nomination->cv}}</a></h5>
+                                @else
                                 <h5>You can upload your cv if applicable</h5>
+                                @endif
                             </div>
                             <table class="table nom_table proj table5 table-bordered mt-0">
                                 <input type="file" name="cv" class="form-control">
@@ -577,137 +640,286 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            @php
+                                $data= $competence->Site_establishment;
+                                @endphp
                                 <tr>
                                     <td rowspan="10">Site establishment</td>
                                     <td>Temporary offices</td>
-                                    <td><input type="radio" name="Temporary_offices" checked value="N"></td>
-                                    <td>
-                                        <input type="radio" name="Temporary_offices" value="A">
+                                    <td><input type="radio" name="Temporary_offices" checked value="N" 
+                                        @isset($data['Temporary_offices']){{$data['Temporary_offices']=="N" ? 'checked' :''}} @endisset>
                                     </td>
-                                    <td><input type="radio" name="Temporary_offices" value="K"></td>
-                                    <td><input type="radio" name="Temporary_offices" value="E"></td>
+                                    <td>
+                                        <input type="radio" name="Temporary_offices" value="A"
+                                        @isset($data['Temporary_offices']){{$data['Temporary_offices']=="A" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Temporary_offices" value="K"
+                                        @isset($data['Temporary_offices']){{$data['Temporary_offices']=="K" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Temporary_offices" value="E" 
+                                        @isset($data['Temporary_offices']){{$data['Temporary_offices']=="E" ? 'checked' :''}} @endisset>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Sign boards</td>
-                                    <td><input type="radio" name="Sign_boards" value="N" checked></td>
-                                    <td><input type="radio" name="Sign_boards" value="A"></td>
-                                    <td><input type="radio" name="Sign_boards" value="K"></td>
-                                    <td><input type="radio" name="Sign_boards" value="E"></td>
+                                    <td><input type="radio" name="Sign_boards" value="N" checked
+                                       @isset($data['Sign_boards']) {{$data['Sign_boards']=="N" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Sign_boards" value="A"
+                                       @isset($data['Sign_boards']) {{$data['Sign_boards']=="A" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Sign_boards" value="K"
+                                       @isset($data['Sign_boards']) {{$data['Sign_boards']=="K" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Sign_boards" value="E"
+                                       @isset($data['Sign_boards']) {{$data['Sign_boards']=="E" ? 'checked' :''}} @endisset>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Hoardings</td>
-                                    <td><input type="radio" name="Hoardings" checked value="N"></td>
-                                    <td><input type="radio" name="Hoardings" value="A"></td>
-                                    <td><input type="radio" name="Hoardings" value="K"></td>
-                                    <td><input type="radio" name="Hoardings" value="E"></td>
+                                    <td><input type="radio" name="Hoardings" checked value="N"
+                                       @isset($data['Hoardings']) {{$data['Hoardings']=="N" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Hoardings" value="A"
+                                       @isset($data['Hoardings']) {{$data['Hoardings']=="A" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Hoardings" value="K"
+                                       @isset($data['Hoardings']) {{$data['Hoardings']=="K" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Hoardings" value="E"
+                                       @isset($data['Hoardings']) {{$data['Hoardings']=="E" ? 'checked' :''}} @endisset>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Access gantries</td>
-                                    <td><input type="radio" name="Access_gantries" checked value="N"></td>
-                                    <td><input type="radio" name="Access_gantries" value="A"></td>
-                                    <td><input type="radio" name="Access_gantries" value="K"></td>
-                                    <td><input type="radio" name="Access_gantries" value="E"></td>
+                                    <td><input type="radio" name="Access_gantries" checked value="N"
+                                       @isset($data['Access_gantries']) {{$data['Access_gantries']=="N" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Access_gantries" value="A"
+                                       @isset($data['Access_gantries']) {{$data['Access_gantries']=="A" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Access_gantries" value="K"
+                                       @isset($data['Access_gantries']) {{$data['Access_gantries']=="K" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Access_gantries" value="E"
+                                       @isset($data['Access_gantries']) {{$data['Access_gantries']=="E" ? 'checked' :''}} @endisset>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Fuel storage</td>
-                                    <td><input type="radio" name="Fuel_storage" checked value="N"></td>
-                                    <td><input type="radio" name="Fuel_storage" value="A"></td>
-                                    <td><input type="radio" name="Fuel_storage" value="K"></td>
-                                    <td><input type="radio" name="Fuel_storage" value="E"></td>
+                                    <td><input type="radio" name="Fuel_storage" checked value="N" 
+                                        @isset($data['Fuel_storage']) {{$data['Fuel_storage']=="N" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Fuel_storage" value="A" 
+                                        @isset($data['Fuel_storage']) {{$data['Fuel_storage']=="A" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Fuel_storage" value="K" 
+                                        @isset($data['Fuel_storage']) {{$data['Fuel_storage']=="K" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Fuel_storage" value="E" 
+                                        @isset($data['Fuel_storage']) {{$data['Fuel_storage']=="E" ? 'checked' :''}} @endisset>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Temporary roads</td>
-                                    <td><input type="radio" name="Temporary_roads" checked value="N"></td>
-                                    <td><input type="radio" name="Temporary_roads" value="A"></td>
-                                    <td><input type="radio" name="Temporary_roads" value="K"></td>
-                                    <td><input type="radio" name="Temporary_roads" value="E"></td>
+                                    <td><input type="radio" name="Temporary_roads" checked value="N" 
+                                       @isset($data['Temporary_roads']) {{$data['Temporary_roads']=="N" ? 'checked' :''}} @endisset>
+                                    
+                                    </td>
+                                    <td><input type="radio" name="Temporary_roads" value="A" 
+                                       @isset($data['Temporary_roads']) {{$data['Temporary_roads']=="A" ? 'checked' :''}} @endisset>
+                                    
+                                    </td>
+                                    <td><input type="radio" name="Temporary_roads" value="K" 
+                                       @isset($data['Temporary_roads']) {{$data['Temporary_roads']=="K" ? 'checked' :''}} @endisset>
+                                    
+                                    </td>
+                                    <td><input type="radio" name="Temporary_roads" value="E" 
+                                       @isset($data['Temporary_roads']) {{$data['Temporary_roads']=="E" ? 'checked' :''}} @endisset>
+                                    
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Barriers</td>
-                                    <td><input type="radio" name="Barriers" checked value="N"></td>
-                                    <td><input type="radio" name="Barriers" value="A"></td>
-                                    <td><input type="radio" name="Barriers" value="K"></td>
-                                    <td><input type="radio" name="Barriers" value="E"></td>
+                                    <td><input type="radio" name="Barriers" checked value="N" 
+                                       @isset($data['Barriers']) {{$data['Barriers']=="N" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Barriers" value="A" 
+                                       @isset($data['Barriers']) {{$data['Barriers']=="A" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Barriers" value="K" 
+                                       @isset($data['Barriers']) {{$data['Barriers']=="K" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Barriers" value="E" 
+                                       @isset($data['Barriers']) {{$data['Barriers']=="E" ? 'checked' :''}} @endisset>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Welfare facilities</td>
-                                    <td><input type="radio" name="Welfare_facilities" checked value="N"></td>
-                                    <td><input type="radio" name="Welfare_facilities" value="A"></td>
-                                    <td><input type="radio" name="Welfare_facilities" value="K"></td>
-                                    <td><input type="radio" name="Welfare_facilities" value="E"></td>
+                                    <td><input type="radio" name="Welfare_facilities" checked value="N" 
+                                        @isset($data['Welfare_facilities']) {{$data['Welfare_facilities']=="N" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Welfare_facilities" value="A" 
+                                        @isset($data['Welfare_facilities']) {{$data['Welfare_facilities']=="A" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Welfare_facilities" value="K" 
+                                        @isset($data['Welfare_facilities']) {{$data['Welfare_facilities']=="K" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Welfare_facilities" value="E" 
+                                        @isset($data['Welfare_facilities']) {{$data['Welfare_facilities']=="E" ? 'checked' :''}} @endisset>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Precast facilities</td>
-                                    <td><input type="radio" name="Precast_facilities" checked value="N"></td>
-                                    <td><input type="radio" name="Precast_facilities" value="A"></td>
-                                    <td><input type="radio" name="Precast_facilities" value="K"></td>
-                                    <td><input type="radio" name="Precast_facilities" value="E"></td>
+                                    <td><input type="radio" name="Precast_facilities" checked value="N" 
+                                        @isset($data['Precast_facilities']) {{$data['Precast_facilities']=="N" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Precast_facilities" value="A" 
+                                        @isset($data['Precast_facilities']) {{$data['Precast_facilities']=="A" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Precast_facilities" value="K" 
+                                        @isset($data['Precast_facilities']) {{$data['Precast_facilities']=="K" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Precast_facilities" value="E" 
+                                        @isset($data['Precast_facilities']) {{$data['Precast_facilities']=="E" ? 'checked' :''}} @endisset>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Access bridges</td>
-                                    <td><input type="radio" name="Access_bridges" checked value="N"></td>
-                                    <td><input type="radio" name="Access_bridges" value="A"></td>
-                                    <td><input type="radio" name="Access_bridges" value="K"></td>
-                                    <td><input type="radio" name="Access_bridges" value="E"></td>
+                                    <td><input type="radio" name="Access_bridges" checked value="N"
+                                        @isset($data['Access_bridges']) {{$data['Access_bridges']=="N" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Access_bridges" value="A"
+                                        @isset($data['Access_bridges']) {{$data['Access_bridges']=="A" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Access_bridges" value="K"
+                                        @isset($data['Access_bridges']) {{$data['Access_bridges']=="K" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Access_bridges" value="E"
+                                        @isset($data['Access_bridges']) {{$data['Access_bridges']=="E" ? 'checked' :''}} @endisset>
+                                    </td>
                                 </tr>
                                 <!-- 2 -->
+                                @php
+                                $data= $competence->Access_scaffolding;
+                                @endphp
                                 <tr>
                                     <td rowspan="9">Access/ scaffolding</td>
                                     <td>Tube & fitting</td>
-                                    <td><input type="radio" name="Tube_fitting" checked value="N"></td>
-                                    <td><input type="radio" name="Tube_fitting" value="A"></td>
-                                    <td><input type="radio" name="Tube_fitting" value="K"></td>
-                                    <td><input type="radio" name="Tube_fitting" value="E"></td>
+                                    <td><input type="radio" name="Tube_fitting" checked value="N"
+                                       @isset($data['Tube_fitting']) {{$data['Tube_fitting']=="N" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Tube_fitting" value="A"
+                                       @isset($data['Tube_fitting']) {{$data['Tube_fitting']=="A" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Tube_fitting" value="K"
+                                       @isset($data['Tube_fitting']) {{$data['Tube_fitting']=="K" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Tube_fitting" value="E"
+                                       @isset($data['Tube_fitting']) {{$data['Tube_fitting']=="E" ? 'checked' :''}} @endisset>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>System scaffolding</td>
-                                    <td><input type="radio" name="System_scaffolding" checked value="N"></td>
-                                    <td><input type="radio" name="System_scaffolding" value="A"></td>
-                                    <td><input type="radio" name="System_scaffolding" value="K"></td>
-                                    <td><input type="radio" name="System_scaffolding" value="E"></td>
+                                    <td><input type="radio" name="System_scaffolding" checked value="N"
+                                        @isset($data['System_scaffolding']) {{$data['System_scaffolding']=="N" ? 'checked' :''}} @endisset></td>
+                                    <td><input type="radio" name="System_scaffolding" value="A"
+                                        @isset($data['System_scaffolding']) {{$data['System_scaffolding']=="A" ? 'checked' :''}} @endisset></td>
+                                    <td><input type="radio" name="System_scaffolding" value="K"
+                                        @isset($data['System_scaffolding']) {{$data['System_scaffolding']=="K" ? 'checked' :''}} @endisset></td>
+                                    <td><input type="radio" name="System_scaffolding" value="E"
+                                        @isset($data['System_scaffolding']) {{$data['System_scaffolding']=="E" ? 'checked' :''}} @endisset></td>
 
                                 </tr>
                                 <tr>
                                     <td>System staircases</td>
-                                    <td><input type="radio" name="System_staircases" checked value="N"></td>
-                                    <td><input type="radio" name="System_staircases" value="A"></td>
-                                    <td><input type="radio" name="System_staircases" value="K"></td>
-                                    <td><input type="radio" name="System_staircases" value="E"></td>
+                                    <td><input type="radio" name="System_staircases" checked value="N"
+                                        @isset($data['System_staircases']) {{$data['System_staircases']=="N" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="System_staircases" value="A"
+                                        @isset($data['System_staircases']) {{$data['System_staircases']=="A" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="System_staircases" value="K"
+                                        @isset($data['System_staircases']) {{$data['System_staircases']=="K" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="System_staircases" value="E"
+                                        @isset($data['System_staircases']) {{$data['System_staircases']=="E" ? 'checked' :''}} @endisset>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Temporary roofs</td>
-                                    <td><input type="radio" name="Temporary_roofs" checked value="N"></td>
-                                    <td><input type="radio" name="Temporary_roofs" value="A"></td>
-                                    <td><input type="radio" name="Temporary_roofs" value="K"></td>
-                                    <td><input type="radio" name="Temporary_roofs" value="E"></td>
+                                    <td><input type="radio" name="Temporary_roofs" checked value="N"
+                                        @isset($data['Temporary_roofs']) {{$data['Temporary_roofs']=="N" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Temporary_roofs" value="A"
+                                        @isset($data['Temporary_roofs']) {{$data['Temporary_roofs']=="A" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Temporary_roofs" value="K"
+                                        @isset($data['Temporary_roofs']) {{$data['Temporary_roofs']=="K" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Temporary_roofs" value="E"
+                                        @isset($data['Temporary_roofs']) {{$data['Temporary_roofs']=="E" ? 'checked' :''}} @endisset>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Loading bays</td>
-                                    <td><input type="radio" name="Loading_bays" checked value="N"></td>
-                                    <td><input type="radio" name="Loading_bays" value="A"></td>
-                                    <td><input type="radio" name="Loading_bays" value="K"></td>
-                                    <td><input type="radio" name="Loading_bays" value="E"></td>
+                                    <td><input type="radio" name="Loading_bays" checked value="N"
+                                        @isset($data['Loading_bays']) {{$data['Loading_bays']=="N" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Loading_bays" value="A"
+                                        @isset($data['Loading_bays']) {{$data['Loading_bays']=="A" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Loading_bays" value="K"
+                                        @isset($data['Loading_bays']) {{$data['Loading_bays']=="K" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Loading_bays" value="E"
+                                        @isset($data['Loading_bays']) {{$data['Loading_bays']=="E" ? 'checked' :''}} @endisset>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Chute support</td>
-                                    <td><input type="radio" name="Chute_support" checked value="N"></td>
-                                    <td><input type="radio" name="Chute_support" value="A"></td>
-                                    <td><input type="radio" name="Chute_support" value="K"></td>
-                                    <td><input type="radio" name="Chute_support" value="E"></td>
+                                    <td><input type="radio" name="Chute_support" checked value="N"
+                                        @isset($data['Chute_support']) {{$data['Chute_support']=="N" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Chute_support" value="A"
+                                        @isset($data['Chute_support']) {{$data['Chute_support']=="A" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Chute_support" value="K"
+                                        @isset($data['Chute_support']) {{$data['Chute_support']=="K" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Chute_support" value="E"
+                                        @isset($data['Chute_support']) {{$data['Chute_support']=="E" ? 'checked' :''}} @endisset>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Mobile towers</td>
-                                    <td><input type="radio" name="Mobile_towers" checked value="N"></td>
-                                    <td><input type="radio" name="Mobile_towers" value="A"></td>
-                                    <td><input type="radio" name="Mobile_towers" value="K"></td>
-                                    <td><input type="radio" name="Mobile_towers" value="E"></td>
+                                    <td><input type="radio" name="Mobile_towers" checked value="N"
+                                       @isset($data['Mobile_towers']) {{$data['Mobile_towers']=="N" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Mobile_towers" value="A"
+                                       @isset($data['Mobile_towers']) {{$data['Mobile_towers']=="A" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Mobile_towers" value="K"
+                                       @isset($data['Mobile_towers']) {{$data['Mobile_towers']=="K" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Mobile_towers" value="E"
+                                       @isset($data['Mobile_towers']) {{$data['Mobile_towers']=="E" ? 'checked' :''}} @endisset>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Edge protection</td>
-                                    <td><input type="radio" name="Edge_protection" checked value="N"></td>
-                                    <td><input type="radio" name="Edge_protection" value="A"></td>
-                                    <td><input type="radio" name="Edge_protection" value="K"></td>
-                                    <td><input type="radio" name="Edge_protection" value="E"></td>
+                                    <td><input type="radio" name="Edge_protection" checked value="N" 
+                                       @isset($data['Edge_protection']) {{$data['Edge_protection']=="N" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Edge_protection" value="A" 
+                                       @isset($data['Edge_protection']) {{$data['Edge_protection']=="A" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Edge_protection" value="K" 
+                                       @isset($data['Edge_protection']) {{$data['Edge_protection']=="K" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Edge_protection" value="E" 
+                                       @isset($data['Edge_protection']) {{$data['Edge_protection']=="E" ? 'checked' :''}} @endisset>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Suspension systems</td>
@@ -717,71 +929,141 @@
                                     <td><input type="radio" name="Suspension_systems" value="E"></td>
                                 </tr>
                                 <!-- 3 -->
+                                @php
+                                $data= $competence->Formwork_falsework;
+                                @endphp
                                 <tr>
                                     <td rowspan="4">Formwork/ falsework</td>
                                     <td>Formwork</td>
-                                    <td><input type="radio" name="Formwork" checked value="N"></td>
-                                    <td><input type="radio" name="Formwork" value="A"></td>
-                                    <td><input type="radio" name="Formwork" value="K"></td>
-                                    <td><input type="radio" name="Formwork" value="E"></td>
+                                    <td><input type="radio" name="Formwork" checked value="N"
+                                      @isset($data['Formwork']) {{$data['Formwork']=="N" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Formwork" value="A"
+                                      @isset($data['Formwork']) {{$data['Formwork']=="A" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Formwork" value="K"
+                                      @isset($data['Formwork']) {{$data['Formwork']=="K" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Formwork" value="E"
+                                      @isset($data['Formwork']) {{$data['Formwork']=="E" ? 'checked' :''}} @endisset>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Falsework</td>
-                                    <td><input type="radio" name="Falsework" checked value="N"></td>
-                                    <td><input type="radio" name="Falsework" value="A"></td>
-                                    <td><input type="radio" name="Falsework" value="K"></td>
-                                    <td><input type="radio" name="Falsework" value="E"></td>
+                                    <td><input type="radio" name="Falsework" checked value="N"
+                                        @isset($data['Falsework']) {{$data['Falsework']=="N" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Falsework" value="A"
+                                        @isset($data['Falsework']) {{$data['Falsework']=="A" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Falsework" value="K"
+                                        @isset($data['Falsework']) {{$data['Falsework']=="K" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Falsework" value="E"
+                                        @isset($data['Falsework']) {{$data['Falsework']=="E" ? 'checked' :''}} @endisset>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Back propping</td>
-                                    <td><input type="radio" name="Back_propping" checked value="N"></td>
-                                    <td><input type="radio" name="Back_propping" value="A"></td>
-                                    <td><input type="radio" name="Back_propping" value="K"></td>
-                                    <td><input type="radio" name="Back_propping" value="E"></td>
+                                    <td><input type="radio" name="Back_propping" checked value="N"
+                                       @isset($data['Back_propping']) {{$data['Back_propping']=="N" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Back_propping" value="A"
+                                       @isset($data['Back_propping']) {{$data['Back_propping']=="A" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Back_propping" value="K"
+                                       @isset($data['Back_propping']) {{$data['Back_propping']=="K" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Back_propping" value="E"
+                                       @isset($data['Back_propping']) {{$data['Back_propping']=="E" ? 'checked' :''}} @endisset>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Support systems</td>
-                                    <td><input type="radio" name="Support_systems" checked value="N"></td>
-                                    <td><input type="radio" name="Support_systems" value="A"></td>
-                                    <td><input type="radio" name="Support_systems" value="K"></td>
-                                    <td><input type="radio" name="Support_systems" value="E"></td>
+                                    <td><input type="radio" name="Support_systems" checked value="N" 
+                                       @isset($data['Support_systems']) {{$data['Support_systems']=="N" ? 'checked' :''}} @endisset></td>
+                                    <td><input type="radio" name="Support_systems" value="A" 
+                                       @isset($data['Support_systems']) {{$data['Support_systems']=="A" ? 'checked' :''}} @endisset></td>
+                                    <td><input type="radio" name="Support_systems" value="K" 
+                                       @isset($data['Support_systems']) {{$data['Support_systems']=="K" ? 'checked' :''}} @endisset></td>
+                                    <td><input type="radio" name="Support_systems" value="E" 
+                                       @isset($data['Support_systems']) {{$data['Support_systems']=="E" ? 'checked' :''}} @endisset></td>
                                 </tr>
                                 <!-- 4 -->
+                                @php
+                                $data= $competence->Construction_plant;
+                                @endphp
                                 <tr>
                                     <td rowspan="7">Construction plant</td>
                                     <td>Crane supports & foundations</td>
-                                    <td><input type="radio" name="Crane_supports_foundations" checked value="N"></td>
-                                    <td><input type="radio" name="Crane_supports_foundations" value="A"></td>
-                                    <td><input type="radio" name="Crane_supports_foundations" value="K"></td>
-                                    <td><input type="radio" name="Crane_supports_foundations" value="E"></td>
+                                    <td><input type="radio" name="Crane_supports_foundations" checked value="N"
+                                       @isset($data['Crane_supports_foundations']) {{$data['Crane_supports_foundations']=="N" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Crane_supports_foundations" value="A"
+                                       @isset($data['Crane_supports_foundations']) {{$data['Crane_supports_foundations']=="A" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Crane_supports_foundations" value="K"
+                                       @isset($data['Crane_supports_foundations']) {{$data['Crane_supports_foundations']=="K" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Crane_supports_foundations" value="E"
+                                       @isset($data['Crane_supports_foundations']) {{$data['Crane_supports_foundations']=="E" ? 'checked' :''}} @endisset>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Hoist ties & foundations</td>
-                                    <td><input type="radio" name="Hoist_ties_foundations" checked value="N"></td>
-                                    <td><input type="radio" name="Hoist_ties_foundations" value="A"></td>
-                                    <td><input type="radio" name="Hoist_ties_foundations" value="K"></td>
-                                    <td><input type="radio" name="Hoist_ties_foundations" value="E"></td>
+                                    <td><input type="radio" name="Hoist_ties_foundations" checked value="N"
+                                       @isset($data['Hoist_ties_foundations']) {{$data['Hoist_ties_foundations']=="N" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Hoist_ties_foundations" value="A"
+                                       @isset($data['Hoist_ties_foundations']) {{$data['Hoist_ties_foundations']=="A" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Hoist_ties_foundations" value="K"
+                                       @isset($data['Hoist_ties_foundations']) {{$data['Hoist_ties_foundations']=="K" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Hoist_ties_foundations" value="E"
+                                       @isset($data['Hoist_ties_foundations']) {{$data['Hoist_ties_foundations']=="E" ? 'checked' :''}} @endisset>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Mast climbers & foundations</td>
-                                    <td><input type="radio" name="Mast_climbers_foundations" checked value="N"></td>
-                                    <td><input type="radio" name="Mast_climbers_foundations" value="A"></td>
-                                    <td><input type="radio" name="Mast_climbers_foundations" value="K"></td>
-                                    <td><input type="radio" name="Mast_climbers_foundations" value="E"></td>
+                                    <td><input type="radio" name="Mast_climbers_foundations" checked value="N"
+                                       @isset($data['Mast_climbers_foundations']) {{$data['Mast_climbers_foundations']=="N" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Mast_climbers_foundations" value="A"
+                                       @isset($data['Mast_climbers_foundations']) {{$data['Mast_climbers_foundations']=="A" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Mast_climbers_foundations" value="K"
+                                       @isset($data['Mast_climbers_foundations']) {{$data['Mast_climbers_foundations']=="K" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Mast_climbers_foundations" value="E"
+                                       @isset($data['Mast_climbers_foundations']) {{$data['Mast_climbers_foundations']=="E" ? 'checked' :''}} @endisset>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Mobile crane foundations</td>
-                                    <td><input type="radio" name="Mobile_crane_foundations" checked value="N"></td>
-                                    <td><input type="radio" name="Mobile_crane_foundations" value="A"></td>
-                                    <td><input type="radio" name="Mobile_crane_foundations" value="K"></td>
-                                    <td><input type="radio" name="Mobile_crane_foundations" value="E"></td>
+                                    <td><input type="radio" name="Mobile_crane_foundations" checked value="N"
+                                       @isset($data['Mobile_crane_foundations']) {{$data['Mobile_crane_foundations']=="N" ? 'checked' :''}} @endisset></td>
+                                    <td><input type="radio" name="Mobile_crane_foundations" value="A"
+                                       @isset($data['Mobile_crane_foundations']) {{$data['Mobile_crane_foundations']=="A" ? 'checked' :''}} @endisset></td>
+                                    <td><input type="radio" name="Mobile_crane_foundations" value="K"
+                                       @isset($data['Mobile_crane_foundations']) {{$data['Mobile_crane_foundations']=="K" ? 'checked' :''}} @endisset></td>
+                                    <td><input type="radio" name="Mobile_crane_foundations" value="E"
+                                       @isset($data['Mobile_crane_foundations']) {{$data['Mobile_crane_foundations']=="E" ? 'checked' :''}} @endisset></td>
                                 </tr>
                                 <tr>
                                     <td>Piling mats & working platforms</td>
-                                    <td><input type="radio" name="Piling_mats_working_platforms" checked value="N"></td>
-                                    <td><input type="radio" name="Piling_mats_working_platforms" value="A"></td>
-                                    <td><input type="radio" name="Piling_mats_working_platforms" value="K"></td>
-                                    <td><input type="radio" name="Piling_mats_working_platforms" value="E"></td>
+                                    <td><input type="radio" name="Piling_mats_working_platforms" checked value="N"
+                                       @isset($data['MPiling_mats_working-platforms']) {{$data['MPiling_mats_working-platforms']=="N" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Piling_mats_working_platforms" value="A"
+                                       @isset($data['MPiling_mats_working-platforms']) {{$data['MPiling_mats_working-platforms']=="A" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Piling_mats_working_platforms" value="K"
+                                       @isset($data['MPiling_mats_working-platforms']) {{$data['MPiling_mats_working-platforms']=="K" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Piling_mats_working_platforms" value="E"
+                                       @isset($data['MPiling_mats_working-platforms']) {{$data['MPiling_mats_working-platforms']=="E" ? 'checked' :''}} @endisset>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Silo bases</td>
@@ -793,132 +1075,233 @@
                                 </tr>
                                 <tr>
                                     <td>Lifting/ handling devices</td>
-                                    <td><input type="radio" name="Lifting_handling_devices" checked value="N"></td>
-                                    <td><input type="radio" name="Lifting_handling_devices" value="A"></td>
-                                    <td><input type="radio" name="Lifting_handling_devices" value="K"></td>
-                                    <td><input type="radio" name="Lifting_handling_devices" value="E"></td>
+                                    <td><input type="radio" name="Lifting_handling_devices" checked value="N"
+                                        @isset($data['Lifting_handling_devices']) {{$data['Lifting_handling_devices']=="N" ? 'checked' :''}} @endisset></td>
+                                    <td><input type="radio" name="Lifting_handling_devices" value="A"
+                                        @isset($data['Lifting_handling_devices']) {{$data['Lifting_handling_devices']=="A" ? 'checked' :''}} @endisset></td>
+                                    <td><input type="radio" name="Lifting_handling_devices" value="K"
+                                        @isset($data['Lifting_handling_devices']) {{$data['Lifting_handling_devices']=="K" ? 'checked' :''}} @endisset></td>
+                                    <td><input type="radio" name="Lifting_handling_devices" value="E"
+                                        @isset($data['Lifting_handling_devices']) {{$data['Lifting_handling_devices']=="E" ? 'checked' :''}} @endisset></td>
                                 </tr>
                                 <!-- 5 -->
+                                    @php
+                                    $data=$competence->Excavation_earthworks;
+                                    @endphp
                                 <tr>
                                     <td rowspan="6">Excavation/ earthworks</td>
                                     <td>Excavation support</td>
-                                    <td><input type="radio" name="Excavation_support" checked value="N"></td>
-                                    <td><input type="radio" name="Excavation_support" value="A"></td>
-                                    <td><input type="radio" name="Excavation_support" value="K"></td>
-                                    <td><input type="radio" name="Excavation_support" value="E"></td>
+                                    <td><input type="radio" name="Excavation_support" checked value="N"
+                                       @isset($data['Excavation_support']) {{$data['Excavation_support']=="N" ? 'checked' :''}} @endisset></td>
+                                    <td><input type="radio" name="Excavation_support" value="A"
+                                       @isset($data['Excavation_support']) {{$data['Excavation_support']=="A" ? 'checked' :''}} @endisset></td>
+                                    <td><input type="radio" name="Excavation_support" value="K"
+                                       @isset($data['Excavation_support']) {{$data['Excavation_support']=="K" ? 'checked' :''}} @endisset></td>
+                                    <td><input type="radio" name="Excavation_support" value="E"
+                                       @isset($data['Excavation_support']) {{$data['Excavation_support']=="E" ? 'checked' :''}} @endisset></td>
 
                                 </tr>
                                 <tr>
                                     <td>Cofferdams</td>
-                                    <td><input type="radio" name="Cofferdams" checked value="N"></td>
-                                    <td><input type="radio" name="Cofferdams" value="A"></td>
-                                    <td><input type="radio" name="Cofferdams" value="K"></td>
-                                    <td><input type="radio" name="Cofferdams" value="E"></td>
+                                    <td><input type="radio" name="Cofferdams" checked value="N"
+                                       @isset($data['Cofferdams']) {{$data['Cofferdams']=="N" ? 'checked' :''}} @endisset></td>
+                                    <td><input type="radio" name="Cofferdams" value="A"
+                                       @isset($data['Cofferdams']) {{$data['Cofferdams']=="A" ? 'checked' :''}} @endisset></td>
+                                    <td><input type="radio" name="Cofferdams" value="K"
+                                       @isset($data['Cofferdams']) {{$data['Cofferdams']=="K" ? 'checked' :''}} @endisset></td>
+                                    <td><input type="radio" name="Cofferdams" value="E"
+                                       @isset($data['Cofferdams']) {{$data['Cofferdams']=="E" ? 'checked' :''}} @endisset></td>
 
                                 </tr>
                                 <tr>
                                     <td>Embankment/ bunds</td>
-                                    <td><input type="radio" name="Embankment_bunds" checked value="N"></td>
-                                    <td><input type="radio" name="Embankment_bunds" value="A"></td>
-                                    <td><input type="radio" name="Embankment_bunds" value="K"></td>
-                                    <td><input type="radio" name="Embankment_bunds" value="E"></td>
+                                    <td><input type="radio" name="Embankment_bunds" checked value="N"
+                                       @isset($data['Embankment_bunds']) {{$data['Embankment_bunds']=="N" ? 'checked' :''}} @endisset></td>
+                                    <td><input type="radio" name="Embankment_bunds" value="A"
+                                       @isset($data['Embankment_bunds']) {{$data['Embankment_bunds']=="A" ? 'checked' :''}} @endisset></td>
+                                    <td><input type="radio" name="Embankment_bunds" value="K"
+                                       @isset($data['Embankment_bunds']) {{$data['Embankment_bunds']=="K" ? 'checked' :''}} @endisset></td>
+                                    <td><input type="radio" name="Embankment_bunds" value="E"
+                                       @isset($data['Embankment_bunds']) {{$data['Embankment_bunds']=="E" ? 'checked' :''}} @endisset></td>
 
                                 </tr>
                                 <tr>
                                     <td>Ground anchor/ soil nailing</td>
-                                    <td><input type="radio" name="Ground_anchor_soil_nailing" checked value="N"></td>
-                                    <td><input type="radio" name="Ground_anchor_soil_nailing" value="A"></td>
-                                    <td><input type="radio" name="Ground_anchor_soil_nailing" value="K"></td>
-                                    <td><input type="radio" name="Ground_anchor_soil_nailing" value="E"></td>
+                                    <td><input type="radio" name="Ground_anchor_soil_nailing" checked value="N"
+                                       @isset($data['Ground_anchor_soil_nailing']) {{$data['Ground_anchor_soil_nailing']=="N" ? 'checked' :''}} @endisset></td>
+                                    <td><input type="radio" name="Ground_anchor_soil_nailing" value="A"
+                                       @isset($data['Ground_anchor_soil_nailing']) {{$data['Ground_anchor_soil_nailing']=="A" ? 'checked' :''}} @endisset></td>
+                                    <td><input type="radio" name="Ground_anchor_soil_nailing" value="K"
+                                       @isset($data['Ground_anchor_soil_nailing']) {{$data['Ground_anchor_soil_nailing']=="K" ? 'checked' :''}} @endisset></td>
+                                    <td><input type="radio" name="Ground_anchor_soil_nailing" value="E"
+                                       @isset($data['Ground_anchor_soil_nailing']) {{$data['Ground_anchor_soil_nailing']=="E" ? 'checked' :''}} @endisset></td>
 
                                 </tr>
                                 <tr>
                                     <td>Open excavations</td>
-                                    <td><input type="radio" name="Open_excavations" checked value="N"></td>
-                                    <td><input type="radio" name="Open_excavations" value="A"></td>
-                                    <td><input type="radio" name="Open_excavations" value="K"></td>
-                                    <td><input type="radio" name="Open_excavations" value="E"></td>
+                                    <td><input type="radio" name="Open_excavations" checked value="N"
+                                        @isset($data['Open_excavations']) {{$data['Open_excavations']=="N" ? 'checked' :''}} @endisset></td>
+                                    <td><input type="radio" name="Open_excavations" value="A"
+                                        @isset($data['Open_excavations']) {{$data['Open_excavations']=="A" ? 'checked' :''}} @endisset></td>
+                                    <td><input type="radio" name="Open_excavations" value="K"
+                                        @isset($data['Open_excavations']) {{$data['Open_excavations']=="K" ? 'checked' :''}} @endisset></td>
+                                    <td><input type="radio" name="Open_excavations" value="E"
+                                        @isset($data['Open_excavations']) {{$data['Open_excavations']=="E" ? 'checked' :''}} @endisset></td>
                                 </tr>
                                 <tr>
                                     <td>Dewatering</td>
-                                    <td><input type="radio" name="Dewatering" checked value="N"></td>
-                                    <td><input type="radio" name="Dewatering" value="A"></td>
-                                    <td><input type="radio" name="Dewatering" value="K"></td>
-                                    <td><input type="radio" name="Dewatering" value="E"></td>
+                                    <td><input type="radio" name="Dewatering" checked value="N"
+                                        @isset($data['Dewatering']) {{$data['Dewatering']=="N" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Dewatering" value="A"
+                                        @isset($data['Dewatering']) {{$data['Dewatering']=="A" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Dewatering" value="K"
+                                        @isset($data['Dewatering']) {{$data['Dewatering']=="K" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Dewatering" value="E"
+                                        @isset($data['Dewatering']) {{$data['Dewatering']=="E" ? 'checked' :''}} @endisset>
+                                    </td>
 
                                 </tr>
                                 <!--  -->
+                                @php
+                                $data=$competence->Structural_stability;
+                                @endphp
                                 <tr>
                                     <td rowspan="6">Structural stability</td>
                                     <td>Existing structures during construction</td>
-                                    <td><input type="radio" name="Existing_structures_during_construction" checked
-                                            value="N"></td>
-                                    <td><input type="radio" name="Existing_structures_during_construction" value="A">
+                                    <td><input type="radio" name="Existing_structures_during_construction" checked value="N"
+                                        @isset($data['Existing_structures_during_construction']) {{$data['Existing_structures_during_construction']=="N" ? 'checked' :''}} @endisset >
                                     </td>
-                                    <td><input type="radio" name="Existing_structures_during_construction" value="K">
+                                    <td><input type="radio" name="Existing_structures_during_construction" value="A"
+                                        @isset($data['Existing_structures_during_construction']) {{$data['Existing_structures_during_construction']=="A" ? 'checked' :''}} @endisset >
                                     </td>
-                                    <td><input type="radio" name="Existing_structures_during_construction" value="E">
+                                    <td><input type="radio" name="Existing_structures_during_construction" value="K"
+                                        @isset($data['Existing_structures_during_construction']) {{$data['Existing_structures_during_construction']=="K" ? 'checked' :''}} @endisset >
+                                    </td>
+                                    <td><input type="radio" name="Existing_structures_during_construction" value="E"
+                                        @isset($data['Existing_structures_during_construction']) {{$data['Existing_structures_during_construction']=="E" ? 'checked' :''}} @endisset >
                                     </td>
 
                                 </tr>
+                                
                                 <tr>
                                     <td>New structures during construction</td>
-                                    <td><input type="radio" name="New_structures_during_construction" checked value="N">
+                                    <td><input type="radio" name="New_structures_during_construction" checked value="N"
+                                       @isset($data['New_structures_during_construction']) {{$data['New_structures_during_construction']=="N" ? 'checked' :''}} @endisset>
                                     </td>
-                                    <td><input type="radio" name="New_structures_during_construction" value="A"></td>
-                                    <td><input type="radio" name="New_structures_during_construction" value="K"></td>
-                                    <td><input type="radio" name="New_structures_during_construction" value="E"></td>
+                                    <td><input type="radio" name="New_structures_during_construction" value="A"
+                                       @isset($data['New_structures_during_construction']) {{$data['New_structures_during_construction']=="A" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="New_structures_during_construction" value="K"
+                                       @isset($data['New_structures_during_construction']) {{$data['New_structures_during_construction']=="K" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="New_structures_during_construction" value="E"
+                                       @isset($data['New_structures_during_construction']) {{$data['New_structures_during_construction']=="E" ? 'checked' :''}} @endisset>
+                                    </td>
 
                                 </tr>
                                 <tr>
                                     <td>Structural steelwork erection</td>
-                                    <td><input type="radio" name="Structural_steelwork_erection" checked value="N"></td>
-                                    <td><input type="radio" name="Structural_steelwork_erection" value="A"></td>
-                                    <td><input type="radio" name="Structural_steelwork_erection" value="K"></td>
-                                    <td><input type="radio" name="Structural_steelwork_erection" value="E"></td>
+                                    <td><input type="radio" name="Structural_steelwork_erection" checked value="N"
+                                       @isset($data['Structural_steelwork_erection']) {{$data['Structural_steelwork_erection']=="N" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Structural_steelwork_erection" value="A"
+                                       @isset($data['Structural_steelwork_erection']) {{$data['Structural_steelwork_erection']=="A" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Structural_steelwork_erection" value="K"
+                                       @isset($data['Structural_steelwork_erection']) {{$data['Structural_steelwork_erection']=="K" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Structural_steelwork_erection" value="E"
+                                       @isset($data['Structural_steelwork_erection']) {{$data['Structural_steelwork_erection']=="E" ? 'checked' :''}} @endisset>
+                                    </td>
 
                                 </tr>
                                 <tr>
                                     <td>Needling</td>
-                                    <td><input type="radio" name="Needling" checked value="N"></td>
-                                    <td><input type="radio" name="Needling" value="A"></td>
-                                    <td><input type="radio" name="Needling" value="K"></td>
-                                    <td><input type="radio" name="Needling" value="E"></td>
+                                    <td><input type="radio" name="Needling" checked value="N"
+                                       @isset($data['Needling']) {{$data['Needling']=="N" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Needling" value="A"
+                                       @isset($data['Needling']) {{$data['Needling']=="A" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Needling" value="K"
+                                       @isset($data['Needling']) {{$data['Needling']=="K" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Needling" value="E"
+                                       @isset($data['Needling']) {{$data['Needling']=="E" ? 'checked' :''}} @endisset>
+                                    </td>
 
                                 </tr>
                                 <tr>
                                     <td>Temporary underpinning</td>
-                                    <td><input type="radio" name="Temporary_underpinning" checked value="N"></td>
-                                    <td><input type="radio" name="Temporary_underpinning" value="A"></td>
-                                    <td><input type="radio" name="Temporary_underpinning" value="K"></td>
-                                    <td><input type="radio" name="Temporary_underpinning" value="E"></td>
+                                    <td><input type="radio" name="Temporary_underpinning" checked value="N"
+                                       @isset($data['Temporary_underpinning']) {{$data['Temporary_underpinning']=="N" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Temporary_underpinning" value="A"
+                                       @isset($data['Temporary_underpinning']) {{$data['Temporary_underpinning']=="A" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Temporary_underpinning" value="K"
+                                       @isset($data['Temporary_underpinning']) {{$data['Temporary_underpinning']=="K" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Temporary_underpinning" value="E"
+                                       @isset($data['Temporary_underpinning']) {{$data['Temporary_underpinning']=="E" ? 'checked' :''}} @endisset>
+                                    </td>
 
                                 </tr>
+                               
                                 <tr>
                                     <td>Façade system</td>
-                                    <td><input type="radio" name="Façade_system" checked value="N"></td>
-                                    <td><input type="radio" name="Façade_system" value="A"></td>
-                                    <td><input type="radio" name="Façade_system" value="K"></td>
-                                    <td><input type="radio" name="Façade_system" value="E"></td>
+                                    <td><input type="radio" name="Façade_system" checked value="N"
+                                       @isset($data['Façade_system']) {{$data['Façade_system']=="E" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Façade_system" value="A"
+                                       @isset($data['Façade_system']) {{$data['Façade_system']=="A" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Façade_system" value="K"
+                                       @isset($data['Façade_system']) {{$data['Façade_system']=="K" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Façade_system" value="E"
+                                       @isset($data['Façade_system']) {{$data['Façade_system']=="E" ? 'checked' :''}} @endisset>
+                                    </td>
 
                                 </tr>
                                 <!--  -->
+                                @php
+                                $data=$competence->Permanent_works;
+                                @endphp
                                 <tr>
                                     <td rowspan="2">Permanent works</td>
                                     <td>Partial permanent support conditions</td>
-                                    <td><input type="radio" name="Partial_permanent_support_conditions" checked
-                                            value="N"></td>
-                                    <td><input type="radio" name="Partial_permanent_support_conditions" value="A"></td>
-                                    <td><input type="radio" name="Partial_permanent_support_conditions" value="K"></td>
-                                    <td><input type="radio" name="Partial_permanent_support_conditions" value="E"></td>
+                                    <td><input type="radio" name="Partial_permanent_support_conditions" checked value="N"
+                                       @isset($data['Partial_permanent_support_conditions']) {{$data['Partial_permanent_support_conditions']=="N" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Partial_permanent_support_conditions" value="A"
+                                       @isset($data['Partial_permanent_support_conditions']) {{$data['Partial_permanent_support_conditions']=="A" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Partial_permanent_support_conditions" value="K"
+                                       @isset($data['Partial_permanent_support_conditions']) {{$data['Partial_permanent_support_conditions']=="K" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Partial_permanent_support_conditions" value="E"
+                                       @isset($data['Partial_permanent_support_conditions']) {{$data['Partial_permanent_support_conditions']=="E" ? 'checked' :''}} @endisset>
+                                    </td>
 
                                 </tr>
                                 <tr>
                                     <td>Demolitions</td>
-                                    <td><input type="radio" name="Demolitions" checked value="N"></td>
-                                    <td><input type="radio" name="Demolitions" value="A"></td>
-                                    <td><input type="radio" name="Demolitions" value="K"></td>
-                                    <td><input type="radio" name="Demolitions" value="E"></td>
+                                    <td><input type="radio" name="Demolitions" checked value="N"
+                                       @isset($data['Demolitions']) {{$data['Demolitions']=="N" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Demolitions" value="A"
+                                       @isset($data['Demolitions']) {{$data['Demolitions']=="A" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Demolitions" value="K"
+                                       @isset($data['Demolitions']) {{$data['Demolitions']=="K" ? 'checked' :''}} @endisset>
+                                    </td>
+                                    <td><input type="radio" name="Demolitions" value="E"
+                                       @isset($data['Demolitions']) {{$data['Demolitions']=="E" ? 'checked' :''}} @endisset>
+                                    </td>
 
                                 </tr>
                             </tbody>

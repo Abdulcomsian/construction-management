@@ -3443,7 +3443,7 @@ class TemporaryWorkController extends Controller
                 $model->ped_url = $filename;
                 $model->save();
                 $pdf->save($path . '/' . $filename);
-
+                DB::commit();
                 
                 if($request->action != 'draft'){
                     $notify_admins_msg = [
@@ -3504,6 +3504,7 @@ class TemporaryWorkController extends Controller
         DB::beginTransaction();
         Validations::updatepermitunload($request);
         $permitload = PermitLoad::with('signatures')->find($request->permitid);
+        $permit_load_orig = PermitLoad::where('permit_no', $permitload->permit_no)->first();
         try {
             $all_inputs  = $request->except('_token','unload_images', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'approavalEmailReq', 'approval_PC', 'company1','companyid1', 'pdfsigntype1', 'date1', 'date2','drawing','drawing_option','custom_drawing','design_upload', 'name3', 'job_title3', 'company3', 'companyid3', 'signed3', 'namesign3', 'name4', 'job_title4', 'company4', 'companyid4', 'signed4', 'namesign4', 'name5', 'job_title5', 'company5', 'companyid5', 'signed5', 'namesign5','date3','date4', 'date5','action', 'permitdata_status','draft_status');
             $all_inputs['created_by'] = auth()->user()->id;
@@ -3786,7 +3787,8 @@ class TemporaryWorkController extends Controller
                 // $request->principle_contractor == 1 ? PermitLoad::where( 'id' , $request->permitid)->update(['status' => 1]) :  PermitLoad::where( 'id' , $request->permitid)->update(['status' => 4]);
 
                 if($request->action != 'draft'){ //added this check because, if unloaded permit is saved as draft then it shouldnot update value of main open permit, open permit should remain open
-                $request->principle_contractor == 1 ? PermitLoad::where( 'id' , $request->permitid)->update(['status' => 7]) :  PermitLoad::where( 'id' , $request->permitid)->update(['status' => 4]);
+                $request->principle_contractor == 1 ? PermitLoad::where( 'id' , $permit_load_orig->id)->update(['status' => 7]) :  PermitLoad::where( 'id' , $permit_load_orig->id)->update(['status' => 4]);
+                // $request->principle_contractor == 1 ? PermitLoad::where( 'id' , $request->permitid)->update(['status' => 7]) :  PermitLoad::where( 'id' , $request->permitid)->update(['status' => 4]); //this code was in permit unload save function. we were passing permitid in request, but now in permit unload update function we are passing id of draft permit, whereas we need to update id of open permit.
                 }else{
                 //    PermitLoad::where( 'id' , $request->permitid)->update(['status' => 9]);
                 }

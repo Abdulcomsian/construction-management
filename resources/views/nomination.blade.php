@@ -433,7 +433,7 @@
                                     @php   
                                         $app_url = env('APP_URL');
                                     @endphp
-                                    @isset($qualifications)                
+                                    @if(isset($qualifications))                
                                     @foreach($qualifications as $qf)
                                     <tr>
                                         <input type="hidden" name="qualifications_ids[]" value="{{$qf->id}}">
@@ -451,7 +451,7 @@
                                         </td>
                                     </tr>
                                     @endforeach
-                                    @endisset
+                                    @else
                                     <tr>
                                         <td class="tdhight"><input type="text" name="qualification[]" required></td>
                                         <td class="tdhight" style="width:25%"><input type="date"
@@ -459,6 +459,7 @@
                                         <td class="tdhight" style="width:35%"><input type="file"
                                                 name="qualification_file[]"></td>
                                     </tr>
+                                    @endif
                                 </tbody>
                             </table>
                             <!-- add btn -->
@@ -482,7 +483,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @isset($courses)
+                                    @if(isset($courses))
                                     @foreach($courses as $cs)
                                     <tr>
                                         <input type="hidden" name="course_ids[]" value="{{$cs->id}}">
@@ -499,7 +500,7 @@
                                         </td>
                                     </tr>
                                     @endforeach
-                                    @endisset
+                                    @else
                                     <tr>
                                         <td class="tdhight"><input type="text" name="course[]" required></td>
                                         <td class="tdhight" style="width:25%"><input type="date" name="course_date[]"
@@ -507,6 +508,7 @@
                                         <td class="tdhight" style="width:35%"><input type="file" name="course_file[]">
                                         </td>
                                     </tr>
+                                    @endif
                                 </tbody>
                             </table>
                             <!-- add btn -->
@@ -530,7 +532,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @isset($experience)
+                                    @if(isset($experience))
                                     @foreach($experience as $ex)
                                     <tr>
                                         <input type="hidden" name="experience_ids[]" value="{{$ex->id}}">
@@ -542,13 +544,14 @@
                                                 value="{{$ex->description_involvment}}" required></td>
                                     </tr>
                                     @endforeach
-                                    @endisset
+                                    @else
                                     <tr>
                                         <td class="tdhight"><input type="text" name="project_title[]" required></td>
                                         <td class="tdhight"><input type="text" name="project_role[]" required></td>
                                         <td class="tdhight"><input type="text" name="desc_of_involvement[]" required>
                                         </td>
                                     </tr>
+                                    @endif
                                 </tbody>
                             </table>
                             <!-- add btn -->
@@ -566,6 +569,7 @@
                                     if($latest_nomination->cv){
                                     @endphp
                                     <a href="{{$app_url.$latest_nomination->cv}}" target="_blank">View CV</a></h5>
+                                    <input type = "hidden" name ="latest_cv" value = "{{$latest_nomination->cv}}">
                                     @php } @endphp
                                 <h5>You can upload your cv if applicable {{$app_url.$latest_nomination->cv}}</a></h5>
                                 @else

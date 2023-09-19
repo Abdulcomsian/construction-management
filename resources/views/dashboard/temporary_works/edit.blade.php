@@ -888,17 +888,37 @@
                         </div> --}}
 
                         <div class="row mt-4">
-                        <div class="col-12">
-                                <div class="d-flex inputDiv d-block my-0" id="photoDesign">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span>Photo or Document:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <input type="file" class="form-control" id="photo" name="photo"
-                                        value="{{old('photo')}}" accept="image/*;capture=camera">
+                            <div class="col-12">
+                                    <div class="d-flex inputDiv d-block my-0" id="photoDesign">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span>Photo or Document:</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <input type="file" class="form-control" id="photo" name="photo"
+                                            value="{{old('photo')}}" accept="image/*;capture=camera">
+                                    </div>
+                            </div>
+                       
+                            <div class="col-12">
+                                <div id="files_div">
+                                        <input type="hidden" value="{{$temporaryWork->id}}" name="temp_work_image" class="{{$temporaryWork->id}}" /> 
                                 </div>
-                        </div>
+                                @if($temporaryWork->photo)
+                                <div id="new_div" class="m-md-2">
+                                    <span id="{{$temporaryWork->id}}" >
+                                        <a target="_blank" href="{{asset($temporaryWork->photo)}}" title = "Click to Full View">
+                                            <span class="badge badge-success badge-lg p-2">File Uploaded</span>
+                                        </a>
+                                        <button type="button" onclick="deleteTempWorkFile({{$temporaryWork->id}})" class="remove-file btn btn-danger btn-sm p-2 pr-3 pl-3" data-filename="{{$temporaryWork->id}}" title = "Delete File">&times;</button>
+                                    </span>
+                                   
+                                </div>
+                                @endif
+                            </div>
+ 
+                            
+                            
                         <div class="col-12">
                             <textarea id="description" name="description_temporary_work_required" >{{$temporaryWork->description_temporary_work_required}}</textarea>
                         </div>
@@ -1815,6 +1835,49 @@ $("#description").summernote({
         }
     });
 
+    function deleteTempWorkFile(id) {
+        console.log("id", id);
+        // Remove the corresponding file container (the parent div) by its id
+        const fileContainer = document.getElementById(id);
+
+        if (fileContainer) {
+            fileContainer.remove();
+
+            // Get the filename from the id (assuming your id is in the format "filename")
+
+            // Find all hidden inputs with the "design_upload[]" name attribute
+            const hiddenInputs = document.querySelectorAll('input[name="temp_work_image"]');
+
+            // Loop through hidden inputs to find the one with the matching value
+           
+                if (hiddenInputs.value == id) {
+                    input.remove();
+                }
+          
+
+            if (hiddenInputs) {
+                // Make an AJAX request to delete the file on the server
+                fetch('{{ route("delete.temporaryworkimage") }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}' // Add CSRF token if necessary
+                        },
+                        body: JSON.stringify({
+                            filename_id: id,
+                            type:"temp_work"
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data.message); // Log the server's response
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+                }
+            }
+        }
     function deleteImageFile(id) {
         console.log("id", id);
         // Remove the corresponding file container (the parent div) by its id
@@ -1844,7 +1907,8 @@ $("#description").summernote({
                             'X-CSRF-TOKEN': '{{ csrf_token() }}' // Add CSRF token if necessary
                         },
                         body: JSON.stringify({
-                            filename_id: id
+                            filename_id: id,
+                            type:"temp_work_image"
                         })
                     })
                     .then(response => response.json())

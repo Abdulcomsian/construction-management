@@ -95,6 +95,7 @@ Route::group(['middleware' => ['auth']], function () {
         'adminDesigner' => AdminDesignerController::class, //Admin Designer controller
         'adminSupplier' => AdminSupplierController::class, //Admin Supplier controller
     ]);
+    Route::post('/delete-temporaryworkimage',[TemporaryWorkController::class,'deleteTemporaryWorkImage'])->name('delete.temporaryworkimage');
     Route::get('company/projects', [CompanyController::class, 'companyProjects'])->name('company.projects');
     Route::get('user/projects', [UserController::class, 'userProjects'])->name('user.projects');
     Route::get('user/admin/edit/{id}',[UserController::class, 'userAdminEdit'])->name('users.admin.edit');
@@ -159,7 +160,6 @@ Route::group(['prefix' => 'Estimator'],function(){
         Route::get('/estimator-search', [EstimatorController::class, 'estimator_search'])->name('estimator.search');
 
         Route::post('/review/save',[EstimatorController::class,'estimatorReview'])->name('estimator.review');
-        Route::post('/delete-temporaryworkimage',[EstimatorController::class,'deleteTemporaryWorkImage'])->name('delete.temporaryworkimage');
     });
     //Designer routes where he can price up and comment on brief
     Route::get('estimator-designer/design/{id}',[EstimatorController::class,'estimatorDesigner'])->name('estimator.designer');

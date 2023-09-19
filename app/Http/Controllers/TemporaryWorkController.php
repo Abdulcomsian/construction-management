@@ -793,7 +793,7 @@ class TemporaryWorkController extends Controller
             }
 
             //photo work here
-            if ($request->photo) {
+            if ($request->file('photo')) {
                 $filePath = HelperFunctions::designbriefphotopath();
                 $file = $request->file('photo');
                 $imagename = HelperFunctions::saveFile(null, $file, $filePath);
@@ -1150,19 +1150,27 @@ class TemporaryWorkController extends Controller
             $all_inputs['description_temporary_work_required'] = $content;
 
 
-            //design description ends here
+             //unset all keys 
 
-
+            $request = $this->Unset($request);
+            $all_inputs  = $request->except('_token', 'files', 'unload_images', 'date','companyid', 'company_id', 'projaddress', 'signed', 'images', 'preloaded', 'namesign', 'signtype','pdfsigntype', 'pdfphoto','projno', 'projname', 'approval', 'req_type', 'req_name', 'req_check', 'req_notes', 'name3', 'job_title3', 'company3', 'date3','companyid3', 'signed3', 'namesign3', 'name4','date4', 'job_title4', 'company4', 'companyid4', 'signed4', 'namesign4', 'name5', 'job_title5', 'company5','date5', 'companyid5', 'signed5', 'namesign5','action','temp_work_image');
+            
             //photo work here
-            if ($request->photo) {
+            if ($request->file('photo')) {
+                //del old image
+                if($temporary_work->photo)
+                {
+                    $fileData = $temporary_work->photo;
+                    $path = public_path($fileData);
+                    @unlink($path);
+                }
                 $filePath = HelperFunctions::designbriefphotopath();
                 $file = $request->file('photo');
                 $imagename = HelperFunctions::saveFile(null, $file, $filePath);
                 $all_inputs['photo'] = $imagename;
             }
-            //unset all keys 
-            $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token', 'files', 'unload_images', 'date','companyid', 'company_id', 'projaddress', 'signed', 'images', 'preloaded', 'namesign', 'signtype','pdfsigntype', 'pdfphoto','projno', 'projname', 'approval', 'req_type', 'req_name', 'req_check', 'req_notes', 'name3', 'job_title3', 'company3', 'date3','companyid3', 'signed3', 'namesign3', 'name4','date4', 'job_title4', 'company4', 'companyid4', 'signed4', 'namesign4', 'name5', 'job_title5', 'company5','date5', 'companyid5', 'signed5', 'namesign5','action');
+           
+          
 
             //if design req details is exist
             
@@ -1533,6 +1541,37 @@ class TemporaryWorkController extends Controller
             return Redirect::back();
         }
     }
+    
+    //delete Temporary work images in both Temporary work table and Temporary work images table
+    public function deleteTemporaryWorkImage(Request $request){
+        
+        if($request->type == 'temp_work')
+        {
+            $fileData = TemporaryWork::findorfail($request->filename_id);
+            $filePath = public_path($fileData->photo); // Replace with the actual file path
+            if (file_exists($filePath)) {
+                unlink($filePath);
+                $fileData->photo = ''; // Delete the file
+                $fileData->save();
+                return response()->json(['message' => 'File deleted successfully']);
+            }
+        }
+        if($request->type == 'temp_work_image')
+        {
+            $fileData = TemporayWorkImage::findorfail($request->filename_id);
+            $filePath = public_path($fileData->image); // Replace with the actual file path
+            if (file_exists($filePath)) {
+                unlink($filePath); // Delete the file
+                $fileData->delete();
+                return response()->json(['message' => 'File deleted successfully']);
+            }
+        }
+       
+
+    return response()->json(['message' => 'File not found'], 404);  
+  
+
+   }
     //get rams
     public function get_rams(Request $request)
     {

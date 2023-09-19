@@ -307,7 +307,10 @@
         cursor: pointer;
     }
     .note-editor.note-frame.card {
-        border: 1px solid grey!important;
+        border: 1px solid #D2D5DA !important;
+    }
+    .description_tempwork .card{
+        margin-top:0px;
     }
 </style>
 
@@ -779,7 +782,7 @@
                                             Design requirement:
                                         </label>
                                         <br>
-                                        <input type="text" style="color:white" id="design_requirement_text"
+                                        <input type="text" style="" id="design_requirement_text"
                                             placeholder="Design requirement" readonly name="design_requirement_text"
                                             value="{{old('design_requirement_text',$temporaryWork->design_requirement_text)}}">
                                         <!--end::Label-->
@@ -813,8 +816,14 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-12 description_tempwork">
+                                <label class=" fs-6 fw-bold mt-4">
+                                    Design Brief Description:
+                                </label>
+                                <textarea id="description" name="description_temporary_work_required" >{{$temporaryWork->description_temporary_work_required}}</textarea>
+                            </div>
                         </div>
-
+                       
                         <div class="row">
                             <div class="col-12">
                                 <div class="d-flex inputDiv d-block mb-0" id="attachment_specs">
@@ -899,9 +908,7 @@
                                         value="{{old('photo')}}" accept="image/*;capture=camera">
                                 </div>
                         </div>
-                        <div class="col-12">
-                            <textarea id="description" name="description_temporary_work_required" >{{$temporaryWork->description_temporary_work_required}}</textarea>
-                        </div>
+                        
                         <div class="col-md-6">
                             {{-- @if(!isset($temporaryWork->signature) && $temporaryWork->signature != null) --}}
                             <div class="col" style="flex:100% !important;">

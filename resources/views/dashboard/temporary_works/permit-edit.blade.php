@@ -9,12 +9,12 @@
     .header-fixed.toolbar-fixed .wrapper {
         padding-top: 60px !important;
     }
-
+    .form-control{border:none !important;}
     .form-control.form-control-solid .content {
         padding-top: 0px !important;
         background-color: #e9edf1 !important;
     }
-
+    .imageuploadify{min-height:150px !important; border:none !important;}
     .newDesignBtn {
         border-radius: 8px;
         background-color: #F9D413;
@@ -852,11 +852,16 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="d-flex inputDiv " id="sign">
+                        <div class="col-md-6">
+                            <label class="fs-6 fw-bold mb-2">
+                                <span>Photo Upload:</span>
+                            </label>
+                            <div class="d-flex inputDiv " id="sign" style="margin-top:0px !important;">
+                              
                                 <div class="uploadingDiv">
                                     <div class="uploadDiv" style="padding-left: 10px;">
                                         {{-- <div class="input-images"></div> --}}
+                                        
                                         <input type="file" name="images[]" accept=".DWG, .dwg, .mp4, .mp3, .jpg, .jpeg, .gif, .svg, .png, .xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf" multiple>
                                     </div>
                                 </div>
@@ -929,7 +934,7 @@
 
                     @endif
                     <div class="row">
-                        <div class="col-md-6 mt-15" id="second_member">
+                        <div class="col-md-6 mt-2" id="second_member">
                             <div class="col" style="flex:100% !important;">
                                 {{-- <div class="d-flex inputDiv">
                                     </div> --}}

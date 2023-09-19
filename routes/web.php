@@ -105,6 +105,7 @@ Route::group(['middleware' => ['auth']], function () {
     // Route::get('get-comments', [TemporaryWorkController::class, 'get_comments'])->name('temporarywork.get-comments');
     Route::get('file-upload-date', [TemporaryWorkController::class, 'file_upload_dates'])->name('temporarywork.file-upload-dates');
     Route::post('image/delete', [TemporaryWorkController::class, 'delete_image'])->name('delete.image');
+    Route::post('insert_communication', [TemporaryWorkController::class, 'insert_communication'])->name('insert.comm');
     Route::get('/test-list' , [TemporaryWorkController::class , 'testIndexHere']);
 
     //maunuall desing breif form 

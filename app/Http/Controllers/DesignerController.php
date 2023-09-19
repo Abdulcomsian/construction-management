@@ -720,7 +720,7 @@ class DesignerController extends Controller
                             $construction = 'Yes';
                         }
                         if($is_permit==0){$background  = '#FF0A0B40';}
-                        $list .= '<tr class="clickable-row cursor-pointer" data-href="' . $path . $uploads->file_name . '" style="background:' . $background . '">';
+                        $list .= '<tr class="clickable-row viewdrawing_popup cursor-pointer" data-drawing="'.$uploads->drawing_number.'" data-temp="'. $tempworkid .'" data-href="' . $path . $uploads->file_name . '" style="background:' . $background . '">';
                         $list .= '<td style="text-align:Center; !important;">' . $i . '</td>';
                         $list .= '<td style="text-align:Center; !important;">' . $uploads->drawing_number . '</td>';
                         $list .= '<td style="text-align:Center; !important;">' . $uploads->comments . '</td>';
@@ -730,7 +730,7 @@ class DesignerController extends Controller
                         $list .= '<td style="text-align:Center; !important;">' . $construction . '</td>';
                         if ($construction == 'Yes') {
                             $list .= '<td style="display:flex; height:40px;">
-                                 <a class="btn btn-primary btn-small" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn btn-danger btn-small drawingshare" title="Share Drawing" data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt" ></i></button>&nbsp;
+                                 <a class="btn btn-primary btn-small" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn btn-danger btn-small drawingshare" title="Share Drawing" data-drawing="'.$uploads->drawing_number.'" data-temp="'. $tempworkid .'" data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt" ></i></button>&nbsp;
                                  <button class="btn btn-danger btn-small drawingreply" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>';
                                 if($is_permit){
                                     $list .= '<form id="submit' . $uploads->id . '" method="get" action="' . route("permit.load") . '" style="display:inline-block;">
@@ -748,7 +748,7 @@ class DesignerController extends Controller
                                 <a class="btn" style="font-weight:bold;color:#9C9C9C " title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>
                             
                                
-                                 &nbsp;<button class="btn drawingshare" title="Share Drawing"  data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>
+                                 &nbsp;<button class="btn drawingshare" title="Share Drawing"  data-drawing="'.$uploads->drawing_number.'" data-temp="'. $tempworkid .'" data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>
                                  &nbsp;
                                  <button class="btn  drawingreply" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:2px;" class="fa fa-reply"></i></button>
                                  <form method="get" action="' . route("permit.load") . '" style="display:inline-block;">
@@ -873,7 +873,7 @@ class DesignerController extends Controller
                         }
                         if($is_permit==0){$background  = '#FF0A0B40';}
 
-                    $list .= '<tr class="clickable-row cursor-pointer" data-href="' . $path . $uploads->file_name . '" style="background:' . $background . '">';
+                    $list .= '<tr class="clickable-row viewdrawing_popup cursor-pointer" data-drawing="'.$uploads->drawing_number.'" data-temp="'. $tempworkid .'" data-href="' . $path . $uploads->file_name . '" style="background:' . $background . '">';
                     $list .= '<td style="text-align: center; vertical-align: middle;">' . $i . '</td>';
                     $list .= '<td style="text-align: center; vertical-align: middle;">' . $uploads->drawing_number . '</td>';
                     $list .= '<td style="text-align: center; vertical-align: middle;">' . $uploads->comments . '</td>';
@@ -883,7 +883,7 @@ class DesignerController extends Controller
                     $list .= '<td style="text-align: center; vertical-align: middle;">' . $construction . '</td>';
                     if ($construction == 'Yes') {
                         $list .= '<td style="display:flex">
-                             <a style="padding: 10px; background: #F9F9F9;margin: 5px;" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn drawingshare" style="padding: 10px; background: #F9F9F9;margin: 5px;" title="Share Design Brief"  data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
+                             <a style="padding: 10px; background: #F9F9F9;margin: 5px;" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn drawingshare" style="padding: 10px; background: #F9F9F9;margin: 5px;" title="Share Design Brief"  data-drawing="'.$uploads->drawing_number.'" data-temp="'. $tempworkid .'" data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
                              <button class="drawingreply" style="padding: 10px !important; border: none; background: #F9F9F9;margin: 5px;" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>';
                              if($is_permit){
                              $list .=    '<form id="submit' . $uploads->id . '" method="get" action="' . route("permit.load") . '" style="display:inline-block;">
@@ -896,7 +896,7 @@ class DesignerController extends Controller
                             $list .= '</td>';
                     } else {
                         $list .= '<td style="display:flex">
-                             <a style="padding: 10px; background: #F9F9F9;margin: 5px;" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn  drawingshare" style="padding: 10px; background: #F9F9F9;margin: 5px;" title="Share Design Brief"  data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
+                             <a style="padding: 10px; background: #F9F9F9;margin: 5px;" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn  drawingshare" style="padding: 10px; background: #F9F9F9;margin: 5px;" title="Share Design Brief" data-drawing="'.$uploads->drawing_number.'" data-temp="'. $tempworkid .'"  data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
                              <button class="drawingreply" style="padding: 10px; background: #F9F9F9;margin: 5px; border: none;" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>
                              <form method="get" action="' . route("permit.load") . '" style="display:inline-block;">
                                 <input type="hidden" name="rams_no" value'.$ramsno->rams_no.'/>
@@ -1018,7 +1018,7 @@ class DesignerController extends Controller
                         }
                         if($is_permit==0){$background  = '#FF0A0B40';}
 
-                    $list .= '<tr class="clickable-row cursor-pointer" data-href="' . $path . $uploads->file_name . '" style="background:' . $background . '">';
+                    $list .= '<tr class="clickable-row viewdrawing_popup cursor-pointer" data-drawing="'.$uploads->drawing_number.'" data-temp="'. $tempworkid .'" data-href="' . $path . $uploads->file_name . '" style="background:' . $background . '">';
                     $list .= '<td style="text-align: center; vertical-align: middle;">' . $i . '</td>';
                     $list .= '<td style="text-align: center; vertical-align: middle;">' . $uploads->drawing_number . '</td>';
                     $list .= '<td style="text-align: center; vertical-align: middle;">' . $uploads->comments . '</td>';
@@ -1028,7 +1028,7 @@ class DesignerController extends Controller
                     $list .= '<td style="text-align: center; vertical-align: middle;">' . $construction . '</td>';
                     if ($construction == 'Yes') {
                         $list .= '<td style="display:flex">
-                             <a style="padding: 10px; background: #F9F9F9;margin: 5px;" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn drawingshare" style="padding: 10px; background: #F9F9F9;margin: 5px;" title="Share Design Brief"  data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
+                             <a style="padding: 10px; background: #F9F9F9;margin: 5px;" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn drawingshare" style="padding: 10px; background: #F9F9F9;margin: 5px;" title="Share Design Brief"  data-drawing="'.$uploads->drawing_number.'" data-temp="'. $tempworkid .'" data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
                              <button class="drawingreply" style="padding: 10px !important; border: none; background: #F9F9F9;margin: 5px;" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>';
                              if($is_permit){
                              $list .=    '<form id="submit' . $uploads->id . '" method="get" action="' . route("permit.load") . '" style="display:inline-block;">
@@ -1041,7 +1041,7 @@ class DesignerController extends Controller
                             $list .= '</td>';
                     } else {
                         $list .= '<td style="display:flex">
-                             <a style="padding: 10px; background: #F9F9F9;margin: 5px;" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn  drawingshare" style="padding: 10px; background: #F9F9F9;margin: 5px;" title="Share Design Brief"  data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
+                             <a style="padding: 10px; background: #F9F9F9;margin: 5px;" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>&nbsp;<button class="btn  drawingshare" style="padding: 10px; background: #F9F9F9;margin: 5px;" title="Share Design Brief" data-drawing="'.$uploads->drawing_number.'" data-temp="'. $tempworkid .'" data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
                              <button class="drawingreply" style="padding: 10px; background: #F9F9F9;margin: 5px; border: none;" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>
                              <form method="get" action="' . route("permit.load") . '" style="display:inline-block;">
                                 <input type="hidden" name="rams_no" value'.$ramsno->rams_no.'/>
@@ -1727,6 +1727,14 @@ class DesignerController extends Controller
         }
         if($model->save())
         {
+            $cmh= new ChangeEmailHistory();
+            $cmh->email=$request->email;
+            $cmh->type ='Drawing Shared';
+            $cmh->foreign_idd=$request->tempid;
+            $cmh->status=2;
+            $cmh->message='Drawing No ' .$request->drawing_no. 'has been shared by ' . Auth::user()->email;
+            $cmh->save();
+
             $Userdata = User::where(['email' => $email])->first();
             if($Userdata){
                 $user_reg =0; //if user is not on platofmr then he wont see link in view.
@@ -1736,6 +1744,7 @@ class DesignerController extends Controller
                 Notification::route('mail',$email)->notify(new ShareDrawingNotification($id,$check, $user_reg));
             }
             // Notification::route('mail',$email)->notify(new ShareDrawingNotification($id,$check));
+               
             toastSuccess('Drawing Shared Successfully!');
             return Redirect::back();
         }

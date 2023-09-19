@@ -492,10 +492,11 @@
     }
 
     .note-editor.note-frame.card {
-        border: 1px solid grey !important;
+        border: 1px solid #D2D5DA  !important;
     }
-
-
+    .description_tempwork .card{
+        margin-top:0px;
+    }
     /* #additional-emails{
         margin-top:26px;
     } */
@@ -888,7 +889,14 @@
 
                 </div>
             </div>
-
+            <div class="col-12 description_tempwork" style="">
+                <label class=" fs-6 fw-bold mt-4">
+                    Design Brief Description:
+                </label>
+                {{-- description code starts here --}}
+                <textarea id="description" name="description_temporary_work_required"></textarea>
+                {{-- description code ends here --}}
+            </div>
             <div class="col-md-12">
                 <div class="d-flex inputDiv d-block mb-0" id="attachment_specs">
                     <div style="position:relative;" class="modalDiv d-block" data-bs-toggle="modal" data-bs-target="#attachment-of-design">
@@ -918,16 +926,7 @@
             </div>
                 
             <!-- </div> -->
-            <div class="col-12" style="padding-left:0px; padding-right:0px;">
-                {{-- <div class="d-flex inputDiv d-block">
-                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                    <span>Description:</span>
-                                </label>
-                            </div> --}}
-                {{-- description code starts here --}}
-                <textarea id="description" name="description_temporary_work_required"></textarea>
-                {{-- description code ends here --}}
-            </div>
+           
             <div class="row">
                     
                

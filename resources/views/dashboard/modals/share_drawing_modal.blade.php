@@ -33,6 +33,8 @@
                     action="{{ route('drawing.share') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="id" id="sharedrwingid" value="">
+                    <input type="hidden" name="tempid" id="tempid" value="">
+                    <input type="hidden" name="drawing_no" id="drawing_no" value="">
                     <!--begin::Heading-->
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
@@ -79,6 +81,8 @@
                     action="{{ route('drawingchecker.update') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="id" id="sharedrwingid2" value="">
+                    <input type="hidden" name="tempid" id="tempid2" value="">
+                    <input type="hidden" name="drawing_no" id="drawing_no2" value="">
                     <!--begin::Heading-->
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
@@ -113,6 +117,8 @@
                     action="{{ route('drawingchecker.share') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="id" id="sharedrwingwithchecckerid" value="">
+                    <input type="hidden" name="tempid" id="tempid3" value="">
+                    <input type="hidden" name="drawing_no" id="drawing_no3" value="">
                     <!--begin::Heading-->
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
 

@@ -4939,7 +4939,6 @@ $tempWorkClass = "d-none";
        e.stopPropagation();
    })
    
-   
    $(document).on('click', '.permit-rejected', function() {
        var permit_id = $(this).attr('data-id');
        $.ajax({
@@ -5186,6 +5185,11 @@ $(document).on('click','.drawingshare',function(e){
         email=$(this).attr('data-email');    
         e.stopPropagation();
         id=$(this).attr('data-id');
+       
+        $("#drawing_no").val($(this).attr('data-drawing'));
+        $("#tempid").val($(this).attr('data-temp'));
+        $("#drawing_no2").val($(this).attr('data-drawing'));
+        $("#tempid2").val($(this).attr('data-temp'));
         $("#sharedrwingid").val($(this).attr('data-id'));
         $("#sharedrwingid2").val($(this).attr('data-id'));
         $("#designer_email").val($(this).attr('data-email'));
@@ -5338,6 +5342,29 @@ $(document).on('click','.drawingshare',function(e){
            
         
    })
+
+   $(document).on('click', '.viewdrawing_popup', function() { 
+        tempwork_id =$(this).attr('data-temp');
+        drawing_no = $(this).attr('data-drawing');
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            },
+            type: 'POST',
+            url: '{{ url("insert_communication") }}',
+            data: {
+                "_token": "{{ csrf_token() }}",
+                tempwork_id: tempwork_id,
+                drawing_no: drawing_no
+            },
+            success: function(data) {
+                console.log(data, "File has been successfully removed!!");
+            },
+            error: function(e) {
+                console.log(e);
+            }
+        });
+    })
 //    const mainMenuLink = document.querySelector('.mainMenu-link');
 //    mainMenuLink.addEventListener('click', function(e){
 //     e.preventDefault();

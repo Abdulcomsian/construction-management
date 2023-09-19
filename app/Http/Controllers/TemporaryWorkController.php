@@ -3429,6 +3429,8 @@ class TemporaryWorkController extends Controller
                 // $request->principle_contractor == 1 ? PermitLoad::where( 'id' , $request->permitid)->update(['status' => 1]) :  PermitLoad::where( 'id' , $request->permitid)->update(['status' => 4]);
                 if($request->action != 'draft'){
                 $request->principle_contractor == 1 ? PermitLoad::where( 'id' , $request->permitid)->update(['status' => 7]) :  PermitLoad::where( 'id' , $request->permitid)->update(['status' => 4]);
+
+                // $request->principle_contractor == 1 ? PermitLoad::where( 'id' , $permit_load_orig->id)->update(['status' => 7]) :  PermitLoad::where( 'id' , $permit_load_orig)->update(['status' => 4]);
                 }else{
                     PermitLoad::where( 'id' , $request->permitid)->update(['status' => 9]);
                 }
@@ -3717,9 +3719,9 @@ class TemporaryWorkController extends Controller
         }
         $permitload->signatures()->delete();
         // dd($all_inputs);
-        
-        $all_inputs['status'] = $request->principle_contractor == 1 ? 6 : 3;
-            
+        // if($request->action != 'draft'){ //if submitted then it should update status
+            $all_inputs['status'] = $request->principle_contractor == 1 ? 6 : 3;
+        // }
         $all_inputs['mix_design_detail'] = $request->mix_design_detail;
         $all_inputs['unique_ref_no'] = $request->unique_ref_no;
         $all_inputs['age_cube'] = $request->age_cube;
@@ -3787,10 +3789,11 @@ class TemporaryWorkController extends Controller
                 // $request->principle_contractor == 1 ? PermitLoad::where( 'id' , $request->permitid)->update(['status' => 1]) :  PermitLoad::where( 'id' , $request->permitid)->update(['status' => 4]);
 
                 if($request->action != 'draft'){ //added this check because, if unloaded permit is saved as draft then it shouldnot update value of main open permit, open permit should remain open
-                $request->principle_contractor == 1 ? PermitLoad::where( 'id' , $permit_load_orig->id)->update(['status' => 7]) :  PermitLoad::where( 'id' , $permit_load_orig->id)->update(['status' => 4]);
+                $request->principle_contractor == 1 ? PermitLoad::where( 'id' , $permit_load_orig->id)->update(['status' => 7]) :  PermitLoad::where( 'id' , $permit_load_orig)->update(['status' => 4]);
                 // $request->principle_contractor == 1 ? PermitLoad::where( 'id' , $request->permitid)->update(['status' => 7]) :  PermitLoad::where( 'id' , $request->permitid)->update(['status' => 4]); //this code was in permit unload save function. we were passing permitid in request, but now in permit unload update function we are passing id of draft permit, whereas we need to update id of open permit.
                 }else{
-                //    PermitLoad::where( 'id' , $request->permitid)->update(['status' => 9]);
+                    //    PermitLoad::where( 'id' , $request->permitid)->update(['status' => 9]);
+                    PermitLoad::where( 'id' , $request->permitid)->update(['status' => 3]); 
                 }
                 //upload permit unload files
                 // dd("here" , $request->permitid , $permitload->id);
@@ -5068,5 +5071,22 @@ class TemporaryWorkController extends Controller
             return Redirect::back();
         }
         
+    }
+    //insert communication
+    public function insert_communication(Request $request)
+    {
+        try {
+            $chm= new ChangeEmailHistory();
+            $chm->email=Auth::user()->email;
+            $chm->type ='Drawing Viewed';
+            $chm->foreign_idd=$request->tempwork_id;
+            $chm->message='Drawing number ' . $request->drawing_no . ' has been viewed';
+            $chm->status = 2;
+            // $chm->user_type = 'checker';
+            $chm->save();
+            return response()->json(['message' => 'Communication inserted'], 200); 
+         } catch (\Exception $exception) {
+            return response()->json(['message' => 'Something Went Wrong!'], 500); 
+         }
     }
 }

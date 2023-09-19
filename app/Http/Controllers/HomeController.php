@@ -131,7 +131,6 @@ class HomeController extends Controller
     {
          DB::beginTransaction();
          try {
-            
             $user=User::with('userCompany')->find($request->user_id);
             //upload signature here
             $image_name = '';
@@ -161,6 +160,13 @@ class HomeController extends Controller
                 $filePath = HelperFunctions::nominationCvPath();
                 $file = $request->file('cv');
                 $cv = HelperFunctions::saveFile(null, $file, $filePath);
+            }
+            if(isset($request->latest_cv))
+            {
+                $file = $request->file('cv');
+                if(!isset($file)) {
+                    $cv = $request->latest_cv;
+                }
             }
             $all_inputs=[
                 'project'=>$request->project,
@@ -208,7 +214,26 @@ class HomeController extends Controller
                             $qualificationscount++;
                             }
                         
+                        
                         }
+                        if(isset($request->qualifications_ids[$i]))
+                        {  
+                            $file = $request->file('qualification_file');
+                            if(!isset($file[$i]))
+                            {
+                                $get_qualification = NominationQualification::where('id',$request->qualifications_ids[$i])->first();
+                                if(isset($get_qualification->qualification_certificate))
+                                {
+                                    $model->qualification_certificate = $get_qualification->qualification_certificate;
+                                    $images[]=public_path($get_qualification->qualification_certificate);
+                                    $qimages[]=public_path($get_qualification->qualification_certificate);
+                                    $qualificationscount++;
+    
+                                }
+                            }
+                         
+                        }
+                       
                         $model->qualification=$request->qualification[$i];
                         $model->date=$request->qualification_date[$i];
                         $model->nomination_id=$nomination->id;
@@ -234,9 +259,26 @@ class HomeController extends Controller
                             $images[]=$imagename;
                             $cimages[]=$imagename;
                             }
+                         
                         
                         }
-                        
+                        if(isset($request->course_ids[$i]))
+                        {
+                            $file = $request->file('course_file');
+                            if(!isset($file[$i]))
+                            {
+                                $get_course = NominationCourses::where('id',$request->course_ids[$i])->first();
+                                if(isset($get_course->course_certificate))
+                                {
+                                    $model->course_certificate = $get_course->course_certificate;
+                                    $images[]=public_path($get_course->course_certificate);
+                                    $qimages[]=public_path($get_course->course_certificate);
+                                    $qualificationscount++;
+    
+                                }
+                            }  
+                          
+                        }
                         $model->course=$request->course[$i];
                         $model->date=$request->course_date[$i];
                         $model->nomination_id=$nomination->id;
@@ -757,7 +799,7 @@ class HomeController extends Controller
                     $nomination_extras->nomination_id = $nomination->id;
                     $nomination_extras->save();
                    }
-                    Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
+                    // Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
                     Notification::route('mail',$company->email ?? '')->notify(new NominatinCompanyEmail($company,$filename,$user));
 
                     DB::commit();

@@ -1415,5 +1415,20 @@ class EstimatorController extends Controller
         }
    }
 
+    public function deleteTemporaryWorkImage(Request $request){
+
+        $fileData = TemporayWorkImage::findorfail($request->filename_id);
+        $filePath = public_path($fileData->image); // Replace with the actual file path
+        if (file_exists($filePath)) {
+            unlink($filePath); // Delete the file
+            $fileData->delete();
+            return response()->json(['message' => 'File deleted successfully']);
+        }
+
+        return response()->json(['message' => 'File not found'], 404);  
+
+
+    }
+
 
 }

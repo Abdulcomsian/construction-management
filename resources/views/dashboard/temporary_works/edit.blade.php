@@ -1857,7 +1857,7 @@ $("#description").summernote({
 
             if (hiddenInputs) {
                 // Make an AJAX request to delete the file on the server
-                fetch('{{ route("delete.temporaryworkimage") }}', {
+                fetch('{{ route("delete.temporarywork.image") }}', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -1900,7 +1900,7 @@ $("#description").summernote({
 
             if (hiddenInputs) {
                 // Make an AJAX request to delete the file on the server
-                fetch('{{ route("delete.temporaryworkimage") }}', {
+                fetch('{{ route("delete.temporarywork.image") }}', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

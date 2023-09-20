@@ -702,7 +702,7 @@ $tempWorkClass = "d-none";
                     <!--end::Card header-->
                     <!--begin::Card body-->
                     <div class="card-body indexTempory pt-0" style="max-width: 1550px; margin: auto">
-                        <div class="my-4 test"  style="background: white;padding: 10px 22px;">
+                        <div class="my-4 test"  style="background: white;padding: 10px 22px; max-height:67px;">
                             <div class="row align-items-center" style="justify-content: flex-start;">
                                 <div class="col-md-6">
                                     <div class="row align-items-center" style="justify-content: flex-start;">
@@ -710,7 +710,7 @@ $tempWorkClass = "d-none";
                                             <form class="form-inline d-flex m-0" method="get"
                                                 action="{{route('tempwork.proj.search')}}">
                                                 <div class="col-10">
-                                                    <select name="projects[]" multiple="multiple" class="form-select form-select-lg"
+                                                    <select name="projects[]" multiple="multiple" class="form-select form-select-lg" style = "max-height:40px;"
                                                          data-control="select2"
                                                         data-placeholder="Select a Project" required>
                                                         @foreach($projects as $proj)

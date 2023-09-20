@@ -4937,7 +4937,7 @@ class TemporaryWorkController extends Controller
                         $ids[] = $id->project_id;
                     }
 
-                    $query = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereHas('project', function ($q) use ($ids) {
+                    $query = TemporaryWork::with('project', 'uploadfile', 'comments', 'scancomment', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits','designbrief_history')->whereHas('project', function ($q) use ($ids) {
                         $q->whereIn('project_id', $ids);
                     })->whereIn('status',$status)->where(['estimator'=>0])->latest();
 
@@ -4962,12 +4962,27 @@ class TemporaryWorkController extends Controller
 
                 // Add data rows
                 foreach ($temporary_works as $item) {
+                    
+                    if(isset($item->designbrief_history))
+                    {
+                        $design_brief_files = [];
+                        foreach($item->designbrief_history as $pdf_file)
+                        {
+                            $design_brief_files[] = asset('pdf'.'/'.$pdf_file->pdf_name);
+                        }
+                        $design_brief_files = implode(', ', $design_brief_files);
+                    }
+                    else 
+                    {
+                        $design_brief_files = [];
+                    }
                     $value = explode('-', $item->design_requirement_text);
                     fputcsv($handle, [
                         $item->created_at,
                         $item->twc_id_no,
                         $item->design_issued_date,
                         $value[1],
+                        $design_brief_files,
                     ]);
                 }
             }
@@ -5018,6 +5033,10 @@ class TemporaryWorkController extends Controller
                     }elseif ($permit->status == 7) {
                         $status = "Pending";
                     }
+                    elseif ($permit->status == 9) {
+                        $status = "Open";
+                    }
+                    $permit_pdf =asset('pdf'.'/'.$permit->ped_url) ;
                     fputcsv($handle, [
                         $permit->created_at,
                         $permit->tempwork->design_requirement_text,
@@ -5025,6 +5044,7 @@ class TemporaryWorkController extends Controller
                         $days.' days',
                         $permit->location_temp_work,
                         $status,
+                        $permit_pdf,
                     ]);
                 }
             }
@@ -5091,6 +5111,7 @@ class TemporaryWorkController extends Controller
                     }elseif ($permit->status == 7) {
                         $status = "Pending";
                     }
+                    $permit_pdf = $permit_pdf =asset('pdf'.'/'.$permit->ped_url) ;
                     fputcsv($handle, [
                         $permit->created_at,
                         $permit->tempwork->design_requirement_text,
@@ -5098,6 +5119,8 @@ class TemporaryWorkController extends Controller
                         $days.' days',
                         $permit->location_temp_work,
                         $status,
+                        $permit_pdf,
+                        
                     ]);
                 }
 

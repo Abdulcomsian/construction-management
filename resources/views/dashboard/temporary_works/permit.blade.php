@@ -201,7 +201,7 @@
   }
 
   .form-control.form-control-solid {
-    background-color: white !important;
+    background-color: #f5f8fa ;
     padding: 5px;
     border: none !important;
   }
@@ -620,7 +620,7 @@
                   <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="top:-11px; height: fit-content;">
                     Location of the Temporary Works:
                   </label>
-                  <textarea class="form-control" id="twLocation" name="location_temp_work" rows="2" style="width:100%;height: 41px" placeholder="Location of the Temporary Works:">{{old('location_temp_work')}}</textarea>
+                  <textarea class="form-control form-control-solid" id="twLocation" name="location_temp_work" rows="2" style="width:100%;height: 41px" placeholder="Location of the Temporary Works:">{{old('location_temp_work')}}</textarea>
                 </div>
               </div>
               <div class="d-flex inputDiv">
@@ -629,7 +629,7 @@
                   <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="top:-11px; height: fit-content;">
                     Description of structure ready for use:
                   </label>
-                  <textarea class="form-control" id="strDescription" name="description_structure" rows="2" style="width:100%;height: 41px" placeholder="Description of structure:">{{old('description_structure')}}</textarea>
+                  <textarea class="form-control form-control-solid" id="strDescription" name="description_structure" rows="2" style="width:100%;height: 41px" placeholder="Description of structure:">{{old('description_structure')}}</textarea>
                 </div>
               </div>
               <!-- <div class="d-flex inputDiv">
@@ -1084,7 +1084,7 @@
                     </label>
                     <!--end::Label-->
                     <div class="input">
-                      <input type="date" name ="date" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                      <input type="date" id="date-last" name ="date" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
                     </div>
                   </div>
                   <div class="col">
@@ -2516,43 +2516,61 @@
 
     }
   })
+  
   $('#drawing_no').change(function() {
-    $('#drawing_no').css("background-color", "#f5f8fa ");
+    $('#drawing_no').css("background-color", "white");
   });
   $('#drawing_title').change(function() {
-    $('#drawing_title').css("background-color", "#f5f8fa ");
+    $('#drawing_title').css("background-color", "white ");
   });
   $('#drawing_no').change(function() {
-    $('#drawing_no').css("background-color", "#f5f8fa ");
+    $('#drawing_no').css("background-color", "white ");
   });
   $('#twc_name').change(function() {
-    $('#twc_name').css("background-color", "#f5f8fa ");
+    $('#twc_name').css("background-color", "white ");
   });
   $('#tws_name').change(function() {
-    $('#tws_name').css("background-color", "#f5f8fa ");
+    $('#tws_name').css("background-color", "white");
   });
   $('#ms_ra_no').change(function() {
-    $('#ms_ra_no').css("background-color", "#f5f8fa ");
+    $('#ms_ra_no').css("background-color", "white");
   });
   $('#name1').change(function() {
-    $('#name1').css("background-color", "#f5f8fa ");
+    $('#name1').css("background-color", "white ");
   });
   $('#job_title1').change(function() {
-    $('#job_title1').css("background-color", "#f5f8fa ");
+    $('#job_title1').css("background-color", "white");
   });
   $('#name2').change(function() {
-    $('#name2').css("background-color", "#f5f8fa ");
+    $('#name2').css("background-color", "white");
   });
   $('#job_title').change(function() {
-    $('#job_title').css("background-color", "#f5f8fa ");
+    $('#job_title').css("background-color", "white");
   });
   $('#namesign_id').change(function() {
-    $('#namesign_id').css("background-color", "#f5f8fa ");
+    $('#namesign_id').css("background-color", "white");
   });
   $('#namesign_id2').change(function() {
-    $('#namesign_id2').css("background-color", "#f5f8fa ");
+    $('#namesign_id2').css("background-color", "white");
+  });
+  $('#companyadmin').change(function() {
+    $('#companyadmin').css("background-color", "white");
+  });
+  $('#date-last').change(function() {
+    $('#date-last').css("background-color", "white");
+  });
+  $('#pc-twc-email').change(function() {
+    $('#pc-twc-email').css("background-color", "white");
+  });
+  $('#strDescription').change(function() {
+    $('#strDescription').css("background-color", "white");
+  });
+  $('#twLocation').change(function() {
+    $('#twLocation').css("background-color", "white");
   });
 
+
+  
   const clearBtns = document.querySelectorAll('.btn--clear');
   console.log(clearBtns);
 
@@ -2716,4 +2734,22 @@
     }
   });
 </script>
+
+
+<script>
+
+  // const projectNoInput = document.getElementById('ms_ra_no');
+  // projectNoInput.addEventListener('input', () => {
+  //   if (projectNoInput.value.trim() !== '') {
+  //     projectNoInput.style.backgroundColor = 'red !important';
+  //   } else {
+  //     projectNoInput.style.backgroundColor = '#f5f8fa';
+  //   }
+  // });
+
+
+
 @endsection
+
+
+

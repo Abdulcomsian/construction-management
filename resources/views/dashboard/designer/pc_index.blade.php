@@ -149,9 +149,9 @@
                         <input type="hidden" name="tempworkid" value="{{$tempworkdetail->id}}">
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="row">
+                                <div class="row justify-content-between">
                                    
-                                    <div class="col-md-6">
+                                    <div class="col-md-8">
                                         <div class="d-block">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -164,10 +164,10 @@
                                         </div>
                                     </div>
                                     <!-- <div class="col-md-5 d-flex justify-content-flex-start align-items-center"> -->
-                                    <div class="col-md-4  justify-content-flex-start align-items-center">
+                                    <div class="col-md-4  d-flex justify-content-between align-items-center mt-5">
                                         <!-- <div class="d-flex align-items-baseline requiredDiv"> -->
                                         <div class="d-block">
-                                            <label class="fs-6 fw-bold mb-2">
+                                            <label class="fs-6 fw-bold mb-2 mt-2">
                                                 <span class="required">Select Y For Accepted Or N for Rejected:</span>
 
                                             </label>
@@ -187,7 +187,7 @@
                                                 </label>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary float-end" style="border-radius: 0.25rem;">Submit</button>
+                                        <button type="submit" class="btn btn-primary mt-5" style="border-radius: 0.25rem;">Submit</button>
                                     </div>
                                    
                                 </div>

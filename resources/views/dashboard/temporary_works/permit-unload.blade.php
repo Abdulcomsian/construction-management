@@ -458,7 +458,7 @@
                                     <label class="fs-6 fw-bold mb-2" style="bottom: 46px;">
                                         Location of the temporary works:
                                     </label>
-                                    <textarea name="location_temp_work" rows="2" cols="170" placeholder=" Location of the temporary works">{{$permitdata->location_temp_work ?? old('location_temp_work')}}</textarea>
+                                    <textarea name="location_temp_work" rows="2" cols="170" placeholder=" Location of the temporary works">@if($errors->any()){{old('location_temp_work')}}@else{{$permitdata->location_temp_work ?? ''}}@endif</textarea>
                                 </div>
                             </div>
                             <div class=" inputDiv d-block">
@@ -467,7 +467,7 @@
                                     <label class="fs-6 fw-bold mb-2" style="bottom: 46px;">
                                         Description of structure:
                                     </label>
-                                    <textarea name="description_structure" rows="2" cols="170" placeholder="Description of structure:">{{$permitdata->description_structure ?? old('description_structure')}}</textarea>
+                                    <textarea name="description_structure" rows="2" cols="170" placeholder="Description of structure:">@if($errors->any()){{old('description_structure')}}@else{{$permitdata->description_structure ?? ''}}@endif</textarea>
                                 </div>
                             </div>
                             <div class=" inputDiv d-block">
@@ -476,7 +476,7 @@
                                     <label class="fs-6 fw-bold mb-2">
                                         <span class="required">MS / RA Number:</span>
                                     </label>
-                                    <input type="text" class="form-control" placeholder="MS/RA Number" id="ms_ra_no" name="ms_ra_no" value="{{$permitdata->ms_ra_no ?? old('ms_ra_no')}}">
+                                    <input type="text" class="form-control" placeholder="MS/RA Number" id="ms_ra_no" name="ms_ra_no" value="@if($errors->any()){{old('ms_ra_no')}}@else{{$permitdata->ms_ra_no ?? ''}}@endif">
                                 </div>
                             </div>
                             <h5 style="color: #000; font-weight:600; font-size:24px">Permit to Unload / Strike</h5>

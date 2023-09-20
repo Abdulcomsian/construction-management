@@ -513,7 +513,7 @@ var CSRF_TOKEN = '{{ csrf_token() }}';
                                         Location of the temporary works:
                                     </label>
                                     <textarea name="location_temp_work" rows="2" cols="170"
-                                        placeholder=" Location of the temporary works">{{$permitdata->location_temp_work ?? old('location_temp_work')}}</textarea>
+                                        placeholder=" Location of the temporary works">@if($errors->any()){{old('location_temp_work')}}@else{{$permitdata->location_temp_work ?? ''}}@endif</textarea>
                                 </div>
                             </div>
                             <div class=" inputDiv d-block">
@@ -523,7 +523,7 @@ var CSRF_TOKEN = '{{ csrf_token() }}';
                                         Description of structure:
                                     </label>
                                     <textarea name="description_structure" rows="2" cols="170"
-                                        placeholder="Description of structure:">{{$permitdata->description_structure ?? old('description_structure')}}</textarea>
+                                        placeholder="Description of structure:">@if($errors->any()){{old('description_structure')}}@else{{$permitdata->description_structure ?? ''}}@endif</textarea>
                                 </div>
                             </div>
                             <div class=" inputDiv d-block">
@@ -533,7 +533,7 @@ var CSRF_TOKEN = '{{ csrf_token() }}';
                                         <span class="required">MS / RA Number:</span>
                                     </label>
                                     <input type="text" class="form-control" placeholder="MS/RA Number" id="ms_ra_no"
-                                        name="ms_ra_no" value="{{$permitdata->ms_ra_no ?? old('ms_ra_no')}}">
+                                        name="ms_ra_no" value="@if($errors->any()){{old('ms_ra_no')}}@else{{$permitdata->ms_ra_no ?? ''}}@endif">
                                 </div>
                             </div>
                             <h5 style="color: #000; font-weight:600; font-size:24px">Permit to Unload / Strike</h5>
@@ -579,7 +579,7 @@ var CSRF_TOKEN = '{{ csrf_token() }}';
                                             <input type="text" name="mix_design_detail"
                                                 class="form-control form-control-solid tableinput"
                                                 placeholder="Enter Mix Design Details"
-                                                value="{{$permitdata->mix_design_detail ?? old('mix_design_detail')}}">
+                                                value="@if($errors->any()){{old('mix_design_detail')}}@else{{$permitdata->mix_design_detail ?? ''}}@endif">
                                         </td>
                                     </tr>
                                     <tr>
@@ -589,7 +589,7 @@ var CSRF_TOKEN = '{{ csrf_token() }}';
                                             <input type="text" name="unique_ref_no"
                                                 class="form-control form-control-solid tableinput"
                                                 placeholder="Enter Unique Cube Ref No"
-                                                value="{{$permitdata->unique_ref_no ?? old('unique_ref_no')}}">
+                                                value="@if($errors->any()){{old('unique_ref_no')}}@else{{$permitdata->unique_ref_no ?? ''}}@endif">
                                         </td>
                                     </tr>
                                     <tr>
@@ -598,7 +598,7 @@ var CSRF_TOKEN = '{{ csrf_token() }}';
                                         <td style="padding-right:28px">
                                             <input type="text" name="age_cube"
                                                 class="form-control form-control-solid tableinput"
-                                                placeholder="Enter Age of Cube" value="{{$permitdata->age_cube ?? old('age_cube')}}">
+                                                placeholder="Enter Age of Cube" value="@if($errors->any()){{old('age_cube')}}@else{{$permitdata->age_cube ?? ''}}@endif">
                                         </td>
                                     </tr>
                                     <tr>
@@ -608,7 +608,7 @@ var CSRF_TOKEN = '{{ csrf_token() }}';
                                             <input type="text" name="compressive_strength"
                                                 class="form-control form-control-solid tableinput"
                                                 placeholder="Enter Compressive Strength N/mm2"
-                                                value="{{$permitdata->compressive_strength ?? old('compressive_strength')}}">
+                                                value="@if($errors->any()){{old('compressive_strength')}}@else{{$permitdata->compressive_strength ?? ''}}@endif">
                                         </td>
                                     </tr>
                                     <tr>
@@ -618,7 +618,7 @@ var CSRF_TOKEN = '{{ csrf_token() }}';
                                             <input type="text" name="method_curing"
                                                 class="form-control form-control-solid tableinput"
                                                 placeholder="Enter Method of Curing"
-                                                value="{{$permitdata->method_curing ?? old('method_curing')}}">
+                                                value="@if($errors->any()){{old('method_curing')}}@else{{$permitdata->method_curing ?? ''}}@endif">
                                         </td>
                                     </tr>
                                 </tbody>
@@ -632,7 +632,7 @@ var CSRF_TOKEN = '{{ csrf_token() }}';
                                     for this PTS (where
                                     applicable)</label>
                                 <textarea name="twc_control_pts" class="twcTextArea" rows="2"
-                                    style="width:100%;">{{$permitdata->twc_control_pts ?? old('twc_control_pts')}}</textarea>
+                                    style="width:100%;">@if($errors->any()){{old('twc_control_pts')}}@else{{$permitdata->twc_control_pts ?? ''}}@endif</textarea>
                             </div>
 
                             <div class="inputDiv">
@@ -640,7 +640,7 @@ var CSRF_TOKEN = '{{ csrf_token() }}';
                                     limitations and
                                     exclusions; explanatory sketches references (if applicable)</label>
                                 <textarea name="back_propping" class="pt-2" rows="2"
-                                    style="width:100%;">{{$permitdata->back_propping ?? old('back_propping')}}</textarea>
+                                    style="width:100%;">@if($errors->any()){{old('back_propping')}}@else{{$permitdata->back_propping ?? ''}}@endif</textarea>
                             </div>
                             <br>
                             <p style="color: black;"> I hereby authorise the temporary works to be struck out or removed
@@ -675,7 +675,7 @@ var CSRF_TOKEN = '{{ csrf_token() }}';
                                 </label>
                                 <!--end::Label-->
                                 <input type="email" class="form-control form-control-solid" name="pc_twc_email"
-                                    id="pc-twc-email" placeholder="Email" value="{{$permitdata->pc_twc_email ?? old('pc_twc_email')}}"
+                                    id="pc-twc-email" placeholder="Email" value="@if($errors->any()){{old('pc_twc_email')}}@else{{$permitdata->pc_twc_email ?? ''}}@endif"
                                     required="required">
                             </div>
                         </div>
@@ -740,7 +740,7 @@ var CSRF_TOKEN = '{{ csrf_token() }}';
                                     <span>Comments:</span>
                                 </label>
                                 <textarea name="comments"
-                                    class="form-control pt-2">{{$permitdata->comments ?? old('comments')}}</textarea>
+                                    class="form-control pt-2">@if($errors->any()){{old('comments')}}@else{{$permitdata->comments ?? ''}}@endif</textarea>
                             </div>
                         </div>
                     </div>

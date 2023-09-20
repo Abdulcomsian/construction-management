@@ -711,7 +711,11 @@
 
                                         <td colspan="2" class="border-bottom" style=" color: red">
                                             @if($mail!=$cments->sender_email)
-                                            <b style="white-space:pre-wrap;">{{$cments->drawing_comment}}</b><br>{{$cments->sender_email}}<br>{{date('H:i
+                                            <b style="white-space:pre-wrap;">{{$cments->drawing_comment}}</b><br>
+                                            @if($cments->drawing_image)
+                                            <a target="_blank" href="{{asset($cments->drawing_image)}}"><i  style="color:#000;"  class="fa fa-eye"></i></a><br>
+                                            @endif
+                                            {{$cments->sender_email}}<br>{{date('H:i
                                             d-m-Y',strtotime($cments->created_at))}}
                                             @endif
                                             @if($cments->drawing_reply)

@@ -43,11 +43,16 @@
                             <label class="required fs-6 fw-bold mb-2">Comment:</label>
                             <textarea class="form-control form-control-solid" name="commment" required></textarea>
                         </div>
+                        
+                        <div class="col-md-12 fv-row">
+                            <label class="fs-6 fw-bold mb-2">Image:</label>
+                            <input  class="form-control form-control-solid" type="file" name="commentfile" />
+                        <div>
                        
                         
                     </div>
                   
-                    <div class="text-center">
+                    <div class="text-center mt-2">
                         <button type="submit" class="btn btn-primary">
                             <span class="indicator-label">Submit</span>
                         </button>

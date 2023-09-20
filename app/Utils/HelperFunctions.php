@@ -69,7 +69,8 @@ class HelperFunctions
     }
 
     public static function designbriefphotopath($user=null){
-        return $path  = 'temporarywork/images/';
+        $path  = 'temporarywork/images/';
+        return $path;
     }
     
     public static function  temporaryworkuploadPath($user = null)

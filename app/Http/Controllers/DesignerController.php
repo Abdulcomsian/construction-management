@@ -1605,9 +1605,17 @@ class DesignerController extends Controller
             //new code ends here
             $twc_email = TemporaryWork::select('twc_email')->find($permitdata->temporary_work_id);
             $createdby = User::find($permitdata->created_by);
-            PermitLoad::find($request->permitid)->update([
-                'status' => $request->status,
-            ]);
+            if($request->status==3){ //if accepted then we need to udpate status to 3 accepted and reove draft
+                PermitLoad::find($request->permitid)->update([
+                    'status' => $request->status,
+                    'draft_status' => "2",
+                ]);
+            }else  if($request->status==1){
+                PermitLoad::find($request->permitid)->update([
+                    // 'status' => $request->status,
+                    'draft_status' => "1",
+                ]);
+            }
             if ($request->status == 5) {
                 $model = new PermitComments();
                 $model->comment = $request->comments;

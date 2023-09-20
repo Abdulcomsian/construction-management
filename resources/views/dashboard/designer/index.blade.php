@@ -645,6 +645,7 @@
 
                                     @foreach($DesignerUploads as $uploads)
                                     @php
+                                    $date = date('d-m-Y H:i', strtotime($uploads->created_at));
                                     $dno=explode('-',$uploads->drawing_number);
                                     $drawinglastno=$dno[sizeof($dno)-1];
                                     $sliced = array_slice($dno, 0, -1);
@@ -665,6 +666,8 @@
                                         <td>{{$loop->index+1}}</td>
                                         <td>{{$uploads->drawing_number}} <br>
                                             <a target="_blank" href="{{asset($uploads->file_name)}}"><i  style="color:#000;"  class="fa fa-eye"></i></a>
+                                            <br><br>
+                                            {{$date}}
                                         </td>
                                         <td style="white-space:pre-wrap;">{{$uploads->comments}}</td>
                                         <td>{{$uploads->twd_name}}</td>

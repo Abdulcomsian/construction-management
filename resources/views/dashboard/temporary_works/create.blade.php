@@ -601,7 +601,7 @@
                                         <span class="required">Design Brief Issued Date:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input data-date-inline-picker="true" readonly type="date" value="{{ date('Y-m-d') }}" class="blackBack form-control form-control-solid" placeholder="Date" name="design_issued_date" id="design_issued_date" value="{{old('design_issued_date')}}" required>
+                                    <input data-date-inline-picker="true" readonly type="date" value="{{ date('Y-m-d') }}" class=" form-control form-control-solid whiteBack" placeholder="Date" name="design_issued_date" id="design_issued_date" value="{{old('design_issued_date')}}" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -883,7 +883,7 @@
                         <label class="fs-6 fw-bold mb-2" style="top:-17px; height: fit-content;">
                             Scope of Design:
                         </label>
-                        <textarea class="form-control" id="scopeOfDesignArea" style="background: white;height: 32px !important" id="scopofdesign" cols="50" placeholder="Scope of Design Output Required From TW Engineer" readonly></textarea>
+                        <textarea class="form-control " id="scopeOfDesignArea" style="background: white;height: 32px !important" id="scopofdesign" cols="50" placeholder="Scope of Design Output Required From TW Engineer" readonly></textarea>
                         <!--  <input type="text" placeholder="Scope of Design Output Required from the Temporary Works Engineer:" readonly> -->
                     </div>
 
@@ -939,7 +939,7 @@
                             <span class="required">Name:</span>
                         </label>
                         <!--end::Label-->
-                        <input type="text" class="blackBack form-control form-control-solid" placeholder="Name" name="name" id="admin_name" value="{{\Auth::user()->name ?? ''}}" readonly="readonly" required>
+                        <input type="text" class=" form-control form-control-solid whiteBack" placeholder="Name" name="name" id="admin_name" value="{{\Auth::user()->name ?? ''}}" readonly="readonly" required>
                     </div>
                     <div class="d-flex inputDiv d-block" id="designBriefCompany">
                         <!--begin::Label-->
@@ -947,7 +947,7 @@
                             <span class="required">Company: </span>
                         </label>
                         <!--end::Label-->
-                        <input type="text" id="companyadmin" class="blackBack form-control form-control-solid" style="background-color:#f5f8fa" placeholder="Company" name="company" required>
+                        <input type="text" id="companyadmin" class="blackBack form-control form-control-solid"  placeholder="Company" name="company" required>
                         <input type="hidden" id="company_id" name="company_id">
                     </div>
                     <div class="d-flex inputDiv d-block" id='designBriefJobTitle'>
@@ -956,7 +956,7 @@
                             <span class="required">Job title:</span>
                         </label>
                         <!--end::Label-->
-                        <input type="text" class="blackBack form-control form-control-solid" placeholder="Job title" name="job_title" id="job_title" value="{{\Auth::user()->job_title ?? ''}}" readonly="readonly" required>
+                        <input type="text" class="form-control form-control-solid whiteBack" placeholder="Job title" name="job_title" id="job_title" value="{{\Auth::user()->job_title ?? ''}}" readonly="readonly" required>
                     </div>
                     <div class="d-flex inputDiv d-block">
                         <!--begin::Label-->
@@ -1060,7 +1060,7 @@
                       <!-- name="date1" -->
                     </div>
                   </div>
-                  <div class="col">
+                  <div class="">
                     <div class="d-flex flex-column" style="border: none">
                         <label class="m-0 fw-bold" style="width:40% !important; font-size: 16px !important;font-family: 'Inter', sans-serif;">
                             <span class="signatureTitle" style="white-space: nowrap">Signature
@@ -1131,7 +1131,7 @@
                         <!-- name="date1" -->
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="">
                         <div class="d-flex flex-column" style="border: none">
                             <label class="m-0 fw-bold" style="width:40% !important; font-size: 16px !important;font-family: 'Inter', sans-serif;">
                                 <span class="signatureTitle" style="white-space: nowrap">Signature
@@ -1200,7 +1200,7 @@
                         <!-- name="date1" -->
                     </div>
                     </div>
-                    <div class="col">
+                    <div class="">
                         <div class="d-flex flex-column" style="border: none">
                             <label class="m-0 fw-bold" style="width:40% !important; font-size: 16px !important;font-family: 'Inter', sans-serif;">
                                 <span class="signatureTitle" style="white-space: nowrap">Signature
@@ -1782,4 +1782,12 @@ $(document).ready(function(){
         }
     });
 </script>
+
+
+<!-- <script>
+      $('#twc_name').change(function() {
+    $('#twc_name').css("background-color", "white ");
+  });
+
+</script> -->
 @endsection

@@ -2516,7 +2516,6 @@
 
     }
   })
-  
   $('#drawing_no').change(function() {
     $('#drawing_no').css("background-color", "white");
   });

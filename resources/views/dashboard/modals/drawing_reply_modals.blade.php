@@ -24,17 +24,42 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                 <!--begin:Form-->
+
+                
+                <div class="mb-13 text-center">
+                      
+                      <h1 class="mb-3">Send a Comment to the Designer </h1>
+                     
+                  </div>
+
+
+
+                <table class="table table-hover" >
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Comments</th>
+                            <th>Reply</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="drawingreplydata">
+                        
+                    </tbody>
+                </table>
+
+
                 <form id="kt_modal_new_target_form" class="form company_details_form" action="{{ route('twcdrawing.comment') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="drawingid" id="drwingid" />
                    
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
+<!-- 
                     <div class="mb-13 text-center">
                       
-                        <h1 class="mb-3">Send a Comment to the Designer</h1>
+                        <h1 class="mb-3">Send a Comment to the Designer </h1>
                        
-                    </div>
+                    </div> -->
                    
 
                     <div class="row g-9 mb-8">
@@ -55,19 +80,6 @@
                    
                 </form>
                 <!--end:Form-->
-                <table class="table table-hover" >
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Comments</th>
-                            <th>Reply</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody id="drawingreplydata">
-                        
-                    </tbody>
-                </table>
             </div>
             <!--end::Modal body-->
         </div>

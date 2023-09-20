@@ -1899,6 +1899,15 @@ class DesignerController extends Controller
         $model->drawing_comment=$request->commment;
         $model->temp_work_upload_files_id=$request->drawingid;
         $model->sender_email=$tempdata->twc_email;
+        if ($request->file('commentfile')) {
+            $filePath = HelperFunctions::temporaryworkcommentPath();
+            $file = $request->file('commentfile');
+            $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+            $model->drawing_image=$imagename;
+
+        } else {
+            $model->drawing_image=$imagename;
+        }
         if($model->save())
         {
             $chm= new ChangeEmailHistory();

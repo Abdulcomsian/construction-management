@@ -741,8 +741,9 @@ class TemporaryWorkController extends Controller
             // dd($request->all());
             $designDocument = $request->description_temporary_work_required;
             $dom = new \DOMDocument();
-            $dom->loadHtml($designDocument, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
             libxml_use_internal_errors(true);
+            $dom->loadHtml($designDocument, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            libxml_use_internal_errors(false);
             $images = $dom->getElementsByTagName('img');
 
             foreach($images as $item => $image){
@@ -1118,8 +1119,9 @@ class TemporaryWorkController extends Controller
             // dd($request->all());
             $designDocument = $request->description_temporary_work_required;
             $dom = new \DOMDocument();
-            @$dom->loadHtml($designDocument, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
             libxml_use_internal_errors(true);
+            @$dom->loadHtml($designDocument, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            libxml_use_internal_errors(false);
             $images = $dom->getElementsByTagName('img');
             foreach($images as $item => $image){
                 $data = $image->getAttribute("src");

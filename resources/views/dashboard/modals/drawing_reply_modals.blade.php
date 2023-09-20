@@ -44,8 +44,8 @@
                             <textarea class="form-control form-control-solid" name="commment" required></textarea>
                         </div>
                         
-                        <div class="col-md-12 fv-row">
-                            <label class="fs-6 fw-bold mb-2">Image:</label>
+                        <div class="col-md-12 fv-row" style="margin-top:0px;">
+                            {{-- <label class="fs-6 fw-bold mb-2">Image:</label> --}}
                             <input  class="form-control form-control-solid" type="file" name="commentfile" />
                         <div>
                        
@@ -63,10 +63,10 @@
                 <table class="table table-hover" >
                     <thead>
                         <tr>
-                            <th>No</th>
-                            <th>Comments</th>
-                            <th>Reply</th>
-                            <th>Date</th>
+                            <th style="text-align:left;">No</th>
+                            <th  style="text-align:left;">Comments</th>
+                            <th  style="text-align:left;">Reply</th>
+                            <th  style="text-align:left;">Date</th>
                         </tr>
                     </thead>
                     <tbody id="drawingreplydata">

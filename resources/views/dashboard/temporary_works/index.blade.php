@@ -4494,6 +4494,7 @@ $tempWorkClass = "d-none";
 <!--end::Post-->
 <div id="mini"></div>
 </div>
+@include('dashboard.modals.change-emails-modal')
 @include('dashboard.modals.drawingdesign')
 @include('dashboard.modals.upload-file')
 @include('dashboard.modals.tw_name')
@@ -4511,7 +4512,7 @@ $tempWorkClass = "d-none";
 @include('dashboard.modals.drawing_reply_modals')
 @include('dashboard.modals.drawing_delete_modals')
 @include('dashboard.modals.risk_assessment')
-@include('dashboard.modals.change-emails-modal')
+
 @include('dashboard.modals.upload-photo')
 @endsection
 @section('scripts')

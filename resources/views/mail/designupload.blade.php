@@ -32,10 +32,10 @@
                                                                          Welcome to the Temporary Works Portal.<br><br>
                                                                          @endif
                                                                          {{$details['body']['text']}}<br>
-                                                                         {{-- @if(isset($details['body']['comments']))
+                                                                          @if(isset($details['body']['comments']))
                                                                          <b>Comments:</b><br>
                                                                          {{$details['body']['comments']}}
-                                                                         @endif --}}
+                                                                         @endif 
                                                                    </p>
                                                                    @if(isset($details['body']['designer']) && $details['body']['designer']=='designer1')
                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">

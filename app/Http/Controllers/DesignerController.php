@@ -1433,6 +1433,14 @@ class DesignerController extends Controller
             TemporaryWork::find($request->tempworkid)->update([
                 'status' => $request->status,
             ]);
+            if($request->file('attachfile'))
+            {
+                $attachfile = $request->file('attachfile');
+            }
+            else
+            {
+                $attachfile = '';
+            }
             if ($request->status == 2) {
                 $model = new TemporaryWorkComment();
                 $model->comment = $request->comments;
@@ -1461,6 +1469,7 @@ class DesignerController extends Controller
                     $notify_admins_msg = [
                         'greeting' => 'Design Brief Rejected',
                         'subject' => $subject,
+                        'cc'=>$request->ccemail,
                         'body' => [
                             'text' => $text,
                             'filename' => $tempworkdata->ped_url,
@@ -1470,6 +1479,7 @@ class DesignerController extends Controller
                             'comments'=>$request->comments,
                             'type'=>'desingbrief',
                             'company'=>$tempworkdata->company,
+                            'attachfile'=>$attachfile
                         ],
                         'thanks_text' => 'Thanks For Using our site',
                         'action_text' => '',
@@ -1512,6 +1522,7 @@ class DesignerController extends Controller
                 $notify_admins_msg = [
                     'greeting' => 'Design Brief Accepted',
                     'subject' => $subject,
+                    'cc'=>$request->ccemail,
                     'body' => [
                         'text' => $text,
                         'company'=>$tempworkdata->company,
@@ -1520,9 +1531,11 @@ class DesignerController extends Controller
                         'designer' => '',
                         'name' => $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no,
                         'ext' => '',
+                        'comments'=>$request->comments,
                         'id'=>$request->tempworkid,
                         'type'=>'desingbrief',
                         'company'=>$tempworkdata->company,
+                        'attachfile'=>$attachfile
                     ],
                     'thanks_text' => 'Thanks For Using our site',
                     'action_text' => '',
@@ -1574,7 +1587,8 @@ class DesignerController extends Controller
                 return Redirect::back();
             }
         } catch (\Exception $exception) {
-            toastError('Something went wrong, try again!');
+            // toastError('Something went wrong, try again!');
+            dd($exception->getMessage());
             return Redirect::back();
         }
     }

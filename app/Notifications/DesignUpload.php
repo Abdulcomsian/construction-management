@@ -13,6 +13,8 @@ class DesignUpload extends Notification
      private $offerData;
      private $email;
      public $is_check;
+     protected $attachment;
+    //  public $ccemail;
     /**
      * Create a new notification instance.
      *
@@ -23,6 +25,8 @@ class DesignUpload extends Notification
         $this->offerData = $offerData;
         $this->email=$email;
         $this->is_check=$is_check;
+        $this->attachment = $offerData['body']['attachfile'];
+        // $this->ccemail = $offerData['cc'];
     }
 
     /**
@@ -44,6 +48,7 @@ class DesignUpload extends Notification
      */
     public function toMail($notifiable)
     {
+        // dd($this->offerData['cc']);
         if($this->is_check){
             $path = public_path('estimatorPdf/' . $this->offerData['body']['filename']);
         } else{
@@ -55,7 +60,12 @@ class DesignUpload extends Notification
             ->view('mail.designupload', ['details' => $this->offerData,'email'=>$this->email])
             ->attach($path, [
                 'as' => $this->offerData['body']['name'].'.pdf',
-            ]);
+            ])->cc($this->offerData['cc'])
+            ->attachData(
+                $this->attachment->get(),
+                $this->attachment->getClientOriginalName(),
+                ['mime' => $this->attachment->getClientMimeType()]
+            );
     }
 
     /**

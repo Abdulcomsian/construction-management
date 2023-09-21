@@ -187,7 +187,23 @@
                                                 </label>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary mt-5" style="border-radius: 0.25rem;">Submit</button>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="d-block">
+                                                <!--begin::Label-->
+                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                    <span class="required">Enter cc Email:</span>
+
+                                                </label>
+                                                <!--end::Label-->
+                                                <input type="text" class="form-control" id="cc_email" name="cc_email"
+                                                    />
+                                            </div>
+                                        </div>
+                                        <div class="col-md1">
+                                        <button type="submit" class="btn btn-primary float-end" style="border-radius: 0.25rem;">Submit</button>
+                                        </div>
                                     </div>
                                    
                                 </div>

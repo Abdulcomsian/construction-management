@@ -68,11 +68,16 @@
                             <label class="required fs-6 fw-bold mb-2">Comment:</label>
                             <textarea class="form-control form-control-solid" name="commment" required></textarea>
                         </div>
+                        
+                        <div class="col-md-12 fv-row" style="margin-top:0px;">
+                            {{-- <label class="fs-6 fw-bold mb-2">Image:</label> --}}
+                            <input  class="form-control form-control-solid" type="file" name="commentfile" />
+                        <div>
                        
                         
                     </div>
                   
-                    <div class="text-center">
+                    <div class="text-center mt-2">
                         <button type="submit" class="btn btn-primary">
                             <span class="indicator-label">Submit</span>
                         </button>
@@ -80,6 +85,22 @@
                    
                 </form>
                 <!--end:Form-->
+<<<<<<< HEAD
+=======
+                <table class="table table-hover" >
+                    <thead>
+                        <tr>
+                            <th style="text-align:left;">No</th>
+                            <th  style="text-align:left;">Comments</th>
+                            <th  style="text-align:left;">Reply</th>
+                            <th  style="text-align:left;">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="drawingreplydata">
+                        
+                    </tbody>
+                </table>
+>>>>>>> b0753d3b173f0f54739d7adb9985aa9720c408b5
             </div>
             <!--end::Modal body-->
         </div>

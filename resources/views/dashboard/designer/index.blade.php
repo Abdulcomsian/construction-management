@@ -657,6 +657,7 @@
 
                                     @foreach($DesignerUploads as $uploads)
                                     @php
+                                    $date = date('d-m-Y H:i', strtotime($uploads->created_at));
                                     $dno=explode('-',$uploads->drawing_number);
                                     $drawinglastno=$dno[sizeof($dno)-1];
                                     $sliced = array_slice($dno, 0, -1);
@@ -677,6 +678,10 @@
                                         <td>{{$loop->index+1}}</td>
                                         <td>{{$uploads->drawing_number}} <br>
                                             <a target="_blank" href="{{asset($uploads->file_name)}}"><i  style="color:#000;"  class="fa fa-eye"></i></a>
+                                            <br><br>
+                                            {{$date}}
+                                            <br><br>
+                                            Created By: {{$uploads->created_by}}
                                         </td>
                                         <td style="white-space:pre-wrap;">{{$uploads->comments}}</td>
                                         <td>{{$uploads->twd_name}}</td>
@@ -733,7 +738,11 @@
 
                                         <td colspan="2" class="border-bottom" style=" color: red">
                                             @if($mail!=$cments->sender_email)
-                                            <b style="white-space:pre-wrap;">{{$cments->drawing_comment}}</b><br>{{$cments->sender_email}}<br>{{date('H:i
+                                            <b style="white-space:pre-wrap;">{{$cments->drawing_comment}}</b><br>
+                                            @if($cments->drawing_image)
+                                            <a target="_blank" href="{{asset($cments->drawing_image)}}"><i  style="color:#000;"  class="fa fa-eye"></i></a><br>
+                                            @endif
+                                            {{$cments->sender_email}}<br>{{date('H:i
                                             d-m-Y',strtotime($cments->created_at))}}
                                             @endif
                                             @if($cments->drawing_reply)
@@ -992,7 +1001,7 @@
                                     </label>
                                     <div class="d-flex">
                                         <input type="hidden" name="mail" value="{{$mail}}">
-                                        <input type="text" class="form-control" name="checkeremail" value="">
+                                        <input type="text" class="form-control form-control-solid" id="design-check-name" name="checkeremail" value="" style="border:1px solid #d9dfe3;">
                                     </div>
                                 </div>
                             </div>
@@ -1390,6 +1399,9 @@ function toggleComment(button) {
   });
   $('#file').change(function() {
     $('#file').css("background-color", "white ");
+  });
+  $('#design-check-name').change(function() {
+    $('#design-check-name').css("background-color", "white ");
   });
 </script>
 @endsection

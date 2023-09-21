@@ -353,6 +353,35 @@
     width: 35%;
     left: 15px;
   }
+
+  .badge.badge-sm {
+    min-width: 1.5rem;
+    font-size: 1rem;
+}
+@media (min-width: 768px){
+  .m-md-2 {
+    margin: 0 !important;
+    display: block;
+}
+}
+.badge-success {
+    color: #fff;
+    background-color: #50cd89;
+    width: 85%;
+    padding: 14px;
+    border-radius: 8px;
+}
+
+.badge-danger {
+    color: #fff;
+    background-color: #f1416c;
+    float: right;
+    border-radius: 8px;
+    padding: 12px;
+}
+#name{
+  background-color:white;
+}
 </style>
 <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}" />
 
@@ -470,7 +499,7 @@
                   <label class="fs-6 fw-bold mb-2">
                     <span class="required">Project No :</span>
                   </label>
-                  <input readonly type="text" class="form-control form-control-solid" placeholder="000" id="no" name="projno" value="{{$project->no}}" readonly="readonly">
+                  <input readonly type="text" class="form-control form-control-solid" placeholder="000" id="no" name="projno" value="{{$project->no}}" readonly="readonly" style="background-color:white;">
                 </div>
               </div>
             </div>
@@ -481,7 +510,7 @@
                   <label class="fs-6 fw-bold mb-2">
                     <span class="required">Project Name :</span>
                   </label>
-                  <input readonly type="text" class="form-control form-control-solid" placeholder="Project Name" id="name" name="projname" value="{{$project->name}}" readonly="readonly">
+                  <input readonly type="text" class="form-control form-control-solid" placeholder="Project Name" id="name" name="projname" value="{{$project->name}}" readonly="readonly" >
                 </div>
               </div>
             </div>
@@ -594,9 +623,9 @@
             </div>
 
           </div>
-          <div class="row">
-            <div class="col-md-12">
-              <div id="files_div">
+          <div class="row mt-5">
+            <div class="col-md-6">
+              <div id="files_div" >
               </div>
               <div id="new_div" class="m-md-2">
               </div>
@@ -796,7 +825,7 @@
              
               <div class="d-flex">
                 <div class="d-flex modalDiv">
-                  <textarea name="description_approval_temp_works" rows="2" class="form-control" style="display: none; border: 1px solid lightgray; border-radius: 5px; margin-bottom: 10px" placeholder="Please specify">{{old('description_approval_temp_works')}}</textarea>
+                  <textarea name="description_approval_temp_works" id="description_approval_temp_works" rows="2" class="form-control form-control-solid" style="display: none; border: 1px solid lightgray !important; border-radius: 5px; margin-bottom: 10px" placeholder="Please specify">{{old('description_approval_temp_works')}}</textarea>
                 </div>
               </div>
               <!-- new work here -->
@@ -840,12 +869,12 @@
               </div>
               <div class="d-flex ">
                 <div class="d-flex modalDiv">
-                  <textarea name="description_minimum_concrete" rows="2" class="form-control" style="display: none; border: 1px solid lightgray; border-radius: 5px; margin-bottom: 10px" placeholder="Please specify">{{old('description_minimum_concrete')}}</textarea>
+                  <textarea name="description_minimum_concrete" id="y1" rows="2" class="form-control form-control-solid" style="display: none; border: 1px solid lightgray !important; border-radius: 5px; margin-bottom: 10px" placeholder="Please specify">{{old('description_minimum_concrete')}}</textarea>
                 </div>
               </div>
               <div class="d-flex ">
                 <div class="d-flex modalDiv">
-                  <input type="file" name="file_minimum_concrete" rows="2" class="form-control" style="display: none; border: 1px solid lightgray; border-radius: 5px; margin-bottom: 10px" placeholder="Please specify"></div>
+                  <input type="file" name="file_minimum_concrete" id="y2" rows="2" class="form-control form-control-solid" style="display: none; border: 1px solid lightgray !important; border-radius: 5px; margin-bottom: 10px" placeholder="Please specify"></div>
                 </div>
               </div>
               <div class="d-flex justify-content-between mb-3 requiredDiv">
@@ -889,7 +918,7 @@
               </div>
               <div class="d-flex ">
                 <div class="d-flex modalDiv">
-                  <textarea name="rate_rise_comment" rows="2" class="form-control" style="display: none; border: 1px solid lightgray; border-radius: 5px; margin-bottom: 10px" placeholder="Please specify">{{old('rate_rise_comment')}}</textarea>
+                  <textarea name="rate_rise_comment" id="rate_rise_comment" rows="2" class="form-control form-control-solid" style="display: none; border: 1px solid lightgray !important; border-radius: 5px; margin-bottom: 10px" placeholder="Please specify">{{old('rate_rise_comment')}}</textarea>
                 </div>
               </div>
               <div class="d-flex justify-content-between mb-3">
@@ -931,7 +960,7 @@
               </div>
               <div class="d-flex ">
                 <div class="d-flex modalDiv">
-                  <textarea name="construction_methodology_comment" rows="2" class="form-control" style="display: none; border: 1px solid lightgray; border-radius: 5px; margin-bottom: 10px" placeholder="Please specify">{{old('construction_methodology_comment')}}</textarea>
+                  <textarea name="construction_methodology_comment" id="construction_methodology_comment" rows="2" class="form-control form-control-solid" style="display: none; border: 1px solid lightgray !important; border-radius: 5px; margin-bottom: 10px" placeholder="Please specify">{{old('construction_methodology_comment')}}</textarea>
                 </div>
               </div>
               <!--  -->
@@ -2567,9 +2596,23 @@
   $('#twLocation').change(function() {
     $('#twLocation').css("background-color", "white");
   });
+  $('#description_approval_temp_works ').change(function() {
+    $('#description_approval_temp_works ').css("background-color", "white");
+  });
+  $('#y1').change(function() {
+    $('#y1').css("background-color", "white");
+  });
+  $('#y2').change(function() {
+    $('#y2').css("background-color", "white");
+  });
+  $('#rate_rise_comment').change(function() {
+    $('#rate_rise_comment').css("background-color", "white");
+  });
+  $('#construction_methodology_comment').change(function() {
+    $('#construction_methodology_comment').css("background-color", "white");
+  });
 
 
-  
   const clearBtns = document.querySelectorAll('.btn--clear');
   console.log(clearBtns);
 

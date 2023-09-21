@@ -971,29 +971,29 @@
 
                 </div>
                 <div class="row">
-                        <div class="col-md-12">
-                            <div id="files_div">
-                                @isset($images)
-                                @foreach($images as $image)
-                                    <input type="hidden" value="{{$image->id}}" name="unload_images[]" class="{{$image->id}}" /> 
-                                @endforeach
-                                @endisset
-                            </div>
-                            <div id="new_div" class="m-md-2">
-                                @isset($images)
-                                @foreach($images as $image)
-                                <span id="{{$image->id}}" >
-                                    <a target="_blank" href="{{asset($image->image)}}" title = "Click to Full View">
-                                        <span class="badge badge-success badge-lg p-2">File Uploaded</span>
-                                    </a>
-                                    <button type="button" onclick="deleteImageFile({{$image->id}})" class="remove-file btn btn-danger btn-sm p-2 pr-3 pl-3" data-filename="{{$image->id}}" title = "Delete File">&times;</button>
-                                </span>
-                                @endforeach
-                                @endisset
-                            </div>
+                    <div class="col-md-12">
+                        <div id="files_div">
+                            @isset($images)
+                            @foreach($images as $image)
+                                <input type="hidden" value="{{$image->id}}" name="unload_images[]" class="{{$image->id}}" /> 
+                            @endforeach
+                            @endisset
+                        </div>
+                        <div id="new_div" class="m-md-2">
+                            @isset($images)
+                            @foreach($images as $image)
+                            <span id="{{$image->id}}" >
+                                <a target="_blank" href="{{asset($image->image)}}" title = "Click to Full View">
+                                    <span class="badge badge-success badge-lg p-2">File Uploaded</span>
+                                </a>
+                                <button type="button" onclick="deleteImageFile({{$image->id}})" class="remove-file btn btn-danger btn-sm p-2 pr-3 pl-3" data-filename="{{$image->id}}" title = "Delete File">&times;</button>
+                            </span>
+                            @endforeach
+                            @endisset
                         </div>
                     </div>
-                <div>
+                </div>
+            <div>
                     <!-- @isset($images)
                         @foreach($images as $image)
                             <a target="_blank" href="{{asset($image->image)}}">Attachment {{$loop->iteration}} </a>

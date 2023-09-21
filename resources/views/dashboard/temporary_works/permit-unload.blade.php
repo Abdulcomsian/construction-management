@@ -458,7 +458,7 @@
                                     <label class="fs-6 fw-bold mb-2" style="bottom: 46px;">
                                         Location of the temporary works:
                                     </label>
-                                    <textarea name="location_temp_work" rows="2" cols="170" placeholder=" Location of the temporary works">{{$permitdata->location_temp_work ?? ''}}</textarea>
+                                    <textarea name="location_temp_work" rows="2" cols="170" placeholder=" Location of the temporary works">@if($errors->any()){{old('location_temp_work')}}@else{{$permitdata->location_temp_work ?? ''}}@endif</textarea>
                                 </div>
                             </div>
                             <div class=" inputDiv d-block">
@@ -467,7 +467,7 @@
                                     <label class="fs-6 fw-bold mb-2" style="bottom: 46px;">
                                         Description of structure:
                                     </label>
-                                    <textarea name="description_structure" rows="2" cols="170" placeholder="Description of structure:">{{$permitdata->description_structure ?? ''}}</textarea>
+                                    <textarea name="description_structure" rows="2" cols="170" placeholder="Description of structure:">@if($errors->any()){{old('description_structure')}}@else{{$permitdata->description_structure ?? ''}}@endif</textarea>
                                 </div>
                             </div>
                             <div class=" inputDiv d-block">
@@ -476,7 +476,7 @@
                                     <label class="fs-6 fw-bold mb-2">
                                         <span class="required">MS / RA Number:</span>
                                     </label>
-                                    <input type="text" class="form-control" placeholder="MS/RA Number" id="ms_ra_no" name="ms_ra_no" value="{{$permitdata->ms_ra_no ?? ''}}">
+                                    <input type="text" class="form-control" placeholder="MS/RA Number" id="ms_ra_no" name="ms_ra_no" value="@if($errors->any()){{old('ms_ra_no')}}@else{{$permitdata->ms_ra_no ?? ''}}@endif">
                                 </div>
                             </div>
                             <h5 style="color: #000; font-weight:600; font-size:24px">Permit to Unload / Strike</h5>
@@ -517,35 +517,35 @@
                                         <td class="col-md-4" style="padding-left: 25px;text-align: left; font-weight:500">Mix Design
                                             Details</td>
                                         <td style="padding-right:28px">
-                                            <input type="text" name="mix_design_detail" class="form-control form-control-solid tableinput" placeholder="Enter Mix Design Details">
+                                            <input type="text" name="mix_design_detail" class="form-control form-control-solid tableinput" value = "{{old('mix_design_detail')}}" placeholder="Enter Mix Design Details">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td style="padding-left: 25px;text-align: left; font-weight:500">Unique Cube Ref
                                             No.</td>
                                         <td style="padding-right:28px">
-                                            <input type="text" name="unique_ref_no" class="form-control form-control-solid tableinput" placeholder="Enter Unique Cube Ref No">
+                                            <input type="text" name="unique_ref_no" class="form-control form-control-solid tableinput" value = "{{old('unique_ref_no')}}" placeholder="Enter Unique Cube Ref No">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td style="padding-left: 25px;text-align: left; font-weight:500">Age of Cube
                                         </td>
                                         <td style="padding-right:28px">
-                                            <input type="text" name="age_cube" class="form-control form-control-solid tableinput" placeholder="Enter Age of Cube">
+                                            <input type="text" name="age_cube" class="form-control form-control-solid tableinput" value = "{{old('age_cube')}}" placeholder="Enter Age of Cube">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td style="padding-left: 25px;text-align: left; font-weight:500">Compressive
                                             Strength N/mm2</td>
                                         <td style="padding-right:28px">
-                                            <input type="text" name="compressive_strength" class="form-control form-control-solid tableinput" placeholder="Enter Compressive Strength N/mm2">
+                                            <input type="text" name="compressive_strength" class="form-control form-control-solid tableinput" value = "{{old('compressive_strength')}}" placeholder="Enter Compressive Strength N/mm2">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td style="padding-left: 25px;text-align: left; font-weight:500">Method of
                                             Curing</td>
                                         <td style="padding-right:28px">
-                                            <input type="text" name="method_curing" class="form-control form-control-solid tableinput" placeholder="Enter Method of Curing">
+                                            <input type="text" name="method_curing" class="form-control form-control-solid tableinput" value = "{{old('method_curing')}}" placeholder="Enter Method of Curing">
                                         </td>
                                     </tr>
                                 </tbody>
@@ -558,14 +558,14 @@
                                 <label style="color:black; bottom: 45px">TWC to define the extents, limits and controls
                                     for this PTS (where
                                     applicable)</label>
-                                <textarea name="twc_control_pts" class="twcTextArea" rows="2" style="width:100%;"></textarea>
+                                <textarea name="twc_control_pts" class="twcTextArea" rows="2" style="width:100%;">{{old('twc_control_pts')}}</textarea>
                             </div>
 
                             <div class="inputDiv">
                                 <label style="color:black; bottom: 45px">Back-propping and additional requirements;
                                     limitations and
                                     exclusions; explanatory sketches references (if applicable)</label>
-                                <textarea name="back_propping" rows="2" style="width:100%;"></textarea>
+                                <textarea name="back_propping" rows="2" style="width:100%;">{{old('back_propping')}}</textarea>
                             </div>
                             <br>
                             <p style="color: black;"> I hereby authorise the temporary works to be struck out or removed
@@ -597,7 +597,7 @@
                                     <span>PC TWC Email:</span>
                                 </label>
                                 <!--end::Label-->
-                                <input type="email" class="form-control form-control-solid" name="pc_twc_email" id="pc-twc-email" placeholder="Email" value="" required="required">
+                                <input type="email" class="form-control form-control-solid" name="pc_twc_email" id="pc-twc-email" placeholder="Email" value="{{old('pc_twc_email')}}" required="required">
                             </div>
                         </div>
                     </div>
@@ -628,7 +628,7 @@
                                 <label class="fs-6 fw-bold mb-2">
                                     <span>Comments:</span>
                                 </label>
-                                <textarea name="comments" class="form-control"></textarea>
+                                <textarea name="comments" class="form-control" >{{old('comments')}}</textarea>
                             </div>
                         </div>
                     </div>

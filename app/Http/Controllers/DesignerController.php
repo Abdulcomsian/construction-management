@@ -18,6 +18,7 @@ use App\Models\ScopeOfDesign;
 use App\Models\Folder;
 use App\Models\AttachSpeComment;
 use App\Models\{TemporayWorkImage, Project,DesignerQuotation,EstimatorDesignerList,AdditionalInformation, DesignerCertificate, JobAssign, Tag};
+use App\Models\DesignerCompanyEmail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Crypt;
 use Yajra\DataTables\DataTables;
@@ -394,7 +395,7 @@ class DesignerController extends Controller
         {
             ChangeEmailHistory::where(['foreign_idd'=>$id,'type'=>'Designer Checker'])->orderBy('id','desc')->update(['status'=>1]);
         }
-        $DesignerUploads = TempWorkUploadFiles::where(['file_type' => 1, 'temporary_work_id' => $id,'created_by'=>$mail])->orderBy('id','desc')->get();
+        $DesignerUploads = TempWorkUploadFiles::where(['file_type' => 1, 'temporary_work_id' => $id])->orderBy('id','desc')->get(); //,'created_by'=>$mail
         $Designerchecks = TempWorkUploadFiles::where(['file_type' => 2, 'temporary_work_id' => $id,'created_by'=>$mail])->get();
         $riskassessment = TempWorkUploadFiles::where(['temporary_work_id' => $id,'created_by'=>$mail])->whereIn('file_type',[5,6])->get();
         $twd_name = TemporaryWork::select('twc_name')->where('id', $id)->first();
@@ -1605,9 +1606,17 @@ class DesignerController extends Controller
             //new code ends here
             $twc_email = TemporaryWork::select('twc_email')->find($permitdata->temporary_work_id);
             $createdby = User::find($permitdata->created_by);
-            PermitLoad::find($request->permitid)->update([
-                'status' => $request->status,
-            ]);
+            if($request->status==3){ //if accepted then we need to udpate status to 3 accepted and reove draft
+                PermitLoad::find($request->permitid)->update([
+                    'status' => $request->status,
+                    'draft_status' => "2",
+                ]);
+            }else  if($request->status==1){
+                PermitLoad::find($request->permitid)->update([
+                    // 'status' => $request->status,
+                    'draft_status' => "1",
+                ]);
+            }
             if ($request->status == 5) {
                 $model = new PermitComments();
                 $model->comment = $request->comments;
@@ -1860,7 +1869,7 @@ class DesignerController extends Controller
                 {
                     $none='display:none;';
                 }
-            $list.='<tr style="padding:5px"><td>'.$i.'</td><td style="max-width:300px;overflow-x:scroll;white-space: pre-wrap;">'.$comment->sender_email.'<br>'.$comment->drawing_comment.'<br'.date('d-m-Y',strtotime($comment->created_at)).'</td><td style="white-space: pre-wrap;">'. $replyemail.'<br>'.$reply.'<br>'. $image.'<form style="'. $none.'" method="post" action="' . route("drawing.reply") . '" enctype="multipart/form-data">
+            $list.='<tr style="padding:5px"><td style="padding-left:10px !Important;">'.$i.'</td><td style="max-width:300px;overflow-x:scroll;white-space: pre-wrap;">'.$comment->sender_email.'<br>'.$comment->drawing_comment.'<br'.date('d-m-Y',strtotime($comment->created_at)).'</td><td style="white-space: pre-wrap;">'. $replyemail.'<br>'.$reply.'<br>'. $image.'<form style="'. $none.'" method="post" action="' . route("drawing.reply") . '" enctype="multipart/form-data">
                                    <input type="hidden" name="_token" value="' . csrf_token() . '"/>
                                    <input type="hidden" name="id" value="' . $comment->id . '"/>
                                    <input type="hidden" name="drawingid" value="'.$id.'" />
@@ -1903,20 +1912,42 @@ class DesignerController extends Controller
     {
         
         $temp_work_id=TempWorkUploadFiles::find($request->drawingid);
-        $tempdata=TemporaryWork::select('twc_email')->find($temp_work_id->temporary_work_id);
+        $tempdata=TemporaryWork::select('id', 'designer_company_email', 'twc_email')->find($temp_work_id->temporary_work_id);
         $model= new DrawingComment();
         $model->drawing_comment=$request->commment;
         $model->temp_work_upload_files_id=$request->drawingid;
         $model->sender_email=$tempdata->twc_email;
+        if ($request->file('commentfile')) {
+            $filePath = HelperFunctions::temporaryworkcommentPath();
+            $file = $request->file('commentfile');
+            $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+            $model->drawing_image=$imagename;
+
+        } else {
+            $model->drawing_image='';
+        }
         if($model->save())
         {
-            $chm= new ChangeEmailHistory();
-            $chm->email=$temp_work_id->created_by;
-            $chm->type ='Designer Company';
-            $chm->foreign_idd=$temp_work_id->temporary_work_id;
-            $chm->message='Twc Added Comment';
-            $chm->save();
-            Notification::route('mail', $temp_work_id->created_by)->notify(new DrawingCommentNotification($request->commment,'twcquestion',$temp_work_id->created_by,$temp_work_id->temporary_work_id));
+            $cmh= new ChangeEmailHistory();
+             $cmh->email=$tempdata->designer_company_email;
+             $cmh->type ='Comment added';
+             $cmh->foreign_idd=$tempdata->id;
+             $cmh->status=2;
+             $cmh->message='Comment added against drawing by ' . auth::user()->email;
+             $cmh->save();
+            // Notification::route('mail', $temp_work_id->created_by)->notify(new DrawingCommentNotification($request->commment,'twcquestion',$temp_work_id->created_by,$temp_work_id->temporary_work_id));
+            Notification::route('mail', $tempdata->designer_company_email)->notify(new DrawingCommentNotification($request->commment,'twcquestion',$tempdata->designer_company_email,$temp_work_id->temporary_work_id));
+            $designerCompanyEmails = DesignerCompanyEmail::where('temporary_work_id', $tempdata->id)->get();
+            foreach($designerCompanyEmails as $designeremail){
+             $cmh= new ChangeEmailHistory();
+             $cmh->email=$designeremail->email;
+             $cmh->type ='Comment added';
+             $cmh->foreign_idd=$tempdata->id;
+             $cmh->status=2;
+             $cmh->message='Comment added against drawing by ' . auth::user()->email;
+             $cmh->save();
+                 Notification::route('mail', $designeremail->email)->notify(new DrawingCommentNotification($request->comment, 'twcquestion', $designeremail->email,$temp_work_id->temporary_work_id));
+            }
             toastSuccess('Comment Added  Successfully!');
             return Redirect::back();
         }

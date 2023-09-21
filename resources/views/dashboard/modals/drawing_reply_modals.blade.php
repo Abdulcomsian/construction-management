@@ -24,17 +24,42 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                 <!--begin:Form-->
+
+                
+                <div class="mb-13 text-center">
+                      
+                      <h1 class="mb-3">Send a Comment to the Designer </h1>
+                     
+                  </div>
+
+
+
+                <table class="table table-hover" >
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Comments</th>
+                            <th>Reply</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="drawingreplydata">
+                        
+                    </tbody>
+                </table>
+
+
                 <form id="kt_modal_new_target_form" class="form company_details_form" action="{{ route('twcdrawing.comment') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="drawingid" id="drwingid" />
                    
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
+<!-- 
                     <div class="mb-13 text-center">
                       
-                        <h1 class="mb-3">Send a Comment to the Designer</h1>
+                        <h1 class="mb-3">Send a Comment to the Designer </h1>
                        
-                    </div>
+                    </div> -->
                    
 
                     <div class="row g-9 mb-8">
@@ -60,6 +85,8 @@
                    
                 </form>
                 <!--end:Form-->
+<<<<<<< HEAD
+=======
                 <table class="table table-hover" >
                     <thead>
                         <tr>
@@ -73,6 +100,7 @@
                         
                     </tbody>
                 </table>
+>>>>>>> b0753d3b173f0f54739d7adb9985aa9720c408b5
             </div>
             <!--end::Modal body-->
         </div>

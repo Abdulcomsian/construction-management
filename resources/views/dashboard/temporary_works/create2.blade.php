@@ -383,7 +383,7 @@ height: 72px;
                     <!--begin::Card title-->
                     <div class="card-title list_top" style="width:100%; display: flex !important; justify-content: space-between;align-items:center">
                         <h2 class="db_mr" style="display: inline-block;width:36%; font-family: 'Inter', sans-serif; font-weight:600; font-size:32px">Design Brief</h2>
-                        <a style="width: 273px; text-align:center;color:#fff;padding:10px 2px;font-family: 'Inter', sans-serif; font-weight:600; font-size:18px" href="{{ url('manuall-designbrief-form') }}" class="newDesignBtn">Upload existing design brief</a>
+                        <a style="width: 273px; text-align:center;color:#fff;padding:10px 2px;font-family: 'Inter', sans-serif; font-weight:600; font-size:18px" href="{{ url('manuall-designbrief-form') }}" class="newDesignBtn">Upload existing design brief </a>
                         
                         
                     </div>

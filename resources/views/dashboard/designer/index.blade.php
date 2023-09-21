@@ -30,7 +30,7 @@
 
     }
 
-    . .card {
+    .card {
         margin: 30px 0px;
         border-radius: 10px !important;
         border: none !important;
@@ -79,7 +79,7 @@
 
     .inputDiv input {
         width: 90%;
-        background-color: White !important;
+        background-color: #f5f8fa ;
         border-color: #d9dfe3 !important;
         color: #000;
     }
@@ -196,7 +196,10 @@
     }
 
     .drawing_infoTable tbody tr:nth-child(odd) {
-        background: #c8e6c8 !important;
+        /* background: #c8e6c8 !important; */
+         background: pink !important; 
+
+        
     }
     .tag-container {
             display: flex;
@@ -220,6 +223,14 @@
         input[type="checkbox"] {
             /* display: none; */
         }
+        .btn-comment{
+            color: white !important;
+    border: 1px solid green !important;
+    background-color: green;
+    padding: 1px 10px !important;
+    font-size: 12px;
+        }
+
 </style>
 @include('dashboard.modals.drawing_delete_modals')
 
@@ -499,16 +510,17 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="inputDiv d-block">
-                                            <!--begin::Label-->
+                                        
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                                 <span class="required">Drawing Title:</span>
 
                                             </label>
-                                            <!--end::Label-->
+                                        
                                             <input type="text" class="form-control form-control-solid"
                                                 id="drawing_title" name="drawing_title" value="{{old('drawing_title')}}"
                                                 required>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -529,7 +541,7 @@
                                             <span class="input-group-text" style="border:none"
                                                 id="drawingno-addon">P</span>
                                         </div>
-                                        <input type="number" max="99" onKeyDown="limitText(this,2);"
+                                        <input type="number" id="max" max="99" onKeyDown="limitText(this,2);"
                                             onKeyUp="limitText(this,2);" class="form-control form-control-solid"
                                             placeholder="01" name="drawing_postfix_no" required="required"
                                             style="width: 20%">
@@ -676,12 +688,20 @@
                                         <td>{{$uploads->drawing_title}}</td>
                                         <td>{{$uploads->preliminary_approval==1 ? 'Yes':'No'}}</td>
                                         <td>{{$uploads->construction==1 ? 'Yes':'No'}}</td>
-                                        <td style="display:flex; flex-direction:column;padding: 10px">
-                                            {{-- <button class="btn" onclick="Editdesign({{$uploads}});"><i class="fas fa-edit"></i></button> --}}
-                                            
+
+                                        <td style="padding: 10px;">
+                                            <div class="d-flex justify-content-around">
+                                            <button class="btn btn-comment" style="align-self:center; border" onclick="toggleComment(this)">Add Comment</button>
+                                                   
                                             <button class="mt-2 deletedrawing" style="border-radius:4px; border:none;background: transparent; padding:5px;" title="Reply To Designer" data-id="{{$uploads->id}}"><i style="padding:3px;" class="fa fa-trash"></i></button>
+                                            </div>
+
+                                        <div class="comment" style="display:none;">
+                                        {{-- <button class="btn" onclick="Editdesign({{$uploads}});"><i class="fas fa-edit"></i></button> --}}
+                                            
+                                            
                                                 <!-- <a class="btn" href="{{route('designer.delete',$uploads->id)}}"><i class="fas fa-trash"></i></a> -->
-                                            <form method="post" action="{{route('drawing.comment')}}">
+                                            <form method="post" action="{{route('drawing.comment')}}" >
                                                 @csrf
                                                 <textarea class="form-control" row="2" required
                                                     name="comment"></textarea><br>
@@ -689,9 +709,11 @@
                                                 <input type="hidden" name="tempid"
                                                     value="{{$uploads->temporary_work_id}}">
                                                 <input type="hidden" name="mail" value="{{$mail}}">
-                                                <button class="btn btn-primary" style="align-self:center">Add
-                                                    Comment</button>
+                                                <button class="btn btn-primary" style="align-self:center">Submit</button>
                                             </form>
+                                        </div>
+
+
                                         </td>
                                     </tr>
                                     @if(count($comments)>0)
@@ -701,7 +723,10 @@
                                         <td class="border"><b>Comment/Reply</b></td>
                                         @php $style='';@endphp
                                         @if($mail==$cments->sender_email)
-                                        <td colspan="2" style="white-space:pre-wrap; max-width: 30px;{{$style}}" class="border-bottom">
+                                        
+                                        <!-- <td colspan="2" class="border-bottom"  style="white-space:pre-wrap; max-width: 30px;{{$style}}" > -->
+                                        <td colspan="2" class="border-bottom"  style="color:black" >
+
                                             <b style="white-space: pre-wrap;">{{$cments->drawing_comment}}</b><br>{{$cments->sender_email}}<br>{{date('H:i
                                             d-m-Y',strtotime($cments->created_at))}}
                                         </td>
@@ -976,7 +1001,7 @@
                                     </label>
                                     <div class="d-flex">
                                         <input type="hidden" name="mail" value="{{$mail}}">
-                                        <input type="text" class="form-control" name="checkeremail" value="">
+                                        <input type="text" class="form-control form-control-solid" id="design-check-name" name="checkeremail" value="" style="border:1px solid #d9dfe3;">
                                     </div>
                                 </div>
                             </div>
@@ -1337,7 +1362,47 @@
             alert('An error occurred. Please try again.');
         });
     }
-    
+
 
 </script>
+
+<script>
+
+// click on add comment button to show a comment section to add comment
+function toggleComment(button) {
+        var commentDiv = button.parentNode.nextElementSibling;        
+        if (commentDiv.style.display === 'none' || commentDiv.style.display === '') {
+            commentDiv.style.display = 'block';
+        } else {
+            commentDiv.style.display = 'none';
+        }
+    }
+
+</script>
+
+<script>
+      $('#drawing_title').change(function() {
+    $('#drawing_title').css("background-color", "white ");
+  });
+
+  $('#twd_name').change(function() {
+    $('#twd_name').css("background-color", "white ");
+  });
+  $('#comments').change(function() {
+    $('#comments').css("background-color", "white ");
+  });
+  $('#drawing_number').change(function() {
+    $('#drawing_number').css("background-color", "white ");
+  });
+  $('#max').change(function() {
+    $('#max').css("background-color", "white ");
+  });
+  $('#file').change(function() {
+    $('#file').css("background-color", "white ");
+  });
+  $('#design-check-name').change(function() {
+    $('#design-check-name').css("background-color", "white ");
+  });
+</script>
 @endsection
+

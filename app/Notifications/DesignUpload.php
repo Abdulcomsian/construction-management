@@ -60,12 +60,14 @@ class DesignUpload extends Notification
             ->view('mail.designupload', ['details' => $this->offerData,'email'=>$this->email])
             ->attach($path, [
                 'as' => $this->offerData['body']['name'].'.pdf',
-            ])
-            ->attachData(
-                $this->attachment->get(),
-                $this->attachment->getClientOriginalName(),
-                ['mime' => $this->attachment->getClientMimeType()]
-            );
+            ]);
+            if($this->attachment!=""){
+                $send_email->attachData(
+                    $this->attachment->get(),
+                    $this->attachment->getClientOriginalName(),
+                    ['mime' => $this->attachment->getClientMimeType()]
+                );
+            }
             if ($cc_email = $this->offerData['cc'] ?? null)
             {
                 $send_email->cc($cc_email);

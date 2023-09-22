@@ -245,6 +245,7 @@ $data = [
         @endif
 
         $(document).on('click', '.project_details', function() {
+
             let type = $(this).attr('value');
             $('.project_details_form').trigger("reset");
             $('#error_div').remove();

@@ -1023,12 +1023,16 @@
                     </form>
 
                     <div class="row" style="background:white;margin: 0 4px;">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <table class="table table-hover" style="width: 100%">
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>Email</th>
+                                        <th>Document Type</th>
                                         <th>Design Check Certificate</th>
+                                        <th>File</th>
+                                        <th>Date</th>
                                     </tr>
                                 </thead>
                                 <tbody>

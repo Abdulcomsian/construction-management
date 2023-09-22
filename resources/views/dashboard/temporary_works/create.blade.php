@@ -305,8 +305,8 @@
     }
 
     #desingform input {
-        /* background-color: #fff; */
-        background-color:rgb(245, 248, 250);
+        background-color: #fff;
+        /* background-color:rgb(245, 248, 250); */
         border: none !important;
         color: #000 !important;
     }
@@ -1044,13 +1044,13 @@
                     <!--end::Label-->
                     <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title3" name="job_title3">
                   </div>
-                  <div class="d-flex inputDiv ">
+                  <div class="d-flex inputDiv w-100">
                     <!--begin::Label-->
                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                       <span class="required">Company: </span>
                     </label>
                     <!--end::Label-->
-                    <div class="input">
+                    <div class="input w-100">
                       <input type="text" id="companyadmin3" class="form-control form-control-solid" placeholder="Company" name="company3">
                       <!-- name="company1" -->
                       <input type="hidden" id="companyid3" class="form-control form-control-solid" placeholder="Company" name="companyid3" readonly="readonly">
@@ -1062,8 +1062,8 @@
                       <span class="required">Date:</span>
                     </label>
                     <!--end::Label-->
-                    <div class="input">
-                      <input type="date" name="date3" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                    <div class="input w-100">
+                      <input type="date" name="date3"  value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
                       <!-- name="date1" -->
                     </div>
                   </div>
@@ -1077,6 +1077,12 @@
                             <input type="radio" class="checkbox-field" id="DrawCheck1" checked=true style="width: 12px;">
                             <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="2"> -->
                             <span style="padding-left:14px;font-family: 'Inter', sans-serif; color:#000;font-size:14px;line-height: 2">Draw</span>
+
+                            <div style="display:flex; align-items: center; padding-left:10px">
+                                <input type="radio" class="" id="flexCheckChecked3" style="width: 12px;">
+                                <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="2">
+                                <span style="padding-left:14px;font-family: 'Inter', sans-serif;color:#000;font-size:14px;line-height: 2">Name</span>
+                            </div>
                         </div>
                         <!--end::Label-->
                     </div>
@@ -1099,7 +1105,7 @@
                 <div class="col-md-6 mt-md-5" id="fourth_member" style="display: none">
                         <!-- <div class="d-flex inputDiv d-block">
                                             </div> -->
-                    <div class="d-flex inputDiv principleno mt-0">
+                    <div class="d-flex inputDiv principleno mt-0 w-100">
                         <!--begin::Label-->
                         <label class="fs-6 fw-bold mb-2">
                         <span class="required">Name:</span>
@@ -1115,13 +1121,13 @@
                         <!--end::Label-->
                         <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title4" name="job_title4">
                     </div>
-                    <div class="d-flex inputDiv ">
+                    <div class="d-flex inputDiv w-100">
                         <!--begin::Label-->
                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                         <span class="required">Company: </span>
                         </label>
                         <!--end::Label-->
-                        <div class="input">
+                        <div class="input w-100">
                         <input type="text" id="companyadmin4" class="form-control form-control-solid" placeholder="Company" name="company4">
                         <!-- name="company1" -->
                         <input type="hidden" id="companyid4" class="form-control form-control-solid" placeholder="Company" name="companyid" readonly="readonly">
@@ -1133,8 +1139,8 @@
                         <span class="required">Date:</span>
                         </label>
                         <!--end::Label-->
-                        <div class="input">
-                        <input type="date" name="date4" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                        <div class="input w-100">
+                        <input type="date" name="date4"  value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
                         <!-- name="date1" -->
                         </div>
                     </div>
@@ -1145,17 +1151,24 @@
                                     Type:</span>
                             </label>
                             <div style="display:flex; align-items: center; padding-left:10px">
-                                <input type="radio" class="checkbox-field" id="DrawCheck1" checked=true style="width: 12px;">
+                                <input type="radio" class="checkbox-field" id="DrawCheck2" checked=true style="width: 12px;">
                                 <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="2"> -->
                                 <span style="padding-left:14px;font-family: 'Inter', sans-serif; color:#000;font-size:14px;line-height: 2">Draw</span>
+
+
+                                <div style="display:flex; align-items: center; padding-left:10px">
+                                    <input type="radio" class="" id="flexCheckChecked4" style="width: 12px;">
+                                    <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="2">
+                                    <span style="padding-left:14px;font-family: 'Inter', sans-serif;color:#000;font-size:14px;line-height: 2">Name</span>
+                                </div>
                             </div>
                             <!--end::Label-->
                         </div>
-                        <div class="d-flex" id="namesign1" style="display: none !important;">
+                        <div class="inputDiv" id="namesign4" style="display: none !important;">
                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                 <span class="required">Name Signature:</span>
                             </label>
-                            <input type="text" name="namesign4" id="namesign_id4" class="form-control form-control-solid">
+                            <input type="text" name="namesign4" id="namesign4" class="form-control form-control-solid">
                         </div>
                         <div class="d-flex inputDiv principleno m-0" id="sign4" style="border:none !important;">
                             {{-- <br /> --}}
@@ -1184,7 +1197,7 @@
                     <!--end::Label-->
                     <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title5" name="job_title5">
                     </div>
-                    <div class="d-flex inputDiv ">
+                    <div class=" inputDiv w-100">
                     <!--begin::Label-->
                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                         <span class="required">Company: </span>
@@ -1202,8 +1215,8 @@
                         <span class="required">Date:</span>
                     </label>
                     <!--end::Label-->
-                    <div class="input">
-                        <input type="date" name="date5" style="background-color:#f5f8fa" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
+                    <div class="input w-100">
+                        <input type="date" name="date5" value="{{ date('Y-m-d') }}" class="form-control form-control-solid">
                         <!-- name="date1" -->
                     </div>
                     </div>
@@ -1214,13 +1227,19 @@
                                     Type:</span>
                             </label>
                             <div style="display:flex; align-items: center; padding-left:10px">
-                                <input type="radio" class="checkbox-field" id="DrawCheck1" checked=true style="width: 12px;">
+                                <input type="radio" class="checkbox-field" id="DrawCheck3" checked=true style="width: 12px;">
                                 <!-- <input type="hidden" id="Drawtype" name="Drawtype" class="form-control form-control-solid" value="2"> -->
                                 <span style="padding-left:14px;font-family: 'Inter', sans-serif; color:#000;font-size:14px;line-height: 2">Draw</span>
+
+                                <div style="display:flex; align-items: center; padding-left:10px">
+                                    <input type="radio" class="" id="flexCheckChecked5" style="width: 12px;">
+                                    <input type="hidden" id="signtype" name="signtype" class="form-control form-control-solid" value="2">
+                                    <span style="padding-left:14px;font-family: 'Inter', sans-serif;color:#000;font-size:14px;line-height: 2">Name</span>
+                                </div>
                             </div>
                             <!--end::Label-->
                         </div>
-                        <div class="d-flex align-items-center" id="namesign1" style="display: none !important;">
+                        <div class="d-flex align-items-center" id="namesign5" style="display: none !important;">
                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                 <span class="required">Name Signature:</span>
                             </label>
@@ -1363,15 +1382,75 @@
             $("#sign").css('display', 'flex');
 
         }
-        // else{
-        //     $("#signtype").val(2);
-        //     $("#sign").addClass('d-flex').show();
-        //     $("#namesign").removeClass('d-flex').hide();
-        //     $("input[name='namesign']").removeAttr('required');
-        //     $("#clear").show();
-        //     $(".customSubmitButton").addClass("hideBtn");
-        //     $(".customSubmitButton").removeClass("showBtn");
-        // }
+    })
+    $("#DrawCheck1").change(function() {
+        if ($(this).is(':checked')) {
+            $('#submitbutton').prop('disabled', true);
+            $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary"); //.addAttr("disabled");
+            $("#sigimage").show();
+            $("#pdfChecked").prop('checked', false);
+            $("#flexCheckChecked3").prop('checked', false);
+            $("#signtype").val(0);
+            $("#pdfsign").val(0);
+            $("#Drawtype").val(1);
+            // $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+            // $("#pdfsign").removeClass('d-flex').addClass("d-none");
+            // $(".customSubmitButton").removeClass("hideBtn");
+            // $(".customSubmitButton").addClass("showBtn");
+            //  $("input[name='pdfsign']").removeAttr('required');
+            // $("input[name='namesign']").attr('required','required');
+            $("#clear").show();
+            $("div#pdfsign").removeClass('d-flex').addClass("d-none");
+            $("div#namesign3").removeClass('d-flex').addClass("d-none");
+            $("#sign3").css('display', 'flex');
+
+        }
+    })
+    $("#DrawCheck2").change(function() {
+        if ($(this).is(':checked')) {
+            $('#submitbutton').prop('disabled', true);
+            $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary"); //.addAttr("disabled");
+            $("#sigimage").show();
+            // $("#pdfChecked").prop('checked', false);
+            $("#flexCheckChecked4").prop('checked', false);
+            $("#signtype").val(0);
+            $("#pdfsign").val(0);
+            $("#Drawtype").val(1);
+            // $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+            // $("#pdfsign").removeClass('d-flex').addClass("d-none");
+            // $(".customSubmitButton").removeClass("hideBtn");
+            // $(".customSubmitButton").addClass("showBtn");
+            //  $("input[name='pdfsign']").removeAttr('required');
+            // $("input[name='namesign']").attr('required','required');
+            $("#clear").show();
+            $("div#pdfsign").removeClass('d-flex').addClass("d-none");
+            $("div#namesign4").removeClass('d-flex').addClass("d-none");
+            $("#sign4").css('display', 'flex');
+
+        }
+    })
+    $("#DrawCheck3").change(function() {
+        if ($(this).is(':checked')) {
+            $('#submitbutton').prop('disabled', true);
+            $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary"); //.addAttr("disabled");
+            $("#sigimage").show();
+            // $("#pdfChecked").prop('checked', false);
+            $("#flexCheckChecked5").prop('checked', false);
+            $("#signtype").val(0);
+            $("#pdfsign").val(0);
+            $("#Drawtype").val(1);
+            // $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+            // $("#pdfsign").removeClass('d-flex').addClass("d-none");
+            // $(".customSubmitButton").removeClass("hideBtn");
+            // $(".customSubmitButton").addClass("showBtn");
+            //  $("input[name='pdfsign']").removeAttr('required');
+            // $("input[name='namesign']").attr('required','required');
+            $("#clear").show();
+            $("div#pdfsign").removeClass('d-flex').addClass("d-none");
+            $("div#namesign5").removeClass('d-flex').addClass("d-none");
+            $("#sign5").css('display', 'flex');
+
+        }
     })
     $("#flexCheckChecked").change(function() {
         if ($(this).is(':checked')) {
@@ -1390,6 +1469,90 @@
             $("input[name='namesign']").attr('required', 'required');
             $("#clear").hide();
             $("#sign").removeClass('d-flex').hide();
+
+        } else {
+            $("#signtype").val(2);
+            $("#sign").addClass('d-flex').show();
+            $("#namesign").removeClass('d-flex').hide();
+            $("input[name='namesign']").removeAttr('required');
+            $("#clear").show();
+            $(".customSubmitButton").addClass("hideBtn");
+            $(".customSubmitButton").removeClass("showBtn");
+        }
+    })
+    $("#flexCheckChecked3").change(function() {
+        if ($(this).is(':checked')) {
+            $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+            $("#sigimage").hide();
+            $("#pdfChecked").prop('checked', false);
+            $("#DrawCheck1").prop('checked', false);
+            $("#signtype").val(1);
+            $("#pdfsign").val(0);
+            $("#Drawtype").val(0);
+            $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+            $("#namesign3").addClass('d-flex').show();
+            $(".customSubmitButton").removeClass("hideBtn");
+            $(".customSubmitButton").addClass("showBtn");
+            $("input[name='pdfsign']").removeAttr('required');
+            $("input[name='namesign']").attr('required', 'required');
+            $("#clear").hide();
+            $("#sign3").removeClass('d-flex').hide();
+
+        } else {
+            $("#signtype").val(2);
+            $("#sign").addClass('d-flex').show();
+            $("#namesign").removeClass('d-flex').hide();
+            $("input[name='namesign']").removeAttr('required');
+            $("#clear").show();
+            $(".customSubmitButton").addClass("hideBtn");
+            $(".customSubmitButton").removeClass("showBtn");
+        }
+    })
+    $("#flexCheckChecked4").change(function() {
+        if ($(this).is(':checked')) {
+            $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+            $("#sigimage").hide();
+            // $("#pdfChecked").prop('checked', false);
+            $("#DrawCheck2").prop('checked', false);
+            $("#signtype").val(1);
+            $("#pdfsign").val(0);
+            $("#Drawtype").val(0);
+            $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+            $("#namesign4").addClass('d-flex').show();
+            $(".customSubmitButton").removeClass("hideBtn");
+            $(".customSubmitButton").addClass("showBtn");
+            $("input[name='pdfsign']").removeAttr('required');
+            $("input[name='namesign']").attr('required', 'required');
+            $("#clear").hide();
+            $("#sign4").removeClass('d-flex').hide();
+
+        } else {
+            $("#signtype").val(2);
+            $("#sign").addClass('d-flex').show();
+            $("#namesign").removeClass('d-flex').hide();
+            $("input[name='namesign']").removeAttr('required');
+            $("#clear").show();
+            $(".customSubmitButton").addClass("hideBtn");
+            $(".customSubmitButton").removeClass("showBtn");
+        }
+    })
+    $("#flexCheckChecked5").change(function() {
+        if ($(this).is(':checked')) {
+            $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+            $("#sigimage").hide();
+            // $("#pdfChecked").prop('checked', false);
+            $("#DrawCheck3").prop('checked', false);
+            $("#signtype").val(1);
+            $("#pdfsign").val(0);
+            $("#Drawtype").val(0);
+            $("div#pdfsign").removeClass('d-flex').addClass('d-none');
+            $("#namesign5").addClass('d-flex').show();
+            $(".customSubmitButton").removeClass("hideBtn");
+            $(".customSubmitButton").addClass("showBtn");
+            $("input[name='pdfsign']").removeAttr('required');
+            $("input[name='namesign']").attr('required', 'required');
+            $("#clear").hide();
+            $("#sign5").removeClass('d-flex').hide();
 
         } else {
             $("#signtype").val(2);
@@ -1531,6 +1694,38 @@
 
         $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary"); //.addAttr("disabled");
     });
+    signaturePad1.addEventListener("endStroke", () => {
+        console.log("hello");
+        $("#signature").val(signaturePad.toDataURL('image/png'));
+        $("#sigimage").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
+        $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+        // $('#submitbutton')
+    });
+    $('#clear').click(function(e) {
+        e.preventDefault();
+        signaturePad.clear();
+        $("#signature").val('');
+        $("#sigimage").text("Signature Not Added").removeClass('text-sucess').addClass('text-danger');
+        $('#submitbutton').prop('disabled', true);
+
+        $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary"); //.addAttr("disabled");
+    });
+    signaturePad2.addEventListener("endStroke", () => {
+        console.log("hello");
+        $("#signature").val(signaturePad.toDataURL('image/png'));
+        $("#sigimage").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
+        $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+        // $('#submitbutton')
+    });
+    $('#clear').click(function(e) {
+        e.preventDefault();
+        signaturePad.clear();
+        $("#signature").val('');
+        $("#sigimage").text("Signature Not Added").removeClass('text-sucess').addClass('text-danger');
+        $('#submitbutton').prop('disabled', true);
+
+        $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary"); //.addAttr("disabled");
+    });
 
     // $("#submitbutton").on('click',function(e){
     // if ( $("#desingform-form").valid() ) {
@@ -1586,6 +1781,7 @@
         signaturePad.clear();
         $("#signature").val('');
     });
+    
     $("#attachment").click(function() {
         $(this).removeClass("blackBack")
         $(this).addClass("whiteBack")

@@ -56,7 +56,7 @@
    }
 
    .aside-fixed .aside {
-      width: 45px;
+      width: 71px;
    }
 
    #kt_aside_toggle {
@@ -77,7 +77,7 @@
    }
 
    .aside-enabled.aside-fixed .wrapper {
-      padding-left: 30px;
+      padding-left: 63px;
    }
 
    .menu-item,
@@ -165,7 +165,7 @@
    }
 
    #kt_content_container {
-      background-color: #e9edf1;
+      background-color: #fff;
    }
 
    #kt_toolbar_container {
@@ -423,6 +423,12 @@
     .flex-column-fluid {
       flex: 0;
     }
+
+    .content{
+      background-color: #fff;
+    }
+
+    
     /* .redBgBlink{color: #fff !important;background-color:red !important;} */
 </style>
 @include('layouts.sweetalert.sweetalert_css')
@@ -516,7 +522,8 @@
                   </div>
                </div>
                <div class="card-body indexTempory pt-0">
-                  <div class="mb-2">
+                  <div class="mb-2" style="border-bottom: 1px solid lightgray;
+                  padding-bottom: 7px;">
                      <div class="row align-items-center">
                         <div class="col-lg-9 col-xl-8">
                            <div class="row">

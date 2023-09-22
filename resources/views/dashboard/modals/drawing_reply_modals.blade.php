@@ -49,6 +49,24 @@
                 </table>
 
 
+                
+                <!--end:Form-->
+<<<<<<< HEAD
+=======
+                <table class="table table-hover" >
+                    <thead>
+                        <tr>
+                            <th style="text-align:left;">No</th>
+                            <th  style="text-align:left;">Comments</th>
+                            <th  style="text-align:left;">Reply</th>
+                            <th  style="text-align:left;">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="drawingreplydata">
+                        
+                    </tbody>
+                </table>
+
                 <form id="kt_modal_new_target_form" class="form company_details_form" action="{{ route('twcdrawing.comment') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="drawingid" id="drwingid" />
@@ -84,22 +102,6 @@
                     </div>
                    
                 </form>
-                <!--end:Form-->
-<<<<<<< HEAD
-=======
-                <table class="table table-hover" >
-                    <thead>
-                        <tr>
-                            <th style="text-align:left;">No</th>
-                            <th  style="text-align:left;">Comments</th>
-                            <th  style="text-align:left;">Reply</th>
-                            <th  style="text-align:left;">Date</th>
-                        </tr>
-                    </thead>
-                    <tbody id="drawingreplydata">
-                        
-                    </tbody>
-                </table>
 >>>>>>> b0753d3b173f0f54739d7adb9985aa9720c408b5
             </div>
             <!--end::Modal body-->

@@ -1042,7 +1042,13 @@
                                 @if($temporaryWork->signature_type == 'draw')
                                     <img style="background-color: #D3D3D3; border-radius: 15px; width: 300px;" src="{{asset('temporary/signature/'.$temporaryWork->signature)}}" width="100%" />
                                 @elseif($temporaryWork->signature_type == 'pdf')
-                                <img style="background-color: #D3D3D3; border-radius: 15px; width: 300px;" src="{{asset('temporary/signature/'.$temporaryWork->signature)}}" width="100%" />
+                                <div id="new_div" class="m-md-2">
+                                    <span  >
+                                        <a target="_blank" href="{{asset('temporary/signature/'.$temporaryWork->signature)}}" title = "Click to Full View">
+                                            <span class="badge badge-success badge-lg p-2">File Uploaded</span>
+                                        </a>
+                                    </span>
+                                </div>                                
                                 @else
                                 <p><b>Name:</b> {{$temporaryWork->signature}}</hp>
                                 @endif
@@ -1277,7 +1283,7 @@
                                 </div>
                                 </div>
                             @else
-                                <img src="{{asset('temporary/signature/'.$temporaryWork->signatures[2]->signature)}}" width="100%" />
+                                <img src="{{asset('temporary/signature/'.$temporaryWork->signatures[2]->signature)}}" style="background-color: #D3D3D3; border-radius: 15px; width: 300px;" width="100%" />
                             @endif
                         </div>
                     </div>

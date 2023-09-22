@@ -312,6 +312,19 @@ $data = [
 
         $(document).on('click', '.project_details', function() {
             let type = $(this).attr('value');
+
+            $('.project_details_form input[type="text"]').val('');
+            $('.project_details_form textarea').val('');
+
+
+
+            // $('.project_details .newBlock').parent().parent().parent().css('background-color' : "redorange")
+
+
+
+
+
+
             $('.project_details_form').trigger("reset");
             $('#error_div').remove();
             $('input[name="id"]').remove();
@@ -354,7 +367,7 @@ $data = [
                                     var blockInput = '<div class="row g-9 mb-8">' +
                                         '<div class="col-md-9">' +
                                         '<div class="col-lg-12 d-flex align-items-center fw-bold fs-6">' +
-                                        '<input type="text" name="blocks[]" placeholder="Enter new block" class="form-control" value="' + block.title + '"/>' +
+                                        '<input type="text" name="blocks[]" placeholder="Enter new block" class="form-control newBlock" value="' + block.title + '"/>' +
                                         '</div>' +
                                         '</div>' +
                                         '<div class="col-md-3">' +
@@ -385,23 +398,26 @@ $data = [
         // Add New button click event
         $(document).on('click', '.add-btn', function () {
             var inputValue = $(this).closest('.row').find('input[name="blocks[]"]').val(); // Get the value from the input field
-            var newRow = '<div class="row g-9 mb-8">' +
-                                        '<div class="col-md-9">' +
-                                        '<div class="col-lg-12 d-flex align-items-center fw-bold fs-6">' +
-                                        '<input type="text" name="blocks[]" placeholder="Enter new block" class="form-control" value="' + inputValue + '"/>' +
-                                        '</div>' +
-                                        '</div>' +
-                                        '<div class="col-md-3">' +
-                                        '<button type="button" class="btn btn-danger remove-btn">Remove</button>'
-                                        '</div>' +
-                                        '</div>';
-                                        var inputValue = $(this).closest('.row').find('input[name="blocks[]"]').val(''); // Get the value from the input field
-            // var newRow = $('.template-row').clone(); // Clone the template row
-            // newRow.removeClass('template-row'); // Remove the template row class
-            // newRow.find('.block-input').val(''); // Clear the input field
-            // newRow.find('.add-btn').text('Remove').removeClass('add-btn btn-primary').addClass('remove-btn btn-danger'); // Change button text and class
-            // $('.old_rows').append(newRow); // Add the new row at the bottom
-            $(this).closest('.row').before(newRow); // Add the new row after the current row
+            if(inputValue){
+
+                var newRow = '<div class="row g-9 mb-8">' +
+                    '<div class="col-md-9">' +
+                        '<div class="col-lg-12 d-flex align-items-center fw-bold fs-6">' +
+                            '<input type="text" name="blocks[]" placeholder="Enter new block" class="form-control" value="' + inputValue + '"/>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="col-md-3">' +
+                                '<button type="button" class="btn btn-danger remove-btn">Remove</button>'
+                                '</div>' +
+                                '</div>';
+                                var inputValue = $(this).closest('.row').find('input[name="blocks[]"]').val(''); // Get the value from the input field
+                                // var newRow = $('.template-row').clone(); // Clone the template row
+                                // newRow.removeClass('template-row'); // Remove the template row class
+                                // newRow.find('.block-input').val(''); // Clear the input field
+                                // newRow.find('.add-btn').text('Remove').removeClass('add-btn btn-primary').addClass('remove-btn btn-danger'); // Change button text and class
+                                // $('.old_rows').append(newRow); // Add the new row at the bottom
+                                $(this).closest('.row').before(newRow); // Add the new row after the current row
+                            }
         });
 
         // Remove button click event

@@ -927,6 +927,15 @@
                                 <div class="col-md-3">
                                     <div class="form-group mt-5">
                                         <button type="submit" class="btn btn-primary mx-5 queryButton">Submit</button>
+                                        <!-- Input element for file upload -->
+                                        {{-- <input type="file" id="fileInput" style="display: none;" onchange="displaySelectedFile()">
+                                        
+                                        <!-- Button or label to trigger file input -->
+                                        <label for="fileInput" style="cursor: pointer; background-color: #3498db; color: #fff; padding: 10px 20px; border-radius: 5px;display: block;
+                                        width: fit-content;
+                                        margin: 5px 0 0px 16px;">
+                                            Click to Upload File
+                                        </label> --}}
                                     </div>
                                 </div>
 

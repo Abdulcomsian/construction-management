@@ -677,7 +677,8 @@ class TemporaryWorkController extends Controller
             $image_name3 = '';
             if ($request->signtype3 == 1) {
                 $signature3 = $request->namesign3;
-            } elseif($request->signed3 != HelperFunctions::defaultSign()) { 
+            // } elseif($request->signed3 != HelperFunctions::defaultSign()) { 
+            } elseif($request->signed3 != "") { 
                 $name3 = $request->name3;
                 $job_title3 = $request->job_title3;
                 $company3 = $request->company3;
@@ -696,7 +697,8 @@ class TemporaryWorkController extends Controller
             $image_name4 = '';
             if ($request->signtype4 == 1) {
                 $signature4 = $request->namesign4;
-            } elseif($request->signed4 != HelperFunctions::defaultSign()) { 
+            } elseif($request->signed4 != "") { 
+            // } elseif($request->signed4 != HelperFunctions::defaultSign()) { 
                 $name4 = $request->name4;
                 $job_title4 = $request->job_title4;
                 $company4 = $request->company4;
@@ -716,7 +718,8 @@ class TemporaryWorkController extends Controller
             $image_name5 = '';
             if ($request->signtype5 == 1) {
                 $signature5 = $request->namesign5;
-            } elseif($request->signed5 != HelperFunctions::defaultSign()) { 
+            // } elseif($request->signed5 != HelperFunctions::defaultSign()) { 
+            } elseif($request->signed5 != "") { 
                 $name5 = $request->name5;
                 $job_title5 = $request->job_title5;
                 $company5 = $request->company5;

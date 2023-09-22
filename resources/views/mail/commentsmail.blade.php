@@ -33,10 +33,16 @@
                                                                             @else
                                                                             Reply
                                                                             @endif
+                                                                         
                                                                         </h2> 
+                                                                       
                                                                         <!-- {{$comment ?? ''}} --> --}}
                                                                    </p>
+                                                                    @if(isset($comment))
+                                                                         <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left"><b>Comments:</b> {{$comment}}</p> 
+                                                                         @endif
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
+                                                                        
                                                                         @if($type=='question' && $scan!='scan')
                                                                         Please click the link below to view the question or comment and to provide your reply.<br><br>
                                                                         <a href="{{url('temporary_works')}}">Click here to view the question or comment</a><br><br>

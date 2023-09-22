@@ -1643,8 +1643,12 @@ class TemporaryWorkController extends Controller
     {
         Validations::storeComment($request);
         try {
-            
-            //get twc email
+
+            if($request->queriesccemails)
+            { $cc_emails = HelperFunctions::ccEmails($request->queriesccemails);}
+             else
+             {$cc_emails = [];}
+     
             $tempdata = TemporaryWork::select('twc_email', 'design_requirement_text', 'twc_id_no', 'designer_company_email', 'client_email')->find($request->temp_work_id);
             $model = new TemporaryWorkComment();
             $model->comment = $request->comment;
@@ -1658,7 +1662,7 @@ class TemporaryWorkController extends Controller
                 $file = $request->file('image');
                 $imagename = HelperFunctions::saveFile(null, $file, $filePath);
                 $model->image = $imagename;
-            }
+            }else{$imagename = '';}
             if (isset($request->type) && $request->type == 'scan') {
                 $model->type = 'scan';
             }
@@ -1717,7 +1721,7 @@ class TemporaryWorkController extends Controller
                         $type= 'client';
                     }
                   //COde for sendign email to cleint on admin designer module, comment for now
-                  Notification::route('mail', $email)->notify(new CommentsNotification($request->comment, $type, $request->temp_work_id,$client_email,$request->type ?? '','Designer'));
+                  Notification::route('mail', $email)->notify(new CommentsNotification($request->comment, $type, $request->temp_work_id,$client_email,$request->type ?? '','Designer',$cc_emails, $imagename));
                 }else if(!isset($twc))
                 {
                     if($request->type=="designertotwc"){
@@ -1730,10 +1734,10 @@ class TemporaryWorkController extends Controller
                         $cmh->save();
                     }   
                     
-                  Notification::route('mail', $tempdata->twc_email)->notify(new CommentsNotification($request->comment, 'question', $request->temp_work_id, $tempdata->twc_email ,$request->type ?? ''));
+                  Notification::route('mail', $tempdata->twc_email)->notify(new CommentsNotification($request->comment, 'question', $request->temp_work_id, $tempdata->twc_email ,$request->type ?? '','',$cc_emails,$imagename));
                  }else if($twc=="twctodesigner"){
                    
-                    Notification::route('mail', $tempdata->designer_company_email)->notify(new CommentsNotification($request->comment, 'comment', $request->temp_work_id, $tempdata->designer_company_email ,'test'));
+                    Notification::route('mail', $tempdata->designer_company_email)->notify(new CommentsNotification($request->comment, 'comment', $request->temp_work_id, $tempdata->designer_company_email ,'test','',$cc_emails));
 
                     $designerCompanyEmails = DesignerCompanyEmail::where('temporary_work_id', $request->temp_work_id)->get();
                    foreach($designerCompanyEmails as $designeremail){

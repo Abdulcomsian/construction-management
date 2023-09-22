@@ -982,7 +982,7 @@
                         <div class="d-flex flex-row">
                             <div style="display:flex; align-items: center; padding-left:10px">
                                 <input type="radio" class="checkbox-field" id="DrawCheck" checked=true style="width: 12px;">
-                                <input type="hidden" id="Drawtype" name="" class="form-control form-control-solid" value="1">
+                                <input type="hidden" id="Drawtype" name="DrawCheck" class="form-control form-control-solid" value="1">
                                 <span style="padding-left:14px;font-family: 'Inter', sans-serif;color:#000;font-size:14px;line-height: 2">Draw</span>
                             </div>
                             <div style="display:flex; align-items: center; padding-left:10px">

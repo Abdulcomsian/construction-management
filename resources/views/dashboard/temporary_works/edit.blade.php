@@ -979,7 +979,7 @@
                                 <!-- Approval div -->
 
                             </div>
-                           
+                       
                             <div class="col">
                                 @if(!isset($temporaryWork->signature) && empty($temporaryWork->signature))
                                     <div class="d-flex inputDiv mt-0" style="border: none">
@@ -1037,9 +1037,16 @@
                                         </label>
                                         <input type="text" name="namesign" class="form-control form-control-solid">
                                     </div>
-                                @else
+                                    @endif
+
+                                @if($temporaryWork->signature_type == 'draw')
                                     <img style="background-color: #D3D3D3; border-radius: 15px; width: 300px;" src="{{asset('temporary/signature/'.$temporaryWork->signature)}}" width="100%" />
+                                @elseif($temporaryWork->signature_type == 'pdf')
+                                <img style="background-color: #D3D3D3; border-radius: 15px; width: 300px;" src="{{asset('temporary/signature/'.$temporaryWork->signature)}}" width="100%" />
+                                @else
+                                <p><b>Name:</b> {{$temporaryWork->signature}}</hp>
                                 @endif
+
                             </div>
                         </div>
                         <div class="col-md-6 mt-md-5" id="third_member" style="display: {{ isset($temporaryWork->signatures[0]->name) && $temporaryWork->signatures[0]->name != null ? 'block' : 'none' }}">

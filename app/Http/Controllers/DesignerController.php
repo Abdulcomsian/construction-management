@@ -1647,7 +1647,7 @@ class DesignerController extends Controller
                     'draft_status' => "1",
                 ]);
             }
-            if ($request->status == 5) {
+            if ($request->status == 5) { //permit to load Yes
                 $model = new PermitComments();
                 $model->comment = $request->comments;
                 $model->permit_load_id = $request->permitid;
@@ -1655,26 +1655,58 @@ class DesignerController extends Controller
 
                 $cmh= new ChangeEmailHistory();
                 $cmh->email=$twc_email->twc_email;
-                $cmh->type ='Permit to Load';
                 $cmh->status =2;
                 $cmh->foreign_idd=$permitdata->temporary_work_id;
-                $cmh->message='Permit to Load Rejected by PC TWC';
+                if(isset($request->type) && $request->type=="permit-unload"){
+                    $cmh->message='Permit to Unload Rejected by PC TWC';
+                    $cmh->type ='Permit to Unload';
+
+                }else{
+                    $cmh->message='Permit to Load Rejected by PC TWC';
+                    $cmh->type ='Permit to Load';
+
+                }
                 $cmh->save();
 
                 $subject = 'Permit Load Rejected ';
                 $text = ' Welcome to the online Temporary Works Portal.Permit Load Rejected by PC TWC.';
                 $msg = 'Permit Load Rejected Successfully!';
-            } else {
+            } if ($request->status == 3) { //permit to unload yes
+                $model = new PermitComments();
+                $model->comment = $request->comments;
+                $model->permit_load_id = $request->permitid;
+                $model->save();
+
+                $cmh= new ChangeEmailHistory();
+                $cmh->email=$twc_email->twc_email;
+                $cmh->status =2;
+                $cmh->foreign_idd=$permitdata->temporary_work_id;
+                $cmh->message='Permit to Unload Accepted by PC TWC';
+                $cmh->type ='Permit to Unload';
+                $cmh->save();
+
+                $subject = 'Permit Load Rejected ';
+                $text = ' Welcome to the online Temporary Works Portal.Permit Load Rejected by PC TWC.';
+                $msg = 'Permit Load Rejected Successfully!';
+            } else { //permit to load no
                 $subject = 'Permit Load Accepted';
                 $text = ' Welcome to the online Temporary Works Portal.Permit Load Accepted by PC TWC.';
                 $msg = 'Permit Load Accepted Successfully!';
 
                 $cmh= new ChangeEmailHistory();
                 $cmh->email=$twc_email->twc_email;
-                $cmh->type ='Permit to Load';
+
                 $cmh->status =2;
                 $cmh->foreign_idd=$permitdata->temporary_work_id;
-                $cmh->message='Permit to Load Accepted by PC TWC';
+                if(isset($request->type) && $request->type=="permit-unload"){
+                    $cmh->message='Permit to Unload Rejected by PC TWC';
+                    $cmh->type ='Permit to Unload';
+
+                }else{
+                    $cmh->message='Permit to Load Rejected by PC TWC';
+                    $cmh->type ='Permit to Load';
+
+                }
                 $cmh->save();
             }
             $notify_admins_msg = [

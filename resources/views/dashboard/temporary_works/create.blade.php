@@ -1694,6 +1694,7 @@
 
         $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary"); //.addAttr("disabled");
     });
+    if (signaturePad1) {
     signaturePad1.addEventListener("endStroke", () => {
         console.log("hello");
         $("#signature").val(signaturePad.toDataURL('image/png'));
@@ -1701,6 +1702,7 @@
         $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
         // $('#submitbutton')
     });
+}
     $('#clear').click(function(e) {
         e.preventDefault();
         signaturePad.clear();
@@ -1710,6 +1712,7 @@
 
         $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary"); //.addAttr("disabled");
     });
+    if (signaturePad1) {
     signaturePad2.addEventListener("endStroke", () => {
         console.log("hello");
         $("#signature").val(signaturePad.toDataURL('image/png'));
@@ -1717,6 +1720,7 @@
         $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
         // $('#submitbutton')
     });
+}
     $('#clear').click(function(e) {
         e.preventDefault();
         signaturePad.clear();

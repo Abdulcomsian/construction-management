@@ -1270,7 +1270,7 @@
                                 </div>
                                 </div>
                             @else
-                                <img src="{{asset('temporary/signature/'.$temporaryWork->signatures[2]->signature)}}" width="100%" />
+                                <img src="{{asset('temporary/signature/'.$temporaryWork->signatures[2]->signature)}}" style="background-color: #D3D3D3; border-radius: 15px; width: 300px;" width="100%" />
                             @endif
                         </div>
                     </div>

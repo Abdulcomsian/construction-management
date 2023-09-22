@@ -448,6 +448,10 @@ canvas {
         margin-top: 0px !important;
     }
     
+    span.multiselect-native-select{
+        display: block;
+        width: 100%
+    }
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
@@ -1064,12 +1068,12 @@ canvas {
                             </div>
                             <div class="col-md-4 notpublished"> 
                                 <button type="submit" name="action"
-                                    style="margin-left: 10px; background: #07d564 !important; color:white !important; font-size:13px; font-weight:bold;"
+                                    style="height: 100%;margin-left: 10px; background: #07d564 !important; color:white !important; font-size:13px; font-weight:bold;"
                                     class="btn btn-primary float-end submitbutton" value="Email Designer & Supplier (For Pricing)">Email Designer & Supplier (For Pricing)</button>
                             </div>
                             <div class="col-md-3 notpublished">
                                 <button type="submit" name="action"
-                                    style="margin-left: 10px; background: #07d564 !important; color:white !important; font-size:18px; font-weight:bold;"
+                                    style="margin-left: 10px; background: #07d564 !important; color:white !important; font-size:14px; height:100%; font-weight:bold;"
                                     class="btn btn-primary float-end submitbutton" value="Save as Draft">Save as Draft</button>
                             </div>
 

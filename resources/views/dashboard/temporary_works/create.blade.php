@@ -901,7 +901,7 @@
                     Design Brief Description:
                 </label>
                 {{-- description code starts here --}}
-                <textarea id="description" name="description_temporary_work_required"></textarea>
+                <textarea id="description1" name="description_temporary_work_required"></textarea>
                 {{-- description code ends here --}}
             </div>
             <div class="col-md-12">

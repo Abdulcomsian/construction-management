@@ -23,14 +23,17 @@ class CommentsNotification extends Notification
     private $email;
     private $scan;
     private $code;
+    protected $cc_emails;
+    protected $attachment;
     // private $client_email;
-    public function __construct($comment,$type,$tempid,$mail=null,$scan=null,$code=null)
+    public function __construct($comment,$type,$tempid,$mail=null,$scan=null,$code=null,$cc_emails='',$attachment='')
     {
         
         $this->comment=$comment;
         $this->type=$type;
         $this->tempid=$tempid;
-        $this->scan=$scan;
+        $this->cc_emails=$cc_emails;
+        $this->attachment=$attachment;
         if($this->type=="reply" || $this->type=="client" || $this->type=="comment")
         {
              $this->email=$mail;
@@ -87,10 +90,23 @@ class CommentsNotification extends Notification
         {
             $subject='TWP – Designer Comments - '.$project_name.'-'.$proj_no;
         }
-        return (new MailMessage)
+       $send_mail =  (new MailMessage)
             ->greeting('Comments Notification')
             ->subject($subject)
             ->view('mail.commentsmail',['comment'=>$this->comment,'type'=>$this->type,'tempid'=>$this->tempid,'email'=>$this->email,'twc_id_no'=>$twc_id_no,'scan'=>$this->scan,'company'=>$company,'code'=>$this->code]);
+            if($this->attachment)
+            {
+                $send_mail ->attach(public_path($this->attachment));
+            }
+          
+            if ($this->cc_emails)
+            {
+                foreach($this->cc_emails as $cc_email)
+                {
+                    $send_mail->cc($cc_email);
+                }
+            }
+            return $send_mail;
     }
 
     /**

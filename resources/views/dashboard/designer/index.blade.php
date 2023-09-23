@@ -346,7 +346,26 @@
                                 </label>
                                 <input type="file" name="image" class="form-control fileInput" id="inputGroupFile02">
                             </div>
-                            <button type="submit" class="btn btn-primary mb-2 queryButton">Submit</button>
+                            <!-- <button type="submit" class="btn btn-primary mb-2 queryButton">Submit</button> -->
+                        </div>
+                        <div class="row" style="background:white;margin: 0 4px;">
+                         
+                            <div class="col-md-4">
+                                <div class="form-group mx-sm-1 mb-2" style="margin-top: 15px;" >
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span >Cc Emails: <span style = "color:grey;">(use comma separated multiple emails)</span></span>
+                                    </label>
+                                    <!--end::Label-->
+
+                                    <input type="text" class="form-control form-control-solid" id="ccemails"
+                                        name="queriesccemails" value="" />
+                                </div>
+                            </div>
+                            <div class = "col-md-2 d-flex flex-column justify-content-center align-items-center pt-7">
+                                <button type="submit" class="btn btn-primary mb-2 queryButton">Submit</button>
+                            </div>
+                            
                         </div>
                         </form>
                     </div>
@@ -571,6 +590,21 @@
                                         name="comments">
                                 </div>
                             </div>
+                        </div>
+                        <div class="row" style="background:white;margin: 0 4px;">
+                            <div class="col-md-6">
+                                <div class=" inputDiv d-block" >
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2" style = "width:100%;">
+                                        <span >Cc Emails: <span style = "color:grey;">(use comma separated multiple emails)</span></span>
+                                    </label>
+                                    <!--end::Label-->
+
+                                    <input type="text" class="form-control form-control-solid" id="ccemails"
+                                        name="ccemails" value="" />
+                                </div>
+                            </div>
+                         
                         </div>
                         @if(isset($_GET['job']))
                             @php 
@@ -1013,12 +1047,28 @@
                                     <div class="d-flex">
                                         <input type="file" style="width:25%; flex-grow:1" class="form-control"
                                             id="designcheckfile" name="designcheckfile" required="required">
-                                        &nbsp;&nbsp;
-                                        <button type="submit" class="btn btn-primary mb-2"
-                                            style="margin-bottom:0px !important">Upload</button>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row" style="background:white;margin: 0 4px;">
+                            <div class="col-md-4">
+                                <div class="form-group mx-sm-1 mb-2" style="margin-top: 15px;" >
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span >Cc Emails: <span style = "color:grey;">(use comma separated multiple emails)</span></span>
+                                    </label>
+                                    <!--end::Label-->
+
+                                    <input type="text" class="form-control form-control-solid" id="ccemails"
+                                        name="certificateccemails" value="" />
+                                </div>
+                            </div>
+                            <div class = "col-md-2 d-flex flex-column justify-content-center align-items-center pt-7">
+                                <button type="submit" class="btn btn-primary "
+                                            >Upload</button>
+                            </div>
+                            
                         </div>
                     </form>
 
@@ -1060,7 +1110,7 @@
                                     <div class="form-group">
                                         <label for="exampleInputPassword1" style="margin: 5px">Select Document
                                             Type:</label><br>
-                                        <select class="form-select form-control" name="type" required>
+                                        <select class="form-select form-control form-control-solid" name="type" required>
                                             <option value="" disabled></option>
                                             <option value="" selected disabled>Risk Assessment-Calculations</option>
                                             <option value="5">Risk Assessment</option>
@@ -1071,11 +1121,25 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1" style="margin: 5px;">Select Document:</label><br>
-                                    <input type="file" class="form-control" id="riskassesmentfile"
+                                    <input type="file" class="form-control form-control-solid" id="riskassesmentfile"
                                         name="riskassesmentfile" required="required">
                                 </div>
                             </div>
                            
+                        </div>
+                        <div class="row" style="background:white;margin: 0 4px;">
+                            <div class="col-md-6">
+                                <div class="form-group mx-sm-1 mb-2" style="margin-top: 15px;" >
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span >Cc Emails: <span style = "color:grey;">(use comma separated multiple emails)</span></span>
+                                    </label>
+                                    <!--end::Label-->
+
+                                    <input type="text" class="form-control form-control-solid" id=""
+                                        name="riskccemails" value="" />
+                                </div>
+                            </div>
                         </div>
                         <div class="row" style="background:white;margin: 0 4px;">
                             <div class="col"><button type="submit" class="btn btn-primary mt-2">Upload</button></div>

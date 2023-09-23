@@ -189,39 +189,37 @@
                                             </div>
                                         </div>
                                     </div>                                   
-                                </div>
-                            
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <div class="d-block">
-                                                <!--begin::Label-->
-                                                <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                    <span class="required">Upload file:</span>
+                                </div>       
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="d-block">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                <span >Upload file:</span>
 
-                                                </label>
-                                                <!--end::Label-->
-                                                <input type = "file" class="form-control form-control-solid" name = "attachfile"/>
-                                            </div>
+                                            </label>
+                                            <!--end::Label-->
+                                            <input type = "file" class="form-control form-control-solid" name = "attachfile"/>
                                         </div>
-                                        <div class="col-md-5 ">
-                                            <div class="d-block">
-                                                <!--begin::Label-->
-                                                <label class="d-flex  fs-6 fw-bold mb-2">
-                                                    <span class="required">Cc Email:</span>
+                                    </div>
+                                    <div class="col-md-5 ">
+                                        <div class="d-block">
+                                            <!--begin::Label-->
+                                            <label class="d-flex  fs-6 fw-bold mb-2">
+                                                <span >Cc Email: <span style = "color:grey;text-decoration:normal">(use comma separated multiple emails)</span></span>
 
-                                                </label>
-                                                <!--end::Label-->
-                                                <input type = "email" class="form-control form-control-solid" name = "ccemail"/>
-                                            </div>
+                                            </label>
+                                            <!--end::Label-->
+                                            <input type = "text" class="form-control form-control-solid" name = "ccemail"/>
                                         </div>
-                                        <div class="col-md-2 d-flex flex-column justify-content-center align-items-center pt-6">
-                                            
-                                            
-                                                <button type="submit" class="btn btn-primary float-end" style="border-radius: 0.25rem;">Submit</button>
-                                       
-                                        </div>
-                                </div>
-                            
+                                    </div>
+                                    <div class="col-md-2 d-flex flex-column justify-content-center align-items-center pt-6">
+                                        
+                                        
+                                            <button type="submit" class="btn btn-primary float-end" style="border-radius: 0.25rem;">Submit</button>
+                                    
+                                    </div>
+                                </div>    
                         </div>
                     </form>
 

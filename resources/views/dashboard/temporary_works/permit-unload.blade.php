@@ -93,6 +93,7 @@
         width: 100%;
         color: #000 !important;
         background: white;
+        border: none
     }
 
     .inputDiv select {
@@ -558,14 +559,14 @@
                                 <label style="color:black; bottom: 45px">TWC to define the extents, limits and controls
                                     for this PTS (where
                                     applicable)</label>
-                                <textarea name="twc_control_pts" class="twcTextArea" rows="2" style="width:100%;">{{old('twc_control_pts')}}</textarea>
+                                <textarea name="twc_control_pts" class="twcTextArea" rows="2" style="width:100%; outline: none;">{{old('twc_control_pts')}}</textarea>
                             </div>
 
                             <div class="inputDiv">
                                 <label style="color:black; bottom: 45px">Back-propping and additional requirements;
                                     limitations and
                                     exclusions; explanatory sketches references (if applicable)</label>
-                                <textarea name="back_propping" rows="2" style="width:100%;">{{old('back_propping')}}</textarea>
+                                <textarea name="back_propping" rows="2" style="width:100%; outline: none">{{old('back_propping')}}</textarea>
                             </div>
                             <br>
                             <p style="color: black;"> I hereby authorise the temporary works to be struck out or removed
@@ -623,9 +624,9 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6   mt-0" style="    min-height: 40px;margin-left:7px; ">
+                        <div class="col-md-6   mt-0" style="    min-height: 40px;">
                             <div class="d-flex inputDiv">
-                                <label class="fs-6 fw-bold mb-2">
+                                <label class="fs-6 fw-bold mb-2" style="bottom: 0; top: -11px; height: fit-content">
                                     <span>Comments:</span>
                                 </label>
                                 <textarea name="comments" class="form-control" >{{old('comments')}}</textarea>

@@ -216,10 +216,14 @@
                 @php $i=0;@endphp
                 @foreach($data['project_title'] as $proj)
                 @if($data['project_title'][$i] != NULL)
-                <tr>
-                    <td style="font-size:10px;">{{$data['project_title'][$i]}}</td>
-                    <td style="font-size:10px;">{{$data['project_role'][$i]}}</td>
-                    <td style="font-size:10px;">{{$data['desc_of_involvement'][$i]}}</td>
+                <tr style="white-space: pre-wrap !important;">
+                    <td style="font-size:10px; white-space: pre-wrap !important;">{{$data['project_title'][$i]}}</td>
+                    <td style="font-size:10px;white-space: pre-wrap !important;">{{$data['project_role'][$i]}}</td>
+                    <td style="font-size:10px; white-space: pre-wrap !important;"> 
+                        @php
+                        echo $data['desc_of_involvement'][$i];
+                    @endphp
+                    </td>
                 </tr>
                 @endif
                 @php $i++; @endphp

@@ -1492,7 +1492,7 @@
             </div>
             <div class="col-md-6 ">
               <button id="submitbutton" type="button" disabled class="btn btn-secondary  set-button" disabled>Submit</button>
-              <button name="action" id="draft" value="draft" type="button" class="btn btn-success  set-button">Save as Draft</button>
+              <button name="action" id="draft" value="draft" type="button" class="btn btn-success  set-button" style="background-color: #07d564; border-radius:5px">Save as Draft</button>
             </div>
           </div>
         </div>

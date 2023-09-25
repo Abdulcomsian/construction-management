@@ -37,6 +37,22 @@
                                                                          {{$details['body']['comments']}}
                                                                          @endif 
                                                                    </p>
+                                                                   @if(isset($details['body']['drawingData']))
+                                                                      <p  style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left"><b>Designer Name: </b>{{$details['body']['drawingData']['twd_name'] ?? ''}}</p>
+                                                                      <p  style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left"><b>Drawing Title: </b>{{$details['body']['drawingData']['drawing_title'] ?? ''}}</p>
+                                                                      <p  style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left"><b>Drawing Number: </b>{{$details['body']['drawingData']['drawing_number'] ?? ''}}</p>
+                                                                      <p  style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left"><b>Drawing Number: </b>{{$details['body']['drawingData']['drawing_number'] ?? ''}}</p>
+                                                                      <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left"><b>Drawing Status:</b></p>
+                                                                      @if($details['body']['drawingData']['status'] == '1')
+                                                                      <p  style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left"><b>Preliminary for Approval: </b> Yes</p>
+                                                                      <p  style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left"><b>For Construction: </b> No</p>
+
+                                                                      @else
+                                                                      <p  style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left"><b>Preliminary for Approval: </b> No</p>
+                                                                      <p  style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left"><b>For Construction: </b> Yes</p>
+                                                                      @endif
+                                                                      <p  style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left"><b>Comments: </b>{{$details['body']['drawingData']['comments'] ?? ''}}</p>
+                                                                   @endif
                                                                    @if(isset($details['body']['designer']) && $details['body']['designer']=='designer1')
                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
                                                                        <a href="{{route('designer.uploaddesign',Crypt::encrypt($details['body']['id']).'/?mail='.$email)}}">Click here to view the design brief.</a>

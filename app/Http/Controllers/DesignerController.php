@@ -408,7 +408,7 @@ class DesignerController extends Controller
     }
     public function store(Request $request)
     {  
-        try {  // dd($request->all());
+        try {
             if($request->ccemails)
             $cc_emails = HelperFunctions::ccEmails($request->ccemails);
             elseif($request->certificateccemails)
@@ -417,7 +417,7 @@ class DesignerController extends Controller
             $cc_emails = [];
             $design_check_file = '';
             $drawing_file = '';
-        
+            $drawingData = '';
             $tempworkdata = TemporaryWork::with('project:name,no,id')->find($request->tempworkid);
             if(isset($request->twd_name)){
                 $tempworkdata->tw_name=$request->twd_name;
@@ -504,6 +504,13 @@ class DesignerController extends Controller
             
             if ($model->save()) {
                 //
+                $drawingData = [
+                    'drawing_title'=>$model->drawing_title,
+                    'drawing_number'=>$model->drawing_number,
+                    'status'=>$model->status,
+                    'comments'=>$model->comments,
+                    'twd_name'=>$model->twd_name,
+                ];
                 if($request->designermail == $tempworkdata->desinger_email_2){
                     if (isset($request->designcheckfile)) { //if designchekfile exist then it means ceriticate is uploaded
                         $chm= new ChangeEmailHistory();
@@ -581,6 +588,7 @@ class DesignerController extends Controller
                             'filetype'=>$file_type,
                             'designcheckfile'=>$design_check_file,
                             'drawing_file'=>$drawing_file,
+                            'drawingData'=>$drawingData,
                         ],
                         'thanks_text' => 'Thanks For Using our site',
                         'action_text' => '',

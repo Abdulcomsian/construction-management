@@ -408,7 +408,16 @@ class DesignerController extends Controller
     }
     public function store(Request $request)
     {  
-         try { 
+        try {  // dd($request->all());
+            if($request->ccemails)
+            $cc_emails = HelperFunctions::ccEmails($request->ccemails);
+            elseif($request->certificateccemails)
+            $cc_emails = HelperFunctions::ccEmails($request->certificateccemails);
+            else
+            $cc_emails = [];
+            $design_check_file = '';
+            $drawing_file = '';
+        
             $tempworkdata = TemporaryWork::with('project:name,no,id')->find($request->tempworkid);
             if(isset($request->twd_name)){
                 $tempworkdata->tw_name=$request->twd_name;
@@ -449,14 +458,15 @@ class DesignerController extends Controller
                 $file_type = 2;
                  $imagename = HelperFunctions::saveFile(null, $file, $filePath);
                  $model->file_name = $imagename;
+                 $design_check_file = $imagename;
             } else {
-                
                 $file_type = 1;
                 if($request->file('file'))
                 {
                     $file = $request->file('file');
                     $imagename = HelperFunctions::saveFile(null, $file[0], $filePath);
                     $model->file_name = $imagename;
+                    $drawing_file = $imagename;
                 }
                 $proj_name = $tempworkdata->project->name ?? '';
                 $proj_no = $tempworkdata->project->no ?? '';
@@ -555,7 +565,6 @@ class DesignerController extends Controller
                         $chm->save();
                     }
                 }
-                
                 $selectedEmails = $request->input('emails');
                 if(!$selectedEmails){
                     $notify_admins_msg = [
@@ -570,6 +579,8 @@ class DesignerController extends Controller
                             'name' => $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no,
                             'ext' => '',
                             'filetype'=>$file_type,
+                            'designcheckfile'=>$design_check_file,
+                            'drawing_file'=>$drawing_file,
                         ],
                         'thanks_text' => 'Thanks For Using our site',
                         'action_text' => '',
@@ -579,7 +590,7 @@ class DesignerController extends Controller
                     if($tempworkdata->status == 0 && $tempworkdata->estimatorApprove == 1){
                         $is_check=true;
                     }
-                    Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg, null, $is_check));
+                    Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg, null, $is_check, $cc_emails));
                 } else{
                     // dd("Ttt");
                     $is_check = true;
@@ -601,6 +612,7 @@ class DesignerController extends Controller
                 toastSuccess('Designer Uploaded Successfully!');
                 return Redirect::back();
             }
+
         } catch (\Exception $exception) {
             dd($exception->getMessage());
             toastError('Something went wrong, try again!');
@@ -1429,7 +1441,11 @@ class DesignerController extends Controller
     //approved or reject
     public function pc_store(Request $request)
     {
+        
         try {
+            
+             $cc_emails = HelperFunctions::ccEmails($request->ccemail);
+            //Getting Temporary Work Data
             $tempworkdata = TemporaryWork::with('designerCompanyEmails','project')->find($request->tempworkid);
             $createdby = User::find($tempworkdata->created_by);
             TemporaryWork::find($request->tempworkid)->update([
@@ -1488,7 +1504,7 @@ class DesignerController extends Controller
                         'action_url' => '',
                     ];
                     // Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new DesignUpload($notify_admins_msg));
-                    Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg));
+                    Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg,'','',$cc_emails));
 
                     toastSuccess('Design Brief Rejected Successfully!');
                     return Redirect::back();
@@ -1546,7 +1562,7 @@ class DesignerController extends Controller
 
                 // Notification::route('mail', 'ctwscaffolder@gmail.com')->notify(new DesignUpload($notify_admins_msg));
 
-                Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg));
+                Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg,'','',$cc_emails));
 
                 if($tempworkdata->designer_company_email)
                 {
@@ -1632,7 +1648,7 @@ class DesignerController extends Controller
                     'draft_status' => "1",
                 ]);
             }
-            if ($request->status == 5) {
+            if ($request->status == 5) { //permit to load Yes
                 $model = new PermitComments();
                 $model->comment = $request->comments;
                 $model->permit_load_id = $request->permitid;
@@ -1640,26 +1656,58 @@ class DesignerController extends Controller
 
                 $cmh= new ChangeEmailHistory();
                 $cmh->email=$twc_email->twc_email;
-                $cmh->type ='Permit to Load';
                 $cmh->status =2;
                 $cmh->foreign_idd=$permitdata->temporary_work_id;
-                $cmh->message='Permit to Load Rejected by PC TWC';
+                if(isset($request->type) && $request->type=="permit-unload"){
+                    $cmh->message='Permit to Unload Rejected by PC TWC';
+                    $cmh->type ='Permit to Unload';
+
+                }else{
+                    $cmh->message='Permit to Load Rejected by PC TWC';
+                    $cmh->type ='Permit to Load';
+
+                }
                 $cmh->save();
 
                 $subject = 'Permit Load Rejected ';
                 $text = ' Welcome to the online Temporary Works Portal.Permit Load Rejected by PC TWC.';
                 $msg = 'Permit Load Rejected Successfully!';
-            } else {
+            } if ($request->status == 3) { //permit to unload yes
+                $model = new PermitComments();
+                $model->comment = $request->comments;
+                $model->permit_load_id = $request->permitid;
+                $model->save();
+
+                $cmh= new ChangeEmailHistory();
+                $cmh->email=$twc_email->twc_email;
+                $cmh->status =2;
+                $cmh->foreign_idd=$permitdata->temporary_work_id;
+                $cmh->message='Permit to Unload Accepted by PC TWC';
+                $cmh->type ='Permit to Unload';
+                $cmh->save();
+
+                $subject = 'Permit Load Rejected ';
+                $text = ' Welcome to the online Temporary Works Portal.Permit Load Rejected by PC TWC.';
+                $msg = 'Permit Load Rejected Successfully!';
+            } else { //permit to load no
                 $subject = 'Permit Load Accepted';
                 $text = ' Welcome to the online Temporary Works Portal.Permit Load Accepted by PC TWC.';
                 $msg = 'Permit Load Accepted Successfully!';
 
                 $cmh= new ChangeEmailHistory();
                 $cmh->email=$twc_email->twc_email;
-                $cmh->type ='Permit to Load';
+
                 $cmh->status =2;
                 $cmh->foreign_idd=$permitdata->temporary_work_id;
-                $cmh->message='Permit to Load Accepted by PC TWC';
+                if(isset($request->type) && $request->type=="permit-unload"){
+                    $cmh->message='Permit to Unload Rejected by PC TWC';
+                    $cmh->type ='Permit to Unload';
+
+                }else{
+                    $cmh->message='Permit to Load Rejected by PC TWC';
+                    $cmh->type ='Permit to Load';
+
+                }
                 $cmh->save();
             }
             $notify_admins_msg = [
@@ -1970,11 +2018,25 @@ class DesignerController extends Controller
 
     public function risk_assessment_store(Request $request)
     {
+        if($request->riskccemails)
+       { $cc_emails = HelperFunctions::ccEmails($request->riskccemails);}
+        else
+        {$cc_emails = [];}
+
+        // if($request->file('riskattachfile'))
+        // {
+        //     $attachfile = $request->file('riskattachfile');
+        // }
+        // else
+        // {
+        //     $attachfile = '';
+        // }
         $model= new TempWorkUploadFiles();
         $tempworkdata=TemporaryWork::with('project:name,no,id')->find($request->tempworkid);
         $model->file_type=$request->type;
         $model->created_by=$request->designermail;
         $filePath = HelperFunctions::temporaryworkuploadPath();
+        $imagename = '';
         if (isset($request->riskassesmentfile)) {
             $file = $request->file('riskassesmentfile');
             $ext = $request->file('riskassesmentfile')->extension();
@@ -2012,12 +2074,13 @@ class DesignerController extends Controller
                         'name' => $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no,
                         'ext' => '',
                         'filetype'=>$request->type,
+                        'risk_assesment_file'=>$imagename,
                     ],
                     'thanks_text' => 'Thanks For Using our site',
                     'action_text' => '',
                     'action_url' => '',
                 ];
-                Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg));
+                Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg,'','',$cc_emails));
             toastSuccess('Risk Assessment Uploaded Successfully!');
             return Redirect::back();
         }

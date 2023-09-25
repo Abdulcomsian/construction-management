@@ -14,19 +14,47 @@ class DesignUpload extends Notification
      private $email;
      public $is_check;
      protected $attachment;
-    //  public $ccemail;
+     protected $ccemail;
+     protected $designCheckFile;
+     protected $riskAssesmentFile;
+     protected $drawingFile;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($offerData,$email=null,$is_check=null)
+    public function __construct($offerData,$email=null,$is_check=null,$cc_email = null)
     {
         $this->offerData = $offerData;
         $this->email=$email;
         $this->is_check=$is_check;
-        $this->attachment = $offerData['body']['attachfile'] ?? '';
-        // $this->ccemail = $offerData['cc'];
+        if(isset($offerData['body']['attachfile']))
+        {
+            $this->attachment = $offerData['body']['attachfile'] ?? '';
+
+        }
+        
+        if(isset($offerData['body']['designcheckfile']) && !empty($offerData['body']['designcheckfile']))
+        {
+       
+            $this->designCheckFile = public_path($offerData['body']['designcheckfile']);
+
+        }
+     
+        if(isset($offerData['body']['risk_assesment_file']) && !empty($offerData['body']['risk_assesment_file']))
+        {
+            $this->riskAssesmentFile = public_path($offerData['body']['risk_assesment_file']);
+
+        }
+        
+        if(isset($offerData['body']['drawing_file']) && !empty($offerData['body']['drawing_file']))
+        {
+            $this->drawingFile = public_path($offerData['body']['drawing_file']);
+
+        }
+     
+        $this->ccemail = $cc_email;
+
     }
 
     /**
@@ -54,6 +82,7 @@ class DesignUpload extends Notification
         } else{
             $path = public_path('pdf/' . $this->offerData['body']['filename']);
         }
+
        $send_email = (new MailMessage)
             ->greeting($this->offerData['greeting'])
             ->subject($this->offerData['subject'])
@@ -61,16 +90,34 @@ class DesignUpload extends Notification
             ->attach($path, [
                 'as' => $this->offerData['body']['name'].'.pdf',
             ]);
-            if($this->attachment!=""){
+            if($this->attachment)
+            {
                 $send_email->attachData(
                     $this->attachment->get(),
                     $this->attachment->getClientOriginalName(),
                     ['mime' => $this->attachment->getClientMimeType()]
                 );
             }
-            if ($cc_email = $this->offerData['cc'] ?? null)
+            if($this->designCheckFile)
             {
-                $send_email->cc($cc_email);
+                $send_email->attach($this->designCheckFile);
+            }
+            if($this->riskAssesmentFile)
+            {
+                
+                $send_email->attach($this->riskAssesmentFile);
+            }
+            if($this->drawingFile)
+            {
+                $send_email->attach($this->drawingFile);
+            }
+          
+            if ($this->ccemail)
+            {
+                foreach($this->ccemail as $cc_email)
+                {
+                    $send_email->cc($cc_email);
+                }
             }
             return $send_email;
            

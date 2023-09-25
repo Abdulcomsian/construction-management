@@ -636,7 +636,7 @@ class TemporaryWorkController extends Controller
             }
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token','files' ,'date','companyid', 'company_id', 'projaddress', 'signed', 'images', 'namesign','namesign3','signtype', 'signtype3', 'signtype4', 'signtype5', 'namesign4', 'namesign5', 'pdfsigntype', 'pdfphoto', 'projno', 'projname', 'approval','req_type','req_name','req_check','req_notes', 'name3', 'job_title3', 'company3', 'companyid3', 'signed3', 'namesign3', 'date3', 'name4', 'job_title4', 'company4', 'companyid4', 'signed4', 'namesign4', 'date4', 'name5', 'job_title5', 'company5', 'companyid5', 'signed5', 'namesign5', 'date5', 'action', 'permitdata_status');
+            $all_inputs  = $request->except('_token','DrawCheck','files' ,'date','companyid', 'company_id', 'projaddress', 'signed', 'images', 'namesign','namesign3','signtype', 'signtype3', 'signtype4', 'signtype5', 'namesign4', 'namesign5', 'pdfsigntype', 'pdfphoto', 'projno', 'projname', 'approval','req_type','req_name','req_check','req_notes', 'name3', 'job_title3', 'company3', 'companyid3', 'signed3', 'namesign3', 'date3', 'name4', 'job_title4', 'company4', 'companyid4', 'signed4', 'namesign4', 'date4', 'name5', 'job_title5', 'company5', 'companyid5', 'signed5', 'namesign5', 'date5', 'action', 'permitdata_status');
             
             //if design req details is exist
             
@@ -656,12 +656,14 @@ class TemporaryWorkController extends Controller
             $image_name = '';
             if ($request->signtype == 1) {
                 $image_name = $request->namesign;
+                $signature_type = 'name_sign';
             } elseif ($request->pdfsigntype == 1) {
                 $folderPath = public_path('temporary/signature/');
                 $file = $request->file('pdfphoto');
                 $filename = time() . rand(10000, 99999) . '.' . $file->getClientOriginalExtension();
                 $file->move($folderPath, $filename);
                 $image_name = $filename;
+                $signature_type = 'pdf';
             } else {
                 $folderPath = public_path('temporary/signature/');
                 $image = explode(";base64,", $request->signed);
@@ -671,6 +673,7 @@ class TemporaryWorkController extends Controller
                 $image_name = uniqid() . '.' . $image_type_png;
                 $file = $folderPath . $image_name;
                 file_put_contents($file, $image_base64);
+                $signature_type = 'draw';
             }
 
             //third person signature and name
@@ -735,6 +738,7 @@ class TemporaryWorkController extends Controller
 
             // $all_inputs['description_temporary_work_required'] = $content;
             $all_inputs['signature'] = $image_name;
+            $all_inputs['signature_type'] = $signature_type;
             $all_inputs['created_by'] = auth()->user()->id;
 
             //design description starts here
@@ -1643,8 +1647,12 @@ class TemporaryWorkController extends Controller
     {
         Validations::storeComment($request);
         try {
-            
-            //get twc email
+
+            if($request->queriesccemails)
+            { $cc_emails = HelperFunctions::ccEmails($request->queriesccemails);}
+             else
+             {$cc_emails = [];}
+     
             $tempdata = TemporaryWork::select('twc_email', 'design_requirement_text', 'twc_id_no', 'designer_company_email', 'client_email')->find($request->temp_work_id);
             $model = new TemporaryWorkComment();
             $model->comment = $request->comment;
@@ -1658,7 +1666,7 @@ class TemporaryWorkController extends Controller
                 $file = $request->file('image');
                 $imagename = HelperFunctions::saveFile(null, $file, $filePath);
                 $model->image = $imagename;
-            }
+            }else{$imagename = '';}
             if (isset($request->type) && $request->type == 'scan') {
                 $model->type = 'scan';
             }
@@ -1717,7 +1725,7 @@ class TemporaryWorkController extends Controller
                         $type= 'client';
                     }
                   //COde for sendign email to cleint on admin designer module, comment for now
-                  Notification::route('mail', $email)->notify(new CommentsNotification($request->comment, $type, $request->temp_work_id,$client_email,$request->type ?? '','Designer'));
+                  Notification::route('mail', $email)->notify(new CommentsNotification($request->comment, $type, $request->temp_work_id,$client_email,$request->type ?? '','Designer',$cc_emails, $imagename));
                 }else if(!isset($twc))
                 {
                     if($request->type=="designertotwc"){
@@ -1730,10 +1738,10 @@ class TemporaryWorkController extends Controller
                         $cmh->save();
                     }   
                     
-                  Notification::route('mail', $tempdata->twc_email)->notify(new CommentsNotification($request->comment, 'question', $request->temp_work_id, $tempdata->twc_email ,$request->type ?? ''));
+                  Notification::route('mail', $tempdata->twc_email)->notify(new CommentsNotification($request->comment, 'question', $request->temp_work_id, $tempdata->twc_email ,$request->type ?? '','',$cc_emails,$imagename));
                  }else if($twc=="twctodesigner"){
                    
-                    Notification::route('mail', $tempdata->designer_company_email)->notify(new CommentsNotification($request->comment, 'comment', $request->temp_work_id, $tempdata->designer_company_email ,'test'));
+                    Notification::route('mail', $tempdata->designer_company_email)->notify(new CommentsNotification($request->comment, 'comment', $request->temp_work_id, $tempdata->designer_company_email ,'test','',$cc_emails));
 
                     $designerCompanyEmails = DesignerCompanyEmail::where('temporary_work_id', $request->temp_work_id)->get();
                    foreach($designerCompanyEmails as $designeremail){

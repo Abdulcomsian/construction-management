@@ -3,6 +3,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script>
+<script src="{{asset('assets/plugins/custom/summernote/summernote-bs4.min.js')}}"></script>
+<script src="{{asset('assets/plugins/custom/summernote/summernote-cleaner.js')}}"></script>
 @endsection
 @section('styles')
         <!-- Bootstrap CSS -->
@@ -426,6 +428,30 @@ canvas {
         border-bottom: 1px solid #eee;
     }
     
+
+    .note-editor.note-frame.card {
+        border: 1px solid #D2D5DA  !important;
+    }
+    .description_tempwork .card{
+        margin-top:0px;
+    }
+
+
+    .note-editor.note-frame.card {
+        border: 1px solid #D2D5DA  !important;
+    }
+    .description_tempwork .card{
+        margin-top:0px;
+    }
+
+    .note-btn-group{
+        margin-top: 0px !important;
+    }
+    
+    span.multiselect-native-select{
+        display: block;
+        width: 100%
+    }
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
@@ -531,7 +557,10 @@ canvas {
                                         value="{{old('projaddress')}}">
                                 </div>
                             </div>
+
                         </div>
+                        
+
 
                         <div class="row">
                             <div class="col-md-6">
@@ -579,11 +608,11 @@ canvas {
                                     <div class="d-flex modalDiv" data-bs-toggle="modal"
                                         data-bs-target="#design-requirement">
                                         <!--begin::Label-->
-                                        <label style="bottom: 41px" class="  fs-6 fw-bold mb-2">
+                                        <label style="bottom: 30px" class="  fs-6 fw-bold mb-2">
                                             Design Requirement:
                                         </label>
                                         <br>
-                                        <input type="text" class="blackBack" style="width: 50%;"
+                                        <input type="text" class="blackBack" style="width: 50%; height: 30px"
                                             id="design_requirement_text" placeholder="Design requirement" readonly
                                             name="design_requirement_text" value="{{old('design_requirement_text')}}">
                                         <!--end::Label-->
@@ -727,11 +756,19 @@ canvas {
                                             </span>
                                         </label>
                                         <input id="attachment" class="blackBack"
-                                            style="background-color: #000; color:#fff" type="text"
+                                            style="height: 40px;background-color: #000; color:#fff" type="text"
                                             placeholder="Attachments / Spec / Existing Designs and Existing Site Conditions (folders to upload)"
                                             readonly>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-12 description_tempwork" style="">
+                                <label class=" fs-6 fw-bold mt-4">
+                                    Design Brief Description:
+                                </label>
+                                {{-- description code starts here --}}
+                                <textarea id="description" name="description_temporary_work_required"></textarea>
+                                {{-- description code ends here --}}
                             </div>
                         </div>
                         <div class="row">
@@ -1021,7 +1058,7 @@ canvas {
                         @endif
                         
                        
-                        <div class="row mt-5 justify-content-between">
+                        <div class="row mt-5 justify-content-end">
                             <div class="col-md-5"> 
                             </div>
                             <div class="col-md-1 published button-set" style="display:none;">
@@ -1031,12 +1068,12 @@ canvas {
                             </div>
                             <div class="col-md-4 notpublished"> 
                                 <button type="submit" name="action"
-                                    style="margin-left: 10px; background: #07d564 !important; color:white !important; font-size:18px; font-weight:bold;"
+                                    style="height: 100%;margin-left: 10px; background: #07d564 !important; color:white !important; font-size:13px; font-weight:bold;"
                                     class="btn btn-primary float-end submitbutton" value="Email Designer & Supplier (For Pricing)">Email Designer & Supplier (For Pricing)</button>
                             </div>
-                            <div class="col-md-2 notpublished">
+                            <div class="col-md-3 notpublished">
                                 <button type="submit" name="action"
-                                    style="margin-left: 10px; background: #07d564 !important; color:white !important; font-size:18px; font-weight:bold;"
+                                    style="margin-left: 10px; background: #07d564 !important; color:white !important; font-size:14px; height:100%; font-weight:bold;"
                                     class="btn btn-primary float-end submitbutton" value="Save as Draft">Save as Draft</button>
                             </div>
 
@@ -1058,6 +1095,7 @@ canvas {
 </div>
 @include('dashboard.modals.hazardlist')
 @endsection
+
 @section('scripts')
 <script>
     var url="{{asset('js/myfile.json')}}";
@@ -1082,6 +1120,42 @@ canvas {
             $(this).val(0);
         }
     })
+
+    $(document).ready(function() {
+
+$("#description").summernote({
+    placeholder: 'Design Description',
+    disableDragAndDrop:true,
+    tabsize: 2,
+    height: 300,
+    toolbar: [
+// [groupName, [picture]]
+['style', ['bold', 'italic', 'underline', 'clear']],
+['font', ['strikethrough']],
+['fontsize', ['']],
+['color', ['']],
+['para', ['ul', 'ol', '']],
+['height', ['']],
+['picture'],
+['view', ['fullscreen', 'codeview']],
+],
+cleaner: {
+action: 'both', // both|button|paste 'button' only cleans via toolbar button, 'paste' only clean when pasting content, both does both options.
+icon: '<i class="note-icon"><svg xmlns="http://www.w3.org/2000/svg" id="libre-paintbrush" viewBox="0 0 14 14" width="14" height="14"><path d="m 11.821425,1 q 0.46875,0 0.82031,0.311384 0.35157,0.311384 0.35157,0.780134 0,0.421875 -0.30134,1.01116 -2.22322,4.212054 -3.11384,5.035715 -0.64956,0.609375 -1.45982,0.609375 -0.84375,0 -1.44978,-0.61942 -0.60603,-0.61942 -0.60603,-1.469866 0,-0.857143 0.61608,-1.419643 l 4.27232,-3.877232 Q 11.345985,1 11.821425,1 z m -6.08705,6.924107 q 0.26116,0.508928 0.71317,0.870536 0.45201,0.361607 1.00781,0.508928 l 0.007,0.475447 q 0.0268,1.426339 -0.86719,2.32366 Q 5.700895,13 4.261155,13 q -0.82366,0 -1.45982,-0.311384 -0.63616,-0.311384 -1.0212,-0.853795 -0.38505,-0.54241 -0.57924,-1.225446 -0.1942,-0.683036 -0.1942,-1.473214 0.0469,0.03348 0.27455,0.200893 0.22768,0.16741 0.41518,0.29799 0.1875,0.130581 0.39509,0.24442 0.20759,0.113839 0.30804,0.113839 0.27455,0 0.3683,-0.247767 0.16741,-0.441965 0.38505,-0.753349 0.21763,-0.311383 0.4654,-0.508928 0.24776,-0.197545 0.58928,-0.31808 0.34152,-0.120536 0.68974,-0.170759 0.34821,-0.05022 0.83705,-0.07031 z"/></svg></i>',
+keepHtml: true,
+keepTagContents: ['span'], //Remove tags and keep the contents
+badTags: ['applet', 'col', 'colgroup', 'embed', 'noframes', 'noscript', 'script', 'style', 'title', 'meta', 'link', 'head'], //Remove full tags with contents
+badAttributes: ['bgcolor', 'border', 'height', 'cellpadding', 'cellspacing', 'lang', 'start', 'style', 'valign', 'width', 'data-(.*?)'], //Remove attributes from remaining tags
+limitChars: 0, // 0|# 0 disables option
+limitDisplay: 'both', // none|text|html|both
+limitStop: false, // true/false
+notTimeOut: 850, //time before status message is hidden in miliseconds
+keepImages: true, // if false replace with imagePlaceholder
+imagePlaceholder: 'https://via.placeholder.com/200'
+}
+});
+
+})
 </script>
 <script>
     var projects = {!!$projects!!};
@@ -1307,6 +1381,9 @@ canvas {
 //     e.currentTarget.submit();
 //     return true;
 // });
+
+
+
 </script>
 
 

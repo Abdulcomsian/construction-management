@@ -25,7 +25,7 @@ class DesignUpload extends Notification
         $this->offerData = $offerData;
         $this->email=$email;
         $this->is_check=$is_check;
-        $this->attachment = $offerData['body']['attachfile'];
+        $this->attachment = $offerData['body']['attachfile'] ?? '';
         // $this->ccemail = $offerData['cc'];
     }
 

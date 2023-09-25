@@ -491,6 +491,7 @@ class DesignerController extends Controller
             }
             $model->file_type = $file_type;
             $model->temporary_work_id = $tempworkdata->id;
+            
             if ($model->save()) {
                 //
                 if($request->designermail == $tempworkdata->desinger_email_2){

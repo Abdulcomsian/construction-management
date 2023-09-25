@@ -342,6 +342,23 @@ var CSRF_TOKEN = '{{ csrf_token() }}';
                             </div>
                         </div>
                     </div>
+                    @if(count($project->blocks) > 0)
+                    <div class="row">
+                        <div class="col-12">
+                        <div class=" inputDiv d-block mb-0s">
+                            <label class="fs-6 fw-bold mb-2" style="bottom: 40px">
+                            <span class="required">Select Blocks:</span>
+                            </label>
+                            <select name="block_id" id="block" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" readonly>
+                            <option value="">Select Option</option>
+                            @foreach($project->blocks as $block)
+                            <option value="{{$block->id}}" {{($permitdata->block_id == $block->id) ? 'selected' : ''}}>{{$block->title}}</option>
+                            @endforeach
+                            </select>
+                        </div>
+                        </div>
+                    </div>
+                    @endif
                     <div class="row">
                         <div class="col-md-6">
                             <div class="modalDiv d-block mt-md-11" id="drawingFieldDiv">

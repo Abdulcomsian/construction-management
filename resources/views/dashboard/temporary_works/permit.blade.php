@@ -1487,8 +1487,8 @@
                 <div class="col-md-12 d-flex " style="bottom: 20px;">
                 
                 <div class="col-md-6 ">
-                  <button name="action" id="draft" value="draft" type="button" class="btn btn-success  set-button">Save as Draft</button>
-                  <button id="submitbutton" style="margin-right:10px;" type="button" disabled class="btn btn-secondary  set-button" disabled>Submit</button>
+                  <button name="action" id="draft" value="draft" style="margin-right:10px;" type="button" class="btn btn-success  set-button">Save as Draft</button>
+                  <button id="submitbutton"  type="button" disabled class="btn btn-secondary  set-button" disabled>Submit</button>
                 </div>
                 <div class="col-md-6" style="margin-left: 15px;">
                   <button class="btn btn-success btn-sm " id="addMemberButton" style="border-radius: 5px;padding: 10px 20px;font-size: 16px;font-weight: 600;    background: none;border: 1px solid #07d564;color: #07d564;">Add New Signature</button>

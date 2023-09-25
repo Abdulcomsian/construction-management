@@ -30,7 +30,7 @@ class DesignUpload extends Notification
         $this->is_check=$is_check;
         if(isset($offerData['body']['attachfile']))
         {
-            $this->attachment = $offerData['body']['attachfile'];
+            $this->attachment = $offerData['body']['attachfile'] ?? '';
 
         }
         

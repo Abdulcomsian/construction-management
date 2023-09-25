@@ -51,8 +51,6 @@
 
                 
                 <!--end:Form-->
-<<<<<<< HEAD
-=======
                 <table class="table table-hover" >
                     <thead>
                         <tr>
@@ -102,7 +100,6 @@
                     </div>
                    
                 </form>
->>>>>>> b0753d3b173f0f54739d7adb9985aa9720c408b5
             </div>
             <!--end::Modal body-->
         </div>

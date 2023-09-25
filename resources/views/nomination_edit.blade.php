@@ -465,12 +465,12 @@
                                     @foreach($experience as $ex)
                                     <tr>
                                         <input type="hidden" name="experience_ids[]" value="{{$ex->id}}">
-                                        <td class="tdhight"><input type="text" name="project_title[]"
-                                                value="{{$ex->project_title}}" required></td>
-                                        <td class="tdhight"><input type="text" name="project_role[]"
-                                                value="{{$ex->role}}" required></td>
-                                        <td class="tdhight"><input type="text" name="desc_of_involvement[]"
-                                                value="{{$ex->description_involvment}}" required></td>
+                                        <td class="tdhight"><textarea name="project_title[]"
+                                                value="" required style="white-space:pre-wrap;width: 100%;border: none;height: 23px;outline: none;min-height:50px">{{$ex->project_title}}</textarea></td>
+                                        <td class="tdhight"><textarea  name="project_role[]"
+                                                value="" required style="white-space:pre-wrap;width: 100%;border: none;height: 23px;outline: none;min-height:50px">{{$ex->role}}</textarea></td>
+                                        <td class="tdhight"><textarea type="text" name="desc_of_involvement[]"
+                                                value="" required style="white-space:pre-wrap;width: 100%;border: none;height: 23px;outline: none;min-height:50px">{{$ex->description_involvment}}</textarea></td>
                                     </tr>
                                     @endforeach
                                 </tbody>

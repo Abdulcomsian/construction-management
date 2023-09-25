@@ -1242,7 +1242,7 @@
                 </div>
                 <div class="col-md-12 d-flex justify-content-end align-items-end"> 
                     <div class="col-md-5">
-                        <button class="btn btn-success btn-sm mt-8" id="addMemberButton" style="padding: 10px 40px;font-size: 20px;font-weight: bold;">Add New Signature</button>
+                        <button class="btn btn-success btn-sm mt-8" id="addMemberButton" style="padding: 10px 40px;font-size: 20px;font-weight: bold; background-color:#07d564; border-radius:5px">Add New Signature</button>
                     </div>
                     <div class="col-md-3">
                         @include('dashboard.modals.design-relief-modals')

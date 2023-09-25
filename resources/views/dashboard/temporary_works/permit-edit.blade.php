@@ -1366,6 +1366,7 @@
                         @endif
                         {{-- <div>
                         </div> --}}
+                      
                     </div>
                     @if($permitdata->draft_status == "1")
                     <input type="hidden" id="permitdata_status" name="permitdata_status" value="approved" />  {{-- to update permit if it is draft--}} 
@@ -1376,15 +1377,17 @@
                     @else 
                     <input type="hidden" id="permitdata_status" name="permitdata_status" value="approved" />   {{-- to update permit for other condition--}} 
                     @endif
-                    <div class="col-md-12 d-flex justify-content-end align-items-end" style="bottom: 20px;">
-                        <div class="col-md-6">
-                            <button id="submitbutton"  style="margin-right:10px;"  type="button" class="btn btn-primary">Submit</button>
-                            <button name="action" id="draft" value="draft" type="button" class="btn btn-success set-button">Save as Draft</button>
+                    <div class="row mt-12">
+                        <div class="col-md-12 d-flex " style="bottom: 20px;">
+                            <div class="col-md-6">
+                                <button id="submitbutton"  style="margin-right:10px;border-radius:5px;"  type="button" class="btn btn-primary">Submit</button>
+                                <button name="action" id="draft" value="draft" type="button" class="btn btn-success set-button">Save as Draft</button>
+                            </div>
+                            <div class="col-md-5">
+                                <button class="btn btn-success btn-sm" id="addMemberButton" style="border-radius: 5px;padding: 10px 20px;font-size: 16px;font-weight: 600;">Add New Signature</button>
+                            </div>
+                           
                         </div>
-                        <div class="col-md-5">
-                            <button class="btn btn-success btn-sm mt-10" id="addMemberButton" style="border-radius: 5px;padding: 10px 20px;font-size: 16px;font-weight: 600;">Add New Signature</button>
-                        </div>
-                       
                     </div>
                 </form>
           

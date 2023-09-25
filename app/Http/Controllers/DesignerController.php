@@ -1637,7 +1637,7 @@ class DesignerController extends Controller
             //new code ends here
             $twc_email = TemporaryWork::select('twc_email')->find($permitdata->temporary_work_id);
             $createdby = User::find($permitdata->created_by);
-            if($request->status==3){ //if accepted then we need to udpate status to 3 accepted and reove draft
+            if($request->status==3){ //if accepted then we need to udpate status to 3 accepted and reopen draft
                 PermitLoad::find($request->permitid)->update([
                     'status' => $request->status,
                     'draft_status' => "2",
@@ -1647,7 +1647,13 @@ class DesignerController extends Controller
                     // 'status' => $request->status,
                     'draft_status' => "1",
                 ]);
+            }else  { //if accepted then we need to udpate status to 3 accepted and reopen draft
+
+                PermitLoad::find($request->permitid)->update([
+                    'status' => $request->status,
+                ]);
             }
+            
             if ($request->status == 5) { //permit to load Yes
                 $model = new PermitComments();
                 $model->comment = $request->comments;
@@ -1697,7 +1703,7 @@ class DesignerController extends Controller
                 $cmh= new ChangeEmailHistory();
                 $cmh->email=$twc_email->twc_email;
 
-                $cmh->status =2;
+                // $cmh->status =2;
                 $cmh->foreign_idd=$permitdata->temporary_work_id;
                 if(isset($request->type) && $request->type=="permit-unload"){
                     $cmh->message='Permit to Unload Rejected by PC TWC';

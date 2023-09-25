@@ -2638,10 +2638,10 @@ class TemporaryWorkController extends Controller
         //      $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->latest()->get();
         //  }
         if (isset($request->type)) {
-            $permited = PermitLoad::where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->where('status','!=',7)->where('status','!=',9)->latest()->get();
+            $permited = PermitLoad::with('blocks')->where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->where('status','!=',7)->where('status','!=',9)->latest()->get();
              $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->latest()->get();
           }else{
-              $permited = PermitLoad::where(['temporary_work_id' => $tempid])->where('status','!=',3)->where('status','!=',6)->latest()->get();
+              $permited = PermitLoad::with('blocks')->where(['temporary_work_id' => $tempid])->where('status','!=',3)->where('status','!=',6)->latest()->get();
               $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->latest()->get();
           }
         $list = '';
@@ -2737,8 +2737,10 @@ class TemporaryWorkController extends Controller
                     if (auth()->user()->hasRole('scaffolder')) {
                         $button = '';
                     }
-                    $date = date('d-m-Y', strtotime($permit->created_at));
-                    $list .= '<tr data-permit-id="'.$permit->id.'" style="' . $class . '"><td style="text-align:center"><a style="    height: 50px;line-height: 15px;" target="_blank" href="' . $path . 'pdf/' . $permit->ped_url . '">' . $request->desc . '</a></td><td  style="text-align:center">' . $permit->permit_no . '</td><td  style="text-align:center" class="' . $color . '">' . $days . ' days </td><td  style="text-align:center">Permit Load</td><td  style="text-align:center">'. $permit->location_temp_work .'</td><td  style="text-align:center">'. $permit->block_id .'</td><td  style="text-align:center">'. $date .'</td><td  style="text-align:center">' .  $status . '</td><td style="height: 48px;line-height: 15px;text-align:center;">' . $dnl_status . $button . '</td>/tr>';
+                   $block_id = isset($permit->blocks) ? $permit->blocks->title : '';
+                    $date = empty($permit->updated_at) ? date('d-m-Y', strtotime($permit->created_at)) : date('d-m-Y', strtotime($permit->updated_at)) ;
+                    $time = empty($permit->updated_at) ? date('H:i:s',strtotime($permit->created_at)) : date('H:i:s',strtotime($permit->updated_at));
+                    $list .= '<tr data-permit-id="'.$permit->id.'" style="' . $class . '"><td style="text-align:center"><a style="    height: 50px;line-height: 15px;" target="_blank" href="' . $path . 'pdf/' . $permit->ped_url . '">' . $request->desc . '</a></td><td  style="text-align:center">' . $permit->permit_no . '</td><td  style="text-align:center" class="' . $color . '">' . $days . ' days </td><td  style="text-align:center">Permit Load</td><td  style="text-align:center">'. $permit->location_temp_work .'</td><td  style="text-align:center">'. $block_id .'</td><td  style="text-align:center">'. $date .'<br>'.$time.'</td><td  style="text-align:center">' .  $status . '</td><td style="height: 48px;line-height: 15px;text-align:center;">' . $dnl_status . $button . '</td>/tr>';
                 }
             $list .= '<hr>';
         }
@@ -2784,7 +2786,7 @@ class TemporaryWorkController extends Controller
     public function permit_edit($id)
     {
         $permitid =  \Crypt::decrypt($id);
-        $permitdata = PermitLoad::with('permitLoadImages','signatures')->find($permitid);
+        $permitdata = PermitLoad::with('permitLoadImages','signatures','blocks')->find($permitid);
         $tempid = $permitdata->temporary_work_id;
         $tempdata = TemporaryWork::find($tempid);
         $twc_id_no = $permitdata->permit_no;

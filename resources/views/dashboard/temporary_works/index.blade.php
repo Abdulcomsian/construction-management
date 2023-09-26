@@ -14,6 +14,16 @@ $tempWorkClass = "d-none";
 @php use App\Utils\HelperFunctions; @endphp
 @section('styles')
 <style>
+    @media screen and (min-width: 961px) {
+        .menu_items {
+            max-height:67px;
+    }
+}
+    .menu_items {
+        background: white;
+        padding: 10px 22px; 
+       
+    }
     /* .indexTempory .test{
         height:65px !important;
         max-height:65px !important;
@@ -457,6 +467,7 @@ $tempWorkClass = "d-none";
         }
     }
 
+
     @media screen and (max-width: 768px) {
         .twrHeader {
             display: flex;
@@ -702,7 +713,7 @@ $tempWorkClass = "d-none";
                     <!--end::Card header-->
                     <!--begin::Card body-->
                     <div class="card-body indexTempory pt-0" style="max-width: 1550px; margin: auto">
-                        <div class="my-4 test"  style="background: white;padding: 10px 22px; max-height:67px;">
+                        <div class="my-4 test menu_items"  >
                             <div class="row align-items-center" style="justify-content: flex-start;">
                                 <div class="col-md-6">
                                     <div class="row align-items-center" style="justify-content: flex-start;">

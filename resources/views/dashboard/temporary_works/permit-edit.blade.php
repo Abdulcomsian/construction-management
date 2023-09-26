@@ -1054,7 +1054,7 @@
                             <img style="background-color: #D3D3D3; border-radius: 15px; width: 300px;" src="{{asset('temporary/signature/'.$permitdata->signature)}}" width="100%" />
                             @endif
                         </div>
-                        <div class="col-md-6 mt-15" id="first_member">
+                        <div class="col-md-6 " id="first_member">
                             @if(isset($permitdata) && $permitdata->principle_contractor==1)
                                 <div class="d-flex inputDiv principleno">
                                     <!--begin::Label-->

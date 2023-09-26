@@ -200,6 +200,7 @@ class Validations
             'tws_name' => ['required'],
             // 'ms_ra_no' => ['required'],
             'name1' => 'required_if:principle_contractor,1',
+            'pc_twc_email' => 'required_if:approval,1',
             'job_title1' => 'required_if:principle_contractor,1',
             'name' => ['required'],
             'job_title' => ['required'],

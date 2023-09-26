@@ -1645,7 +1645,12 @@ class DesignerController extends Controller
             //new code ends here
             $twc_email = TemporaryWork::select('twc_email')->find($permitdata->temporary_work_id);
             $createdby = User::find($permitdata->created_by);
-            if($request->status==3){ //if accepted then we need to udpate status to 3 accepted and reopen draft
+            if(isset($request->type) && $request->type=="permit-load" && $request->status==1){  // for permit to load accept scenario
+                PermitLoad::find($request->permitid)->update([
+                    'status' => $request->status,
+                    'draft_status' => "0",
+                ]);
+            }else if($request->status==3){ //if accepted then we need to udpate status to 3 accepted and reopen draft
                 PermitLoad::find($request->permitid)->update([
                     'status' => $request->status,
                     'draft_status' => "2",

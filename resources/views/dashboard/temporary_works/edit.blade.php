@@ -1072,7 +1072,7 @@
                                 <!--end::Label-->
                                 <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title3" name="job_title3" value="{{$temporaryWork->signatures[0]->job_title ?? ''}}" {{ isset($temporaryWork->signatures[0]->job_title) && $temporaryWork->signatures[0]->job_title != null ? 'readonly' : '' }}>
                             </div>
-                            <div class="d-flex inputDiv ">
+                            <div class=" inputDiv ">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                 <span class="required">Company: </span>
@@ -1084,7 +1084,7 @@
                                 <input type="hidden" id="companyid3" class="form-control form-control-solid" placeholder="Company" name="companyid3" readonly="readonly">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv ">
+                            <div class=" inputDiv ">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
                                 <span class="required">Date:</span>
@@ -1148,7 +1148,7 @@
                                 <!--end::Label-->
                                 <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title4" name="job_title4" value="{{$temporaryWork->signatures[1]->job_title ?? ''}}" {{ isset($temporaryWork->signatures[1]->job_title) && $temporaryWork->signatures[1]->job_title != null ? 'readonly' : '' }}>
                             </div>
-                            <div class="d-flex inputDiv ">
+                            <div class=" inputDiv ">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                 <span class="required">Company: </span>
@@ -1160,7 +1160,7 @@
                                 <input type="hidden" id="companyid4" class="form-control form-control-solid" placeholder="Company" name="companyid" readonly="readonly">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv ">
+                            <div class=" inputDiv ">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
                                 <span class="required">Date:</span>
@@ -1227,7 +1227,7 @@
                                 <!--end::Label-->
                                 <input type="text" class="form-control form-control-solid" placeholder="Job Title" id="job_title5" name="job_title5" value="{{$temporaryWork->signatures[2]->job_title ?? ''}}" {{ isset($temporaryWork->signatures[2]->job_title) && $temporaryWork->signatures[2]->job_title != null ? 'readonly' : '' }}>
                             </div>
-                            <div class="d-flex inputDiv ">
+                            <div class=" inputDiv ">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                 <span class="required">Company: </span>
@@ -1239,7 +1239,7 @@
                                 <input type="hidden" id="company5" class="form-control form-control-solid" placeholder="Company" name="company5" readonly="readonly">
                                 </div>
                             </div>
-                            <div class="d-flex inputDiv ">
+                            <div class=" inputDiv ">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-bold mb-2 ml-2">
                                 <span class="required">Date:</span>

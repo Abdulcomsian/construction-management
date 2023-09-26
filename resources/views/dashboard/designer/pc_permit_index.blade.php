@@ -174,6 +174,8 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <input type="hidden" name="type" value="permit-load" />
+
                                     <div class="col-md-2">
                                         <div class="d-flex inputDiv requiredDiv">
                                             <label> </label>

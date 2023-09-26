@@ -236,6 +236,14 @@ input {
 .btn-check:checked+.btn.btn-active-primary2 {
     background: #FFBF00;
 }
+.set-button {
+    /* position: absolute !important; */
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    border-radius: 5px;
+    padding: 10px 20px !important;
+    /* margin-top:-160px; */
+  }
 </style>
 <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}" />
 <link rel="stylesheet" href="{{asset('pdf-editor/viewer.css')}}" />
@@ -1353,26 +1361,28 @@ var CSRF_TOKEN = '{{ csrf_token() }}';
                         @endif
                     </div>
 
-                    <div>
-                        <button class="btn btn-success btn-sm mt-8" id="addMemberButton">Add New</button>
-                    </div>
-
-                    <div class="row">
-
-
-                    </div>
                     <!-- </div> -->
 
                     <!-- </div> -->
-                    <div class="col-md-12">
+                    <div class="row mt-12">
+                        <div class="col-md-12 d-flex " style="bottom: 20px;">
+                        
+                        <div class="col-md-6 ">
                         <!-- <div class="uploadDiv" style="padding-left: 10px;">
                                 <div class="input-images"></div>
                             </div> -->
-                        <br>
-                        <input type="hidden" name="id" value="{{$permitdata->id}}">
-                        <button id="submitbutton" type="button" class="btn btn-secondary unload_button">Submit</button>
-                        <button name="action" id="draft" value="draft" type="button"
+                        <button name="action" id="draft" value="draft" style="margin-right:10px;" type="button"
                             class="btn btn-success  set-button">Save as Draft</button>
+                        <input type="hidden" name="id" value="{{$permitdata->id}}">
+                        <button id="submitbutton" type="button" class="btn btn-secondary set-button unload_button">Submit</button>
+                        
+                        </div>
+                        <div class="col-md-6" style="margin-left: 15px;">
+                        {{-- <button class="btn btn-success btn-sm mt-8" id="addMemberButton">Add New</button> --}}
+                            <button class="btn btn-success btn-sm " id="addMemberButton" style="border-radius: 5px;padding: 10px 20px;font-size: 15px;font-weight: 500;    background: none;border: 1px solid #07d564;color: #07d564;">Add New Signature</button>
+                        </div>
+                    </div>
+                </div>
                         {{-- <div class="d-flex inputDiv principleno" id="sign">
                             <textarea id="signature" name="signed" style="opacity: 0" required></textarea>
                         </div> --}}

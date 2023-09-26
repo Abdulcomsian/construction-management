@@ -311,9 +311,10 @@
 
   .set-button {
     /* position: absolute !important; */
-    font-size: 20px !important;
-    font-weight: bold !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
     border-radius: 5px;
+    padding: 10px 20px !important;
     /* margin-top:-160px; */
   }
 
@@ -1482,25 +1483,27 @@
                   
                 </div> --}}
               </div>
+              <div class="row mt-12">
+                <div class="col-md-12 d-flex " style="bottom: 20px;">
+                
+                <div class="col-md-6 ">
+                  <button name="action" id="draft" value="draft" style="margin-right:10px;" type="button" class="btn btn-success  set-button">Save as Draft</button>
+                  <button id="submitbutton"  type="button" disabled class="btn btn-secondary  set-button" disabled>Submit</button>
+                </div>
+                <div class="col-md-6" style="margin-left: 15px;">
+                  <button class="btn btn-success btn-sm " id="addMemberButton" style="border-radius: 5px;padding: 10px 20px;font-size: 15px;font-weight: 500;    background: none;border: 1px solid #07d564;color: #07d564;">Add New Signature</button>
+                </div>
+              </div>
               <br>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-12 d-flex justify-content-end align-items-end" style="bottom: 20px;">
-            <div class="col-md-5">
-              <button class="btn btn-success btn-sm mt-8" id="addMemberButton" style="padding: 10px 40px;font-size: 20px;font-weight: bold;">Add New Signature</button>
-            </div>
-            <div class="col-md-6 ">
-              <button id="submitbutton" type="button" disabled class="btn btn-secondary  set-button" disabled>Submit</button>
-              <button name="action" id="draft" value="draft" type="button" class="btn btn-success  set-button">Save as Draft</button>
-            </div>
-          </div>
+          
         </div>
         </form>
-      </div>
-    </div>
-  </div>
-</div>
+     
+
+
+
 {{-- this is newly added code for edit pdf modal --}}
 
 <!-- Modal -->

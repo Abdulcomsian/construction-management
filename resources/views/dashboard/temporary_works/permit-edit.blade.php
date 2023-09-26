@@ -226,6 +226,15 @@
             width: 75%;
         }
     }
+ 
+    .set-button {
+    /* position: absolute !important; */
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    border-radius: 5px;
+    padding: 10px 20px !important;
+    /* margin-top:-160px; */
+  }
 </style>
 <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}" />
 {{-- this is newly added code for edit pdf after this --}}
@@ -1045,7 +1054,7 @@
                             <img style="background-color: #D3D3D3; border-radius: 15px; width: 300px;" src="{{asset('temporary/signature/'.$permitdata->signature)}}" width="100%" />
                             @endif
                         </div>
-                        <div class="col-md-6 mt-15" id="first_member">
+                        <div class="col-md-6 " id="first_member">
                             @if(isset($permitdata) && $permitdata->principle_contractor==1)
                                 <div class="d-flex inputDiv principleno">
                                     <!--begin::Label-->
@@ -1375,6 +1384,7 @@
                         @endif
                         {{-- <div>
                         </div> --}}
+                      
                     </div>
                     @if($permitdata->draft_status == "1")
                     <input type="hidden" id="permitdata_status" name="permitdata_status" value="approved" />  {{-- to update permit if it is draft--}} 
@@ -1385,18 +1395,21 @@
                     @else 
                     <input type="hidden" id="permitdata_status" name="permitdata_status" value="approved" />   {{-- to update permit for other condition--}} 
                     @endif
-                    <div class="col-md-12 d-flex justify-content-end align-items-end" style="bottom: 20px;">
-                        <div class="col-md-5">
-                            <button class="btn btn-success btn-sm mt-10" id="addMemberButton" style="padding: 10px 40px;font-size: 20px;font-weight: bold;">Add New Signature</button>
-                        </div>
-                        <div class="col-md-6">
-                            <button id="submitbutton" type="button" class="btn btn-primary">Update</button>
-                            <button name="action" id="draft" value="draft" type="button" class="btn btn-success set-button">Save as Draft</button>
+                    <div class="row mt-12">
+                        <div class="col-md-12 d-flex " style="bottom: 20px;">
+                            <div class="col-md-6">
+                                <button name="action" id="draft" value="draft" style="margin-right:10px;" type="button" class="btn btn-success set-button">Save as Draft</button>
+                                <button id="submitbutton"  style="margin-right:10px;border-radius:5px;"  type="button" class="btn btn-primary set-button">Submit</button>
+                               
+                            </div>
+                            <div class="col-md-5">
+                                <button class="btn btn-success btn-sm" id="addMemberButton" style="border-radius: 5px;padding: 10px 20px;font-size: 15px;font-weight: 500;    background: none;border: 1px solid #07d564;color: #07d564;">Add New Signature</button>
+                            </div>
+                           
                         </div>
                     </div>
                 </form>
-            </div>
-        </div>
+          
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
             <div class="modal-dialog modal-dialog-centered modal-xl">

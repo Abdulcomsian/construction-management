@@ -546,9 +546,9 @@
                                     @endforeach
                                     @else
                                     <tr>
-                                        <td class="tdhight"><input type="text" name="project_title[]" required></td>
-                                        <td class="tdhight"><input type="text" name="project_role[]" required></td>
-                                        <td class="tdhight"><input type="text" name="desc_of_involvement[]" required>
+                                        <td class="tdhight"><textarea name="project_title[]" required style="width: 100%;border: none;height: 23px;outline: none;min-height:50px"></textarea></td>
+                                        <td class="tdhight"><textarea  name="project_role[]" required style="width: 100%;border: none;height: 23px;outline: none;min-height:50px"></textarea></td>
+                                        <td class="tdhight"><textarea name="desc_of_involvement[]" required style="width: 100%;border: none;height: 23px;outline: none;min-height:50px"></textarea>
                                         </td>
                                     </tr>
                                     @endif

@@ -629,7 +629,7 @@ $tempWorkClass = "d-none";
                                         data-kt-menu-trigger="click" data-kt-menu-attach="parent"
                                         data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
                                         @isset(auth()->user()->image)
-                                        <img alt="Logo" src="{{ auth()->user()->image ?: '' }}">
+                                        <img alt="Logo" src="{{ auth()->user()->image ? : '' }}">
                                         @else
                                         <div class="symbol-label fs-3 bg-light-primary text-primary">
                                             {{ \Illuminate\Support\Str::upper(auth()->user()->name[0]) ?: '' }}</div>
@@ -1240,14 +1240,14 @@ $tempWorkClass = "d-none";
                                                                     target="_blank"
                                                                     href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
                                                                 </a>
-                                                            @else
+                                                                @endif
+                                                            <br>
                                                                 @foreach($item->designbrief_history as $row)
                                                                     <a style=""
                                                                         target="_blank"
                                                                         href="{{asset('pdf'.'/'.$row->pdf_name)}}">{{$row->twc_id_no}}
                                                                     </a>
                                                                 @endforeach
-                                                            @endif
                                                         </div>
                                                     </td>
                                                     <td style="max-width: 191px;min-width: 191px;">

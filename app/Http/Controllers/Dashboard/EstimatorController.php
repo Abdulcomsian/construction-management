@@ -600,7 +600,14 @@ class EstimatorController extends Controller
     //save question/comment from designer
     public function estimatorDesignerCommentsSave(Request $request)
     {
-
+        if($request->file('attachfile'))
+        {$attachfile= $request->file('attachfile');}
+        else 
+        {$attachfile='';}
+        if($request->ccemails)
+        { $cc_emails = HelperFunctions::ccEmails($request->ccemails);}
+        else
+        {$cc_emails = [];}
         $model= new EstimatorDesignerComment;
         $model->comment=$request->comment;
         $model->comment_email=$request->email;
@@ -611,7 +618,7 @@ class EstimatorController extends Controller
         $temporary_work = TemporaryWork::findorfail($request->estimatorId);
         $estimatorUser=User::find($temporary_work->created_by);
         $type='estimator';
-        Notification::route('mail',$estimatorUser->email)->notify(new DesignerEstimatComment($request->email,$type));
+        Notification::route('mail',$estimatorUser->email)->notify(new DesignerEstimatComment($request->email,$type,'','',$attachfile,$cc_emails,$request->comment));
         toastSuccess('Comment submitted successfully!');
         return redirect()->back();
     }

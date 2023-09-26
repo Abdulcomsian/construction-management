@@ -31,6 +31,9 @@
                                                                         Estimator has replied to your comment kindly check it.
                                                                         @endif
                                                                    </p>
+                                                                   @if($comment)
+                                                                   <p  style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left"><b>Comment: </b> {{$comment}}</p>
+                                                                   @endif
                                                                    <p>
                                                                        @if($type=='estimator')
                                                                        <a href="{{url('Estimator/estimator')}}">View Estimate</a>

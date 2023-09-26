@@ -989,19 +989,19 @@
                       <span>Approval via Email Required by the PCTWC</span>
                     </label>
                     <!--end::Label-->
-                    <input type="checkbox" name="approval" checked id="approval" style="width: 12px;margin-left:11px;margin-right: 10px; opacity: 0.5">
+                    <input type="checkbox" name="approval"  id="approval" style="width: 12px;margin-left:11px;margin-right: 10px; opacity: 0.5">
                     <span class="tickboxalign" style="padding-left:3px;color:#000">Select if
                       approval is required.</span>
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <div class="d-flex inputDiv mt-7">
+                  <div class=" d-none pc-twc inputDiv mt-7">
                     <!--begin::Label-->
                     <label class="d-flex align-items-center fs-6 fw-bold mb-2" style="width:fit-content !important">
                       <span>PC TWC Email:</span>
                     </label>
                     <!--end::Label-->
-                    <input type="email" class="form-control form-control-solid" name="pc_twc_email" id="pc-twc-email" placeholder="Email" value="{{old('pc-twc-email')}}">
+                    <input type="email" class="form-control form-control-solid" name="pc_twc_email" id="pc-twc-email" placeholder="Email" value="{{old('pc_twc_email')}}">
                   </div>
                 </div>
               </div>
@@ -2659,6 +2659,7 @@
 
   //approval checkbox checkded
   $("#approval").change(function() {
+  
     if ($(this).is(':checked')) {
       $(".pc-twc").removeClass('d-none').addClass('d-flex');
       $("#pc-twc-email").attr('required', 'required');

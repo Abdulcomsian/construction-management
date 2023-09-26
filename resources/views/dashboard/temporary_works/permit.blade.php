@@ -311,8 +311,8 @@
 
   .set-button {
     /* position: absolute !important; */
-    font-size: 16px !important;
-    font-weight: 600 !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
     border-radius: 5px;
     padding: 10px 20px !important;
     /* margin-top:-160px; */
@@ -1491,7 +1491,7 @@
                   <button id="submitbutton"  type="button" disabled class="btn btn-secondary  set-button" disabled>Submit</button>
                 </div>
                 <div class="col-md-6" style="margin-left: 15px;">
-                  <button class="btn btn-success btn-sm " id="addMemberButton" style="border-radius: 5px;padding: 10px 20px;font-size: 16px;font-weight: 600;    background: none;border: 1px solid #07d564;color: #07d564;">Add New Signature</button>
+                  <button class="btn btn-success btn-sm " id="addMemberButton" style="border-radius: 5px;padding: 10px 20px;font-size: 15px;font-weight: 500;    background: none;border: 1px solid #07d564;color: #07d564;">Add New Signature</button>
                 </div>
               </div>
               <br>

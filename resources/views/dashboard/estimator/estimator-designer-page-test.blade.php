@@ -924,7 +924,25 @@
                                         <textarea class="form-control" name="comment"></textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-md-4">
+                                    <div class="form-group mx-sm-3 mb-2 d-flex" style="flex-direction: column">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span>Attachment:</span>
+                                        </label>
+                                        <input type ="file" class="form-control" name="attachfile"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mx-sm-3 mb-2 d-flex" style="flex-direction: column">
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span>Cc Email: (Add comma separted multiple emails):</span>
+                                        </label>
+                                        <input type ="text" class="form-control" name="ccemails"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
                                     <div class="form-group mt-5">
                                         <button type="submit" class="btn btn-primary mx-5 queryButton">Submit</button>
                                         <!-- Input element for file upload -->
@@ -938,8 +956,6 @@
                                         </label> --}}
                                     </div>
                                 </div>
-
-
                             </div>
                         </div>
                     </form>

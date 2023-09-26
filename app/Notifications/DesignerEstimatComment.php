@@ -16,12 +16,18 @@ class DesignerEstimatComment extends Notification
     public $type;
     public $designListId;
     public $temworaryId;
-    public function __construct($email,$type,$designListId=NULL,$temworaryId=NULL)
+    protected $ccemail;
+    protected $attachment;
+    protected $comment;
+    public function __construct($email,$type,$designListId=NULL,$temworaryId=NULL,$attachfile=NULL,$cc_emails=NULL,$comment=NULL)
     {
         $this->email=$email;
         $this->type=$type;
         $this->designListId=$designListId;
         $this->temworaryId=$temworaryId;
+        $this->attachment = $attachfile;
+        $this->ccemail = $cc_emails;
+        $this->comment = $comment ?? '';
     }
 
     /**
@@ -51,10 +57,26 @@ class DesignerEstimatComment extends Notification
             $code=$data->code;
         }
        
-        return (new MailMessage)
+        $send_email =  (new MailMessage)
             ->greeting('Designer Comment')
             ->subject('Designer Comment')
-            ->view('mail.designerEstimatorComment',['email'=>$this->email,'type'=>$this->type,'code'=>$code,'data'=>$data]);
+            ->view('mail.designerEstimatorComment',['email'=>$this->email,'type'=>$this->type,'code'=>$code,'data'=>$data,'comment'=>$this->comment]);
+            if($this->attachment)
+            {
+                $send_email->attachData(
+                    $this->attachment->get(),
+                    $this->attachment->getClientOriginalName(),
+                    ['mime' => $this->attachment->getClientMimeType()]
+                );
+            }
+            if ($this->ccemail)
+            {
+                foreach($this->ccemail as $cc_email)
+                {
+                    $send_email->cc($cc_email);
+                }
+            }
+        return $send_email;
     }
 
     /**

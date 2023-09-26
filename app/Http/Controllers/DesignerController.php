@@ -17,7 +17,7 @@ use App\Models\ChangeEmailHistory;
 use App\Models\ScopeOfDesign;
 use App\Models\Folder;
 use App\Models\AttachSpeComment;
-use App\Models\{TemporayWorkImage, Project,DesignerQuotation,EstimatorDesignerList,AdditionalInformation, DesignerCertificate, JobAssign, Tag};
+use App\Models\{TemporayWorkImage, Project,DesignerQuotation,EstimatorDesignerList,AdditionalInformation, DesignerCertificate, JobAssign, Tag, EmailExtra};
 use App\Models\DesignerCompanyEmail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Crypt;
@@ -1459,22 +1459,18 @@ class DesignerController extends Controller
             TemporaryWork::find($request->tempworkid)->update([
                 'status' => $request->status,
             ]);
-            if($request->file('attachfile'))
-            {
-                $attachfile = $request->file('attachfile');
-            }
-            else
-            {
-                $attachfile = '';
-            }
             if ($request->status == 2) {
                 $model = new TemporaryWorkComment();
                 $model->comment = $request->comments;
                 $model->temporary_work_id = $request->tempworkid;
                 $model->type = 'pc';
                 if ($model->save()) {
+                    if ($request->file('attachfile')) {
+                        $filePath = HelperFunctions::temporaryworkcommentPath();
+                        $file = $request->file('attachfile');
+                        $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+                    }else{$imagename='';}
                     $rejectedmodel= TemporaryWorkRejected::where('temporary_work_id',$request->tempworkid)->orderBy('id','desc')->limit(1)->first();
-
                     $rejectedmodel->temporary_work_id=$request->tempworkid;
                     $rejectedmodel->comment=$request->comments;
                     $rejectedmodel->rejected_by=$tempworkdata->pc_twc_email;
@@ -1482,6 +1478,11 @@ class DesignerController extends Controller
                     $rejectedmodel->updated_at=date('Y-m-d H:i:s');
                     $rejectedmodel->save();
                     //
+                    $rejectedmodel->email_extra()->create([
+                        'attachment'=>$imagename,
+                        'cc_emails'=>$request->ccemail,
+                    ]);
+
                     $chm= new ChangeEmailHistory();
                     $chm->email=$tempworkdata->twc_email;
                     $chm->type ='Design Brief Rejected';
@@ -1492,6 +1493,7 @@ class DesignerController extends Controller
 
                     $subject = 'TWP – Design Brief Rejected - ' . $tempworkdata->project->name . '-' . $tempworkdata->project->no;
                     $text = ' The Principal Contractors Temporary Coordinator has rejected your design. Please follow the link below to amend your submission: ';
+                    $attachfile = $model->image;
                     $notify_admins_msg = [
                         'greeting' => 'Design Brief Rejected',
                         'subject' => $subject,
@@ -1505,7 +1507,7 @@ class DesignerController extends Controller
                             'comments'=>$request->comments,
                             'type'=>'desingbrief',
                             'company'=>$tempworkdata->company,
-                            'attachfile'=>$attachfile
+                            'attachfile'=>$imagename
                         ],
                         'thanks_text' => 'Thanks For Using our site',
                         'action_text' => '',
@@ -1521,6 +1523,12 @@ class DesignerController extends Controller
                 $model = new TemporaryWorkComment();
                 $model->comment = $request->comments;
                 $model->temporary_work_id = $request->tempworkid;
+                if ($request->file('attachfile')) {
+                    $filePath = HelperFunctions::temporaryworkcommentPath();
+                    $file = $request->file('attachfile');
+                    $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+                    $model->image = $imagename;
+                }
                 $model->type = 'pc';
                 if ($model->save()) {
                     $rejectedmodel= TemporaryWorkRejected::where('temporary_work_id',$request->tempworkid)->orderBy('id','desc')->limit(1)->first();
@@ -1544,7 +1552,7 @@ class DesignerController extends Controller
                 }
                 $subject = 'TWP – Design Brief Accepted - ' . $tempworkdata->project->name . '-' . $tempworkdata->project->no;
                 $text = "We have attached the accepted PDF design brief for  ". $tempworkdata->company .". The design brief includes relevant documents as links.";
-               
+                $attachfile = $model->image;
                 $notify_admins_msg = [
                     'greeting' => 'Design Brief Accepted',
                     'subject' => $subject,
@@ -1767,7 +1775,7 @@ class DesignerController extends Controller
     {
         $id=\Crypt::decrypt($request->tempid);
         $tempdata=TemporaryWork::select(['twc_id_no','status','pc_twc_email'])->find($id);
-        $rejected=TemporaryWorkRejected::where(['temporary_work_id'=>$id])->get();
+        $rejected=TemporaryWorkRejected::with('email_extra')->where(['temporary_work_id'=>$id])->get();
         $list='';
         $array=[];
         $status='';
@@ -1786,7 +1794,17 @@ class DesignerController extends Controller
             {
                 $rejdate=date('H:i d-m-Y',strtotime($rej->updated_at));
             }
-            $list .='<tr><td>'.$i.'</td><td>'.$tempdata->pc_twc_email.'<br>'.$acceptance_date.'</td><td>'.$rej->comment.'<br>'.$rejdate.'</td><td><a href='.$path.'pdf/'.$rej->pdf_url.'>PDF</a></td><td><a  href='.route('temporary_works.edit',$id).' target="_blank" style="padding: 3px !important;border-radius: 4px;background: #50cd89; font-size: 12px;" class="btn btn-primary p-2 m-1"><i class="fa fa-edit" aria-hidden="true"></i></a></td></tr>';
+
+            $extraHTML = ''; // Use a different variable name to avoid conflict
+            if (isset($rej->email_extra)) {
+                foreach ($rej->email_extra as $index=>$extra) {
+                    $extraHTML .= '<div class = "mt-3"><b >'.'Attachment '.($index+1).': '.'</b><a href="' . asset($extra->attachment) . '" target="_blank" class = "pt-5"><span class="badge badge-success badge-sm px-3 py-2">File</span></a></div>';
+                }
+            } else {
+                $extraHTML = '';
+            }
+          
+            $list .='<tr class = "mb-5"><td>'.$i.'</td><td>'.$tempdata->pc_twc_email.'<br>'.$acceptance_date.'</td><td>'.'<b>'.'Comment: '.'</b>'.$rej->comment. $extraHTML .'<br>'.$rejdate.'</td><td><a href='.$path.'pdf/'.$rej->pdf_url.'>PDF</a></td><td><a  href='.route('temporary_works.edit',$id).' target="_blank" style="border-radius: 4px;background: #50cd89; font-size: 12px;" class="btn btn-primary p-5 m-1"><i class="fa fa-edit" aria-hidden="true"></i></a></td></tr>';
             $i++;
         }
         $array['list']=$list;

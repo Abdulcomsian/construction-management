@@ -28,12 +28,7 @@ class DesignUpload extends Notification
         $this->offerData = $offerData;
         $this->email=$email;
         $this->is_check=$is_check;
-        if(isset($offerData['body']['attachfile']))
-        {
-            $this->attachment = $offerData['body']['attachfile'] ?? '';
-
-        }
-        
+        $this->attachment = $offerData['body']['attachfile'] ?? '';
         if(isset($offerData['body']['designcheckfile']) && !empty($offerData['body']['designcheckfile']))
         {
        
@@ -92,11 +87,8 @@ class DesignUpload extends Notification
             ]);
             if($this->attachment)
             {
-                $send_email->attachData(
-                    $this->attachment->get(),
-                    $this->attachment->getClientOriginalName(),
-                    ['mime' => $this->attachment->getClientMimeType()]
-                );
+                $send_email->attach($this->attachment);
+
             }
             if($this->designCheckFile)
             {

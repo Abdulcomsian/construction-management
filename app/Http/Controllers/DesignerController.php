@@ -1465,11 +1465,6 @@ class DesignerController extends Controller
                 $model->temporary_work_id = $request->tempworkid;
                 $model->type = 'pc';
                 if ($model->save()) {
-                    if ($request->file('attachfile')) {
-                        $filePath = HelperFunctions::temporaryworkcommentPath();
-                        $file = $request->file('attachfile');
-                        $imagename = HelperFunctions::saveFile(null, $file, $filePath);
-                    }else{$imagename='';}
                     $rejectedmodel= TemporaryWorkRejected::where('temporary_work_id',$request->tempworkid)->orderBy('id','desc')->limit(1)->first();
                     $rejectedmodel->temporary_work_id=$request->tempworkid;
                     $rejectedmodel->comment=$request->comments;
@@ -1478,6 +1473,12 @@ class DesignerController extends Controller
                     $rejectedmodel->updated_at=date('Y-m-d H:i:s');
                     $rejectedmodel->save();
                     //
+                    // add email data to email extras table
+                    if ($request->file('attachfile')) {
+                        $filePath = HelperFunctions::temporaryworkcommentPath();
+                        $file = $request->file('attachfile');
+                        $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+                    }else{$imagename='';}
                     $rejectedmodel->email_extra()->create([
                         'attachment'=>$imagename,
                         'cc_emails'=>$request->ccemail,
@@ -1532,13 +1533,24 @@ class DesignerController extends Controller
                 $model->type = 'pc';
                 if ($model->save()) {
                     $rejectedmodel= TemporaryWorkRejected::where('temporary_work_id',$request->tempworkid)->orderBy('id','desc')->limit(1)->first();
-
+                    
                     $rejectedmodel->temporary_work_id=$request->tempworkid;
                     $rejectedmodel->comment=$request->comments;
                     $rejectedmodel->rejected_by=$tempworkdata->pc_twc_email;
                     $rejectedmodel->pdf_url=$tempworkdata->ped_url;
                     $rejectedmodel->updated_at=date('Y-m-d H:i:s');
                     $rejectedmodel->save();
+                    // add emails data to email extras table
+                    if ($request->file('attachfile')) {
+                        $filePath = HelperFunctions::temporaryworkcommentPath();
+                        $file = $request->file('attachfile');
+                        $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+                    }else{$imagename='';}
+                    $rejectedmodel->email_extra()->create([
+                        'attachment'=>$imagename,
+                        'cc_emails'=>$request->ccemail,
+                    ]);
+                    // end section of add emails data to email extras table
                     //
                     $chm= new ChangeEmailHistory();
                     $chm->email=$tempworkdata->twc_email;

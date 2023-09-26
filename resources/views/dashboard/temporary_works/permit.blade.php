@@ -989,7 +989,7 @@
                       <span>Approval via Email Required by the PCTWC</span>
                     </label>
                     <!--end::Label-->
-                    <input type="checkbox" name="approval"  id="approval" style="width: 12px;margin-left:11px;margin-right: 10px; opacity: 0.5">
+                    <input type="checkbox" name="approval"  id="approval" style="width: 12px;margin-left:11px;margin-right: 10px; opacity: 0.5" value = "1">
                     <span class="tickboxalign" style="padding-left:3px;color:#000">Select if
                       approval is required.</span>
                   </div>

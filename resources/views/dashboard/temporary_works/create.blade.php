@@ -1320,7 +1320,7 @@
     }
 
     if (!briefDesc) {
-        $('.description_err').text("Designer Requirment date is required");
+        $('.description_err').text("Design brief Description is required");
         $('.description_err').css('display', 'block');
         $('.description_err').css('color', 'red');
         formIsValid = false;

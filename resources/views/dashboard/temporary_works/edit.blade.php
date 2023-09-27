@@ -511,7 +511,7 @@
                                         class="form-control @if(!$temporaryWork->designer_company_email) form-control-solid @endif"
                                         placeholder="Designer Email Address" id="designer_company_email"
                                         name="designer_company_email[]"
-                                        value="{{old('designer_company_email',$temporaryWork->designer_company_email)}}"
+                                        value="{{old('designer_company_email[0]',$temporaryWork->designer_company_email)}}"
                                         required>
                                 </div>
                             </div>
@@ -735,7 +735,7 @@
                                     </label>
                                     <!--end::Label-->
                                     <input type="checkbox" name="approval" id="approval"
-                                        style="margin-left: 16px;width: 12px;" {{$temporaryWork->pc_twc_email== '' ? ''
+                                        style="margin-left: 16px;width: 12px;" value = "1" {{$temporaryWork->pc_twc_email== '' ? ''
                                     :'checked'}}>
                                     <span style="padding-left:15px;">Select if required.</span>
                                 </div>

@@ -6,6 +6,7 @@ namespace App\Utils;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 
 class Validations
 {
@@ -141,7 +142,7 @@ class Validations
 
     public static function storeTemporaryWork($request)
     {
-        $request->validate([
+        $rules = [
             // 'photo' => ['required'],
             'project_id' => ['required', 'max:255', 'exists:projects,id'],
             'design_required_by_date' => ['required'],
@@ -151,6 +152,7 @@ class Validations
             'twc_email' => ['required'],
             'tw_category' => ['required'],
             'tw_risk_class' => ['required'],
+            'pc_twc_email' => 'required_if:approval,1',
             'design_requirement_text' => ['required'],
             'description_temporary_work_required' => ['required'],
             'name' => ['required'],
@@ -160,7 +162,11 @@ class Validations
             'namesign' => 'required_if:signtype,1',
             'pdfphoto'=>'required_if:pdfsigntype,1',
             // 'design_description' => 'required'
+        ];
+       $validator = Validator::make($request->all(),$rules,$message=[
+            'pc_twc_email.required_if' => 'PC TWC Email is required',
         ]);
+       $validator->validated();
     }
 
     public static function storeEstimatorWork($request)
@@ -209,6 +215,7 @@ class Validations
             'images' => 'max:50000',
         ],[
             'images.*'=>'Image size is greater than 50 Mb',
+            'pc_twc_email.required_if'=> 'PC TWC Email is required',
         ]);
     }
 
@@ -227,6 +234,8 @@ class Validations
             'pc_twc_email' => 'required_if:principle_contractor,1',
             'company' => ['required'],
             'signed' => 'required_if:signtype,0',
+        ],[
+            'pc_twc_email.required_if'=> 'PC TWC Email is required',
         ]);
     }
     public static function updatepermitunload($request)
@@ -244,6 +253,8 @@ class Validations
             'pc_twc_email' => 'required_if:principle_contractor,1',
             'company' => ['required'],
             'signed' => 'required_if:signtype,0',
+        ],[
+            'pc_twc_email.required_if'=> 'PC TWC Email is required',
         ]);
     }
 

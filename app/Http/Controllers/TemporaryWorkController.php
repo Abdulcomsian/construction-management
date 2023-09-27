@@ -3912,7 +3912,7 @@ class TemporaryWorkController extends Controller
                     $cmh->save();
                 }
                 DB::commit();
-                toastSuccess('Permit Unloaded sucessfully!');
+                toastSuccess('Permit Unloaded Updated sucessfully!');
                 return redirect()->route('temporary_works.index');
             }
         } catch (\Exception $exception) {

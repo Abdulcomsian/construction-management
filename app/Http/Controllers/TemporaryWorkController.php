@@ -1063,7 +1063,6 @@ class TemporaryWorkController extends Controller
     //update design brief
     public function update(Request $request, TemporaryWork $temporaryWork)
     { 
-
         DB::beginTransaction();
         Validations::storeTemporaryWork($request);
         try {

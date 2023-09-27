@@ -500,7 +500,7 @@
 
 
                             <div class="col-md-5">
-                                <div class="d-flex inputDiv d-block mb-0">
+                                <div class="d-flex inputDiv d-block mb-0" id = "designerEmail2">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">Designer Email Address:</span>
@@ -527,6 +527,7 @@
 
                         </div>
                         <div class="row" id="additional-emails">
+                            @if(count($temporaryWork->designerCompanyEmails) > 0)
                             @foreach($temporaryWork->designerCompanyEmails as $email)
                                 <div class="col-md-5" style="margin-top: 26px;">
                                     <div class="d-flex inputDiv d-block m-0" id="designerEmail">
@@ -548,6 +549,7 @@
                                     </div>
                                 </div> -->
                             @endforeach 
+                             @endif
                             <div class="row" id="additional-emails"  >
                                     
                             
@@ -1394,6 +1396,20 @@
     </div>
     <!--end::Post-->
 </div>
+<div class="col-md-5 d-none" style="margin-top: 26px;">
+    <div class="d-flex inputDiv d-block m-0" id="designerEmail2">
+        <!--begin::Label-->
+        <label class=" fs-6 fw-bold mb-2">
+            <span class="required">Designer Email Address:</span>
+
+        </label>
+            <input type="email"
+                class="form-control  form-control-solid "
+                placeholder="Designer Email Address" id="designer_company_email"
+                name="designer_company_email[]" value=""
+                required>      
+    </div>                
+</div> 
 @endsection
 @section('scripts')
 <script src="{{asset('assets/plugins/custom/summernote/summernote-bs4.min.js')}}"></script>
@@ -1773,8 +1789,19 @@ document.addEventListener('DOMContentLoaded', function() {
         emailFieldDiv.style.marginTop = "26px";
 
         var designerEmailDiv = document.getElementById("designerEmail");
+        if(designerEmailDiv)
+        {
         var clonedDiv = designerEmailDiv.cloneNode(true);
         clonedDiv.querySelector("input").value = "";
+        }
+        else{
+       
+            var designerEmailDiv2 = document.getElementById("designerEmail2");
+            var clonedDiv = designerEmailDiv2.cloneNode(true);
+            clonedDiv.querySelector("input").value = "";
+            clonedDiv.setAttribute("id", "designerEmail");
+        }
+      
 
         emailFieldDiv.appendChild(clonedDiv);
         emailContainer.appendChild(emailFieldDiv);

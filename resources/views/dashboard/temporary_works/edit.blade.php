@@ -1294,10 +1294,10 @@
                             </label> --}}
                             {{-- <br /> --}}
                             <div class="col-md-5">
-                                <button class="btn btn-success btn-sm mt-8" id="addMemberButton" style="padding: 10px 40px;font-size: 20px;font-weight: bold;">Add New Signature</button>
+                                <button class="btn btn-success btn-sm mt-8" id="addMemberButton" style="border-radius: 5px;padding: 10px 20px;font-size: 15px;font-weight: 500;    background: none;    background-color: #07d564;color: #fff; float:right">Add New Signature</button>
                             </div>
                             <div class="col-md-3">
-                                <button id="updatebutton" type="button" style="  top: 70% !important; left: 0;  padding: 10px 50px;font-size: 20px;font-weight: bold;" id="updateBtn"
+                                <button id="updatebutton" type="button" style="border-radius: 5px;padding: 10px 20px;font-size: 15px;font-weight: 500;    background: none;background-color: #07d564;color: #fff;" id="updateBtn"
                                 class="updateBtn btn btn-primary">Update</button>
                             </div>
 

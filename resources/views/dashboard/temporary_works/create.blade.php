@@ -1242,11 +1242,11 @@
                 </div>
                 <div class="col-md-12 d-flex justify-content-end align-items-end"> 
                     <div class="col-md-5">
-                        <button class="btn btn-success btn-sm mt-8" id="addMemberButton" style="padding: 10px 40px;font-size: 20px;font-weight: bold; background-color:#07d564; border-radius:5px">Add New Signature</button>
+                        <button class="btn btn-success btn-sm mt-8" id="addMemberButton" style="border-radius: 5px;padding: 10px 20px;font-size: 15px;font-weight: 500;background-color: #07d564;color: #fff; float:right">Add New Signature</button>
                     </div>
                     <div class="col-md-3">
                         @include('dashboard.modals.design-relief-modals')
-                        <button id="submitbutton" type="submit" class="btn btn-secondary float-end submitbutton" disabled style="padding: 10px 50px; font-size: 20px; font-weight: bold;">Submit</button>
+                        <button id="submitbutton" type="submit" class="btn btn-secondary float-end submitbutton" disabled style="padding: 10px 20px; font-size: 15px; font-weight: 500; float:left !important;">Submit</button>
 
                     </div>
 

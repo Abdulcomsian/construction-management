@@ -1066,14 +1066,15 @@ canvas {
                                     style="margin-left: 10px; background: #07d564 !important; color:white !important;"
                                     class="btn btn-primary float-end submitbutton" value="Publish">Publish</button>
                             </div>
-                            <div class="col-md-4 notpublished"> 
+                            <div class="col-md-4 notpublished" style="display: flex; flex-direction:column; align-items:center"> 
                                 <button type="submit" name="action"
-                                    style="height: 100%;margin-left: 10px; background: #07d564 !important; color:white !important; font-size:13px; font-weight:bold;"
-                                    class="btn btn-primary float-end submitbutton" value="Email Designer & Supplier (For Pricing)">Email Designer & Supplier (For Pricing)</button>
+                                    style="border-radius: 5px;padding: 10px 20px;font-size: 15px;font-weight: 500;    background: none;    background-color: #07d564;color: #fff; "
+                                    class="btn btn-primary float-end submitbutton" value="Email Designer & Supplier (For Pricing)">Email Designer & Supplier </button>
+                                    <span style="display: inline-block;background: gray;color: #fff;padding: 1px 3px;border-radius: 4px;margin: 2px auto;">(For Pricing)</span>
                             </div>
                             <div class="col-md-3 notpublished">
                                 <button type="submit" name="action"
-                                    style="margin-left: 10px; background: #07d564 !important; color:white !important; font-size:14px; height:100%; font-weight:bold;"
+                                    style="border-radius: 5px;padding: 10px 20px;font-size: 15px;font-weight: 500;    background: none;    background-color: #07d564;color: #fff;"
                                     class="btn btn-primary float-end submitbutton" value="Save as Draft">Save as Draft</button>
                             </div>
 

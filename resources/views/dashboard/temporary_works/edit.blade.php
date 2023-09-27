@@ -495,6 +495,7 @@
                                         value="{{old('designer_company_name',$temporaryWork->designer_company_name)}}"
                                         required>
                                 </div>
+                                <span class="designerCompName_err"></span>
                             </div>
 
 
@@ -569,6 +570,7 @@
                                         required>
                                     <!-- </p> -->
                                 </div>
+                                <span class="desingerReqDate_err"></span>
                             </div>
                             <div class="col-md-6 d-flex">
                                 <div class="d-flex inputDiv mb-0">
@@ -1416,6 +1418,53 @@
         </script>
         
 <script>
+    window.onload = function(){
+    $(document).on('submit', "#desingform", function (e) {
+    e.preventDefault();
+    
+    var formIsValid = true;
+
+    // Validate the first field
+    const designValue = $("#design_requirement_text").val();
+    const  designerCompName = $("#designer_company_name").val();
+    const desingerReqDate = $("#design_required_by_date").val();
+    const briefDesc = $("#description").val()
+
+    if (!designValue) {
+        $('.designReq_err').text("Design Requirement field must be selected");
+        $('.designReq_err').css('display', 'block');
+        $('.designReq_err').css('color', 'red');
+        formIsValid = false;
+    }
+
+    if (!designerCompName) {
+        $('.designerCompName_err').text("Designer Company Name is Required");
+        $('.designerCompName_err').css('display', 'block');
+        $('.designerCompName_err').css('color', 'red');
+        formIsValid = false;
+    }
+
+    if (!desingerReqDate) {
+        $('.desingerReqDate_err').text("Designer Requirment date is required");
+        $('.desingerReqDate_err').css('display', 'block');
+        $('.desingerReqDate_err').css('color', 'red');
+        formIsValid = false;
+    }
+
+    if (!briefDesc) {
+        $('.description_err').text("Design brief Description is required");
+        $('.description_err').css('display', 'block');
+        $('.description_err').css('color', 'red');
+        formIsValid = false;
+    }
+    
+
+    // If the form is valid, submit it
+    if (formIsValid) {
+        $("#updatebutton")[0].submit();
+    }
+    });
+    }
     var projects = {!!$projects!!};
     $('#projects').change(function() {
         let id = $(this).val();

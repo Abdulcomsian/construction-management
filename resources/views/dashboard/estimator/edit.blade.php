@@ -1092,15 +1092,16 @@ canvas {
                                             <div class="col-md-1 published button-set" style="display:none;">
                                                 <button type="submit" name="action"
                                                     style="margin-left: 10px; background: #07d564 !important"
-                                                    class="btn btn-primary float-end submitbutton" value="Publish">Publish</button>
+                                                    class="btn btn-primary  submitbutton" value="Publish">Publish</button>
                                             </div>
-                                            <div class="col-md-4 notpublished">
-                                                <button type="submit" name="action" style="margin-left: 10px; font-size:18px; font-weight:bold" 
-                                                class="btn btn-primary float-end submitbutton" 
-                                                value="Email Designer & Supplier (For Pricing)">Email Designer & Supplier (For Pricing)</button>
+                                            <div class="col-md-4 notpublished" style="display: flex; flex-direction:column; align-items:end; padding:0">
+                                                <button type="submit" name="action" style="border-radius: 5px;padding: 10px 20px;font-size: 15px;font-weight: 500;    background: none;    background-color: #07d564;color: #fff;    width: fit-content; "
+                                                class="btn btn-primary  submitbutton" 
+                                                value="Email Designer & Supplier (For Pricing)">Email Designer & Supplier</button>
+                                                <span style="display: inline-block;background: gray;color: #fff;padding: 1px 3px;border-radius: 4px; margin: 2px 63px 0 0;">(For Pricing)</span>
                                             </div>
-                                            <div class="col-md-2 notpublished">
-                                                <button type="submit" name="action" style="margin-left: 10px; font-size:18px; font-weight:bold" 
+                                            <div class="col-md-3 notpublished">
+                                                <button type="submit" name="action" style="border-radius: 5px;padding: 10px 20px;font-size: 15px;font-weight: 500;    background: none;    background-color: #07d564;color: #fff; "
                                                 class="btn btn-primary float-end submitbutton" 
                                                 value="Update (Draft)">Update (Draft)</button>
                                             </div> 

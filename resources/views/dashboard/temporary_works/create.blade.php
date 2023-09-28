@@ -555,7 +555,7 @@
 
                 <!--begin::Card body-->
                 <div class="card-body pt-0">
-                    <form id="desingform" action="{{ route('temporary_works.store') }}" method="post" onsubmit="(fasd) => console.log('fasd')" enctype="multipart/form-data">
+                    <form id="desingform" action="{{ route('temporary_works.store') }}" method="post"  enctype="multipart/form-data">
                         @csrf
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
                         <div class="row">
@@ -658,6 +658,7 @@
                                     <!--end::Label-->
                                     <input type="text" class="blackBack form-control form-control-solid" placeholder="Designer Company Name" id="designer_company_name" name="designer_company_name" value="{{old('designer_company_name')}}" required>
                                 </div>
+                                <span class="designerCompName_err"></span>
 
                             </div>
                             <div class="col-md-5 ">
@@ -695,6 +696,7 @@
                                     <input data-date-inline-picker="true" style=" cursor: pointer;color:#a9abb7 !important;" type="date" class="customDate blackBack form-control form-control-solid" placeholder="Design Required by Date" id="design_required_by_date" name="design_required_by_date" value="{{old('design_required_by_date')}}" required>
                                     <!-- </p> -->
                                 </div>
+                                <span class="desingerReqDate_err"></span>
                             </div>
                             <div class="col-md-6" style="margin-top: 26px">
                                 <div class="row TW" style="width: 100%; margin: auto;">
@@ -881,6 +883,7 @@
                         <!--end::Label-->
                     </div>
                 </div>
+                <span class="designReq_err"></span>
 
             </div>
             <div class="col-md-6">
@@ -903,6 +906,7 @@
                 {{-- description code starts here --}}
                 <textarea id="description" name="description_temporary_work_required"></textarea>
                 {{-- description code ends here --}}
+                <span class="description_err"></span>
             </div>
             <div class="col-md-12">
                 <div class="d-flex inputDiv d-block mb-0" id="attachment_specs">
@@ -1242,11 +1246,11 @@
                 </div>
                 <div class="col-md-12 d-flex justify-content-end align-items-end"> 
                     <div class="col-md-5">
-                        <button class="btn btn-success btn-sm mt-8" id="addMemberButton" style="padding: 10px 40px;font-size: 20px;font-weight: bold; background-color:#07d564; border-radius:5px">Add New Signature</button>
+                        <button class="btn btn-success btn-sm mt-8" id="addMemberButton" style="border-radius: 5px;padding: 10px 20px;font-size: 15px;font-weight: 500;background-color: #07d564;color: #fff; float:right">Add New Signature</button>
                     </div>
                     <div class="col-md-3">
                         @include('dashboard.modals.design-relief-modals')
-                        <button id="submitbutton" type="submit" class="btn btn-secondary float-end submitbutton" disabled style="padding: 10px 50px; font-size: 20px; font-weight: bold;">Submit</button>
+                        <button id="submitbutton" type="submit" class="btn btn-secondary float-end submitbutton" disabled style="padding: 10px 20px; font-size: 15px; font-weight: 500; float:left !important;">Submit</button>
 
                     </div>
 
@@ -1282,6 +1286,59 @@
 <script src="{{asset('assets/plugins/custom/summernote/summernote-bs4.min.js')}}"></script>
 <script src="{{asset('assets/plugins/custom/summernote/summernote-cleaner.js')}}"></script>
 <script>
+ window.onload = function(){
+    $(document).on('submit', "#desingform", function (e) {
+    e.preventDefault();
+    
+    var formIsValid = true;
+
+    // Validate the first field
+    const designValue = $("#design_requirement_text").val();
+    const  designerCompName = $("#designer_company_name").val();
+    const desingerReqDate = $("#design_required_by_date").val();
+    const briefDesc = $("#description").val()
+
+    if (!designValue) {
+        $('.designReq_err').text("Design Requirement field must be selected");
+        $('.designReq_err').css('display', 'block');
+        $('.designReq_err').css('color', 'red');
+        formIsValid = false;
+    }
+
+    if (!designerCompName) {
+        $('.designerCompName_err').text("Designer Company Name is Required");
+        $('.designerCompName_err').css('display', 'block');
+        $('.designerCompName_err').css('color', 'red');
+        formIsValid = false;
+    }
+
+    if (!desingerReqDate) {
+        $('.desingerReqDate_err').text("Designer Requirment date is required");
+        $('.desingerReqDate_err').css('display', 'block');
+        $('.desingerReqDate_err').css('color', 'red');
+        formIsValid = false;
+    }
+
+    if (!briefDesc) {
+        $('.description_err').text("Design brief Description is required");
+        $('.description_err').css('display', 'block');
+        $('.description_err').css('color', 'red');
+        formIsValid = false;
+    }
+    
+
+    // If the form is valid, submit it
+    if (formIsValid) {
+        $("#desingform")[0].submit();
+    }
+});
+
+    }
+
+
+
+
+
     var url = "{{asset('js/myfile.json')}}";
     var jsondata = "";
     $(document).ready(function() {
@@ -1339,7 +1396,6 @@
                 }
             });
         }
-        console.log(project);
     });
     $("#DrawCheck").change(function() {
         if ($(this).is(':checked')) {
@@ -1516,7 +1572,6 @@
     }
 
     signaturePad.addEventListener("endStroke", () => {
-        console.log("hello");
         $("#signature").val(signaturePad.toDataURL('image/png'));
         $("#sigimage").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
         $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
@@ -1545,6 +1600,7 @@
     // })
 
     $("#submitbutton, #draft").on('click', function(e) {
+        
         if (signaturePad) {
             $("#signature").val(signaturePad.toDataURL('image/png'));
         }
@@ -1650,7 +1706,6 @@
 
         });
         $("#scope-of-design #submit-requirment button").on("click", function() {
-            console.log("here");
             $("#scopofdesign").removeClass("blackBack")
             $("#scopofdesign").addClass("whiteBack")
 
@@ -1662,7 +1717,6 @@
         });
 
         $("#projects").change(function() {
-            console.log("hello")
             $(this).removeClass("blackBack")
             $("#projects span.form-select").removeClass("blackBack")
             // $(".form-control[readonly]").removeClass("blackBack")
@@ -1803,6 +1857,9 @@ $(document).ready(function(){
             alert("Max Signature Limit Reached")
         }
     });
+
+   
+
 </script>
 
 

@@ -1286,7 +1286,10 @@
 <script src="{{asset('assets/plugins/custom/summernote/summernote-bs4.min.js')}}"></script>
 <script src="{{asset('assets/plugins/custom/summernote/summernote-cleaner.js')}}"></script>
 <script>
- window.onload = function(){
+</script>
+<script>
+    window.onload = function(){
+       
     $(document).on('submit', "#desingform", function (e) {
     e.preventDefault();
     
@@ -1302,6 +1305,7 @@
         $('.designReq_err').text("Design Requirement field must be selected");
         $('.designReq_err').css('display', 'block');
         $('.designReq_err').css('color', 'red');
+        $('#design_requirement_text').focus();
         formIsValid = false;
     }
 
@@ -1325,17 +1329,27 @@
         $('.description_err').css('color', 'red');
         formIsValid = false;
     }
+
     
 
     // If the form is valid, submit it
     if (formIsValid) {
         $("#desingform")[0].submit();
     }
-});
+    });
 
     }
 
-
+    $('#designer_company_name').on('keydown', function() {
+        $('.designerCompName_err').text("");
+    });
+    // $('#design_requirement_text').on('keydown', function() {
+    //     $('.designerCompName_err').text("");
+    // });
+    // $('#designer_company_name').on('keydown', function() {
+    //     $('.designerCompName_err').text("");
+    // });
+    
 
 
 
@@ -1362,6 +1376,7 @@
     })
 </script>
 <script>
+   
     var projects = {!!$projects!!};
     var address = '';
     $('#projects').change(function() {

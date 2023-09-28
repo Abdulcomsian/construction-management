@@ -183,7 +183,7 @@ class TemporaryWork extends Model
     
     public function signatures()
     {
-        return $this->hasMany(Signature::class, 'signatureable_id');
+        return $this->morphMany(Signature::class, 'signatureable');
     }
 
 }

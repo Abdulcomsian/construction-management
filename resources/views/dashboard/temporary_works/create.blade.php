@@ -839,7 +839,7 @@
                                         <span>PCTWC approval required?</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="checkbox" name="approval" id="approval" style="margin-left:10px;opacity: 0.5" class="blackBack">
+                                    <input type="checkbox" name="approval" id="approval" style="margin-left:10px;opacity: 0.5" class="blackBack" value = '1'>
                                     <span style="padding-left:22px;color:#000">Select if approval is required.</span>
                                 </div>
                             </div>

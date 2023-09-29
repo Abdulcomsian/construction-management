@@ -369,7 +369,7 @@
                     </div>
                 </div>
                 <div class="submit-requirment" data-bs-dismiss="modal">
-                    <button disabled="disabled" style="opacity:1 !important;">Save</button>
+                    <button disabled="disabled" id="design-relief-modal-button" style="opacity:1 !important;">Save</button>
                 </div>
             </div>
             <!--end::Modal body-->
@@ -488,7 +488,7 @@
 
                 </div>
                 <div class="submit-requirment" data-bs-dismiss="modal">
-                    <button disabled="disabled">Save</button>
+                    <button disabled="disabled" >Save</button>
                 </div>
             </div>
             <!--end::Modal body-->
@@ -899,7 +899,7 @@
                     <input type="button" class="btn btn-sm btn-primary addfile" style="width: 10%;" value="Add"> -->
                 </div>
                 <div class="submit-requirment" style="width:100%;justify-content: flex-end">
-                    <button data-bs-dismiss="modal"
+                    <button   data-bs-dismiss="modal" 
                         style="width: 27%;border-radius: 6px;margin: 15px 0 !important;">Save</button>
 
                 </div>

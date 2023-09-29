@@ -501,7 +501,7 @@
 
 
                             <div class="col-md-5">
-                                <div class="d-flex inputDiv d-block mb-0">
+                                <div class="d-flex inputDiv d-block mb-0" id = "designerEmail2">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                     <span class="required">Designer Email Address:</span>
@@ -528,6 +528,7 @@
 
                         </div>
                         <div class="row" id="additional-emails">
+                            @if(count($temporaryWork->designerCompanyEmails) > 0)
                             @foreach($temporaryWork->designerCompanyEmails as $email)
                                 <div class="col-md-5" style="margin-top: 26px;">
                                     <div class="d-flex inputDiv d-block m-0" id="designerEmail">
@@ -549,6 +550,7 @@
                                     </div>
                                 </div> -->
                             @endforeach 
+                             @endif
                             <div class="row" id="additional-emails"  >
                                     
                             
@@ -790,6 +792,7 @@
                                         <!--end::Label-->
                                     </div>
                                 </div>
+                                <span class="designReq_err"></span>
                             </div>
                             @php 
                             $preliminary_sketches_date = $temporaryWork->scopdesign->preliminary_sketches_date ? 'preliminary_sketches_date_sod '.$temporaryWork->scopdesign->preliminary_sketches_date : '';
@@ -823,6 +826,8 @@
                                     Design Brief Description:
                                 </label>
                                 <textarea id="description" name="description_temporary_work_required" >{{$temporaryWork->description_temporary_work_required}}</textarea>
+                                <span class="description_err"></span>
+
                             </div>
                         </div>
                        
@@ -1396,6 +1401,20 @@
     </div>
     <!--end::Post-->
 </div>
+<div class="col-md-5 d-none" style="margin-top: 26px;">
+    <div class="d-flex inputDiv d-block m-0" id="designerEmail2">
+        <!--begin::Label-->
+        <label class=" fs-6 fw-bold mb-2">
+            <span class="required">Designer Email Address:</span>
+
+        </label>
+            <input type="email"
+                class="form-control  form-control-solid "
+                placeholder="Designer Email Address" id="designer_company_email"
+                name="designer_company_email[]" value=""
+                required>      
+    </div>                
+</div> 
 @endsection
 @section('scripts')
 <script src="{{asset('assets/plugins/custom/summernote/summernote-bs4.min.js')}}"></script>
@@ -1418,50 +1437,96 @@
         </script>
         
 <script>
-    window.onload = function(){
+ window.onload = function(){
     $(document).on('submit', "#desingform", function (e) {
     e.preventDefault();
     
     var formIsValid = true;
 
-    // Validate the first field
     const designValue = $("#design_requirement_text").val();
-    const  designerCompName = $("#designer_company_name").val();
-    const desingerReqDate = $("#design_required_by_date").val();
-    const briefDesc = $("#description").val()
+            const  designerCompanyName = $("#designer_company_name").val();
+            const desingerRequirementDate = $("#design_required_by_date").val();
+            const briefDescription = $("#description").val();
+            
 
-    if (!designValue) {
-        $('.designReq_err').text("Design Requirement field must be selected");
-        $('.designReq_err').css('display', 'block');
-        $('.designReq_err').css('color', 'red');
-        formIsValid = false;
-    }
 
-    if (!designerCompName) {
-        $('.designerCompName_err').text("Designer Company Name is Required");
-        $('.designerCompName_err').css('display', 'block');
-        $('.designerCompName_err').css('color', 'red');
-        formIsValid = false;
-    }
 
-    if (!desingerReqDate) {
-        $('.desingerReqDate_err').text("Designer Requirment date is required");
-        $('.desingerReqDate_err').css('display', 'block');
-        $('.desingerReqDate_err').css('color', 'red');
-        formIsValid = false;
-    }
+            if (!designerCompanyName) {
+            $('.designerCompName_err').text("Designer Company Name is Required");
+            $('.designerCompName_err').css('display', 'block');
+            $('.designerCompName_err').css('color', 'red');
+            $('#designer_company_name').focus();
+            formIsValid = false;
+        }
+        if (!designValue) {
+            $('.designReq_err').text("Design Requirement field must be selected");
+            $('.designReq_err').css('display', 'block');
+            $('.designReq_err').css('color', 'red');
+            $('#design_requirement_text').focus();
+            formIsValid = false;
+        }
 
-    if (!briefDesc) {
-        $('.description_err').text("Design brief Description is required");
-        $('.description_err').css('display', 'block');
-        $('.description_err').css('color', 'red');
-        formIsValid = false;
-    }
-    
+        if (!desingerRequirementDate) {
+            $('.desingerReqDate_err').text("Designer Requirment date is required");
+            $('.desingerReqDate_err').css('display', 'block');
+            $('.desingerReqDate_err').css('color', 'red');
+            $('#design_required_by_date').focus();
+            formIsValid = false;
+        }
+
+        if (!briefDescription) {
+            $('.description_err').text("Design brief Description is required");
+            $('.description_err').css('display', 'block');
+            $('.description_err').css('color', 'red');
+            $("#description").focus();
+            formIsValid = false;
+        }
+
+        $("#designer_company_name").keyup(function(){
+            if ($(this).val().length === 0 ) {
+                $('.designerCompName_err').text("Designer Company Name is Required");
+            }else{
+                $('.designerCompName_err').text("");
+
+            }
+        });
+
+        $('body').on('click', '#design-requirement #design-relief-modal-button', function() {
+            console.log('Button clicked');
+            var designValue1 = $("#design_requirement_text").val();
+            console.log('designValue:', designValue1);
+            if (designValue1.length === 0) {
+                $('.designReq_err').text("Designer Company Modal Name is Required");
+            } else {
+                $('.designReq_err').text("");
+            }
+        });
+        
+        
+        $('#design_required_by_date').change(function() {
+            if (desingerRequirementDate == null) {
+                $('.desingerReqDate_err').text("Designer Requirment date is required");
+            }else{
+                $('.desingerReqDate_err').text("");
+
+            }
+        });
+            $("#description").on('summernote.keyup', function() {
+                const briefDescription = $("#description").summernote('code'); // Get Summernote content
+
+                if (!briefDescription) {
+                    $('.description_err').text("Design brief Description is required");
+                    $('.description_err').css('display', 'block');
+                    $('.description_err').css('color', 'red');
+                    formIsValid = false;
+                } else {
+                    $('.description_err').text("");
+                }
+            });
 
     // If the form is valid, submit it
     if (formIsValid) {
-        $("#updatebutton")[0].submit();
+        $("#desingform")[0].submit();
     }
     });
     }
@@ -1723,6 +1788,22 @@
         .attr("type", "hidden")
         .attr("name", "action")
         .val(buttonValue);
+
+
+
+
+// Validate the first field
+        
+            
+        // $('#design_requirement_text').on('keydown', function() {
+        //     $('.designerCompName_err').text("");
+        // });
+        // $('#designer_company_name').on('keydown', function() {
+        //     $('.designerCompName_err').text("");
+        // });
+
+        // If the form is valid, submit it
+       
         // var status = $('#permitdata_status').val();
         // if(status == 'pending' && buttonValue != 'draft')
         // {
@@ -1822,8 +1903,19 @@ document.addEventListener('DOMContentLoaded', function() {
         emailFieldDiv.style.marginTop = "26px";
 
         var designerEmailDiv = document.getElementById("designerEmail");
+        if(designerEmailDiv)
+        {
         var clonedDiv = designerEmailDiv.cloneNode(true);
         clonedDiv.querySelector("input").value = "";
+        }
+        else{
+       
+            var designerEmailDiv2 = document.getElementById("designerEmail2");
+            var clonedDiv = designerEmailDiv2.cloneNode(true);
+            clonedDiv.querySelector("input").value = "";
+            clonedDiv.setAttribute("id", "designerEmail");
+        }
+      
 
         emailFieldDiv.appendChild(clonedDiv);
         emailContainer.appendChild(emailFieldDiv);

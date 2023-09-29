@@ -1288,67 +1288,13 @@
 <script>
 </script>
 <script>
-    window.onload = function(){
+    $(document).ready(function() {
        
-    $(document).on('submit', "#desingform", function (e) {
-    e.preventDefault();
-    
-    var formIsValid = true;
+   
 
-    // Validate the first field
-    const designValue = $("#design_requirement_text").val();
-    const  designerCompName = $("#designer_company_name").val();
-    const desingerReqDate = $("#design_required_by_date").val();
-    const briefDesc = $("#description").val()
+});
 
-    if (!designValue) {
-        $('.designReq_err').text("Design Requirement field must be selected");
-        $('.designReq_err').css('display', 'block');
-        $('.designReq_err').css('color', 'red');
-        $('#design_requirement_text').focus();
-        formIsValid = false;
-    }
-
-    if (!designerCompName) {
-        $('.designerCompName_err').text("Designer Company Name is Required");
-        $('.designerCompName_err').css('display', 'block');
-        $('.designerCompName_err').css('color', 'red');
-        formIsValid = false;
-    }
-
-    if (!desingerReqDate) {
-        $('.desingerReqDate_err').text("Designer Requirment date is required");
-        $('.desingerReqDate_err').css('display', 'block');
-        $('.desingerReqDate_err').css('color', 'red');
-        formIsValid = false;
-    }
-
-    if (!briefDesc) {
-        $('.description_err').text("Design brief Description is required");
-        $('.description_err').css('display', 'block');
-        $('.description_err').css('color', 'red');
-        formIsValid = false;
-    }
-
-    
-
-    // If the form is valid, submit it
-    if (formIsValid) {
-        $("#desingform")[0].submit();
-    }
-    });
-
-    }
-
-    $('#designer_company_name').on('keydown', function() {
-        $('.designerCompName_err').text("");
-    });
-    // $('#design_requirement_text').on('keydown', function() {
-    //     $('.designerCompName_err').text("");
-    // });
-    // $('#designer_company_name').on('keydown', function() {
-    //     $('.designerCompName_err').text("");
-    // });
+ 
     
 
 
@@ -1615,7 +1561,7 @@
     // })
 
     $("#submitbutton, #draft").on('click', function(e) {
-        
+   
         if (signaturePad) {
             $("#signature").val(signaturePad.toDataURL('image/png'));
         }
@@ -1636,6 +1582,102 @@
         .attr("type", "hidden")
         .attr("name", "action")
         .val(buttonValue);
+        
+    var formIsValid = true;
+
+    // Validate the first field
+    const designValue = $("#design_requirement_text").val();
+    const  designerCompanyName = $("#designer_company_name").val();
+    const desingerRequirementDate = $("#design_required_by_date").val();
+    const briefDescription = $("#description").val();
+
+    if (!designerCompanyName) {
+        $('.designerCompName_err').text("Designer Company Name is Required");
+        $('.designerCompName_err').css('display', 'block');
+        $('.designerCompName_err').css('color', 'red');
+        $('#designer_company_name').focus();
+        formIsValid = false;
+    }
+    if (!designValue) {
+        $('.designReq_err').text("Design Requirement field must be selected");
+        $('.designReq_err').css('display', 'block');
+        $('.designReq_err').css('color', 'red');
+        $('#design_requirement_text').focus();
+        formIsValid = false;
+    }
+
+    if (!desingerRequirementDate) {
+        $('.desingerReqDate_err').text("Designer Requirment date is required");
+        $('.desingerReqDate_err').css('display', 'block');
+        $('.desingerReqDate_err').css('color', 'red');
+        $('#design_required_by_date').focus();
+        formIsValid = false;
+    }
+
+    if (!briefDescription) {
+        $('.description_err').text("Design brief Description is required");
+        $('.description_err').css('display', 'block');
+        $('.description_err').css('color', 'red');
+        formIsValid = false;
+    }
+
+    $("#designer_company_name").keyup(function(){
+        if ($(this).val().length === 0 ) {
+            $('.designerCompName_err').text("Designer Company Name is Required");
+        }else{
+            $('.designerCompName_err').text("");
+
+        }
+    });
+
+    $('body').on('click', '#design-requirement #design-relief-modal-button', function() {
+        console.log('Button clicked');
+        var designValue1 = $("#design_requirement_text").val();
+        console.log('designValue:', designValue1);
+        if (designValue1.length === 0) {
+            $('.designReq_err').text("Designer Company Modal Name is Required");
+        } else {
+            $('.designReq_err').text("");
+        }
+    });
+    
+    
+    $('#design_required_by_date').change(function() {
+        if (desingerRequirementDate == null) {
+            $('.desingerReqDate_err').text("Designer Requirment date is required");
+        }else{
+            $('.desingerReqDate_err').text("");
+
+        }
+    });
+    $("#description").on('summernote.keyup', function() {
+        const briefDescription = $("#description").summernote('code'); // Get Summernote content
+
+        if (!briefDescription) {
+            $('.description_err').text("Design brief Description is required");
+            $('.description_err').css('display', 'block');
+            $('.description_err').css('color', 'red');
+            formIsValid = false;
+        } else {
+            $('.description_err').text("");
+        }
+    });
+    
+    // $('#design_requirement_text').on('keydown', function() {
+    //     $('.designerCompName_err').text("");
+    // });
+    // $('#designer_company_name').on('keydown', function() {
+    //     $('.designerCompName_err').text("");
+    // });
+
+    // If the form is valid, submit it
+    if (formIsValid) {
+        return true
+    }else{
+        return false;
+    }
+   
+      
         // var status = $('#permitdata_status').val();
         // if(status == 'pending' && buttonValue != 'draft')
         // {

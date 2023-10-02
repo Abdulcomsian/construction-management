@@ -1794,7 +1794,31 @@ class TemporaryWorkController extends Controller
             $commentid = $request->commentid;
             $tempid = $request->tempid;
             $data = TemporaryWorkComment::select('replay', 'reply_image', 'reply_date', 'sender_email')->find($commentid);
+            $tempdata = TemporaryWork::select( 'designer_company_email')->find($tempid);
             $array = [];
+            $cc_emails = [];
+            if($tempdata->designer_company_email == $data->sender_email)
+            {
+                $designer_company_emails = DesignerCompanyEmail::where('temporary_work_id',$tempid)->get();
+                if($designer_company_emails)
+                {
+                    foreach($designer_company_emails as $designer_company_email)
+                    {
+                        array_push($cc_emails,trim($designer_company_email->email));
+                    }
+                }
+            } else {
+                $designer_company_emails = DesignerCompanyEmail::where('temporary_work_id',$tempid)->where('email','!=',$data->sender_email)->get();
+                if($designer_company_emails)
+                {
+                    foreach($designer_company_emails as $designer_company_email)
+                    {
+                        array_push($cc_emails,trim($designer_company_email->email));
+                    }
+                }
+                array_push($cc_emails,trim($tempdata->designer_company_email));
+
+            }
             $reply_date = [];
             if (is_array($data->replay)) {
                 foreach ($data->replay as $dt) {
@@ -1846,7 +1870,7 @@ class TemporaryWorkController extends Controller
                         $cmh->message='Comment Replied by ' . Auth::user()->email;
                         $cmh->user_type = 'designer';
                         $cmh->save();
-                Notification::route('mail',  $data->sender_email)->notify(new CommentsNotification($request->replay, 'reply', $tempid, $data->sender_email, $scan));
+                Notification::route('mail',  $data->sender_email)->notify(new CommentsNotification($request->replay, 'reply', $tempid, $data->sender_email, $scan,'',$cc_emails));
                 // Notification::route('mail', $tempdata->designer_company_email)->notify(new CommentsNotification($request->comment, 'comment', $request->temp_work_id,'','test'));
                 toastSuccess('Thank you for your reply');
                 return Redirect::back();
@@ -1855,6 +1879,7 @@ class TemporaryWorkController extends Controller
                 return Redirect::back();
             }
         } catch (\Exception $exception) {
+            dd($exception->getMessage());
             toastError('Something went wrong, try again');
             return Redirect::back();
         }
@@ -2061,7 +2086,7 @@ class TemporaryWorkController extends Controller
                                    <input type="hidden" name="_token" value="' . csrf_token() . '"/>
                                    <input type="hidden" name="tempid" value="' . $request->temporary_work_id . '"/>
                                    <textarea type="text" class="replay" name="replay" style="padding-left:5px; padding-top:5px; width: 100%;float:left;     background-color: #f5f8fa;border-color: #f5f8fa;color: #5e6278;transition: color .2s ease,background-color .2s ease;" placeholder="Add comment here..."></textarea>
-                                    <div class="submmitBtnDiv">
+                                    <div class="submmitBtnDiv pt-2">
                                         <input style="width:100%;margin-top:20px;float:left; background-color: #f5f8fa;border-color: #f5f8fa;color: #5e6278;margin-top:0px !important; transition: color .2s ease,background-color .2s ease;" type="file" name="replyfile" />
                                         <input type="hidden" name="commentid" value="' . $comment->id . '"/>
                                         ' . $input . '

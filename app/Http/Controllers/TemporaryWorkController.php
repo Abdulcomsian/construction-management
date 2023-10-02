@@ -1653,6 +1653,29 @@ class TemporaryWorkController extends Controller
              {$cc_emails = [];}
      
             $tempdata = TemporaryWork::select('twc_email', 'design_requirement_text', 'twc_id_no', 'designer_company_email', 'client_email')->find($request->temp_work_id);
+
+            if($tempdata->designer_company_email == $request->mail)
+            {
+                $designer_company_emails = DesignerCompanyEmail::where('temporary_work_id',$request->temp_work_id)->get();
+                if($designer_company_emails)
+                {
+                    foreach($designer_company_emails as $designer_company_email)
+                    {
+                        array_push($cc_emails,trim($designer_company_email->email));
+                    }
+                }
+            } else {
+                $designer_company_emails = DesignerCompanyEmail::where('temporary_work_id',$request->temp_work_id)->where('email','!=',$request->mail)->get();
+                if($designer_company_emails)
+                {
+                    foreach($designer_company_emails as $designer_company_email)
+                    {
+                        array_push($cc_emails,trim($designer_company_email->email));
+                    }
+                }
+                array_push($cc_emails,trim($tempdata->designer_company_email));
+
+            }
             $model = new TemporaryWorkComment();
             $model->comment = $request->comment;
             $model->temporary_work_id = $request->temp_work_id;

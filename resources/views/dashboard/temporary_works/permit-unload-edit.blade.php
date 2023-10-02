@@ -1374,7 +1374,7 @@ var CSRF_TOKEN = '{{ csrf_token() }}';
                         <button name="action" id="draft" value="draft" style="margin-right:10px;" type="button"
                             class="btn btn-success  set-button">Save as Draft</button>
                         <input type="hidden" name="id" value="{{$permitdata->id}}">
-                        <button id="submitbutton" type="button" class="btn btn-secondary set-button unload_button">Submit</button>
+                        <button id="submitbutton" type="button" class="btn btn-success set-button unload_button">Submit</button>
                         
                         </div>
                         <div class="col-md-6" style="margin-left: 15px;">

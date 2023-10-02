@@ -1653,6 +1653,29 @@ class TemporaryWorkController extends Controller
              {$cc_emails = [];}
      
             $tempdata = TemporaryWork::select('twc_email', 'design_requirement_text', 'twc_id_no', 'designer_company_email', 'client_email')->find($request->temp_work_id);
+
+            if($tempdata->designer_company_email == $request->mail)
+            {
+                $designer_company_emails = DesignerCompanyEmail::where('temporary_work_id',$request->temp_work_id)->get();
+                if($designer_company_emails)
+                {
+                    foreach($designer_company_emails as $designer_company_email)
+                    {
+                        array_push($cc_emails,trim($designer_company_email->email));
+                    }
+                }
+            } else {
+                $designer_company_emails = DesignerCompanyEmail::where('temporary_work_id',$request->temp_work_id)->where('email','!=',$request->mail)->get();
+                if($designer_company_emails)
+                {
+                    foreach($designer_company_emails as $designer_company_email)
+                    {
+                        array_push($cc_emails,trim($designer_company_email->email));
+                    }
+                }
+                array_push($cc_emails,trim($tempdata->designer_company_email));
+
+            }
             $model = new TemporaryWorkComment();
             $model->comment = $request->comment;
             $model->temporary_work_id = $request->temp_work_id;
@@ -1771,7 +1794,31 @@ class TemporaryWorkController extends Controller
             $commentid = $request->commentid;
             $tempid = $request->tempid;
             $data = TemporaryWorkComment::select('replay', 'reply_image', 'reply_date', 'sender_email')->find($commentid);
+            $tempdata = TemporaryWork::select( 'designer_company_email')->find($tempid);
             $array = [];
+            $cc_emails = [];
+            if($tempdata->designer_company_email == $data->sender_email)
+            {
+                $designer_company_emails = DesignerCompanyEmail::where('temporary_work_id',$tempid)->get();
+                if($designer_company_emails)
+                {
+                    foreach($designer_company_emails as $designer_company_email)
+                    {
+                        array_push($cc_emails,trim($designer_company_email->email));
+                    }
+                }
+            } else {
+                $designer_company_emails = DesignerCompanyEmail::where('temporary_work_id',$tempid)->where('email','!=',$data->sender_email)->get();
+                if($designer_company_emails)
+                {
+                    foreach($designer_company_emails as $designer_company_email)
+                    {
+                        array_push($cc_emails,trim($designer_company_email->email));
+                    }
+                }
+                array_push($cc_emails,trim($tempdata->designer_company_email));
+
+            }
             $reply_date = [];
             if (is_array($data->replay)) {
                 foreach ($data->replay as $dt) {
@@ -1823,7 +1870,7 @@ class TemporaryWorkController extends Controller
                         $cmh->message='Comment Replied by ' . Auth::user()->email;
                         $cmh->user_type = 'designer';
                         $cmh->save();
-                Notification::route('mail',  $data->sender_email)->notify(new CommentsNotification($request->replay, 'reply', $tempid, $data->sender_email, $scan));
+                Notification::route('mail',  $data->sender_email)->notify(new CommentsNotification($request->replay, 'reply', $tempid, $data->sender_email, $scan,'',$cc_emails));
                 // Notification::route('mail', $tempdata->designer_company_email)->notify(new CommentsNotification($request->comment, 'comment', $request->temp_work_id,'','test'));
                 toastSuccess('Thank you for your reply');
                 return Redirect::back();
@@ -1832,6 +1879,7 @@ class TemporaryWorkController extends Controller
                 return Redirect::back();
             }
         } catch (\Exception $exception) {
+            dd($exception->getMessage());
             toastError('Something went wrong, try again');
             return Redirect::back();
         }

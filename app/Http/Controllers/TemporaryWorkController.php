@@ -2086,7 +2086,7 @@ class TemporaryWorkController extends Controller
                                    <input type="hidden" name="_token" value="' . csrf_token() . '"/>
                                    <input type="hidden" name="tempid" value="' . $request->temporary_work_id . '"/>
                                    <textarea type="text" class="replay" name="replay" style="padding-left:5px; padding-top:5px; width: 100%;float:left;     background-color: #f5f8fa;border-color: #f5f8fa;color: #5e6278;transition: color .2s ease,background-color .2s ease;" placeholder="Add comment here..."></textarea>
-                                    <div class="submmitBtnDiv pt-2">
+                                    <div class="submmitBtnDiv">
                                         <input style="width:100%;margin-top:20px;float:left; background-color: #f5f8fa;border-color: #f5f8fa;color: #5e6278;margin-top:0px !important; transition: color .2s ease,background-color .2s ease;" type="file" name="replyfile" />
                                         <input type="hidden" name="commentid" value="' . $comment->id . '"/>
                                         ' . $input . '

@@ -390,7 +390,7 @@
                                         @if($cments->type=='normal')
                                         <!-- added by Abdul to show only designers comment -->
                                         <td class="designer-comment">
-                                            {{$mail}}<br><b style="white-space: pre-wrap;background: yellow  !important"">{{$cments->comment}}</b><br><b>{{date('H:i
+                                            {{$cments->sender_email}}<br><b style="white-space: pre-wrap;background: yellow  !important"">{{$cments->comment}}</b><br><b>{{date('H:i
                                                 d-m-Y',strtotime($cments->created_at))}}</b>
                                             <br><br>
                                             @php

@@ -4521,8 +4521,9 @@ $tempWorkClass = "d-none";
 @include('dashboard.modals.rejected-temporarywork-modals')
 @include('dashboard.modals.share_drawing_modal')
 @include('dashboard.modals.drawing_reply_modals')
-@include('dashboard.modals.drawing_delete_modals')
 @include('dashboard.modals.risk_assessment')
+
+@include('dashboard.modals.drawing_delete_modals')
 
 @include('dashboard.modals.upload-photo')
 @endsection

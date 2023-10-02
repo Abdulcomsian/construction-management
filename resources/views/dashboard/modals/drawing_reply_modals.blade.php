@@ -70,7 +70,7 @@
                     <input type="hidden" name="drawingid" id="drwingid" />
                    
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
-<!-- 
+                        <!-- 
                     <div class="mb-13 text-center">
                       
                         <h1 class="mb-3">Send a Comment to the Designer </h1>
@@ -106,4 +106,6 @@
         <!--end::Modal content-->
     </div>
     <!--end::Modal dialog-->
+</div>
+</div>
 </div>

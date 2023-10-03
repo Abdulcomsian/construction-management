@@ -85,6 +85,16 @@
                     @if($scantempwork!='scantempwork')
                         <div class="mb-13 text-center">
                             <!--begin::Title-->
+                            <h1 class="mb-3">Drawing Comments</h1>
+                            <!--end::Title-->
+                        </div>
+                        <div id="drawingcommenttable">
+
+                        </div>
+                    @endif
+                    @if($scantempwork!='scantempwork')
+                        <div class="mb-13 text-center">
+                            <!--begin::Title-->
                             <h1 class="mb-3">TWC Notes</h1>
                             <!--end::Title-->
                         </div>
@@ -92,6 +102,7 @@
 
                         </div>
                     @endif
+                 
                     <div class="row g-9 mb-8">
                     <div class="mb-13 text-center">
                             <!--begin::Title-->

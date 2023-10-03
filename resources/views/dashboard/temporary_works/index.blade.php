@@ -4611,6 +4611,7 @@ $tempWorkClass = "d-none";
                $("#commenttable").html(res.comment);
                $("#twccommenttable").html(res.twccomment);
                $("#twccommenttable2").html(res.twcdesigner);
+               $("#drawingcommenttable").html(res.drawingcomments);
                $(".comments_form").show();
                $("#comment_modal_id").modal('show');
            }

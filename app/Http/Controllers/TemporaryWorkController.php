@@ -2107,7 +2107,7 @@ class TemporaryWorkController extends Controller
                                <td>' . $i . '</td><td style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), rgba(7, 213, 100, 0.5);
 
                                ">'. '<span style="font-weight: 600; font-size: 16px; margin-right:5px">Comment:</span>'. '<span style="font-size:16px; white-space:pre-wrap;">'.$comment->comment.'</span>' .$comment->sender_name.'<br>'. '<div style="display:flex; justify-content: space-between;"><span style="color: #9D9D9D">'.$comment->sender_email .'</span><span style="color: #9D9D9D">'. date('H:i d-m-Y', strtotime($comment->created_at)) . '</span></div><span style="color: #3A7DFF; font-size: 14px; font-weight: 400;">'.$a.'</span></td>
-                               <td style=" flex-direction: column;  padding-left: 15px !important;white-space:pre-wrap;">
+                               <td style=" flex-direction: column;  padding-left: 15px !important;white-space:pre-wrap;"><div style="max-width:400px;white-space:pre-wrap;">
                                '.$formorreply.'
                                 <form style="'.$none.'"  method="post" action="' . route("temporarywork.storecommentreplay") . '" enctype="multipart/form-data">
                                    <input type="hidden" name="_token" value="' . csrf_token() . '"/>
@@ -2122,7 +2122,7 @@ class TemporaryWorkController extends Controller
                                     <button class="btn btn-primary replay-comment" style="font-size:14px;margin-top:10px;float:right;">submit</button>
                                 </form>
 
-                               </td>
+                               </div></td>
                            </tr>' . $list . '';
                 } else {
                     

@@ -38,7 +38,7 @@
                                                                    @endif
                                                                    @if($details['body']['pc_twc'])
                                                                    <p>
-                                                                        Please <a href="{{route('pc.approved',Crypt::encrypt($id))}}">review</a> the design brief and either accept it, reject it or reject it with comments.
+                                                                        Please <a href="{{route('pc.approved',[Crypt::encrypt($id),'twc_id_no'=>$details['body']['twc_id_no']])}}">review</a> the design brief and either accept it, reject it or reject it with comments.
                                                                         <br>
 
                                                                    </p>

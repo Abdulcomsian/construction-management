@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Models\TemporaryWorkRejected;
 use App\Models\ShareDrawing;
 use App\Models\DrawingComment;
+use App\Models\PdfFilesHistory;
 use App\Models\ChangeEmailHistory;
 use App\Models\ScopeOfDesign;
 use App\Models\Folder;
@@ -1435,10 +1436,9 @@ class DesignerController extends Controller
     }
 
     //PC TWC EMAIL WORK HERE
-    public function pc_index($id)
+    public function pc_index(Request $request,$id)
     {
         $id = \Crypt::decrypt($id);
-        
         $tempworkdetail = TemporaryWork::find($id);
         $comments=TemporaryWorkComment::where(['temporary_work_id'=>$id,'type'=>'pc'])->get();
         $rejectedcomments=TemporaryWorkRejected::where(['temporary_work_id'=>$id])->get();
@@ -1454,18 +1454,27 @@ class DesignerController extends Controller
             
              $cc_emails = HelperFunctions::ccEmails($request->ccemail);
             //Getting Temporary Work Data
+            $tempworkdata = TemporaryWork::where('twc_id_no',$request->twc_id_no)->find($request->tempworkid);
+            if($tempworkdata)
+            {
+                TemporaryWork::find($request->tempworkid)->update([
+                    'status' => $request->status,
+                ]);
+
+            }else{
+                PdfFilesHistory::where('twc_id_no',$request->twc_id_no)->where('tempwork_id',$request->tempworkid)->update([
+                    'status' => $request->status,
+                ]);
+            }
             $tempworkdata = TemporaryWork::with('designerCompanyEmails','project')->find($request->tempworkid);
             $createdby = User::find($tempworkdata->created_by);
-            TemporaryWork::find($request->tempworkid)->update([
-                'status' => $request->status,
-            ]);
             if ($request->status == 2) {
                 $model = new TemporaryWorkComment();
                 $model->comment = $request->comments;
                 $model->temporary_work_id = $request->tempworkid;
                 $model->type = 'pc';
                 if ($model->save()) {
-                    $rejectedmodel= TemporaryWorkRejected::where('temporary_work_id',$request->tempworkid)->orderBy('id','desc')->limit(1)->first();
+                    $rejectedmodel= TemporaryWorkRejected::where('temporary_work_id',$request->tempworkid)->where('twc_id_no',$request->twc_id_no)->orderBy('id','desc')->limit(1)->first();
                     $rejectedmodel->temporary_work_id=$request->tempworkid;
                     $rejectedmodel->comment=$request->comments;
                     $rejectedmodel->rejected_by=$tempworkdata->pc_twc_email;
@@ -1503,7 +1512,7 @@ class DesignerController extends Controller
                             'text' => $text,
                             'filename' => $tempworkdata->ped_url,
                             'links' =>  '',
-                            'name' => $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no,
+                            'name' => $tempworkdata->design_requirement_text . '-' . $request->twc_id_no,
                             'ext' => '',
                             'comments'=>$request->comments,
                             'type'=>'desingbrief',
@@ -1532,8 +1541,7 @@ class DesignerController extends Controller
                 }
                 $model->type = 'pc';
                 if ($model->save()) {
-                    $rejectedmodel= TemporaryWorkRejected::where('temporary_work_id',$request->tempworkid)->orderBy('id','desc')->limit(1)->first();
-                    
+                    $rejectedmodel= TemporaryWorkRejected::where('temporary_work_id',$request->tempworkid)->where('twc_id_no',$request->twc_id_no)->orderBy('id','desc')->limit(1)->first();
                     $rejectedmodel->temporary_work_id=$request->tempworkid;
                     $rejectedmodel->comment=$request->comments;
                     $rejectedmodel->rejected_by=$tempworkdata->pc_twc_email;
@@ -1560,7 +1568,7 @@ class DesignerController extends Controller
                     $chm->status=2;
                     $chm->save();
 
-                    HelperFunctions::PdfFilesHistory($tempworkdata->ped_url, $tempworkdata->id, 'design_brief', $tempworkdata->twc_id_no);
+                    //HelperFunctions::PdfFilesHistory($tempworkdata->ped_url, $tempworkdata->id, 'design_brief', $tempworkdata->twc_id_no); Testoing
                 }
                 $subject = 'TWP – Design Brief Accepted - ' . $tempworkdata->project->name . '-' . $tempworkdata->project->no;
                 $text = "We have attached the accepted PDF design brief for  ". $tempworkdata->company .". The design brief includes relevant documents as links.";
@@ -1575,7 +1583,7 @@ class DesignerController extends Controller
                         'filename' => $tempworkdata->ped_url,
                         'links' =>  '',
                         'designer' => '',
-                        'name' => $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no,
+                        'name' => $tempworkdata->design_requirement_text . '-' . $request->twc_id_no,
                         'ext' => '',
                         'comments'=>$request->comments,
                         'id'=>$request->tempworkid,

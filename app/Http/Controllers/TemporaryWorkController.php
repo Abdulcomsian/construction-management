@@ -910,6 +910,7 @@ class TemporaryWorkController extends Controller
                         'acceptance_date' => date('Y-m-d H:i:s'),
                         'pdf_url' => $filename,
                         'email' => Auth::user()->email,
+                        'twc_id_no'=>$twc_id_no,
                     ]);
 
                     //changing email history
@@ -953,6 +954,7 @@ class TemporaryWorkController extends Controller
                         'name' =>  $model->design_requirement_text . '-' . $model->twc_id_no,
                         'designer' => '',
                         'pc_twc' => '',
+                        'twc_id_no'=>$twc_id_no,
 
                     ],
                     'thanks_text' => 'Thanks For Using our site',
@@ -1231,11 +1233,11 @@ class TemporaryWorkController extends Controller
             //work for qrcode
             $j = HelperFunctions::generatetempid($request->project_id);
             $all_inputs['tempid'] = $j;
-            if (isset($request->approval)) {
-                $all_inputs['status'] = '0';
-            } else {
-                $all_inputs['status'] = '1';
-            }
+            // if (isset($request->approval)) {
+            //     $all_inputs['status'] = '0';
+            // } else {
+            //     $all_inputs['status'] = '1';
+            // }
             $categorylabel=explode("-",$request->design_requirement_text);
             $all_inputs['category_label']=$categorylabel[0];
 
@@ -1436,24 +1438,26 @@ class TemporaryWorkController extends Controller
                 //work for pdf
                 $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $request->all(), 'image_name' => $temporaryWork->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $request->twc_id_no, 'comments' => $attachcomments, "description" => $content,'image_name3' => $image_name3, 'image_name4' => $image_name4, 'image_name5' => $image_name5, 'company3' => $request->company3, 'company4' => $request->company4, 'company5' => $request->company5, 'date3'=>$request->date3, 'date4'=>$request->date4, 'date5'=>$request->date5]);
                 $path = public_path('pdf');
-                if (isset($request->approval)) {
-                    @unlink($path . '/' . $temporaryWork->ped_url);
-                }
+                // if (isset($request->approval)) {
+                //     @unlink($path . '/' . $temporaryWork->ped_url);
+                // }
                 $filename = rand() . '.pdf';
                 $pdf->save($path . '/' . $filename);
                 $model = TemporaryWork::find($temporaryWork->id);
-                $model->ped_url = $filename;
-                $model->save();
-                if(!$request->approval || !$temporaryWork->status == 2){
+                // $model->ped_url = $filename;
+                // $model->save();
+                // if(!$request->approval || !$temporaryWork->status == 2){
                 $count = $model->pdfFilesDesignBrief->count();
                 $twc_id_no = $request->twc_id_no.'-'.$count++;
-                HelperFunctions::PdfFilesHistory($filename, $temporaryWork->id, 'design_brief', $twc_id_no);
-                }
+                $pdfFileStatus = isset($request->approval) ? '0' : '1';
+                HelperFunctions::PdfFilesHistory($filename, $temporaryWork->id, 'design_brief', $twc_id_no,$pdfFileStatus);
+                // }
                 if (isset($request->approval)) {
                     TemporaryWorkRejected::create([
                         'temporary_work_id' => $temporaryWork->id,
                         'acceptance_date' => date('Y-m-d H:i:s'),
                         'pdf_url' => $filename,
+                        'twc_id_no'=>$twc_id_no,
                         'email' => Auth::user()->email,
                     ]);
 
@@ -1499,6 +1503,7 @@ class TemporaryWorkController extends Controller
                     'name' =>  $model->design_requirement_text . '-' . $model->twc_id_no,
                     'designer' => '',
                     'pc_twc' => '',
+                    'twc_id_no'=>$twc_id_no,
                 ],
                 'thanks_text' => 'Thanks For Using our site',
                 'action_text' => '',

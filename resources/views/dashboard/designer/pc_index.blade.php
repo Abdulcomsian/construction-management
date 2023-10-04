@@ -147,6 +147,7 @@
                         @csrf
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
                         <input type="hidden" name="tempworkid" value="{{$tempworkdetail->id}}">
+                        <input type="hidden" name="twc_id_no" value="{{$_GET['twc_id_no']}}">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="row justify-content-between">
@@ -278,7 +279,7 @@
                         @foreach($rejectedcomments as $cmt)
                         <tr>
                             <td  style="width:50px;">{{$loop->index+1}}</td>
-                            <td style="width:100px;"> {{$tempworkdetail->twc_id_no}}</td>
+                            <td style="width:100px;"> {{$cmt->twc_id_no}}</td>
                             <td style="width:200px;"><a href="{{asset('pdf/').'/'.$cmt->pdf_url}}">PDF</a><br><b>Sent
                                     by: </b> <span style="color: #9D9D9D">{{$cmt->email}}</span><br><b>Sent
                                     To: </b><span

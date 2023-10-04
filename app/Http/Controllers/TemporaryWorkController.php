@@ -22,6 +22,7 @@ use App\Models\TemporaryWorkRejected;
 use App\Models\ScaffoldLoadImages;
 use App\Models\ChangeEmailHistory;
 use App\Models\Nomination;
+use App\Models\DrawingComment;
 use App\Notifications\PermitNotification;
 use App\Notifications\TempAttachmentNotifications;
 use App\Notifications\CommentsNotification;
@@ -1946,6 +1947,7 @@ class TemporaryWorkController extends Controller
         // dd($request);
         $table = '';
         $tabletwc='';
+        $tabledrawingcomments='';
         $tabletwcdesigner='';
         $client_table = '';
         $path = config('app.url');
@@ -1969,6 +1971,7 @@ class TemporaryWorkController extends Controller
             $commetns = TemporaryWorkComment::where(['temporary_work_id' => $temporary_work_id, 'type' => 'scan'])->get();
         }
         //twc comments here
+        $uploadfiles = TempWorkUploadFiles::with('comment')->where('temporary_work_id',$request->temporary_work_id)->get();
         if (isset($twccommetns) && count($twccommetns) > 0) {
             $tabletwc.= '<table class="table"  style="border-radius: 8px; overflow: hidden;"><thead style="height:60px;background: #07D564;"><tr><th style="color: white !important;background: #07D564 !important; font-size: 16px !important; font-weight: 600 !important; text-align: left;">No</th><th style="color: white !important;background: #07D564 !important; font-size: 16px !important; font-weight: 600 !important; text-align: left">Twc Comment</th><th style="width:120px;color: white !important;background: #07D564 !important; font-size: 16px !important; font-weight: 600 !important; text-align: left;">Date</th><th style="background: #07D564 !important;"></th></tr></thead><tbody>';
             $i = 1;
@@ -1980,6 +1983,30 @@ class TemporaryWorkController extends Controller
                 $i++;
             }
              $tabletwc .= '</tbody></table>';
+        }
+        
+        if (isset($uploadfiles) && count($uploadfiles) > 0) {
+            $tabledrawingcomments.= '<table class="table"  style="border-radius: 8px; overflow: hidden;"><thead style="height:60px;background: #07D564;"><tr><th style="color: white !important;background: #07D564 !important; font-size: 16px !important; font-weight: 600 !important; text-align: left;">No</th><th style="color: white !important;background: #07D564 !important; font-size: 16px !important; font-weight: 600 !important; text-align: left">Drawing No</th><th style="color: white !important;background: #07D564 !important; font-size: 16px !important; font-weight: 600 !important; text-align: left">Comments</th><th style="width:120px;color: white !important;background: #07D564 !important; font-size: 16px !important; font-weight: 600 !important; text-align: left;">Date</th><th style="background: #07D564 !important;"></th></tr></thead><tbody>';
+            foreach ($uploadfiles as $uploadfile) { 
+                $drawingscomments = DrawingComment::where('temp_work_upload_files_id',$uploadfile->id)->get();
+                 if (isset($uploadfiles) && count($uploadfiles) > 0) {
+                    $i = 1;
+                    foreach($drawingscomments as $comment)
+                    {
+                        $tabledrawingcomments .= '<tr style="background:white">
+                               <td style="padding-right: 35px !important; padding-top: 12px !important;">' . $i . '</td><td style="padding: 11px !important;text-align:start !important; white-space: pre-wrap;">'.$uploadfile->drawing_number.'</td><td style="padding: 11px !important;text-align:start !important; white-space: pre-wrap;">' . $comment->drawing_comment . '</td>
+                               <td style="padding: 11px !important">' . date("d-m-Y H:i:s", strtotime($comment->created_at)) . '</td>
+                           </tr>';
+                $i++;
+                    }
+
+                 }
+                 
+            }
+             $tabledrawingcomments .= '</tbody></table>';
+        } else{
+            $tabledrawingcomments= '<table class="table"  style="border-radius: 8px; overflow: hidden;"><thead style="height:60px;background: #07D564;"><tr><th style="color: white !important;background: #07D564 !important; font-size: 16px !important; font-weight: 600 !important; text-align: left;">No</th><th style="color: white !important;background: #07D564 !important; font-size: 16px !important; font-weight: 600 !important; text-align: left">Drawing No</th><th style="color: white !important;background: #07D564 !important; font-size: 16px !important; font-weight: 600 !important; text-align: left">Comments</th><th style="width:120px;color: white !important;background: #07D564 !important; font-size: 16px !important; font-weight: 600 !important; text-align: left;">Date</th><th style="background: #07D564 !important;"></th></tr></thead><tbody>';
+
         }
         if (isset($twcdesigncommetns) && count($twcdesigncommetns) > 0) {
             
@@ -2080,7 +2107,7 @@ class TemporaryWorkController extends Controller
                                <td>' . $i . '</td><td style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), rgba(7, 213, 100, 0.5);
 
                                ">'. '<span style="font-weight: 600; font-size: 16px; margin-right:5px">Comment:</span>'. '<span style="font-size:16px; white-space:pre-wrap;">'.$comment->comment.'</span>' .$comment->sender_name.'<br>'. '<div style="display:flex; justify-content: space-between;"><span style="color: #9D9D9D">'.$comment->sender_email .'</span><span style="color: #9D9D9D">'. date('H:i d-m-Y', strtotime($comment->created_at)) . '</span></div><span style="color: #3A7DFF; font-size: 14px; font-weight: 400;">'.$a.'</span></td>
-                               <td style=" flex-direction: column;  padding-left: 15px !important;white-space:pre-wrap;">
+                               <td style=" flex-direction: column;  padding-left: 15px !important;white-space:pre-wrap;"><div style="max-width:400px;white-space:pre-wrap;">
                                '.$formorreply.'
                                 <form style="'.$none.'"  method="post" action="' . route("temporarywork.storecommentreplay") . '" enctype="multipart/form-data">
                                    <input type="hidden" name="_token" value="' . csrf_token() . '"/>
@@ -2095,7 +2122,7 @@ class TemporaryWorkController extends Controller
                                     <button class="btn btn-primary replay-comment" style="font-size:14px;margin-top:10px;float:right;">submit</button>
                                 </form>
 
-                               </td>
+                               </div></td>
                            </tr>' . $list . '';
                 } else {
                     
@@ -2297,7 +2324,7 @@ class TemporaryWorkController extends Controller
             
         }
 
-        echo  json_encode(array('comment'=>$table,'twccomment'=>$tabletwc, 'twcdesigner'=>$tabletwcdesigner, 'twclientcomments' => $client_table));
+        echo  json_encode(array('comment'=>$table,'twccomment'=>$tabletwc,'drawingcomments'=>$tabledrawingcomments, 'twcdesigner'=>$tabletwcdesigner, 'twclientcomments' => $client_table));
     }
 
     // Add this method to your controller

@@ -435,7 +435,8 @@ class DesignerController extends Controller
                         array_push($cc_emails,trim($designer_company_email->email));
 
                     }
-                }            
+                } 
+                array_push($cc_emails,trim($tempworkdata->designer_company_email));
             $createdby = User::find($tempworkdata->created_by);
             $filePath = HelperFunctions::temporaryworkuploadPath();
             $model = new TempWorkUploadFiles(); 
@@ -584,7 +585,7 @@ class DesignerController extends Controller
                         $chm->email=$tempworkdata->twc_email;
                         $chm->type ='Certificate Uploaded';
                         $chm->foreign_idd=$tempworkdata->id;
-                        $chm->message='Designer Uploaded Certificate '  . $request->designermail ;
+                        $chm->message='Designer Uploaded Certificate '  . $request->designermail  .' and sent to ' . $query_cc;
                         $chm->user_type = 'designer';
                         $chm->status = 2;
                         $chm->save();
@@ -593,7 +594,7 @@ class DesignerController extends Controller
                         $chm->email=$tempworkdata->twc_email;
                         $chm->type ='Design Upload';
                         $chm->foreign_idd=$tempworkdata->id;
-                        $chm->message='Designer Uploaded Drawing ' . $request->designermail;
+                        $chm->message='Designer Uploaded Drawing ' . $request->designermail  .' and sent to ' . $query_cc;
                         $chm->status = 2;
                         $chm->user_type = 'designer';
                         $chm->save();

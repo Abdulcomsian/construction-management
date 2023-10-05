@@ -552,13 +552,13 @@ class DesignerController extends Controller
                         $chm->email=$tempworkdata->twc_email;
                         $chm->type ='Certificate Uploaded';
                         $chm->foreign_idd=$tempworkdata->id;
-                        if(isset($request->certificateccemails))
-                        {
-                            $chm->message='Certificate Uploaded by Designer ' . $request->designermail.' and cc sent to '.$request->certificateccemails;
-                        }
-                        else{
-                            $chm->message='Certificate Uploaded by Designer ' . $request->designermail;
-                        }
+                        // if(isset($request->certificateccemails))
+                        // {
+                            $chm->message='Certificate Uploaded by Designer ' . $request->designermail.' and sent to ' . $query_cc;
+                        // }
+                        // else{
+                        //     $chm->message='Certificate Uploaded by Designer ' . $request->designermail;
+                        // }
                         $chm->user_type = 'designer';
                         $chm->status = 2;
                         $chm->save();
@@ -569,14 +569,13 @@ class DesignerController extends Controller
                         $chm->foreign_idd=$tempworkdata->id;
                         $chm->status = 2;
                         $chm->user_type = 'designer';
-                        if(isset($request->ccemails))
-                        {
-                            $chm->message='Drawing Uploaded by Designer ' . $request->designermail.' and cc sent to '.$request->ccemails;
-                        }
-                        else{
+                        // if(isset($request->ccemails))
+                        // {
+                            $chm->message='Drawing Uploaded by Designer ' . $request->designermail. ' and sent to ' . $query_cc;
+                        // else{
 
-                            $chm->message='Drawing Uploaded by Designer ' . $request->designermail;
-                        }
+                        //     $chm->message='Drawing Uploaded by Designer ' . $request->designermail;
+                        // }
                         $chm->save();
                     }
                 }else{ //if email doesnt match meaning by, designer is from other table
@@ -2144,15 +2143,15 @@ class DesignerController extends Controller
             $chm->email=$tempworkdata->twc_email;
             $chm->type ='Document Uploaded';
             $chm->foreign_idd=$tempworkdata->id;
-            if(isset($request->riskccemails))
-            {
+            // if(isset($request->riskccemails))
+            // {
                 $chm->message='Other Document uploaded by Designer ' . $request->designermail.' and cc sent to '.$request->riskccemails;
 
-            }else
-            {
-                $chm->message='Other Document uploaded by Designer ' . $request->designermail;
+            // }else
+            // {
+            //     $chm->message='Other Document uploaded by Designer ' . $request->designermail;
 
-            }
+            // }
             $chm->user_type = 'designer';
             $chm->status = 2;
             $chm->save();

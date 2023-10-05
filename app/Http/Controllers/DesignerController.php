@@ -2115,7 +2115,7 @@ class DesignerController extends Controller
        { $cc_emails = HelperFunctions::ccEmails($request->riskccemails);}
         else
         {$cc_emails = [];}
-
+        
         // if($request->file('riskattachfile'))
         // {
         //     $attachfile = $request->file('riskattachfile');
@@ -2137,15 +2137,27 @@ class DesignerController extends Controller
             $model->file_name=$imagename;
          }
          $model->temporary_work_id=$request->tempworkid;
+         $designer_company_emails = DesignerCompanyEmail::where('temporary_work_id',$request->tempworkid)->where('email','!=',$request->designermail)->get();
+        if($designer_company_emails)
+        {
+            foreach($designer_company_emails as $designer_company_email)
+            {
+                array_push($cc_emails,trim($designer_company_email->email));
+            }
+        }
+        if($tempworkdata->designer_company_email != $request->designermail){
+            array_push($cc_emails,trim($tempworkdata->designer_company_email));
+        }
         if($model->save())
         {
+            $query_cc =  implode(', ', $cc_emails);
             $chm= new ChangeEmailHistory();
             $chm->email=$tempworkdata->twc_email;
             $chm->type ='Document Uploaded';
             $chm->foreign_idd=$tempworkdata->id;
             // if(isset($request->riskccemails))
             // {
-                $chm->message='Other Document uploaded by Designer ' . $request->designermail.' and cc sent to '.$request->riskccemails;
+                $chm->message='Other Document uploaded by Designer ' . $request->designermail.' and cc sent to '.$query_cc;
 
             // }else
             // {

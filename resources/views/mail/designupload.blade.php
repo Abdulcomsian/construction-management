@@ -69,7 +69,7 @@
                                                                     <p>
                                                                         @if(isset($details['body']['filetype']) && $details['body']['filetype']==2)
                                                                         @php $name="design check certificate";@endphp
-                                                                        <a href="{{url('temporary_works')}}">View Design Check Certificate</a>
+                                                                        {{-- <a href="{{url('temporary_works')}}">View Design Check Certificate</a> --}}
                                                                         @elseif(isset($details['body']['filetype']) && $details['body']['filetype']==5)
                                                                         @php $name="risk assessment";@endphp
                                                                          <a href="{{url('temporary_works')}}">View Risk Assessment. </a>

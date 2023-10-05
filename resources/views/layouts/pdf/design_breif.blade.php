@@ -515,7 +515,8 @@
                             <td style="width: 200px; font-size:12px;"> {{ date('d-m-Y', strtotime($data['date'])) }}</td>
                             <td style="font-size:12px;"> @if(isset($data['signtype']) && $data['signtype']=='1')
                                 <i> {{ucwords($data['namesign'])}}</i>
-                                 @else
+                                 @elseif(isset($data['signature_type']) && $data['signature_type'] == 'name_sign')
+                                    <i> {{ucwords($data['namesign'])}}</i>
                                  @php 
                                  $sign=\App\Models\TemporaryWork::find($image_name);@endphp
                                  <img src="temporary/signature/{{$sign->signature}}" width="auto" height="120">

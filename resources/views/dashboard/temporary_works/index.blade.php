@@ -1268,12 +1268,12 @@ $tempWorkClass = "d-none";
                                                                 {{-- <!-- @endif --> --}}
 
                                                                 {{-- //add it later  --}}
-                                                                @if($item->status==0 || $item->status == 2)
+                                                                {{-- @if($item->status==0 || $item->status == 2) --}}
                                                                  <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'#07d564 !important';}}; "
                                                                     target="_blank"
                                                                     href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
                                                                 </a> 
-                                                                @endif
+                                                                {{-- @endif --}}
                                                             <br>
                                                                 @foreach($item->designbrief_history as $row)
                                                                     <a style="color:{{$row->status== '1'  ? '#07d564 !important':'red !important';}}; "

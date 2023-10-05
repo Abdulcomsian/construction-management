@@ -1071,12 +1071,12 @@ class TemporaryWorkController extends Controller
         try {
             $temporary_work = TemporaryWork::find($temporaryWork->id);
 
-            if(!$request->approval){
-                $pdf_history = PdfFilesHistory::where([['tempwork_id', $temporaryWork->id],['type','design_brief']])->count();
-                if($pdf_history == 0){
-                    HelperFunctions::PdfFilesHistory($temporaryWork->ped_url, $temporaryWork->id, 'design_brief', $temporaryWork->twc_id_no);
-                }
-            }
+            // if(!$request->approval){
+            //     $pdf_history = PdfFilesHistory::where([['tempwork_id', $temporaryWork->id],['type','design_brief']])->count();
+            //     if($pdf_history == 0){
+            //         HelperFunctions::PdfFilesHistory($temporaryWork->ped_url, $temporaryWork->id, 'design_brief', $temporaryWork->twc_id_no);
+            //     }
+            // }
             
             $scope_of_design = [];
             foreach ($request->keys() as $key) {

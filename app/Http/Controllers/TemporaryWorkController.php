@@ -1768,7 +1768,8 @@ class TemporaryWorkController extends Controller
                         $cmh->user_type = 'designer';
                         // if(isset($request->queriesccemails))
                         // {
-                            $cmh->message='Query Posted by Designer ' . $request->mail.' to '.$tempdata->twc_email.' and cc sent to '.$cc_emails;
+                            $query_cc =  $tags = implode(', ', $cc_emails);
+                            $cmh->message='Query Posted by Designer ' . $request->mail.' to '.$tempdata->twc_email.' and cc sent to '.$query_cc;
                         // }
                         // else{
 

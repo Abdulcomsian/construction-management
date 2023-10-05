@@ -1768,7 +1768,7 @@ class TemporaryWorkController extends Controller
                         $cmh->user_type = 'designer';
                         // if(isset($request->queriesccemails))
                         // {
-                            $query_cc =  $tags = implode(', ', $cc_emails);
+                            $query_cc =  implode(', ', $cc_emails);
                             $cmh->message='Query Posted by Designer ' . $request->mail.' to '.$tempdata->twc_email.' and cc sent to '.$query_cc;
                         // }
                         // else{
@@ -1880,13 +1880,14 @@ class TemporaryWorkController extends Controller
 
      
                
+            $query_cc =  implode(', ', $cc_emails);
            
             if ($res) {
                 $cmh= new ChangeEmailHistory();
                         $cmh->email=$data->sender_email;
                         $cmh->type ='Comment Replied';
                         $cmh->foreign_idd=$tempid;
-                        $cmh->message='Comment Replied by ' . Auth::user()->email;
+                        $cmh->message='Comment Replied by ' . Auth::user()->email . 'and sent to ' . $query_cc;
                         $cmh->user_type = 'designer';
                         $cmh->save();
                 Notification::route('mail',  $data->sender_email)->notify(new CommentsNotification($request->replay, 'reply', $tempid, $data->sender_email, $scan,'',$cc_emails));

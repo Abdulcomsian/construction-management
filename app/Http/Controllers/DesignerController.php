@@ -410,6 +410,7 @@ class DesignerController extends Controller
     public function store(Request $request)
     {  
         try {
+            // dd($request->all());
             if($request->ccemails)
             $cc_emails = HelperFunctions::ccEmails($request->ccemails);
             elseif($request->certificateccemails)
@@ -419,6 +420,7 @@ class DesignerController extends Controller
             $design_check_file = '';
             $drawing_file = '';
             $drawingData = '';
+            $drawingStatus = '0';
             $tempworkdata = TemporaryWork::with('project:name,no,id')->find($request->tempworkid);
             if(isset($request->twd_name)){
                 $tempworkdata->tw_name=$request->twd_name;
@@ -578,6 +580,7 @@ class DesignerController extends Controller
                             $chm->message='Drawing Uploaded by Designer ' . $request->designermail;
                         }
                         $chm->save();
+                        $drawingStatus = '1';
                     }
                 }else{ //if email doesnt match meaning by, designer is from other table
                     if (isset($request->designcheckfile)) {
@@ -598,6 +601,7 @@ class DesignerController extends Controller
                         $chm->status = 2;
                         $chm->user_type = 'designer';
                         $chm->save();
+                        $drawingStatus = '1';
                     }
                 }
                 $selectedEmails = $request->input('emails');
@@ -617,6 +621,7 @@ class DesignerController extends Controller
                             'designcheckfile'=>$design_check_file,
                             'drawing_file'=>$drawing_file,
                             'drawingData'=>$drawingData,
+                            'drawingStatus'=>$drawingStatus,
                         ],
                         'thanks_text' => 'Thanks For Using our site',
                         'action_text' => '',

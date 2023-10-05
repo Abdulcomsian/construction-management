@@ -901,9 +901,9 @@ class TemporaryWorkController extends Controller
                 $model = TemporaryWork::find($temporary_work->id);
                 $model->ped_url = $filename;
                 $model->save();
-                if(!$request->approval){
-                    HelperFunctions::PdfFilesHistory($filename, $temporary_work->id, 'design_brief', $twc_id_no);
-                }
+                // if(!$request->approval){ //this code was casusing issue showing 2 link in register
+                //     HelperFunctions::PdfFilesHistory($filename, $temporary_work->id, 'design_brief', $twc_id_no);
+                // }
                 if (isset($request->approval)) {
                     TemporaryWorkRejected::create([
                         'temporary_work_id' => $temporary_work->id,

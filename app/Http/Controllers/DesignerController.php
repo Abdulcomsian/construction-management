@@ -424,6 +424,18 @@ class DesignerController extends Controller
                 $tempworkdata->tw_name=$request->twd_name;
             }
             $tempworkdata->save();
+
+
+            //fetch designers added in this design brief
+            $designer_company_emails = DesignerCompanyEmail::where('temporary_work_id',$request->tempworkid)->where('email','!=',$request->designermail)->get();
+                if($designer_company_emails)
+                {
+                    foreach($designer_company_emails as $designer_company_email)
+                    {
+                        array_push($cc_emails,trim($designer_company_email->email));
+
+                    }
+                }            
             $createdby = User::find($tempworkdata->created_by);
             $filePath = HelperFunctions::temporaryworkuploadPath();
             $model = new TempWorkUploadFiles(); 
@@ -512,13 +524,14 @@ class DesignerController extends Controller
                     'comments'=>$model->comments,
                     'twd_name'=>$model->twd_name,
                 ];
+            $query_cc =  implode(', ', $cc_emails);
                 if($request->designermail == $tempworkdata->desinger_email_2){
                     if (isset($request->designcheckfile)) { //if designchekfile exist then it means ceriticate is uploaded
                         $chm= new ChangeEmailHistory();
                         $chm->email=$tempworkdata->twc_email;
                         $chm->type ='Certificate Uploaded';
                         $chm->foreign_idd=$tempworkdata->id;
-                        $chm->message='Design Checker Uploaded Certificate '  . $request->designermail;
+                        $chm->message='Design Checker Uploaded Certificate '  . $request->designermail .' and sent to ' . $query_cc;
                         $chm->status = 2;
                         $chm->user_type = 'checker';
                         $chm->save();
@@ -527,7 +540,7 @@ class DesignerController extends Controller
                         $chm->email=$tempworkdata->twc_email;
                         $chm->type ='Drawing Uploaded';
                         $chm->foreign_idd=$tempworkdata->id;
-                        $chm->message='Design Checker Uploaded Drawing ' . $request->designermail;
+                        $chm->message='Design Checker Uploaded Drawing ' . $request->designermail .' and sent to ' . $query_cc;
                         $chm->status = 2;
                         $chm->user_type = 'checker';
                         $chm->save();

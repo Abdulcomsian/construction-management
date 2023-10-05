@@ -78,7 +78,7 @@
                                                                         <a href="{{url('temporary_works')}}">View Calculations/Design Notes.</a>
                                                                         @else
                                                                         @php $name="drawing";@endphp
-                                                                         <a href="{{url('temporary_works')}}">view Details</a>
+                                                                         {{-- <a href="{{url('temporary_works')}}">view Details</a> --}}
 
                                                                         @endif
                                                                    </p>

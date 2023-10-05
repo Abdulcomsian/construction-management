@@ -1201,13 +1201,27 @@ $tempWorkClass = "d-none";
                                                                     $edit_red_blink = '';
                                                                     $label_class = 'label-light-success';
                                                                 @endphp
-                                                                @if($item->status==2)
-                                                                    @php
-                                                                        $edit_class = 'rejecteddesign';
-                                                                        $edit_red_blink = 'redBgBlink';
-                                                                        $label_class='label-light-danger';
-                                                                    @endphp
+
+                                                                @php
+                                                                $last_pdf = count($item->designbrief_history);
+                                                                @endphp
+                                                                {{-- @dd($item->designbrief_history[$last_pdf-1]->status); --}}
+                                                                @if($last_pdf>0)
+                                                                    @if($item->designbrief_history[$last_pdf-1]->status==2)
+                                                                        @php
+                                                                            $edit_class = 'rejecteddesign';
+                                                                            $edit_red_blink = 'redBgBlink';
+                                                                            $label_class='label-light-danger';
+                                                                        @endphp
+                                                                    @endif
+                                                                @elseif($item->status==2)
+                                                                        @php
+                                                                            $edit_class = 'rejecteddesign';
+                                                                            $edit_red_blink = 'redBgBlink';
+                                                                            $label_class='label-light-danger';
+                                                                        @endphp
                                                                 @endif
+
                                                                 @if($item->existing_design_brief != 1)
                                                                 <a href="{{route('temporary_works.edit',$item->id)}}">
                                                                     <span class="{{$edit_class}} cursor-pointer"
@@ -1241,20 +1255,28 @@ $tempWorkClass = "d-none";
                                                                     width="70px" height="70px">
                                                             </a>
                                                             @endif
-                                                            @if($item->pdfFilesDesignBrief->count() == 0)
-                                                                <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}; "
+                                                            {{-- <!-- @if($item->pdfFilesDesignBrief->count() == 0) --> --}}
+                                                                {{-- <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'#07d564 !important';}}; "
                                                                     target="_blank"
                                                                     href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
-                                                                </a>
-                                                            @elseif($item->status==2 || $item->status == 0) 
-                                                                <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'';}}; "
+                                                                </a> --}}
+                                                           {{-- <!--  @elseif($item->status==2 || $item->status == 0)  --> --}}
+                                                                {{-- <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'#07d564 !important';}}; "
                                                                     target="_blank"
                                                                     href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
-                                                                </a>
-                                                                @endif
+                                                                </a>  --}}
+                                                                {{-- <!-- @endif --> --}}
+
+                                                                {{-- //add it later  --}}
+                                                                {{-- @if($item->status==0 || $item->status == 2) --}}
+                                                                 <a style="color:{{$item->status==0 || $item->status==2 ? 'red !important':'#07d564 !important';}}; "
+                                                                    target="_blank"
+                                                                    href="{{asset('pdf'.'/'.$item->ped_url)}}">{{$item->twc_id_no}}
+                                                                </a> 
+                                                                {{-- @endif --}}
                                                             <br>
                                                                 @foreach($item->designbrief_history as $row)
-                                                                    <a style=""
+                                                                    <a style="color:{{$row->status== '1'  ? '#07d564 !important':'red !important';}}; "
                                                                         target="_blank"
                                                                         href="{{asset('pdf'.'/'.$row->pdf_name)}}">{{$row->twc_id_no}}
                                                                     </a>

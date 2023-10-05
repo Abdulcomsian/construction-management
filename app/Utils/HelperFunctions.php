@@ -379,13 +379,14 @@ class HelperFunctions
         $chm->save();
     }
 
-    public static function PdfFilesHistory($filename, $temporary_work_id, $type, $twc_id_no=null)
+    public static function PdfFilesHistory($filename, $temporary_work_id, $type, $twc_id_no=null,$status = '1')
     {
         $pdf_history = new PdfFilesHistory();
         $pdf_history->pdf_name = $filename;
         $pdf_history->tempwork_id = $temporary_work_id;
         $pdf_history->type = $type;
         $pdf_history->twc_id_no = $twc_id_no;
+        $pdf_history->status = $status;
         $pdf_history->save();
     }
 

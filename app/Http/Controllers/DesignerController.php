@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Models\TemporaryWorkRejected;
 use App\Models\ShareDrawing;
 use App\Models\DrawingComment;
+use App\Models\PdfFilesHistory;
 use App\Models\ChangeEmailHistory;
 use App\Models\ScopeOfDesign;
 use App\Models\Folder;
@@ -409,6 +410,7 @@ class DesignerController extends Controller
     public function store(Request $request)
     {  
         try {
+            // dd($request->all());
             if($request->ccemails)
             $cc_emails = HelperFunctions::ccEmails($request->ccemails);
             elseif($request->certificateccemails)
@@ -418,11 +420,25 @@ class DesignerController extends Controller
             $design_check_file = '';
             $drawing_file = '';
             $drawingData = '';
+            $drawingStatus = '0';
             $tempworkdata = TemporaryWork::with('project:name,no,id')->find($request->tempworkid);
             if(isset($request->twd_name)){
                 $tempworkdata->tw_name=$request->twd_name;
             }
             $tempworkdata->save();
+
+
+            //fetch designers added in this design brief
+            $designer_company_emails = DesignerCompanyEmail::where('temporary_work_id',$request->tempworkid)->where('email','!=',$request->designermail)->get();
+                if($designer_company_emails)
+                {
+                    foreach($designer_company_emails as $designer_company_email)
+                    {
+                        array_push($cc_emails,trim($designer_company_email->email));
+
+                    }
+                } 
+                array_push($cc_emails,trim($tempworkdata->designer_company_email));
             $createdby = User::find($tempworkdata->created_by);
             $filePath = HelperFunctions::temporaryworkuploadPath();
             $model = new TempWorkUploadFiles(); 
@@ -511,13 +527,14 @@ class DesignerController extends Controller
                     'comments'=>$model->comments,
                     'twd_name'=>$model->twd_name,
                 ];
+            $query_cc =  implode(', ', $cc_emails);
                 if($request->designermail == $tempworkdata->desinger_email_2){
                     if (isset($request->designcheckfile)) { //if designchekfile exist then it means ceriticate is uploaded
                         $chm= new ChangeEmailHistory();
                         $chm->email=$tempworkdata->twc_email;
                         $chm->type ='Certificate Uploaded';
                         $chm->foreign_idd=$tempworkdata->id;
-                        $chm->message='Design Checker Uploaded Certificate '  . $request->designermail;
+                        $chm->message='Design Checker Uploaded Certificate '  . $request->designermail .' and sent to ' . $query_cc;
                         $chm->status = 2;
                         $chm->user_type = 'checker';
                         $chm->save();
@@ -526,7 +543,7 @@ class DesignerController extends Controller
                         $chm->email=$tempworkdata->twc_email;
                         $chm->type ='Drawing Uploaded';
                         $chm->foreign_idd=$tempworkdata->id;
-                        $chm->message='Design Checker Uploaded Drawing ' . $request->designermail;
+                        $chm->message='Design Checker Uploaded Drawing ' . $request->designermail .' and sent to ' . $query_cc;
                         $chm->status = 2;
                         $chm->user_type = 'checker';
                         $chm->save();
@@ -537,7 +554,13 @@ class DesignerController extends Controller
                         $chm->email=$tempworkdata->twc_email;
                         $chm->type ='Certificate Uploaded';
                         $chm->foreign_idd=$tempworkdata->id;
-                        $chm->message='Designer Uploaded Certificate ' . $request->designermail;
+                        // if(isset($request->certificateccemails))
+                        // {
+                            $chm->message='Certificate Uploaded by Designer ' . $request->designermail.' and sent to ' . $query_cc;
+                        // }
+                        // else{
+                        //     $chm->message='Certificate Uploaded by Designer ' . $request->designermail;
+                        // }
                         $chm->user_type = 'designer';
                         $chm->status = 2;
                         $chm->save();
@@ -546,10 +569,17 @@ class DesignerController extends Controller
                         $chm->email=$tempworkdata->twc_email;
                         $chm->type ='Design Upload';
                         $chm->foreign_idd=$tempworkdata->id;
-                        $chm->message='Designer Uploaded Drawing ' . $request->designermail;
                         $chm->status = 2;
                         $chm->user_type = 'designer';
+                        // if(isset($request->ccemails))
+                        // {
+                            $chm->message='Drawing Uploaded by Designer ' . $request->designermail. ' and sent to ' . $query_cc;
+                        // else{
+
+                        //     $chm->message='Drawing Uploaded by Designer ' . $request->designermail;
+                        // }
                         $chm->save();
+                        $drawingStatus = '1';
                     }
                 }else{ //if email doesnt match meaning by, designer is from other table
                     if (isset($request->designcheckfile)) {
@@ -557,7 +587,7 @@ class DesignerController extends Controller
                         $chm->email=$tempworkdata->twc_email;
                         $chm->type ='Certificate Uploaded';
                         $chm->foreign_idd=$tempworkdata->id;
-                        $chm->message='Designer Uploaded Certificate '  . $request->designermail ;
+                        $chm->message='Designer Uploaded Certificate '  . $request->designermail  .' and sent to ' . $query_cc;
                         $chm->user_type = 'designer';
                         $chm->status = 2;
                         $chm->save();
@@ -566,10 +596,11 @@ class DesignerController extends Controller
                         $chm->email=$tempworkdata->twc_email;
                         $chm->type ='Design Upload';
                         $chm->foreign_idd=$tempworkdata->id;
-                        $chm->message='Designer Uploaded Drawing ' . $request->designermail;
+                        $chm->message='Designer Uploaded Drawing ' . $request->designermail  .' and sent to ' . $query_cc;
                         $chm->status = 2;
                         $chm->user_type = 'designer';
                         $chm->save();
+                        $drawingStatus = '1';
                     }
                 }
                 $selectedEmails = $request->input('emails');
@@ -589,6 +620,7 @@ class DesignerController extends Controller
                             'designcheckfile'=>$design_check_file,
                             'drawing_file'=>$drawing_file,
                             'drawingData'=>$drawingData,
+                            'drawingStatus'=>$drawingStatus,
                         ],
                         'thanks_text' => 'Thanks For Using our site',
                         'action_text' => '',
@@ -1435,10 +1467,9 @@ class DesignerController extends Controller
     }
 
     //PC TWC EMAIL WORK HERE
-    public function pc_index($id)
+    public function pc_index(Request $request,$id)
     {
         $id = \Crypt::decrypt($id);
-        
         $tempworkdetail = TemporaryWork::find($id);
         $comments=TemporaryWorkComment::where(['temporary_work_id'=>$id,'type'=>'pc'])->get();
         $rejectedcomments=TemporaryWorkRejected::where(['temporary_work_id'=>$id])->get();
@@ -1454,18 +1485,27 @@ class DesignerController extends Controller
             
              $cc_emails = HelperFunctions::ccEmails($request->ccemail);
             //Getting Temporary Work Data
+            $tempworkdata = TemporaryWork::where('twc_id_no',$request->twc_id_no)->find($request->tempworkid);
+            if($tempworkdata)
+            {
+                TemporaryWork::find($request->tempworkid)->update([
+                    'status' => $request->status,
+                ]);
+
+            }else{
+                PdfFilesHistory::where('twc_id_no',$request->twc_id_no)->where('tempwork_id',$request->tempworkid)->update([
+                    'status' => $request->status,
+                ]);
+            }
             $tempworkdata = TemporaryWork::with('designerCompanyEmails','project')->find($request->tempworkid);
             $createdby = User::find($tempworkdata->created_by);
-            TemporaryWork::find($request->tempworkid)->update([
-                'status' => $request->status,
-            ]);
             if ($request->status == 2) {
                 $model = new TemporaryWorkComment();
                 $model->comment = $request->comments;
                 $model->temporary_work_id = $request->tempworkid;
                 $model->type = 'pc';
                 if ($model->save()) {
-                    $rejectedmodel= TemporaryWorkRejected::where('temporary_work_id',$request->tempworkid)->orderBy('id','desc')->limit(1)->first();
+                    $rejectedmodel= TemporaryWorkRejected::where('temporary_work_id',$request->tempworkid)->where('twc_id_no',$request->twc_id_no)->orderBy('id','desc')->limit(1)->first();
                     $rejectedmodel->temporary_work_id=$request->tempworkid;
                     $rejectedmodel->comment=$request->comments;
                     $rejectedmodel->rejected_by=$tempworkdata->pc_twc_email;
@@ -1488,7 +1528,12 @@ class DesignerController extends Controller
                     $chm->email=$tempworkdata->twc_email;
                     $chm->type ='Design Brief Rejected';
                     $chm->foreign_idd=$request->tempworkid;
-                    $chm->message='Design Breif Rejected by PC TWC';
+                    if(isset($request->ccemail))
+                    {
+                        $chm->message='Design Breif Rejected by PC TWC and cc sent to '.$request->ccemail;
+                    }else{
+                        $chm->message='Design Breif Rejected by PC TWC';
+                    }
                     $chm->status=2;
                     $chm->save();
 
@@ -1503,7 +1548,7 @@ class DesignerController extends Controller
                             'text' => $text,
                             'filename' => $tempworkdata->ped_url,
                             'links' =>  '',
-                            'name' => $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no,
+                            'name' => $tempworkdata->design_requirement_text . '-' . $request->twc_id_no,
                             'ext' => '',
                             'comments'=>$request->comments,
                             'type'=>'desingbrief',
@@ -1532,8 +1577,7 @@ class DesignerController extends Controller
                 }
                 $model->type = 'pc';
                 if ($model->save()) {
-                    $rejectedmodel= TemporaryWorkRejected::where('temporary_work_id',$request->tempworkid)->orderBy('id','desc')->limit(1)->first();
-                    
+                    $rejectedmodel= TemporaryWorkRejected::where('temporary_work_id',$request->tempworkid)->where('twc_id_no',$request->twc_id_no)->orderBy('id','desc')->limit(1)->first();
                     $rejectedmodel->temporary_work_id=$request->tempworkid;
                     $rejectedmodel->comment=$request->comments;
                     $rejectedmodel->rejected_by=$tempworkdata->pc_twc_email;
@@ -1556,11 +1600,16 @@ class DesignerController extends Controller
                     $chm->email=$tempworkdata->twc_email;
                     $chm->type ='Design Brief Accepted';
                     $chm->foreign_idd=$request->tempworkid;
-                    $chm->message='Design Breif Approved by PC TWC';
+                    if(isset($request->ccemail))
+                    {
+                        $chm->message='Design Breif Approved by PC TWC and cc sent to '.$request->ccemail;
+                    }else{
+                        $chm->message='Design Breif Approved by PC TWC';
+                    }
                     $chm->status=2;
                     $chm->save();
 
-                    HelperFunctions::PdfFilesHistory($tempworkdata->ped_url, $tempworkdata->id, 'design_brief', $tempworkdata->twc_id_no);
+                    //HelperFunctions::PdfFilesHistory($tempworkdata->ped_url, $tempworkdata->id, 'design_brief', $tempworkdata->twc_id_no); Testoing
                 }
                 $subject = 'TWP – Design Brief Accepted - ' . $tempworkdata->project->name . '-' . $tempworkdata->project->no;
                 $text = "We have attached the accepted PDF design brief for  ". $tempworkdata->company .". The design brief includes relevant documents as links.";
@@ -1575,7 +1624,7 @@ class DesignerController extends Controller
                         'filename' => $tempworkdata->ped_url,
                         'links' =>  '',
                         'designer' => '',
-                        'name' => $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no,
+                        'name' => $tempworkdata->design_requirement_text . '-' . $request->twc_id_no,
                         'ext' => '',
                         'comments'=>$request->comments,
                         'id'=>$request->tempworkid,
@@ -1711,7 +1760,7 @@ class DesignerController extends Controller
                 $subject = 'Permit Load Rejected ';
                 $text = ' Welcome to the online Temporary Works Portal.Permit Load Rejected by PC TWC.';
                 $msg = 'Permit Load Rejected Successfully!';
-            } if ($request->status == 3) { //permit to unload yes
+            }else if ($request->status == 3) { //permit to unload yes
                 $model = new PermitComments();
                 $model->comment = $request->comments;
                 $model->permit_load_id = $request->permitid;
@@ -1741,6 +1790,10 @@ class DesignerController extends Controller
                 if(isset($request->type) && $request->type=="permit-unload"){
                     $cmh->message='Permit to Unload Rejected by PC TWC';
                     $cmh->type ='Permit to Unload';
+                    
+                }else if($request->status==1){
+                    $cmh->message='Permit to Load Accepted by PC TWC';
+                    $cmh->type ='Permit to Load';
 
                 }else{
                     $cmh->message='Permit to Load Rejected by PC TWC';
@@ -2071,7 +2124,7 @@ class DesignerController extends Controller
        { $cc_emails = HelperFunctions::ccEmails($request->riskccemails);}
         else
         {$cc_emails = [];}
-
+        
         // if($request->file('riskattachfile'))
         // {
         //     $attachfile = $request->file('riskattachfile');
@@ -2093,13 +2146,33 @@ class DesignerController extends Controller
             $model->file_name=$imagename;
          }
          $model->temporary_work_id=$request->tempworkid;
+         $designer_company_emails = DesignerCompanyEmail::where('temporary_work_id',$request->tempworkid)->where('email','!=',$request->designermail)->get();
+        if($designer_company_emails)
+        {
+            foreach($designer_company_emails as $designer_company_email)
+            {
+                array_push($cc_emails,trim($designer_company_email->email));
+            }
+        }
+        if($tempworkdata->designer_company_email != $request->designermail){
+            array_push($cc_emails,trim($tempworkdata->designer_company_email));
+        }
         if($model->save())
         {
+            $query_cc =  implode(', ', $cc_emails);
             $chm= new ChangeEmailHistory();
             $chm->email=$tempworkdata->twc_email;
             $chm->type ='Document Uploaded';
             $chm->foreign_idd=$tempworkdata->id;
-            $chm->message='Other Document uploaded by Designer ' . $request->designermail;
+            // if(isset($request->riskccemails))
+            // {
+                $chm->message='Other Document uploaded by Designer ' . $request->designermail.' and cc sent to '.$query_cc;
+
+            // }else
+            // {
+            //     $chm->message='Other Document uploaded by Designer ' . $request->designermail;
+
+            // }
             $chm->user_type = 'designer';
             $chm->status = 2;
             $chm->save();

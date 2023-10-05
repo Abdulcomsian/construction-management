@@ -37,6 +37,7 @@
                                                                          {{$details['body']['comments']}}
                                                                          @endif 
                                                                    </p>
+                                                                   @if(isset($details['body']['drawingStatus']) && $details['body']['drawingStatus'] == '1')
                                                                    @if(isset($details['body']['drawingData']))
                                                                       <p  style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left"><b>Designer Name: </b>{{$details['body']['drawingData']['twd_name'] ?? ''}}</p>
                                                                       <p  style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left"><b>Drawing Title: </b>{{$details['body']['drawingData']['drawing_title'] ?? ''}}</p>
@@ -52,6 +53,7 @@
                                                                       <p  style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left"><b>For Construction: </b> Yes</p>
                                                                       @endif
                                                                       <p  style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left"><b>Comments: </b>{{$details['body']['drawingData']['comments'] ?? ''}}</p>
+                                                                   @endif
                                                                    @endif
                                                                    @if(isset($details['body']['designer']) && $details['body']['designer']=='designer1')
                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
@@ -69,7 +71,7 @@
                                                                     <p>
                                                                         @if(isset($details['body']['filetype']) && $details['body']['filetype']==2)
                                                                         @php $name="design check certificate";@endphp
-                                                                        <a href="{{url('temporary_works')}}">View Design Check Certificate</a>
+                                                                        {{-- <a href="{{url('temporary_works')}}">View Design Check Certificate</a> --}}
                                                                         @elseif(isset($details['body']['filetype']) && $details['body']['filetype']==5)
                                                                         @php $name="risk assessment";@endphp
                                                                          <a href="{{url('temporary_works')}}">View Risk Assessment. </a>
@@ -78,7 +80,7 @@
                                                                         <a href="{{url('temporary_works')}}">View Calculations/Design Notes.</a>
                                                                         @else
                                                                         @php $name="drawing";@endphp
-                                                                         <a href="{{url('temporary_works')}}">view Details</a>
+                                                                         {{-- <a href="{{url('temporary_works')}}">view Details</a> --}}
 
                                                                         @endif
                                                                    </p>

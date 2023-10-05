@@ -435,7 +435,8 @@ class DesignerController extends Controller
                         array_push($cc_emails,trim($designer_company_email->email));
 
                     }
-                }            
+                } 
+                array_push($cc_emails,trim($tempworkdata->designer_company_email));
             $createdby = User::find($tempworkdata->created_by);
             $filePath = HelperFunctions::temporaryworkuploadPath();
             $model = new TempWorkUploadFiles(); 

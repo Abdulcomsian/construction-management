@@ -1760,7 +1760,7 @@ class DesignerController extends Controller
                 $subject = 'Permit Load Rejected ';
                 $text = ' Welcome to the online Temporary Works Portal.Permit Load Rejected by PC TWC.';
                 $msg = 'Permit Load Rejected Successfully!';
-            } if ($request->status == 3) { //permit to unload yes
+            }else if ($request->status == 3) { //permit to unload yes
                 $model = new PermitComments();
                 $model->comment = $request->comments;
                 $model->permit_load_id = $request->permitid;
@@ -1789,7 +1789,11 @@ class DesignerController extends Controller
                 $cmh->foreign_idd=$permitdata->temporary_work_id;
                 if(isset($request->type) && $request->type=="permit-unload"){
                     $cmh->message='Permit to Unload Rejected by PC TWC';
-                    $cmh->type ='Permit to Unload'; 
+                    $cmh->type ='Permit to Unload';
+                    
+                }else if($request->status==1){
+                    $cmh->message='Permit to Load Accepted by PC TWC';
+                    $cmh->type ='Permit to Load';
 
                 }else{
                     $cmh->message='Permit to Load Rejected by PC TWC';

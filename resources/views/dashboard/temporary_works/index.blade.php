@@ -1208,6 +1208,17 @@ $tempWorkClass = "d-none";
                                                                         $label_class='label-light-danger';
                                                                     @endphp
                                                                 @endif
+                                                                @php
+                                                                    $last_pdf = count($item->designbrief_history);
+                                                                @endphp
+                                                                @if($item->designbrief_history[$last_pdf-1]->status==2)
+                                                                    @php
+                                                                        $edit_class = 'rejecteddesign';
+                                                                        $edit_red_blink = 'redBgBlink';
+                                                                        $label_class='label-light-danger';
+                                                                    @endphp
+                                                                @endif
+                                                               
                                                                 @if($item->existing_design_brief != 1)
                                                                 <a href="{{route('temporary_works.edit',$item->id)}}">
                                                                     <span class="{{$edit_class}} cursor-pointer"

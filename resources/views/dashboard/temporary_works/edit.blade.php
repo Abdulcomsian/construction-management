@@ -530,7 +530,7 @@
                         <div class="row" id="additional-emails">
                             @if(count($temporaryWork->designerCompanyEmails) > 0)
                             @foreach($temporaryWork->designerCompanyEmails as $email)
-                                <div class="col-md-5" style="margin-top: 26px;">
+                                <div class="col-md-6" style="margin-top: 0px;">
                                     <div class="d-flex inputDiv d-block m-0" id="designerEmail">
                                         <!--begin::Label-->
                                         <label class=" fs-6 fw-bold mb-2">

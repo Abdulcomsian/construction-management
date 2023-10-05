@@ -1766,14 +1766,14 @@ class TemporaryWorkController extends Controller
                         $cmh->type ='Designer to TWC';
                         $cmh->foreign_idd=$request->temp_work_id;
                         $cmh->user_type = 'designer';
-                        if(isset($request->queriesccemails))
-                        {
-                            $cmh->message='Query Posted by Designer ' . $request->mail.' to '.$tempdata->twc_email.' and cc sent to '.$request->queriesccemails;
-                        }
-                        else{
+                        // if(isset($request->queriesccemails))
+                        // {
+                            $cmh->message='Query Posted by Designer ' . $request->mail.' to '.$tempdata->twc_email.' and cc sent to '.$cc_emails;
+                        // }
+                        // else{
 
-                            $cmh->message='Query Posted by Designer ' . $request->mail.' to '.$tempdata->twc_email;
-                        }
+                        //     $cmh->message='Query Posted by Designer ' . $request->mail.' to '.$tempdata->twc_email;
+                        // }
                      
                         $cmh->save();
                     }   

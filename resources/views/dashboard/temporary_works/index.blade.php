@@ -1211,12 +1211,14 @@ $tempWorkClass = "d-none";
                                                                 @php
                                                                     $last_pdf = count($item->designbrief_history);
                                                                 @endphp
-                                                                @if($item->designbrief_history[$last_pdf-1]->status==2)
-                                                                    @php
-                                                                        $edit_class = 'rejecteddesign';
-                                                                        $edit_red_blink = 'redBgBlink';
-                                                                        $label_class='label-light-danger';
-                                                                    @endphp
+                                                                @if($last_pdf>0)
+                                                                    @if($item->designbrief_history[$last_pdf-1]->status==2)
+                                                                        @php
+                                                                            $edit_class = 'rejecteddesign';
+                                                                            $edit_red_blink = 'redBgBlink';
+                                                                            $label_class='label-light-danger';
+                                                                        @endphp
+                                                                    @endif
                                                                 @endif
                                                                
                                                                 @if($item->existing_design_brief != 1)

@@ -1221,10 +1221,12 @@ class TemporaryWorkController extends Controller
             } }
             else{
                 $image_name = $temporary_work->signature;
+                $signature_type = $temporary_work->signature_type;
                 // $all_inputs['signature'] = $image_name; 
             }
             
             $all_inputs['signature'] = $image_name;
+            $all_inputs['signature_type'] = $signature_type;
 
             $all_inputs['created_by'] = auth()->user()->id;
             if (auth()->user()->hasRole('admin')) {
@@ -1447,8 +1449,9 @@ class TemporaryWorkController extends Controller
                 // $model->ped_url = $filename;
                 // $model->save();
                 // if(!$request->approval || !$temporaryWork->status == 2){
-                $count = $model->pdfFilesDesignBrief->count();
-                $twc_id_no = $request->twc_id_no.'-'.$count++;
+                $count = $model->pdfFilesDesignBrief->count()+1;
+                
+                $twc_id_no = $request->twc_id_no.'-'.$count;
                 $pdfFileStatus = isset($request->approval) ? '0' : '1';
                 HelperFunctions::PdfFilesHistory($filename, $temporaryWork->id, 'design_brief', $twc_id_no,$pdfFileStatus);
                 // }

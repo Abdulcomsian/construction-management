@@ -286,7 +286,7 @@
                     <tr>
                         <td><b style="font-size:12px;">{{$req}}</b></td>
                         <td style="font-size:12px;">@if(isset($data['req_check'][$req])) Y @else N @endif</td>
-                        <td style="font-size:12px;">{{$data['req_notes'][$key]}}</td>
+                        <td style="font-size:12px;">{{$data['req_notes'][$key] ?? 0}}</td>
                     </tr>
                     @endforeach
                     @endif

@@ -646,7 +646,7 @@ class TemporaryWorkController extends Controller
                 $desing_req_details=[];
                 foreach($request->req_name as $key => $req)
                 {
-                    $desing_req_details[]=['name'=>$req,'check'=>isset($request->req_check[$key]) ? 'Y':'N','note'=>$request->req_notes[$key]];
+                    $desing_req_details[]=['name'=>$req,'check'=>isset($request->req_check[$key]) ? 'Y':'N','note'=>$request->req_notes[$key] ?? 0];
                 }
 
                 $all_inputs['desing_req_details']=json_encode($desing_req_details);
@@ -901,9 +901,9 @@ class TemporaryWorkController extends Controller
                 $model = TemporaryWork::find($temporary_work->id);
                 $model->ped_url = $filename;
                 $model->save();
-                if(!$request->approval){
-                    HelperFunctions::PdfFilesHistory($filename, $temporary_work->id, 'design_brief', $twc_id_no);
-                }
+                // if(!$request->approval){ //this code was casusing issue showing 2 link in register
+                //     HelperFunctions::PdfFilesHistory($filename, $temporary_work->id, 'design_brief', $twc_id_no);
+                // }
                 if (isset($request->approval)) {
                     TemporaryWorkRejected::create([
                         'temporary_work_id' => $temporary_work->id,
@@ -1071,12 +1071,12 @@ class TemporaryWorkController extends Controller
         try {
             $temporary_work = TemporaryWork::find($temporaryWork->id);
 
-            if(!$request->approval){
-                $pdf_history = PdfFilesHistory::where([['tempwork_id', $temporaryWork->id],['type','design_brief']])->count();
-                if($pdf_history == 0){
-                    HelperFunctions::PdfFilesHistory($temporaryWork->ped_url, $temporaryWork->id, 'design_brief', $temporaryWork->twc_id_no);
-                }
-            }
+            // if(!$request->approval){
+            //     $pdf_history = PdfFilesHistory::where([['tempwork_id', $temporaryWork->id],['type','design_brief']])->count();
+            //     if($pdf_history == 0){
+            //         HelperFunctions::PdfFilesHistory($temporaryWork->ped_url, $temporaryWork->id, 'design_brief', $temporaryWork->twc_id_no);
+            //     }
+            // }
             
             $scope_of_design = [];
             foreach ($request->keys() as $key) {
@@ -1766,14 +1766,15 @@ class TemporaryWorkController extends Controller
                         $cmh->type ='Designer to TWC';
                         $cmh->foreign_idd=$request->temp_work_id;
                         $cmh->user_type = 'designer';
-                        if(isset($request->queriesccemails))
-                        {
-                            $cmh->message='Query Posted by Designer ' . $request->mail.' to '.$tempdata->twc_email.' and cc sent to '.$request->queriesccemails;
-                        }
-                        else{
+                        // if(isset($request->queriesccemails))
+                        // {
+                            $query_cc =  implode(', ', $cc_emails);
+                            $cmh->message='Query Posted by Designer ' . $request->mail.' to '.$tempdata->twc_email.' and cc sent to '.$query_cc;
+                        // }
+                        // else{
 
-                            $cmh->message='Query Posted by Designer ' . $request->mail.' to '.$tempdata->twc_email;
-                        }
+                        //     $cmh->message='Query Posted by Designer ' . $request->mail.' to '.$tempdata->twc_email;
+                        // }
                      
                         $cmh->save();
                     }   
@@ -1879,13 +1880,14 @@ class TemporaryWorkController extends Controller
 
      
                
+            $query_cc =  implode(', ', $cc_emails);
            
             if ($res) {
                 $cmh= new ChangeEmailHistory();
                         $cmh->email=$data->sender_email;
                         $cmh->type ='Comment Replied';
                         $cmh->foreign_idd=$tempid;
-                        $cmh->message='Comment Replied by ' . Auth::user()->email;
+                        $cmh->message='Comment Replied by ' . Auth::user()->email . 'and sent to ' . $query_cc;
                         $cmh->user_type = 'designer';
                         $cmh->save();
                 Notification::route('mail',  $data->sender_email)->notify(new CommentsNotification($request->replay, 'reply', $tempid, $data->sender_email, $scan,'',$cc_emails));

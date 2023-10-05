@@ -538,7 +538,13 @@ class DesignerController extends Controller
                         $chm->email=$tempworkdata->twc_email;
                         $chm->type ='Certificate Uploaded';
                         $chm->foreign_idd=$tempworkdata->id;
-                        $chm->message='Designer Uploaded Certificate ' . $request->designermail;
+                        if(isset($request->certificateccemails))
+                        {
+                            $chm->message='Certificate Uploaded by Designer ' . $request->designermail.' and cc sent to '.$request->certificateccemails;
+                        }
+                        else{
+                            $chm->message='Certificate Uploaded by Designer ' . $request->designermail;
+                        }
                         $chm->user_type = 'designer';
                         $chm->status = 2;
                         $chm->save();
@@ -547,9 +553,16 @@ class DesignerController extends Controller
                         $chm->email=$tempworkdata->twc_email;
                         $chm->type ='Design Upload';
                         $chm->foreign_idd=$tempworkdata->id;
-                        $chm->message='Designer Uploaded Drawing ' . $request->designermail;
                         $chm->status = 2;
                         $chm->user_type = 'designer';
+                        if(isset($request->ccemails))
+                        {
+                            $chm->message='Drawing Uploaded by Designer ' . $request->designermail.' and cc sent to '.$request->ccemails;
+                        }
+                        else{
+
+                            $chm->message='Drawing Uploaded by Designer ' . $request->designermail;
+                        }
                         $chm->save();
                     }
                 }else{ //if email doesnt match meaning by, designer is from other table
@@ -1497,7 +1510,12 @@ class DesignerController extends Controller
                     $chm->email=$tempworkdata->twc_email;
                     $chm->type ='Design Brief Rejected';
                     $chm->foreign_idd=$request->tempworkid;
-                    $chm->message='Design Breif Rejected by PC TWC';
+                    if(isset($request->ccemail))
+                    {
+                        $chm->message='Design Breif Rejected by PC TWC and cc sent to '.$request->ccemail;
+                    }else{
+                        $chm->message='Design Breif Rejected by PC TWC';
+                    }
                     $chm->status=2;
                     $chm->save();
 
@@ -1564,7 +1582,12 @@ class DesignerController extends Controller
                     $chm->email=$tempworkdata->twc_email;
                     $chm->type ='Design Brief Accepted';
                     $chm->foreign_idd=$request->tempworkid;
-                    $chm->message='Design Breif Approved by PC TWC';
+                    if(isset($request->ccemail))
+                    {
+                        $chm->message='Design Breif Approved by PC TWC and cc sent to '.$request->ccemail;
+                    }else{
+                        $chm->message='Design Breif Approved by PC TWC';
+                    }
                     $chm->status=2;
                     $chm->save();
 
@@ -2107,7 +2130,15 @@ class DesignerController extends Controller
             $chm->email=$tempworkdata->twc_email;
             $chm->type ='Document Uploaded';
             $chm->foreign_idd=$tempworkdata->id;
-            $chm->message='Other Document uploaded by Designer ' . $request->designermail;
+            if(isset($request->riskccemails))
+            {
+                $chm->message='Other Document uploaded by Designer ' . $request->designermail.' and cc sent to '.$request->riskccemails;
+
+            }else
+            {
+                $chm->message='Other Document uploaded by Designer ' . $request->designermail;
+
+            }
             $chm->user_type = 'designer';
             $chm->status = 2;
             $chm->save();

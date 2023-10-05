@@ -1756,13 +1756,22 @@ class TemporaryWorkController extends Controller
                   Notification::route('mail', $email)->notify(new CommentsNotification($request->comment, $type, $request->temp_work_id,$client_email,$request->type ?? '','Designer',$cc_emails, $imagename));
                 }else if(!isset($twc))
                 {
+                    
                     if($request->type=="designertotwc"){
                         $cmh= new ChangeEmailHistory();
                         $cmh->email=$tempdata->twc_email;
                         $cmh->type ='Designer to TWC';
                         $cmh->foreign_idd=$request->temp_work_id;
-                        $cmh->message='Query Posted by Designer ' . $request->mail;
                         $cmh->user_type = 'designer';
+                        if(isset($request->queriesccemails))
+                        {
+                            $cmh->message='Query Posted by Designer ' . $request->mail.' to '.$tempdata->twc_email.' and cc sent to '.$request->queriesccemails;
+                        }
+                        else{
+
+                            $cmh->message='Query Posted by Designer ' . $request->mail.' to '.$tempdata->twc_email;
+                        }
+                     
                         $cmh->save();
                     }   
                     

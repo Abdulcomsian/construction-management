@@ -1789,7 +1789,7 @@ class DesignerController extends Controller
                 $cmh->foreign_idd=$permitdata->temporary_work_id;
                 if(isset($request->type) && $request->type=="permit-unload"){
                     $cmh->message='Permit to Unload Rejected by PC TWC';
-                    $cmh->type ='Permit to Unload';
+                    $cmh->type ='Permit to Unload'; 
 
                 }else{
                     $cmh->message='Permit to Load Rejected by PC TWC';

@@ -286,7 +286,7 @@
                     <tr>
                         <td><b style="font-size:12px;">{{$req}}</b></td>
                         <td style="font-size:12px;">@if(isset($data['req_check'][$req])) Y @else N @endif</td>
-                        <td style="font-size:12px;">{{$data['req_notes'][$key] ?? 0}}</td>
+                        <td style="font-size:12px;">{{$data['req_notes'][$key]}}</td>
                     </tr>
                     @endforeach
                     @endif
@@ -515,8 +515,9 @@
                             <td style="width: 200px; font-size:12px;"> {{ date('d-m-Y', strtotime($data['date'])) }}</td>
                             <td style="font-size:12px;"> @if(isset($data['signtype']) && $data['signtype']=='1')
                                 <i> {{ucwords($data['namesign'])}}</i>
-                                 @elseif(isset($data['signature_type']) && $data['signature_type'] == 'name_sign')
-                                    <i> {{ucwords($data['namesign'])}}</i>
+                                 @elseif(isset($signature_type) && $signature_type == 'name_sign')
+                                    <i> @isset($name_signature){{$name_signature}}@endisset</i>
+                                @else
                                  @php 
                                  $sign=\App\Models\TemporaryWork::find($image_name);@endphp
                                  <img src="temporary/signature/{{$sign->signature}}" width="auto" height="120">

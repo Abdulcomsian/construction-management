@@ -554,13 +554,13 @@ class DesignerController extends Controller
                         $chm->email=$tempworkdata->twc_email;
                         $chm->type ='Certificate Uploaded';
                         $chm->foreign_idd=$tempworkdata->id;
-                        if(isset($request->certificateccemails))
-                        {
-                            $chm->message='Certificate Uploaded by Designer ' . $request->designermail.' and cc sent to '.$request->certificateccemails;
-                        }
-                        else{
-                            $chm->message='Certificate Uploaded by Designer ' . $request->designermail;
-                        }
+                        // if(isset($request->certificateccemails))
+                        // {
+                            $chm->message='Certificate Uploaded by Designer ' . $request->designermail.' and sent to ' . $query_cc;
+                        // }
+                        // else{
+                        //     $chm->message='Certificate Uploaded by Designer ' . $request->designermail;
+                        // }
                         $chm->user_type = 'designer';
                         $chm->status = 2;
                         $chm->save();
@@ -571,14 +571,13 @@ class DesignerController extends Controller
                         $chm->foreign_idd=$tempworkdata->id;
                         $chm->status = 2;
                         $chm->user_type = 'designer';
-                        if(isset($request->ccemails))
-                        {
-                            $chm->message='Drawing Uploaded by Designer ' . $request->designermail.' and cc sent to '.$request->ccemails;
-                        }
-                        else{
+                        // if(isset($request->ccemails))
+                        // {
+                            $chm->message='Drawing Uploaded by Designer ' . $request->designermail. ' and sent to ' . $query_cc;
+                        // else{
 
-                            $chm->message='Drawing Uploaded by Designer ' . $request->designermail;
-                        }
+                        //     $chm->message='Drawing Uploaded by Designer ' . $request->designermail;
+                        // }
                         $chm->save();
                         $drawingStatus = '1';
                     }
@@ -1792,7 +1791,7 @@ class DesignerController extends Controller
                 $subject = 'Permit Load Rejected ';
                 $text = ' Welcome to the online Temporary Works Portal.Permit Load Rejected by PC TWC.';
                 $msg = 'Permit Load Rejected Successfully!';
-            } if ($request->status == 3) { //permit to unload yes
+            }else if ($request->status == 3) { //permit to unload yes
                 $model = new PermitComments();
                 $model->comment = $request->comments;
                 $model->permit_load_id = $request->permitid;
@@ -1822,6 +1821,10 @@ class DesignerController extends Controller
                 if(isset($request->type) && $request->type=="permit-unload"){
                     $cmh->message='Permit to Unload Rejected by PC TWC';
                     $cmh->type ='Permit to Unload';
+                    
+                }else if($request->status==1){
+                    $cmh->message='Permit to Load Accepted by PC TWC';
+                    $cmh->type ='Permit to Load';
 
                 }else{
                     $cmh->message='Permit to Load Rejected by PC TWC';
@@ -2152,7 +2155,7 @@ class DesignerController extends Controller
        { $cc_emails = HelperFunctions::ccEmails($request->riskccemails);}
         else
         {$cc_emails = [];}
-
+        
         // if($request->file('riskattachfile'))
         // {
         //     $attachfile = $request->file('riskattachfile');
@@ -2174,21 +2177,33 @@ class DesignerController extends Controller
             $model->file_name=$imagename;
          }
          $model->temporary_work_id=$request->tempworkid;
+         $designer_company_emails = DesignerCompanyEmail::where('temporary_work_id',$request->tempworkid)->where('email','!=',$request->designermail)->get();
+        if($designer_company_emails)
+        {
+            foreach($designer_company_emails as $designer_company_email)
+            {
+                array_push($cc_emails,trim($designer_company_email->email));
+            }
+        }
+        if($tempworkdata->designer_company_email != $request->designermail){
+            array_push($cc_emails,trim($tempworkdata->designer_company_email));
+        }
         if($model->save())
         {
+            $query_cc =  implode(', ', $cc_emails);
             $chm= new ChangeEmailHistory();
             $chm->email=$tempworkdata->twc_email;
             $chm->type ='Document Uploaded';
             $chm->foreign_idd=$tempworkdata->id;
-            if(isset($request->riskccemails))
-            {
-                $chm->message='Other Document uploaded by Designer ' . $request->designermail.' and cc sent to '.$request->riskccemails;
+            // if(isset($request->riskccemails))
+            // {
+                $chm->message='Other Document uploaded by Designer ' . $request->designermail.' and cc sent to '.$query_cc;
 
-            }else
-            {
-                $chm->message='Other Document uploaded by Designer ' . $request->designermail;
+            // }else
+            // {
+            //     $chm->message='Other Document uploaded by Designer ' . $request->designermail;
 
-            }
+            // }
             $chm->user_type = 'designer';
             $chm->status = 2;
             $chm->save();

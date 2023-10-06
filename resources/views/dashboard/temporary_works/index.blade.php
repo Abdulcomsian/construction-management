@@ -4765,10 +4765,10 @@ $tempWorkClass = "d-none";
    
    })
    $(".permit-to-load-btn").on('click', function() {
-        if (role == "visitor") {
-            alert("You are not allowed to add permit to load");
-            return false;
-        }
+        // if (role == "visitor") {
+        //     alert("You are not allowed to add permit to load");
+        //     return false;
+        // }
        id = $(this).attr('data-id');
        desc = $(this).attr('data-desc');
        type = $(this).attr('data-type');
@@ -4794,10 +4794,10 @@ $tempWorkClass = "d-none";
    
    //permit to unload
    $(".permit-to-unload").on('click', function() {
-        if (role == "visitor") {
-            alert("You are not allowed to add permit to unload");
-            return false;
-        }
+        // if (role == "visitor") {
+        //     alert("You are not allowed to add permit to unload");
+        //     return false;
+        // }
        id = $(this).attr('data-id');
        desc = $(this).attr('data-desc');
        $.ajax({

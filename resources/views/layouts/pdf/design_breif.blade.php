@@ -145,6 +145,14 @@
                         </td>
                         <td colspan="3" style="width: 300px; font-size:11px;">{{$data['design_requirement_text']}}</td>
                     </tr>
+                    @isset($data['approval'])
+                    <tr>
+                        <td style="width: 200px;background:gray;color:white">
+                            <label for="" style="font-weight:900;float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">PC TWC Email</b></label>
+                        </td>
+                        <td colspan="3" style="width: 300px; font-size:11px;">{{$data['pc_twc_email'] ?? ''}}</td>
+                    </tr>
+                    @endisset
                     <tr>
                         <td colspan="4" style="background:gray;color:white">
                             <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Description of Temporary Works Required</b></label>

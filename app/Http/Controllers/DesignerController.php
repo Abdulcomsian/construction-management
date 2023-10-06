@@ -1758,7 +1758,7 @@ class DesignerController extends Controller
             }else  if($request->status==1){
                 PermitLoad::find($request->permitid)->update([
                     // 'status' => $request->status,
-                    'draft_status' => "1",
+                    'draft_status' => "3", //modified the value from 1 to 3 to show the status of reject unload permits
                 ]);
             }else  { //if accepted then we need to udpate status to 3 accepted and reopen draft
 
@@ -2756,9 +2756,9 @@ class DesignerController extends Controller
         }
 
         $cdate = date('d-m-Y', strtotime($history->created_at));
-        $cdate_time = date('H:m', strtotime($history->created_at));
+        $cdate_time = date('H:i', strtotime($history->created_at));
         $rdate2 = date('d-m-Y', strtotime($rdate));
-        $rdate_time = date('H:m', strtotime($rdate));
+        $rdate_time = date('H:i', strtotime($rdate));
 
         if(date('d-m-Y', strtotime($cdate)) == "01-01-1970"){
             $cdate ='';

@@ -1758,7 +1758,7 @@ class DesignerController extends Controller
             }else  if($request->status==1){
                 PermitLoad::find($request->permitid)->update([
                     // 'status' => $request->status,
-                    'draft_status' => "3", //modified the value from 1 to 3 to show the status of reject unload permits
+                    'draft_status' => "2", //modified the value from 1 to 3 to show the status of reject unload permits
                 ]);
             }else  { //if accepted then we need to udpate status to 3 accepted and reopen draft
 

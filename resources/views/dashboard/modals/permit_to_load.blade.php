@@ -38,6 +38,8 @@
                     <h1 class="mb-3" id="permitheading">Permit To Load</h1>
                     <!--end::Title-->
                 </div>
+                @if(!auth()->user()->hasRole('visitor'))
+
                 @if(isset($scantempwork) && $scantempwork=='')
                 <div class=" text-center" id="permitloadbutton">
                     <form method="get" action="{{route('scaffolding.load')}}"
@@ -50,6 +52,7 @@
                         <button type="submit" class="btn btn-primary" id="permiturl">New Permit to Load</button>
                     </form>
                 </div>
+                @endif
                 @endif
                 <div class="d-flex text-center">
                     <table class="table table-hover permitLoad-modal--table">

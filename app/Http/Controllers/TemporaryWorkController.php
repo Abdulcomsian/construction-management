@@ -2409,15 +2409,18 @@ class TemporaryWorkController extends Controller
             if(auth()->user()->hasRole('user'))
             {
                 $user_project = DB::table('users_has_projects')->where('user_id',Auth::id())->where('project_id', $tempdata->project_id)->first();
-                if($user_project->nomination==1 && $user_project->nomination_status==1)
-                {
-                    $id = $user_project->project_id;
+                foreach($user_project as $project){
+                    if($project->nomination==1 && $project->nomination_status==1)
+                    {
+                        $id = $project->project_id;
+                    }
+                    elseif($project->nomination==2)
+                    {
+                        $id = $project->project_id;
+                    }else{ $id = '';}
                 }
-                elseif($user_project->nomination==2)
-                {
-                    $id = $project->project_id;
-                }else{ $id = '';}
                 $project = Project::with('company','blocks')->where('id', $id)->first();
+                
             }
             else{
                 $project = Project::with('company','blocks')->where('id', $tempdata->project_id)->first();

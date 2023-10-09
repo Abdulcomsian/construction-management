@@ -2406,11 +2406,28 @@ class TemporaryWorkController extends Controller
             } else {
                 $twc_id_no = $twc_id_no . '-A';
             }
-            $project = Project::with('company','blocks')->where('id', $tempdata->project_id)->first();
+            if(auth()->user()->hasRole('user'))
+            {
+                $user_project = DB::table('users_has_projects')->where('user_id',Auth::id())->where('project_id', $tempdata->project_id)->first();
+                if($user_project->nomination==1 && $user_project->nomination_status==1)
+                {
+                    $id = $user_project->project_id;
+                }
+                elseif($user_project->nomination==2)
+                {
+                    $id = $project->project_id;
+                }else{ $id = '';}
+                $project = Project::with('company','blocks')->where('id', $id)->first();
+            }
+            else{
+                $project = Project::with('company','blocks')->where('id', $tempdata->project_id)->first();
+            }
+           
             $latestuploadfile = TempWorkUploadFiles::where('file_type', 1)->orderBy('id', 'desc')->limit(1)->first();
             $temporary_work_files = TempWorkUploadfiles::where([['file_type', 1],['temporary_work_id',$tempid]])->orderBy('id', 'desc')->get();
             return view('dashboard.temporary_works.permit', compact('project', 'tempid', 'twc_id_no', 'tempdata', 'latestuploadfile', 'temporary_work_files'));
         } catch (\Exception $exception) {
+            dd($exception->getMessage());
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }
@@ -2893,8 +2910,23 @@ class TemporaryWorkController extends Controller
         $tempid = $permitdata->temporary_work_id;
         $tempdata = TemporaryWork::find($tempid);
         $twc_id_no = $permitdata->permit_no;
-
-        $project = Project::with('company')->where('id', $permitdata->project_id)->first();
+        if(auth()->user()->hasRole('user'))
+        {
+            $user_project = DB::table('users_has_projects')->where('user_id',Auth::id())->where('project_id', $tempdata->project_id)->first();
+            if($user_project->nomination==1 && $user_project->nomination_status==1)
+            {
+                $id = $user_project->project_id;
+            }
+            elseif($user_project->nomination==2)
+            {
+                $id = $user_project->project_id;
+            }else{ $id = '';}
+            $project = Project::with('company','blocks')->where('id', $id)->first();
+        }
+        else{
+            $project = Project::with('company','blocks')->where('id', $tempdata->project_id)->first();
+        }
+        // $project = Project::with('company')->where('id', $permitdata->project_id)->first();
         $temporary_work_files = TempWorkUploadfiles::where([['file_type', 1],['temporary_work_id',$tempid]])->orderBy('id', 'desc')->get();
         return view('dashboard.temporary_works.permit-edit', compact('project', 'tempid', 'permitdata', 'twc_id_no', 'tempdata', 'temporary_work_files'));
     }
@@ -3320,9 +3352,25 @@ class TemporaryWorkController extends Controller
             $permitid =  \Crypt::decrypt($id);
             $permitdata = PermitLoad::find($permitid);
             $tempid = $permitdata->temporary_work_id;
-            $tempdata = TemporaryWork::select(['twc_email', 'twc_id_no', 'designer_company_email', 'design_requirement_text'])->find($tempid);
+            $tempdata = TemporaryWork::select(['project_id','twc_email', 'twc_id_no', 'designer_company_email', 'design_requirement_text'])->find($tempid);
             $twc_id_no = $permitdata->permit_no;
-            $project = Project::with('company')->where('id', $permitdata->project_id)->first();
+            if(auth()->user()->hasRole('user'))
+            {
+                $user_project = DB::table('users_has_projects')->where('user_id',Auth::id())->where('project_id', $tempdata->project_id)->first();
+                if($user_project->nomination==1 && $user_project->nomination_status==1)
+                {
+                    $id = $user_project->project_id;
+                }
+                elseif($user_project->nomination==2)
+                {
+                    $id = $user_project->project_id;
+                }else{ $id = '';}
+                $project = Project::with('company','blocks')->where('id', $id)->first();
+            }
+            else{
+                $project = Project::with('company','blocks')->where('id', $tempdata->project_id)->first();
+            }
+            // $project = Project::with('company')->where('id', $permitdata->project_id)->first();
             $temporary_work_files = TempWorkUploadfiles::where([['file_type', 1],['temporary_work_id',$tempid]])->orderBy('id', 'desc')->get();
             return view('dashboard.temporary_works.permit-unload', compact('project', 'tempid', 'permitdata', 'twc_id_no', 'tempdata', 'temporary_work_files'));
         } catch (\Exception $exception) {
@@ -3336,9 +3384,34 @@ class TemporaryWorkController extends Controller
             $permitid =  \Crypt::decrypt($id);
             $permitdata = PermitLoad::with('permitLoadImages','signatures')->find($permitid);
             $tempid = $permitdata->temporary_work_id;
-            $tempdata = TemporaryWork::select(['twc_email', 'twc_id_no', 'designer_company_email', 'design_requirement_text'])->find($tempid);
+            $tempdata = TemporaryWork::select(['project_id','twc_email', 'twc_id_no', 'designer_company_email', 'design_requirement_text'])->find($tempid);
             $twc_id_no = $permitdata->permit_no;
-            $project = Project::with('company')->where('id', $permitdata->project_id)->first();
+            if(auth()->user()->hasRole('user'))
+            {
+                $user_project = DB::table('users_has_projects')->where('user_id',Auth::id())->where('project_id', $tempdata->project_id)->first();
+                if($user_project->nomination==1 && $user_project->nomination_status==1)
+                {
+                    // dd('nomination 1');
+                    $id = $user_project->project_id;
+
+                }
+                elseif($user_project->nomination==2)
+                {
+                    $id = $user_project->project_id;
+                }else
+                 {
+                     $id = '';
+                    }
+
+                $project = Project::with('company','blocks')->where('id', $id)->first();
+
+
+            }
+            else{
+                $project = Project::with('company','blocks')->where('id', $tempdata->project_id)->first();
+            }
+
+            // $project = Project::with('company')->where('id', $permitdata->project_id)->first();
             $temporary_work_files = TempWorkUploadfiles::where([['file_type', 1],['temporary_work_id',$tempid]])->orderBy('id', 'desc')->get();
             return view('dashboard.temporary_works.permit-unload-edit', compact('project', 'tempid', 'permitdata', 'twc_id_no', 'tempdata', 'temporary_work_files'));
         } catch (\Exception $exception) {

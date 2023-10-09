@@ -2808,12 +2808,15 @@ class TemporaryWorkController extends Controller
                         $status = "Pending";
                     } elseif ($permit->status == 5) {
                         $status = "<span class='permit-rejected  cursor-pointer btn btn-danger ' style='font-size: 13px;width: 70px;border-radius:8px; height: 20px;line-height: 0px;' data-id='" . \Crypt::encrypt($permit->id) . "'>DNL</span>";
-                    }elseif ($permit->status == 6) {
+                    }elseif ($permit->status == 6 && $permit->draft_status == 0) {
                         $status = "Pending";
                     }elseif ($permit->status == 7) {
                         $status = "Pending";
                     }
-                    if (($permit->status ==3 || $permit->status ==6) && $permit->draft_status == '1') {
+                    elseif($permit->status == 6 && $permit->draft_status == 2) {
+                        $status = "Rejected";
+                    }
+                    if (($permit->status ==3 || $permit->status ==6 ) && ($permit->draft_status == '1' || $permit->draft_status =='2') ) {
                         $dnl_status = "<a href=" . route("permit.unload.edit", \Crypt::encrypt($permit->id)) . "><i style='text-align:center; font-size:20px;' class='fa fa-edit'></i></a>";
                     }else if ($permit->status == 5 || $permit->draft_status == '1') {
                         $dnl_status = "<a href=" . route("permit.edit", \Crypt::encrypt($permit->id)) . "><i style='text-align:center; font-size:20px;' class='fa fa-edit'></i></a>";

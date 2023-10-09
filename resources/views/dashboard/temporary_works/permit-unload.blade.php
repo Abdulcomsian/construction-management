@@ -339,13 +339,14 @@
                                 </label>
                                 <select name="project_id" id="projects" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select an option" data-allow-clear="true" readonly>
                                     <option value="">Select Option</option>
-                                    <option value="{{$project->id}}" selected="selected">
-                                        {{$project->name .' - '. $project->no}}
+                                    <option value="{{$project->id ?? ''}}" selected="selected">
+                                    @isset($project){{$project->name .' - '. $project->no}}@endisset
                                     </option>
                                 </select>
                             </div>
                         </div>
                     </div>
+                    @isset($project)
                     @if(count($project->blocks) > 0)
                     <div class="row">
                         <div class="col-12">
@@ -363,6 +364,7 @@
                         </div>
                     </div>
                     @endif
+                    @endisset
                     <div class="row">
                         <div class="col-md-6">
                             <div class="modalDiv d-block mt-md-11" id="drawingFieldDiv">
@@ -405,7 +407,7 @@
                                     <label class="fs-6 fw-bold mb-2">
                                         <span class="required">Project No:</span>
                                     </label>
-                                    <input readonly type="text" class="form-control form-control-solid" placeholder="000" id="no" name="projno" value="{{$project->no}}" readonly="readonly">
+                                    <input readonly type="text" class="form-control form-control-solid" placeholder="000" id="no" name="projno" value="{{$project->no ?? ''}}" readonly="readonly">
                                 </div>
                             </div>
                             <div class="inputDiv d-block">
@@ -414,7 +416,7 @@
                                     <label class="fs-6 fw-bold mb-2">
                                         <span class="required">Project Name:</span>
                                     </label>
-                                    <input readonly type="text" class="form-control form-control-solid" placeholder="Project Name" id="name" name="projname" value="{{$project->name}}" readonly="readonly">
+                                    <input readonly type="text" class="form-control form-control-solid" placeholder="Project Name" id="name" name="projname" value="{{$project->name ?? ''}}" readonly="readonly">
                                 </div>
                             </div>
                             <div class="inputDiv d-block">

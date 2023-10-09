@@ -2408,7 +2408,7 @@ class TemporaryWorkController extends Controller
             }
             if(auth()->user()->hasRole('user'))
             {
-                $user_project = DB::table('users_has_projects')->where('user_id',Auth::id())->where('project_id', $tempdata->project_id)->first();
+                $user_project = DB::table('users_has_projects')->where('user_id',Auth::id())->get(); //->where('project_id', $tempdata->project_id)->first();
                 foreach($user_project as $project){
                     if($project->nomination==1 && $project->nomination_status==1)
                     {

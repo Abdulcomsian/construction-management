@@ -158,22 +158,34 @@
                             <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Description of Temporary Works Required</b></label>
                         </td>
                     </tr>
-                    <tr>
-                        <td colspan="4" style="font-size:14px;white-space:pre-wrap;"><b>
-                            
+                    <!-- <tr>
+                        <td colspan="4" style="font-size:14px;white-space:pre-wrap;">
+                            <b>
                             @php
-                                // echo nl2br($data['description_temporary_work_required']);
-                                echo $description;
-                                @endphp
-                               
-                           
-                        </b>
-                    </td>
-                    </tr>
+                                echo substr($description, 0, 1000); // Display the first 1000 characters of the description
+                            @endphp
+                            </b>
+                        </td>
+                        </tr>
+                        <tr>
+                        <td colspan="4" style="font-size:14px;white-space:pre-wrap;">
+                            <b>
+                            @php
+                                echo substr($description, 1000); // Display the remaining characters of the description
+                            @endphp
+                            </b>
+                        </td>
+                    </tr> -->
                 </tbody>
             </table>
         </div>
 
+        <div class="tableDiv paddingTable" style="font-size:14px;white-space:pre-wrap;border:1px black;border-style: none solid solid solid;padding:5px 10px 5px 10px;">
+                            @php
+                                // echo nl2br($data['description_temporary_work_required']);
+                                echo $description;
+                                @endphp
+        </div>
         <div class="tableDiv paddingTable" style="margin: 20px 0px;">
             <table>
                 <thead style="background:gray;color:white">

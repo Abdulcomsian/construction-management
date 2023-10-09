@@ -270,13 +270,60 @@
         <!--begin::Container-->
         <div id="kt_content_container" class="container" style="padding-top: 80px">
             <div class="row">
+                <div class="col" style="margin: 0 10px">
+                    <table class="table query-table">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Design Brief</th>
+                                <th>Date</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            <tr>
+                                <td>1</td>
+                                
+                                <td >
+                                    <a target="_blank" href="{{asset('pdf/'.$tempdata->ped_url)}}">Design Brief</a>
+                                    
+                                    </td>
+                                <td>{{$tempdata->created_at}}</td>
+
+                            </tr>
+                            @php
+                                $i=2
+                            @endphp
+                            @foreach($tempdata->pdfFilesDesignBrief as $pdf_files)
+                            <tr>
+                                <td>{{$i}}</td>
+                                
+                                <td class="">
+                                    <a target="_blank" href="{{asset('pdf/'.$pdf_files->pdf_name)}}">Design Brief</a></td>
+                                   
+                             
+
+                                <td class="">{{$pdf_files->created_at}}</td>
+                            
+                            </tr>
+                            @php 
+                                $i++;
+                            @endphp
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
                 <div class="col-md-12">
-                    <label class="align-items-center fs-6 fw-bold mb-2" style="display:inline;">
+                    {{-- <label class="align-items-center fs-6 fw-bold mb-2" style="display:inline;">
                         <span class="">Design Brief Title: </span>
                         </label>
                         <label class="form-check-label" for="exampleRadios1">
                         {{$tempdata->design_requirement_text}}. To Download Design Brief <<a href="{{asset('pdf/'.$tempdata->ped_url)}}">Click here</a>
-                    </label>
+                    </label> --}}
                     @if($tempdata->estimatorApprove)
                         <label class="align-items-center fs-6 fw-bold mb-2" style="display:inline;">
                             <span class="">View Pricing:  </span>

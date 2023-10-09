@@ -343,13 +343,14 @@ var CSRF_TOKEN = '{{ csrf_token() }}';
                                     class="form-select form-select-lg form-select-solid" data-control="select2"
                                     data-placeholder="Select an option" data-allow-clear="true" readonly>
                                     <option value="">Select Option</option>
-                                    <option value="{{$project->id}}" selected="selected">
-                                        {{$project->name .' - '. $project->no}}
+                                    <option value="{{$project->id ?? ''}}" selected="selected">
+                                    @isset($project){{$project->name .' - '. $project->no}}@endisset
                                     </option>
                                 </select>
                             </div>
                         </div>
                     </div>
+                    @isset($project)
                     @if(count($project->blocks) > 0)
                     <div class="row">
                         <div class="col-12">
@@ -367,6 +368,7 @@ var CSRF_TOKEN = '{{ csrf_token() }}';
                         </div>
                     </div>
                     @endif
+                    @endisset
                     <div class="row">
                         <div class="col-md-6">
                             <div class="modalDiv d-block mt-md-11" id="drawingFieldDiv">
@@ -445,7 +447,7 @@ var CSRF_TOKEN = '{{ csrf_token() }}';
                                         <span class="required">Project No:</span>
                                     </label>
                                     <input readonly type="text" class="form-control form-control-solid"
-                                        placeholder="000" id="no" name="projno" value="{{$project->no}}"
+                                        placeholder="000" id="no" name="projno" value="{{$project->no ?? ''}}"
                                         readonly="readonly">
                                 </div>
                             </div>
@@ -456,7 +458,7 @@ var CSRF_TOKEN = '{{ csrf_token() }}';
                                         <span class="required">Project Name:</span>
                                     </label>
                                     <input readonly type="text" class="form-control form-control-solid"
-                                        placeholder="Project Name" id="name" name="projname" value="{{$project->name}}"
+                                        placeholder="Project Name" id="name" name="projname" value="{{$project->name ?? ''}}"
                                         readonly="readonly">
                                 </div>
                             </div>

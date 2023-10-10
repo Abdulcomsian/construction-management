@@ -2408,8 +2408,15 @@ class TemporaryWorkController extends Controller
             }
             if(auth()->user()->hasRole('user'))
             {
-                $user_project = DB::table('users_has_projects')->where('user_id',Auth::id())->get(); //->where('project_id', $tempdata->project_id)->first();
-                foreach($user_project as $project){
+                $user_project = DB::table('users_has_projects')->where('user_id',Auth::id())->where('project_id', $tempdata->project_id)->first();
+                // $projectIDs = DB::table('users_has_projects')->where('user_id',Auth::id())->where(function($query){
+                //     $query->where( function($query1) { 
+                //         $query1->where('nomination' , 1)->where('nomination_status' , 1);
+                //     })->orWhere('nomination' , 2);
+                // })->get();
+
+                // dd($projectIDs);
+                // foreach($user_project as $project){
                     if($project->nomination==1 && $project->nomination_status==1)
                     {
                         $id[] = $project->project_id;
@@ -2418,9 +2425,9 @@ class TemporaryWorkController extends Controller
                     {
                         $id[] = $project->project_id;
                     }
-                }
+                // }
                 $project = Project::with('company','blocks')->where('id', $id)->first();
-                
+                dd($project);
             }
             else{
                 $project = Project::with('company','blocks')->where('id', $tempdata->project_id)->first();

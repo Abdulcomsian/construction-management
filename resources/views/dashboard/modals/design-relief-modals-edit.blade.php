@@ -589,7 +589,7 @@
                                         {{ $name }}
                                     </td>
                                     <td style="width: 55%">
-                                        <input type="text" name="req_notes[]" class="form-control" style="border: 1px solid lightgray !important; border-radius: 5px" value="{{ $note }}"/>
+                                        <input type="text" name="req_notes[]" class="form-control" style="border: 1px solid lightgray !important; border-radius: 5px" value="{{ $note == '0' ? '':$note }}"/>
                                     </td>
                                 </tr>
                             @endforeach

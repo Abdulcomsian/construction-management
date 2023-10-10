@@ -1067,7 +1067,6 @@ class TemporaryWorkController extends Controller
     //update design brief
     public function update(Request $request, TemporaryWork $temporaryWork)
     { 
-        // dd($request->all());
         DB::beginTransaction();
         Validations::storeTemporaryWork($request);
         try {
@@ -1531,14 +1530,25 @@ class TemporaryWorkController extends Controller
                     foreach($request->designer_company_email as $email){
                         if ($request->designer_company_email) {
                             $notify_admins_msg['body']['designer'] = 'designer1';
+                            HelperFunctions::EmailHistory(
+                                $email,
+                                'Design Company',
+                                $temporaryWork->id,
+                                'Email sent to Designer Company'
+                            );
                             Notification::route('mail', $email)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id, $email));
                         }
                     }
                 }
-
                 //designer email second
                 if ($request->desinger_email_2) {
                     $notify_admins_msg['body']['designer'] = 'designer1';
+                    HelperFunctions::EmailHistory(
+                        $request->desinger_email_2,
+                        'Design Checker',
+                        $temporaryWork->id,
+                        'Email sent to Designer Checker'
+                    );
                     Notification::route('mail', $request->desinger_email_2)->notify(new TemporaryWorkNotification($notify_admins_msg, $temporaryWork->id, $request->desinger_email_2));
                 }
             }
@@ -1661,34 +1671,35 @@ class TemporaryWorkController extends Controller
     {
         Validations::storeComment($request);
         try {
-
+            // dd($request->all());
+             $designertotwc = '';
             if($request->queriesccemails)
             { $cc_emails = HelperFunctions::ccEmails($request->queriesccemails);}
              else
              {$cc_emails = [];}
-     
+            $designer_company_emails = [];
             $tempdata = TemporaryWork::select('twc_email', 'design_requirement_text', 'twc_id_no', 'designer_company_email', 'client_email')->find($request->temp_work_id);
 
             if($tempdata->designer_company_email == $request->mail)
             {
-                $designer_company_emails = DesignerCompanyEmail::where('temporary_work_id',$request->temp_work_id)->get();
-                if($designer_company_emails)
+                $get_designer_company_emails = DesignerCompanyEmail::where('temporary_work_id',$request->temp_work_id)->get();
+                if($get_designer_company_emails)
                 {
-                    foreach($designer_company_emails as $designer_company_email)
+                    foreach($get_designer_company_emails as $get_designer_company_email)
                     {
-                        array_push($cc_emails,trim($designer_company_email->email));
+                        array_push($designer_company_emails,trim($get_designer_company_email->email));
                     }
                 }
             } else {
-                $designer_company_emails = DesignerCompanyEmail::where('temporary_work_id',$request->temp_work_id)->where('email','!=',$request->mail)->get();
-                if($designer_company_emails)
+                $get_designer_company_emails = DesignerCompanyEmail::where('temporary_work_id',$request->temp_work_id)->where('email','!=',$request->mail)->get();
+                if($get_designer_company_emails)
                 {
-                    foreach($designer_company_emails as $designer_company_email)
+                    foreach($get_designer_company_emails as $get_designer_company_email)
                     {
-                        array_push($cc_emails,trim($designer_company_email->email));
+                        array_push($designer_company_emails,trim($get_designer_company_email->email));
                     }
                 }
-                array_push($cc_emails,trim($tempdata->designer_company_email));
+                array_push($designer_company_emails,trim($tempdata->designer_company_email));
 
             }
             $model = new TemporaryWorkComment();
@@ -1762,10 +1773,9 @@ class TemporaryWorkController extends Controller
                         $type= 'client';
                     }
                   //COde for sendign email to cleint on admin designer module, comment for now
-                  Notification::route('mail', $email)->notify(new CommentsNotification($request->comment, $type, $request->temp_work_id,$client_email,$request->type ?? '','Designer',$cc_emails, $imagename));
+                  Notification::route('mail', $email)->notify(new CommentsNotification($request->comment, $type, $request->temp_work_id,$client_email,$request->type ?? '','Designer'));
                 }else if(!isset($twc))
                 {
-                    
                     if($request->type=="designertotwc"){
                         $cmh= new ChangeEmailHistory();
                         $cmh->email=$tempdata->twc_email;
@@ -1784,12 +1794,18 @@ class TemporaryWorkController extends Controller
                      
                         $cmh->save();
                     }   
-                    
-                  Notification::route('mail', $tempdata->twc_email)->notify(new CommentsNotification($request->comment, 'question', $request->temp_work_id, $tempdata->twc_email ,$request->type ?? '','',$cc_emails,$imagename));
+                    $designertotwc = 'twctodesigner';
+                  Notification::route('mail', $tempdata->twc_email)->notify(new CommentsNotification($request->comment, 'question', $request->temp_work_id, $tempdata->twc_email ,$request->type ?? '','',$cc_emails,$imagename,$designertotwc));
+                  $designertotwc = '';
+                  if($designer_company_emails)
+                  {
+                    foreach($designer_company_emails as $designer_company_email)
+                    {
+                        Notification::route('mail', $designer_company_email)->notify(new CommentsNotification($request->comment, 'designers', $request->temp_work_id, $designer_company_email ,$request->type ?? '','','',$imagename,$designertotwc));
+                    }
+                  }
                  }else if($twc=="twctodesigner"){
-                   
                     Notification::route('mail', $tempdata->designer_company_email)->notify(new CommentsNotification($request->comment, 'comment', $request->temp_work_id, $tempdata->designer_company_email ,'test','',$cc_emails));
-
                     $designerCompanyEmails = DesignerCompanyEmail::where('temporary_work_id', $request->temp_work_id)->get();
                    foreach($designerCompanyEmails as $designeremail){
                     $cmh= new ChangeEmailHistory();

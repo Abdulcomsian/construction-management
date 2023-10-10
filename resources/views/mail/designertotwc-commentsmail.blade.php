@@ -38,41 +38,10 @@
                                                                        
                                                                         <!-- {{$comment ?? ''}} --> --}}
                                                                    </p>
-                                                                   @if($type == 'designers')
-                                                                        <p>The designer has added a question or comment to your design brief for Test Company that requires your reply.</p>
-                                                                        @endif
                                                                     @if(isset($comment))
-                                                                         <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left"><b>Comments:</b> {{$comment}}</p> 
+                                                                         <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left"><b>Comments:</b><mark style = "background-color: lightgray;color: black;"> {{$comment}}</mark></p> 
                                                                          @endif
-                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
-                                                                   
-                                                                        @if($type=='question' && $scan!='scan')
-                                                                        Please click the link below to view the question or comment and to provide your reply.<br><br>
-                                                                        <a href="{{url('temporary_works')}}">Click here to view the question or comment</a><br><br>
-                                                                        Replying to the question or commenting directly through the Temporary Works Portal portal is essential. Please do not email your answer outside the portal because there will be no record of your reply on the Temporary Works Portal system. 
-                                                                        @elseif($type=='question' && $scan=='scan')
-                                                                         <a href="{{url('temporary_works')}}">View New Comment</a><br>
-                                                                         Please view the comment and provide a reply to it.<br><br>
-                                                                         You may use the link above to access the comment or view it directly from the Temporary Works Portal hub by clicking the icon in the permit to load column.
-                                                                        @else
-                                                                       
-                                                                        @if($type == 'client')
-                                                                            <a href="{{route('estimator.designer_client',$tempid.'/?mail='.$email.'&code='.Crypt::encrypt($code))}}"> Click here to view reply for clients</a>
-                                                                            {{-- <a href="{{route('designer.uploaddesign',Crypt::encrypt($tempid).'/?mail='.$email)}}">Click here to view reply for clients</a><br><br> --}}
-                                                                        @else
-                                                                            <a href="{{route('designer.uploaddesign',Crypt::encrypt($tempid).'/?mail='.$email)}}">Click here to view reply</a><br><br>
-                                                                        @endif
-                                                                        {{-- <a href="{{route('designer.uploaddesign',Crypt::encrypt($tempid).'/?mail='.$email)}}">Click here to view reply</a><br><br> --}}
-                                                                        @if($type != 'designers')
-                                                                        Within the Temporary Works Portal, you will be able to:<br> 
-                                                                        1. Send comments or ask a question to the person who provided the reply.<br>
-                                                                        2. Upload preliminary and construction issue drawings.<br> 
-                                                                        3. Upload design check certificates.<br> 
-                                                                        4. Upload calculations or design notes.<br>
-
-                                                                        @endif
-                                                                        @endif
-                                                                    </p>
+                                                               
                                                                     <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">Regards <br>The Temporary Works Portal Team <br>
                                                                         <span style="font-size: 10px">If you have any problems with the i-Works web portal, please contact us on info@ctworks.co.uk</span>
                                                                    </p>

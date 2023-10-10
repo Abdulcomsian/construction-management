@@ -1058,6 +1058,7 @@ class TemporaryWorkController extends Controller
             $temporaryWork = TemporaryWork::with('designerCompanyEmails','scopdesign', 'folder', 'attachspeccomment', 'temp_work_images', 'signatures')->where('id', $temporaryWork->id)->first();
             $selectedproject = Project::with('company')->find($temporaryWork->project_id);
             return view('dashboard.temporary_works.edit', compact('temporaryWork', 'projects', 'selectedproject'));
+           
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();
@@ -1066,6 +1067,7 @@ class TemporaryWorkController extends Controller
     //update design brief
     public function update(Request $request, TemporaryWork $temporaryWork)
     { 
+        // dd($request->all());
         DB::beginTransaction();
         Validations::storeTemporaryWork($request);
         try {
@@ -1183,13 +1185,14 @@ class TemporaryWorkController extends Controller
           
 
             //if design req details is exist
-            
+            // dd($request->req_check);
             if(isset($request->req_name))
             {
                 $desing_req_details=[];
                 foreach($request->req_name as $key => $req)
+             
                 {
-                    $desing_req_details[]=['name'=>$req,'check'=>isset($request->req_check[$key]) ? 'Y':'N','note'=>$request->req_notes[$key]];
+                    $desing_req_details[]=['name'=>$req,'check'=>(isset($request->req_check[$req]) && ($request->req_check[$req] !=null || $request->req_check[$req] !='')) ? 'Y':'N','note'=>$request->req_notes[$key]];
                 }
 
                 $all_inputs['desing_req_details']=json_encode($desing_req_details);

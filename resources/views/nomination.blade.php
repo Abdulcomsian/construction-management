@@ -1547,12 +1547,14 @@
             $(".customSubmitButton").addClass("showBtn");
              $("input[name='pdfsign']").removeAttr('required');
             $("input[name='namesign']").attr('required','required');
+            $("#submit").addClass('btn-primary').removeClass('btn-secondary')
             $("#clear").hide();
-            $("#sign").hide();
+            $("#sign").hide(); 
             $("#signature").removeAttr('required');
            
         }
         else{
+            $("#submit").addClass('btn-secondary').removeClass('btn-primary')
             $("#signtype").val(2);
             $("#sign").show();
             $("#namesign").removeClass('d-flex').addClass('d-none');
@@ -1568,6 +1570,7 @@
 
         if($(this).is(':checked'))
         {
+            $("#submit").addClass('btn-primary').removeClass('btn-secondary')
             $("#flexCheckChecked").prop('checked',false);
             $("#pdfsignn").val(1);
             $("#signtype").val(0);
@@ -1581,6 +1584,7 @@
            
         }
         else{
+            $("#submit").addClass('btn-secondary').removeClass('btn-primary')
             $("#pdfsignn").val(0);
             $("#signtype").val(2);
             $("#sign").show();

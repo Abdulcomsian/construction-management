@@ -1257,6 +1257,8 @@
     $("#flexCheckChecked").change(function(){
         if($(this).is(':checked'))
         {
+            $('.submitbtn').removeClass('btn-secondary').addClass('btn-primary').prop('disabled', false);
+            $("#submit").addClass('btn-primary').removeClass('btn-secondary')
             $("#pdfChecked").prop('checked',false);
             $("#signtype").val(1);
             $("#pdfsignn").val(0);
@@ -1273,6 +1275,7 @@
            
         }
         else{
+            $('.submitbtn').removeClass('btn-primary').addClass('btn-secondary').prop('disabled', true);
             $("#signtype").val(2);
             $("#sign").show();
             $("#namesign").removeClass('d-flex').addClass('d-none');
@@ -1288,6 +1291,7 @@
 
         if($(this).is(':checked'))
         {
+            $('.submitbtn').removeClass('btn-secondary').addClass('btn-primary').prop('disabled', false);
             $("#flexCheckChecked").prop('checked',false);
             $("#pdfsignn").val(1);
             $("#signtype").val(0);
@@ -1301,6 +1305,7 @@
            
         }
         else{
+            $('.submitbtn').removeClass('btn-primary').addClass('btn-secondary').prop('disabled', true);
             $("#pdfsignn").val(0);
             $("#signtype").val(2);
             $("#sign").show();

@@ -297,6 +297,13 @@
                                     class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" download>
                                     <i class="fa fa-download" aria-hidden="true"></i>
                                 </a>
+                                <br>
+                                @foreach($nomination_extras as $nomination2)
+                                <a type="button" href="{{asset('pdf').'/'.$nomination2->fileName}}"
+                                    class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" download>
+                                    <i class="fa fa-download" aria-hidden="true"></i>
+                                </a> <br>
+                                @endforeach
                             </td>
                             <td>
                                 @if($nomination->appointment_pdf)

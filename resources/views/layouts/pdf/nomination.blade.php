@@ -774,7 +774,8 @@
                         @if($data['signtype']=='1')
                         {{ucwords($signature)}}
                         @else
-                        <img src="temporary/signature/{{$signature}}" width="auto" height="40px">
+                        {{-- <img src="temporary/signature/{{$signature}}" width="auto" height="40px"> --}}
+                        <a href="{{asset('temporary/signature/'.$signature)}} ">{{asset('temporary/signature/'.$signature)}}</a>
                         @endif
 
                     </td>

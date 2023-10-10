@@ -799,6 +799,7 @@ class HomeController extends Controller
                     $nomination_extras->nomination_id = $nomination->id;
                     $nomination_extras->save();
                    }
+                   $nomination_extras = NominationExtra::where('nomination_id',$nomination->id)->get();
                     // Nomination::find($nomination->id)->update(['pdf_url'=>$filename]);
                     Notification::route('mail',$company->email ?? '')->notify(new NominatinCompanyEmail($company,$filename,$user));
 
@@ -817,7 +818,7 @@ class HomeController extends Controller
 
                     toastSuccess('Nomination Form updated successfully!');
                     $id=\Crypt::encrypt($user->id);
-                    return view('nomination',compact('nomination','id','user'));
+                    return view('nomination',compact('nomination','id','user', 'nomination_extras'));
 
             }
 

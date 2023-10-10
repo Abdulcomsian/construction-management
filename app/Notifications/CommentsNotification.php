@@ -25,8 +25,9 @@ class CommentsNotification extends Notification
     private $code;
     protected $cc_emails;
     protected $attachment;
+    protected $designertotwc;
     // private $client_email;
-    public function __construct($comment,$type,$tempid,$mail=null,$scan=null,$code=null,$cc_emails='',$attachment='')
+    public function __construct($comment,$type,$tempid,$mail=null,$scan=null,$code=null,$cc_emails='',$attachment='',$designertotwc = '')
     {
         
         $this->comment=$comment;
@@ -34,11 +35,16 @@ class CommentsNotification extends Notification
         $this->tempid=$tempid;
         $this->cc_emails=$cc_emails;
         $this->attachment=$attachment;
+        $this->designertotwc=$designertotwc;
         if($this->type=="reply" || $this->type=="client" || $this->type=="comment")
         {
              $this->email=$mail;
              $this->code=$code;
             
+        }
+        if($this->type=="designers")
+        {
+             $this->email=$mail;            
         }
     }
 
@@ -72,7 +78,10 @@ class CommentsNotification extends Notification
             $this->email=$tempdata->twc_email;
             $subject='TWP – Designer Comments/Question -'.$project_name.'-'.$proj_no;
         }
+        if($this->type=="designers"){
+            $subject='TWP – Designer Comments/Question -'.$project_name.'-'.$proj_no;
 
+        }
         if($this->type=="reply")
         {
              $subject='TWP – TWC Answered Question  -'.$project_name.'-'.$proj_no;
@@ -90,10 +99,18 @@ class CommentsNotification extends Notification
         {
             $subject='TWP – Designer Comments - '.$project_name.'-'.$proj_no;
         }
-       $send_mail =  (new MailMessage)
-            ->greeting('Comments Notification')
-            ->subject($subject)
-            ->view('mail.commentsmail',['comment'=>$this->comment,'type'=>$this->type,'tempid'=>$this->tempid,'email'=>$this->email,'twc_id_no'=>$twc_id_no,'scan'=>$this->scan,'company'=>$company,'code'=>$this->code]);
+       if(isset($this->designertotwc) && $this->designertotwc == 'twctodesigner')
+       {
+        $send_mail =  (new MailMessage)
+        ->greeting('Comments Notification')
+        ->subject($subject)
+        ->view('mail.designertotwc-commentsmail',['comment'=>$this->comment,'type'=>$this->type,'tempid'=>$this->tempid,'email'=>$this->email,'twc_id_no'=>$twc_id_no,'scan'=>$this->scan,'company'=>$company,'code'=>$this->code,]);
+       }else{
+        $send_mail =  (new MailMessage)
+        ->greeting('Comments Notification')
+        ->subject($subject)
+        ->view('mail.commentsmail',['comment'=>$this->comment,'type'=>$this->type,'tempid'=>$this->tempid,'email'=>$this->email,'twc_id_no'=>$twc_id_no,'scan'=>$this->scan,'company'=>$company,'code'=>$this->code,]);
+       }
             if($this->attachment)
             {
                 $send_mail ->attach(public_path($this->attachment));

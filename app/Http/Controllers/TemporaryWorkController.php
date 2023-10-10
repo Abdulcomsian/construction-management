@@ -2427,24 +2427,31 @@ class TemporaryWorkController extends Controller
             }
             if(auth()->user()->hasRole('user'))
             {
-                $user_project = DB::table('users_has_projects')->where('user_id',Auth::id())->get(); //->where('project_id', $tempdata->project_id)->first();
-                foreach($user_project as $project){
-                    if($project->nomination==1 && $project->nomination_status==1)
+                $user_project = DB::table('users_has_projects')->where('user_id',Auth::id())->where('project_id', $tempdata->project_id)->first();
+                // $projectIDs = DB::table('users_has_projects')->where('user_id',Auth::id())->where(function($query){
+                //     $query->where( function($query1) { 
+                //         $query1->where('nomination' , 1)->where('nomination_status' , 1);
+                //     })->orWhere('nomination' , 2);
+                // })->get();
+
+                // dd($projectIDs);
+                // foreach($user_project as $project){
+                    if($user_project->nomination==1 && $user_project->nomination_status==1)
                     {
-                        $id[] = $project->project_id;
+                        $id[] = $user_project->project_id;
                     }
-                    elseif($project->nomination==2)
+                    elseif($user_project->nomination==2)
                     {
-                        $id[] = $project->project_id;
+                        $id[] = $user_project->project_id;
                     }
-                }
+                // }
                 $project = Project::with('company','blocks')->where('id', $id)->first();
                 
             }
             else{
                 $project = Project::with('company','blocks')->where('id', $tempdata->project_id)->first();
             }
-           
+            // dd($project);
             $latestuploadfile = TempWorkUploadFiles::where('file_type', 1)->orderBy('id', 'desc')->limit(1)->first();
             $temporary_work_files = TempWorkUploadfiles::where([['file_type', 1],['temporary_work_id',$tempid]])->orderBy('id', 'desc')->get();
             return view('dashboard.temporary_works.permit', compact('project', 'tempid', 'twc_id_no', 'tempdata', 'latestuploadfile', 'temporary_work_files'));

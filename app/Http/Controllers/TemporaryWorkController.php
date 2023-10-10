@@ -2432,7 +2432,7 @@ class TemporaryWorkController extends Controller
             else{
                 $project = Project::with('company','blocks')->where('id', $tempdata->project_id)->first();
             }
-            dd($project);
+            // dd($project);
             $latestuploadfile = TempWorkUploadFiles::where('file_type', 1)->orderBy('id', 'desc')->limit(1)->first();
             $temporary_work_files = TempWorkUploadfiles::where([['file_type', 1],['temporary_work_id',$tempid]])->orderBy('id', 'desc')->get();
             return view('dashboard.temporary_works.permit', compact('project', 'tempid', 'twc_id_no', 'tempdata', 'latestuploadfile', 'temporary_work_files'));

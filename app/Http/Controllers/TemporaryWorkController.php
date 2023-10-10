@@ -2417,13 +2417,13 @@ class TemporaryWorkController extends Controller
 
                 // dd($projectIDs);
                 // foreach($user_project as $project){
-                    if($project->nomination==1 && $project->nomination_status==1)
+                    if($user_project->nomination==1 && $user_project->nomination_status==1)
                     {
-                        $id[] = $project->project_id;
+                        $id[] = $user_project->project_id;
                     }
-                    elseif($project->nomination==2)
+                    elseif($user_project->nomination==2)
                     {
-                        $id[] = $project->project_id;
+                        $id[] = $user_project->project_id;
                     }
                 // }
                 $project = Project::with('company','blocks')->where('id', $id)->first();

@@ -190,7 +190,7 @@
                                 </div>
                     </form>
                     <hr>
-                    <h4>Comments/Summary</h4>
+                    <!-- <h4>Comments/Summary</h4>
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -208,37 +208,57 @@
                             </tr>
                             @endforeach
                         </tbody>
-                    </table>
+                    </table> -->
                     <hr>
                     <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th>NO</th>
                                 <th>Permit No</th>
+                                <th>Comment</th>
                                 <th>PDF</th>
-
-
+                                <th>Date</th>
                             </tr>
                         </thead>
                         <tbody>
-
+                         
+                         @if(($permitload->status == '2' || $permitload->status == '5') && $permitload->draft_status == '0')
+                            @php $status = 'Waiting for Approval'; @endphp
                             <tr>
                                 <td>1</td>
                                 <td> {{$permitload->permit_no}}</td>
-                                <td><a target="_blank" href="{{asset('pdf'.'/'.$permitload->ped_url)}}">Permit to load
-                                        for Approval</a>
+                                <td> {{$permitload->comments}}</td>
+                                <td><a target="_blank" href="{{asset('pdf'.'/'.$permitload->ped_url)}}">{{$status}}</a>
                                 </td>
+                                <td> {{date('d-m-Y H:i',strtotime($permitload->updated_at))}}</td>
                             </tr>
+                         @elseif($permitload->status == '1' && $permitload->draft_status == '0')
+                            @php $status = 'Accepted'; @endphp
+                            <tr>
+                                <td>1</td>
+                                <td> {{$permitload->permit_no}}</td>
+                                <td> {{$permitload->comments}}</td>
+                                <td><a target="_blank" href="{{asset('pdf'.'/'.$permitload->ped_url)}}">{{$status}}</a>
+                                </td>
+                                <td> {{date('d-m-Y H:i',strtotime($permitload->updated_at))}}</td>
+                            </tr>
+                         @endif
+                            
+                        
                             @isset($permitload->permitLoadRejecteds)
                             @foreach($permitload->permitLoadRejecteds as $index=>$rejected_permit_load)
                             <tr>
-                                <td>1-{{$index+1}}</td>
+                                <td>{{$index+2}}</td>
                                 <td> {{$permitload->permit_no}}</td>
+                                <td> {{($rejected_permit_load->comment)}}</td>
                                 <td><a target="_blank" href="{{asset('pdf'.'/'.$rejected_permit_load->filename)}}">Rejected</a>
                                 </td>
+                                <td> {{date('d-m-Y H:i',strtotime($rejected_permit_load->rejected_at))}}</td>
                             </tr>
                             @endforeach
                             @endisset
+
+                         
 
 
                         </tbody>

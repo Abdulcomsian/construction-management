@@ -1519,7 +1519,7 @@ class DesignerController extends Controller
         $id = \Crypt::decrypt($id);
         $tempworkdetail = TemporaryWork::find($id);
         $comments=TemporaryWorkComment::where(['temporary_work_id'=>$id,'type'=>'pc'])->get();
-        $rejectedcomments=TemporaryWorkRejected::where(['temporary_work_id'=>$id])->get();
+        $rejectedcomments=TemporaryWorkRejected::with('email_extra')->where(['temporary_work_id'=>$id])->get();
         ChangeEmailHistory::where(['foreign_idd'=>$id,'email'=>$tempworkdetail->pc_twc_email])->orderBy('id','desc')->limit(1)->update(['status'=>1]);
         return view('dashboard.designer.pc_index', compact('tempworkdetail','comments','rejectedcomments'));
     }
@@ -1527,7 +1527,6 @@ class DesignerController extends Controller
     //approved or reject
     public function pc_store(Request $request)
     {
-        
         try {
             
              $cc_emails = HelperFunctions::ccEmails($request->ccemail);
@@ -1558,6 +1557,7 @@ class DesignerController extends Controller
                 $model->comment = $request->comments;
                 $model->temporary_work_id = $request->tempworkid;
                 $model->type = 'pc';
+                $model->image = $imagename;
                 if ($model->save()) {
                     $rejectedmodel= TemporaryWorkRejected::where('temporary_work_id',$request->tempworkid)->where('twc_id_no',$request->twc_id_no)->orderBy('id','desc')->limit(1)->first();
                     $rejectedmodel->temporary_work_id=$request->tempworkid;
@@ -1732,8 +1732,7 @@ class DesignerController extends Controller
     public function pc_permit_index($id)
     {
         $id = \Crypt::decrypt($id);
-        $permitload = PermitLoad::with('permitLoadRejecteds')->find($id);
-        // dd($permitload);
+        $permitload = PermitLoad::with('permitLoadRejecteds','lastrejectedpermitload')->find($id);
         $commetns = PermitComments::where(['permit_load_id' => $id])->latest()->get();
         return view('dashboard.designer.pc_permit_index', compact('permitload','commetns'));
     }
@@ -1914,8 +1913,14 @@ class DesignerController extends Controller
 
             $extraHTML = ''; // Use a different variable name to avoid conflict
             if (isset($rej->email_extra)) {
+                $attachment_number = 1;
                 foreach ($rej->email_extra as $index=>$extra) {
-                    $extraHTML .= '<div class = "mt-3"><b >'.'Attachment '.($index+1).': '.'</b><a href="' . asset($extra->attachment) . '" target="_blank" class = "pt-5"><span class="badge badge-success badge-sm px-3 py-2">File</span></a></div>';
+                    if($extra->attachment)
+                    {
+                        $extraHTML .= 
+                        '<div class = "mt-3"><b >'.'Attachment '.$attachment_number.': '.'</b><a href="' . asset($extra->attachment) . '" target="_blank" class = "pt-5"><span class="badge badge-success badge-sm px-3 py-2">File</span></a></div>';
+                        $attachment_number++;
+                    }  
                 }
             } else {
                 $extraHTML = '';

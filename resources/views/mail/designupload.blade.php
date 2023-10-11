@@ -89,7 +89,7 @@
                                                                         If you have questions about the brief, please refer them to {{ $details['body']['company'] }}<br><br>
                                                                         Thank you for your attention.<br><br>
                                                                         @else
-                                                                        If you have any queries regarding the {{$name ?? 'drawing'}}, you can communicate them to the designer through the Temporary Works Portal.<br><br>
+                                                                        {{-- If you have any queries regarding the {{$name ?? 'drawing'}}, you can communicate them to the designer through the Temporary Works Portal.<br><br> --}}
                                                                         
                                                                         @endif
                                                                         Regards,<br>The Temporary Works Portal Team <br><br>

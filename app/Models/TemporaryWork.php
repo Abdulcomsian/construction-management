@@ -170,7 +170,11 @@ class TemporaryWork extends Model
     public function designbrief_history(){
         return $this->hasMany(PdfFilesHistory::class,'tempwork_id'); 
     }
-
+    public function lastdesignbrief()
+    {
+       return $this->hasOne(PdfFilesHistory::class, 'tempwork_id')->latest();
+       // order by by how ever you need it ordered to get the latest
+    }
     public function pdfFilesPreCon()
     {
         return $this->hasMany(PdfFilesHistory::class , 'tempwork_id' )->where('type','=','pre_con');

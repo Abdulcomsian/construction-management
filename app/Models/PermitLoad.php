@@ -35,4 +35,13 @@ class PermitLoad extends Model
     {
         return $this->hasMany(PermitLoadImages::class, 'permit_load_id');
     }
+    public function permitLoadRejecteds()
+    {
+        return $this->hasMany(PermitLoadRejected::class, 'permit_load_id');
+    }
+    public function lastrejectedpermitload()
+    {
+       return $this->hasOne(PermitLoadRejected::class, 'permit_load_id')->latest();
+       // order by by how ever you need it ordered to get the latest
+    }
 }

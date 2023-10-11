@@ -422,7 +422,7 @@ class DesignerController extends Controller
             $drawing_file = '';
             $drawingData = '';
             $drawingStatus = '0';
-            $tempworkdata = TemporaryWork::with('project:name,no,id')->find($request->tempworkid);
+            $tempworkdata = TemporaryWork::with('lastdesignbrief','project:name,no,id')->find($request->tempworkid);
             if(isset($request->twd_name)){
                 $tempworkdata->tw_name=$request->twd_name;
             }
@@ -605,6 +605,14 @@ class DesignerController extends Controller
                     }
                 }
                 $selectedEmails = $request->input('emails');
+                if(isset($tempworkdata->lastdesignbrief) && !empty($tempworkdata->lastdesignbrief->pdf_name))
+                {
+                    $filename=$tempworkdata->lastdesignbrief->pdf_name;    
+                }
+                else 
+                {
+                    $filename = $tempworkdata->ped_url;
+                }
                 if(!$selectedEmails){
                     $notify_admins_msg = [
                         'greeting' => 'Designer Upload Document',
@@ -613,7 +621,7 @@ class DesignerController extends Controller
                             'text' => $text,
                             'company'=>$tempworkdata->company,
                             // 'filename' => '29625684.pdf',
-                            'filename' => $tempworkdata->ped_url,
+                            'filename' =>$filename,
                             'links' =>  '',
                             'name' => $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no,
                             'ext' => '',

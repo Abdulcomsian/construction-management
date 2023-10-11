@@ -226,7 +226,19 @@
                                 <td>1</td>
                                 <td> {{$permitload->permit_no}}</td>
                                 <td><a target="_blank" href="{{asset('pdf'.'/'.$permitload->ped_url)}}">Permit to load
-                                        for Approval</a></td>
+                                        for Approval</a>
+                                </td>
+                            </tr>
+                            @isset($permitload->permitLoadRejecteds)
+                            @foreach($permitload->permitLoadRejecteds as $index=>$rejected_permit_load)
+                            <tr>
+                                <td>1-{{$index+1}}</td>
+                                <td> {{$permitload->permit_no}}</td>
+                                <td><a target="_blank" href="{{asset('pdf'.'/'.$rejected_permit_load->filename)}}">Rejected</a>
+                                </td>
+                            </tr>
+                            @endforeach
+                            @endisset
 
 
                         </tbody>

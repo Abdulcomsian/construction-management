@@ -18,6 +18,7 @@ use App\Models\ChangeEmailHistory;
 use App\Models\ScopeOfDesign;
 use App\Models\Folder;
 use App\Models\AttachSpeComment;
+use App\Models\PermitLoadRejected;
 use App\Models\{TemporayWorkImage, Project,DesignerQuotation,EstimatorDesignerList,AdditionalInformation, DesignerCertificate, JobAssign, Tag, EmailExtra};
 use App\Models\DesignerCompanyEmail;
 use Illuminate\Support\Facades\Redirect;
@@ -1731,7 +1732,8 @@ class DesignerController extends Controller
     public function pc_permit_index($id)
     {
         $id = \Crypt::decrypt($id);
-        $permitload = PermitLoad::find($id);
+        $permitload = PermitLoad::with('permitLoadRejecteds')->find($id);
+        // dd($permitload);
         $commetns = PermitComments::where(['permit_load_id' => $id])->latest()->get();
         return view('dashboard.designer.pc_permit_index', compact('permitload','commetns'));
     }
@@ -1739,7 +1741,6 @@ class DesignerController extends Controller
     public function pc_permit_unload_index($id)
     {
         $id = \Crypt::decrypt($id);
-        // dd($id);
         $permitload = PermitLoad::find($id);
         $commetns = PermitComments::where(['permit_load_id' => $id])->latest()->get();
         return view('dashboard.designer.pc_permit_unload_index', compact('permitload','commetns'));
@@ -1770,7 +1771,17 @@ class DesignerController extends Controller
                     'draft_status' => "2", //modified the value from 1 to 3 to show the status of reject unload permits
                 ]);
             }else  { //if accepted then we need to udpate status to 3 accepted and reopen draft
+                if($request->type=="permit-load")
+                {
+                    $save_reject_permit = new  PermitLoadRejected;
+                    $save_reject_permit->permit_load_id = $permitdata->id;
+                    $save_reject_permit->filename = $permitdata->ped_url;
+                    $save_reject_permit->status = '1';
+                    $save_reject_permit->comment = $request->comments;
+                    $save_reject_permit->rejected_at = date('ymdhis');
+                    $save_reject_permit->save();
 
+                }
                 PermitLoad::find($request->permitid)->update([
                     'status' => $request->status,
                 ]);
@@ -1871,6 +1882,7 @@ class DesignerController extends Controller
             toastSuccess($msg);
             return Redirect::back();
         } catch (\Exception $exception) {
+            dd($exception->getMessage());
             toastError('Something went wrong, try again!');
             return Redirect::back();
         }

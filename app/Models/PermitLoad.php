@@ -35,4 +35,8 @@ class PermitLoad extends Model
     {
         return $this->hasMany(PermitLoadImages::class, 'permit_load_id');
     }
+    public function permitLoadRejecteds()
+    {
+        return $this->hasMany(PermitLoadRejected::class, 'permit_load_id');
+    }
 }

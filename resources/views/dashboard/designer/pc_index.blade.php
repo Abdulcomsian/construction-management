@@ -290,6 +290,14 @@
                             {{-- <td><b>{{$cmt->email}}</b><br><br><b>Sent To: &nbsp;
                                     <br> {{$tempworkdetail->pc_twc_email}}</b><br>{{$cmt->created_at}}</td> --}}
                             <td style="width:400px;"><b>Comment: </b>{{$cmt->comment}}<br>
+                            @isset($cmt->email_extra)
+                              @foreach($cmt->email_extra as $attachfile)
+                                @if($attachfile->attachment)
+                                    <a href="{{asset($attachfile->attachment)}}" target="_blank" class = "pt-5"><i class = "fa fa-eye"></i></a>
+                                @endif
+                              @endforeach 
+                            @endif
+                            <br>
                                 @if(isset($cmt->comment))
                                 <span style="color:#9D9D9D">{{$cmt->updated_at}}</span>
                                 @endif

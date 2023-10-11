@@ -1830,7 +1830,6 @@ class TemporaryWorkController extends Controller
 
     public function temp_savecommentreplay(Request $request)
     {
-        // dd($request->tempid);
         try {
             $commentid = $request->commentid;
             $tempid = $request->tempid;
@@ -1838,28 +1837,33 @@ class TemporaryWorkController extends Controller
             $tempdata = TemporaryWork::select( 'designer_company_email')->find($tempid);
             $array = [];
             $cc_emails = [];
+            $designer_emails = [];
             if($tempdata->designer_company_email == $data->sender_email)
             {
-                $designer_company_emails = DesignerCompanyEmail::where('temporary_work_id',$tempid)->get();
-                if($designer_company_emails)
+                $get_designer_company_emails = DesignerCompanyEmail::where('temporary_work_id',$tempid)->get();
+                if($get_designer_company_emails)
                 {
-                    foreach($designer_company_emails as $designer_company_email)
+                    foreach($get_designer_company_emails as $get_designer_company_email)
                     {
-                        array_push($cc_emails,trim($designer_company_email->email));
+                        array_push($designer_emails,trim($get_designer_company_email->email));
+                        // array_push($cc_emails,trim($get_designer_company_email->email));
                     }
                 }
             } else {
-                $designer_company_emails = DesignerCompanyEmail::where('temporary_work_id',$tempid)->where('email','!=',$data->sender_email)->get();
-                if($designer_company_emails)
+                $get_designer_company_emails = DesignerCompanyEmail::where('temporary_work_id',$tempid)->where('email','!=',$data->sender_email)->get();
+                if($get_designer_company_emails)
                 {
-                    foreach($designer_company_emails as $designer_company_email)
+                    foreach($get_designer_company_emails as $get_designer_company_email)
                     {
-                        array_push($cc_emails,trim($designer_company_email->email));
+                        array_push($designer_emails,trim($get_designer_company_email->email));
+                        // array_push($cc_emails,trim($get_designer_company_email->email));
                     }
                 }
-                array_push($cc_emails,trim($tempdata->designer_company_email));
+                array_push($designer_emails,trim($tempdata->designer_company_email));
+                // array_push($cc_emails,trim($tempdata->designer_company_email));
 
             }
+
             $reply_date = [];
             if (is_array($data->replay)) {
                 foreach ($data->replay as $dt) {
@@ -1913,6 +1917,10 @@ class TemporaryWorkController extends Controller
                         $cmh->user_type = 'designer';
                         $cmh->save();
                 Notification::route('mail',  $data->sender_email)->notify(new CommentsNotification($request->replay, 'reply', $tempid, $data->sender_email, $scan,'',$cc_emails));
+                foreach($designer_emails as $designer_email)
+                {
+                    Notification::route('mail',  $designer_email)->notify(new CommentsNotification($request->replay, 'designers-reply', $tempid, $designer_email, $scan,''));
+                }
                 // Notification::route('mail', $tempdata->designer_company_email)->notify(new CommentsNotification($request->comment, 'comment', $request->temp_work_id,'','test'));
                 toastSuccess('Thank you for your reply');
                 return Redirect::back();

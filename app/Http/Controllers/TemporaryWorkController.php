@@ -2991,10 +2991,14 @@ class TemporaryWorkController extends Controller
                     $old_path = $permitload->file_minimum_concrete;
                     $all_inputs['file_minimum_concrete'] = HelperFunctions::saveFile($old_path, $file, $filePath);
                     $file_minimum_concrete = $all_inputs['file_minimum_concrete'];
+                }else {
+                    $all_inputs['file_minimum_concrete'] = $permitload->file_minimum_concrete ?? '';
+                    $file_minimum_concrete = $all_inputs['file_minimum_concrete'];
+
                 }
             }else{
-                $file_minimum_concrete = '';
-            }
+                $all_inputs['file_minimum_concrete'] = $permitload->file_minimum_concrete ?? '';
+                $file_minimum_concrete = $all_inputs['file_minimum_concrete'];            }
             // if($request->action == 'draft'){
             //     $all_inputs['status'] = 8;
             // }
@@ -3259,7 +3263,7 @@ class TemporaryWorkController extends Controller
                 //save permit image
                 $image_links = $this->permitfiles($request, $permitload->id);
                 // dd($permitload->permitLoadImages);
-                $pdf = PDF::loadView('layouts.pdf.permit_load', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'image_name1' => $image_name1, 'image_name3' => $image_name3, 'image_name4' => $image_name4, 'image_name5' => $image_name5, 'company1' => $request->company1, 'company3' => $request->company3, 'company4' => $request->company4, 'company5' => $request->company5, 'date1'=>$request->date1, 'date3'=>$request->date3, 'date4'=>$request->date4, 'date5'=>$request->date5, 'file_minimum_concrete' => $file_minimum_concrete,'old_permit_images' => $permitload->permitLoadImages]);
+                $pdf = PDF::loadView('layouts.pdf.permit_load', ['data' => $request->all(), 'comments' => $permitload->comments,'image_links' => $image_links, 'image_name' => $image_name, 'image_name1' => $image_name1, 'image_name3' => $image_name3, 'image_name4' => $image_name4, 'image_name5' => $image_name5, 'company1' => $request->company1, 'company3' => $request->company3, 'company4' => $request->company4, 'company5' => $request->company5, 'date1'=>$request->date1, 'date3'=>$request->date3, 'date4'=>$request->date4, 'date5'=>$request->date5, 'file_minimum_concrete' => $file_minimum_concrete,'old_permit_images' => $permitload->permitLoadImages]);
                 $path = public_path('pdf');
                 @unlink($path . $permitload->ped_url);
                 $filename = rand() . '.pdf';

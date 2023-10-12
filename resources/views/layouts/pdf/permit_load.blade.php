@@ -286,10 +286,16 @@
                             <td style="width: 200px; font-size:12px;"> {{$data['job_title']}}</td>
                             <td style="width: 200px; font-size:12px;"> {{ date('d-m-Y', strtotime($data['date'])) }}</td>
                             <td style="width: 200px; font-size:12px;"> 
+                               @if(isset($signature_type) && ($signature_type == 'draw' || $signature_type == 'upload'))
                                 @if(isset($image_name) && $image_name!='')
                                     <img src="temporary/signature/{{$image_name}}"  width="auto" height="50px" />
-                                @else
+                                @endif
+                                @elseif(isset($signature_type) && $signature_type == 'name_sign')
+                                    @if(isset($data['namesign']))
                                     {{ $data['namesign'] ?? ''}}
+                                    @else
+                                        {{ $image_name1 ?? ''}}
+                                    @endif
                                 @endif
                             </td>
                         </tr>
@@ -304,11 +310,17 @@
                                     @endif
                                 </td>
                                 <td style="width: 200px; font-size:12px;">
+                                @if(isset($signature_type1) && $signature_type1 == 'draw')
                                     @if(isset($image_name1) && $image_name1!='')
                                         <img src="temporary/signature/{{$image_name1}}"  width="auto" height="50px"/>
-                                    @else
-                                    {{ $data['namesign1'] ?? ''}}
                                     @endif
+                                @elseif(isset($signature_type1) && $signature_type1 == 'name_sign')
+                                    @if(isset($data['namesign1']))
+                                        {{ $data['namesign1'] ?? ''}}
+                                    @else
+                                        {{ $image_name1 ?? ''}}
+                                    @endif
+                                @endif
                                 </td>            
                             </tr>
                         @endif

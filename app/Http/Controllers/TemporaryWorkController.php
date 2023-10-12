@@ -2421,16 +2421,20 @@ class TemporaryWorkController extends Controller
             $permitdata = PermitLoad::where(['temporary_work_id' => $tempid])->where('status', '!=', 3)->orderBy('id', 'desc')->first();
             if ($permitdata) {
                 $data = explode("-", $permitdata->permit_no);
-                if (isset($data[3])) {
-                    $twc_id_no = $twc_id_no . '-' . ++$data[3];
-                } elseif (isset($data[2])) {
-
-                    $twc_id_no = $twc_id_no . '-' . ++$data[2];
-                } elseif (isset($data[1])) {
-
-                    $twc_id_no = $twc_id_no . '-' . ++$data[1];
-                }
+                // if (isset($data[3])) {
+                if (isset($data)) {
+                    // $count = count($data);
+                    $last_number = end($data);
+                    $twc_id_no = $twc_id_no . '-' . ++$last_number;}
+                // } elseif (isset($data[2])) {
+                //     dd('2');
+                //     $twc_id_no = $twc_id_no . '-' . ++$data[2];
+                // } elseif (isset($data[1])) {
+                //     dd('3');
+                //     $twc_id_no = $twc_id_no . '-' . ++$data[1];
+                // }
             } else {
+                // dd('4');
                 $twc_id_no = $twc_id_no . '-A';
             }
             if(auth()->user()->hasRole('user'))
@@ -2511,6 +2515,8 @@ class TemporaryWorkController extends Controller
             $all_inputs['created_by'] = auth()->user()->id;
             $all_inputs['custom_drawing'] = '';
             $all_inputs['design_upload'] = '';
+            $all_inputs['signature_type1'] = null;
+            $all_inputs['signature_type'] = null;
             if($request->action == 'draft'){
                 $all_inputs['draft_status'] = '1';
             } else{
@@ -2543,6 +2549,7 @@ class TemporaryWorkController extends Controller
                 //old work =================================================
                 if ($request->signtype1 == 1) { 
                     $all_inputs['signature1'] = $request->namesign1;
+                    $all_inputs['signature_type1'] = 'name_sign';
                 } else { 
                     $folderPath = public_path('temporary/signature/');
                     $image = explode(";base64,", $request->signed1);
@@ -2553,13 +2560,16 @@ class TemporaryWorkController extends Controller
                     $file = $folderPath . $image_name1;
                     file_put_contents($file, $image_base64);
                     $all_inputs['signature1'] = $image_name1; 
+                    $all_inputs['signature_type1'] = 'draw';
                 }
             }  
             //second person signature and name
             $image_name = '';
             if ($request->signtype == 1) {
                 $all_inputs['signature'] = $request->namesign;
+                $all_inputs['signature_type'] = 'name_sign';
             } elseif ($request->pdfsigntype == 1) {
+                $all_inputs['signature_type'] = 'upload';
                 $folderPath = public_path('temporary/signature/');
                 $file = $request->file('pdfphoto');
                 $filename = time() . rand(10000, 99999) . '.' . $file->getClientOriginalExtension();
@@ -2567,6 +2577,7 @@ class TemporaryWorkController extends Controller
                 $image_name = $filename;
                 $all_inputs['signature'] = $image_name;
             } else {
+                $all_inputs['signature_type'] = 'draw';
                 $folderPath = public_path('temporary/signature/');
                 $image = explode(";base64,", $request->signed);
                 $image_type = explode("image/", $image[0]);
@@ -2710,7 +2721,7 @@ class TemporaryWorkController extends Controller
                 //save permit image
                 $pojectdata=Project::select('name','no')->find($request->project_id);
                 $image_links = $this->permitfiles($request, $permitload->id); 
-                $pdf = PDF::loadView('layouts.pdf.permit_load', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'image_name1' => $image_name1, 'image_name3' => $image_name3, 'image_name4' => $image_name4, 'image_name5' => $image_name5, 'company1' => $request->company1, 'company3' => $request->company3, 'company4' => $request->company4, 'company5' => $request->company5, 'date1'=>$request->date1, 'date3'=>$request->date3, 'date4'=>$request->date4, 'date5'=>$request->date5,'file_minimum_concrete' => $file_minimum_concrete]);
+                $pdf = PDF::loadView('layouts.pdf.permit_load', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'image_name1' => $image_name1, 'image_name3' => $image_name3, 'image_name4' => $image_name4, 'image_name5' => $image_name5, 'company1' => $request->company1, 'company3' => $request->company3, 'company4' => $request->company4, 'company5' => $request->company5, 'date1'=>$request->date1, 'date3'=>$request->date3, 'date4'=>$request->date4, 'date5'=>$request->date5,'file_minimum_concrete' => $file_minimum_concrete,'signature_type'=>$all_inputs['signature_type'],'signature_type1'=>$all_inputs['signature_type1']]);
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
                 $model = PermitLoad::find($permitload->id);
@@ -2970,6 +2981,7 @@ class TemporaryWorkController extends Controller
     //permit update
     public function permit_update(Request $request)
     {
+        // dd($request->all());
         DB::beginTransaction();
         Validations::storepermitload($request);
         $permitload = PermitLoad::with('permitLoadImages','signatures')->find($request->permitid);
@@ -2978,6 +2990,8 @@ class TemporaryWorkController extends Controller
             $all_inputs['created_by'] = auth()->user()->id;
             $all_inputs['custom_drawing'] = '';
             $all_inputs['design_upload'] = '';
+            $all_inputs['signature_type1'] = null;
+            $all_inputs['signature_type'] = null;
             if($request->design_upload){
                 $designUpload = implode(', ', $request->design_upload);
                 $all_inputs['design_upload'] = $designUpload;
@@ -3007,7 +3021,6 @@ class TemporaryWorkController extends Controller
             $image_name1 = '';
             if ($request->principle_contractor == 1) {
                 if(!$permitload->signature){
-
                     $all_inputs['name1'] = $request->name1;
                     $all_inputs['job_title1'] = $request->job_title1;
                     if ($request->signtype1 == 1) {
@@ -3016,6 +3029,7 @@ class TemporaryWorkController extends Controller
                         $all_inputs['job_title1'] = $request->job_title1;
                         $all_inputs['company1'] = $request->company1; //this should be company1
                         $all_inputs['date1'] = $request->date2; //this should be company1
+                        $all_inputs['signature_type1'] = 'name_sign';
                     } else {
 
                         $folderPath = public_path('temporary/signature/');
@@ -3033,6 +3047,7 @@ class TemporaryWorkController extends Controller
                         $all_inputs['job_title1'] = $request->job_title1;
                         $all_inputs['company1'] = $request->company1; //this should be company1
                         $all_inputs['date1'] = $request->date2; //this should be company1
+                        $all_inputs['signature_type1'] = 'draw';
                     }
                 } else {
                     $all_inputs['name1'] = $request->name1;
@@ -3041,6 +3056,7 @@ class TemporaryWorkController extends Controller
                     $all_inputs['job_title1'] = $request->job_title1;
                     $image_name1 = $permitload->signature1;
                     $all_inputs['signature1'] = $image_name1; 
+                    $all_inputs['signature_type1'] = $permitload->signature_type1; 
                 }
             } 
 
@@ -3052,7 +3068,8 @@ class TemporaryWorkController extends Controller
                     $all_inputs['signature'] = $request->namesign;
                     $all_inputs['name'] = $request->name;
                     $all_inputs['job_title'] = $request->job_title;
-                    $all_inputs['company'] = $request->company; 
+                    $all_inputs['company'] = $request->company;
+                    $all_inputs['signature_type'] = 'name_sign'; 
                 } else {
                     $folderPath = public_path('temporary/signature/');
                     $image = explode(";base64,", $request->signed);
@@ -3067,6 +3084,7 @@ class TemporaryWorkController extends Controller
                     $all_inputs['name'] = $request->name;
                     $all_inputs['job_title'] = $request->job_title;
                     $all_inputs['company'] = $request->company; 
+                    $all_inputs['signature_type'] = 'draw'; 
                 }
             } else{
                 $all_inputs['name'] = $request->name;
@@ -3075,6 +3093,7 @@ class TemporaryWorkController extends Controller
                 $all_inputs['date'] = $request->date;
                 $image_name = $permitload->signature;
                 $all_inputs['signature'] = $image_name; 
+                $all_inputs['signature_type'] = $permitload->signature_type; 
             }
          
             //third person signature and name
@@ -3263,7 +3282,8 @@ class TemporaryWorkController extends Controller
                 //save permit image
                 $image_links = $this->permitfiles($request, $permitload->id);
                 // dd($permitload->permitLoadImages);
-                $pdf = PDF::loadView('layouts.pdf.permit_load', ['data' => $request->all(), 'comments' => $permitload->comments,'image_links' => $image_links, 'image_name' => $image_name, 'image_name1' => $image_name1, 'image_name3' => $image_name3, 'image_name4' => $image_name4, 'image_name5' => $image_name5, 'company1' => $request->company1, 'company3' => $request->company3, 'company4' => $request->company4, 'company5' => $request->company5, 'date1'=>$request->date1, 'date3'=>$request->date3, 'date4'=>$request->date4, 'date5'=>$request->date5, 'file_minimum_concrete' => $file_minimum_concrete,'old_permit_images' => $permitload->permitLoadImages]);
+                $pdf = PDF::loadView('layouts.pdf.permit_load', ['data' => $request->all(), 'comments' => $permitload->comments,'image_links' => $image_links, 'image_name' => $image_name, 'image_name1' => $image_name1, 'image_name3' => $image_name3, 'image_name4' => $image_name4, 'image_name5' => $image_name5, 'company1' => $request->company1, 'company3' => $request->company3, 'company4' => $request->company4, 'company5' => $request->company5, 'date1'=>$request->date1, 'date3'=>$request->date3, 'date4'=>$request->date4, 'date5'=>$request->date5, 'file_minimum_concrete' => $file_minimum_concrete,'old_permit_images' => $permitload->permitLoadImages,
+                'signature_type'=>$permitload->signature_type, 'signature_type1'=>$permitload->signature_type1]);
                 $path = public_path('pdf');
                 @unlink($path . $permitload->ped_url);
                 $filename = rand() . '.pdf';

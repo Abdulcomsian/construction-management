@@ -3343,8 +3343,9 @@ class TemporaryWorkController extends Controller
                     $cmh->save();
                 }
                 toastSuccess('Permit Updatd sucessfully!');
-                return redirect()->route('temporary_works.index');
             }
+            return redirect()->route('temporary_works.index');
+
         } catch (\Exception $exception) {
             DB::rollback();
             dd($exception->getMessage(), $exception->getLine()); 

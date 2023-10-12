@@ -46,6 +46,10 @@ class CommentsNotification extends Notification
         {
              $this->email=$mail;            
         }
+        if($this->type=="designers-reply")
+        {
+             $this->email=$mail;            
+        }
     }
 
     /**
@@ -83,6 +87,10 @@ class CommentsNotification extends Notification
 
         }
         if($this->type=="reply")
+        {
+             $subject='TWP – TWC Answered Question  -'.$project_name.'-'.$proj_no;
+        }
+        if($this->type=="designers-reply")
         {
              $subject='TWP – TWC Answered Question  -'.$project_name.'-'.$proj_no;
         }

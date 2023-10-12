@@ -1830,7 +1830,6 @@ class TemporaryWorkController extends Controller
 
     public function temp_savecommentreplay(Request $request)
     {
-        // dd($request->tempid);
         try {
             $commentid = $request->commentid;
             $tempid = $request->tempid;
@@ -1838,28 +1837,33 @@ class TemporaryWorkController extends Controller
             $tempdata = TemporaryWork::select( 'designer_company_email')->find($tempid);
             $array = [];
             $cc_emails = [];
+            $designer_emails = [];
             if($tempdata->designer_company_email == $data->sender_email)
             {
-                $designer_company_emails = DesignerCompanyEmail::where('temporary_work_id',$tempid)->get();
-                if($designer_company_emails)
+                $get_designer_company_emails = DesignerCompanyEmail::where('temporary_work_id',$tempid)->get();
+                if($get_designer_company_emails)
                 {
-                    foreach($designer_company_emails as $designer_company_email)
+                    foreach($get_designer_company_emails as $get_designer_company_email)
                     {
-                        array_push($cc_emails,trim($designer_company_email->email));
+                        array_push($designer_emails,trim($get_designer_company_email->email));
+                        // array_push($cc_emails,trim($get_designer_company_email->email));
                     }
                 }
             } else {
-                $designer_company_emails = DesignerCompanyEmail::where('temporary_work_id',$tempid)->where('email','!=',$data->sender_email)->get();
-                if($designer_company_emails)
+                $get_designer_company_emails = DesignerCompanyEmail::where('temporary_work_id',$tempid)->where('email','!=',$data->sender_email)->get();
+                if($get_designer_company_emails)
                 {
-                    foreach($designer_company_emails as $designer_company_email)
+                    foreach($get_designer_company_emails as $get_designer_company_email)
                     {
-                        array_push($cc_emails,trim($designer_company_email->email));
+                        array_push($designer_emails,trim($get_designer_company_email->email));
+                        // array_push($cc_emails,trim($get_designer_company_email->email));
                     }
                 }
-                array_push($cc_emails,trim($tempdata->designer_company_email));
+                array_push($designer_emails,trim($tempdata->designer_company_email));
+                // array_push($cc_emails,trim($tempdata->designer_company_email));
 
             }
+
             $reply_date = [];
             if (is_array($data->replay)) {
                 foreach ($data->replay as $dt) {
@@ -1913,6 +1917,10 @@ class TemporaryWorkController extends Controller
                         $cmh->user_type = 'designer';
                         $cmh->save();
                 Notification::route('mail',  $data->sender_email)->notify(new CommentsNotification($request->replay, 'reply', $tempid, $data->sender_email, $scan,'',$cc_emails));
+                foreach($designer_emails as $designer_email)
+                {
+                    Notification::route('mail',  $designer_email)->notify(new CommentsNotification($request->replay, 'designers-reply', $tempid, $designer_email, $scan,''));
+                }
                 // Notification::route('mail', $tempdata->designer_company_email)->notify(new CommentsNotification($request->comment, 'comment', $request->temp_work_id,'','test'));
                 toastSuccess('Thank you for your reply');
                 return Redirect::back();
@@ -2983,10 +2991,14 @@ class TemporaryWorkController extends Controller
                     $old_path = $permitload->file_minimum_concrete;
                     $all_inputs['file_minimum_concrete'] = HelperFunctions::saveFile($old_path, $file, $filePath);
                     $file_minimum_concrete = $all_inputs['file_minimum_concrete'];
+                }else {
+                    $all_inputs['file_minimum_concrete'] = $permitload->file_minimum_concrete ?? '';
+                    $file_minimum_concrete = $all_inputs['file_minimum_concrete'];
+
                 }
             }else{
-                $file_minimum_concrete = '';
-            }
+                $all_inputs['file_minimum_concrete'] = $permitload->file_minimum_concrete ?? '';
+                $file_minimum_concrete = $all_inputs['file_minimum_concrete'];            }
             // if($request->action == 'draft'){
             //     $all_inputs['status'] = 8;
             // }
@@ -3251,7 +3263,7 @@ class TemporaryWorkController extends Controller
                 //save permit image
                 $image_links = $this->permitfiles($request, $permitload->id);
                 // dd($permitload->permitLoadImages);
-                $pdf = PDF::loadView('layouts.pdf.permit_load', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'image_name1' => $image_name1, 'image_name3' => $image_name3, 'image_name4' => $image_name4, 'image_name5' => $image_name5, 'company1' => $request->company1, 'company3' => $request->company3, 'company4' => $request->company4, 'company5' => $request->company5, 'date1'=>$request->date1, 'date3'=>$request->date3, 'date4'=>$request->date4, 'date5'=>$request->date5, 'file_minimum_concrete' => $file_minimum_concrete,'old_permit_images' => $permitload->permitLoadImages]);
+                $pdf = PDF::loadView('layouts.pdf.permit_load', ['data' => $request->all(), 'comments' => $permitload->comments,'image_links' => $image_links, 'image_name' => $image_name, 'image_name1' => $image_name1, 'image_name3' => $image_name3, 'image_name4' => $image_name4, 'image_name5' => $image_name5, 'company1' => $request->company1, 'company3' => $request->company3, 'company4' => $request->company4, 'company5' => $request->company5, 'date1'=>$request->date1, 'date3'=>$request->date3, 'date4'=>$request->date4, 'date5'=>$request->date5, 'file_minimum_concrete' => $file_minimum_concrete,'old_permit_images' => $permitload->permitLoadImages]);
                 $path = public_path('pdf');
                 @unlink($path . $permitload->ped_url);
                 $filename = rand() . '.pdf';

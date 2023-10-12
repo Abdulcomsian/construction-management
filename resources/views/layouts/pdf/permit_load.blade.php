@@ -197,22 +197,7 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
-                        <td colspan="2">
-                            <label for="" style="width: 100%;color: black; border: 1px solid; padding: 10px;">
-                                <center>
-                                    <h4 style="text-align: center; font-size:12px;">Permit to Load/Use</h4>
-                                </center>
-                                <span style="font-size:12px;">I confirm that I have inspected the above temporary structure and I am satisfied that it
-                                    conforms to the above design.  </span> 
-                                    <br>
-                                <span style="font-size:12px;">I consider that the temporary structure is ready to be loaded and taken into use.</span>
-                                <br>
-                                    I confirm that I am authorised to issue a Permit to Load for this temporary structure. </span> 
-
-                            </label>
-                        </td>
-                    </tr>
+                   
                     
                 </tbody>
             </table>
@@ -245,7 +230,34 @@
                                 @php
                                     echo nl2br($data['comments']);
                                 @endphp
-                            @endif
+                            @elseif(isset($comments))
+                                @php
+                                    echo nl2br($comments);
+                                @endphp
+                           @endif
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tableDiv paddingTable" style="margin-top: 5px">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <label for="" style="width: 100%;color: black; border: 1px solid; padding: 10px;">
+                                <center>
+                                    <h4 style="text-align: center; font-size:12px;">Permit to Load/Use</h4>
+                                </center>
+                                <span style="font-size:12px;">I confirm that I have inspected the above temporary structure and I am satisfied that it
+                                    conforms to the above design.  </span> 
+                                    <br>
+                                <span style="font-size:12px;">I consider that the temporary structure is ready to be loaded and taken into use.</span>
+                                <br>
+                                    I confirm that I am authorised to issue a Permit to Load for this temporary structure. </span> 
+
+                            </label>
                         </td>
                     </tr>
                 </tbody>

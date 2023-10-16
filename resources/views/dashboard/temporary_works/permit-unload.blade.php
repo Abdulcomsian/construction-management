@@ -838,7 +838,7 @@
                                             </div>
                                             <div style="display:flex; align-items: center; padding-left:10px">
                                                 <input type="radio" class="" id="flexCheckChecked1" style="width: 12px;">
-                                                <input type="hidden" id="signtype1" name="signtype" class="form-control form-control-solid" value="2">
+                                                <input type="hidden" id="signtype1" name="signtype1" class="form-control form-control-solid" value="2">
                                                 <span style="padding-left:14px;font-family: 'Inter', sans-serif; color:#000;font-size:14px;line-height: 2">Name</span>
                                             </div>
                                             &nbsp;
@@ -1989,7 +1989,8 @@
         if ($(this).is(':checked')) {
             $("#DrawCheck1").prop('checked', false);
             $("#flexCheckChecked1").prop('checked', false);
-            $("#signtype1").val(1);
+            $("#signtype1").val(0);
+            $("#pdfsign1").val(1);
             $("div#pdfsign1").removeClass('d-none');
             $("#namesign1").addClass('d-none');
             $("input[name='namesign1']").attr('required', 'required');

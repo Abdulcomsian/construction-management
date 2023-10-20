@@ -2000,6 +2000,8 @@ class TemporaryWorkController extends Controller
         $tabletwcdesigner='';
         $client_table = '';
         $path = config('app.url');
+        $tmpWork = TemporaryWork::with('comments' , 'reply')->where('id' , $request->temporary_work_id)->first();
+        // dd(count($tmpWork->comments) , count($tmpWork->reply) );
         if ($request->type == 'normal') {
             $commetns = TemporaryWorkComment::where(['temporary_work_id' => $request->temporary_work_id, 'type' => 'normal'])->get();
             $twccommetns = TemporaryWorkComment::where(['temporary_work_id' => $request->temporary_work_id, 'type' => 'twc'])->get();
@@ -2075,7 +2077,16 @@ class TemporaryWorkController extends Controller
             if ($request->type == "permit" || $request->type == 'pc' || $request->type == "qscan") {
                 $table.= '<table class="table" style="border-collapse:separate;border-spacing:0 5px;"><thead  style="height:80px;background: #07D564 ;  "><tr><th style="width:120px;">No</th><th style="width:35%;">Comment</th><th></th><th style="width:120px;">Date</th><th></th></tr></thead><tbody>';
             } else {
-                $table .= '<table class="table commentsTable" style="border-radius: 8px; overflow:hidden;"><thead  style="height:60px;background: #07D564 ;"><tr><th style="width:10%;background: #07D564 !important; text-align:left;color:white !important; font-weight: 600 !important; font-size:16px !important">No</th><th style="width:35%;text-align:left;color:white !important;background: #07D564 !important; font-weight: 600 !important; font-size:16px !important">Designer Comment</th><th style="width:40%;text-align:left;color:white !important;background: #07D564 !important; font-weight: 600 !important; font-size:16px !important">TWC Reply  </th></tr></thead><tbody>';
+                $checked = count($tmpWork->comments) === count($tmpWork->reply) ? "checked disabled" : '';
+                $table .= '<div class="d-flex justify-content-end">
+                                <p>
+                                    <label>
+                                        <input class="twc-comment-checked" type="checkbox" '.$checked.' value="'.$request->temporary_work_id.'">
+                                                Mark As Read
+                                    </label>
+                                </p>
+                            </div>
+              <table class="table commentsTable" style="border-radius: 8px; overflow:hidden;"><thead  style="height:60px;background: #07D564 ;"><tr><th style="width:10%;background: #07D564 !important; text-align:left;color:white !important; font-weight: 600 !important; font-size:16px !important">No</th><th style="width:35%;text-align:left;color:white !important;background: #07D564 !important; font-weight: 600 !important; font-size:16px !important">Designer Comment</th><th style="width:40%;text-align:left;color:white !important;background: #07D564 !important; font-weight: 600 !important; font-size:16px !important">TWC Reply  </th></tr></thead><tbody>';
             }
 
             $i = 1;
@@ -5426,5 +5437,25 @@ class TemporaryWorkController extends Controller
          } catch (\Exception $exception) {
             return response()->json(['message' => 'Something Went Wrong!'], 500); 
          }
+    }
+
+    public function mark_comment_as_read(Request $request){
+        try{
+            $temporaryWork =      TemporaryWork::with(['comments' => function($query){
+                                                 $query->where('replay' , '')
+                                                 ->orWhereNull('replay');
+                                              }])
+                                             ->where('id' , $request->twcId)
+                                             ->first();
+                                         
+             foreach($temporaryWork->comments as $comment){
+                 $comment->replay = "&nbsp";
+                 $comment->save();
+             }
+ 
+             return response()->json(['success' => true , 'msg' => 'Comment Marked As Read Successfully']);
+        }catch(\Exception $e){
+            return response()->json(['success' => true , 'msg' => 'Something Went Wrong' , 'error' => $e->getMessage()]);
+        }
     }
 }

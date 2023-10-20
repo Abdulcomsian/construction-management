@@ -12,6 +12,7 @@ class TemporaryWork extends Model
     use SoftDeletes;
     protected $guarded = [];
 
+
     public function project()
     {
         return $this->belongsTo(Project::class);

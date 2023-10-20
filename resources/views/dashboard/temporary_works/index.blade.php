@@ -500,6 +500,9 @@ $tempWorkClass = "d-none";
         left: 0;
         z-index: 9;
     }
+
+
+
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
@@ -5401,6 +5404,33 @@ $(document).on('click','.drawingshare',function(e){
             }
         });
     })
+
+
+    $(document).on("change" , ".twc-comment-checked" , function(e){
+        
+        if(e.target.checked === true){
+            let element = e.target;
+    
+            $.ajax({
+                type: 'POST',
+                url : '{{route("mark.comment.as.read")}}',
+                data : {
+                    twcId : element.value,
+                    _token : '{{csrf_token()}}'
+                },
+                success: function(res){
+                    if(res.success === true){
+                        toastr.success(res.msg)
+                        window.location.reload();
+                    }else{
+                        toastr.error(res.msg)
+                    }
+                }
+            })
+        }
+    })
+
+
 //    const mainMenuLink = document.querySelector('.mainMenu-link');
 //    mainMenuLink.addEventListener('click', function(e){
 //     e.preventDefault();

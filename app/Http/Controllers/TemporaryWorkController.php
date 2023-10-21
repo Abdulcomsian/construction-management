@@ -537,7 +537,7 @@ class TemporaryWorkController extends Controller
                 }
                 $notify_admins_msg = [
                     'greeting' => 'Temporary Work Pdf',
-                    'subject' => 'TWP – Design Brief Review -'.$request->projname . '-' .$request->projno,
+                    'subject' => 'TWP – Design Brief Review -'.$request->projname . '-' .$temporary_work->twc_id_no,
                     'body' => [
                         'company' => $request->company,
                         'filename' => $filename,
@@ -635,7 +635,7 @@ class TemporaryWorkController extends Controller
                     unset($request[$key]);
                 }
             }
-            //unset all keys 
+            //unset all keys  
             $request = $this->Unset($request);
             $all_inputs  = $request->except('_token','DrawCheck','files' ,'date','companyid', 'company_id', 'projaddress', 'signed', 'images', 'namesign','namesign3','signtype', 'signtype3', 'signtype4', 'signtype5', 'namesign4', 'namesign5', 'pdfsigntype', 'pdfphoto', 'projno', 'projname', 'approval','req_type','req_name','req_check','req_notes', 'name3', 'job_title3', 'company3', 'companyid3', 'signed3', 'namesign3', 'date3', 'name4', 'job_title4', 'company4', 'companyid4', 'signed4', 'namesign4', 'date4', 'name5', 'job_title5', 'company5', 'companyid5', 'signed5', 'namesign5', 'date5', 'action', 'permitdata_status');
             
@@ -946,7 +946,7 @@ class TemporaryWorkController extends Controller
                 //send mail to admin
                 $notify_admins_msg = [
                     'greeting' => 'Temporary Work Pdf',
-                    'subject' => 'TWP – Design Brief Review -'.$request->projname . '-' .$request->projno,
+                    'subject' => 'TWP – Design Brief Review -'.$request->projname . '-' .$temporary_work->twc_id_no,
                     'body' => [
                         'company' => $request->company,
                         'filename' => $filename,
@@ -1503,7 +1503,7 @@ class TemporaryWorkController extends Controller
                //send mail to admin
                $notify_admins_msg = [
                 'greeting' => 'Temporary Work Pdf',
-                'subject' => 'TWP – Design Brief Review - '.$request->projname . '-' . $request->projno,
+                'subject' => 'TWP – Design Brief Review - '.$request->projname . '-' . $temporaryWork->twc_id_no,
                 'body' => [
                     'company' => $request->company,
                     'filename' => $filename,

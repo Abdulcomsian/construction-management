@@ -5449,7 +5449,7 @@ class TemporaryWorkController extends Controller
                                              ->first();
                                          
              foreach($temporaryWork->comments as $comment){
-                 $comment->replay = "&nbsp";
+                 $comment->replay = [" &nbsp; "];
                  $comment->save();
              }
  

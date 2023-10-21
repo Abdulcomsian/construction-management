@@ -2000,6 +2000,8 @@ class TemporaryWorkController extends Controller
         $tabletwcdesigner='';
         $client_table = '';
         $path = config('app.url');
+        $tmpWork = TemporaryWork::with('comments' , 'reply')->where('id' , $request->temporary_work_id)->first();
+        // dd(count($tmpWork->comments) , count($tmpWork->reply) );
         if ($request->type == 'normal') {
             $commetns = TemporaryWorkComment::where(['temporary_work_id' => $request->temporary_work_id, 'type' => 'normal'])->get();
             $twccommetns = TemporaryWorkComment::where(['temporary_work_id' => $request->temporary_work_id, 'type' => 'twc'])->get();
@@ -2075,7 +2077,16 @@ class TemporaryWorkController extends Controller
             if ($request->type == "permit" || $request->type == 'pc' || $request->type == "qscan") {
                 $table.= '<table class="table" style="border-collapse:separate;border-spacing:0 5px;"><thead  style="height:80px;background: #07D564 ;  "><tr><th style="width:120px;">No</th><th style="width:35%;">Comment</th><th></th><th style="width:120px;">Date</th><th></th></tr></thead><tbody>';
             } else {
-                $table .= '<table class="table commentsTable" style="border-radius: 8px; overflow:hidden;"><thead  style="height:60px;background: #07D564 ;"><tr><th style="width:10%;background: #07D564 !important; text-align:left;color:white !important; font-weight: 600 !important; font-size:16px !important">No</th><th style="width:35%;text-align:left;color:white !important;background: #07D564 !important; font-weight: 600 !important; font-size:16px !important">Designer Comment</th><th style="width:40%;text-align:left;color:white !important;background: #07D564 !important; font-weight: 600 !important; font-size:16px !important">TWC Reply  </th></tr></thead><tbody>';
+                $checked = count($tmpWork->comments) === count($tmpWork->reply) ? "checked disabled" : '';
+                $table .= '<div class="d-flex justify-content-end">
+                                <p>
+                                    <label>
+                                        <input class="twc-comment-checked" type="checkbox" '.$checked.' value="'.$request->temporary_work_id.'">
+                                                Mark As Read
+                                    </label>
+                                </p>
+                            </div>
+              <table class="table commentsTable" style="border-radius: 8px; overflow:hidden;"><thead  style="height:60px;background: #07D564 ;"><tr><th style="width:10%;background: #07D564 !important; text-align:left;color:white !important; font-weight: 600 !important; font-size:16px !important">No</th><th style="width:35%;text-align:left;color:white !important;background: #07D564 !important; font-weight: 600 !important; font-size:16px !important">Designer Comment</th><th style="width:40%;text-align:left;color:white !important;background: #07D564 !important; font-weight: 600 !important; font-size:16px !important">TWC Reply  </th></tr></thead><tbody>';
             }
 
             $i = 1;
@@ -3503,10 +3514,12 @@ class TemporaryWorkController extends Controller
         DB::beginTransaction();
         Validations::storepermitunload($request);
         try {
-            $all_inputs  = $request->except('_token', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','signed1', 'projno', 'projname', 'date', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'approavalEmailReq', 'approval_PC', 'company1','companyid1', 'pdfsigntype1', 'date1', 'date2','drawing','drawing_option','custom_drawing','design_upload', 'name3', 'job_title3', 'company3', 'companyid3', 'signed3', 'namesign3', 'name4', 'job_title4', 'company4', 'companyid4', 'signed4', 'namesign4', 'name5', 'job_title5', 'company5', 'companyid5', 'signed5', 'namesign5','date3','date4', 'date5','action', 'permitdata_status','draft_status');
+            $all_inputs  = $request->except('_token', 'twc_email', 'designer_company_email', 'companyid', 'signtype1', 'signtype', 'signed','pdfsigntype','pdfphoto','pdfphoto1','signed1', 'projno', 'projname', 'date', 'permitid', 'images', 'namesign1', 'namesign', 'design_requirement_text', 'approavalEmailReq', 'approval_PC', 'company1','companyid1', 'pdfsigntype1', 'date1', 'date2','drawing','drawing_option','custom_drawing','design_upload', 'name3', 'job_title3', 'company3', 'companyid3', 'signed3', 'namesign3', 'name4', 'job_title4', 'company4', 'companyid4', 'signed4', 'namesign4', 'name5', 'job_title5', 'company5', 'companyid5', 'signed5', 'namesign5','date3','date4', 'date5','action', 'permitdata_status','draft_status');
             $all_inputs['created_by'] = auth()->user()->id;
             $all_inputs['custom_drawing'] = '';
             $all_inputs['design_upload'] = '';
+            $all_inputs['signature_type1'] = null;
+            $all_inputs['signature_type'] = null;
             if($request->design_upload){
                 $designUpload = implode(', ', $request->design_upload);
                 $all_inputs['design_upload'] = $designUpload;
@@ -3521,25 +3534,28 @@ class TemporaryWorkController extends Controller
                 $all_inputs['design_upload'] = $designUpload;
             }
 
-            $image_name1 = '';
+            $image_name = '';
             
-            
-            if ($request->signtype1 == 1) {
-                $all_inputs['signature1'] = $request->namesign1;
+            if ($request->signtype == 1) {
+                $all_inputs['signature'] = $request->namesign;
                 $all_inputs['name'] = $request->name;
                 $all_inputs['job_title'] = $request->job_title;
                 $all_inputs['company'] = $request->company;
-            $all_inputs['name'] = $request->name;
+                $all_inputs['signature_type'] = 'name_sign';
+                $all_inputs['name'] = $request->name;
             }elseif ($request->pdfsigntype == 1) {
+                if($request->file('pdfphoto')){
                 $folderPath = public_path('temporary/signature/');
-                $file = $request->file('pdfphoto1');
+                $file = $request->file('pdfphoto');
                 $filename = time() . rand(10000, 99999) . '.' . $file->getClientOriginalExtension();
                 $file->move($folderPath, $filename);
-                $image_name1 = $filename;
-                $all_inputs['signature'] = $image_name1;
+                $image_name = $filename;
+                $all_inputs['signature'] = $image_name;
                 $all_inputs['name'] = $request->name;
                 $all_inputs['job_title'] = $request->job_title;
                 $all_inputs['company'] = $request->company;
+                $all_inputs['signature_type'] = 'upload';
+            }
             }else{
                 $folderPath = public_path('temporary/signature/');
                     $image = explode(";base64,", $request->signed1);
@@ -3547,47 +3563,56 @@ class TemporaryWorkController extends Controller
                     
                     $image_type_png = $image_type[1];
                     $image_base64 = base64_decode($image[1]);
-                    $image_name1 = uniqid() . '.' . $image_type_png;
-                    $file = $folderPath . $image_name1;
+                    $image_name = uniqid() . '.' . $image_type_png;
+                    $file = $folderPath . $image_name;
                     file_put_contents($file, $image_base64);
-                    $all_inputs['signature1'] = $image_name1;
+                    $all_inputs['signature'] = $image_name;
                     $all_inputs['name'] = $request->name;
                     $all_inputs['job_title'] = $request->job_title;
                     $all_inputs['company'] = $request->company;
+                    $all_inputs['signature_type'] = 'draw';
             }
             
             //for 2
-            $image_name = '';
-            if ($request->signtype == 1) {
-                $all_inputs['signature'] = $request->namesign;
-                $all_inputs['name1'] = $request->name1;
-                $all_inputs['job_title1'] = $request->job_title1;
-                $all_inputs['company1'] = $request->company1; //this should be company1
-            } elseif ($request->pdfsigntype == 1) {
-                $folderPath = public_path('temporary/signature/');
-                $file = $request->file('pdfphoto');
-                $filename = time() . rand(10000, 99999) . '.' . $file->getClientOriginalExtension();
-                $file->move($folderPath, $filename);
-                $image_name = $filename;
-                $all_inputs['signature'] = $image_name;
-                $all_input['pc_twc_email'] = $request->pc_twc_email;
-                $all_inputs['name1'] = $request->name1;
-                $all_inputs['job_title1'] = $request->job_title1;
-                $all_inputs['company1'] = $request->company1; //this should be company1
-            } else {
-                $folderPath = public_path('temporary/signature/');
-                $image = explode(";base64,", $request->signed);
-                $image_type = explode("image/", $image[0]);
-                $image_type_png = $image_type[1];
-                $image_base64 = base64_decode($image[1]);
-                $image_name = uniqid() . '.' . $image_type_png;
-                $file = $folderPath . $image_name;
-                file_put_contents($file, $image_base64);
-               $all_inputs['signature'] = $image_name;
-               $all_inputs['name1'] = $request->name1;
-                $all_inputs['job_title1'] = $request->job_title1;
-                $all_inputs['company1'] = $request->company1; //this should be company1
-            }
+            $image_name1 = '';
+
+                if ($request->signtype1 == 1) {
+                    $all_inputs['signature1'] = $request->namesign1;
+                    $all_inputs['name1'] = $request->name1;
+                    $all_inputs['job_title1'] = $request->job_title1;
+                    $all_inputs['company1'] = $request->company1; //this should be company1
+                    $all_inputs['signature_type1'] = 'name_sign';
+                } elseif ($request->pdfsigntype1 == 1) {
+                    if($request->file('pdfphoto1'))
+                    {
+                        $folderPath = public_path('temporary/signature/');
+                        $file = $request->file('pdfphoto1');
+                        $filename = time() . rand(10000, 99999) . '.' . $file->getClientOriginalExtension();
+                        $file->move($folderPath, $filename);
+                        $image_name1 = $filename;
+                        $all_inputs['signature1'] = $image_name1;
+                        $all_input['pc_twc_email'] = $request->pc_twc_email;
+                        $all_inputs['name1'] = $request->name1;
+                        $all_inputs['job_title1'] = $request->job_title1;
+                        $all_inputs['company1'] = $request->company1; //this should be company1
+                        $all_inputs['signature_type1'] = 'draw';
+                    }
+                    
+                } else {
+                    $folderPath = public_path('temporary/signature/');
+                    $image = explode(";base64,", $request->signed);
+                    $image_type = explode("image/", $image[0]);
+                    $image_type_png = $image_type[1];
+                    $image_base64 = base64_decode($image[1]);
+                    $image_name1 = uniqid() . '.' . $image_type_png;
+                    $file = $folderPath . $image_name1;
+                    file_put_contents($file, $image_base64);
+                   $all_inputs['signature1'] = $image_name1;
+                   $all_inputs['name1'] = $request->name1;
+                    $all_inputs['job_title1'] = $request->job_title1;
+                    $all_inputs['company1'] = $request->company1; //this should be company1
+                    $all_inputs['signature_type1'] = 'draw';
+                }
 
             //third person signature and name
             $image_name3 = '';
@@ -3729,7 +3754,7 @@ class TemporaryWorkController extends Controller
                 // dd("here" , $request->permitid , $permitload->id);
                 $image_links = $this->permitfiles($request, $permitload->id);
                 $request->merge(['name' => $request->name1 , 'job_title' => $request->job_title1]);
-                $pdf = PDF::loadView('layouts.pdf.permit_unload', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'image_name1' => $image_name1, 'principle_contractor' => $request->approval_PC, 'date1'=>$request->date1, 'date2'=>$request->date2, 'image_name3' => $image_name3, 'image_name4' => $image_name4, 'image_name5' => $image_name5, 'company1' => $request->company1, 'company3' => $request->company3, 'company4' => $request->company4, 'company5' => $request->company5, 'date1'=>$request->date1, 'date3'=>$request->date3, 'date4'=>$request->date4, 'date5'=>$request->date5]);
+                $pdf = PDF::loadView('layouts.pdf.permit_unload', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'image_name1' => $image_name1, 'principle_contractor' => $request->approval_PC, 'date1'=>$request->date1, 'date2'=>$request->date2, 'image_name3' => $image_name3, 'image_name4' => $image_name4, 'image_name5' => $image_name5, 'company1' => $request->company1, 'company3' => $request->company3, 'company4' => $request->company4, 'company5' => $request->company5, 'date1'=>$request->date1, 'date3'=>$request->date3, 'date4'=>$request->date4, 'date5'=>$request->date5,'signature_type'=>$all_inputs['signature_type'],'signature_type1'=>$all_inputs['signature_type1']]);
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
                 $model = PermitLoad::find($permitload->id);
@@ -3803,6 +3828,8 @@ class TemporaryWorkController extends Controller
             $all_inputs['created_by'] = auth()->user()->id;
             $all_inputs['custom_drawing'] = '';
             $all_inputs['design_upload'] = '';
+            $all_inputs['signature_type1'] = null;
+            $all_inputs['signature_type'] = null;
             if($request->design_upload){
                 $designUpload = implode(', ', $request->design_upload);
                 $all_inputs['design_upload'] = $designUpload;
@@ -3824,6 +3851,7 @@ class TemporaryWorkController extends Controller
                     $all_inputs['name1'] = $request->name1;
                     $all_inputs['job_title1'] = $request->job_title1;
                     $all_inputs['company1'] = $request->company1; //this should be company1
+                    $all_inputs['signature_type1'] = 'name_sign';
                 } else {
 
                     $folderPath = public_path('temporary/signature/');
@@ -3839,12 +3867,14 @@ class TemporaryWorkController extends Controller
                     $all_inputs['name1'] = $request->name1;
                     $all_inputs['job_title1'] = $request->job_title1;
                     $all_inputs['company1'] = $request->company1; //this should be company1
+                    $all_inputs['signature_type1'] = 'draw';
                 }
             } else {
                 $all_inputs['name1'] = $request->name1;
                 $all_inputs['job_title1'] = $request->job_title1;
                 $image_name1 = $permitload->signature1;
                 $all_inputs['signature1'] = $image_name1; 
+                $all_inputs['signature_type1'] = $permitload->signature_type1;
             }
         } 
 
@@ -3857,6 +3887,7 @@ class TemporaryWorkController extends Controller
                 $all_inputs['name1'] = $request->name;
                 $all_inputs['job_title1'] = $request->job_title;
                 $all_inputs['company'] = $request->company; 
+                $all_inputs['signature_type'] ='name_sign';
             } else {
                 $folderPath = public_path('temporary/signature/');
                 $image = explode(";base64,", $request->signed);
@@ -3871,12 +3902,14 @@ class TemporaryWorkController extends Controller
                 $all_inputs['name1'] = $request->name;
                 $all_inputs['job_title1'] = $request->job_title;
                 $all_inputs['company'] = $request->company; 
+                $all_inputs['signature_type'] ='draw';
             }
         } else{
             $all_inputs['name'] = $request->name;
             $all_inputs['job_title'] = $request->job_title;
             $image_name = $permitload->signature;
             $all_inputs['signature'] = $image_name; 
+            $all_inputs['signature_type'] = $permitload->signature_type;
         }
 
         //third person signature and name
@@ -4093,7 +4126,7 @@ class TemporaryWorkController extends Controller
                 $image_links = $this->permitfiles($request, $permitload->id);
                 $request->merge(['name' => $request->name1 , 'job_title' => $request->job_title1]);
                 // dd($image_name,$image_name1,$image_name3);
-                $pdf = PDF::loadView('layouts.pdf.permit_unload', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'image_name1' => $image_name1, 'principle_contractor' => $request->approval_PC, 'date1'=>$request->date1, 'date2'=>$request->date2, 'image_name3' => $image_name3, 'image_name4' => $image_name4, 'image_name5' => $image_name5, 'company1' => $request->company1, 'company3' => $request->company3, 'company4' => $request->company4, 'company5' => $request->company5, 'date1'=>$request->date1, 'date3'=>$request->date3, 'date4'=>$request->date4, 'date5'=>$request->date5, 'old_permit_images' => $permitload->permitLoadImages]);
+                $pdf = PDF::loadView('layouts.pdf.permit_unload', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'image_name1' => $image_name1, 'principle_contractor' => $request->approval_PC, 'date1'=>$request->date1, 'date2'=>$request->date2, 'image_name3' => $image_name3, 'image_name4' => $image_name4, 'image_name5' => $image_name5, 'company1' => $request->company1, 'company3' => $request->company3, 'company4' => $request->company4, 'company5' => $request->company5, 'date1'=>$request->date1, 'date3'=>$request->date3, 'date4'=>$request->date4, 'date5'=>$request->date5, 'old_permit_images' => $permitload->permitLoadImages,'signature_type'=>$all_inputs['signature_type'],'signature_type1'=>$all_inputs['signature_type1']]);
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
                 $model = PermitLoad::find($permitload->id);
@@ -5404,5 +5437,25 @@ class TemporaryWorkController extends Controller
          } catch (\Exception $exception) {
             return response()->json(['message' => 'Something Went Wrong!'], 500); 
          }
+    }
+
+    public function mark_comment_as_read(Request $request){
+        try{
+            $temporaryWork =      TemporaryWork::with(['comments' => function($query){
+                                                 $query->where('replay' , '')
+                                                 ->orWhereNull('replay');
+                                              }])
+                                             ->where('id' , $request->twcId)
+                                             ->first();
+                                         
+             foreach($temporaryWork->comments as $comment){
+                 $comment->replay = "&nbsp";
+                 $comment->save();
+             }
+ 
+             return response()->json(['success' => true , 'msg' => 'Comment Marked As Read Successfully']);
+        }catch(\Exception $e){
+            return response()->json(['success' => true , 'msg' => 'Something Went Wrong' , 'error' => $e->getMessage()]);
+        }
     }
 }

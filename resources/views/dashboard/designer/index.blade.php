@@ -1,4 +1,5 @@
 @extends('layouts.dashboard.master_user',['title' => 'Temporary Works'])
+<title>{{$tempdata->design_requirement_text}} | {{$tempdata->twc_id_no}}</title>
 @php use App\Utils\HelperFunctions; @endphp
 @section('styles')
 <style>

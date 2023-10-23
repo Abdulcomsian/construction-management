@@ -471,7 +471,7 @@ class DesignerController extends Controller
                 $ext = $request->file('designcheckfile')->extension();
                 $proj_name = $tempworkdata->project->name ?? '';
                 $proj_no = $tempworkdata->project->no ?? '';
-                $subject = 'TWP– Design Check Certificate Uploaded - '. $proj_name . '-' . $proj_no;
+                $subject = 'TWP– Design Check Certificate Uploaded - '. $proj_name . '-' . $tempworkdata->twc_id_no;
                 $text = $model->created_by.' has uploaded a design check certificate to the Temporary Works Portal.';
                 $file_type = 2;
                  $imagename = HelperFunctions::saveFile(null, $file, $filePath);
@@ -488,7 +488,7 @@ class DesignerController extends Controller
                 }
                 $proj_name = $tempworkdata->project->name ?? '';
                 $proj_no = $tempworkdata->project->no ?? '';
-                $subject = 'TWP – Design/Drawing Uploaded-' . $proj_name . '-' . $proj_no;
+                $subject = 'TWP – Design/Drawing Uploaded-' . $proj_name . '-' . $tempworkdata->twc_id_no;
                 $text =$model->created_by .' has uploaded a new drawing to the Temporary Works Portal.';
                 $model->comments = $request->comments;
                 $model->twd_name = $request->twd_name;
@@ -2233,7 +2233,7 @@ class DesignerController extends Controller
             $chm->user_type = 'designer';
             $chm->status = 2;
             $chm->save();
-            $subject = 'TWP– Risk Assessment Uploaded -  ' . $tempworkdata->project->name . '-' . $tempworkdata->project->no;
+            $subject = 'TWP– Risk Assessment Uploaded -  ' . $tempworkdata->project->name . '-' . $tempworkdata->twc_id_no;
             $text = $request->designermail.' has uploaded a risk assessment to the Temporary Works Portal.';
             if($request->type==6)
             {

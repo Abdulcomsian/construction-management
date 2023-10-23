@@ -80,32 +80,32 @@ class CommentsNotification extends Notification
         if($this->type=='question')
         {
             $this->email=$tempdata->twc_email;
-            $subject='TWP – Designer Comments/Question -'.$project_name.'-'.$proj_no;
+            $subject='TWP – Designer Comments/Question -'.$project_name.'-'.$tempdata->twc_id_no;
         }
         if($this->type=="designers"){
-            $subject='TWP – Designer Comments/Question -'.$project_name.'-'.$proj_no;
+            $subject='TWP – Designer Comments/Question -'.$project_name.'-'.$tempdata->twc_id_no;
 
         }
         if($this->type=="reply")
         {
-             $subject='TWP – TWC Answered Question  -'.$project_name.'-'.$proj_no;
+             $subject='TWP – TWC Answered Question  -'.$project_name.'-'.$tempdata->twc_id_no;
         }
         if($this->type=="designers-reply")
         {
-             $subject='TWP – TWC Answered Question  -'.$project_name.'-'.$proj_no;
+             $subject='TWP – TWC Answered Question  -'.$project_name.'-'.$tempdata->twc_id_no;
         }
 
         if($this->scan=="scan")
         {
-            $subject='TWP– Live T.W. comment on site (QR code) - '.$project_name.'-'.$proj_no;
+            $subject='TWP– Live T.W. comment on site (QR code) - '.$project_name.'-'.$tempdata->twc_id_no;
         }
         if($this->type=="client")
         {
-            $subject='TWP– Live T.W. comment on site (QR code) - '.$project_name.'-'.$proj_no;
+            $subject='TWP– Live T.W. comment on site (QR code) - '.$project_name.'-'.$tempdata->twc_id_no;
         }
         if($this->type=="comment")
         {
-            $subject='TWP – Designer Comments - '.$project_name.'-'.$proj_no;
+            $subject='TWP – Designer Comments - '.$project_name.'-'.$tempdata->twc_id_no;
         }
        if(isset($this->designertotwc) && $this->designertotwc == 'twctodesigner')
        {

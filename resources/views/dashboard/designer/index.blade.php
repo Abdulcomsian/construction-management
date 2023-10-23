@@ -454,17 +454,55 @@
                                         @if($cments->replay)
 
                                         <td class="twc-reply">
-                                            @php $i=0;@endphp
-                                            @foreach($cments->replay as $reply)
-                                            <p style="white-space:pre-wrap; text-align:center;">{{$cments->reply_email}}<br><b>{{$reply}}</b><br><b style="white-space:normal;">{{date('H:i
-                                                    d-m-Y',strtotime($cments->reply_date[$i] ?? ''))}}</b></p>
-                                            @php $i++; @endphp
+                                            @php 
+                                                $i=0;
+                                                $imageExtension = ["jfif" , 'png' , 'jpg' , 'jpeg' , 'JFIF' , 'PNG' , 'JPG' , 'JPEG'];    
+                                            @endphp
+                                            @foreach($cments->replay as $index => $reply)
+                                            <p style="white-space:pre-wrap; text-align:center;">{{$cments->reply_email}}</p><br>
+                                                <b>{{$reply}}</b><br>
+                                                @if(count($cments->reply_image) > 0)
+
+                                                @php    
+
+                                                    $files = $cments->reply_image;
+                                                    $filteredFiles = array_filter($files , function($file) use ($index){
+                                                        return strpos( $file , ($index+1)."-");
+                                                    });
+
+
+                                                @endphp
+
+                                                @foreach($filteredFiles as $file)
+                                                    @php
+                                                         $extension = explode("." , $file);
+                                                        $fileExtension = $extension[sizeof($extension)-1];
+
+                                                    @endphp
+
+                                                    @if(in_array($fileExtension , $imageExtension))
+                                                        <a target="_blank" href="{{$path ."/". $file }}"><img src="{{ asset($file) }}" width="50px" height="50px"/></a>
+                                                    @else
+                                                        <a target="_blank" href="{{$path ."/". $file}}">View File</a>
+                                                    @endif
+
+                                                @endforeach
+
+                                                @endif
+
+
+                                                </br><b style="white-space:normal;">{{date('H:i d-m-Y',strtotime($cments->reply_date[$i] ?? ''))}}</b>
+                                                <hr>
+                                            </p>
+                                            @php 
+                                                $i++;
+                                            @endphp
                                             @endforeach
                                             @endif
                                             @if($cments->type=='twctodesigner')
                                         <td class="designer-comment"></td>
-                                        <td class="twc-reply">{{$mail}}<br><b style="white-space: pre-wrap;">{{$cments->comment}}</b><br><b>{{date('H:i
-                                                d-m-Y',strtotime($cments->created_at))}}</b>
+                                        <td class="twc-reply">{{$mail}}<br><b style="white-space: pre-wrap;">{{$cments->comment}}</b><br><b>{{date('H:i d-m-Y',strtotime($cments->created_at))}}</b>
+                                            
                                             <br><br>
                                             @php
                                             if(isset($cments->image)){
@@ -477,38 +515,7 @@
                                             <hr />
                                         </td>
                                         @endif
-                                        <br><br>
-                                        @php
-                                        $path = config('app.url');
-                                        if(isset($cments->reply_image))
-                                        {
-                                        for($j=0;$j < count($cments->reply_image);$j++)
-                                            {
-
-                                            $image='';
-                                            if(isset($cments->reply_image[$j]))
-                                            {
-                                            $n = strrpos($cments->reply_image[$j], '.');
-                                            $ext=substr($cments->reply_image[$j], $n+1);
-                                            if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
-                                            {
-                                            echo $image='<a target="_blank" style="color: dodgerblue;"
-                                                href='.$path.$cments->reply_image[$j].'><img
-                                                    src="'.$path.$cments->reply_image[$j].'" width="50px"
-                                                    height="50px" /></a>
-                                            <hr>';
-                                            }
-                                            else{
-                                            echo $a='<a target="_blank" href="'. $path.$cments->reply_image[$j].'">View
-                                                File</a>
-                                            <hr>';
-                                            }
-
-                                            }
-                                            }
-                                            }
-                                            @endphp
-                                            </td>
+                                        </td>
 
                                     </tr>
                                     @endforeach

@@ -1582,7 +1582,7 @@ class TemporaryWorkController extends Controller
             $fileData = TemporaryWork::findorfail($request->filename_id);
             $filePath = public_path($fileData->photo); // Replace with the actual file path
             if (file_exists($filePath)) {
-                unlink($filePath);
+                // unlink($filePath);
                 $fileData->photo = ''; // Delete the file
                 $fileData->save();
                 return response()->json(['message' => 'File deleted successfully']);
@@ -1593,7 +1593,7 @@ class TemporaryWorkController extends Controller
             $fileData = TemporayWorkImage::findorfail($request->filename_id);
             $filePath = public_path($fileData->image); // Replace with the actual file path
             if (file_exists($filePath)) {
-                unlink($filePath); // Delete the file
+                // unlink($filePath); // Delete the file
                 $fileData->delete();
                 return response()->json(['message' => 'File deleted successfully']);
             }

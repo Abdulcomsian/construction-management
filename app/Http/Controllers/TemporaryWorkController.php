@@ -51,7 +51,7 @@ use App\Models\ProjectBlock;
 use App\Models\Signature;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\View;
-
+use Illuminate\Support\Facades\Validator;
 class TemporaryWorkController extends Controller
 {
     public function testIndex()
@@ -1582,7 +1582,7 @@ class TemporaryWorkController extends Controller
             $fileData = TemporaryWork::findorfail($request->filename_id);
             $filePath = public_path($fileData->photo); // Replace with the actual file path
             if (file_exists($filePath)) {
-                unlink($filePath);
+                // unlink($filePath);
                 $fileData->photo = ''; // Delete the file
                 $fileData->save();
                 return response()->json(['message' => 'File deleted successfully']);
@@ -1593,7 +1593,7 @@ class TemporaryWorkController extends Controller
             $fileData = TemporayWorkImage::findorfail($request->filename_id);
             $filePath = public_path($fileData->image); // Replace with the actual file path
             if (file_exists($filePath)) {
-                unlink($filePath); // Delete the file
+                // unlink($filePath); // Delete the file
                 $fileData->delete();
                 return response()->json(['message' => 'File deleted successfully']);
             }
@@ -1830,7 +1830,23 @@ class TemporaryWorkController extends Controller
 
     public function temp_savecommentreplay(Request $request)
     {
+        // dd("here Nouman Pakistan"); 
         try {
+
+            $validator  = Validator::make($request->all() , [
+                                'tempid' => "required|numeric",
+                                'replay' => "required|string",
+                                'commentid' => "required|numeric"
+                            ],[
+                                'replay.required' => 'Comment Must Be Required', 
+                            ]);
+
+            if($validator->fails()){
+                toastError("Must Required Fields: ".$validator->getMessageBag());
+                return redirect::back();
+            }
+
+
             $commentid = $request->commentid;
             $tempid = $request->tempid;
             $data = TemporaryWorkComment::select('replay', 'reply_image', 'reply_date', 'sender_email')->find($commentid);
@@ -1879,20 +1895,31 @@ class TemporaryWorkController extends Controller
             }
             $reply_date[] = date('Y-m-d H:i:s');
 
+        
             $arrayimage = [];
             if (is_array($data->reply_image)) {
                 foreach ($data->reply_image as $img) {
                     $arrayimage[] = $img;
                 }
             }
-            if ($request->file('replyfile')) {
-                $filePath = HelperFunctions::temporaryworkcommentPath();
-                $file = $request->file('replyfile');
-                $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+            // dd($request->all());
+            $previousCommentCount = isset($data->replay) && !is_null($data->replay) ?  count($data->replay) + 1 : 0 ;
+            if ($request->hasFile('replyfile')) {
+            $fileLocation = HelperFunctions::temporaryworkcommentPath();
+                // $file = $request->file('replyfile');
+                // $imagename = HelperFunctions::saveFile(null, $file, $filePath);
+                foreach($request->file('replyfile') as $index => $file){
+                $fileName =   $previousCommentCount.'-'.time().'_'.$index.'_'.str_replace("-","", $file->getClientOriginalName());
+                $imagename = $fileLocation.$fileName;
+                $filePath = public_path($fileLocation);
+                $file->move($filePath , $fileName);
                 $arrayimage[] = $imagename;
+                }
+
             } else {
                 $arrayimage[] = null;
             }
+
             $scan = '';
             if (isset($request->scan)) {
                 $scan = 'scan';
@@ -2086,11 +2113,12 @@ class TemporaryWorkController extends Controller
                                     </label>
                                 </p>
                             </div>
-              <table class="table commentsTable" style="border-radius: 8px; overflow:hidden;"><thead  style="height:60px;background: #07D564 ;"><tr><th style="width:10%;background: #07D564 !important; text-align:left;color:white !important; font-weight: 600 !important; font-size:16px !important">No</th><th style="width:35%;text-align:left;color:white !important;background: #07D564 !important; font-weight: 600 !important; font-size:16px !important">Designer Comment</th><th style="width:40%;text-align:left;color:white !important;background: #07D564 !important; font-weight: 600 !important; font-size:16px !important">TWC Reply  </th></tr></thead><tbody>';
+              <table class="table commentsTable" style="border-radius: 8px; overflow:hidden;"><thead  style="height:60px;background: #07D564 ;"><tr><th style="width:10%;background: #07D564 !important; text-align:left;color:white !important; font-weight: 600 !important; font-size:16px !important">No</th><th style="width:35%;text-align:left;color:white !important;background: #07D564 !important; font-weight: 600 !important; font-size:16px !important">Designer Comment</th><th style="width:40%;text-align:left;color:white !important;background: #07D564 !important; font-weight: 600 !important; font-size:16px !important">TWC Reply </th></tr></thead><tbody>';
             }
 
             $i = 1;
-            foreach ($commetns as $comment) {
+            foreach ($commetns as $index => $comment) {
+
                  $image = '';
                   $date = '';
                 $colour = 'white';
@@ -2133,40 +2161,86 @@ class TemporaryWorkController extends Controller
                 $k = 1;
                 $formorreply='';
                 $none='';
+                $commentList = '';
                 if ($comment->replay) {
+                    foreach($comment->replay as $key => $reply){
+                        $currentComment = "<div class='mb-3'><p>".$reply."</p>";
+                        $date = date("H:i d-m-Y", strtotime($comment->reply_date[$key]));
+
+                        if(count($comment->reply_image) > 0){
+
+                            $files = $comment->reply_image;
+                            $filteredFiles = array_filter($files , function($file) use ($key){
+                                return strpos( $file , ($key+1)."-");
+                            });
+
+                            foreach($filteredFiles as $file)
+                            {
+                                $extension = explode("." , $file);
+                                $fileExtension = $extension[sizeof($extension)-1];
+                                $imageExtension = ["jfif" , 'png' , 'jpg' , 'jpeg' , 'JFIF' , 'PNG' , 'JPG' , 'JPEG'];
+                                $fileHTML = '';
+                                if(in_array($fileExtension , $imageExtension)){
+                                    $fileHTML = '<a target="_blank" href="' . $path ."/". $file . '"><img src="' . asset($file) . '" width="50px" height="50px"/></a>';
+                                }else{
+                                    $fileHTML = '<a target="_blank" href="' . $path ."/". $file . '">View File Here</a>';
+                                }
+
+                                $currentComment .= $fileHTML;
+                                
+
+                            }
+
+
+                        }
+
+
+                        $currentComment .= "</br><span>".$date."</span></div>";
+                        
+                        $commentList .= $currentComment;
+
+
+                    }
+
+                    
+
+
+                    //previous code starts here
                     $none='display:block;';
                     // $none='display:none;';
                   
-                    // for ($j = 0; $j < count($comment->replay); $j++) {
-                        if ($comment->replay[0]) {
-                            $image = '';
-                            if (isset($comment->reply_image[0])) {
-                                $n = strrpos($comment->reply_image[0], '.');
-                                $ext = substr($comment->reply_image[0], $n + 1);
-                                if ($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg') {
-                                    $image = '<a target="_blank" href="' . $path . $comment->reply_image[0] . '"><img src="' . $path . $comment->reply_image[0] . '" width="50px" height="50px"/></a>';
-                                } else {
-                                    $image = '<a target="_blank" href="' . $path . $comment->reply_image[0] . '">View File</a>';
-                                }
-                            }
-                            $date = '';
-                            if (isset($comment->reply_date[0])) {
-                                $date = date("H:i d-m-Y", strtotime($comment->reply_date[0]));
-                            }
-                            // $list .= '<tr style="background:#08d56478;margin-top:1px"><td>R</td><td>' . $comment->replay[0] . '</td><td>' . $comment->reply_email . '<br>' . $image . '<br>' . $date . '</td><td></td><td>' .  date("d-m-Y", strtotime($comment->reply_date[0])) . '</td></tr><br>';
-                            $k++;
-                        }
-                    //}
-                        $formorreply=$comment->reply_email. '<br>'. $comment->replay[0].'<br>' . $image . '<br>' . $date;
+                    // // for ($j = 0; $j < count($comment->replay); $j++) {
+                    //     if ($comment->replay[0]) {
+                    //         $image = '';
+                    //         if (isset($comment->reply_image[0])) {
+                    //             $n = strrpos($comment->reply_image[0], '.');
+                    //             $ext = substr($comment->reply_image[0], $n + 1);
+                    //             if ($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg') {
+                    //                 $image = '<a target="_blank" href="' . $path . $comment->reply_image[0] . '"><img src="' . $path . $comment->reply_image[0] . '" width="50px" height="50px"/></a>';
+                    //             } else {
+                    //                 $image = '<a target="_blank" href="' . $path . $comment->reply_image[0] . '">View File Here</a>';
+                    //             }
+                    //         }
+                    //         $date = '';
+                    //         if (isset($comment->reply_date[0])) {
+                    //             $date = date("H:i d-m-Y", strtotime($comment->reply_date[0]));
+                    //         }
+                    //         // $list .= '<tr style="background:#08d56478;margin-top:1px"><td>R</td><td>' . $comment->replay[0] . '</td><td>' . $comment->reply_email . '<br>' . $image . '<br>' . $date . '</td><td></td><td>' .  date("d-m-Y", strtotime($comment->reply_date[0])) . '</td></tr><br>';
+                    //         $k++;
+                    //     }
+                    // //}
+                        //pervious code ends here
+                        // $formorreply=$comment->reply_email. '<br>'. $comment->replay[0].'<br>' . $image . '<br>' . $date;
+                        $formorreply=$comment->reply_email. '<br>'.$commentList;
                 }
 
                 $date_comment = date("d-m-Y", strtotime($comment->created_at->todatestring()));
                 if ($request->type != "permit" && $request->type != 'pc' && $request->type != 'qscan' && $comment->type != 'twc') {
 
                     $table .= '<tr style="background:' . $colour . '">
-                               <td>' . $i . '</td><td style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), rgba(7, 213, 100, 0.5);
-
-                               ">'. '<span style="font-weight: 600; font-size: 16px; margin-right:5px">Comment:</span>'. '<span style="font-size:16px; white-space:pre-wrap;">'.$comment->comment.'</span>' .$comment->sender_name.'<br>'. '<div style="display:flex; justify-content: space-between;"><span style="color: #9D9D9D">'.$comment->sender_email .'</span><span style="color: #9D9D9D">'. date('H:i d-m-Y', strtotime($comment->created_at)) . '</span></div><span style="color: #3A7DFF; font-size: 14px; font-weight: 400;">'.$a.'</span></td>
+                               <td>' . $i . '</td><td style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), rgba(7, 213, 100, 0.5);">'. 
+                               '<span style="font-weight: 600; font-size: 16px; margin-right:5px">Comment:</span>'. 
+                               '<span style="font-size:16px; white-space:pre-wrap;">'.$comment->comment.'</span>' .$comment->sender_name.'<br>'. '<div style="display:flex; justify-content: space-between;"><span style="color: #9D9D9D">'.$comment->sender_email .'</span><span style="color: #9D9D9D">'. date('H:i d-m-Y', strtotime($comment->created_at)) . '</span></div><span style="color: #3A7DFF; font-size: 14px; font-weight: 400;">'.$a.'</span></td>
                                <td style=" flex-direction: column;  padding-left: 15px !important;white-space:pre-wrap;"><div style="max-width:400px;white-space:pre-wrap;">
                                '.$formorreply.'
                                 <form style="'.$none.'"  method="post" action="' . route("temporarywork.storecommentreplay") . '" enctype="multipart/form-data">
@@ -2174,7 +2248,7 @@ class TemporaryWorkController extends Controller
                                    <input type="hidden" name="tempid" value="' . $request->temporary_work_id . '"/>
                                    <textarea type="text" class="replay" name="replay" style="padding-left:5px; padding-top:5px; width: 100%;float:left;     background-color: #f5f8fa;border-color: #f5f8fa;color: #5e6278;transition: color .2s ease,background-color .2s ease;" placeholder="Add comment here..."></textarea>
                                     <div class="submmitBtnDiv">
-                                        <input style="width:100%;margin-top:20px;float:left; background-color: #f5f8fa;border-color: #f5f8fa;color: #5e6278;margin-top:0px !important; transition: color .2s ease,background-color .2s ease;" type="file" name="replyfile" />
+                                        <input style="width:100%;margin-top:20px;float:left; background-color: #f5f8fa;border-color: #f5f8fa;color: #5e6278;margin-top:0px !important; transition: color .2s ease,background-color .2s ease;" multiple type="file" name="replyfile[]" />
                                         <input type="hidden" name="commentid" value="' . $comment->id . '"/>
                                         ' . $input . '
                                         

@@ -1872,6 +1872,33 @@ function hide1(event) {
         event.preventDefault();
     }
 }
-
+$(".permit-to-load-btn").on('click', function() {
+        // if (role == "visitor") {
+        //     alert("You are not allowed to add permit to load");
+        //     return false;
+        // }
+       id = $(this).attr('data-id');
+       desc = $(this).attr('data-desc');
+       type = $(this).attr('data-type');
+       $.ajax({
+           url: "{{route('permit.get')}}",
+           method: "get",
+           data: {
+               id: id,
+               desc: desc
+           },
+           success: function(res) {
+               $("#permitheading").html('Permit To Load');
+               $("#permitloadbutton").addClass('d-flex').show();
+               $("#permitbody").html(res);
+               $(".temp_work_id").val(id);
+               $("#permit_modal_id").css('display', 'block');
+               $("#permit_modal_id").modal('show');
+               type == "view" ? document.getElementById("permitloadbutton").classList.add("d-none") : document.getElementById("permitloadbutton").classList.remove("d-none") 
+           }
+       });
+   
+   })
+   
 </script>
 @endsection

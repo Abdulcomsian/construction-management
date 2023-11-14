@@ -1421,10 +1421,6 @@ class DesignerController extends Controller
                       $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->name . '</td>';
                       $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->design_checker_name . '</td>';
                       $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->date . '</td>';
-
-                      $file = explode('.',$uploads->file_name);
-                      $fileExtension = $file[sizeof($file)-1];
-                      $imgExtension = ["jfif" , "JFIF" , "png" , "PNG" , "JPG" , "jpg" , "JPEG" , "jpeg"];
                       $list .= '<td style="text-align: left; vertical-align: middle;"><a href="'.asset($uploads->file_name).'">View</a></td>  ';
                     
                   }

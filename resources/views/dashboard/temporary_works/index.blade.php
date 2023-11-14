@@ -4558,6 +4558,7 @@ $tempWorkClass = "d-none";
     $(document).ready(function() {
    
        $(".showonclick").hide();
+       
    })
 </script>
 <script src="{{asset('js/dropzone.js')}}"></script>
@@ -4568,10 +4569,63 @@ $tempWorkClass = "d-none";
        init: function() {
            // Set up any event handlers
            this.on("queuecomplete", function(file) {
-               location.reload();
+            alert("hhere boss i am here");
+            //    location.reload();
            });
        }
    };
+
+   let dFormData = new FormData();
+   var myDropzone = new Dropzone("#rams_file", { 
+            paramName: "file", 
+            maxFilesize: 2, 
+            maxFiles: 1,
+            acceptedFiles: '*', 
+            addRemoveLinks: true,
+            url : '/uploads',
+            init: function() {
+                this.on("addedfile", function(file) { 
+                    // document.querySelector(".rams_file").files = file;
+                    dFormData.append("file", file); 
+                });
+                this.on("removedfile", function(file) { 
+                    dFormData.delete('file');
+                });
+            }
+        });
+
+    $(document).on("submit" , "#dform" , function(e){
+        e.preventDefault();
+        dFormData.append("rams_no", $("#rams_no").val());
+        dFormData.append("rams_name", $("#rams_name").val());
+        dFormData.append("rams_design_checker", $("#rams_design_checker").val());
+        dFormData.append("rams_date", $("#rams_date").val());
+        dFormData.append("tempworkid", $("#tempworkid").val());
+        dFormData.append("type", $("#type").val());
+        dFormData.append("_token" , "{{csrf_token()}}");
+        
+        myDropzone.processQueue();
+
+        $.ajax({
+        type: 'POST',
+        url: '{{ route("tempwork.upload") }}',
+        data: dFormData,
+        processData: false, 
+        contentType: false,
+        success: function(res) {
+            if(res.status == true){
+                window.location.reload();
+            }else{
+                toastr.error(res.error);
+            }
+        },
+        error: function(error) {
+            console.error(error);
+        }
+    });
+    })
+
+
 </script>
 <script>
     $(".uploadfile").on('click', function() { 
@@ -5276,10 +5330,35 @@ $(document).on('click','.drawingshare',function(e){
                id
            },
            success: function(res) {
-               $("#risk_assessment_body").html(res);
+               $("#risk_assessment_body").html(res.list);
+               $(".risk-assesment-form-holder").html(res.form);
                $("#risk_assessment_modal_id").modal('show'); 
            }
        });
+   })
+
+
+   $(document).on("click" , ".add-risk-assesment-btn" , function(e){
+        e.preventDefault();
+        let form = document.querySelector("#risk-assesment-form");
+        let formData = new FormData(form);
+        formData.append("_token" , "{{csrf_token()}}");
+
+        $.ajax({
+            type : "POST",
+            url : "{{route('riskassesment.store')}}",
+            data : formData,
+            processData: false,
+            contentType: false,
+            success: function(res){
+                if(res.status){
+                    window.location.reload();
+                }else{
+                    toastr.error(res.error);
+                }
+            }
+        })
+
    })
    
    

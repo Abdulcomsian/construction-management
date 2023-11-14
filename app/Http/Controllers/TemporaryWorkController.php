@@ -1628,23 +1628,27 @@ class TemporaryWorkController extends Controller
     //upload file and drawings
     public function temp_file_uplaod(Request $request)
     {
+        // dd($request->all());
         try {
             $filePath = HelperFunctions::temporaryworkuploadPath();
             $file = $request->file('file');
+            // dd($file);
             $imagename = HelperFunctions::saveFile(null, $file, $filePath);
             $model = new TempWorkUploadFiles();
             $model->file_name = $imagename;
             $model->file_type = $request->type;
             $model->temporary_work_id = $request->tempworkid;
+            $model->name = $request->rams_name;
+            $model->design_checker_name = $request->rams_design_checker;
+            $model->date = $request->rams_date;
             if ($model->save()) {
                 if (isset($request->rams_no) && $request->type == 3) {
-
                     TemporaryWork::find($request->tempworkid)->update(['rams_no' => $request->rams_no]);
                 }
-                return response()->json(['success' =>  $imagename]);
+                return response()->json(['status' => true , 'success' =>  $imagename]);
             }
-        } catch (\Exception $exception) {
-            return response()->json(['error' =>  $imagename]);
+        } catch (\Exception $e) {
+            return response()->json(['status' => false ,'error' =>  $imagename , 'msg' => $e->getMessage()]);
         }
     }
     //load scan file against temporary work

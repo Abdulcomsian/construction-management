@@ -25,11 +25,18 @@
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15" style="padding-top:50px !important">
                 <!--begin:Form-->
                 
-               <form id="dropzoneForm" method="post" class="dropzone" action="{{route('tempwork.upload')}}"  enctype="multipart/form-data">
+               {{-- <form id="dropzoneForm" method="post" class="dropzone" action="{{route('tempwork.upload')}}"  enctype="multipart/form-data"> --}}
+                <form  method="post" action="{{route('tempwork.upload')}}" id="dform"  enctype="multipart/form-data">
                     @csrf
-                    <input class="d-none form-control" style="width: 85% !important;position: absolute;top:0px;left:47px" type="text" name="rams_no" id="rams_no" placeholder="Enter Rams No">
+                    <input type="file" class="d-none rams_file" name="file">
+                    <input class="d-none form-control mb-2" style="width: 85% !important;" type="text" name="rams_no" id="rams_no" placeholder="Enter Rams No">
+                    <input class="form-control mb-2" style="width: 85% !important;" type="text" name="rams_name" id="rams_name" placeholder="Enter Name">
+                    <input class="form-control mb-2" style="width: 85% !important;" type="text" name="rams_design_checker" id="rams_design_checker" placeholder="Enter Design Checker Name">
+                    <input class="form-control mb-2" style="width: 85% !important;" type="date" name="rams_date" id="rams_date" placeholder="Enter date">
                     <input type="hidden" name="tempworkid" id="tempworkid">
                     <input type="hidden" name="type" id="type">
+                    <div style="width: 85% !important; height: 180px; position: relative;" class="rams_file dropzone" id="rams_file"></div>
+                    <button class="btn text-white my-2" style="background: #02b654!important" type="submit">Submit</button>
                </form>
                 <!--end:Form-->
                 <div id="uploadfiles_popup">

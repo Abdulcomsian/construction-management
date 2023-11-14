@@ -4650,6 +4650,12 @@ $tempWorkClass = "d-none";
            },
            success: function(res) {
                 //  res=JSON.parse(res);
+                console.log(type)
+                if(type.value == 2 ){
+                    document.querySelector("#dcc-extra-fields").classList.remove("d-none")
+                }else{
+                    document.querySelector("#dcc-extra-fields").classList.add("d-none")
+                }
                $("#uploadfiles_popup").html(res);
             //    $("#comment_modal_id").modal('show');
            }

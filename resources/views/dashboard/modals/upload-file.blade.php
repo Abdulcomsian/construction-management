@@ -30,9 +30,12 @@
                     @csrf
                     <input type="file" class="d-none rams_file" name="file">
                     <input class="d-none form-control mb-2" style="width: 85% !important;" type="text" name="rams_no" id="rams_no" placeholder="Enter Rams No">
-                    <input class="form-control mb-2" style="width: 85% !important;" type="text" name="rams_name" id="rams_name" placeholder="Enter Name">
-                    <input class="form-control mb-2" style="width: 85% !important;" type="text" name="rams_design_checker" id="rams_design_checker" placeholder="Enter Design Checker Name">
-                    <input class="form-control mb-2" style="width: 85% !important;" type="date" name="rams_date" id="rams_date" placeholder="Enter date">
+                    <div id="dcc-extra-fields" class="d-none">
+                        <input class="form-control mb-2" style="width: 85% !important;" type="text" name="rams_name" id="rams_name" placeholder="Enter Name">
+                        <input class="form-control mb-2" style="width: 85% !important;" type="text" name="rams_design_checker" id="rams_design_checker" placeholder="Enter Design Checker Name">
+                        <input class="form-control mb-2" style="width: 85% !important;" type="date" name="rams_date" id="rams_date" placeholder="Enter date">
+
+                    </div>
                     <input type="hidden" name="tempworkid" id="tempworkid">
                     <input type="hidden" name="type" id="type">
                     <div style="width: 85% !important; height: 180px; position: relative;" class="rams_file dropzone" id="rams_file"></div>

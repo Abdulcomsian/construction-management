@@ -1628,7 +1628,6 @@ class TemporaryWorkController extends Controller
     //upload file and drawings
     public function temp_file_uplaod(Request $request)
     {
-        // dd($request->all());
         try {
             $filePath = HelperFunctions::temporaryworkuploadPath();
             $file = $request->file('file');

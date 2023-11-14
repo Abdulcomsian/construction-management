@@ -1509,6 +1509,43 @@ class DesignerController extends Controller
                   }
                   $list .= '</tbody></table>';
               }
+
+             
+
+        }
+
+        $DesignerUploads = TempWorkUploadFiles::where(['temporary_work_id' => $tempworkid, 'file_type' => 3])->orderBy('id','desc')->get();  
+
+        if($DesignerUploads->count()){
+            $list .= '<table class="table table-hover" style="margin-top: 20px;"><thead><tr>';
+                  $list .= '<table class="table" style="border-radius: 8px; overflow: hidden;"><thead><tr style="background: #07D564">';
+                 
+                  $list .= '<th style="color: white !important;">Name</th>
+                            <th style="color: white !important;">Checker Name</th>
+                            <th style="color: white !important;">Date</th>
+                            <th style="color: white !important;">File</th>
+                            ';
+
+                  $list .= '</tr></thead><tbody>';
+                  $background='';
+                  
+                  $userList=[];
+                  foreach ($DesignerUploads as $uploads) {
+                      $list .= '<tr class=""  style="background:' . $background . '">';
+                      $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->name . '</td>';
+                      $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->design_checker_name . '</td>';
+                      $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->date . '</td>';
+
+                      $file = explode('.',$uploads->file_name);
+                      $fileExtension = $file[sizeof($file)-1];
+                      $imgExtension = ["jfif" , "JFIF" , "png" , "PNG" , "JPG" , "jpg" , "JPEG" , "jpeg"];
+                      if(in_array($fileExtension , $imgExtension)){
+                          $list .= '<td style="text-align: left; vertical-align: middle;"><img src="'.asset($uploads->file_name).'" style="width: 40px; height: 40px"></td>';
+                    }else{
+                            $list .= '<td style="text-align: left; vertical-align: middle;><a href="'.asset($uploads->file_name).'"><img src="'.asset('images/file-icon.png').'"  style="width: 40px; height: 40px"></td>';
+                      }
+                  }
+                  $list .= '</tbody></table>';
         }
         echo $list;
     }
@@ -2177,6 +2214,8 @@ class DesignerController extends Controller
 
     public function risk_assessment_store(Request $request)
     {
+        try{
+        // dd($request->all()); // nomi nomi ha ji
         if($request->riskccemails)
        { $cc_emails = HelperFunctions::ccEmails($request->riskccemails);}
         else
@@ -2242,6 +2281,7 @@ class DesignerController extends Controller
             }
              
                 
+            
             $notify_admins_msg = [
                     'greeting' => 'Designer Upload Document',
                     'subject' => $subject,
@@ -2260,15 +2300,56 @@ class DesignerController extends Controller
                     'action_url' => '',
                 ];
                 Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg,'','',$cc_emails));
-            toastSuccess('Risk Assessment Uploaded Successfully!');
-            return Redirect::back();
+
+                toastSuccess('Risk Assessment Uploaded Successfully!');
+                if($request->ajax()){
+                    return response()->json(["status" => true , "msg" => "Risk Assesment Uploaded Successfully"]);
+                }else{
+                    return Redirect::back();
+                }
+            }
+        }catch(\Exception $e){
+            if($request->ajax()){
+                return response()->json(["status" => false , "error" => $e->getMessage()]);
+            }else{
+                return redirect::back()->with(["status" => false ,  "error" => $e->getMessage()]);
+            }
         }
    }
 
    public function get_assessment(Request $request)
    {
      $riskassessment=TempWorkUploadFiles::where(['temporary_work_id'=>$request->id])->whereIn('file_type',[5,6])->get();
+    //  dd($riskassessment);
      $list='';
+
+     $form = '<div style="padding: 10px;">
+                <form id="risk-assesment-form" enctype="multipart/form-data">
+                    <input type="hidden" name="tempworkid" value="'.$request->id.'" >
+                    <input type="hidden" name="designermail" value="'.auth()->user()->email.'" >
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <select class="form-select form-control form-control-solid" name="type" required="">
+                                        <option value="" disabled=""></option>
+                                        <option value="" selected="" disabled="">Risk Assessment-Calculations</option>
+                                        <option value="5">Risk Assessment</option>
+                                        <option value="6">Calculations (Design Notes)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1" style="margin: 5px;">Select Document:</label><br>
+                                    <input type="file" class="form-control form-control-solid" id="riskassesmentfile" name="riskassesmentfile" required="required">
+                                </div>
+                        </div>
+                    </div>
+                    <div class="row" style="background:white;margin: 0 4px;">
+                            <div class="col"><button type="button" class="btn btn-primary add-risk-assesment-btn mt-2">Upload</button></div>
+                    </div>
+                </form>
+            </div>';
      $i=1;
      $path = config('app.url');
      foreach($riskassessment as $risk){
@@ -2283,7 +2364,8 @@ class DesignerController extends Controller
         $list.='<tr style="text-align:center;"><td>'.$i.'</td><td>'.$risk->created_by.'</td><td>'.$type.'</td><td> <a  href="' . $path . $risk->file_name . '" target="_blank">View</a></td><td>'.date('d-m-Y H:i:s',strtotime($risk->created_at)).'</td></tr>';
         $i++;
      }
-     return $list;
+    //  return $list
+     return response()->json(["list" => $list , "form" => $form]);
    }
 
    public function update_drawing_checker(Request $request){

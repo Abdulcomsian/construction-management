@@ -1400,6 +1400,35 @@ class DesignerController extends Controller
         //     }
         // }
 
+        $DesignerUploads = TempWorkUploadFiles::where(['temporary_work_id' => $tempworkid, 'file_type' => 2])->orderBy('id','desc')->get();  
+
+        if($DesignerUploads->count()){
+            $list .= '<table class="table table-hover" style="margin-top: 20px;"><thead><tr>';
+                  $list .= '<table class="table" style="border-radius: 8px; overflow: hidden;"><thead><tr style="background: #07D564">';
+                 
+                  $list .= '<th style="color: white !important;">Name</th>
+                            <th style="color: white !important;">Checker Name</th>
+                            <th style="color: white !important;">Date</th>
+                            <th style="color: white !important;">File</th>
+                            ';
+
+                  $list .= '</tr></thead><tbody>';
+                  $background='';
+                  
+                  $userList=[];
+                  foreach ($DesignerUploads as $uploads) {
+                      $list .= '<tr class=""  style="background:' . $background . '">';
+                      $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->name . '</td>';
+                      $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->design_checker_name . '</td>';
+                      $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->date . '</td>';
+                      $list .= '<td style="text-align: left; vertical-align: middle;"><a href="'.asset($uploads->file_name).'">View</a></td>  ';
+                    
+                  }
+                  $list .= '</tbody></table>';
+        }
+
+        
+
             $DesignerUploads = TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 1, 'created_by'=>$designearray[0]])->orderBy('id','desc')->get();  
             // dd($DesignerUploads);          
             $i = 1;
@@ -1514,39 +1543,7 @@ class DesignerController extends Controller
 
         }
 
-        $DesignerUploads = TempWorkUploadFiles::where(['temporary_work_id' => $tempworkid, 'file_type' => 3])->orderBy('id','desc')->get();  
-
-        if($DesignerUploads->count()){
-            $list .= '<table class="table table-hover" style="margin-top: 20px;"><thead><tr>';
-                  $list .= '<table class="table" style="border-radius: 8px; overflow: hidden;"><thead><tr style="background: #07D564">';
-                 
-                  $list .= '<th style="color: white !important;">Name</th>
-                            <th style="color: white !important;">Checker Name</th>
-                            <th style="color: white !important;">Date</th>
-                            <th style="color: white !important;">File</th>
-                            ';
-
-                  $list .= '</tr></thead><tbody>';
-                  $background='';
-                  
-                  $userList=[];
-                  foreach ($DesignerUploads as $uploads) {
-                      $list .= '<tr class=""  style="background:' . $background . '">';
-                      $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->name . '</td>';
-                      $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->design_checker_name . '</td>';
-                      $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->date . '</td>';
-
-                      $file = explode('.',$uploads->file_name);
-                      $fileExtension = $file[sizeof($file)-1];
-                      $imgExtension = ["jfif" , "JFIF" , "png" , "PNG" , "JPG" , "jpg" , "JPEG" , "jpeg"];
-                      if(in_array($fileExtension , $imgExtension)){
-                          $list .= '<td style="text-align: left; vertical-align: middle;"><img src="'.asset($uploads->file_name).'" style="width: 40px; height: 40px"></td>';
-                    }else{
-                            $list .= '<td style="text-align: left; vertical-align: middle;><a href="'.asset($uploads->file_name).'"><img src="'.asset('images/file-icon.png').'"  style="width: 40px; height: 40px"></td>';
-                      }
-                  }
-                  $list .= '</tbody></table>';
-        }
+        
         echo $list;
     }
 

@@ -12,15 +12,18 @@ class PermitNotification extends Notification
     use Queueable;
     private $offerData;
     public $type;
+    public $designerUrl;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($offerData,$type=null)
+    public function __construct($offerData,$type=null, $designerUrl = null)
     {
         $this->offerData = $offerData;
         $this->type=$type;
+        $this->designerUrl = $designerUrl;
+        // dd($designerUrl);
     }
 
     /**
@@ -45,7 +48,7 @@ class PermitNotification extends Notification
         return (new MailMessage)
             ->greeting($this->offerData['greeting'])
             ->subject($this->offerData['subject'])
-            ->view('mail.scaffoldmail', ['details' => $this->offerData,'type'=>$this->type])
+            ->view('mail.scaffoldmail', ['details' => $this->offerData,'type'=>$this->type , "designerUrl" => $this->designerUrl])
             ->attach(
                 public_path('pdf/' . $this->offerData['body']['filename']),
                 [

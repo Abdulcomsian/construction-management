@@ -4893,7 +4893,7 @@ class TemporaryWorkController extends Controller
             'action_url' => '',
         ];
         //get all design breifs who have not submiteed ye design
-        $temp_design_data=TemporaryWork::whereDoesntHave('checkdesignuploadfile', function ($q) {
+        $temp_design_data=TemporaryWork::where('id' , 115)->whereDoesntHave('checkdesignuploadfile', function ($q) {
                 $q->where('file_type',1);
              })->where('status',1)->chunk(50, function ($tempwork) use ($notify_msg,$current) {
             foreach ($tempwork as $temp) {
@@ -4902,18 +4902,19 @@ class TemporaryWorkController extends Controller
                 //check date difference
                 $to = \Carbon\Carbon::createFromFormat('Y-m-d', $temp->design_required_by_date);
                 $diff_in_days = $to->diffInDays($current);
+
+                $designerUrl = route('designer.uploaddesign', [Crypt::encrypt($temp->id), 'mail' => $temp->designer_company_email]);
                 if($diff_in_days >= 3 && $diff_in_days <= 3)
                 {
                      $notify_msg['body']['text'] = str_replace("#days",'3', $notify_msg['body']['text']);
-                     Notification::route('mail',$temp->twc_email)->notify(new PermitNotification($notify_msg,'tempwork'));
-                     Notification::route('mail',$temp->designer_company_email)->notify(new PermitNotification($notify_msg,'tempwork'));
+                     Notification::route('mail',$temp->designer_company_email)->notify(new PermitNotification($notify_msg,'tempwork' , $designerUrl));
+                     Notification::route('mail',$temp->twc_email)->notify(new PermitNotification($notify_msg ,'tempwork' ));
                 }
-
                 if($diff_in_days > 5 && $diff_in_days < 8)
                 {
                     $notify_msg['body']['text'] = str_replace("#days",'7', $notify_msg['body']['text']);
+                    Notification::route('mail',$temp->designer_company_email)->notify(new PermitNotification($notify_msg,'tempwork', $designerUrl));
                     Notification::route('mail',$temp->twc_email)->notify(new PermitNotification($notify_msg,'tempwork'));
-                    Notification::route('mail',$temp->designer_company_email)->notify(new PermitNotification($notify_msg,'tempwork'));
                 }
                 
                

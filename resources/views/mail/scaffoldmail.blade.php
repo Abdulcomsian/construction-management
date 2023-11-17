@@ -33,11 +33,15 @@
                                                                    </p>
                                                                    @else
                                                                    <p>
+                                                                    @php
+                                                                    $tempUrl = isset($designerUrl) ? $designerUrl :  url('temporary_works');
+                                                                    @endphp
                                                                     @if($type=="tempwork")
-                                                                     <a href="{{url('temporary_works')}}">View Design Brief</a>
+
+                                                                     <a href="{{$tempUrl}}">View Design Brief</a>
 
                                                                     @else
-                                                                    <a href="{{url('temporary_works')}}">{{$details['action_text']}}</a>
+                                                                    <a href="{{$tempUrl}}">{{$details['action_text']}}</a>
                                                                     @endif
                                                                    </p>
                                                                    @endif

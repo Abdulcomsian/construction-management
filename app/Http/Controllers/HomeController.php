@@ -47,16 +47,18 @@ class HomeController extends Controller
             if($nomination)
             {
                 $model=new NominationComment();
-                $model->email=$user->email;
-                $model->comment="User has Clicked on Nomination from email";
-                $model->type="Nomination Read";
-                // $model->send_date=date('Y-m-d H:i:s');
-                $model->read_date=date('Y-m-d  H:i:s');
-                $model->user_id=$user->id;
-                $model->project_id=$projectid;
-                $model->nomination_id=$nomination->id;
-                $model->save();
-
+                $model=NominationComment::find(['project_id'=>$projectid, 'user_id'=>$user->id, 'nomination_id'=>$nomination->id]);
+                if(!$model){
+                    $model->email=$user->email;
+                    $model->comment="User has Clicked on Nomination from email";
+                    $model->type="Nomination Read";
+                    // $model->send_date=date('Y-m-d H:i:s');
+                    $model->read_date=date('Y-m-d  H:i:s');
+                    $model->user_id=$user->id;
+                    $model->project_id=$projectid;
+                    $model->nomination_id=$nomination->id;
+                    $model->save();
+                }
                  return view('nomination',compact('nomination','user'));
             }elseif($latest_nomination)
             {

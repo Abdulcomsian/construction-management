@@ -38,7 +38,7 @@
                     <h1 class="mb-3" id="permitheading">Permit To Load</h1>
                     <!--end::Title-->
                 </div>
-                @if(!auth()->user()->hasRole('visitor'))
+                @if(auth()->check() && !auth()->user()->hasRole('visitor'))
 
                 @if(isset($scantempwork) && $scantempwork=='')
                 <div class=" text-center" id="permitloadbutton">

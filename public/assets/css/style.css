@@ -11,6 +11,10 @@
     /* Safari and Chrome */
 }
 
+/* .drawer.drawer-start {
+    transform: translateX(0%);
+} */
+
 @keyframes blink {
     from {
         background-color: red;

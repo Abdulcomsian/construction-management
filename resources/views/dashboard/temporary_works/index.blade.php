@@ -5528,6 +5528,10 @@ document.querySelector('.mainMenu-link').addEventListener('click', function(e){
     e.preventDefault();
     asideContainer.style.display = 'block';
     overlay.classList.remove('d-none')
+    if (document.getElementById('kt_aside').classList.contains('aside-hoverable')) {
+        document.querySelector('.drawer.drawer-start').style.transform = 'translateX(0%)';
+        document.getElementById('kt_aside_logo').style.display = 'flex'
+    }
 });
 
 overlay.addEventListener('click', () => {

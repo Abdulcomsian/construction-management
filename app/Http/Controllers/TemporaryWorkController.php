@@ -1608,7 +1608,7 @@ class TemporaryWorkController extends Controller
     public function get_rams(Request $request)
     {
         try { 
-            $data = TempWorkUploadFiles::where(['temporary_work_id' => $request->tempworkid])->get();
+            $data = TempWorkUploadFiles::where(['temporary_work_id' => $request->tempworkid , 'file_type' => 3])->get();
             $list = '';
             $app_url = env('APP_URL');
             $list.= '<table class="table table-hover" style="border-collapse:separate;border-spacing:0 5px;"><thead style="height:80px"><tr><th>No</th><th>RAMS File</th><th style="width:120px;">Date</th></tr></thead><tbody>';
@@ -2894,6 +2894,7 @@ class TemporaryWorkController extends Controller
             $permited = PermitLoad::with('blocks')->where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->where('status','!=',7)->where('status','!=',9)->latest()->get();
              $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->latest()->get();
           }else{
+            
               $permited = PermitLoad::with('blocks')->where(['temporary_work_id' => $tempid])->where('status','!=',3)->where('status','!=',6)->latest()->get();
               $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->latest()->get();
           }

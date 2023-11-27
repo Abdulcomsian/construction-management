@@ -22,7 +22,7 @@ License: -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" href="{{asset('assets/media/logos/favicon.ico')}}" />
-    <link rel="stylesheet" href="http://127.0.0.1:8000/assets/plugins/custom/summernote/summernote-bs4.min.css">
+    <link rel="stylesheet" href="{{asset('assets/plugins/custom/summernote/summernote-bs4.min.css')">
 
     
     <style>

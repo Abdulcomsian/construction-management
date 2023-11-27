@@ -1365,6 +1365,7 @@
             $("#sigimage").show();
             $("#pdfChecked").prop('checked', false);
             $("#flexCheckChecked").prop('checked', false);
+            //  $("#flexCheckChecked").removeAttr('required');
             $("#signtype").val(0);
             $("#pdfsign").val(0);
             $("#Drawtype").val(1);
@@ -1372,7 +1373,7 @@
             // $("#pdfsign").removeClass('d-flex').addClass("d-none");
             // $(".customSubmitButton").removeClass("hideBtn");
             // $(".customSubmitButton").addClass("showBtn");
-            //  $("input[name='pdfsign']").removeAttr('required');
+             $("input[name='namesign']").removeAttr('required');
             // $("input[name='namesign']").attr('required','required');
             $("#clear").show();
             $("div#pdfsign").removeClass('d-flex').addClass("d-none");
@@ -1688,6 +1689,7 @@
         // }
         $('#submitbutton').prop('disabled', true);
         $("#submitbutton").removeClass("btn-primary").addClass("btn-secondary"); //.prop("disabled", true);
+        
         $("#desingform").append(input);
         $("#desingform").submit();
     });

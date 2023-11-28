@@ -4580,8 +4580,10 @@ $tempWorkClass = "d-none";
             paramName: "file", 
             maxFilesize: 2, 
             maxFiles: 1,
-            acceptedFiles: '*', 
-            addRemoveLinks: true,
+            acceptedFiles: '* ,.msg', 
+            addRemoveLinks: true,   
+            createImageThumbnails: false,
+            autoProcessQueue: false,
             url : '/uploads',
             init: function() {
                 this.on("addedfile", function(file) { 

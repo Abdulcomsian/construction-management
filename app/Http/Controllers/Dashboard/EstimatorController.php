@@ -654,7 +654,7 @@ class EstimatorController extends Controller
     }
     //estimator edit form
     public function edit($id)
-    {
+    { 
          $estimatorId= (int)$id;
          try {
             $user = auth()->user();
@@ -760,10 +760,9 @@ class EstimatorController extends Controller
                     unset($request[$key]);
                 }
             }
-
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token','_method','date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno', 'projname','preloaded','namesign','signtype','pdfsigntype','approval','req_type','req_name','req_check','req_notes','designers','suppliers','supplier_company_emails','designer_company_emails','action', 'display_sign', 'signtype', 'pdfsigntype', 'namesign', 'online_designers', 'online_suppliers');
+            $all_inputs  = $request->except('unload_images', '_token','_method','date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno', 'projname','preloaded','namesign','signtype','pdfsigntype','approval','req_type','req_name','req_check','req_notes','designers','suppliers','supplier_company_emails','designer_company_emails','action', 'display_sign', 'signtype', 'pdfsigntype', 'namesign', 'online_designers', 'online_suppliers');
             //if design req details is exist
             if(isset($request->req_name))
             {
@@ -1165,7 +1164,7 @@ class EstimatorController extends Controller
 
     //Estimator desinger page from designer side
     public function estimatorDesignerClient(Request $request,$id)
-    {
+    { 
         try
         {
             $code=\Crypt::decrypt($request->code);

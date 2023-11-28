@@ -14,6 +14,7 @@ $tempWorkClass = "d-none";
 @php use App\Utils\HelperFunctions; @endphp
 @section('styles')
 <style>
+    
     @media screen and (min-width: 961px) {
         .menu_items {
             max-height:67px;
@@ -506,7 +507,11 @@ $tempWorkClass = "d-none";
         left: 0;
         z-index: 9;
     }
-
+    @media (max-width: 1275px){
+        .resp{
+            margin-left: 24px !important;
+        }
+    }
 
 
 </style>
@@ -2566,7 +2571,7 @@ $tempWorkClass = "d-none";
                                     <td style="min-width: 254px; max-width: 80px;padding:10px 0px !important;">
                                         <div class="d-flex">
                                             <span class="col-5 titleColumn">Drawings & Designs:</span>
-                                            <div class="d-flex col-6" style="column-gap:1rem;margin-left: 28px">
+                                            <div class="d-flex col-6 resp" style="column-gap:1rem;margin-left: 28px">
                                                 <div
                                                     style="background: #07D56426;padding: 4px; border-radius: 4px;width: 20px; height:20px;">
                                                     <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}"
@@ -2628,7 +2633,7 @@ $tempWorkClass = "d-none";
                                             </div>
                                         </div>
 
-                                        <div class="row my-2">
+                                       <div class="row my-2">
                                             <span class="col-6 titleColumn">Permit to load:</span>
                                             <div class="d-flex col-sm-6" id="ptl"
                                                 style="column-gap: 1rem;padding-left:3px;">

@@ -31,6 +31,7 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+        
         if(Auth::user()->hasRole('estimator'))
         {
             return redirect('Estimator/estimator');
@@ -39,6 +40,9 @@ class AuthenticatedSessionController extends Controller
         {
         return redirect(route('awarded_jobs'));
             // return redirect('adminDesigner/create-nomination/'.Auth::user()->id);
+        }
+        elseif(Auth::user()->hasRole('Designer and Design Checker') || Auth::user()->hasRole('company')){
+            return redirect(url('designer/designer'));
         }
         else{
            return redirect()->intended(RouteServiceProvider::HOME);

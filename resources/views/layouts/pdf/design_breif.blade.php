@@ -161,8 +161,9 @@
                     <!-- <tr>
                         <td colspan="4" style="font-size:14px;white-space:pre-wrap;">
                             <b>
+                                
                             @php
-                                echo substr($description, 0, 1000); // Display the first 1000 characters of the description
+                                echo substr($description ?? "", 0, 1000); // Display the first 1000 characters of the description
                             @endphp
                             </b>
                         </td>
@@ -171,7 +172,7 @@
                         <td colspan="4" style="font-size:14px;white-space:pre-wrap;">
                             <b>
                             @php
-                                echo substr($description, 1000); // Display the remaining characters of the description
+                                echo substr($description ?? "", 1000) ; // Display the remaining characters of the description
                             @endphp
                             </b>
                         </td>
@@ -183,7 +184,7 @@
         <div class="tableDiv paddingTable" style="font-size:14px;white-space:pre-wrap;border:1px black;border-style: none solid solid solid;padding:5px 10px 5px 10px;">
                             @php
                                 // echo nl2br($data['description_temporary_work_required']);
-                                echo $description;
+                                echo $description ?? "";
                                 @endphp
         </div>
         <div class="tableDiv paddingTable" style="margin: 20px 0px;">
@@ -544,7 +545,7 @@
                                  @endif
                             </td>
                         </tr>
-                        @if($data['name3'])
+                        @if(isset($data['name3']))
                             <tr>
                                 <td style="width: 200px; font-size:12px;"> {{$data['name3']}}</td>
                                 <td style="width: 200px; font-size:12px;">{{$data['company3']}}</td>
@@ -559,7 +560,7 @@
                                 </td>
                             </tr>
                         @endif
-                        @if($data['name4'])
+                        @if(isset($data['name4']))
                             <tr>
                                 <td style="width: 200px; font-size:12px;"> {{$data['name4']}}</td>
                                 <td style="width: 200px; font-size:12px;">{{$data['company4']}}</td>
@@ -574,7 +575,7 @@
                                 </td>
                             </tr>
                         @endif
-                        @if($data['name5'])
+                        @if(isset($data['name5']))
                             <tr>
                                 <td style="width: 200px; font-size:12px;"> {{$data['name5']}}</td>
                                 <td style="width: 200px; font-size:12px;">{{$data['company5']}}</td>

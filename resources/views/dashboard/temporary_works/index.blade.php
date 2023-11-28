@@ -2207,7 +2207,7 @@ $tempWorkClass = "d-none";
                                                                     style="background: #07D56426;padding: 4px; border-radius: 4px;width: 20px; height:20px;">
                                                                     <p class="uploaddrawing cursor-pointer"
                                                                         data-id="{{$item->id}}" data-type="1"
-                                                                        style="margin-bottom:0px;font-weight: 400;position: relative !important;bottom:3px !important; left: 1px">
+                                                                        style="margin-bottom:0px;font-weight: 400;position: relative !important;bottom:2px !important; left: 1px">
                                                                         <span style="font-size: 14px; color: #07D564;"
                                                                             class="fa fa-plus"
                                                                             title="Upload Drawings"></span>
@@ -2566,7 +2566,7 @@ $tempWorkClass = "d-none";
                                     <td style="min-width: 254px; max-width: 80px;padding:10px 0px !important;">
                                         <div class="d-flex">
                                             <span class="col-5 titleColumn">Drawings & Designs:</span>
-                                            <div class="d-flex col-6" style="column-gap:1rem;margin-left: 32px">
+                                            <div class="d-flex col-6" style="column-gap:1rem;margin-left: 28px">
                                                 <div
                                                     style="background: #07D56426;padding: 4px; border-radius: 4px;width: 20px; height:20px;">
                                                     <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}"
@@ -2712,7 +2712,7 @@ $tempWorkClass = "d-none";
                                                                 @endif
                                                                 <span
                                                                     class="label label-lg font-weight-bold label-inline"
-                                                                    style="background: #919191ba;position: relative; top:1px; right:0px; color: white;font-size:10px; padding: 3px 25px;">0</span>
+                                                                    style="background: #919191ba;position: relative; top:2px; right:0px; color: white;font-size:10px; padding: 3px 25px;">0</span>
                                                                 @endif
                                                             </span>
                                                             </span>
@@ -2748,7 +2748,7 @@ $tempWorkClass = "d-none";
                                                     <div
                                                         style="background: #07D56426;padding: 4px; border-radius: 4px;width: 20px; height:20px;">
                                                         <p class="permit-to-unload cursor-pointer"
-                                                            style="font-weight: 400;font-size: 14px;position: relative !important;bottom: 4px;"
+                                                            style="font-weight: 400;font-size: 14px;position: relative !important;bottom: 2px;"
                                                             data-id="{{Crypt::encrypt($item->id)}}"
                                                             data-desc="{{$item->design_requirement_text}}"><span
                                                                 style="font-size: 14px; color: #07D564;"
@@ -2764,7 +2764,7 @@ $tempWorkClass = "d-none";
                                                                 style="background: green;position: relative; top:1px; right:0px; color: white;font-size:10px; padding: 3px 25px;">{{count($item->unloadpermits)}}</span>
                                                             @else
                                                             <span class="label label-lg font-weight-bold label-inline"
-                                                                style="background: #919191ba;position: relative; top:1px; right:0px; color: white;font-size:10px; padding: 3px 25px;">0</span>
+                                                                style="background: #919191ba;position: relative; top:3px; right:0px; color: white;font-size:10px; padding: 3px 25px;">0</span>
                                                             @endif
                                                         </span>
                                                         </span>

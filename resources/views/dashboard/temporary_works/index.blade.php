@@ -2571,7 +2571,7 @@ $tempWorkClass = "d-none";
                                     <td style="min-width: 254px; max-width: 80px;padding:10px 0px !important;">
                                         <div class="d-flex">
                                             <span class="col-5 titleColumn">Drawings & Designs:</span>
-                                            <div class="d-flex col-6 resp" style="column-gap:1rem;margin-left: 28px">
+                                            <div class="d-flex col-6 resp" style="column-gap:1rem;margin-left: 32px">
                                                 <div
                                                     style="background: #07D56426;padding: 4px; border-radius: 4px;width: 20px; height:20px;">
                                                     <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}"

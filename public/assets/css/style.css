@@ -1198,3 +1198,9 @@ textarea::placeholder {
     /* Modern browsers */
     color: #a9abb7 !important;
 }
+
+@media screen and(max-width: 1275px) {
+    .resp {
+        margin-left: 20px !important;
+    }
+}

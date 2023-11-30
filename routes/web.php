@@ -154,7 +154,6 @@ Route::group(['prefix' => 'Estimator'],function(){
         Route::get('/test',[EstimatorController::class,'testIndex']);
         Route::get('/estimator-designer/details/{id}',[EstimatorController::class,'estimatorQuotationDetails']);
         Route::get('/estimator-designer/comments/{id}',[EstimatorController::class,'estimatorDesignerComments']);
-        Route::post('/estimator-designer/comments-save',[EstimatorController::class,'estimatorDesignerCommentsSave']);
         Route::post('/estimator-reply-designer',[EstimatorController::class,'estimatorDesignerReplySave']);
         Route::get('/estimator-approve-details/{id}',[EstimatorController::class,'estimatorApproveDetails']);
         Route::post('/estimator-approve',[EstimatorController::class,'estimatorDesignerApprove']);
@@ -166,6 +165,7 @@ Route::group(['prefix' => 'Estimator'],function(){
     });
     //Designer routes where he can price up and comment on brief
     Route::get('estimator-designer/design/{id}',[EstimatorController::class,'estimatorDesigner'])->name('estimator.designer');
+    Route::post('/estimator-designer/comments-save',[EstimatorController::class,'estimatorDesignerCommentsSave']);
     // Route::get('estimator-designer/client-email/{id}',[EstimatorController::class,'estimatorDesignerClient'])->name('estimator.designer_client');
     Route::post('job/comment/reply',[EstimatorController::class , 'jobCommentReply']);
     Route::post('additional/comment/reply',[EstimatorController::class , 'getAdditionalComment'])->name('additional.comment.reply');

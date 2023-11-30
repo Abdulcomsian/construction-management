@@ -3,6 +3,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script>
+<script src="{{asset('assets/plugins/custom/summernote/summernote-bs4.min.js')}}"></script>
+<script src="{{asset('assets/plugins/custom/summernote/summernote-cleaner.js')}}"></script>
 @endsection
 @section('styles')
   <!-- Bootstrap CSS -->
@@ -371,6 +373,17 @@ canvas {
         z-index: 1;
         text-align:center;
     }
+    .note-editor.note-frame.card {
+        border: 1px solid #D2D5DA  !important;
+    }
+    .description_tempwork .card{
+        margin-top:0px;
+    }
+
+
+    .note-editor.note-frame.card {
+        border: 1px solid #D2D5DA  !important;
+    }
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
@@ -454,7 +467,7 @@ canvas {
                                 <div class="d-flex inputDiv d-block mb-0">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="">Design Issued Date:</span>
+                                        <span class="">Design Brief Issued Date:</span>
                                     </label>
                                     <!--end::Label-->
                                     <input data-date-inline-picker="true" style=" cursor: pointer;color:#a9abb7;"
@@ -481,6 +494,20 @@ canvas {
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block mb-0">
                                     <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="">TWC Email Address:</span>
+
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" class="blackBack form-control form-control-solid"
+                                        placeholder="TWC Email Address" id="twc_email" name="twc_email"
+                                        value="{{old('twc_email',auth()->user()->hasRole('user') ? auth()->user()->email: $temporaryWork->twc_email)}}"
+                                        style="background: #f5f8fa" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv d-block mb-0">
+                                    <!--begin::Label-->
                                     <!-- <label class="d-flex align-items-center fs-6 fw-bold mb-2"> -->
                                     <label class=" fs-6 fw-bold mb-2">
                                         <span class="">TWC Name:</span>
@@ -493,20 +520,6 @@ canvas {
                                         value="{{old('twc_name',auth()->user()->hasRole('user') ? auth()->user()->name :$temporaryWork->twc_name)}}">
                                 </div>
 
-                            </div>
-                            <div class="col-md-6">
-                                <div class="d-flex inputDiv d-block mb-0">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                        <span class="">TWC Email Address:</span>
-
-                                    </label>
-                                    <!--end::Label-->
-                                    <input type="text" class="blackBack form-control form-control-solid"
-                                        placeholder="TWC Email Address" id="twc_email" name="twc_email"
-                                        value="{{old('twc_email',auth()->user()->hasRole('user') ? auth()->user()->email: $temporaryWork->twc_email)}}"
-                                        style="background: #f5f8fa" readonly>
-                                </div>
                             </div>
                         </div>
                         <div class="row">
@@ -531,7 +544,7 @@ canvas {
                                         data-bs-target="#design-requirement">
                                   
                                           <label style="bottom: 41px" class="  fs-6 fw-bold mb-2">
-                                            Design Requirement:
+                                            Design Brief Requirement:
                                         </label>
                     
                                         <br>
@@ -546,19 +559,7 @@ canvas {
                     
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="d-flex inputDiv d-block mb-0">
-                                    <div class="d-flex modalDiv d-block">
-                                        <!--begin::Label-->
-                                        <label class=" fs-6 fw-bold mb-2" style="bottom: 41px">
-                                            Description:
-                                        </label>
-                                        <textarea class="blackBack form-control"
-                                            name="description_temporary_work_required" rows="2" cols="50"
-                                            placeholder="Provide brief description of design requirements.">{{old('description_temporary_work_required',$temporaryWork->description_temporary_work_required)}}</textarea>
-                                    </div>
-                                </div>
-                            </div>
+                          
                             {{-- <div class="col-md-6 d-flex" style="margin-top: 14px">
                                 <div class="d-flex flex-column mb-0">
                                     <!--begin::Label-->
@@ -923,6 +924,16 @@ canvas {
                                              </div>
                                         </div>
                                     <!-- </div> -->
+                                    <div class="row">
+                                        <div class="col-12 description_tempwork" style="">
+                                            <label class=" fs-6 fw-bold mt-4">
+                                                Design Brief Description:
+                                            </label>
+                                            {{-- description code starts here --}}
+                                            <textarea id="description" name="description_temporary_work_required">{{old('description_temporary_work_required',$temporaryWork->description_temporary_work_required)}}</textarea>
+                                            {{-- description code ends here --}}
+                                        </div>
+                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="d-flex inputDiv d-block mb-0">
@@ -1658,5 +1669,42 @@ $('#desingform').submit(function(e) {
             e.stopPropagation(); 
         });
     });
+</script>
+<script>
+$(document).ready(function() {
+
+    $("#description").summernote({
+        placeholder: 'Design Description',
+        disableDragAndDrop:true,
+        tabsize: 2,
+        height: 300,
+        toolbar: [
+            // [groupName, [picture]]
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['font', ['strikethrough']],
+            ['fontsize', ['']],
+            ['color', ['']],
+            ['para', ['ul', 'ol', '']],
+            ['height', ['']],
+            ['picture'],
+            ['view', ['fullscreen', 'codeview']],
+        ],
+        cleaner: {
+                    action: 'both', // both|button|paste 'button' only cleans via toolbar button, 'paste' only clean when pasting content, both does both options.
+                    icon: '<i class="note-icon"><svg xmlns="http://www.w3.org/2000/svg" id="libre-paintbrush" viewBox="0 0 14 14" width="14" height="14"><path d="m 11.821425,1 q 0.46875,0 0.82031,0.311384 0.35157,0.311384 0.35157,0.780134 0,0.421875 -0.30134,1.01116 -2.22322,4.212054 -3.11384,5.035715 -0.64956,0.609375 -1.45982,0.609375 -0.84375,0 -1.44978,-0.61942 -0.60603,-0.61942 -0.60603,-1.469866 0,-0.857143 0.61608,-1.419643 l 4.27232,-3.877232 Q 11.345985,1 11.821425,1 z m -6.08705,6.924107 q 0.26116,0.508928 0.71317,0.870536 0.45201,0.361607 1.00781,0.508928 l 0.007,0.475447 q 0.0268,1.426339 -0.86719,2.32366 Q 5.700895,13 4.261155,13 q -0.82366,0 -1.45982,-0.311384 -0.63616,-0.311384 -1.0212,-0.853795 -0.38505,-0.54241 -0.57924,-1.225446 -0.1942,-0.683036 -0.1942,-1.473214 0.0469,0.03348 0.27455,0.200893 0.22768,0.16741 0.41518,0.29799 0.1875,0.130581 0.39509,0.24442 0.20759,0.113839 0.30804,0.113839 0.27455,0 0.3683,-0.247767 0.16741,-0.441965 0.38505,-0.753349 0.21763,-0.311383 0.4654,-0.508928 0.24776,-0.197545 0.58928,-0.31808 0.34152,-0.120536 0.68974,-0.170759 0.34821,-0.05022 0.83705,-0.07031 z"/></svg></i>',
+                    keepHtml: true,
+                    keepTagContents: ['span'], //Remove tags and keep the contents
+                    badTags: ['applet', 'col', 'colgroup', 'embed', 'noframes', 'noscript', 'script', 'style', 'title', 'meta', 'link', 'head'], //Remove full tags with contents
+                    badAttributes: ['bgcolor', 'border', 'height', 'cellpadding', 'cellspacing', 'lang', 'start', 'style', 'valign', 'width', 'data-(.*?)'], //Remove attributes from remaining tags
+                    limitChars: 0, // 0|# 0 disables option
+                    limitDisplay: 'both', // none|text|html|both
+                    limitStop: false, // true/false
+                    notTimeOut: 850, //time before status message is hidden in miliseconds
+                    keepImages: true, // if false replace with imagePlaceholder
+                    imagePlaceholder: 'https://via.placeholder.com/200'
+                }
+        });
+
+})
 </script>
 @endsection

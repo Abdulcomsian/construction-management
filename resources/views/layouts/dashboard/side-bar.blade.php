@@ -93,11 +93,11 @@ $user = auth()->user();
                         <span class="menu-link userIconLink">
                             <span class="menu-icon userIcon">
                                 <!-- <i class="fas fa-user fs-3"></i> -->
-                                <img src="{{asset('assets/media/images/final.png')}}" style="width: 25px; height: 25px;">
+                                <img src="{{asset('assets/media/images/45.png')}}" style="width: 25px; height: 25px;">
                             </span>
                             <span class="menu-icon-hover">
                                 <!-- <i class="fas fa-user fs-3"></i> -->
-                                <img src="{{asset('assets/media/images/final.png')}}" style="width: 25px; height: 25px;">
+                                <img src="{{asset('assets/media/images/45-hover.png')}}" style="width: 25px; height: 25px;">
                             </span>
                             <span class="menu-title">Companies & Projects</span>
                             <span class="menu-arrow"></span>
@@ -159,11 +159,11 @@ $user = auth()->user();
                         <span class="menu-link userIconLink">
                             <span class="menu-icon userIcon">
                                 <!-- <i class="fas fa-user fs-3"></i> -->
-                                <img src="{{asset('assets/media/images/alpha-capital.png')}}">
+                                <img src="{{asset('assets/media/images/65.png')}}" style="width: 25px; height: 25px">
                             </span>
                             <span class="menu-icon-hover">
                                 <!-- <i class="fas fa-user fs-3"></i> -->
-                                <img src="{{asset('assets/media/images/1.png')}}">
+                                <img src="{{asset('assets/media/images/65-hover.png')}}" style="width: 25px; height: 25px;">
                             </span>
                             <span class="menu-title">Designers</span>
                             <span class="menu-arrow"></span>
@@ -192,11 +192,11 @@ $user = auth()->user();
                         <span class="menu-link userIconLink">
                             <span class="menu-icon userIcon">
                                 <!-- <i class="fas fa-user fs-3"></i> -->
-                                <img src="{{asset('assets/media/images/alpha-capital.png')}}">
+                                <img src="{{asset('assets/media/images/75.png')}}" style="width: 25px; height: 25px">
                             </span>
                             <span class="menu-icon-hover">
                                 <!-- <i class="fas fa-user fs-3"></i> -->
-                                <img src="{{asset('assets/media/images/1.png')}}">
+                                <img src="{{asset('assets/media/images/75-hover.png')}}">
                             </span>
                             <span class="menu-title">Suppliers</span>
                             <span class="menu-arrow"></span>

@@ -97,7 +97,7 @@ $user = auth()->user();
                             </span>
                             <span class="menu-icon-hover">
                                 <!-- <i class="fas fa-user fs-3"></i> -->
-                                <img src="{{asset('assets/media/images/1.png')}}">
+                                <img src="{{asset('assets/media/images/final-industry-icon.png')}}">
                             </span>
                             <span class="menu-title">Companies & Projects</span>
                             <span class="menu-arrow"></span>

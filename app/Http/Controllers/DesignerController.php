@@ -1924,7 +1924,7 @@ class DesignerController extends Controller
     public function get_rejected_designbrief(Request $request)
     {
         $id=\Crypt::decrypt($request->tempid);
-        $tempdata=TemporaryWork::select(['twc_id_no','status','pc_twc_email'])->find($id);
+        $tempdata=TemporaryWork::with('lastDesignBrief')->find($id);
         $rejected=TemporaryWorkRejected::with('email_extra')->where(['temporary_work_id'=>$id])->get();
         $list='';
         $array=[];
@@ -1966,6 +1966,12 @@ class DesignerController extends Controller
         $array['list']=$list;
         $array['brief']=$tempdata->twc_id_no;
         $status='Accepted';
+        if(isset($tempdata->lastdesignbrief) && $tempdata->lastdesignbrief->status == 0){
+            $status="Pending";
+        }
+        if(isset($tempdata->lastdesignbrief) && $tempdata->lastdesignbrief->status == 2){
+            $status="Rejected";
+        }
         if($tempdata->status == 0)
         {
            $status="Pending";

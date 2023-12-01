@@ -93,18 +93,17 @@ $user = auth()->user();
                         <span class="menu-link userIconLink">
                             <span class="menu-icon userIcon">
                                 <!-- <i class="fas fa-user fs-3"></i> -->
-                                <img src="{{asset('assets/media/images/alpha-capital.png')}}">
+                                <img src="{{asset('assets/media/images/final.png')}}">
                             </span>
                             <span class="menu-icon-hover">
                                 <!-- <i class="fas fa-user fs-3"></i> -->
-                                <img src="{{asset('assets/media/images/final-industry-icon.png')}}">
+                                <img src="{{asset('assets/media/images/final.png')}}">
                             </span>
                             <span class="menu-title">Companies & Projects</span>
                             <span class="menu-arrow"></span>
                         </span>
                         @endif
                         <div class="menu-sub menu-sub-accordion">
-
                             @if($user->hasRole([['user', 'company']]))
                             <div class="menu-item">
                                 <a class="menu-link" href="{{route('projects.backup')}}">

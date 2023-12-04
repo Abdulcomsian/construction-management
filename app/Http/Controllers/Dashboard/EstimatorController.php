@@ -803,6 +803,7 @@ class EstimatorController extends Controller
 
                 //make estimator as temporary work
                 $all_inputs['estimator']=0;
+                $all_inputs['created_at']= date('Y-m-d H:i:s');
             }else{
                 $twc_id_no = HelperFunctions::generatetwcid($request->projno, $request->company, $request->project_id);
                 $all_inputs['twc_id_no'] = $twc_id_no;
@@ -856,6 +857,7 @@ class EstimatorController extends Controller
 
                 $merged_emails = array_merge($local_designers, $local_suppliers, $online_designers,$online_suppliers); 
                 //Removing -52 for creating emails in proper format
+                $cleaned_email = [];
                 foreach($merged_emails as $email)
                 {
                     $parts = explode('-', $email);

@@ -1245,11 +1245,11 @@ class DesignerController extends Controller
         $designearray=[];
         $ramsno=TemporaryWork::select('rams_no','designer_company_email','desinger_email_2','project_id')->find($tempworkid);
         // dd($ramsno);
-        $designearray[0]=$ramsno->designer_company_email;
+        $designearray[0]=$ramsno->designer_company_email; //This is first designer, there might be more designers in other table
     
         if($ramsno->desinger_email_2)
         {
-        $designearray[1]=$ramsno->desinger_email_2;
+        $designearray[1]=$ramsno->desinger_email_2; //this is design checker
         }
         $list='';
         $path = config('app.url');

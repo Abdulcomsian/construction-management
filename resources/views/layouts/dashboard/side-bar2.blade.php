@@ -52,11 +52,11 @@
                 <span class="menu-link userIconLink">
                     <span class="menu-icon userIcon">
                         <!-- <i class="fas fa-user fs-3"></i> -->
-                        <img src="{{asset('assets/media/images/alpha-capital.png')}}">
+                        <img src="{{asset('assets/media/images/45.png')}}" style="width: 25px; height: 25px">
                     </span>
                     <span class="menu-icon-hover">
                         <!-- <i class="fas fa-user fs-3"></i> -->
-                        <img src="{{asset('assets/media/images/1.png')}}">
+                        <img src="{{asset('assets/media/images/45-hover.png')}}">
                     </span>
                     <span class="menu-title">Companies & Projects</span>
                     <span class="menu-arrow"></span>

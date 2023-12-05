@@ -51,7 +51,7 @@
 
                 
                 <!--end:Form-->
-                <table class="table table-hover" >
+                <!-- <table class="table table-hover" >
                     <thead>
                         <tr>
                             <th style="text-align:left;">No</th>
@@ -63,7 +63,7 @@
                     <tbody id="drawingreplydata">
                         
                     </tbody>
-                </table>
+                </table> -->
 
                 <form id="kt_modal_new_target_form" class="form company_details_form" action="{{ route('twcdrawing.comment') }}" method="post" enctype="multipart/form-data">
                     @csrf

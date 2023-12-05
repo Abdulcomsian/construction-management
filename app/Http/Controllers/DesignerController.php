@@ -1245,11 +1245,11 @@ class DesignerController extends Controller
         $designearray=[];
         $ramsno=TemporaryWork::select('rams_no','designer_company_email','desinger_email_2','project_id')->find($tempworkid);
         // dd($ramsno);
-        $designearray[0]=$ramsno->designer_company_email; //This is first designer, there might be more designers in other table
+        $designearray[0]=$ramsno->designer_company_email;
     
         if($ramsno->desinger_email_2)
         {
-        $designearray[1]=$ramsno->desinger_email_2; //this is design checker
+        $designearray[1]=$ramsno->desinger_email_2;
         }
         $list='';
         $path = config('app.url');
@@ -1546,6 +1546,236 @@ class DesignerController extends Controller
         
         echo $list;
     }
+
+
+
+    //duplicated get_desings info for view popup in register
+    public function get_designersinfodetails(Request $request)
+    {
+        $tempworkid = $request->tempworkid;
+        $designearray=[];
+        $ramsno=TemporaryWork::select('rams_no','designer_company_email','desinger_email_2','project_id')->find($tempworkid);
+        // dd($ramsno);
+        $designearray[0]=$ramsno->designer_company_email;
+    
+        if($ramsno->desinger_email_2)
+        {
+        $designearray[1]=$ramsno->desinger_email_2;
+        }
+        $list='';
+        $path = config('app.url');
+        
+        if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('company') || auth()->user()->hasRole('user')) {
+               
+              
+              
+                $registerupload= TempWorkUploadFiles::with('comment')->where(function ($query){
+                       $query->where(['created_by'=>auth()->user()->email])
+                       ->orWhere('created_by','hani.thaher@gmail.com');
+                       })->where(['file_type'=>1,'temporary_work_id' => $tempworkid])->orderBy('id','desc')->get();
+              
+               
+        }
+
+        
+
+        $DesignerUploads = TempWorkUploadFiles::where(['temporary_work_id' => $tempworkid, 'file_type' => 2])->orderBy('id','desc')->get();  
+
+        if($DesignerUploads->count()){
+            $list .= '<table class="table table-hover" style="margin-top: 20px;"><thead><tr>';
+                  $list .= '<table class="table" style="border-radius: 8px; overflow: hidden;"><thead><tr style="background: #07D564">';
+                 
+                  $list .= '<th style="color: white !important;">Name</th>
+                            <th style="color: white !important;">Checker Name</th>
+                            <th style="color: white !important;">Date</th>
+                            <th style="color: white !important;">File</th>
+                            ';
+
+                  $list .= '</tr></thead><tbody>';
+                  $background='';
+                  
+                  $userList=[];
+                  foreach ($DesignerUploads as $uploads) {
+                      $list .= '<tr class=""  style="background:' . $background . '">';
+                      $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->name . '</td>';
+                      $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->design_checker_name . '</td>';
+                      $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->date . '</td>';
+                      $list .= '<td style="text-align: left; vertical-align: middle;"><a href="'.asset($uploads->file_name).'">View</a></td>  ';
+                    
+                  }
+                  $list .= '</tbody></table>';
+        }
+
+        
+
+            $DesignerUploads = TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 1])->whereIn('created_by',$designearray)->orderBy('id','desc')->get();
+
+            $otherComapnyDesigners = DesignerCompanyEmail::where('temporary_work_id',$tempworkid)->pluck('email')->toArray();
+            $otherCompanyDesignersUploads = TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 1])->whereIn('created_by',$otherComapnyDesigners)->orderBy('id','desc')->get();  // When the Design Briefs has more than one company designers
+            $totalParticipators = array_merge($designearray,$otherComapnyDesigners);
+            $otherUploads = TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 1])->whereNotIn('created_by',$totalParticipators)->orderBy('id','desc')->get(); 
+            $i = 1;
+            if($DesignerUploads->count() > 0)
+            {
+               
+                    $list.="<h3>Company Designer Info</h3>";
+                
+                
+                $list .= '<table class="table table-hover"><thead><tr>';
+                $list .= '<table class="table" style="border-radius: 8px; overflow: hidden;"><thead><tr style="background: #07D564">';
+               
+                $list .= '<th style="color: white !important;">Designer Name</th>';
+                $list .= '<th style="color: white !important;">Designer Email</th>';
+                $list .= '<th style="color: white !important;">Type</th>';
+                $list .= '</tr></thead><tbody>';
+                $list .= '</tr></thead><tbody>';
+                $background='';
+                
+                $userList=[];
+                foreach ($DesignerUploads as $index=>$uploads) {
+                  $type = '';
+                  if($index == 0)
+                  $type = 'Designer';
+                   elseif($index == 1)
+                   $type = 'Checker';
+
+                    $list .= '<tr class=""  style="background:' . $background . '">';
+                   
+                    $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->twd_name . '</td>';
+                    $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->created_by . '</td>';
+                    $list .= '<td style="text-align: left; vertical-align: middle;">' . $type . '</td>';
+                    $list .= '<td style="text-align: left; vertical-align: middle;"></td>';
+                    $list .= '</tr>';
+                
+                }
+                if(!$otherCompanyDesignersUploads->isEmpty())
+                {
+                    foreach($otherCompanyDesignersUploads as $uploads)
+                    {
+                        $type = 'Designer';
+    
+                        $list .= '<tr class=""  style="background:' . $background . '">';
+                       
+                        $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->twd_name . '</td>';
+                        $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->created_by . '</td>';
+                        $list .= '<td style="text-align: left; vertical-align: middle;">' . $type . '</td>';
+                        $list .= '<td style="text-align: left; vertical-align: middle;"></td>';
+                        $list .= '</tr>';
+                    }
+                }
+                if(!$otherUploads->isEmpty())
+                {
+                    foreach($otherUploads as $uploads)
+                    {
+                        $user = User::where('email',$uploads->created_by)->first();
+                        if($user->hasRole('company'))
+                            $type  = 'TWC';
+                        elseif($user->hasRole('admin'))
+                            $type = "Admin";
+                    
+                        $list .= '<tr class=""  style="background:' . $background . '">';
+                       
+                        $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->twd_name . '</td>';
+                        $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->created_by . '</td>';
+                        $list .= '<td style="text-align: left; vertical-align: middle;">' . $type . '</td>';
+                        $list .= '<td style="text-align: left; vertical-align: middle;"></td>';
+                        $list .= '</tr>';
+                    }
+                }
+                
+                $list .= '</tbody></table>';
+            }
+            //Design checker for designer company
+            $DesignerUploads = TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 2, 'created_by'=>$designearray[0], 'comments'=>2])->orderBy('id','desc')->get();  
+            // dd($DesignerUploads);          
+            $i = 1;
+            if($DesignerUploads->count() > 0)
+            {
+               
+            
+                
+                $list .= '<table class="table table-hover"><thead><tr>';
+                $list .= '<table class="table" style="border-radius: 8px; overflow: hidden;"><thead><tr style="background: #07D564">';
+               
+                $list .= '<th style="color: white !important;">Design Checker Name</th>';
+                $list .= '</tr></thead><tbody>';
+                $list .= '</tr></thead><tbody>';
+                $background='';
+                
+                $userList=[];
+                foreach ($DesignerUploads as $uploads) {
+                    $list .= '<tr class=""  style="background:' . $background . '">';
+                   
+                    $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->twd_name . '</td>';
+                    $list .= '<td style="text-align: left; vertical-align: middle;"></td>';
+                    $list .= '</tr>';
+                
+                }
+                $list .= '</tbody></table>';
+            }
+        if(count($designearray)>1){
+            /* this query is used combined with company designer 1
+            //designer for Design checker company
+            $DesignerUploads = TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 1, 'created_by'=>$designearray[1]])->orderBy('id','desc')->get();  
+            // dd($DesignerUploads);          
+            $i = 1;
+            if($DesignerUploads->count() > 0)
+            {
+                    $list.="<h3 style='margin-top:20px;'>Design Checker Company</h3>";
+                $list .= '<table class="table table-hover"><thead><tr>';
+                $list .= '<table class="table" style="border-radius: 8px; overflow: hidden;"><thead><tr style="background: #07D564">';
+               
+                $list .= '<th style="color: white !important;">Designer Name</th>';
+                $list .= '</tr></thead><tbody>';
+                $list .= '</tr></thead><tbody>';
+                $background='';
+                
+                $userList=[];
+                foreach ($DesignerUploads as $uploads) {
+                    $list .= '<tr class=""  style="background:' . $background . '">';
+                    $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->twd_name . '</td>';
+                    $list .= '<td style="text-align: left; vertical-align: middle;"></td>';
+                    $list .= '</tr>';
+                    
+                }
+                $list .= '</tbody></table>';
+            }
+            */
+              //Design checker for Design checker company
+              $DesignerUploads = TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 2, 'created_by'=>$designearray[1], 'comments'=>1])->orderBy('id','desc')->get();  
+              // dd($DesignerUploads);          
+              $i = 1;
+              if($DesignerUploads->count() > 0)
+              {
+                  $list .= '<table class="table table-hover"><thead><tr>';
+                  $list .= '<table class="table" style="border-radius: 8px; overflow: hidden;"><thead><tr style="background: #07D564">';
+                 
+                  $list .= '<th style="color: white !important;">Design Checker Name</th>';
+                  $list .= '</tr></thead><tbody>';
+                  $list .= '</tr></thead><tbody>';
+                  $background='';
+                  
+                  $userList=[];
+                  foreach ($DesignerUploads as $uploads) {
+                      $list .= '<tr class=""  style="background:' . $background . '">';
+                      $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->twd_name . '</td>';
+                      $list .= '<td style="text-align: left; vertical-align: middle;"></td>';
+                      $list .= '</tr>';
+                      
+                  }
+                  $list .= '</tbody></table>';
+              }
+
+             
+
+        }
+
+        
+        echo $list;
+    }
+
+
+
 
     //PC TWC EMAIL WORK HERE
     public function pc_index(Request $request,$id)

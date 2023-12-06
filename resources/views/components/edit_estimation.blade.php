@@ -317,6 +317,20 @@
     textarea.select2-search__field::placeholder {
         color: rgb(138, 136, 136) !important;
     }
+
+    input[type="radio"]:focus,
+    input[type="radio"]:active {
+        outline: max(2px, 0.15em) solid #000;
+        background-color: #000 !important;
+        outline-offset: max(2px, 0.15em);
+    }
+
+    input[type="radio"]:checked {
+        /* Add your styles here */
+        background-color: #07d564 !important;
+        color: #07d564 !important;
+        border: 1px solid #000;
+    }
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')

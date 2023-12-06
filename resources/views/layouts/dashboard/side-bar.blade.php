@@ -255,7 +255,7 @@ $user = auth()->user();
                             <!-- && !$user->company_id -->
                             <div class="menu-item">
                                 <a class="menu-link" href="{{route('estimator_list')}}">
-                                    <span class="menu-title">Manage Leeds</span>
+                                    <span class="menu-title">Manage Leads</span>
                                 </a>
                             </div>
                             @endif

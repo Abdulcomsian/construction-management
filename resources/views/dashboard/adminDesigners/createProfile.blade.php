@@ -272,8 +272,8 @@
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" name="nomination_link_check" id="flexCheckDefault">
                           <label class="form-check-label" for="flexCheckDefault">
-                            View Nomination LInk
-                          </label>
+                             Designer Nomination Form will be available for companies to view online
+                        </label>
                         </div>
                          <div class="d-flex flex-column mb-8 mt-2 fv-row fv-plugins-icon-container">
                             <h4>Upload Other Documents</h4>

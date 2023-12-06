@@ -988,7 +988,7 @@ class HomeController extends Controller
         $adminDesigner = User::with('usernomination')->where('added_by' , 1 )->get();
         $designerList=User::with('usernomination')->where(['di_designer_id'=>$id])->get();
         // dd($designerList);
-        $designerList = $adminDesigner->merge($designerList);
+        // $designerList = $adminDesigner->merge($designerList);
 
         // dd($designerList);
 

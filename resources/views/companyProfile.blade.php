@@ -607,10 +607,34 @@ button.createbtn i {
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-12">
                   <div class="attachment-container">
                     <strong>Other Documents:</strong><br />
-                    @if(isset($companyProfile->otherdocs))
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>S.No</th>
+                          <th>Doc Name</th>
+                          <th>File</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @isset($companyProfile->otherdocs)
+                        @foreach($companyProfile->otherdocs as $doc)
+                        <tr>
+                          <td>{{$loop->index+1}}</td>
+                          <td>{{$doc->name}}</td>
+                          <td>
+                            @if($doc->file)
+                              <a href="{{asset($doc->file)}}" target="_blank">Attachment</a>
+                            @endif
+                          </td>
+                        </tr>
+                        @endforeach
+                        @endisset
+                      </tbody>
+                    </table>
+                    <!-- @if(isset($companyProfile->otherdocs))
                          @foreach($companyProfile->otherdocs as $doc)
                          @php 
                             $n = strrpos($doc->file, '.');
@@ -622,26 +646,26 @@ button.createbtn i {
                           <p class="attachment"><a href="{{asset($doc->file)}}">Attachment</a></p>
                          @endif
                         @endforeach
-                      @endif
+                      @endif -->
                   </div>
                 </div>
-                <div class="col-md-6">
+                <!-- <div class="col-md-6">
 
                   <div class="gallery">
-                  @if(isset($companyProfile->otherdocs))
-                   @foreach($companyProfile->otherdocs as $doc)
-                         @php 
-                            $n = strrpos($doc->file, '.');
-                            $ext=substr($doc->file, $n+1);
-                         
-                         @endphp
-                         @if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
-                          <img src="{{asset($doc->file)}}" alt=""/>
-                         @endif
-                        @endforeach
-                    @endif  
+                    @if(isset($companyProfile->otherdocs))
+                    @foreach($companyProfile->otherdocs as $doc)
+                          @php 
+                              $n = strrpos($doc->file, '.');
+                              $ext=substr($doc->file, $n+1);
+                          
+                          @endphp
+                          @if($ext=='png' || $ext=='jpg' || $ext=='jpeg')
+                            <img src="{{asset($doc->file)}}" alt=""/>
+                          @endif
+                          @endforeach
+                      @endif  
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
             <div id="tab2" class="container tab-pane fade">

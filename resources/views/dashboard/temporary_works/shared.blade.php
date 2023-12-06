@@ -532,7 +532,7 @@ $tempWorkClass = "d-none";
                                         @isset(auth()->user()->image)
                                         <img alt="Logo" src="{{ auth()->user()->image ?: '' }}">
                                         @else
-                                        <div class="symbol-label fs-3 bg-light-primary text-primary">
+                                        <div class="symbol-label fs-3 bg-light-primary text-primary" style="display:flex !important;">
                                             {{ \Illuminate\Support\Str::upper(auth()->user()->name[0]) ?: '' }}</div>
                                         @endisset
                                     </div>
@@ -547,7 +547,7 @@ $tempWorkClass = "d-none";
                                                     @isset(auth()->user()->image)
                                                     <img alt="Logo" src="{{ auth()->user()->image ?: '' }}">
                                                     @else
-                                                    <div class="symbol-label fs-3 bg-light-primary text-primary">
+                                                    <div class="symbol-label fs-3 bg-light-primary text-primary" style="display:flex !important;">
                                                         {{ auth()->user()->name[0] ?: '' }}</div>
                                                     @endisset
                                                 </div>

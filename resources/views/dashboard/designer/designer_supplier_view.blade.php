@@ -413,8 +413,9 @@
                                 <td>{{$work->project->name}}</td>
                                 <td>{{$work->project->company->name}}</td>
                                 <td>{{Auth::user()->email}}</td>
+                                @php $getCode = \App\Models\EstimatorDesignerList::where(['temporary_work_id'=>$work->id,'email'=>auth()->user()->email])->pluck('code'); @endphp
                                 <td>
-                                    <a href="{{route('estimator.designer',$work->id.'/?mail='.auth()->user()->email.'&code='.Crypt::encrypt($work->designer->code))}}" target="_blank"><i class="fa fa-eye @if(!$work->thisDesignerQuote) blinking-icon @endif"></i>
+                                    <a href="{{route('estimator.designer',$work->id.'/?mail='.auth()->user()->email.'&code='.Crypt::encrypt($getCode))}}" target="_blank"><i class="fa fa-eye @if(!$work->thisDesignerQuote) blinking-icon @endif"></i>
                                     </a>
                                 </td>
                               </tr>

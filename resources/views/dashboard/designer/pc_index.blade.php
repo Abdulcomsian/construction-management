@@ -289,7 +289,8 @@
                             </td>
                             {{-- <td><b>{{$cmt->email}}</b><br><br><b>Sent To: &nbsp;
                                     <br> {{$tempworkdetail->pc_twc_email}}</b><br>{{$cmt->created_at}}</td> --}}
-                            <td style="width:400px;"><b>Comment: </b>{{$cmt->comment}}<br>
+                         
+                            <td style="width:400px;">
                             @isset($cmt->email_extra)
                               @foreach($cmt->email_extra as $attachfile)
                                 @if($attachfile->attachment)
@@ -298,6 +299,8 @@
                               @endforeach 
                             @endif
                             <br>
+                            <b>Comment: </b>{{$cmt->comment}}<br>
+                           
                                 @if(isset($cmt->comment))
                                 <span style="color:#9D9D9D">{{$cmt->updated_at}}</span>
                                 @endif

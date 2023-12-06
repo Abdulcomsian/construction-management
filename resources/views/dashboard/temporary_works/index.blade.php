@@ -5104,7 +5104,7 @@ $tempWorkClass = "d-none";
        var tempworkid = $(this).attr('data-id');
    
        $.ajax({
-           url: "{{route('get-designersinfo')}}",
+           url: "{{route('get-designersinfo-details')}}",
            method: "get",
            data: {
                tempworkid: tempworkid

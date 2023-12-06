@@ -23,7 +23,7 @@
             <!--begin::Modal header-->
             <!--begin::Modal body-->
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
-                <table class="table table-hover">
+                <table class="table">
                     <!-- <thead>
                         <tr>
                             <th>No</th>

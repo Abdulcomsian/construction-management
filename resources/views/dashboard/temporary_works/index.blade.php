@@ -14,6 +14,7 @@ $tempWorkClass = "d-none";
 @php use App\Utils\HelperFunctions; @endphp
 @section('styles')
 <style>
+    
     @media screen and (min-width: 961px) {
         .menu_items {
             max-height:67px;
@@ -445,9 +446,15 @@ $tempWorkClass = "d-none";
     #ptl {
         max-width: 88px;
     }
+    /* #ptl .permit-to-load-btn{
+        /* display: flex;
+        justify-content: center;
+        align-items: baseline */
 
     #ptu {
         max-width: 88px;
+        /* display: flex !important; */
+
     }
 
     .tabnave .nav .nav-link.active::after {
@@ -500,7 +507,11 @@ $tempWorkClass = "d-none";
         left: 0;
         z-index: 9;
     }
-
+    @media (max-width: 1275px){
+        .resp{
+            margin-left: 24px !important;
+        }
+    }
 
 
 </style>
@@ -1557,7 +1568,7 @@ $tempWorkClass = "d-none";
                                                                                     data-id="{{Crypt::encrypt($item->id)}}"
                                                                                     data-desc="{{$item->design_requirement_text}}"
                                                                                     class="cursor-pointer permit-to-load-btn label label-lg font-weight-bold label-inline"
-                                                                                    style="background: #0000ffa3;position: relative; top:1px; right:0px; color: white;font-size:10px;">Closed</span>
+                                                                                    style="background: #0000ffa3;position: relative; top:1px; right:0px; color: white;font-size:10px; width:fit-content">Closed</span>
                                                                                 @else
                                                                                 @if(!$drawingscount)
                                                                                 <span
@@ -2201,7 +2212,7 @@ $tempWorkClass = "d-none";
                                                                     style="background: #07D56426;padding: 4px; border-radius: 4px;width: 20px; height:20px;">
                                                                     <p class="uploaddrawing cursor-pointer"
                                                                         data-id="{{$item->id}}" data-type="1"
-                                                                        style="margin-bottom:0px;font-weight: 400;position: relative !important;bottom:3px !important; left: 1px">
+                                                                        style="margin-bottom:0px;font-weight: 400;position: relative !important;bottom:2px !important; left: 1px">
                                                                         <span style="font-size: 14px; color: #07D564;"
                                                                             class="fa fa-plus"
                                                                             title="Upload Drawings"></span>
@@ -2263,18 +2274,18 @@ $tempWorkClass = "d-none";
 
                                                         <div class="row my-2">
                                                             <span class="col-6 titleColumn">Permit to load:</span>
-                                                            <div class="d-flex col-6" id="ptl" style="column-gap: 1rem">
+                                                            <div class="d-flex col-6" id="ptl" style="column-gap: 1rem; margin-left:3px">
                                                                 @if(count($item->unloadpermits)>0 ||
                                                                 count($item->closedpermits)>0 || $drawingscount)
                                                                 <div
                                                                     style="background: #07D56426;padding: 4px; border-radius: 4px; width: 20px; height:20px;">
                                                                     <p class="cursor-pointer permit-to-load-btn"
-                                                                        style="margin-bottom:0px;font-weight: 400;font-size: 14px;position: relative; top: -7px;"
+                                                                        style="margin-bottom:0px;font-weight: 400;font-size: 14px;"
                                                                         data-type="add"
                                                                         data-id="{{Crypt::encrypt($item->id)}}"
                                                                         data-desc="{{$item->design_requirement_text}}">
                                                                         <span
-                                                                            style="font-size: 14px; color: #07D564; position: relative !important; bottom: 3px"
+                                                                            style="font-size: 13px; color: #07D564; "
                                                                             class="fa fa-plus"
                                                                             title="permit to load"></span>
                                                                     </p>
@@ -2350,7 +2361,7 @@ $tempWorkClass = "d-none";
                                                                                 @endif
                                                                                 <span
                                                                                     class="label label-lg font-weight-bold label-inline"
-                                                                                    style="background: #919191ba;position: relative; top:1px; right:0px; color: white;font-size:10px; padding: 3px 25px;">0</span>
+                                                                                    style="background: #919191ba;position: relative; top:1px; right:-3px; color: white;font-size:10px; padding: 3px 24px;">0</span>
                                                                                 @endif
                                                                             </span>
                                                                             </span>
@@ -2383,9 +2394,9 @@ $tempWorkClass = "d-none";
                                                                 <span class="col-6 titleColumn">Permit to
                                                                     unload:</span>
                                                                 <div class="d-flex col-6" id="ptu"
-                                                                    style="column-gap: 1rem;">
+                                                                    style="column-gap: 1rem; margin-left:3px">
                                                                     <div
-                                                                        style="background: #07D56426;padding: 6px; border-radius: 4px;width: 20px; height:20px;">
+                                                                        style="background: #07D56426;padding: 6px; border-radius: 4px;width: 20px; height:20px;display:flex; justify-content:center; align-items:baseline">
                                                                         <p class="permit-to-unload cursor-pointer"
                                                                             style="font-weight: 400;font-size: 14px;position: relative !important;bottom: 4px;"
                                                                             data-id="{{Crypt::encrypt($item->id)}}"
@@ -2408,7 +2419,7 @@ $tempWorkClass = "d-none";
                                                                             @else
                                                                             <span
                                                                                 class="label label-lg font-weight-bold label-inline"
-                                                                                style="background: #919191ba;position: relative; top:1px; right:0px; color: white;font-size:10px; padding: 3px 25px;">0</span>
+                                                                                style="background: #919191ba;position: relative; top:3px; right:-2px; color: white;font-size:10px; padding: 3px 24px;">0</span>
                                                                             @endif
                                                                         </span>
                                                                         </span>
@@ -2560,7 +2571,7 @@ $tempWorkClass = "d-none";
                                     <td style="min-width: 254px; max-width: 80px;padding:10px 0px !important;">
                                         <div class="d-flex">
                                             <span class="col-5 titleColumn">Drawings & Designs:</span>
-                                            <div class="d-flex col-6" style="column-gap:1rem;margin-left: 32px">
+                                            <div class="d-flex col-6 resp" style="column-gap:1rem;margin-left: 30px">
                                                 <div
                                                     style="background: #07D56426;padding: 4px; border-radius: 4px;width: 20px; height:20px;">
                                                     <p class="uploaddrawing cursor-pointer" data-id="{{$item->id}}"
@@ -2622,7 +2633,7 @@ $tempWorkClass = "d-none";
                                             </div>
                                         </div>
 
-                                        <div class="row my-2">
+                                       <div class="row my-2">
                                             <span class="col-6 titleColumn">Permit to load:</span>
                                             <div class="d-flex col-sm-6" id="ptl"
                                                 style="column-gap: 1rem;padding-left:3px;">
@@ -2706,7 +2717,7 @@ $tempWorkClass = "d-none";
                                                                 @endif
                                                                 <span
                                                                     class="label label-lg font-weight-bold label-inline"
-                                                                    style="background: #919191ba;position: relative; top:1px; right:0px; color: white;font-size:10px; padding: 3px 25px;">0</span>
+                                                                    style="background: #919191ba;position: relative; top:2px; right:0px; color: white;font-size:10px; padding: 3px 25px;">0</span>
                                                                 @endif
                                                             </span>
                                                             </span>
@@ -2742,7 +2753,7 @@ $tempWorkClass = "d-none";
                                                     <div
                                                         style="background: #07D56426;padding: 4px; border-radius: 4px;width: 20px; height:20px;">
                                                         <p class="permit-to-unload cursor-pointer"
-                                                            style="font-weight: 400;font-size: 14px;position: relative !important;bottom: 4px;"
+                                                            style="font-weight: 400;font-size: 14px;position: relative !important;bottom: 2px;"
                                                             data-id="{{Crypt::encrypt($item->id)}}"
                                                             data-desc="{{$item->design_requirement_text}}"><span
                                                                 style="font-size: 14px; color: #07D564;"
@@ -2758,7 +2769,7 @@ $tempWorkClass = "d-none";
                                                                 style="background: green;position: relative; top:1px; right:0px; color: white;font-size:10px; padding: 3px 25px;">{{count($item->unloadpermits)}}</span>
                                                             @else
                                                             <span class="label label-lg font-weight-bold label-inline"
-                                                                style="background: #919191ba;position: relative; top:1px; right:0px; color: white;font-size:10px; padding: 3px 25px;">0</span>
+                                                                style="background: #919191ba;position: relative; top:3px; right:0px; color: white;font-size:10px; padding: 3px 25px;">0</span>
                                                             @endif
                                                         </span>
                                                         </span>
@@ -3159,7 +3170,7 @@ $tempWorkClass = "d-none";
                                                                 <span class="col-sm-6 titleColumn">Permit to
                                                                     load:</span>
                                                                 <div class="d-flex col-sm-6" id="ptl"
-                                                                    style="column-gap: 1rem">
+                                                                    style="column-gap: 1rem; ">
                                                                     @if(count($item->unloadpermits)>0 ||
                                                                     count($item->closedpermits)>0 || $drawingscount)
                                                                     <div
@@ -5093,7 +5104,7 @@ $tempWorkClass = "d-none";
        var tempworkid = $(this).attr('data-id');
    
        $.ajax({
-           url: "{{route('get-designersinfo')}}",
+           url: "{{route('get-designersinfo-details')}}",
            method: "get",
            data: {
                tempworkid: tempworkid

@@ -48,3 +48,11 @@
     </script>
 
 
+<script>
+    function hideCheck1() {
+    document.getElementById("check2").style.display = "block";
+    if (event) {
+event.preventDefault();
+}
+}
+</script>

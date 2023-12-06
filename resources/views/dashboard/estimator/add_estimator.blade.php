@@ -24,7 +24,20 @@
     .form-control[readonly] {
         background-color: #000;
     }
+    
+    input[type="radio"]:focus,
+    input[type="radio"]:active {
+        outline: max(2px, 0.15em) solid #000;
+        background-color: #000 !important;
+        outline-offset: max(2px, 0.15em);
+    }
 
+    input[type="radio"]:checked {
+        /* Add your styles here */
+        background-color: #07d564 !important;
+        color: #07d564 !important;
+        border: 1px solid #000;
+    }
 
     input {
         /* custom */
@@ -734,8 +747,8 @@
                                     <!--end::Label-->
                                     <select name="work_status" id=""
                                         style="height: 33px;border: none;padding-left: 5px;outline:none">
-                                        <option value="draft">Draft (Pricing Not Approved)</option>
-                                        <option value="publish">Publish (Pricing Approved)</option>
+                                        <option value="draft">Draft (Pricing Not Agreed)</option>
+                                        <option value="publish">Publish (Pricing Agreed)</option>
                                     </select>
                                 </div>
                             </div>

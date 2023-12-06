@@ -235,14 +235,6 @@ $user = auth()->user();
                         </span>
                         <div class="menu-sub menu-sub-accordion">
                             @endif
-                            @if($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker'])  )
-                             <!-- //&& $user->di_designer_id==NULL && $user->company_id==NULL -->
-                            <div class="menu-item">
-                                <a class="menu-link" href="{{url('adminDesigner/create-profile',$user->id)}}">
-                                    <span class="menu-title">Create Company Profile</span>
-                                </a>
-                            </div>
-                            @endif
                             <!-- @if(($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker']) && $user->company_id))
                             <div class="menu-item">
                                 <a class="menu-link" href="{{ route('temporary_works.index') }}">
@@ -250,23 +242,7 @@ $user = auth()->user();
                                 </a>
                             </div>
                             @endif -->
-                            @if($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker']) )
-                            <!-- && !$user->company_id -->
-                            <div class="menu-item">
-                                <a class="menu-link" href="{{route('adminDesigner.designerList')}}">
-                                    <span class="menu-title">Designer List</span>
-                                </a>
-                            </div>
-                            @endif
-                            @if($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker']) )
-                            <!-- && !$user->company_id -->
-                            <div class="menu-item">
-                                <a class="menu-link" href="{{route('estimator_list')}}">
-                                    <span class="menu-title">Manage Jobs</span>
-                                </a>
-                            </div>
-                            @endif
-
+                            
                             @if($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker']) )
                             <!-- && !$user->company_id -->
                             <div class="menu-item">
@@ -275,6 +251,15 @@ $user = auth()->user();
                                 </a>
                             </div>
                             @endif
+                            @if($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker']) )
+                            <!-- && !$user->company_id -->
+                            <div class="menu-item">
+                                <a class="menu-link" href="{{route('estimator_list')}}">
+                                    <span class="menu-title">Manage Leads</span>
+                                </a>
+                            </div>
+                            @endif
+
                             @if($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker']) )
                             <!-- && !$user->company_id -->
                             <div class="menu-item">
@@ -307,11 +292,27 @@ $user = auth()->user();
                                 </a>
                             </div>
                             @endif
+                            @if($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker'])  )
+                             <!-- //&& $user->di_designer_id==NULL && $user->company_id==NULL -->
+                            <!-- <div class="menu-item">
+                                <a class="menu-link" href="{{url('adminDesigner/create-profile',$user->id)}}">
+                                    <span class="menu-title">Create Company Profile</span>
+                                </a>
+                            </div> -->
+                            @endif
+                            @if($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker']) )
+                            <!-- && !$user->company_id -->
+                            <!-- <div class="menu-item">
+                                <a class="menu-link" href="{{route('adminDesigner.designerList')}}">
+                                    <span class="menu-title">Designer List</span>
+                                </a>
+                            </div> -->
+                            @endif
                             {{-- @if($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker']))
                                 <!-- && !$user->company_id -->
-                <div class="menu-item">
-                    <a class="menu-link" href="{{url('designer/designer')}}">
-                            <span class="menu-title">Estimator's Bid</span>
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{url('designer/designer')}}">
+                                <span class="menu-title">Estimator's Bid</span>
                             </a>
                         </div>
                         @endif
@@ -324,7 +325,30 @@ $user = auth()->user();
                         @endif --}}
                         @if($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker']))
                     </div>
-                </div>
+                    <div  class="menu-item here show menu-accordion mb-1">
+                        <span class="menu-link userIconTask">
+                            <span class="menu-icon userTask">
+                                <img src="{{asset('assets/media/images/12.png')}}">
+                            </span>
+                            <span class="menu-icon userHoverTask">
+                                <img src="{{asset('assets/media/images/23.png')}}">
+                            </span>
+                            <a class="menu-link" href="{{url('adminDesigner/create-profile',$user->id)}}"><span class="menu-title">Create Company Profile</span></a>
+                        </span>
+                      
+                    </div>
+                    <div  class="menu-item here show menu-accordion mb-1">
+                        <span class="menu-link userIconTask">
+                            <span class="menu-icon userTask">
+                                <img src="{{asset('assets/media/images/12.png')}}">
+                            </span>
+                            <span class="menu-icon userHoverTask">
+                                <img src="{{asset('assets/media/images/23.png')}}">
+                            </span>
+                            <a class="menu-link" href="{{route('adminDesigner.designerList')}}"><span class="menu-title">Designer List</span></a>
+                        </span>
+                      
+                    </div>
                 @endif
 
                 @if($user->hasAnyRole(['company','admin','user','supervisor','visitor','scaffolder']))

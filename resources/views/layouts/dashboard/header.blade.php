@@ -122,7 +122,7 @@
                                 @isset(auth()->user()->image)
                                     <img alt="Logo" src="{{ auth()->user()->image ?: '' }}">
                                 @else
-                                    <div class="symbol-label fs-3 bg-light-primary text-primary">
+                                    <div class="symbol-label fs-3 bg-light-primary text-primary" style="display:flex !important;">
                                         {{ \Illuminate\Support\Str::upper(auth()->user()->name[0])  ?: '' }}</div>
                                 @endisset
                             @endif
@@ -181,6 +181,8 @@
                             </div>
                             <!--end::Menu item-->
                         </div>
+                        {{-- <a href="#" class="mainMenu-link" style="position:absolute; left: 40px; top: 23px" onclick="hideCheck1()">Menu</a> --}}
+
                         <!--end::Menu-->
                         <!--end::Menu wrapper-->
                     </div>

@@ -133,6 +133,27 @@ License: -->
     @yield('scripts')
     <!--end::Page Custom Javascript-->
     <!--end::Javascript-->
+    <script>
+        const asideContainer = document.querySelector('.aside-fixed .aside');
+        const overlay = document.querySelector('.overlay');
+        const mainMenuLinks = document.querySelectorAll('.mainMenu-link')
+        mainMenuLinks.forEach(mainMenuLink => {
+            mainMenuLink.addEventListener('click', function(e){
+            e.preventDefault();
+            asideContainer.style.display = 'block';
+            overlay.classList.remove('d-none')
+            if (document.getElementById('kt_aside').classList.contains('aside-hoverable')) {
+                document.querySelector('.drawer.drawer-start').style.transform = 'translateX(0%)';
+                document.getElementById('kt_aside_logo').style.display = 'flex'
+            }
+        });
+        })
+
+        const asideToggler = document.querySelector('.aside-toggle');
+        asideToggler.addEventListener('click', function(){
+            document.querySelector('.drawer.drawer-start').style.transform = 'translateX(-100%)'
+        })
+    </script>
 </body>
 <!--end::Body-->
 

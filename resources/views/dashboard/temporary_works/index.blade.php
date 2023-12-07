@@ -5537,7 +5537,9 @@ $(document).on('click','.drawingshare',function(e){
 
 const asideContainer = document.querySelector('.aside-fixed .aside');
 const overlay = document.querySelector('.overlay');
-document.querySelector('.mainMenu-link').addEventListener('click', function(e){
+const mainMenuLinks = document.querySelectorAll('.mainMenu-link')
+mainMenuLinks.forEach(mainMenuLink => {
+    mainMenuLink.addEventListener('click', function(e){
     e.preventDefault();
     asideContainer.style.display = 'block';
     overlay.classList.remove('d-none')
@@ -5546,6 +5548,8 @@ document.querySelector('.mainMenu-link').addEventListener('click', function(e){
         document.getElementById('kt_aside_logo').style.display = 'flex'
     }
 });
+})
+
 
 overlay.addEventListener('click', () => {
     asideContainer.style.display = 'none';

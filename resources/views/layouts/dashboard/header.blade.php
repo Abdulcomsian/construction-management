@@ -191,7 +191,7 @@
                     </div>
                     <!--end::User -->
                     <!--begin::Heaeder menu toggle-->
-                    <div class="d-flex align-items-stretch d-lg-none px-3 me-n3 hambrger-icon" title="Show header menu">
+                    <div class="d-none align-items-stretch d-lg-none px-3 me-n3 hambrger-icon" title="Show header menu">
                         <div class="topbar-item" id="kt_header_menu_mobile_toggle">
                             <i class="bi bi-text-left fs-1"></i>
                         </div>

@@ -794,7 +794,7 @@ class DesignerController extends Controller
                         $list .= '<td style="text-align:Center; !important;">' . $construction . '</td>';
                         if ($construction == 'Yes') {
                             $list .= '<td style="display:flex; height:40px;">
-                                 <a class="btn btn-primary btn-small" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>';
+                                 <a style="color#fff !important;" class="btn btn-primary btn-small" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>';
                                  if(!auth()->user()->hasRole('visitor'))
                                  {
                                     $list.='&nbsp;<button class="btn btn-danger btn-small drawingshare" title="Share Drawing" data-drawing="'.$uploads->drawing_number.'" data-temp="'. $tempworkid .'" data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt" ></i></button>&nbsp;

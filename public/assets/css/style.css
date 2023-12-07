@@ -1198,7 +1198,7 @@ textarea::placeholder {
     /* Modern browsers */
     color: #a9abb7 !important;
 }
-@media screen and (max-width: 991.98px) {
+@media screen and(max-width: 991px) {
     .header--action #kt_header_user_menu_toggle {
         order: 1;
     }

@@ -21,7 +21,7 @@
             <!--begin::Navbar-->
             <div class="d-flex align-items-stretch" id="kt_header_nav">
                 <!--begin::Menu wrapper-->
-                <a href="#" class="mainMenu-link" style="position:absolute; left: 40px; top: 23px" onclick="hideCheck1()">Menu</a>
+                <a href="#" class="mainMenu-link" style="position:absolute; left: 40px; " onclick="hideCheck1()">Menu</a>
                 <div class="header-menu align-items-stretch" data-kt-drawer="true"
                      data-kt-drawer-name="header-menu" data-kt-drawer-activate="{default: true, lg: false}"
                      data-kt-drawer-overlay="true"

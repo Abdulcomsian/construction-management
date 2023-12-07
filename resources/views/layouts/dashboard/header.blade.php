@@ -17,10 +17,11 @@
         </div> -->
         <!--end::Mobile logo-->
         <!--begin::Wrapper-->
-        <div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1">
+        <div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1 menu-icons">
             <!--begin::Navbar-->
             <div class="d-flex align-items-stretch" id="kt_header_nav">
                 <!--begin::Menu wrapper-->
+                <a href="#" class="mainMenu-link" style="position:absolute; left: 40px; top: 23px" onclick="hideCheck1()">Menu</a>
                 <div class="header-menu align-items-stretch" data-kt-drawer="true"
                      data-kt-drawer-name="header-menu" data-kt-drawer-activate="{default: true, lg: false}"
                      data-kt-drawer-overlay="true"
@@ -28,7 +29,9 @@
                      data-kt-drawer-direction="end" data-kt-drawer-toggle="#kt_header_menu_mobile_toggle"
                      data-kt-place="true" data-kt-place-mode="prepend"
                      data-kt-place-parent="{default: '#kt_body', lg: '#kt_header_nav'}">
+
                     <!--begin::Menu-->
+                    
                     <div
                         class="menu menu-lg-rounded menu-column menu-lg-row menu-state-bg menu-title-gray-700 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-400 fw-bold my-5 my-lg-0 align-items-stretch"
                         id="#kt_header_menu" data-kt-menu="true">
@@ -58,7 +61,7 @@
             <!--begin::Topbar-->
             <div class="d-flex align-items-stretch flex-shrink-0">
                 <!--begin::Toolbar wrapper-->
-                <div class="topbar d-flex align-items-stretch flex-shrink-0">
+                <div class="topbar d-flex align-items-stretch flex-shrink-0 header--action">
                     <!--begin::User-->
                     <div class="d-flex align-items-stretch" id="kt_header_user_menu_toggle">
                         <!--begin::Menu wrapper-->
@@ -188,7 +191,7 @@
                     </div>
                     <!--end::User -->
                     <!--begin::Heaeder menu toggle-->
-                    <div class="d-flex align-items-stretch d-lg-none px-3 me-n3" title="Show header menu">
+                    <div class="d-flex align-items-stretch d-lg-none px-3 me-n3 hambrger-icon" title="Show header menu">
                         <div class="topbar-item" id="kt_header_menu_mobile_toggle">
                             <i class="bi bi-text-left fs-1"></i>
                         </div>
@@ -204,3 +207,16 @@
     <!--end::Container-->
 </div>
 
+{{-- <script>
+    const asideContainer = document.querySelector('.aside-fixed .aside');
+const overlay = document.querySelector('.overlay');
+document.querySelector('.mainMenu-link').addEventListener('click', function(e){
+    e.preventDefault();
+    asideContainer.style.display = 'block';
+    overlay.classList.remove('d-none')
+    if (document.getElementById('kt_aside').classList.contains('aside-hoverable')) {
+        document.querySelector('.drawer.drawer-start').style.transform = 'translateX(0%)';
+        document.getElementById('kt_aside_logo').style.display = 'flex'
+    }
+});
+</script> --}}

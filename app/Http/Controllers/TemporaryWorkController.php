@@ -56,7 +56,6 @@ class TemporaryWorkController extends Controller
 {
     public function testIndex()
     {
-
         if(auth::user()->hasRole('estimator'))
         {
             return redirect('Estimator/estimator');

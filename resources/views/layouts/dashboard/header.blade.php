@@ -119,11 +119,13 @@
                             data-kt-menu-trigger="click" data-kt-menu-attach="parent"
                             data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
                             @if(auth()->user())
-                                @isset(auth()->user()->image)
-                                    <img alt="Logo" src="{{ auth()->user()->image ?: '' }}">
+                                @if(isset(auth()->user()->userCompany))
+                                <img alt="Logo" src="{{ auth()->user()->userCompany->image ?? '' }}">
+                                @elseif(isset(auth()->user()->image))
+                                <img alt="Logo" src="{{ auth()->user()->image ?? '' }}">
                                 @else
-                                    <div class="symbol-label fs-3 bg-light-primary text-primary" style="display:flex !important;">
-                                        {{ \Illuminate\Support\Str::upper(auth()->user()->name[0])  ?: '' }}</div>
+                                <div class="symbol-label fs-3 bg-light-primary text-primary" style="display:flex !important;">
+                                    {{ auth()->user()->name[0] ?: '' }}</div>
                                 @endisset
                             @endif
 
@@ -139,11 +141,13 @@
                                     <!--begin::Avatar-->
                                     @if(auth()->user())
                                     <div class="symbol symbol-50px me-5">
-                                        @isset(auth()->user()->image)
-                                            <img alt="Logo" src="{{ auth()->user()->image ?: '' }}">
+                                        @if(isset(auth()->user()->userCompany))
+                                        <img alt="Logo" src="{{ auth()->user()->userCompany->image ?? '' }}">
+                                        @elseif(isset(auth()->user()->image))
+                                        <img alt="Logo" src="{{ auth()->user()->image ?? '' }}">
                                         @else
-                                            <div class="symbol-label fs-3 bg-light-primary text-primary">
-                                                {{ auth()->user()->name[0] ?: '' }}</div>
+                                        <div class="symbol-label fs-3 bg-light-primary text-primary" style="display:flex !important;">
+                                            {{ auth()->user()->name[0] ?: '' }}</div>
                                         @endisset
                                     </div>
                                     @endif

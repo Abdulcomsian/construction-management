@@ -724,8 +724,8 @@
                                     <!--end::Label-->
                                     <select name="work_status" id=""
                                         style="height: 33px;border: none;padding-left: 5px;outline:none">
-                                        <option value="draft" @if($temporary_work->work_status == "draft") selected @endif >Draft</option>
-                                        <option value="publish" @if($temporary_work->work_status == "publish") selected @endif >Publish</option>
+                                        <option value="draft" @if($temporary_work->work_status == "draft") selected @endif > Draft (Pricing Not Agreed)</option>
+                                        <option value="publish" @if($temporary_work->work_status == "publish") selected @endif >Publish (Pricing Agreed)</option>
                                     </select>
                                 </div>
                             </div>

@@ -21,7 +21,9 @@
                 <div style = "display:flex; justify-content: space-between">
                     <h3>Permit to Load</h3>
                     @isset($projectdata->company)
-                    <img src="{{ $projectdata->company->image ?? '' }}"  width="auto" height="50px"  style = "float:right" />
+                    @if(!empty($projectdata->company->image))
+                    <img src="{{$projectdata->company->image}}"  width="auto" height="50px"  style = "float:right" />
+                    @endif
                     @endisset
                </div>
                 <p style="width:200px !important;font-size: 12px;">{{$data['permit_no']}}&nbsp;&nbsp;{{$data['design_requirement_text']}}</p>

@@ -174,6 +174,24 @@ class AdminDesignerController extends Controller
         
         $designer = $estimatorDesigner && $estimatorDesigner->type === 'designers';
         $checker = $estimatorDesigner && $estimatorDesigner->type === 'checker';
+        }
+        elseif (HelperFunctions::isChildAdminDesigner($loggedInUser)) {
+            $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks')
+            ->where('temporary_work_id', $request->temporary_work_id)
+            ->where(function ($query) use ($loggedInUser) {
+                $query->where(function ($subquery) use ($loggedInUser) {
+                    $subquery->where('type', 'designers')
+                        ->where('user_id', $loggedInUser->id);
+                })
+                ->orWhere(function ($subquery) use ($loggedInUser) {
+                    $subquery->where('type', 'checker')
+                        ->where('user_id', $loggedInUser->id);
+                });
+            })
+            ->first();
+        
+        $designer = $estimatorDesigner && $estimatorDesigner->type === 'designers';
+        $checker = $estimatorDesigner && $estimatorDesigner->type === 'checker';
         } else {
             // Admin Designer
             $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks')

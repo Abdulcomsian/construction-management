@@ -31,9 +31,14 @@
     }
     .menu-icons {
         flex-grow: 1;
+        margin-top: 10px
     }
     .hambrger-icon {
         display: none !important;
+    }
+    .mainMenu-link{
+        display: block !important;
+        margin-top: 8px
     }
 }
 .whats-app {

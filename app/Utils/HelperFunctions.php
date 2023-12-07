@@ -343,6 +343,10 @@ class HelperFunctions
     {
         return $user->di_designer_id !== null && $user->admin_designer != 1;
     }
+    public static function isChildAdminDesigner($user)
+    {
+        return $user->di_designer_id !== null && $user->admin_designer = 1;
+    }
 
     public static function getDesignerStatusBadge($designer_status) {
         switch ($designer_status) {

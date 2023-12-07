@@ -1,3 +1,15 @@
+@media screen and(max-width: 991px) {
+    .header--action #kt_header_user_menu_toggle {
+        order: 1;
+    }
+    .menu-icons {
+        flex-grow: 1;
+    }
+    .hambrger-icon {
+        display: none !important;
+    }
+}
+
 #kt_content_container {
     max-width: 100% !important;
 }
@@ -1197,17 +1209,6 @@ textarea::-webkit-input-placeholder, /* Webkit based */
 textarea::placeholder {
     /* Modern browsers */
     color: #a9abb7 !important;
-}
-@media screen and(max-width: 991px) {
-    .header--action #kt_header_user_menu_toggle {
-        order: 1;
-    }
-    .menu-icons {
-        flex-grow: 1;
-    }
-    .hambrger-icon {
-        display: none !important;
-    }
 }
 
 @media screen and(max-width: 1275px) {

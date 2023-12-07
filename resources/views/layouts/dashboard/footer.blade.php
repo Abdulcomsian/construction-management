@@ -25,7 +25,7 @@
 </div>
 <style>
 
-@media screen and(max-width: 991px) {
+@media screen and (max-width: 991px) {
     .header--action #kt_header_user_menu_toggle {
         order: 1;
     }

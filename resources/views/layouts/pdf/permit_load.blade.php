@@ -18,7 +18,13 @@
     <div style="padding: 0; width: 100%; margin: auto;">
         <div class="topDiv" style="display: flex; justify-content: space-between;">
             <div class="logoText" style="float:left;width:70%">
-                <h3>Permit to Load</h3>
+               <div style = "display:flex; justify-content: space-between">
+                    <h3>Permit to Load</h3>
+                    @isset($projectdata->company)
+                    <img src="{{ $projectdata->company->image ?? '' }}"  width="auto" height="50px"  style = "float:right" />
+                    @endisset
+               </div>
+                
                 <p style="width:200px !important;font-size: 12px;">{{$data['permit_no']}}&nbsp;&nbsp;{{$data['design_requirement_text']}}</p>
             </div>
             <div class="logo" style="float:right;width:20%;">

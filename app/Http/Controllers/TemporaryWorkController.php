@@ -2808,9 +2808,9 @@ class TemporaryWorkController extends Controller
                 }
                 
                 //save permit image
-                $pojectdata=Project::select('name','no')->find($request->project_id);
+                $pojectdata=Project::with('company')->find($request->project_id);
                 $image_links = $this->permitfiles($request, $permitload->id); 
-                $pdf = PDF::loadView('layouts.pdf.permit_load', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'image_name1' => $image_name1, 'image_name3' => $image_name3, 'image_name4' => $image_name4, 'image_name5' => $image_name5, 'company1' => $request->company1, 'company3' => $request->company3, 'company4' => $request->company4, 'company5' => $request->company5, 'date1'=>$request->date1, 'date3'=>$request->date3, 'date4'=>$request->date4, 'date5'=>$request->date5,'file_minimum_concrete' => $file_minimum_concrete,'signature_type'=>$all_inputs['signature_type'],'signature_type1'=>$all_inputs['signature_type1']]);
+                $pdf = PDF::loadView('layouts.pdf.permit_load', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'image_name1' => $image_name1, 'image_name3' => $image_name3, 'image_name4' => $image_name4, 'image_name5' => $image_name5, 'company1' => $request->company1, 'company3' => $request->company3, 'company4' => $request->company4, 'company5' => $request->company5, 'date1'=>$request->date1, 'date3'=>$request->date3, 'date4'=>$request->date4, 'date5'=>$request->date5,'file_minimum_concrete' => $file_minimum_concrete,'signature_type'=>$all_inputs['signature_type'],'signature_type1'=>$all_inputs['signature_type1'],'projectdata'=>$pojectdata]);
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
                 $model = PermitLoad::find($permitload->id);
@@ -3833,7 +3833,8 @@ class TemporaryWorkController extends Controller
                 // dd("here" , $request->permitid , $permitload->id);
                 $image_links = $this->permitfiles($request, $permitload->id);
                 $request->merge(['name' => $request->name1 , 'job_title' => $request->job_title1]);
-                $pdf = PDF::loadView('layouts.pdf.permit_unload', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'image_name1' => $image_name1, 'principle_contractor' => $request->approval_PC, 'date1'=>$request->date1, 'date2'=>$request->date2, 'image_name3' => $image_name3, 'image_name4' => $image_name4, 'image_name5' => $image_name5, 'company1' => $request->company1, 'company3' => $request->company3, 'company4' => $request->company4, 'company5' => $request->company5, 'date1'=>$request->date1, 'date3'=>$request->date3, 'date4'=>$request->date4, 'date5'=>$request->date5,'signature_type'=>$all_inputs['signature_type'],'signature_type1'=>$all_inputs['signature_type1']]);
+                $pojectdata=Project::with('company')->find($request->project_id);
+                $pdf = PDF::loadView('layouts.pdf.permit_unload', ['data' => $request->all(), 'image_links' => $image_links, 'image_name' => $image_name, 'image_name1' => $image_name1, 'principle_contractor' => $request->approval_PC, 'date1'=>$request->date1, 'date2'=>$request->date2, 'image_name3' => $image_name3, 'image_name4' => $image_name4, 'image_name5' => $image_name5, 'company1' => $request->company1, 'company3' => $request->company3, 'company4' => $request->company4, 'company5' => $request->company5, 'date1'=>$request->date1, 'date3'=>$request->date3, 'date4'=>$request->date4, 'date5'=>$request->date5,'signature_type'=>$all_inputs['signature_type'],'signature_type1'=>$all_inputs['signature_type1'],'projectdata'=>$pojectdata]);
                 $path = public_path('pdf');
                 $filename = rand() . '.pdf';
                 $model = PermitLoad::find($permitload->id);

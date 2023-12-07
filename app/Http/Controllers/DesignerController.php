@@ -1585,10 +1585,10 @@ class DesignerController extends Controller
             $list .= '<table class="table table-hover" style="margin-top: 20px;"><thead><tr>';
                   $list .= '<table class="table" style="border-radius: 8px; overflow: hidden;"><thead><tr style="background: #07D564">';
                  
-                  $list .= '<th style="color: white !important;padding"3px !important;">Name</th>
-                            <th style="color: white !important;padding"3px !important;">Checker Name</th>
-                            <th style="color: white !important;padding"3px !important;">Date</th>
-                            <th style="color: white !important;padding"3px !important;">File</th>
+                  $list .= '<th style="color: white !important;padding:3px !important;">Name</th>
+                            <th style="color: white !important;padding:3px !important;">Checker Name</th>
+                            <th style="color: white !important;padding:3px !important;">Date</th>
+                            <th style="color: white !important;padding:3px !important;">File</th>
                             ';
 
                   $list .= '</tr></thead><tbody>';
@@ -1624,9 +1624,9 @@ class DesignerController extends Controller
                 $list .= '<table class="table table-hover"><thead><tr>';
                 $list .= '<table class="table" style="border-radius: 8px; overflow: hidden;"><thead><tr style="background: #07D564">';
                
-                $list .= '<th style="color: white !important;padding"3px !important;">Designer Name</th>';
-                $list .= '<th style="color: white !important;padding"3px !important;">Designer Email</th>';
-                $list .= '<th style="color: white !important;padding"3px !important;">Type</th>';
+                $list .= '<th style="color: white !important;padding:3px !important;">Designer Name</th>';
+                $list .= '<th style="color: white !important;padding:3px !important;">Designer Email</th>';
+                $list .= '<th style="color: white !important;padding:3px !important;">Type</th>';
                 $list .= '</tr></thead><tbody>';
                 $list .= '</tr></thead><tbody>';
                 $background='';

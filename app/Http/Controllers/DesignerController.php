@@ -1565,46 +1565,46 @@ class DesignerController extends Controller
         $list='';
         $path = config('app.url');
         
-        if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('company') || auth()->user()->hasRole('user')) {
+        // if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('company') || auth()->user()->hasRole('user')) {
                
               
               
-                $registerupload= TempWorkUploadFiles::with('comment')->where(function ($query){
-                       $query->where(['created_by'=>auth()->user()->email])
-                       ->orWhere('created_by','hani.thaher@gmail.com');
-                       })->where(['file_type'=>1,'temporary_work_id' => $tempworkid])->orderBy('id','desc')->get();
+        //         $registerupload= TempWorkUploadFiles::with('comment')->where(function ($query){
+        //                $query->where(['created_by'=>auth()->user()->email])
+        //                ->orWhere('created_by','hani.thaher@gmail.com');
+        //                })->where(['file_type'=>1,'temporary_work_id' => $tempworkid])->orderBy('id','desc')->get();
               
                
-        }
+        // }
 
         
 
-        $DesignerUploads = TempWorkUploadFiles::where(['temporary_work_id' => $tempworkid, 'file_type' => 2])->orderBy('id','desc')->get();  
+        // $DesignerUploads = TempWorkUploadFiles::where(['temporary_work_id' => $tempworkid, 'file_type' => 2])->orderBy('id','desc')->get();  
 
-        if($DesignerUploads->count()){
-            $list .= '<table class="table table-hover" style="margin-top: 20px;"><thead><tr>';
-                  $list .= '<table class="table" style="border-radius: 8px; overflow: hidden;"><thead><tr style="background: #07D564">';
+        // if($DesignerUploads->count()){
+        //     $list .= '<table class="table table-hover" style="margin-top: 20px;"><thead><tr>';
+        //           $list .= '<table class="table" style="border-radius: 8px; overflow: hidden;"><thead><tr style="background: #07D564">';
                  
-                  $list .= '<th style="color: white !important;padding:3px !important;">Name</th>
-                            <th style="color: white !important;padding:3px !important;">Checker Name</th>
-                            <th style="color: white !important;padding:3px !important;">Date</th>
-                            <th style="color: white !important;padding:3px !important;">File</th>
-                            ';
+        //           $list .= '<th style="color: white !important;padding:3px !important;">Name</th>
+        //                     <th style="color: white !important;padding:3px !important;">Checker Name</th>
+        //                     <th style="color: white !important;padding:3px !important;">Date</th>
+        //                     <th style="color: white !important;padding:3px !important;">File</th>
+        //                     ';
 
-                  $list .= '</tr></thead><tbody>';
-                  $background='';
+        //           $list .= '</tr></thead><tbody>';
+        //           $background='';
                   
-                  $userList=[];
-                  foreach ($DesignerUploads as $uploads) {
-                      $list .= '<tr class=""  style="background:' . $background . '">';
-                      $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->name . '</td>';
-                      $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->design_checker_name . '</td>';
-                      $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->date . '</td>';
-                      $list .= '<td style="text-align: left; vertical-align: middle;"><a href="'.asset($uploads->file_name).'">View</a></td>  ';
+        //           $userList=[];
+        //           foreach ($DesignerUploads as $uploads) {
+        //               $list .= '<tr class=""  style="background:' . $background . '">';
+        //               $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->name . '</td>';
+        //               $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->design_checker_name . '</td>';
+        //               $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->date . '</td>';
+        //               $list .= '<td style="text-align: left; vertical-align: middle;"><a href="'.asset($uploads->file_name).'">View</a></td>  ';
                     
-                  }
-                  $list .= '</tbody></table>';
-        }
+        //           }
+        //           $list .= '</tbody></table>';
+        // }
 
         
 
@@ -1686,89 +1686,89 @@ class DesignerController extends Controller
                 $list .= '</tbody></table>';
             }
             //Design checker for designer company
-            $DesignerUploads = TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 2, 'created_by'=>$designearray[0], 'comments'=>2])->orderBy('id','desc')->get();  
-            // dd($DesignerUploads);          
-            $i = 1;
-            if($DesignerUploads->count() > 0)
-            {
+            // $DesignerUploads = TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 2, 'created_by'=>$designearray[0], 'comments'=>2])->orderBy('id','desc')->get();  
+            // // dd($DesignerUploads);          
+            // $i = 1;
+            // if($DesignerUploads->count() > 0)
+            // {
                
             
                 
-                $list .= '<table class="table table-hover"><thead><tr>';
-                $list .= '<table class="table" style="border-radius: 8px; overflow: hidden;"><thead><tr style="background: #07D564">';
+            //     $list .= '<table class="table table-hover"><thead><tr>';
+            //     $list .= '<table class="table" style="border-radius: 8px; overflow: hidden;"><thead><tr style="background: #07D564">';
                
-                $list .= '<th style="color: white !important;">Design Checker Name</th>';
-                $list .= '</tr></thead><tbody>';
-                $list .= '</tr></thead><tbody>';
-                $background='';
+            //     $list .= '<th style="color: white !important;">Design Checker Name</th>';
+            //     $list .= '</tr></thead><tbody>';
+            //     $list .= '</tr></thead><tbody>';
+            //     $background='';
                 
-                $userList=[];
-                foreach ($DesignerUploads as $uploads) {
-                    $list .= '<tr class=""  style="background:' . $background . '">';
+            //     $userList=[];
+            //     foreach ($DesignerUploads as $uploads) {
+            //         $list .= '<tr class=""  style="background:' . $background . '">';
                    
-                    $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->twd_name . '</td>';
-                    $list .= '<td style="text-align: left; vertical-align: middle;"></td>';
-                    $list .= '</tr>';
+            //         $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->twd_name . '</td>';
+            //         $list .= '<td style="text-align: left; vertical-align: middle;"></td>';
+            //         $list .= '</tr>';
                 
-                }
-                $list .= '</tbody></table>';
-            }
-        if(count($designearray)>1){
-            /* this query is used combined with company designer 1
-            //designer for Design checker company
-            $DesignerUploads = TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 1, 'created_by'=>$designearray[1]])->orderBy('id','desc')->get();  
-            // dd($DesignerUploads);          
-            $i = 1;
-            if($DesignerUploads->count() > 0)
-            {
-                    $list.="<h3 style='margin-top:20px;'>Design Checker Company</h3>";
-                $list .= '<table class="table table-hover"><thead><tr>';
-                $list .= '<table class="table" style="border-radius: 8px; overflow: hidden;"><thead><tr style="background: #07D564">';
+            //     }
+            //     $list .= '</tbody></table>';
+            // }
+        // if(count($designearray)>1){
+        //     /* this query is used combined with company designer 1
+        //     //designer for Design checker company
+        //     $DesignerUploads = TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 1, 'created_by'=>$designearray[1]])->orderBy('id','desc')->get();  
+        //     // dd($DesignerUploads);          
+        //     $i = 1;
+        //     if($DesignerUploads->count() > 0)
+        //     {
+        //             $list.="<h3 style='margin-top:20px;'>Design Checker Company</h3>";
+        //         $list .= '<table class="table table-hover"><thead><tr>';
+        //         $list .= '<table class="table" style="border-radius: 8px; overflow: hidden;"><thead><tr style="background: #07D564">';
                
-                $list .= '<th style="color: white !important;">Designer Name</th>';
-                $list .= '</tr></thead><tbody>';
-                $list .= '</tr></thead><tbody>';
-                $background='';
+        //         $list .= '<th style="color: white !important;">Designer Name</th>';
+        //         $list .= '</tr></thead><tbody>';
+        //         $list .= '</tr></thead><tbody>';
+        //         $background='';
                 
-                $userList=[];
-                foreach ($DesignerUploads as $uploads) {
-                    $list .= '<tr class=""  style="background:' . $background . '">';
-                    $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->twd_name . '</td>';
-                    $list .= '<td style="text-align: left; vertical-align: middle;"></td>';
-                    $list .= '</tr>';
+        //         $userList=[];
+        //         foreach ($DesignerUploads as $uploads) {
+        //             $list .= '<tr class=""  style="background:' . $background . '">';
+        //             $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->twd_name . '</td>';
+        //             $list .= '<td style="text-align: left; vertical-align: middle;"></td>';
+        //             $list .= '</tr>';
                     
-                }
-                $list .= '</tbody></table>';
-            }
-            */
-              //Design checker for Design checker company
-              $DesignerUploads = TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 2, 'created_by'=>$designearray[1], 'comments'=>1])->orderBy('id','desc')->get();  
-              // dd($DesignerUploads);          
-              $i = 1;
-              if($DesignerUploads->count() > 0)
-              {
-                  $list .= '<table class="table table-hover"><thead><tr>';
-                  $list .= '<table class="table" style="border-radius: 8px; overflow: hidden;"><thead><tr style="background: #07D564">';
+        //         }
+        //         $list .= '</tbody></table>';
+        //     }
+        //     */
+        //       //Design checker for Design checker company
+        //       $DesignerUploads = TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 2, 'created_by'=>$designearray[1], 'comments'=>1])->orderBy('id','desc')->get();  
+        //       // dd($DesignerUploads);          
+        //       $i = 1;
+        //       if($DesignerUploads->count() > 0)
+        //       {
+        //           $list .= '<table class="table table-hover"><thead><tr>';
+        //           $list .= '<table class="table" style="border-radius: 8px; overflow: hidden;"><thead><tr style="background: #07D564">';
                  
-                  $list .= '<th style="color: white !important;">Design Checker Name</th>';
-                  $list .= '</tr></thead><tbody>';
-                  $list .= '</tr></thead><tbody>';
-                  $background='';
+        //           $list .= '<th style="color: white !important;">Design Checker Name</th>';
+        //           $list .= '</tr></thead><tbody>';
+        //           $list .= '</tr></thead><tbody>';
+        //           $background='';
                   
-                  $userList=[];
-                  foreach ($DesignerUploads as $uploads) {
-                      $list .= '<tr class=""  style="background:' . $background . '">';
-                      $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->twd_name . '</td>';
-                      $list .= '<td style="text-align: left; vertical-align: middle;"></td>';
-                      $list .= '</tr>';
+        //           $userList=[];
+        //           foreach ($DesignerUploads as $uploads) {
+        //               $list .= '<tr class=""  style="background:' . $background . '">';
+        //               $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->twd_name . '</td>';
+        //               $list .= '<td style="text-align: left; vertical-align: middle;"></td>';
+        //               $list .= '</tr>';
                       
-                  }
-                  $list .= '</tbody></table>';
-              }
+        //           }
+        //           $list .= '</tbody></table>';
+        //       }
 
              
 
-        }
+        // }
 
         
         echo $list;

@@ -514,7 +514,27 @@ $tempWorkClass = "d-none";
         }
     }
 
-
+    @media (max-width: 517px) {
+        .card-title-name {
+                visibility: hidden;
+            }
+        .card-header{
+            height: 55px;
+            min-height: 55px;
+        }
+          .mainMenu-link {
+                position:absolute; 
+                left: 40px;
+                top: 8px !important;         
+            } 
+            .symbol.symbol-30px .symbol-label {
+                width: 30px;
+                height: 30px;
+            }
+           .mobile-card-title{
+              display:block !important;
+           }
+        }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
@@ -531,9 +551,10 @@ $tempWorkClass = "d-none";
                     <div class="card-header border-0">
                         <div class="card-title">
                             <a href="#" class="mainMenu-link" style="position:absolute; left: 40px; top: 23px; " onclick="hideCheck1()">Menu</a>
-                            <h3 class="card-label pt-5" style="font-size:1.6rem;">Temporary Works Register
+                            <h3 class="card-label pt-5 card-title-name" style="font-size:1.6rem;">Temporary Works Register
                                 <span class="d-block text-muted pt-25 font-size-sm"></span>
                             </h3>
+                            
                         </div>
                         <!--begin::Topbar-->
                         <div class="d-flex align-items-stretch flex-shrink-0 topRightMenu">
@@ -729,6 +750,7 @@ $tempWorkClass = "d-none";
                         </div>
                         <!--end::Topbar-->
                     </div>
+                    <div class="mobile-card-title text-center" style="display:none;" ><h1 style = "width: 100%; text-align: center;margin-top: 2.25rem !important; margin-bottom: 2.25rem !important;">Temporary Works Register<h1></div>
                     <!--end::Card header-->
                     <!--begin::Card body-->
                     <div class="card-body indexTempory pt-0" style="max-width: 1550px; margin: auto">

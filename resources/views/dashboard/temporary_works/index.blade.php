@@ -661,7 +661,7 @@ $tempWorkClass = "d-none";
                                             @else
                                             <div class="symbol-label fs-3 bg-light-primary text-primary" style="display:flex !important;">
                                                 {{ auth()->user()->name[0] ?: '' }}</div>
-                                            @endisset
+                                            @endif
                                     </div>
                                     <!--begin::Menu-->
                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold py-4 fs-6 w-275px"
@@ -678,7 +678,7 @@ $tempWorkClass = "d-none";
                                                     @else
                                                     <div class="symbol-label fs-3 bg-light-primary text-primary" style="display:flex !important;">
                                                         {{ auth()->user()->name[0] ?: '' }}</div>
-                                                    @endisset
+                                                    @endif
                                                 </div>
                                                 <!--end::Avatar-->
                                                 <!--begin::Username-->

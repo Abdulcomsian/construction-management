@@ -489,6 +489,47 @@ $tempWorkClass = "d-none";
         left: 0;
         z-index: 9;
     }
+
+    @media (max-width: 517px) {
+        .card-title-name {
+                visibility: hidden;
+            }
+        .card-header{
+            height: 55px;
+            min-height: 55px;
+        }
+        .menu_items{
+            border-radius: 6px;
+        }
+          .mainMenu-link {
+                position:absolute; 
+                left: 40px;
+                top: 8px !important;         
+            } 
+            .symbol.symbol-30px .symbol-label {
+                width: 30px;
+                height: 30px;
+            }
+           .mobile-card-title{
+              display:block !important;
+           }
+           .margintop {
+                margin-top: 0px;
+                margin-left: 0px;
+            }
+        }
+        @media (min-width: 576px){
+            .margintop {
+                margin-top: 0px;
+                margin-left: 0px;
+            }
+        }
+        @media (min-width: 768px){
+            .margintop {
+                margin-top: 0px;
+                margin-left: 0px;
+            }
+        }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
@@ -504,7 +545,7 @@ $tempWorkClass = "d-none";
                 <div class="card-header border-0">
                         <div class="card-title">
                             <a href="#" class="mainMenu-link" style="position:absolute; left: 40px; top: 23px" onclick="hide1()">Menu</a>
-                            <h3 class="card-label pt-5" style="font-size:1.6rem;">Shared Temporary Works 
+                            <h3 class="card-label pt-5 card-title-name" style="font-size:1.6rem;">Shared Temporary Works 
                                 <span class="d-block text-muted pt-25 font-size-sm"></span>
                             </h3>
                         </div>
@@ -589,17 +630,18 @@ $tempWorkClass = "d-none";
                                 </div>
                                 <!--end::User -->
                                 <!--begin::Heaeder menu toggle-->
-                                <div class="d-flex align-items-stretch d-lg-none px-3 me-n3" title="Show header menu">
+                                <!-- <div class="d-flex align-items-stretch d-lg-none px-3 me-n3" title="Show header menu">
                                     <div class="topbar-item" id="kt_header_menu_mobile_toggle">
                                         <i class="bi bi-text-left fs-1"></i>
                                     </div>
-                                </div>
+                                </div> -->
                                 <!--end::Heaeder menu toggle-->
                             </div>
                             <!--end::Toolbar wrapper-->
                         </div>
                         <!--end::Topbar-->
                     </div>
+                            <div class="mobile-card-title text-center" style="display:none;" ><h1 style = "width: 100%; text-align: center;margin-top: 2.25rem !important; margin-bottom: 2.25rem !important;">Temporary Works Register<h1></div>
                 <!--begin::Card header-->
                 <div class="card-body indexTempory pt-0" style="max-width: 1550px; margin: auto">
                     <!--begin::Card title-->

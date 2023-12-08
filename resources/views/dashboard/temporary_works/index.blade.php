@@ -522,6 +522,9 @@ $tempWorkClass = "d-none";
             height: 55px;
             min-height: 55px;
         }
+        .menu_items{
+            border-radius: 6px;
+        }
           .mainMenu-link {
                 position:absolute; 
                 left: 40px;

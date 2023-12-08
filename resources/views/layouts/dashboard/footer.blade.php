@@ -24,6 +24,23 @@
     <!--end::Container-->
 </div>
 <style>
+
+@media screen and (max-width: 991px) {
+    .header--action #kt_header_user_menu_toggle {
+        order: 1;
+    }
+    .menu-icons {
+        flex-grow: 1;
+        margin-top: 10px
+    }
+    .hambrger-icon {
+        display: none !important;
+    }
+    .mainMenu-link{
+        display: block !important;
+        margin-top: 8px
+    }
+}
 .whats-app {
     position: fixed;
     width: 60px;

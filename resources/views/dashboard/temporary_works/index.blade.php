@@ -530,8 +530,8 @@ $tempWorkClass = "d-none";
                     <!--begin::Card header-->
                     <div class="card-header border-0">
                         <div class="card-title">
-                            <a href="#" class="mainMenu-link" style="position:absolute; left: 40px; top: 23px" onclick="hideCheck1()">Menu</a>
-                            <h3 class="card-label pt-5" style="font-size:1.6rem;">Temporary Works Registers
+                            <a href="#" class="mainMenu-link" style="position:absolute; left: 40px; top: 23px; " onclick="hideCheck1()">Menu</a>
+                            <h3 class="card-label pt-5" style="font-size:1.6rem;">Temporary Works Register
                                 <span class="d-block text-muted pt-25 font-size-sm"></span>
                             </h3>
                         </div>
@@ -718,7 +718,7 @@ $tempWorkClass = "d-none";
                                 </div>
                                 <!--end::User -->
                                 <!--begin::Heaeder menu toggle-->
-                                <div class="d-flex align-items-stretch d-lg-none px-3 me-n3" title="Show header menu">
+                                <div class="d-none align-items-stretch d-lg-none px-3 me-n3" title="Show header menu">
                                     <div class="topbar-item" id="kt_header_menu_mobile_toggle">
                                         <i class="bi bi-text-left fs-1"></i>
                                     </div>
@@ -5542,7 +5542,9 @@ $(document).on('click','.drawingshare',function(e){
 
 const asideContainer = document.querySelector('.aside-fixed .aside');
 const overlay = document.querySelector('.overlay');
-document.querySelector('.mainMenu-link').addEventListener('click', function(e){
+const mainMenuLinks = document.querySelectorAll('.mainMenu-link')
+mainMenuLinks.forEach(mainMenuLink => {
+    mainMenuLink.addEventListener('click', function(e){
     e.preventDefault();
     asideContainer.style.display = 'block';
     overlay.classList.remove('d-none')
@@ -5551,6 +5553,8 @@ document.querySelector('.mainMenu-link').addEventListener('click', function(e){
         document.getElementById('kt_aside_logo').style.display = 'flex'
     }
 });
+})
+
 
 overlay.addEventListener('click', () => {
     asideContainer.style.display = 'none';

@@ -891,9 +891,14 @@ class TemporaryWorkController extends Controller
                 }
                 //work for pdf
                 // dd($content);
-                // dd($request->all());
-                // dd($content);
-                $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $request->all(),  'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $twc_id_no, 'comments' => $attachcomments , "description" => $content, 'image_name3' => $image_name3, 'image_name4' => $image_name4, 'image_name5' => $image_name5, 'company3' => $request->company3, 'company4' => $request->company4, 'company5' => $request->company5, 'date3'=>$request->date3, 'date4'=>$request->date4, 'date5'=>$request->date5]);
+                // dd($request->all()); all_input
+                // dd($all_inputs['photo']);
+                if ($request->file('photo')) {
+                    $other_photo = $all_inputs['photo'];
+                }else{
+                    $other_photo = NULL;
+                }
+                $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $request->all(), 'other_photo' => $other_photo, 'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $twc_id_no, 'comments' => $attachcomments , "description" => $content, 'image_name3' => $image_name3, 'image_name4' => $image_name4, 'image_name5' => $image_name5, 'company3' => $request->company3, 'company4' => $request->company4, 'company5' => $request->company5, 'date3'=>$request->date3, 'date4'=>$request->date4, 'date5'=>$request->date5]);
                 
                 // dd("now here");
                 $path = public_path('pdf');

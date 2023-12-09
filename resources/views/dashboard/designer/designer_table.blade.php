@@ -3,51 +3,57 @@
 <form action="{{route('store_award_estimator_hours', $estimatorDesigner->id)}}" method="post">
     @csrf
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="d-flex inputDiv d-block mb-3">
                 <!--begin::Label-->
                 <label class=" fs-6 fw-bold mb-2">
                     <span class="required">Date</span>
                 </label>
                 <!--end::Label-->
-                <input type="date" name="date"  id="date" style="border: none; width: 100%">
+                <input type="date" name="date"  id="date" style="width: 100%" class="form-control form-control-solid">
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6 mb-2">
             <div class="d-flex inputDiv d-block mb-3">
                 <!--begin::Label-->
                 <label class="fs-6 fw-bold mb-2">
                     <span class="required">Hours</span>
                 </label>
                 <!--end::Label-->
-                <input type="text" name="hours" id="hours" style="border: none; width: 100%">
+                <input type="text" name="hours" id="hours" style="width: 100%" class="form-control form-control-solid">
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6 mb-2">
             <div class="d-flex inputDiv d-block mb-3">
                 <!--begin::Label-->
                 <label class=" fs-6 fw-bold mb-2">
                     <span class="required">Completed</span>
                 </label>
                 <!--end::Label-->
-                <input type="number" name="completed"  id="completed" style="border: none; width: 100%">
+                <input type="number" name="completed"  id="completed" style="width: 100%" class="form-control form-control-solid">
+            </div>
+        </div>
+        <div class="col-md-6 mb-2">
+             <!--begin::Label-->
+            <div class="d-flex inputDiv d-block mb-3">
+                <label class=" fs-6 fw-bold mb-2" style = "width:50%">
+                    <span class="required" >Select Status</span>
+                </label>
+                <select class="form-control" name="status" class="form-control form-control-solid">
+                    <option value="working">Working</option>
+                    <option value="stuck">Stuck</option>
+                    <option value="completed">Completed</option>
+                    <option value="hold">Hold</option>
+                </select>
             </div>
         </div>
         <div class="col-md-12">
-                <textarea class="form-control" placeholder="Enter Task" name="task"></textarea>
-        </div>
-        <div class="col-md-4">
-             <!--begin::Label-->
-             <label class=" fs-6 fw-bold mb-2">
-                <span class="required">Select Status</span>
+            <label class=" fs-6 fw-bold mb-2">
+                <span class="required" >Details</span>
             </label>
-            <select class="form-control" name="status">
-                <option value="working">Working</option>
-                <option value="stuck">Stuck</option>
-                <option value="completed">Completed</option>
-                <option value="hold">Hold</option>
-            </select>
+                <textarea class="form-control form-control-solid" placeholder="Enter Task" name="task"></textarea>
         </div>
+      
         {{-- <div class="col-md-9">
             <div class="d-flex inputDiv d-block mb-3">
             <!--begin::Label-->
@@ -55,7 +61,7 @@
                 <span class="required">Total Esimtated Hours required:</span>
             </label>
             <!--end::Label-->
-            <input type="text" name="name" value="{{$estimatorDesigner->total_hours ?? ''}}" id="" style="border: none; width: 100%">
+            <input type="text" name="name" value="{{$estimatorDesigner->total_hours ?? ''}}" id="" style="width: 100%">
             </div>
         </div> --}}
     </div>    
@@ -100,11 +106,11 @@
             <tbody>
             @foreach($estimatorDesigner->estimatorDesignerListTasks as $row)    
                 <tr>
-                <th scope="row">{{$row->date ?? ''}}</th>
-                <td>{{$row->hours ?? ''}}</td>
-                <td>{{$row->task ?? ''}}</td>
-                <td>{{$row->completed ?? ''}}%</td>
-                <td>{{$row->status ?? ''}}</td>
+                <td scope="row" style = "width:10%;">{{$row->date ?? ''}}</td>
+                <td style = "width:10%;">{{$row->hours ?? ''}}</td>
+                <td><div style="width:60%; line-height:17px;letter-spacing: normal;">{{$row->task ?? ''}}</div></td>
+                <td style = "width:10%;">{{$row->completed ?? ''}}%</td>
+                <td style = "width:10%;">{{$row->status ?? ''}}</td>
                 </tr>
             @endforeach
             </tbody>

@@ -183,7 +183,7 @@ sup {
     top: -0.5em;
 }
 a {
-    color: #009ef7;
+    color: #07d564;
     text-decoration: none;
 }
 a:hover {
@@ -48303,7 +48303,7 @@ canvas {
         align-items: center;
     }
     .toolbar-tablet-and-mobile-fixed .toolbar {
-        height: var(--kt-toolbar-height-tablet-and-mobile);
+        /* height: var(--kt-toolbar-height-tablet-and-mobile); */
         position: fixed;
         top: 0;
         right: 0;

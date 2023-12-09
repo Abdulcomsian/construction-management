@@ -21,7 +21,7 @@
             <!--begin::Navbar-->
             <div class="d-flex align-items-stretch" id="kt_header_nav">
                 <!--begin::Menu wrapper-->
-                <a href="#" class="mainMenu-link" style="position:absolute; left: 40px; display: none" onclick="hideCheck1()">Menu</a>
+                <a href="#" class="mainMenu-link" style="color:#07d564;position:absolute; left: 40px; display: none" onclick="hideCheck1()">Menu</a>
                 <div class="header-menu align-items-stretch" data-kt-drawer="true"
                      data-kt-drawer-name="header-menu" data-kt-drawer-activate="{default: true, lg: false}"
                      data-kt-drawer-overlay="true"
@@ -122,11 +122,13 @@
                             data-kt-menu-trigger="click" data-kt-menu-attach="parent"
                             data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
                             @if(auth()->user())
-                                @isset(auth()->user()->image)
-                                    <img alt="Logo" src="{{ auth()->user()->image ?: '' }}">
+                                @if(isset(auth()->user()->userCompany))
+                                <img alt="Logo" src="{{ auth()->user()->userCompany->image ?? '' }}">
+                                @elseif(isset(auth()->user()->image))
+                                <img alt="Logo" src="{{ auth()->user()->image ?? '' }}">
                                 @else
-                                    <div class="symbol-label fs-3 bg-light-primary text-primary" style="display:flex !important;">
-                                        {{ \Illuminate\Support\Str::upper(auth()->user()->name[0])  ?: '' }}</div>
+                                <div class="symbol-label fs-3 bg-light-primary text-primary" style="display:flex !important;">
+                                    {{ auth()->user()->name[0] ?: '' }}</div>
                                 @endisset
                             @endif
 
@@ -142,11 +144,13 @@
                                     <!--begin::Avatar-->
                                     @if(auth()->user())
                                     <div class="symbol symbol-50px me-5">
-                                        @isset(auth()->user()->image)
-                                            <img alt="Logo" src="{{ auth()->user()->image ?: '' }}">
+                                        @if(isset(auth()->user()->userCompany))
+                                        <img alt="Logo" src="{{ auth()->user()->userCompany->image ?? '' }}">
+                                        @elseif(isset(auth()->user()->image))
+                                        <img alt="Logo" src="{{ auth()->user()->image ?? '' }}">
                                         @else
-                                            <div class="symbol-label fs-3 bg-light-primary text-primary">
-                                                {{ auth()->user()->name[0] ?: '' }}</div>
+                                        <div class="symbol-label fs-3 bg-light-primary text-primary" style="display:flex !important;">
+                                            {{ auth()->user()->name[0] ?: '' }}</div>
                                         @endisset
                                     </div>
                                     @endif

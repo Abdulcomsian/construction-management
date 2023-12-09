@@ -151,7 +151,7 @@ background-color: #07d564 !important;
             <!--begin::Page title-->
             <div data-kt-place="true" data-kt-place-mode="prepend" data-kt-place-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1" style="width: 100%; text-align: center;">
                 <!--begin::Title-->
-                <h1 class="text-dark fw-bolder my-1 fs-3" style="width: 100%; text-align: center;">Users</h1>
+                <h1 class="text-dark fw-bolder  fs-3" style="width: 100%; text-align: center;margin-top: 2.25rem !important; margin-bottom: -0.75rem !important;">Users</h1>
                 <!--end::Title-->
             </div>
             <!--end::Page title-->

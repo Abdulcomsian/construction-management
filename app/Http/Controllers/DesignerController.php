@@ -1623,7 +1623,7 @@ class DesignerController extends Controller
            
             $list .= '<th style="color: white !important;padding:3px !important;">Designer Name</th>';
             $list .= '<th style="color: white !important;padding:3px !important;">Designer Email</th>';
-            $list .= '<th style="color: white !important;padding:3px !important;">Type</th>';
+            $list .= '<th style="color: white !important;padding:3px !important;">Uploaded By</th>';
             $list .= '</tr></thead><tbody>';
             $list .= '</tr></thead><tbody>';
             $background='';
@@ -1641,7 +1641,7 @@ class DesignerController extends Controller
                    
                     $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->twd_name . '</td>';
                     $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->created_by . '</td>';
-                    $list .= '<td style="text-align: left; vertical-align: middle;">' . $type . '</td>';
+                    $list .= '<td style="text-align: center; vertical-align: middle;">' . $type . '</td>';
                     $list .= '<td style="text-align: left; vertical-align: middle;"></td>';
                     $list .= '</tr>';
                 
@@ -1658,7 +1658,7 @@ class DesignerController extends Controller
                    
                     $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->twd_name . '</td>';
                     $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->created_by . '</td>';
-                    $list .= '<td style="text-align: left; vertical-align: middle;">' . $type . '</td>';
+                    $list .= '<td style="text-align: center; vertical-align: middle;">' . $type . '</td>';
                     $list .= '<td style="text-align: left; vertical-align: middle;"></td>';
                     $list .= '</tr>';
                 }
@@ -1672,12 +1672,14 @@ class DesignerController extends Controller
                         $type  = 'TWC';
                     elseif($user->hasRole('admin'))
                         $type = "Admin";
+                    else
+                        $type = "TWC";
                 
                     $list .= '<tr class=""  style="background:' . $background . '">';
                    
                     $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->twd_name . '</td>';
                     $list .= '<td style="text-align: left; vertical-align: middle;">' . $uploads->created_by . '</td>';
-                    $list .= '<td style="text-align: left; vertical-align: middle;">' . $type . '</td>';
+                    $list .= '<td style="text-align: center; vertical-align: middle;">' . $type . '</td>';
                     $list .= '<td style="text-align: left; vertical-align: middle;"></td>';
                     $list .= '</tr>';
                 }

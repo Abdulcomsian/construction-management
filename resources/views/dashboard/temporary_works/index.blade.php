@@ -796,7 +796,7 @@ $tempWorkClass = "d-none";
                                                     <button type="submit"
                                                         class="btn btn-light-primary px-6 font-weight-bold btn-action"
                                                         style="width: 9px;border-radius: 7px; padding: 10px 10px; margin-left: 10px; margin-bottom: 0px important; width: auto;"><span
-                                                            class="fa fa-search" ></span></button>
+                                                            class="fa fa-search" style="width:11px;"></span></button>
                                                 </div>
                                             </form>
                                         </div>

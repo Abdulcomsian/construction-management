@@ -776,7 +776,7 @@ $tempWorkClass = "d-none";
                                                 <div class="col-2 ">
                                                     <button type="submit"
                                                         class="btn btn-light-primary mb-2 w-100 btn-action"
-                                                        style="border-radius: 0px;padding: 6px 10px; margin-left:10px;    margin-bottom: 0px !important;width: auto;    "><span
+                                                        style="border-radius: 0px;padding: 10px 10px; margin-left:10px;    margin-bottom: 0px !important;width: auto;    "><span
                                                             class="fa fa-filter" style="width: 9px !important;"></span></button>
                                                 </div>
                                             </form>
@@ -795,7 +795,7 @@ $tempWorkClass = "d-none";
                                                 <div class="col-md-2 text-right" id="search-btn">
                                                     <button type="submit"
                                                         class="btn btn-light-primary px-6 font-weight-bold btn-action"
-                                                        style="width: 9px;border-radius: 0px; padding: 6px 10px; margin-left: 10px; margin-bottom: 0px important; width: auto;"><span
+                                                        style="width: 9px;border-radius: 0px; padding: 10px 10px; margin-left: 10px; margin-bottom: 0px important; width: auto;"><span
                                                             class="fa fa-search" ></span></button>
                                                 </div>
                                             </form>

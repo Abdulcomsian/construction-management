@@ -490,6 +490,9 @@
                                     <a target="_blank" href="{{asset($links)}}">{{asset($links)}}</a><br>
                                     @endforeach
                                     <br>
+                                    @if(isset($other_photo) && $other_photo!=NULL)
+                                        <a target="_blank" href="{{asset($other_photo)}}">{{asset($other_photo)}}</a><br>
+                                    @endif
                                     {{-- @foreach($folderattac as $key => $folder)
                                     <strong>{{$key}}:{{$folder}}</strong><br>
                                     @endforeach --}}

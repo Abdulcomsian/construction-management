@@ -1069,7 +1069,7 @@ hr{
 <!--end::Post-->
 </div>
 <div class="modal  fade" id="AssignProjectModal" style="width: 100%">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
        <div class="modal-content">
           <div class="modal-body">
              <input type="hidden" name="assigned_task" id="assigned_task" />

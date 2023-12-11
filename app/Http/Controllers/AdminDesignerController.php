@@ -157,6 +157,7 @@ class AdminDesignerController extends Controller
         $loggedInUser = Auth::user();
         $designer = false;
         $checker = false;
+        $checkerData = null;
         if (HelperFunctions::isChildDesigner($loggedInUser)) {
             $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks')
             ->where('temporary_work_id', $request->temporary_work_id)
@@ -195,14 +196,22 @@ class AdminDesignerController extends Controller
         } else {
             // Admin Designer
             $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks')
-                ->whereHas('Estimator', function ($query) use ($loggedInUser) {
-                    $query->where('created_by', $loggedInUser->id);
-                })
-                ->where('type','designer')
+                // ->whereHas('Estimator', function ($query) use ($loggedInUser) {
+                //     $query->where('created_by', $loggedInUser->id);
+                // })
+                ->where('type','designers')
                 ->where('temporary_work_id', $request->temporary_work_id)
                 ->first();
+            $checkerData = EstimatorDesignerList::with('estimatorDesignerListTasks')
+                // ->whereHas('Estimator', function ($query) use ($loggedInUser) {
+                //     $query->where('created_by', $loggedInUser->id);
+                // })
+                ->where('type','checker')
+                ->where('temporary_work_id', $request->temporary_work_id)
+                ->first();
+                // dd($estimatorDesigner);
         }
-        return view('dashboard.designer.designer_table',['estimatorDesigner' => $estimatorDesigner, 'designer' => $designer, 'checker' => $checker]);
+        return view('dashboard.designer.designer_table',['estimatorDesigner' => $estimatorDesigner, 'designer' => $designer, 'checker' => $checker,'checkerData'=>$checkerData]);
     }
 
     public function awardedEstimatorModalChecker(Request $request)

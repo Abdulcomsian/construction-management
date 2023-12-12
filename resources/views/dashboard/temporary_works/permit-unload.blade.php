@@ -214,7 +214,17 @@
     #job_title1 {
         border: none
     }
-
+    @media only screen and (max-width: 450px) {
+        .set-button {
+        /* position: absolute !important; */
+        font-size: 15px !important;
+        font-weight: 500 !important;
+        border-radius: 5px;
+        padding: 10px 20px !important;
+        margin-bottom: 10px;
+        /* margin-top: -160px; */
+    }
+  }
     @media screen and (max-width: 576px) {
         #kt_post {
             width: auto;
@@ -1144,8 +1154,8 @@
                         <!-- <div class="uploadDiv" style="padding-left: 10px;">
                                 <div class="input-images"></div>
                             </div> -->
-                            <button id="submitbutton" type="button" style="margin-right:10px;" class="btn btn-secondary unload_button set-button">Submit</button>
                             <button name="action" id="draft" value="draft" type="button" class="btn btn-success  set-button">Save as Draft</button>
+                            <button id="submitbutton" type="button" style="margin-right:10px;" class="btn btn-secondary unload_button set-button">Submit</button>
                         </div>
                         <div class="col-md-6" style="margin-left: 15px;">
                             <button class="btn btn-success btn-sm " id="addMemberButton" style="border-radius: 5px;padding: 10px 20px;font-size: 15px;font-weight: 500;    background: none;border: 1px solid #07d564;color: #07d564;">Add New Signature</button>

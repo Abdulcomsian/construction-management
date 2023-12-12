@@ -747,13 +747,36 @@ hr{
                                 </div>
                             </td>
                             @php
-                                    $designer_task = isset($item->designerAssign->estimatorDesignerListTasks)
-                                        ? ($item->designerAssign->estimatorDesignerListTasks->last() ? $item->designerAssign->estimatorDesignerListTasks->last()->completed : '0')
-                                        : '0';
+                                   /*  Doesn't add total tasks percentage for Designer
 
+                                   $designer_task = isset($item->designerAssign->estimatorDesignerListTasks)
+                                        ? ($item->designerAssign->estimatorDesignerListTasks->last() ? $item->designerAssign->estimatorDesignerListTasks->last()->completed : '0')
+                                        : '0'; 
+                                        
+                                        */ 
+                                    
+                                    
+                                        $designer_task = 0;
+                                    if(isset($item->designerAssign->estimatorDesignerListTasks))  //add tasks percentage
+                                    {
+                                        foreach($item->designerAssign->estimatorDesignerListTasks as $task)
+                                        $designer_task = $designer_task + $task->completed;
+                                    }
+                                    
+                                    
+
+                                   /*  Doesn't add total tasks percentage for Checker
                                     $checker_task = isset($item->checkerAssign->estimatorDesignerListTasks)
                                         ? ($item->checkerAssign->estimatorDesignerListTasks->last() ? $item->checkerAssign->estimatorDesignerListTasks->last()->completed : '0')
                                         : '0';
+                                    */
+
+                                    $checker_task = 0;
+                                    if(isset($item->checkerAssign->estimatorDesignerListTasks))  //add tasks percentage
+                                    {
+                                        foreach($item->checkerAssign->estimatorDesignerListTasks as $task)
+                                        $checker_task = $checker_task + $task->completed;
+                                    }
 
                                     $designer_status = isset($item->designerAssign->estimatorDesignerListTasks)
                                     ? ($item->designerAssign->estimatorDesignerListTasks->last() ? $item->designerAssign->estimatorDesignerListTasks->last()->status : '-')
@@ -787,7 +810,7 @@ hr{
                                     $is_promoted_admin = HelperFunctions::isPromotedAdminDesigner($user);
                                     $is_designer = HelperFunctions::getJobAwardedDesignerorCheckerByJobId($item->id,'designers');
                                     $is_checker = HelperFunctions::getJobAwardedDesignerorCheckerByJobId($item->id,'checker');
-                                    // dd($is_designer);
+                                    // dd($is_checker);
                                     
                                 @endphp
                                 @if($is_admin || $is_promoted_admin || ($is_designer && $user->id == $is_designer->user_id))

@@ -71,7 +71,100 @@
         </div>
     </div>
 </form>
-@endif
+    @if(isset($estimatorDesigner->estimatorDesignerListTasks) && $estimatorDesigner->estimatorDesignerListTasks != null)
+    <div class="row">
+        <div class="col-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Hours spent</th>
+                    <th scope="col">Task</th>
+                    <th scope="col">Completed(%)</th>
+                    <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach($estimatorDesigner->estimatorDesignerListTasks as $row)    
+                    <tr>
+                    <td scope="row" style = "width:10%;">{{$row->date ?? ''}}</td>
+                    <td style = "width:10%;">{{$row->hours ?? ''}}</td>
+                    <td><div style="width:60%; line-height:17px;letter-spacing: normal;">{{$row->task ?? ''}}</div></td>
+                    <td style = "width:10%;">{{$row->completed ?? ''}}%</td>
+                    <td style = "width:10%;">{{$row->status ?? ''}}</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+    @else
+    <div class="row">
+        <div class="col-12">
+            <div class="h3">No Records Found</div>
+        </div>
+    </div>
+    @endif
+    @elseif(auth()->user()->di_designer_id == null)
+        <div class="row">
+            <p><b>Desinger: </b>{{$estimatorDesigner->email ?? ''}}</p>
+            <div class="col-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Hours spent</th>
+                        <th scope="col">Task</th>
+                        <th scope="col">Completed(%)</th>
+                        <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if(isset($estimatorDesigner->estimatorDesignerListTasks) && $estimatorDesigner->estimatorDesignerListTasks != null)
+                        @foreach($estimatorDesigner->estimatorDesignerListTasks as $row) 
+                        <tr>
+                            <td scope="row" style = "width:10%;">{{$row->date ?? ''}}</td>
+                            <td style = "width:10%;">{{$row->hours ?? ''}}</td>
+                            <td><div style="width:60%; line-height:17px;letter-spacing: normal;">{{$row->task ?? ''}}</div></td>
+                            <td style = "width:10%;">{{$row->completed ?? ''}}%</td>
+                            <td style = "width:10%;">{{$row->status ?? ''}}</td>
+                            </tr>
+                        @endforeach
+                        @endif
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <p><b>Checker: </b>{{$checkerData->email ?? ''}}</p>
+            <div class="col-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Hours spent</th>
+                        <th scope="col">Task</th>
+                        <th scope="col">Completed(%)</th>
+                        <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if(isset($checkerData->estimatorDesignerListTasks) && $checkerData->estimatorDesignerListTasks != null)
+                        @foreach($checkerData->estimatorDesignerListTasks as $row) 
+                        <tr>
+                            <td scope="row" style = "width:10%;">{{$row->date ?? ''}}</td>
+                            <td style = "width:10%;">{{$row->hours ?? ''}}</td>
+                            <td><div style="width:60%; line-height:17px;letter-spacing: normal;">{{$row->task ?? ''}}</div></td>
+                            <td style = "width:10%;">{{$row->completed ?? ''}}%</td>
+                            <td style = "width:10%;">{{$row->status ?? ''}}</td>
+                            </tr>
+                        @endforeach
+                        @endif
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    @endif
 {{-- @if($estimatorDesigner->total_hours) --}}
 {{-- <div class="row">
     <div class="col-md-6">
@@ -89,38 +182,4 @@
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio placeat distinctio repudiandae
             itaque voluptatem asperiores deserunt nemo eum ea? Doloribus.</p>
     </div>
-</div> --}}
-@if(isset($estimatorDesigner->estimatorDesignerListTasks) && $estimatorDesigner->estimatorDesignerListTasks != null)
-<div class="row">
-    <div class="col-12">
-        <table class="table">
-            <thead>
-                <tr>
-                <th scope="col">Date</th>
-                <th scope="col">Hours spent</th>
-                <th scope="col">Task</th>
-                <th scope="col">Completed(%)</th>
-                <th scope="col">Status</th>
-                </tr>
-            </thead>
-            <tbody>
-            @foreach($estimatorDesigner->estimatorDesignerListTasks as $row)    
-                <tr>
-                <td scope="row" style = "width:10%;">{{$row->date ?? ''}}</td>
-                <td style = "width:10%;">{{$row->hours ?? ''}}</td>
-                <td><div style="width:60%; line-height:17px;letter-spacing: normal;">{{$row->task ?? ''}}</div></td>
-                <td style = "width:10%;">{{$row->completed ?? ''}}%</td>
-                <td style = "width:10%;">{{$row->status ?? ''}}</td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
-    </div>
-</div>
-@else
-<div class="row">
-    <div class="col-12">
-        <div class="h3">No Records Found</div>
-    </div>
-</div>
-@endif
+</div> @endif --}}

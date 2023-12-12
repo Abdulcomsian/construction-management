@@ -91,74 +91,35 @@ class DesignerController extends Controller
             $temporary_work = TemporaryWork::findorfail($id);
             if ($request->designer) {
                 $designer = User::findOrFail($request->designer);
-                $job_assign = new EstimatorDesignerList();
-                $job_assign->temporary_work_id = $id;
-                $job_assign->user_id = $designer->id;
-                $job_assign->type = 'designers';
-                $job_assign->start_date = $request->designer_start_date;
-                $job_assign->end_date = $request->designer_end_date;
-                $job_assign->email = $designer->email;
-                $job_assign->estimatorApprove = 1;
-                $code=random_int(100000, 999999);
-                $job_assign->code = $code;
-                if ($job_assign->save()) {
-                    //send mail to admin
-                $notify_admins_msg = [
-                    'greeting' => 'Temporary Work Pdf',
-                    'subject' => 'TWP – Design Brief Review -'.$temporary_work->projname . '-' .$temporary_work->projno,
-                    'body' => [
-                        'company' => $temporary_work->company,
-                        'filename' => $temporary_work->ped_url,
-                        'links' => '',
-                        'name' => $temporary_work->ped_url,
-                        'designer' => '123',
-                        'pc_twc' => '',
-
-                    ],
-                    'thanks_text' => 'Thanks For Using our site',
-                    'action_text' => '',
-                    'action_url' => '',
-                ];
-                $is_check = true;
-                $is_job = 1;
-                HelperFunctions::EmailHistory(
-                    $designer->email,
-                    'Designer',
-                    $temporary_work->id,
-                    'Job Assigned to Designer',
-                    'designer'
-                );
-                    Notification::route('mail', $designer->email)->notify(new TemporaryWorkNotification($notify_admins_msg, $id, $designer->email,$is_check,$is_job));
-
-                    // Notification::route('mail', $designer->email)->notify(new DesignerAwarded($id, $designer->email, $code));
-                }
-            }
-
-            if ($request->checker) {
-                $checker = User::findOrFail($request->checker);
-                $job_assign = new EstimatorDesignerList();
-                $job_assign->temporary_work_id = $id;
-                $job_assign->user_id = $checker->id;
-                $job_assign->type = 'checker';
-                $job_assign->start_date = $request->checker_start_date;
-                $job_assign->end_date = $request->checker_end_date;
-                $job_assign->email = $checker->email;
-                $job_assign->estimatorApprove = 1;
-                $code=random_int(100000, 999999);
-                $job_assign->code = $code;
-                if ($job_assign->save()) {
-                    //send mail to admin
+                //Check if the same checker exists agains this job
+                $existing_designer = EstimatorDesignerList::where(['temporary_work_id'=>$id,'type'=>'designers','user_id'=>$designer->id])->first();
+                if(!$existing_designer)
+                {
+                    
+                    $delete_past_designers = EstimatorDesignerList::where(['temporary_work_id'=>$id,'type'=>'designers'])->delete();
+                    $job_assign = new EstimatorDesignerList();
+                    $job_assign->temporary_work_id = $id;
+                    $job_assign->user_id = $designer->id;
+                    $job_assign->type = 'designers';
+                    $job_assign->start_date = $request->designer_start_date;
+                    $job_assign->end_date = $request->designer_end_date;
+                    $job_assign->email = $designer->email;
+                    $job_assign->estimatorApprove = 1;
+                    $code=random_int(100000, 999999);
+                    $job_assign->code = $code;
+                    if ($job_assign->save()) {
+                        //send mail to admin
                     $notify_admins_msg = [
                         'greeting' => 'Temporary Work Pdf',
-                        'subject' => 'TWP – Design Brief Review -'.$temporary_work->projname . '-' .$request->projno,
+                        'subject' => 'TWP – Design Brief Review -'.$temporary_work->projname . '-' .$temporary_work->projno,
                         'body' => [
                             'company' => $temporary_work->company,
                             'filename' => $temporary_work->ped_url,
                             'links' => '',
-                            'name' =>  'this is new job assigned',
+                            'name' => $temporary_work->ped_url,
                             'designer' => '123',
                             'pc_twc' => '',
-
+    
                         ],
                         'thanks_text' => 'Thanks For Using our site',
                         'action_text' => '',
@@ -167,14 +128,67 @@ class DesignerController extends Controller
                     $is_check = true;
                     $is_job = 1;
                     HelperFunctions::EmailHistory(
-                        $checker->email,
-                        'Designer Checker',
+                        $designer->email,
+                        'Designer',
                         $temporary_work->id,
-                        'Job Assigned to Design Checker',
-                        'checker'
+                        'Job Assigned to Designer',
+                        'designer'
                     );
-                    // Notification::route('mail', $list)->notify(new EstimationClientNotification($notify_msg, $temporary_work->id, $list,$informationRequired,$additionalInformation,$mainFile,'Designer'));
-                    Notification::route('mail', $checker->email)->notify(new TemporaryWorkNotification($notify_admins_msg, $id, $checker->email, $is_check,$is_job));
+                        Notification::route('mail', $designer->email)->notify(new TemporaryWorkNotification($notify_admins_msg, $id, $designer->email,$is_check,$is_job));
+    
+                        // Notification::route('mail', $designer->email)->notify(new DesignerAwarded($id, $designer->email, $code));
+                    }
+                }
+
+            }
+            
+            if ($request->checker) {
+                $checker = User::findOrFail($request->checker);
+                //Check if the same checker exists agains this job
+                $existing_checker = EstimatorDesignerList::where(['temporary_work_id'=>$id,'type'=>'checker','user_id'=>$checker->id])->first();
+                if(!$existing_checker)
+                {
+                    $delete_past_checkers = EstimatorDesignerList::where(['temporary_work_id'=>$id,'type'=>'checker'])->delete();
+                    $job_assign = new EstimatorDesignerList();
+                    $job_assign->temporary_work_id = $id;
+                    $job_assign->user_id = $checker->id;
+                    $job_assign->type = 'checker';
+                    $job_assign->start_date = $request->checker_start_date;
+                    $job_assign->end_date = $request->checker_end_date;
+                    $job_assign->email = $checker->email;
+                    $job_assign->estimatorApprove = 1;
+                    $code=random_int(100000, 999999);
+                    $job_assign->code = $code;
+                    if ($job_assign->save()) {
+                        //send mail to admin
+                        $notify_admins_msg = [
+                            'greeting' => 'Temporary Work Pdf',
+                            'subject' => 'TWP – Design Brief Review -'.$temporary_work->projname . '-' .$request->projno,
+                            'body' => [
+                                'company' => $temporary_work->company,
+                                'filename' => $temporary_work->ped_url,
+                                'links' => '',
+                                'name' =>  'this is new job assigned',
+                                'designer' => '123',
+                                'pc_twc' => '',
+    
+                            ],
+                            'thanks_text' => 'Thanks For Using our site',
+                            'action_text' => '',
+                            'action_url' => '',
+                        ];
+                        $is_check = true;
+                        $is_job = 1;
+                        HelperFunctions::EmailHistory(
+                            $checker->email,
+                            'Designer Checker',
+                            $temporary_work->id,
+                            'Job Assigned to Design Checker',
+                            'checker'
+                        );
+                        // Notification::route('mail', $list)->notify(new EstimationClientNotification($notify_msg, $temporary_work->id, $list,$informationRequired,$additionalInformation,$mainFile,'Designer'));
+                        Notification::route('mail', $checker->email)->notify(new TemporaryWorkNotification($notify_admins_msg, $id, $checker->email, $is_check,$is_job));
+                    }
                 }
             }
             $temporary_work = TemporaryWork::find($id);

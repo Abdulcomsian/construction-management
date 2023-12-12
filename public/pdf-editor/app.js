@@ -721,7 +721,6 @@ const PDFViewerApplication = {
             // const params = parseQueryString(queryString);
             // file = params.get("file") ?? AppOptions.get("defaultUrl");
             file = localStorage.getItem("selectedPDFPath");
-            alert(file);
             validateFileURL(file);
         } else if (PDFJSDev.test("MOZCENTRAL")) {
             file = window.location.href;

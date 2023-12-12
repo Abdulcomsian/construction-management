@@ -24,7 +24,7 @@
                     <img src="{{$projectdata->company->image}}"  width="auto" height="50px"  style = "float:right" />
                     @endif
                     @endisset
-                    <h3>Permit to Load</h3>
+                    <h3>Permit to Unload</h3>
                </div>
                 
                 <p style="width:200px !important;font-size: 12px;">{{$data['permit_no']}}&nbsp;&nbsp;{{$data['design_requirement_text']}}</p>

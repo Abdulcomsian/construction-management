@@ -157,12 +157,22 @@
 
   @media only screen and (max-width: 450px) {
     #sig1 {
-      width: 200px;
+      width: auto;
     }
 
     #sig {
-      width: 200px;
+      width: auto;
     }
+    .set-button {
+        /* position: absolute !important; */
+        font-size: 15px !important;
+        font-weight: 500 !important;
+        border-radius: 5px;
+        padding: 10px 20px !important;
+        margin-bottom: 10px;
+        /* margin-top: -160px; */
+    }
+  
   }
 
   @media only screen and (max-width: 650px) {

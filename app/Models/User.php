@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Auth;
 
 class User extends Authenticatable
 {
@@ -106,5 +107,13 @@ class User extends Authenticatable
     public function jobs()
     {
         return $this->hasMany(TemporaryWork::class , 'created_by');
+    }
+    public function desingerSelected()
+    {
+        return $this->hasOne(SelectedOnlineDesigners::class , 'designer_id')->where('company_id',Auth::id());
+    }
+    public function supplierSelected()
+    {
+        return $this->hasOne(SelectedOnlineSupplier::class , 'supplier_id')->where('company_id',Auth::id());
     }
 }

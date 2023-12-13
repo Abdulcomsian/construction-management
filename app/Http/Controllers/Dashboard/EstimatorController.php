@@ -12,6 +12,9 @@ use App\Models\{TemporayWorkImage, AdditionalInformation, EstimatorDesignerList,
 use App\Utils\HelperFunctions;
 use App\Notifications\{DesignerAwarded,QuotationSend,EstimatorNotification,TemporaryWorkNotification,DesignerEstimatComment};
 use App\Models\ChangeEmailHistory;
+use App\Models\ExternalDesignerSupplier;
+use App\Models\SelectedOnlineSupplier;
+use App\Models\SelectedOnlineDesigners;
 use App\Models\PdfFilesHistory;
 use Notification;
 use App\Models\DesignerCompanyEmail;
@@ -180,6 +183,10 @@ class EstimatorController extends Controller
                 $suppliers=User::role(['supplier'])->get();
                 $adminDesigners=User::role(['designer','Design Checker','Designer and Design Checker'])->where(['added_by'=>1])->whereNull('di_designer_id ')->get();
                 $adminSuppliers=User::role('supplier')->where(['added_by'=>1])->get();
+                $externalDesigners = ExternalDesignerSupplier::where(['type'=>'designer'])->get();
+                $externalSuppliers = ExternalDesignerSupplier::where(['type'=>'supplier'])->get();
+                $selectedOnlineDesigners = SelectedOnlineDesigners::with('designerDetails')->get();
+                $selectedOnlineSuppliers = SelectedOnlineSupplier::with('supplierDetails')->get();
             }else {
                 $projects = Project::with('company')->where('company_id', $user->userCompany->id)->get(); 
                 $designers=User::role(['designer'])->where(['company_id'=>$user->userCompany->id])->get();
@@ -187,8 +194,12 @@ class EstimatorController extends Controller
                 $adminDesigners=User::role(['designer','Design Checker','Designer and Design Checker'])->where(['added_by'=>1])->whereNull('di_designer_id')->get();
                 //dd($adminDesigners);
                 $adminSuppliers=User::role('supplier')->where(['added_by'=>1])->get();
+                $externalDesigners = ExternalDesignerSupplier::where(['type'=>'designer','company_id'=>$user->userCompany->id])->get();
+                $externalSuppliers = ExternalDesignerSupplier::where(['type'=>'supplier','company_id'=>$user->userCompany->id])->get();
+                $selectedOnlineDesigners = SelectedOnlineDesigners::with('designerDetails')->where('company_id',$user->userCompany->id)->get();
+                $selectedOnlineSuppliers = SelectedOnlineSupplier::with('supplierDetails')->where('company_id',$user->userCompany->id)->get();
             }
-            return view('dashboard.estimator.create', compact('projects','designers','suppliers','adminDesigners','adminSuppliers'));
+            return view('dashboard.estimator.create', compact('projects','designers','suppliers','adminDesigners','adminSuppliers','externalDesigners','externalSuppliers','selectedOnlineDesigners','selectedOnlineSuppliers'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();
@@ -243,9 +254,10 @@ class EstimatorController extends Controller
                     unset($request[$key]);
                 }
             }
+
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token', 'date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno', 'projname', 'approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails', 'online_designers', 'online_suppliers','action', 'display_sign', 'signtype', 'pdfsigntype', 'namesign');
+            $all_inputs  = $request->except('_token','external_designers','external_suppliers', 'date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno', 'projname', 'approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails', 'online_designers', 'online_suppliers','action', 'display_sign', 'signtype', 'pdfsigntype', 'namesign');
             //if design req details is exist
             if(isset($request->req_name))
             {
@@ -304,6 +316,7 @@ class EstimatorController extends Controller
                     file_put_contents($file, $image_base64);
                 }
             }
+            
             $all_inputs['signature'] = $image_name;
             if($request->action == 'Publish'){
                 $data = $request->except('designer_company_emails');
@@ -318,11 +331,21 @@ class EstimatorController extends Controller
                 }else{
                     $local_designers = $request->designers;
                 }
-
+              
                 if($request->online_designers==NULL){
                     $online_designers = Array($request->online_designers);
                 }else{
                     $online_designers = $request->online_designers;
+                }
+                if($request->external_designers==NULL){
+                    $external_designers = Array($request->external_designers);
+                }else{
+                    $external_designers = $request->external_designers;
+                }
+                if($request->external_suppliers==NULL){
+                    $external_suppliers = Array($request->external_suppliers);
+                }else{
+                    $external_suppliers = $request->external_suppliers;
                 }
 
                 if($request->suppliers==NULL){
@@ -336,17 +359,20 @@ class EstimatorController extends Controller
                 }else{
                     $online_suppliers = $request->online_suppliers;
                 }
+
                 //clean arraya, remove any null values
                 $designer_company_emails  = array_filter($designer_company_emails);
                 $supplier_company_emails  = array_filter($supplier_company_emails);
                 $local_designers  = array_filter($local_designers);
                 $local_suppliers  = array_filter($local_suppliers);
                 $online_designers  = array_filter($online_designers);
+                $external_suppliers  = array_filter($external_suppliers);
+                $external_designers  = array_filter($external_designers);
                 $online_suppliers  = array_filter($online_suppliers);
                 
                 // dd($designer_company_emails, $supplier_company_emails, $local_designers , $local_suppliers,$online_designers, $online_suppliers );
 
-                $merged_emails = array_merge($local_designers, $local_suppliers, $online_designers,$online_suppliers); 
+                $merged_emails = array_merge($local_designers, $local_suppliers, $online_designers,$online_suppliers,$external_designers,$external_suppliers); 
                 $cleaned_email = [];
                 //Removing -52 for creating emails in proper format
                 foreach($merged_emails as $email)
@@ -359,9 +385,10 @@ class EstimatorController extends Controller
                 $data['designer_company_email'] = array_merge($cleaned_email, $designer_company_emails, $supplier_company_emails);
                 $all_inputs['designer_company_email'] = $data['designer_company_email'][0];
             }
-           
+
             $temporary_work = TemporaryWork::create($all_inputs);
             if ($temporary_work) {
+
                 ScopeOfDesign::create(array_merge($scope_of_design, ['temporary_work_id' => $temporary_work->id]));
                 Folder::create(array_merge($folder_attachements, ['temporary_work_id' => $temporary_work->id]));
                 AttachSpeComment::create(array_merge($attachcomments, ['temporary_work_id' => $temporary_work->id]));
@@ -665,6 +692,10 @@ class EstimatorController extends Controller
                 $adminDesigners=User::role(['designer','Design Checker','Designer and Design Checker'])->where(['added_by'=>1])->whereNotNull('designer_company')->get();
                 //dd($adminDesigners);
                 $adminSuppliers=User::role('supplier')->where(['added_by'=>1])->get();
+                $externalDesigners = ExternalDesignerSupplier::where(['type'=>'designer'])->get();
+                $externalSuppliers = ExternalDesignerSupplier::where(['type'=>'supplier'])->get();
+                $selectedOnlineDesigners = SelectedOnlineDesigners::with('designerDetails')->get();
+                $selectedOnlineSuppliers = SelectedOnlineSupplier::with('supplierDetails')->get();
             }elseif($user->hasRole(['estimator'])) {
                 $project_idds = DB::table('users_has_projects')->where('user_id', $user->id)->get();
 
@@ -678,6 +709,10 @@ class EstimatorController extends Controller
                 //dd($adminDesigners);
                 $adminSuppliers=User::role('supplier')->where(['added_by'=>1])->get();
                 $projects = Project::with('company')->whereIn('id', $ids)->get();
+                $externalDesigners = ExternalDesignerSupplier::where(['type'=>'designer','company_id'=>$user->userCompany->id])->get();
+                $externalSuppliers = ExternalDesignerSupplier::where(['type'=>'supplier','company_id'=>$user->userCompany->id])->get();
+                $selectedOnlineDesigners = SelectedOnlineDesigners::with('designerDetails')->where('company_id',$user->userCompany->id)->get();
+                $selectedOnlineSuppliers = SelectedOnlineSupplier::with('supplierDetails')->where('company_id',$user->userCompany->id)->get();
             }elseif($user->hasRole('user'))
             {
                 // $userr=User::role('estimator')->where(['company_id'=>$user->userCompany->id])->first();
@@ -697,13 +732,17 @@ class EstimatorController extends Controller
                 $adminSuppliers=User::role('supplier')->where(['added_by'=>1])->get();
                 // $projects = Project::with('company')->whereIn('id', $ids)->get(); //commented by abdul to make project same as create estimator page
                 $projects = Project::with('company')->where('company_id', $user->userCompany->id)->get(); 
+                $externalDesigners = ExternalDesignerSupplier::where(['type'=>'designer','company_id'=>$user->userCompany->id])->get();
+                $externalSuppliers = ExternalDesignerSupplier::where(['type'=>'supplier','company_id'=>$user->userCompany->id])->get();
+                $selectedOnlineDesigners = SelectedOnlineDesigners::with('designerDetails')->where('company_id',$user->userCompany->id)->get();
+                $selectedOnlineSuppliers = SelectedOnlineSupplier::with('supplierDetails')->where('company_id',$user->userCompany->id)->get();
             }
             $selectedDesignersList=EstimatorDesignerList::select('email')->where('user_id','!=',NULL)->where(['temporary_work_id'=>$estimatorId])->pluck('email')->toArray();
             $inputDesignersList=EstimatorDesignerList::select('email')->where(['temporary_work_id'=>$estimatorId, 'type'=>'Designer', 'user_id'=>NULL])->pluck('email')->toArray();
             $inputSuppliersList=EstimatorDesignerList::select('email')->where(['temporary_work_id'=>$estimatorId,'type'=>'Supplier','user_id'=>NULL])->pluck('email')->toArray();
             $temporaryWork = TemporaryWork::with('designbrief_history', 'scopdesign', 'folder', 'attachspeccomment', 'temp_work_images')->where('id',$estimatorId)->first();
             $selectedproject = Project::with('company')->find($temporaryWork->project_id);
-            return view('dashboard.estimator.edit',compact('temporaryWork', 'projects', 'selectedproject','designers','suppliers', 'adminSuppliers', 'adminDesigners', 'selectedDesignersList','inputDesignersList', 'inputSuppliersList'));
+            return view('dashboard.estimator.edit',compact('temporaryWork', 'projects', 'selectedproject','designers','suppliers', 'adminSuppliers', 'adminDesigners', 'selectedDesignersList','inputDesignersList', 'inputSuppliersList','externalDesigners','externalSuppliers','selectedOnlineDesigners','selectedOnlineSuppliers'));
         } catch (\Exception $exception) {
             dd($exception->getMessage(), $exception->getLine());
 
@@ -762,7 +801,7 @@ class EstimatorController extends Controller
             }
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('unload_images', '_token','_method','date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno', 'projname','preloaded','namesign','signtype','pdfsigntype','approval','req_type','req_name','req_check','req_notes','designers','suppliers','supplier_company_emails','designer_company_emails','action', 'display_sign', 'signtype', 'pdfsigntype', 'namesign', 'online_designers', 'online_suppliers');
+            $all_inputs  = $request->except('unload_images','external_designers','external_suppliers', '_token','_method','date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno', 'projname','preloaded','namesign','signtype','pdfsigntype','approval','req_type','req_name','req_check','req_notes','designers','suppliers','supplier_company_emails','designer_company_emails','action', 'display_sign', 'signtype', 'pdfsigntype', 'namesign', 'online_designers', 'online_suppliers');
             //if design req details is exist
             if(isset($request->req_name))
             {
@@ -834,6 +873,17 @@ class EstimatorController extends Controller
                 }else{
                     $online_designers = $request->online_designers;
                 }
+                if($request->external_designers==NULL){
+                    $external_designers = Array($request->external_designers);
+                }else{
+                    $external_designers = $request->external_designers;
+                }
+                if($request->external_suppliers==NULL){
+                    $external_suppliers = Array($request->external_suppliers);
+                }else{
+                    $external_suppliers = $request->external_suppliers;
+                }
+
                 if($request->suppliers==NULL){ 
                     $local_suppliers = Array($request->suppliers);
                 }else{
@@ -851,11 +901,13 @@ class EstimatorController extends Controller
                 $local_designers  = array_filter($local_designers);
                 $local_suppliers  = array_filter($local_suppliers);
                 $online_designers  = array_filter($online_designers);
+                $external_suppliers  = array_filter($external_suppliers);
+                $external_designers  = array_filter($external_designers);
                 $online_suppliers  = array_filter($online_suppliers);
 
                 // dd($designer_company_emails, $supplier_company_emails, $local_designers , $local_suppliers,$online_designers, $online_suppliers );
 
-                $merged_emails = array_merge($local_designers, $local_suppliers, $online_designers,$online_suppliers); 
+                $merged_emails = array_merge($local_designers, $local_suppliers, $online_designers,$online_suppliers,$external_designers,$external_designers); 
                 //Removing -52 for creating emails in proper format
                 $cleaned_email = [];
                 foreach($merged_emails as $email)

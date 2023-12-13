@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\User;
+use App\Models\SelectedOnlineSupplier;
+use App\Models\SelectedOnlineDesigners;
 use App\Utils\Validations;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
@@ -17,6 +19,7 @@ use Illuminate\Support\Facades\Password;
 use App\Notifications\PasswordResetNotification;
 use Notification;
 use DB;
+use Auth;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 
@@ -272,6 +275,58 @@ class CompanyController extends Controller
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();
+        }
+    }
+    public function selectDesigner(Request $request)
+    {
+        if(isset($request->designer_id)){
+            $designer_id = $request->designer_id;
+                 $saved_designer = SelectedOnlineDesigners::where('company_id', Auth::id())->where('designer_id', $designer_id)->get();
+                 if($saved_designer->count() > 0){
+                    if(SelectedOnlineDesigners::where('company_id', Auth::id())->where('designer_id', $designer_id)->delete()){
+                        $response = array("status"=>"removed","message"=>"Designer removed");
+                    }else{
+                        $response = array("status"=>"error");
+                    }
+                    
+                 }else{
+                    // add into saved_jobs table
+                    $add = new SelectedOnlineDesigners;
+                    $add->designer_id = $designer_id;
+                    $add->company_id = Auth::id();
+                    if($add->save()){
+                        $response = array("status"=>"added","message"=>"Designer Saved");
+                    }else{
+                        $response = array("status"=>"error");
+                    }
+                 }
+                 echo json_encode($response); die;
+        }
+    }
+    public function selectSupplier(Request $request)
+    {
+        if(isset($request->supplier_id)){
+            $supplier_id = $request->supplier_id;
+                 $saved_supplier = SelectedOnlineSupplier::where('company_id', Auth::id())->where('supplier_id', $supplier_id)->get();
+                 if($saved_supplier->count() > 0){
+                    if(SelectedOnlineSupplier::where('company_id', Auth::id())->where('supplier_id', $supplier_id)->delete()){
+                        $response = array("status"=>"removed","message"=>"Supplier removed");
+                    }else{
+                        $response = array("status"=>"error");
+                    }
+                    
+                 }else{
+                    // add into saved_jobs table
+                    $add = new SelectedOnlineSupplier;
+                    $add->supplier_id = $supplier_id;
+                    $add->company_id = Auth::id();
+                    if($add->save()){
+                        $response = array("status"=>"added","message"=>"Supplier Saved");
+                    }else{
+                        $response = array("status"=>"error");
+                    }
+                 }
+                 echo json_encode($response); die;
         }
     }
 }

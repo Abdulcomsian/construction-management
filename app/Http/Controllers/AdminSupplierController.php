@@ -29,9 +29,19 @@ class AdminSupplierController extends Controller
         abort_if(!$user->hasAnyRole(['admin','company']), 403);
         try {
             if ($request->ajax()) {
-                $data = User::role(['supplier'])->where(['added_by'=>1])->latest()->get();
+                $data = User::role(['supplier'])->with('supplierSelected')->where(['added_by'=>1])->latest()->get();
                 return Datatables::of($data)
                     ->removeColumn('id')
+                    ->addColumn('status',function ($data) use ($user){
+                        $checkbox = '';
+                        $check_status = '';
+                        if(isset($data->supplierSelected))
+                        {
+                            $check_status = 'checked';
+                        }
+                        $checkbox .= '<div class="form-check form-switch"><input class="form-check-input select_supplier" type="checkbox" id="'.$data->id.'" name="select_supplier" value="'.$data->id.'" '.$check_status.'><label class="form-check-label" for="mySwitch"></label></div>';
+                      return $checkbox;
+                    })
                     ->addColumn('action', function ($data) use ($user) {
                         $btn='';
                         if ($user->hasRole(['admin'])) {
@@ -57,7 +67,7 @@ class AdminSupplierController extends Controller
                         }
                         return $btn;
                      })
-                    ->rawColumns(['action'])
+                    ->rawColumns(['status','action'])
                     ->make(true);
             }
 

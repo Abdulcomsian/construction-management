@@ -12,6 +12,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DesignerController;
 use App\Http\Controllers\AdminDesignerController;
 use App\Http\Controllers\AdminSupplierController;
+use App\Http\Controllers\ExternalDesignerController;
 use App\Models\TemporaryWork;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -86,6 +87,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('temporary_works/create2', [TemporaryWorkController::class, 'create2']);
 
     //All Resource Controller
+    Route::post('select-desinger',[CompanyController::class,'selectDesigner'])->name('select_designer');
+    Route::post('select-supplier',[CompanyController::class,'selectSupplier'])->name('select_supplier');
+    Route::get('/externalSuppliers',[ExternalDesignerController::class,'externalSuppliers'])->name('externalSuppliers');
+    // Route::post('/external-desinger/save',[DesignerController::class,'saveExternalDesigner'])->name('external.designer.save');
     Route::resources([
         //        'roles' => RoleController::class, //Roles and permissions
         'users' => UserController::class, //Company users
@@ -95,6 +100,7 @@ Route::group(['middleware' => ['auth']], function () {
         'suppliers' => SupplierController::class, //Supplier
         'adminDesigner' => AdminDesignerController::class, //Admin Designer controller
         'adminSupplier' => AdminSupplierController::class, //Admin Supplier controller
+        'externalDesigners' => ExternalDesignerController::class, //Admin Supplier controller
     ]);
     Route::post('/delete-temporarywork-image',[TemporaryWorkController::class,'deleteTemporaryWorkImage'])->name('delete.temporarywork.image');
     Route::get('company/projects', [CompanyController::class, 'companyProjects'])->name('company.projects');

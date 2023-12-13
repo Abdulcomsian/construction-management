@@ -889,17 +889,39 @@ canvas {
                                                     </label>
                                                     <select id="mySelect" class="mySelect" multiple="multiple"  name="online_designers[]">
                    
-                                                    @foreach($adminDesigners as $desig)
-                                                     
-                                                     @if($desig->hasRole(['designer','Design Checker','Designer and Design
-                                                     Checker']))
-                                                     <option value="{{$desig->email}}-{{$desig->id}}" {{in_array($desig->email,
+                                                        @if(!empty($selectedOnlineDesigners))
+                                                            @foreach($selectedOnlineDesigners as $desig)
+                                                                <option value="{{$desig->designerDetails->email}}-{{$desig->designerDetails->id}}"{{in_array($desig->designerDetails->email,
+                                                        $selectedDesignersList) ? 'selected':''}}>{{$desig->designerDetails->name}} |
+                                                            {{$desig->designerDetails->email}}</option>
+                                                            @endforeach
+                                                        @else
+                                                        @foreach($adminDesigners as $desig)
+                                                        
+                                                        @if($desig->hasRole(['designer','Design Checker','Designer and Design
+                                                        Checker']))
+                                                        <option value="{{$desig->email}}-{{$desig->id}}" {{in_array($desig->email,
                                                         $selectedDesignersList) ? 'selected':''}}>{{$desig->name}} |
-                                                         {{$desig->email}}</option>
-                                                     @endif
-                                          
-                                                 @endforeach
+                                                            {{$desig->email}}</option>
+                                                        @endif
+                                            
+                                                        @endforeach
+                                                        @endif
                 
+                                                    </select>
+                                                </div>
+                                                <h6 style="margin-top: 17px; margin-bottom: 0px; font-weight:bold">And/Or</h6>
+                                                <div class="d-flex  flex-column inputDiv-1 mb-0">
+                                                    <label class=" fs-6 fw-bold mb-2">
+                                                        <span class="label-1">External Designers</span>
+                                                    </label>
+                                                    <select id="mySelect" class="mySelect" multiple="multiple"  name="online_designers[]">
+                
+                                                    @foreach($externalDesigners as $designer)
+                                                    <option value="{{$designer->email}}-{{$designer->id}}"{{in_array($designer->email,
+                                                            $selectedDesignersList) ? 'selected':''}}>{{$designer->email}}</option>                          
+                                                    @endforeach
+
                                                     </select>
                                                 </div>
                                              </div>
@@ -907,18 +929,42 @@ canvas {
                                              <h6 style="margin-top: 17px; margin-left:20px; margin-bottom: 0px; font-weight:bold">And/Or</h6>
                                         
                                                 <div class="d-flex inputDiv d-block mb-0">
-                                                <label class="fs-6 fw-bold mb-2" style="bottom: 0; top: -13px; height: fit-content;">
+                                                    <label class="fs-6 fw-bold mb-2" style="bottom: 0; top: -13px; height: fit-content;">
                                                         <span class="">Select Online Supplier</span>
                                                     </label>
-                                                    <select name="online_suppliers[]" id="mySelect" class="mySelect" multiple>
-                                                        {{-- <option value="">Select Option</option> --}}
-                                                        @foreach($adminSuppliers as $desig)                                                            @if($desig->hasRole(['designer','Design Checker','Designer and Design
-                                                            Checker']))
-                                                            <option value="{{$desig->email}}-{{$desig->id}}" {{in_array($desig->email,
-                                                            $selectedDesignersList) ? 'selected':''}}>{{$desig->name}} |
-                                                                {{$desig->email}}</option>
+                                                     <select name="online_suppliers[]" id="mySelect" class="mySelect" multiple>
+                                                            {{-- <option value="">Select Option</option> --}}
+                                                            @if(!empty($selectedOnlineSuppliers))
+                                                                @foreach($selectedOnlineSuppliers as $supp)
+                                                                    <option value="{{$supp->supplierDetails->email}}-{{$supp->supplierDetails->id}}" {{in_array($supp->supplierDetails->email,
+                                                            $selectedDesignersList) ? 'selected':''}}>{{$supp->supplierDetails->name}} | 
+                                                                        {{$supp->supplierDetails->email}}</option>
+                                                                @endforeach
+                                                                @else
+                                                                @foreach($adminSuppliers as $supp)
+                                                                <!-- <optgroup label="Supplier List"> -->
+                                                                    @if($supp->hasRole('supplier'))
+                                                                    <option value="{{$supp->email}}-{{$supp->id}}"{{in_array($desig->email,
+                                                            $selectedDesignersList) ? 'selected':''}}>{{$supp->name}} | 
+                                                                            {{$supp->email}}</option>
+                                                                    @endif
+                                                                <!-- </optgroup> -->
+                                                                @endforeach
                                                             @endif
-                                                        @endforeach
+                                                     </select>
+                                                </div>
+                                                <h6 style="margin-top: 17px; margin-bottom: 0px; font-weight:bold">And/Or</h6>
+                                                <div class="d-flex  flex-column inputDiv-1 mb-0">
+                                                    <label class=" fs-6 fw-bold mb-2">
+                                                        <span class="label-1">External Suppliers</span>
+                                                    </label>
+                                                    <select id="mySelect" class="mySelect" multiple="multiple"  name="online_designers[]">
+                
+                                                    @foreach($externalSuppliers as $supplier)
+                                                    <option value="{{$supplier->email}}-{{$supplier->id}}"{{in_array($supplier->email,
+                                                            $selectedDesignersList) ? 'selected':''}}>{{$supplier->email}}</option>                          
+                                                    @endforeach
+
                                                     </select>
                                                 </div>
                                              </div>

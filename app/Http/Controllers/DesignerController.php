@@ -19,7 +19,7 @@ use App\Models\ScopeOfDesign;
 use App\Models\Folder;
 use App\Models\AttachSpeComment;
 use App\Models\PermitLoadRejected;
-use App\Models\{TemporayWorkImage, Project,DesignerQuotation,EstimatorDesignerList,AdditionalInformation, DesignerCertificate, JobAssign, Tag, EmailExtra};
+use App\Models\{TemporayWorkImage, Project,DesignerQuotation,EstimatorDesignerList,AdditionalInformation, DesignerCertificate, JobAssign, Tag, EmailExtra, ExternalDesignerSupplier};
 use App\Models\DesignerCompanyEmail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Crypt;
@@ -261,6 +261,8 @@ class DesignerController extends Controller
         }
        
     }
+    
+    
     //create form 
     public function Create()
     {

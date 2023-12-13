@@ -184,6 +184,13 @@ $user = auth()->user();
                                 </a>
                             </div>
                             @endif
+                            @if($user->hasRole(['admin','company']))
+                            <div class="menu-item">
+                                <a class="menu-link" href="{{ route('externalDesigners.index')}}">
+                                    <span class="menu-title">External Designers</span>
+                                </a>
+                            </div>
+                            @endif
                         </div>
                     </div>
                     @endif
@@ -216,6 +223,13 @@ $user = auth()->user();
                             <div class="menu-item">
                                 <a class="menu-link" href="{{ route('suppliers.index')}}">
                                     <span class="menu-title">Company Suppliers</span>
+                                </a>
+                            </div>
+                            @endif
+                            @if($user->hasRole(['admin','company']))
+                            <div class="menu-item">
+                                <a class="menu-link" href="{{ route('externalSuppliers')}}">
+                                    <span class="menu-title">External Suppliers</span>
                                 </a>
                             </div>
                             @endif

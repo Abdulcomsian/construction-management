@@ -133,6 +133,23 @@
         border-color: #07d564 !important;
 background-color: #07d564 !important;
     }
+    .form-switch{
+        padding-left:1.75rem !important;
+    }
+    .form-check .form-check-input{
+        float: none;
+        margin-left:0px;
+        padding-left:0
+    }
+    .form-switch .form-check-input{
+        border-radius: 34px;
+        border: 1px solid #bfbfbf;
+    }
+    .form-switch .form-check-input:checked{
+        background-color: #2aac42;
+        padding: 5px;
+        border-radius: 32px;
+    }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 @include('layouts.datatables.datatables_css')
@@ -186,6 +203,7 @@ background-color: #07d564 !important;
                                     <th class="min-w-125px">S.No</th>
                                     <th class="min-w-125px">User Name</th>
                                     <th class="min-w-125px">Email</th>
+                                    <th class="min-w-125px">Status</th>
                                     <th class="min-w-125px">Actions</th>
                                 </tr>
                             </thead>
@@ -208,6 +226,7 @@ $columns = "[
 },
 {data: 'name', name: 'name',defaultContent: '-'},
 {data: 'email', name: 'email',defaultContent: '-'},
+{data: 'status', name: 'status'},
 {data: 'action', name: 'action', orderable: false, searchable: false},
 ]";
 $url = route('adminSupplier.index');
@@ -219,5 +238,41 @@ $data = [
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
 @include('layouts.datatables.datatables_js',['data' => $data])
+{data: 'status', name: 'status'},
 @include('layouts.dashboard.ajax_call')
 @endsection
+<!-- Include jQuery and DataTables script -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+
+<!-- Your DataTable initialization script -->
+<script>
+  $(document).ready(function() {
+    // DataTable initialization
+    var dataTable = $('.datatable').DataTable();
+
+    // Wait for DataTable to finish rendering
+    dataTable.on('draw.dt', function() {
+      // Now you can safely select your checkbox element
+      var checkbox = document.querySelector('input[name=select_supplier]');
+
+    $('.select_supplier').change(function(){
+        var _token = "{{ csrf_token() }}";
+            var supplier_id = $(this).attr("id");
+            var that = this;
+            
+              $.post("{{ route('select_supplier')}}", {_token:_token,supplier_id:supplier_id}).done( function(response){
+                var result = JSON.parse(response);
+                  if (result.status === "added") {
+                    console.log('Supplier added');
+                  } else if (result.status === "removed") {
+                    console.log('Supplier removed');
+                  }
+              }).fail(function(xhr, error, message){
+                    console.log(message)
+                
+              });
+    })
+    });
+  });
+</script>

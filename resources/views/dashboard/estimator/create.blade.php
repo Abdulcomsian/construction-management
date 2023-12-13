@@ -842,7 +842,12 @@ canvas {
                                         <span class="label-1">Select Online Designers</span>
                                     </label>
                                     <select id="mySelect" class="mySelect" multiple="multiple"  name="online_designers[]">
-   
+                                    @if(!empty($selectedOnlineDesigners))
+                                        @foreach($selectedOnlineDesigners as $desig)
+                                            <option value="{{$desig->designerDetails->email}}-{{$desig->designerDetails->id}}">{{$desig->designerDetails->name}} |
+                                         {{$desig->designerDetails->email}}</option>
+                                        @endforeach
+                                    @else
                                     @foreach($adminDesigners as $desig)
                                      
                                      @if($desig->hasRole(['designer','Design Checker','Designer and Design
@@ -851,7 +856,21 @@ canvas {
                                          {{$desig->email}}</option>
                                      @endif
                           
-                                 @endforeach
+                                     @endforeach
+                                     @endif
+
+                                    </select>
+                                </div>
+                                    <h6 style="margin-top: 17px; margin-bottom: 0px; font-weight:bold">And/Or</h6>
+                                <div class="d-flex  flex-column inputDiv-1 mb-0">
+                                    <label class=" fs-6 fw-bold mb-2">
+                                        <span class="label-1">External Designers</span>
+                                    </label>
+                                    <select id="mySelect" class="mySelect" multiple="multiple"  name="external_designers[]">
+   
+                                    @foreach($externalDesigners as $designer)
+                                     <option value="{{$designer->email}}-{{$designer->id}}">{{$designer->email}}</option>                          
+                                    @endforeach
 
                                     </select>
                                 </div>
@@ -895,21 +914,41 @@ canvas {
                                 </div>
 
                                 <h6 style="margin-top: 17px; margin-bottom: 0px; font-weight:bold">And/Or</h6>
-
-                                <div class="d-flex inputDiv d-block mb-0">
+                                 
+                                <div class="d-flex inputDiv-1 flex-column d-block mb-0">
                                     <label class=" fs-6 fw-bold mb-2">
                                         <span class="">Select Online Supplier</span>
                                     </label>
-                                    <select name="online_suppliers[]"  id="mySelect" class="mySelect"  multiple>
+                                    <select name="online_suppliers[]"  id="" class="mySelect" multiple="multiple" multiple>
                                         {{-- <option value="">Select Option</option> --}}
-
+                                        @if(!empty($selectedOnlineSuppliers))
+                                            @foreach($selectedOnlineSuppliers as $supp)
+                                                <option value="{{$supp->supplierDetails->email}}-{{$supp->supplierDetails->id}}">{{$supp->supplierDetails->name}} | 
+                                                    {{$supp->supplierDetails->email}}</option>
+                                            @endforeach
+                                        @else
                                         @foreach($adminSuppliers as $supp)
                                         <!-- <optgroup label="Supplier List"> -->
                                             @if($supp->hasRole('supplier'))
-                                            <option value="{{$supp->email}}-{{$supp->id}}">{{$supp->name}}</option>
+                                            <option value="{{$supp->email}}-{{$supp->id}}">{{$supp->name}} | 
+                                                    {{$supp->email}}</option>
                                             @endif
                                         <!-- </optgroup> -->
                                         @endforeach
+                                        @endif
+
+                                    </select>
+                                </div>
+                                <h6 style="margin-top: 17px; margin-bottom: 0px; font-weight:bold">And/Or</h6>
+                                <div class="d-flex  flex-column inputDiv-1 mb-0">
+                                    <label class=" fs-6 fw-bold mb-2">
+                                        <span class="label-1">External Suppliers</span>
+                                    </label>
+                                    <select id="mySelect" class="mySelect" multiple="multiple"  name="external_suppliers[]">
+   
+                                    @foreach($externalSuppliers as $supplier)
+                                     <option value="{{$supplier->email}}-{{$supplier->id}}">{{$supplier->email}}</option>                          
+                                    @endforeach
 
                                     </select>
                                 </div>

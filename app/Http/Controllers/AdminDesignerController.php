@@ -35,8 +35,7 @@ class AdminDesignerController extends Controller
     {
         $user = auth()->user();
 
-        $data = User::with('companyProfile')->role(['designer','Design Checker','Designer and Design Checker'])->where(['added_by'=>1])->latest()->get();
-        // dd($data);
+        $data = User::with('companyProfile','desingerSelected')->role(['designer','Design Checker','Designer and Design Checker'])->where(['added_by'=>1])->latest()->get();
         
         abort_if(!$user->hasAnyRole(['admin','company']), 403);
         try {
@@ -44,6 +43,16 @@ class AdminDesignerController extends Controller
                 $data = User::with('companyProfile')->role(['designer','Design Checker','Designer and Design Checker'])->where(['added_by'=>1])->latest()->get();
                 return Datatables::of($data)
                     ->removeColumn('id')
+                    ->addColumn('status',function ($data) use ($user){
+                        $checkbox = '';
+                        $check_status = '';
+                        if(isset($data->desingerSelected))
+                        {
+                            $check_status = 'checked';
+                        }
+                        $checkbox .= '<div class="form-check form-switch"><input class="form-check-input select_designer" type="checkbox" id="'.$data->id.'" name="select_designer" value="'.$data->id.'" '.$check_status.'><label class="form-check-label" for="mySwitch"></label></div>';
+                      return $checkbox;
+                    })
                     ->addColumn('action', function ($data) use ($user) {
                         $btn = '';
 
@@ -54,6 +63,7 @@ class AdminDesignerController extends Controller
                                    </a>';
                            
                         }
+                        
                         
                         
 
@@ -80,7 +90,7 @@ class AdminDesignerController extends Controller
                         }
                         return $btn;
                      })
-                    ->rawColumns(['action'])
+                    ->rawColumns(['status','action'])
                     ->make(true);
             }
 

@@ -1,15 +1,20 @@
 @extends('layouts.dashboard.master',['title' => 'Temporary Works'])
 @section('multiselectscripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script>
 <script src="{{asset('assets/plugins/custom/summernote/summernote-bs4.min.js')}}"></script>
 <script src="{{asset('assets/plugins/custom/summernote/summernote-cleaner.js')}}"></script>
 @endsection
 @section('styles')
-        <!-- Bootstrap CSS -->
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css">
+<!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css">
 <style>
     ::placeholder {
         /* Chrome, Firefox, Opera, Safari 10.1+ */
@@ -30,7 +35,7 @@
         border-radius: 0.25rem !important;
     }
 
-    .inputDiv-1 input{
+    .inputDiv-1 input {
         border-radius: 0.25rem !important;
     }
 
@@ -175,7 +180,7 @@
         width: 50%;
         color: #000;
     }
-    
+
     .inputDiv-1 input {
         min-width: 40px;
         color: #000;
@@ -193,6 +198,7 @@
         width: 100%;
         color: #000 !important;
     }
+
     .inputDiv-1 select {
         width: 100%;
         color: #000 !important;
@@ -200,30 +206,36 @@
 
     .inputDiv label {
         /* width: 40%; */
+        top:-12px;
+        
         color: #000;
         position: absolute;
-        bottom: 25px;
+        /* bottom: 25px; */
         background: white;
         font-family: 'Inter', sans-serif;
         z-index: 1;
     }
+
     .label-1 {
-         width: 50%;
+        /* width: 50%; */
         color: #000;
         position: absolute;
         bottom: 34px;
         background: white;
         font-family: 'Inter', sans-serif;
         z-index: 1;
-        text-align:center;
+        text-align: center;
+        padding-Left: 10px;
+        padding-Right: 10px;
     }
+
     .btn-group {
-    position: relative;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    vertical-align: middle;
-    margin-top: -5px !important;
-}
+        position: relative;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        vertical-align: middle;
+        margin-top: -5px !important;
+    }
 
     input {
         background-color: #fff !important;
@@ -242,6 +254,7 @@
         position: relative;
         padding: 5px 5px;
     }
+
     .inputDiv-1 {
         margin: 30px 0px;
         border: 1px solid #D2D5DA;
@@ -348,7 +361,8 @@
 
     .select2-container--bootstrap5 .select2-selection--multiple.form-select-lg {
         word-break: break-all;
-        height: 32px;
+        /* height: 32px;
+        height:fit-content; */
         background: white;
         border: none;
     }
@@ -366,89 +380,96 @@
         color: rgb(138, 136, 136) !important;
     }
 
-    .form-check-input:checked[type=radio]{
-        background-color:green !important;
+    .form-check-input:checked[type=radio] {
+        background-color: green !important;
     }
 
-    #clear{
-    margin-left:-25px;
-    margin-top:60px;
-}
-#sig{
-    border-radius:5px;
-    margin-top:-50px;
-}
-canvas {
-    width: 296px;
-    height: 152px;
-}
-#sigimage{
-    position: absolute;
-    margin-top:-55px;
-    margin-left:6px;
-}
+    #clear {
+        margin-left: -25px;
+        margin-top: 60px;
+    }
+
+    #sig {
+        border-radius: 5px;
+        margin-top: -50px;
+    }
+
+    canvas {
+        width: 296px;
+        height: 152px;
+    }
+
+    #sigimage {
+        position: absolute;
+        margin-top: -55px;
+        margin-left: 6px;
+    }
 
 
-.button-set{
+    .button-set {
         position: absolute !important;
-    margin-top: -160px !important;
-    margin-left: 585px;
+        margin-top: -160px !important;
+        margin-left: 585px;
     }
-    .button-set > input{
-        font-size:20px;
-        font-weight:bold;
-        padding:10px 50px !important;
+
+    .button-set>input {
+        font-size: 20px;
+        font-weight: bold;
+        padding: 10px 50px !important;
     }
 
 
     @media only screen and (max-width: 775px) {
-        .button-set{
-        position: absolute relative;
-    margin-top: -10px !important;
-    margin-left: -20px;
+        .button-set {
+            position: absolute relative;
+            margin-top: -10px !important;
+            margin-left: -20px;
+        }
+
+        .button-set>input {
+            font-size: 15px;
+            font-weight: bold;
+            padding: 5px 15px !important;
+        }
     }
-    .button-set > input{
-        font-size:15px;
-        font-weight:bold;
-        padding:5px 15px !important;
-    }
-    }
 
 
 
 
-    .multiselect-selected-text{
-        color:gray;
+    .multiselect-selected-text {
+        color: gray;
         font-weight: 400;
-    font-size: 14px;
+        font-size: 14px;
     }
 
     .multiselect-container>li {
         padding: 5px 0;
         border-bottom: 1px solid #eee;
     }
-    
-
-    .note-editor.note-frame.card {
-        border: 1px solid #D2D5DA  !important;
-    }
-    .description_tempwork .card{
-        margin-top:0px;
-    }
 
 
     .note-editor.note-frame.card {
-        border: 1px solid #D2D5DA  !important;
-    }
-    .description_tempwork .card{
-        margin-top:0px;
+        border: 1px solid #D2D5DA !important;
     }
 
-    .note-btn-group{
+    .description_tempwork .card {
+        margin-top: 0px;
+    }
+
+
+    .note-editor.note-frame.card {
+        border: 1px solid #D2D5DA !important;
+    }
+
+    .description_tempwork .card {
+        margin-top: 0px;
+    }
+
+    .note-btn-group {
         margin-top: 0px !important;
     }
-    
-    span.multiselect-native-select{
+
+    span.multiselect-native-select {
         display: block;
         width: 100%
     }
@@ -538,7 +559,7 @@ canvas {
                                     @php
                                     $cur_date = date('d/m/Y');
                                     @endphp
-                                    <input data-date-inline-picker="true" readonly type="date" 
+                                    <input data-date-inline-picker="true" readonly type="date"
                                         class="blackBack form-control form-control-solid" placeholder="Date"
                                         name="design_issued_date" id="design_issued_date"
                                         value="<?php echo date('Y-m-d');?>">
@@ -559,11 +580,11 @@ canvas {
                             </div>
 
                         </div>
-                        
+
 
 
                         <div class="row">
-                            
+
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block mb-0">
                                     <!--begin::Label-->
@@ -573,7 +594,8 @@ canvas {
                                     </label>
                                     <!--end::Label-->
                                     <input type="text" class="blackBack form-control form-control-solid"
-                                        placeholder="TWC Email Address" id="twc_email" name="twc_email" value="{{\Auth::user()->hasPermissionTo('twc-estimator') ? \Auth::user()->email : ''}}"
+                                        placeholder="TWC Email Address" id="twc_email" name="twc_email"
+                                        value="{{\Auth::user()->hasPermissionTo('twc-estimator') ? \Auth::user()->email : ''}}"
                                         style="background: #f5f8fa">
                                 </div>
                             </div>
@@ -586,7 +608,8 @@ canvas {
                                     </label>
                                     <!--end::Label-->
                                     <input type="text" class="blackBack form-control form-control-solid"
-                                        placeholder="TWC Name" id="twc_name" name="twc_name" value="{{\Auth::user()->hasPermissionTo('twc-estimator') ? \Auth::user()->name : ''}}">
+                                        placeholder="TWC Name" id="twc_name" name="twc_name"
+                                        value="{{\Auth::user()->hasPermissionTo('twc-estimator') ? \Auth::user()->name : ''}}">
                                 </div>
                             </div>
                         </div>
@@ -601,7 +624,7 @@ canvas {
                                         style=" cursor: pointer;color:#a9abb7 !important;" type="date"
                                         class="customDate blackBack form-control form-control-solid"
                                         placeholder="Design Required by Date" id="design_required_by_date"
-                                        name="design_required_by_date" value="{{date("Y-m-d")}}">
+                                        name="design_required_by_date" value="{{date(" Y-m-d")}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -763,11 +786,40 @@ canvas {
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
+
+                        <!-- nouman code -->
+                        <!-- <div class="row">
+                            <div class="col-md-6">
+                            <div>
+                                    <div class="d-flex inputDiv d-block mb-0">
+                                        <label class=" fs-6 fw-bold mb-2">
+                                            <span class="">Select company approved designer</span>
+                                        </label>
+                                        <select name="designers[]" id="desingers"
+                                            class="form-select form-select-lg form-select-solid" data-control="select2"
+                                            data-placeholder="Select an option" data-allow-clear="true" multiple>
+                                            {{-- <option value="">Select Option</option> --}}
+                                            <optgroup label="Designer List">
+                                                @foreach($designers as $desig)
+                                                @if($desig->hasRole('designer'))
+                                                <option value="{{$desig->email}}-{{$desig->id}}">{{$desig->email}}
+                                                </option>
+                                                @endif
+                                                @endforeach
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <!-- nouman codes end -->
+
                         <div class="row">
                             <div class="col-md-6">
-                               
+
                                 <div>
                                     <div class="d-flex inputDiv d-block mb-0">
                                         <label class=" fs-6 fw-bold mb-2">
@@ -837,48 +889,77 @@ canvas {
                                     <option value="Option six">Option six</option> -->
 
 
-                                <div class="d-flex  flex-column inputDiv-1 mb-0">
-                                    <label class=" fs-6 fw-bold mb-2">
-                                        <span class="label-1">Select Online Designers</span>
-                                    </label>
-                                    <select id="mySelect" class="mySelect" multiple="multiple"  name="online_designers[]">
-                                    @if(!empty($selectedOnlineDesigners))
-                                        @foreach($selectedOnlineDesigners as $desig)
-                                            <option value="{{$desig->designerDetails->email}}-{{$desig->designerDetails->id}}">{{$desig->designerDetails->name}} |
-                                         {{$desig->designerDetails->email}}</option>
-                                        @endforeach
-                                    @else
-                                    @foreach($adminDesigners as $desig)
-                                     
-                                     @if($desig->hasRole(['designer','Design Checker','Designer and Design
-                                     Checker']))
-                                     <option value="{{$desig->email}}-{{$desig->id}}">{{$desig->name}} |
-                                         {{$desig->email}}</option>
-                                     @endif
-                          
-                                     @endforeach
-                                     @endif
 
-                                    </select>
+                                <div>
+                                    <div class="d-flex inputDiv d-block mb-0">
+                                        <label class=" fs-6 fw-bold mb-2">
+                                            <span class="">Select Online Designers</span>
+                                        </label>
+                                        <select class="form-select form-select-lg form-select-solid"
+                                            data-control="select2" data-placeholder="Select an option"
+                                            data-allow-clear="true" id="mySelect" class="mySelect"
+                                            name="online_designers[]" multiple>
+                                            {{-- <option value="">Select Option</option> --}}
+                                            <optgroup label="Designer List">
+                                                @if(!empty($selectedOnlineDesigners))
+                                                @foreach($selectedOnlineDesigners as $desig)
+                                                <option
+                                                    value="{{$desig->designerDetails->email}}-{{$desig->designerDetails->id}}">
+                                                    {{$desig->designerDetails->name}} |
+                                                    {{$desig->designerDetails->email}}
+                                                </option>
+                                                @endforeach
+                                                @else
+                                                @foreach($adminDesigners as $desig)
+                                                @if($desig->hasRole(['designer','Design Checker','Designer and Design
+                                                Checker']))
+                                                <option value="{{$desig->email}}-{{$desig->id}}">{{$desig->name}} |
+                                                    {{$desig->email}}</option>
+                                                @endif
+
+                                                @endforeach
+                                                @endif
+                                            </optgroup>
+                                        </select>
+                                    </div>
                                 </div>
-                                    <h6 style="margin-top: 17px; margin-bottom: 0px; font-weight:bold">And/Or</h6>
-                                <div class="d-flex  flex-column inputDiv-1 mb-0">
+                                <h6 style="margin-top: 17px; margin-bottom: 0px; font-weight:bold">And/Or</h6>
+                                <!-- <div class="d-flex  flex-column inputDiv-1 mb-0">
                                     <label class=" fs-6 fw-bold mb-2">
                                         <span class="label-1">External Designers</span>
                                     </label>
-                                    <select id="mySelect" class="mySelect" multiple="multiple"  name="external_designers[]">
-   
-                                    @foreach($externalDesigners as $designer)
-                                     <option value="{{$designer->email}}-{{$designer->id}}">{{$designer->email}}</option>                          
-                                    @endforeach
+                                    <select id="mySelect" class="mySelect" multiple="multiple"
+                                        name="external_designers[]">
+
+                                        @foreach($externalDesigners as $designer)
+                                        <option value="{{$designer->email}}-{{$designer->id}}">{{$designer->email}}
+                                        </option>
+                                        @endforeach
 
                                     </select>
+                                </div> -->
+                                <div>
+                                    <div class="d-flex inputDiv d-block mb-0">
+                                        <label class=" fs-6 fw-bold mb-2">
+                                            <span class="">External Designers</span>
+                                        </label>
+                                        <select  id=""  name="external_designers[]"
+                                            class="form-select form-select-lg form-select-solid" data-control="select2"
+                                            data-placeholder="Select an option" data-allow-clear="true" multiple>
+                                            {{-- <option value="">Select Option</option> --}}
+                                            <optgroup >
+                                            @foreach($externalDesigners as $designer)
+                                        <option value="{{$designer->email}}-{{$designer->id}}">{{$designer->email}}
+                                        </option>
+                                        @endforeach
+                                            </optgroup>
+                                        </select>
+                                    </div>
                                 </div>
-                                
 
                             </div>
                             <div class="col-md-6">
-                             
+
                                 <div class="">
                                     <div class="d-flex inputDiv d-block mb-0">
 
@@ -890,9 +971,9 @@ canvas {
                                             data-allow-clear="true" multiple>
                                             {{-- <option value="">Select Option</option> --}}
                                             <!-- <optgroup label="Suppliers List"> -->
-                                                @foreach($suppliers as $supp)
-                                                <option value="{{$supp->email}}-{{$supp->id}}">{{$supp->email}}</option>
-                                                @endforeach
+                                            @foreach($suppliers as $supp)
+                                            <option value="{{$supp->email}}-{{$supp->id}}">{{$supp->email}}</option>
+                                            @endforeach
                                             <!-- </optgroup> -->
 
                                         </select>
@@ -914,47 +995,96 @@ canvas {
                                 </div>
 
                                 <h6 style="margin-top: 17px; margin-bottom: 0px; font-weight:bold">And/Or</h6>
-                                 
-                                <div class="d-flex inputDiv-1 flex-column d-block mb-0">
+
+                                <!-- <div class="d-flex flex-column inputDiv-1 d-block mb-0">
                                     <label class=" fs-6 fw-bold mb-2">
                                         <span class="">Select Online Supplier</span>
                                     </label>
-                                    <select name="online_suppliers[]"  id="" class="mySelect" multiple="multiple" multiple>
+                                    <select name="online_suppliers[]" id="" class="mySelect" multiple="multiple">
                                         {{-- <option value="">Select Option</option> --}}
                                         @if(!empty($selectedOnlineSuppliers))
-                                            @foreach($selectedOnlineSuppliers as $supp)
-                                                <option value="{{$supp->supplierDetails->email}}-{{$supp->supplierDetails->id}}">{{$supp->supplierDetails->name}} | 
-                                                    {{$supp->supplierDetails->email}}</option>
-                                            @endforeach
+                                        @foreach($selectedOnlineSuppliers as $supp)
+                                        <option
+                                            value="{{$supp->supplierDetails->email}}-{{$supp->supplierDetails->id}}">
+                                            {{$supp->supplierDetails->name}} |
+                                            {{$supp->supplierDetails->email}}</option>
+                                        @endforeach
                                         @else
                                         @foreach($adminSuppliers as $supp)
-                                        <!-- <optgroup label="Supplier List"> -->
-                                            @if($supp->hasRole('supplier'))
-                                            <option value="{{$supp->email}}-{{$supp->id}}">{{$supp->name}} | 
-                                                    {{$supp->email}}</option>
-                                            @endif
-                                        <!-- </optgroup> -->
+                                        @if($supp->hasRole('supplier'))
+                                        <option value="{{$supp->email}}-{{$supp->id}}">{{$supp->name}} |
+                                            {{$supp->email}}</option>
+                                        @endif
                                         @endforeach
                                         @endif
 
                                     </select>
+                                </div> -->
+                                <div>
+                                    <div class="d-flex inputDiv d-block mb-0">
+                                        <label class=" fs-6 fw-bold mb-2">
+                                            <span class="">Select Online Supplier</span>
+                                        </label>
+                                        <select name="online_suppliers[]" 
+                                            class="form-select form-select-lg form-select-solid" data-control="select2"
+                                            data-placeholder="Select an option" data-allow-clear="true" multiple>
+                                            {{-- <option value="">Select Option</option> --}}
+                                            <optgroup >
+                                            @if(!empty($selectedOnlineSuppliers))
+                                        @foreach($selectedOnlineSuppliers as $supp)
+                                        <option
+                                            value="{{$supp->supplierDetails->email}}-{{$supp->supplierDetails->id}}">
+                                            {{$supp->supplierDetails->name}} |
+                                            {{$supp->supplierDetails->email}}</option>
+                                        @endforeach
+                                        @else
+                                        @foreach($adminSuppliers as $supp)
+                                        <!-- <optgroup label="Supplier List"> -->
+                                        @if($supp->hasRole('supplier'))
+                                        <option value="{{$supp->email}}-{{$supp->id}}">{{$supp->name}} |
+                                            {{$supp->email}}</option>
+                                        @endif
+                                        <!-- </optgroup> -->
+                                        @endforeach
+                                        @endif
+                                            </optgroup>
+                                        </select>
+                                    </div>
                                 </div>
                                 <h6 style="margin-top: 17px; margin-bottom: 0px; font-weight:bold">And/Or</h6>
-                                <div class="d-flex  flex-column inputDiv-1 mb-0">
+                                <!-- <div class="d-flex  flex-column inputDiv-1 mb-0">
                                     <label class=" fs-6 fw-bold mb-2">
                                         <span class="label-1">External Suppliers</span>
                                     </label>
-                                    <select id="mySelect" class="mySelect" multiple="multiple"  name="external_suppliers[]">
-   
-                                    @foreach($externalSuppliers as $supplier)
-                                     <option value="{{$supplier->email}}-{{$supplier->id}}">{{$supplier->email}}</option>                          
-                                    @endforeach
+                                    <select id="mySelect" class="mySelect" multiple="multiple"
+                                        name="external_suppliers[]">
+
+                                        @foreach($externalSuppliers as $supplier)
+                                        <option value="{{$supplier->email}}-{{$supplier->id}}">{{$supplier->email}}
+                                        </option>
+                                        @endforeach
 
                                     </select>
-                                </div>
+                                </div> -->
 
-                                
-                                
+                                <div>
+                                    <div class="d-flex inputDiv d-block mb-0">
+                                        <label class=" fs-6 fw-bold mb-2">
+                                            <span class="">External Suppliers</span>
+                                        </label>
+                                        <select  id="" name="external_suppliers[]"
+                                            class="form-select form-select-lg form-select-solid" data-control="select2"
+                                            data-placeholder="Select an option" data-allow-clear="true" multiple>
+                                            {{-- <option value="">Select Option</option> --}}
+                                            <optgroup >
+                                            @foreach($externalSuppliers as $supplier)
+                                        <option value="{{$supplier->email}}-{{$supplier->id}}">{{$supplier->email}}
+                                        </option>
+                                        @endforeach
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
@@ -967,7 +1097,7 @@ canvas {
                                 {{-- description code ends here --}}
                             </div>
                         </div>
-                       
+
 
                         <div class="row">
                             <div class="col-md-6">
@@ -1038,91 +1168,100 @@ canvas {
                         @if(auth()->user()->hasRole('user'))
                         <div class="row" style="margin-top:20px;">
                             <div class="col-md-12">
-                            <input type="checkbox" id="display_sign" name="display_sign"  style="    position: relative;top: 2px;"/>
-                            <span class="tickboxalign" style="padding-left:3px;color:#000; font-family:'Inter', sans-serif;">Email Designer and upload to Temporary Work Register</span>
+                                <input type="checkbox" id="display_sign" name="display_sign"
+                                    style="    position: relative;top: 2px;" />
+                                <span class="tickboxalign"
+                                    style="padding-left:3px;color:#000; font-family:'Inter', sans-serif;">Email Designer
+                                    and upload to Temporary Work Register</span>
                             </div>
                             <div class="col-md-12" id="display_sign_div" style="display:none">
-                                
-                                    <h5>Signature Type:</h5>
-                                    <div class="d-flex ">
-                                        <div style="display:flex; align-items: center; padding-left:10px">
-                                            <input type="radio" class="checkbox-field" id="DrawCheck" checked=true style="width: 12px;">
-                                            <input type="hidden" id="Drawtype" name="" class="form-control form-control-solid" value="1">
-                                            <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
-                                        </div>
-                                        <div style="display:flex; align-items: center; padding-left:10px">
-                                            <input type="radio" class="checkbox-field" id="flexCheckChecked" 
-                                                style="width: 12px;">
-                                            <input type="hidden" id="signtype" name="signtype"
-                                                class="form-control form-control-solid" value="2">
-                                            <span
-                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Name</span>
-                                        </div>
-                                        <div style="display:flex; align-items: center; padding-left:10px">
-                                            <input type="radio" class="checkbox-field" id="pdfChecked" 
-                                                style="width: 12px;">
-                                            <input type="hidden" id="signtype" name="pdfsigntype"
-                                                class="form-control form-control-solid" value="0">
-                                            <span
-                                                style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;">PNG/JPG Upload</span>
-                                        </div>
+
+                                <h5>Signature Type:</h5>
+                                <div class="d-flex ">
+                                    <div style="display:flex; align-items: center; padding-left:10px">
+                                        <input type="radio" class="checkbox-field" id="DrawCheck" checked=true
+                                            style="width: 12px;">
+                                        <input type="hidden" id="Drawtype" name=""
+                                            class="form-control form-control-solid" value="1">
+                                        <span
+                                            style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Draw</span>
                                     </div>
-                                    <div class="inputDiv d-none" id="pdfsign">
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span class="required">Upload Signature:</span>
-                                        </label>
-                                        <input type="file" name="pdfphoto" class="form-control"
-                                            accept="image/*">
+                                    <div style="display:flex; align-items: center; padding-left:10px">
+                                        <input type="radio" class="checkbox-field" id="flexCheckChecked"
+                                            style="width: 12px;">
+                                        <input type="hidden" id="signtype" name="signtype"
+                                            class="form-control form-control-solid" value="2">
+                                        <span
+                                            style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">Name</span>
                                     </div>
-                                    <div class="d-flex inputDiv" id="namesign" style="display: none !important">
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <span class="required">Name Signature:</span>
-                                        </label>
-                                        <input type="text" name="namesign"
-                                            class="form-control form-control-solid">
+                                    <div style="display:flex; align-items: center; padding-left:10px">
+                                        <input type="radio" class="checkbox-field" id="pdfChecked" style="width: 12px;">
+                                        <input type="hidden" id="signtype" name="pdfsigntype"
+                                            class="form-control form-control-solid" value="0">
+                                        <span
+                                            style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;">PNG/JPG
+                                            Upload</span>
                                     </div>
-                                    <div class="d-flex inputDiv" id="sign" style="align-items: center; border:none">
-                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                            <!-- <span class="required">Signature:</span> -->
-                                        </label>
-                                        <br />
-                                        <canvas id="sig" style="background: lightgray"></canvas>
-                                        <br />
-                                        
-                                        <textarea id="signature" name="signed" style="display: none"></textarea>
-                                        <span id="clear" class="fa fa-undo cursor-pointer"
-                                            style="line-height: 6"></span>
-                                    </div>
-                                    <span id="sigimage" class="text-danger" style="font-size: 15px">Signature Not Added</span>
-                                    <br>
-    
-                                    
+                                </div>
+                                <div class="inputDiv d-none" id="pdfsign">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Upload Signature:</span>
+                                    </label>
+                                    <input type="file" name="pdfphoto" class="form-control" accept="image/*">
+                                </div>
+                                <div class="d-flex inputDiv" id="namesign" style="display: none !important">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Name Signature:</span>
+                                    </label>
+                                    <input type="text" name="namesign" class="form-control form-control-solid">
+                                </div>
+                                <div class="d-flex inputDiv" id="sign" style="align-items: center; border:none">
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <!-- <span class="required">Signature:</span> -->
+                                    </label>
+                                    <br />
+                                    <canvas id="sig" style="background: lightgray"></canvas>
+                                    <br />
+
+                                    <textarea id="signature" name="signed" style="display: none"></textarea>
+                                    <span id="clear" class="fa fa-undo cursor-pointer" style="line-height: 6"></span>
+                                </div>
+                                <span id="sigimage" class="text-danger" style="font-size: 15px">Signature Not
+                                    Added</span>
+                                <br>
+
+
                             </div>
                         </div>
                         @endif
-                        
-                       
+
+
                         <div class="row mt-5 justify-content-end">
-                            <div class="col-md-5"> 
+                            <div class="col-md-5">
                             </div>
                             <div class="col-md-1 published button-set" style="display:none;">
-                                <button  type="submit" name="action"
+                                <button type="submit" name="action"
                                     style="margin-left: 10px; background: #07d564 !important; color:white !important;"
                                     class="btn btn-primary float-end submitbutton" value="Publish">Publish</button>
                             </div>
-                            <div class="col-md-4 notpublished" style="display: flex; flex-direction:column; align-items:center"> 
+                            <div class="col-md-4 notpublished"
+                                style="display: flex; flex-direction:column; align-items:center">
                                 <button type="submit" name="action"
                                     style="border-radius: 5px;padding: 10px 20px;font-size: 15px;font-weight: 500;    background: none;    background-color: #07d564;color: #fff; "
-                                    class="btn btn-primary float-end submitbutton" value="Email Designer & Supplier (For Pricing)">Email Designer & Supplier </button>
-                                    <span style="display: inline-block;background: gray;color: #fff;padding: 1px 3px;border-radius: 4px;margin: 2px auto;">(For Pricing)</span>
+                                    class="btn btn-primary float-end submitbutton"
+                                    value="Email Designer & Supplier (For Pricing)">Email Designer & Supplier </button>
+                                <span
+                                    style="display: inline-block;background: gray;color: #fff;padding: 1px 3px;border-radius: 4px;margin: 2px auto;">(For
+                                    Pricing)</span>
                             </div>
                             <div class="col-md-3 notpublished">
                                 <button type="submit" name="action"
                                     style="border-radius: 5px;padding: 10px 20px;font-size: 15px;font-weight: 500;    background: none;    background-color: #07d564;color: #fff;"
-                                    class="btn btn-primary float-end submitbutton" value="Save as Draft">Save as Draft</button>
+                                    class="btn btn-primary float-end submitbutton" value="Save as Draft">Save as
+                                    Draft</button>
                             </div>
 
-                            
+
                         </div>
                         <!-- <button  type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Save & Email</button> -->
                         <!-- <button  type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Save</button> -->
@@ -1143,76 +1282,74 @@ canvas {
 
 @section('scripts')
 <script>
-    var url="{{asset('js/myfile.json')}}";
-    var jsondata="";
-    $(document).ready(function(){
+    var url = "{{asset('js/myfile.json')}}";
+    var jsondata = "";
+    $(document).ready(function () {
         getText(url);
-            async function getText(file) {
-               await fetch(file).then(response => response.json()).then(json => {
-                  jsondata=json;
-               });
-            }
+        async function getText(file) {
+            await fetch(file).then(response => response.json()).then(json => {
+                jsondata = json;
+            });
+        }
     });
 </script>
 <script src="{{ asset('assets/js/temporary-work-modal.js') }}"></script>
 <script type="text/javascript">
-    $(document).on("change","[name='req_check[]']",function(){
-        if($(this).is(':checked'))
-        {
+    $(document).on("change", "[name='req_check[]']", function () {
+        if ($(this).is(':checked')) {
             $(this).val(1);
         }
-        else{
+        else {
             $(this).val(0);
         }
     })
 
-$(document).ready(function() {
+    $(document).ready(function () {
 
-    $("#description").summernote({
-        placeholder: 'Design Description',
-        disableDragAndDrop:true,
-        tabsize: 2,
-        height: 300,
-        toolbar: [
-            // [groupName, [picture]]
-            ['style', ['bold', 'italic', 'underline', 'clear']],
-            ['font', ['strikethrough']],
-            ['fontsize', ['']],
-            ['color', ['']],
-            ['para', ['ul', 'ol', '']],
-            ['height', ['']],
-            ['picture'],
-            ['view', ['fullscreen', 'codeview']],
-        ],
-        cleaner: {
-                    action: 'both', // both|button|paste 'button' only cleans via toolbar button, 'paste' only clean when pasting content, both does both options.
-                    icon: '<i class="note-icon"><svg xmlns="http://www.w3.org/2000/svg" id="libre-paintbrush" viewBox="0 0 14 14" width="14" height="14"><path d="m 11.821425,1 q 0.46875,0 0.82031,0.311384 0.35157,0.311384 0.35157,0.780134 0,0.421875 -0.30134,1.01116 -2.22322,4.212054 -3.11384,5.035715 -0.64956,0.609375 -1.45982,0.609375 -0.84375,0 -1.44978,-0.61942 -0.60603,-0.61942 -0.60603,-1.469866 0,-0.857143 0.61608,-1.419643 l 4.27232,-3.877232 Q 11.345985,1 11.821425,1 z m -6.08705,6.924107 q 0.26116,0.508928 0.71317,0.870536 0.45201,0.361607 1.00781,0.508928 l 0.007,0.475447 q 0.0268,1.426339 -0.86719,2.32366 Q 5.700895,13 4.261155,13 q -0.82366,0 -1.45982,-0.311384 -0.63616,-0.311384 -1.0212,-0.853795 -0.38505,-0.54241 -0.57924,-1.225446 -0.1942,-0.683036 -0.1942,-1.473214 0.0469,0.03348 0.27455,0.200893 0.22768,0.16741 0.41518,0.29799 0.1875,0.130581 0.39509,0.24442 0.20759,0.113839 0.30804,0.113839 0.27455,0 0.3683,-0.247767 0.16741,-0.441965 0.38505,-0.753349 0.21763,-0.311383 0.4654,-0.508928 0.24776,-0.197545 0.58928,-0.31808 0.34152,-0.120536 0.68974,-0.170759 0.34821,-0.05022 0.83705,-0.07031 z"/></svg></i>',
-                    keepHtml: true,
-                    keepTagContents: ['span'], //Remove tags and keep the contents
-                    badTags: ['applet', 'col', 'colgroup', 'embed', 'noframes', 'noscript', 'script', 'style', 'title', 'meta', 'link', 'head'], //Remove full tags with contents
-                    badAttributes: ['bgcolor', 'border', 'height', 'cellpadding', 'cellspacing', 'lang', 'start', 'style', 'valign', 'width', 'data-(.*?)'], //Remove attributes from remaining tags
-                    limitChars: 0, // 0|# 0 disables option
-                    limitDisplay: 'both', // none|text|html|both
-                    limitStop: false, // true/false
-                    notTimeOut: 850, //time before status message is hidden in miliseconds
-                    keepImages: true, // if false replace with imagePlaceholder
-                    imagePlaceholder: 'https://via.placeholder.com/200'
-                }
+        $("#description").summernote({
+            placeholder: 'Design Description',
+            disableDragAndDrop: true,
+            tabsize: 2,
+            height: 300,
+            toolbar: [
+                // [groupName, [picture]]
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough']],
+                ['fontsize', ['']],
+                ['color', ['']],
+                ['para', ['ul', 'ol', '']],
+                ['height', ['']],
+                ['picture'],
+                ['view', ['fullscreen', 'codeview']],
+            ],
+            cleaner: {
+                action: 'both', // both|button|paste 'button' only cleans via toolbar button, 'paste' only clean when pasting content, both does both options.
+                icon: '<i class="note-icon"><svg xmlns="http://www.w3.org/2000/svg" id="libre-paintbrush" viewBox="0 0 14 14" width="14" height="14"><path d="m 11.821425,1 q 0.46875,0 0.82031,0.311384 0.35157,0.311384 0.35157,0.780134 0,0.421875 -0.30134,1.01116 -2.22322,4.212054 -3.11384,5.035715 -0.64956,0.609375 -1.45982,0.609375 -0.84375,0 -1.44978,-0.61942 -0.60603,-0.61942 -0.60603,-1.469866 0,-0.857143 0.61608,-1.419643 l 4.27232,-3.877232 Q 11.345985,1 11.821425,1 z m -6.08705,6.924107 q 0.26116,0.508928 0.71317,0.870536 0.45201,0.361607 1.00781,0.508928 l 0.007,0.475447 q 0.0268,1.426339 -0.86719,2.32366 Q 5.700895,13 4.261155,13 q -0.82366,0 -1.45982,-0.311384 -0.63616,-0.311384 -1.0212,-0.853795 -0.38505,-0.54241 -0.57924,-1.225446 -0.1942,-0.683036 -0.1942,-1.473214 0.0469,0.03348 0.27455,0.200893 0.22768,0.16741 0.41518,0.29799 0.1875,0.130581 0.39509,0.24442 0.20759,0.113839 0.30804,0.113839 0.27455,0 0.3683,-0.247767 0.16741,-0.441965 0.38505,-0.753349 0.21763,-0.311383 0.4654,-0.508928 0.24776,-0.197545 0.58928,-0.31808 0.34152,-0.120536 0.68974,-0.170759 0.34821,-0.05022 0.83705,-0.07031 z"/></svg></i>',
+                keepHtml: true,
+                keepTagContents: ['span'], //Remove tags and keep the contents
+                badTags: ['applet', 'col', 'colgroup', 'embed', 'noframes', 'noscript', 'script', 'style', 'title', 'meta', 'link', 'head'], //Remove full tags with contents
+                badAttributes: ['bgcolor', 'border', 'height', 'cellpadding', 'cellspacing', 'lang', 'start', 'style', 'valign', 'width', 'data-(.*?)'], //Remove attributes from remaining tags
+                limitChars: 0, // 0|# 0 disables option
+                limitDisplay: 'both', // none|text|html|both
+                limitStop: false, // true/false
+                notTimeOut: 850, //time before status message is hidden in miliseconds
+                keepImages: true, // if false replace with imagePlaceholder
+                imagePlaceholder: 'https://via.placeholder.com/200'
+            }
         });
 
-})
+    })
 </script>
 <script>
     var projects = {!!$projects!!};
-    var address='';
-    $('#projects').change(function() {
+    var address = '';
+    $('#projects').change(function () {
         let id = $(this).val();
-        let project = projects.filter(function(p) {
+        let project = projects.filter(function (p) {
             return p.id == id;
         });
-        if(project[0].address)
-        {
-        address=project[0].address.replace(/\n/g,',');
+        if (project[0].address) {
+            address = project[0].address.replace(/\n/g, ',');
         }
         if (project) {
             $('#no').val('').val(project[0].no);
@@ -1222,134 +1359,130 @@ $(document).ready(function() {
             $("#companyadmin").val(project[0].company.name);
             $("#company_id").val(project[0].company.id);
             $.ajax({
-            url:"{{route('project.twc.get')}}",
-            method:"GET",
-            data:{id:project[0].id,compayid:project[0].company.id},
-            success:function(res)
-            {
-                $(".form-select.form-select-solid").css("background-color", "#eee !important");
-                $(".form-control[readonly]").css("background-color", "#eee !important");
-                
-               if(res !='')
-               {
-                 // $("#twc_email").val(res);
-               }
-            }
-        });
+                url: "{{route('project.twc.get')}}",
+                method: "GET",
+                data: { id: project[0].id, compayid: project[0].company.id },
+                success: function (res) {
+                    $(".form-select.form-select-solid").css("background-color", "#eee !important");
+                    $(".form-control[readonly]").css("background-color", "#eee !important");
+
+                    if (res != '') {
+                        // $("#twc_email").val(res);
+                    }
+                }
+            });
         }
         console.log(project);
     });
-    
-    
+
+
 
     //approval checkbox checkded
-    $("#approval").change(function(){
-        if($(this).is(':checked'))
-        {
+    $("#approval").change(function () {
+        if ($(this).is(':checked')) {
             $(".pc-twc").removeClass('d-none').addClass('d-flex');
-            $("#pc-twc-email").attr('required','required');
+            $("#pc-twc-email").attr('required', 'required');
         }
-        else{
+        else {
             $(".pc-twc").removeClass('d-flex').addClass('d-none');
             $("#pc-twc-email").removeAttr('required');
         }
     })
 
-//when click of category 3
-    $('input[name="tw_category"]').click(function(){
-        var value=$(this).val();
-        if(value==3)
-        {
+    //when click of category 3
+    $('input[name="tw_category"]').click(function () {
+        var value = $(this).val();
+        if (value == 3) {
             $(".desinger_company_name2").removeClass('d-none').addClass('d-flex');
-        //    $("#desinger_company_name2").attr('required','required');
-        //    $("#desinger_email_2").attr('required','required');
-          
+            //    $("#desinger_company_name2").attr('required','required');
+            //    $("#desinger_email_2").attr('required','required');
+
         }
-        else{
+        else {
             $(".desinger_company_name2").addClass('d-none').removeClass('d-flex');
             $("#desinger_company_name2").removeAttr('required');
             $("#desinger_email_2").removeAttr('required');
         }
     })
 
-    $("#attachment").click(function() {
+    $("#attachment").click(function () {
         $(this).removeClass("blackBack")
-                $(this).addClass("whiteBack")
-        });
-
-
-    $('#design_required_by_date').change(function() {
-        $('#design_required_by_date').css("background-color", "#eee ");
-        $('#design_required_by_date').css({"color": "#000"});
+        $(this).addClass("whiteBack")
     });
-    $('#designer_company_name').change(function() {
+
+
+    $('#design_required_by_date').change(function () {
+        $('#design_required_by_date').css("background-color", "#eee ");
+        $('#design_required_by_date').css({ "color": "#000" });
+    });
+    $('#designer_company_name').change(function () {
         $('#designer_company_name').css("background-color", "#f5f8fa ");
         $('#design_required_by_date').css("color", "#000");
     });
-    $('#designer_company_email').change(function() {
+    $('#designer_company_email').change(function () {
         $('#designer_company_email').css("background-color", "#f5f8fa ");
         $('#designer_company_email').css("color", "#000");
     });
-    $('#twc_name').change(function() {
+    $('#twc_name').change(function () {
         $('#twc_name').css("background-color", "#f5f8fa ");
         $('#twc_name').css("color", "#000");
     });
-    $('#twc_email').change(function() {
+    $('#twc_email').change(function () {
         $('#twc_email').css("background-color", "#f5f8fa ");
         $('#twc_email').css("color", "#000");
     });
-    $("#scopofdesign").click(function() {
+    $("#scopofdesign").click(function () {
         $(this).removeClass("blackBack")
-                $(this).addClass("whiteBack")
-        });
+        $(this).addClass("whiteBack")
+    });
 
-    $(".hazardlist").on('click',function(){
+    $(".hazardlist").on('click', function () {
         $("#hazard_modal_id").modal('show');
     })
-            
 
-    $(function() {
-       var email= $("#twc_email").val();
-       if(email.length>0){
-        $("#twc_email").removeClass("blackBack")
-       } else{
-        $("#twc_email").addClass("blackBack")
-       }
-        $("input").on("change paste keyup cut select", function() {
-            if($(this).val() !== "") {
+
+    $(function () {
+        var email = $("#twc_email").val();
+        if (email.length > 0) {
+            $("#twc_email").removeClass("blackBack")
+        } else {
+            $("#twc_email").addClass("blackBack")
+        }
+        $("input").on("change paste keyup cut select", function () {
+            if ($(this).val() !== "") {
                 $(this).removeClass("blackBack")
                 $(this).addClass("whiteBack")
             }
         });
-        $("textarea").on("change", function() {
-            if($(this).val() !== "") {
+        $("textarea").on("change", function () {
+            if ($(this).val() !== "") {
                 $(this).removeClass("blackBack")
                 $(this).addClass("whiteBack")
             }
         });
-       
-        $("#design_requirement_text").on("click", function() {
-                $(this).removeClass("blackBack")
-                $(this).addClass("whiteBack")
-    
+
+        $("#design_requirement_text").on("click", function () {
+            $(this).removeClass("blackBack")
+            $(this).addClass("whiteBack")
+
         });
-        $("#scope-of-design #submit-requirment button").on("click", function() {
+        $("#scope-of-design #submit-requirment button").on("click", function () {
             console.log("here");
-                $("#scopofdesign").removeClass("blackBack")
-                $("#scopofdesign").addClass("whiteBack")
-    
+            $("#scopofdesign").removeClass("blackBack")
+            $("#scopofdesign").addClass("whiteBack")
+
         });
-        $("#attachment-of-design  #submit-requirment button").on("click", function() {
-                $(this).removeClass("blackBack")
-                $(this).addClass("whiteBack")
-    
+        $("#attachment-of-design  #submit-requirment button").on("click", function () {
+            $(this).removeClass("blackBack")
+            $(this).addClass("whiteBack")
+
         });
 
-        $("#projects").change(function(){
+        $("#projects").change(function () {
             console.log("hello")
             $(this).removeClass("blackBack")
             $("#projects span.form-select").removeClass("blackBack")
-         //   $(".form-control[readonly]").removeClass("blackBack")
+            //   $(".form-control[readonly]").removeClass("blackBack")
             $("#no").removeClass("blackBack").addClass("whiteBack");
             $("#name").removeClass("blackBack").addClass("whiteBack");
             $("#design_issued_date").removeClass("blackBack").addClass("whiteBack");
@@ -1357,14 +1490,14 @@ $(document).ready(function() {
             $("#job_title").removeClass("blackBack").addClass("whiteBack");
             $("#admin_name").removeClass("blackBack").addClass("whiteBack");
             $("#companyadmin").removeClass("blackBack").addClass("whiteBack");
-            $(".form-select.form-select-solid").css("background-color","#f5f8fa")
+            $(".form-select.form-select-solid").css("background-color", "#f5f8fa")
             $("#companyadmin").removeClass("blackBack").addClass("whiteBack");
             $("#twc_name").removeClass("blackBack").addClass("whiteBack");
-         //   $("#scopofdesign").addClass("blackBack")
+            //   $("#scopofdesign").addClass("blackBack")
         })
 
-        $(".customDate").click(function(){
-            $(".customDate::-webkit-calendar-picker-indicator").css("filter","invert(0)") 
+        $(".customDate").click(function () {
+            $(".customDate::-webkit-calendar-picker-indicator").css("filter", "invert(0)")
         })
     });
 
@@ -1378,18 +1511,18 @@ $(document).ready(function() {
     //         loc = parts.pop();
     //         window.open(baseUrl+'company-profile/'+loc+'', '_blank');
     //     }
-        
+
     // })
 
     var canvas = document.getElementById("sig");
     var signaturePad = new SignaturePad(canvas);
     signaturePad.addEventListener("endStroke", () => {
-              $("#signature").val(signaturePad.toDataURL('image/png'));
-              $("#sigimage").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
-            $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
+        $("#signature").val(signaturePad.toDataURL('image/png'));
+        $("#sigimage").text("Signature Added").removeClass('text-danger').addClass('text-sucess');
+        $("#submitbutton").removeClass("btn-secondary").addClass("btn-primary").removeAttr("disabled");
     });
-    
-     $('#clear').click(function(e) {
+
+    $('#clear').click(function (e) {
         e.preventDefault();
         signaturePad.clear();
         $("#signature").val('');
@@ -1414,18 +1547,18 @@ $(document).ready(function() {
         }
     });
 
-//disable button on submit
-// $('#desingform').submit(function(e) {
-//     e.preventDefault();
-//     var form = $( "#desingform" );
-//     form.validate();
-//     valid = $("#desingform").valid();
-//     if (!$('#desingform').valid())  e.preventDefault(); return false
+    //disable button on submit
+    // $('#desingform').submit(function(e) {
+    //     e.preventDefault();
+    //     var form = $( "#desingform" );
+    //     form.validate();
+    //     valid = $("#desingform").valid();
+    //     if (!$('#desingform').valid())  e.preventDefault(); return false
 
-//     $('#desingform input[type=submit]').attr("disabled", "disabled");  
-//     e.currentTarget.submit();
-//     return true;
-// });
+    //     $('#desingform input[type=submit]').attr("disabled", "disabled");
+    //     e.currentTarget.submit();
+    //     return true;
+    // });
 
 
 
@@ -1460,44 +1593,44 @@ $(document).ready(function() {
 
 
 <script>
-        $(document).ready(function() {
-            $('.mySelect').multiselect({
-                buttonText: function(options, select) {
-                    if (options.length === 0) {
-                        return 'Select options';
-                    } else if (options.length > 2) {
-                        return options.length + ' selected';
-                    } else {
-                        var labels = [];
-                        options.each(function() {
-                            labels.push($(this).text());
-                        });
-                        return labels.join(', ');
-                    }
+    $(document).ready(function () {
+        $('.mySelect').multiselect({
+            buttonText: function (options, select) {
+                if (options.length === 0) {
+                    return 'Select options';
+                } else if (options.length > 2) {
+                    return options.length + ' selected';
+                } else {
+                    var labels = [];
+                    options.each(function () {
+                        labels.push($(this).text());
+                    });
+                    return labels.join(', ');
                 }
-            });
-
-            // Prevent checkbox selection when clicking on option text
-            $('.mySelect + .btn-group ul li a label').click(function(e) {
-                e.preventDefault();
-
-                var optionValue = $(this).closest('li').find('input[type="checkbox"]').val();
-
-                // Perform navigation only for "Option one" when clicking on the option text
-                if (optionValue === "Option one") {
-                    window.location.href = 'sdsd.html';
-                }
-                if (optionValue === "Option two") {
-                    window.location.href = 'adad.html';
-                }
-            });
-
-            // Toggle checkboxes only when checkboxes are clicked
-            $('.mySelect + .btn-group ul li a input[type="checkbox"]').click(function(e) {
-                e.stopPropagation(); 
-            });
+            }
         });
-    </script>
+
+        // Prevent checkbox selection when clicking on option text
+        $('.mySelect + .btn-group ul li a label').click(function (e) {
+            e.preventDefault();
+
+            var optionValue = $(this).closest('li').find('input[type="checkbox"]').val();
+
+            // Perform navigation only for "Option one" when clicking on the option text
+            if (optionValue === "Option one") {
+                window.location.href = 'sdsd.html';
+            }
+            if (optionValue === "Option two") {
+                window.location.href = 'adad.html';
+            }
+        });
+
+        // Toggle checkboxes only when checkboxes are clicked
+        $('.mySelect + .btn-group ul li a input[type="checkbox"]').click(function (e) {
+            e.stopPropagation();
+        });
+    });
+</script>
 
 
 

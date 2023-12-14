@@ -204,7 +204,9 @@ background-color: #07d564 !important;
                                     <th class="min-w-125px">S.No</th>
                                     <th class="min-w-125px">User Name</th>
                                     <th class="min-w-125px">Email</th>
+                                    @role('company')
                                     <th class="min-w-125px">Status</th>
+                                    @endrole
                                     <th class="min-w-125px">Actions</th>
                                 </tr>
                             </thead>
@@ -219,34 +221,51 @@ background-color: #07d564 !important;
 </div>
 @endsection
 @php
-$columns = "[
-{ 
-    render: function (data, type, row, meta) {
-      return meta.row + meta.settings._iDisplayStart + 1;
-      }
-},
-{data: 'name', name: 'name',defaultContent: '-'},
-{data: 'email', name: 'email',defaultContent: '-'},
-{data: 'status', name: 'status'},
-{data: 'action', name: 'action', orderable: false, searchable: false},
-]";
-$url = route('adminDesigner.index');
-$data = [
-'columns' => $columns,
-'url' => $url,
-];
+$checkRole = auth()->user()->hasRole('company') ? 1 : 0;
+$columns = null;
+if($checkRole){
+    $columns = "[
+    { 
+        render: function (data, type, row, meta) {
+          return meta.row + meta.settings._iDisplayStart + 1;
+          }
+    },
+    
+    
+    {data: 'name', name: 'name',defaultContent: '-'},
+    {data: 'email', name: 'email',defaultContent: '-'},
+    {data: 'status', name: 'status'},
+    {data: 'action', name: 'action', orderable: false, searchable: false},
+    ]";
+    $url = route('adminDesigner.index');
+    $data = [
+    'columns' => $columns,
+    'url' => $url,
+    ];
+}else{
+    $columns = "[
+    { 
+        render: function (data, type, row, meta) {
+          return meta.row + meta.settings._iDisplayStart + 1;
+          }
+    },
+    
+    
+    {data: 'name', name: 'name',defaultContent: '-'},
+    {data: 'email', name: 'email',defaultContent: '-'},
+    {data: 'action', name: 'action', orderable: false, searchable: false},
+    ]";
+    $url = route('adminDesigner.index');
+    $data = [
+    'columns' => $columns,
+    'url' => $url,
+    ];
+}
 @endphp
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
 @include('layouts.datatables.datatables_js',['data' => $data])
 @include('layouts.dashboard.ajax_call')
-
-@endsection
-<!-- Include jQuery and DataTables script -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-
-<!-- Your DataTable initialization script -->
 <script>
   $(document).ready(function() {
     // DataTable initialization
@@ -277,3 +296,6 @@ $data = [
     });
   });
 </script>
+@endsection
+
+

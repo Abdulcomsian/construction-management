@@ -31,17 +31,20 @@ class ExternalDesignerController extends Controller
      */
     public function index(Request $request)
     {
+        
         $user = auth()->user();
         abort_if(!$user->hasAnyRole(['admin', 'company']), 403);
         try {
             if ($request->ajax()) {
-                if ($user->hasRole(['admin','company'])) {
-                    $data = ExternalDesignerSupplier::where(['type'=>'designer','company_id'=>Auth::id()])->get();
+                if ($user->hasRole('company')) {
+                    $data = ExternalDesignerSupplier::with('designerSupplierCompany')->where(['type'=>'designer','company_id'=>Auth::id()])->get();
+                }else{
+                    $data = ExternalDesignerSupplier::with('designerSupplierCompany')->where(['type'=>'designer'])->get();
                 } 
                 return Datatables::of($data)
                     ->removeColumn('id')
                     ->addColumn('company', function ($data) {
-                        return $data->userCompany->name ?? '';
+                        return $data->designerSupplierCompany->name ?? '';
                     })
                     ->addColumn('action', function ($data) use ($user) {
                          $btn ='';
@@ -68,12 +71,13 @@ class ExternalDesignerController extends Controller
                         }
                         return $btn;
                      })
-                    ->rawColumns(['action'])
+                    ->rawColumns(['company','action'])
                     ->make(true);
             }
 
              return view('dashboard.designer.external_designers');
         } catch (\Exception $exception) {
+            dd($exception);
             toastError('Something went wrong, try again');
             return Redirect::back();
         }
@@ -84,8 +88,10 @@ class ExternalDesignerController extends Controller
         abort_if(!$user->hasAnyRole(['admin', 'company']), 403);
         try {
             if ($request->ajax()) {
-                if ($user->hasRole(['admin','company'])) {
-                    $data = ExternalDesignerSupplier::where(['type'=>'supplier','company_id'=>Auth::id()])->get();
+                if ($user->hasRole('company')) {
+                    $data = ExternalDesignerSupplier::with('designerSupplierCompany')->where(['type'=>'supplier','company_id'=>Auth::id()])->get();
+                }else{
+                    $data = ExternalDesignerSupplier::with('designerSupplierCompany')->where(['type'=>'supplier'])->get();
                 } 
                 return Datatables::of($data)
                     ->removeColumn('id')
@@ -117,8 +123,8 @@ class ExternalDesignerController extends Controller
                         }
                         return $btn;
                      })
-                    ->rawColumns(['action'])
-                    ->make(true);
+                     ->rawColumns(['company','action'])
+                     ->make(true);
             }
 
              return view('dashboard.suppliers.external_suppliers');

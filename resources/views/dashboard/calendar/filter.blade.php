@@ -195,6 +195,7 @@
     <!--begin::Toolbar-->
     <div class="toolbar" id="kt_toolbar">
         <!--begin::Container-->
+        {{--
         <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
             <!--begin::Page title-->
             <div data-kt-place="true" data-kt-place-mode="prepend"
@@ -208,24 +209,21 @@
             <!--end::Page title-->
         </div>
         <!--end::Container-->
-    </div>
+    </div> --}}
     <!--end::Toolbar-->
     <!--begin::Post-->
-    <div class="post d-flex flex-column-fluid" id="kt_post">
+    <div class="post d-flex flex-column-fluid" id="kt_post"  style="margin-top:150px !important;">
         <!--begin::Container-->
         <div id="kt_content_container" class="container">
             <!--begin::Card-->
             <div class="card">
-                <!--begin::Card header-->
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
-                    <div class="card-title">
-                        
+                    <div class="card-title" style="    float: left;padding-top: 0px;">
+                        Filters</h2>
                     </div>
-                    <!--begin::Card toolbar-->
-                    {{-- <a href="{{route('add_estimator')}}" class="btn btn-primary">Add New Job</a> --}}
-                    <!--end::Card toolbar-->
                 </div>
+                
                 <!--end::Card header-->
                 <!--begin::Card body-->
                 <div class="card-body pt-0">

@@ -28,107 +28,307 @@
         border:none;
         font-weight:bold;
     }
+
+    .aside-enabled.aside-fixed.header-fixed .header {
+        border-bottom: 1px solid #e4e6ef !important;
+    }
+
+    .header-fixed.toolbar-fixed .wrapper {
+        padding-top: 60px !important;
+    }
+
+    .content {
+        padding-top: 0px !important;
+        background-color: #e9edf1 !important;
+    }
+
+    .newDesignBtn {
+        border-radius: 8px;
+        background-color: #07d564;
+        width: 150px;
+        padding: 10px 15px;
+        color: #000;
+        margin: 0px 29px;
+        margin-right: 0px;
+    }
+
+    /*.newDesignBtn:hover {*/
+    /*    color: rgba(222, 13, 13, 0.66);*/
+    /*}*/
+
+    .card>.card-body {
+        padding: 32px;
+    }
+
+    table {
+        margin-top: 20px;
+        border-collapse: separate;
+    }
+
+    #kt_content_container {
+        background-color: #e9edf1;
+    }
+
+    #kt_toolbar_container {
+        background-color: #fff;
+    }
+
+    #kt_toolbar_container h1 {
+        font-size: 35px !important;
+        color: #000 !important;
+        padding: 15px 0px;
+
+    }
+
+    .card {
+        margin: 30px 0px;
+        border-radius: 10px;
+    }
+
+    .toolbar-fixed .toolbar {
+        background-color: transparent !important;
+        border: none !important;
+    }
+
+    .card-title h2 {
+        color: rgba(254, 242, 242, 0.66);
+    }
+
+    table tbody td {
+        text-align: center;
+    }
+
+    table thead {
+        background-color: #f5f8fa;
+    }
+
+    table thead th {
+        color: #000 !important;
+        text-align: center;
+        /*transform: rotate(-60deg);*/
+        border-bottom: 0px !important;
+        vertical-align: middle;
+        font-size: 12px !important;
+        font-weight: 900 !important;
+    }
+
+    tbody tr:nth-child(odd) {
+        background-color: #fff;
+    }
+
+    tbody tr:nth-child(even) {
+        /* background-color: #f2f2f2; */
+    }
+
+    .card>.card-header {
+        align-items: center;
+    }
+
+    .dataTables_filter input {
+        border-radius: 8px;
+    }
+
+    thead tr {
+        height: 6px !important;
+    }
+
+    table {
+        margin-top: 20px;
+        border-collapse: separate;
+    }
+
+    .dataTables_length label,
+    #DataTables_Table_0_filter label {
+        color: #fff;
+    }
+
+    .page-item.active .page-link {
+        background-color: #07d564 !important;
+    }
+
+    table thead th {
+        padding: 3px 18px 3px 10px;
+        border-bottom: 0;
+        color: #ff0000;
+        font-size: 12px;
+        font-weight: bold;
+        cursor: pointer;
+        * cursor: hand;
+    }
+
+    table td {
+        padding: 3px 10px;
+        color: #000000;
+        font-size: 12px;
+        font-weight: normal;
+    }
+
+    table td .d-flex {
+        justify-content: center;
+    }
+
+    .btn.btn-active-color-primary:hover:not(.btn-active),
+    .btn.btn-active-color-primary:hover:not(.btn-active) i {
+        color: #07d564;
+    }
+
+    .modal .btn.btn-primary {
+        border-color: #07d564 !important;
+        background-color: #07d564 !important;
+    }
+
+    #modal1 th {
+    text-align: center!important;
+    }
+    .circle.unblink{
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background-color: rgb(92, 92, 92);
+        margin: auto;
+    }
+
+    .circle.blink {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background-color: rgb(30, 255, 0);
+        animation: blink 1s infinite;
+        margin: auto;
+        cursor: pointer;
+    }
+
+    .circle.danger-blink {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background-color: rgb(255, 30, 0);
+        animation: blink 1s infinite;
+        margin: auto;
+        cursor: pointer;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    } 
+
 </style>
 @endsection
 @section('content')
-<div class="container">
-<form method="post" action="{{route("generate_invoice")}}">
-    @csrf
-<div class="card-body pt-7 px-20">
-                    <div class="d-flex flex-column justify-content-between mb-8 fv-row fv-plugins-icon-container">
-                            <div class="row d-flex justify-content-between">
-                                <div class="col-md-5 company">
-                                   <h1> TAX INVOICE</h1>
-                                   <p>
-                                    <textarea class="form-control" name="tax_invoice" placeholder="Enter Text"></textarea>
-                                   </p>
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+    <!--begin::Toolbar-->
+    <div class="" id="kt_toolbar">
+        <div class="post d-flex flex-column-fluid" id="kt_post"  style="">
+            <!--begin::Container-->
+            <div id="kt_content_container" class="container">
+                <form method="post" action="{{route("generate_invoice")}}">
+                    @csrf
+                        <div class="card">
+                            <div class="card-header border-0 pt-6">
+                                <!--begin::Card title-->
+                                <div class="card-title" style="    float: left;padding-top: 0px;">
+                                    Add New Invoice</h2>
                                 </div>
-                                <div class="col-md-3">
-                                    <label class="required fs-6 fw-bold mb-2">  Invoice Date</label>
-                                    <input type="date" name="date" class="form-control form-control-solid" placeholder="Enter Date" name="date" />
-                                    <label class="required fs-6 fw-bold mb-2">  Invoice Number</label>
-                                    <input type="text" name="number" class="form-control form-control-solid" placeholder="Enter Invoice Number" name="invoice-number" />
-                                    <label class="required fs-6 fw-bold mb-2">  Reference</label>
-                                    <input type="text" name="reference" class="form-control form-control-solid" placeholder="Enter Reference" name="reference" />
-                                </div>
+                            </div>
+                            <div class="card-body pt-7 px-20">
+                                    <div class="d-flex flex-column justify-content-between mb-8 fv-row fv-plugins-icon-container">
+                                        <div class="row d-flex justify-content-between">
+                                            <div class="col-md-5 company">
+                                                <h2> Tax Invoice</h2>
+                                                <p>
+                                                <textarea class="form-control" name="tax_invoice" placeholder="Enter Text"></textarea>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="required fs-6 fw-bold mb-2">  Invoice Date</label>
+                                                <input type="date" name="date" class="form-control form-control-solid" placeholder="Enter Date" name="date" />
+                                                <label class="required fs-6 fw-bold mb-2">  Invoice Number</label>
+                                                <input type="text" name="number" class="form-control form-control-solid" placeholder="Enter Invoice Number" name="invoice-number" />
+                                                <label class="required fs-6 fw-bold mb-2">  Reference</label>
+                                                <input type="text" name="reference" class="form-control form-control-solid" placeholder="Enter Reference" name="reference" />
+                                            </div>
 
-                                    <div class="col-md-3 address">
-                                       <p>
-                                       STRUCTEMP LLP <br>
-                                       106 Weston Street <br>
-                                       London SE1 3QB <br>
-                                       UNITED KINGDOM <br>
-                                       VAT Number: 282 1901 12
-                                       </p>
+                                                <div class="col-md-3 address">
+                                                    <p>
+                                                    STRUCTEMP LLP <br>
+                                                    106 Weston Street <br>
+                                                    London SE1 3QB <br>
+                                                    UNITED KINGDOM <br>
+                                                    VAT Number: 282 1901 12
+                                                    </p>
+                                                </div>
+                                
+                                        </div>
+                                        <table id="item-table" class="mt-20 d-flex flex-column">
+                                            <tr class="d-flex justify-content-between">
+                                                <th style="width:10%"> Item </th>
+                                                <th style="width:25%">Description</th>
+                                                <th style="width:15%"> Hours</th>
+                                                <th style="width:10%">GBP per Hour </th>
+                                                <th style="width:10%"> Amount GBP</th>
+                                                <th style="width:10%" > <button class="btn btn-sm btn-success" id="add-more-btn"> Add More </button> </th>
+                                            </tr>
+                                            {{-- <tr>
+                                                <td style="width:100%;"> <hr style="height:5px;color:black; background-color:black;"> </td>
+                                            </tr> --}}
+                                            <tr class="d-flex justify-content-between">
+                                                <td style="width:10%"><input type="text" class="form-control form-control-solid item" placeholder="Item" name="item[]" /> </td>
+                                                <td style="width:25%"><textarea class="form-control description" id="exampleFormControlTextarea1" rows="3" name="description[]"></textarea> </td>
+                                                <td style="width:15%"><input type="number" class="form-control form-control-solid quantity" placeholder="Quantity" name="quantity[]" /></td>
+                                                <td style="width:10%"><input type="number" class="form-control form-control-solid price" placeholder="Price" name="price[]" /></td>
+                                                <td style="width:10%"> <input type="number" class="form-control form-control-solid amount" placeholder="Amount GBP" name="amount[]" /></td>
+                                                <td style="width:10%"> </td>
+                                            </tr>
+                                        </table>
+                                        <table class="mt-20 d-flex flex-column">
+                                                                        
+                                            <tr class="d-flex justify-content-between mt-10">
+                                                <td style="width:10%"> </td>
+                                                <td style="width:25%"></td>
+                                                <td style="width:15%"> </td>
+                                                <td style="width:10%"> </td>
+                                                <td class="text-left" style="width:10%"> <p>Subtotal</p> </td>
+                                                <td style="width:10%">  <input type="number" class="form-control form-control-solid" id="subtotal-input" placeholder="" name="subtotal" /> </td>
+                                                <td style="width:10%"> </td>
+                                            </tr>
+                                            
+                                            <tr class="d-flex justify-content-between mt-10">
+                                                <td style="width:10%"> </td>
+                                                <td style="width:25%"></td>
+                                                <td style="width:15%"> </td>
+                                                <td style="width:10%"> </td>
+                                                <td class="text-left" style="width:14%"> <p>TOTAL VAT 20% </p> </td>
+                                                <td style="width:10%">  <input type="number" class="form-control form-control-solid" id="total-vat-input" placeholder="" name="totalvat" /> </td>
+                                                <td style="width:11%"> </td>
+                                            </tr>
+                                            
+                                            <tr class="d-flex justify-content-between mt-10">
+                                                <td style="width:10%"> </td>
+                                                <td style="width:25%"></td>
+                                                <td style="width:15%"> </td>
+                                                <td style="width:10%"> </td>
+                                                <td class="text-left " style="width:11%"> <p class="font-weight-bold">TOTAL GBP </p> </td>
+                                                <td style="width:10%">  <input type="number" class="form-control form-control-solid font-weight-bold" id="total-gbp-input" placeholder="" name="total_gbp" /> </td>
+                                                <td style="width:10%"> </td>
+                                            </tr>
+                                            
+                                        </table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="btn-group pull-right">
+                                            <button type="submit" class="btn btn-success">Generate Invoice</button>
+                                        </div>
                                     </div>
-                   
+                                </div>
                             </div>
 
-        <table id="item-table" class="mt-20 d-flex flex-column">
-            <tr class="d-flex justify-content-between">
-                <th style="width:10%"> Item </th>
-                <th style="width:25%">Description</th>
-                <th style="width:15%"> Hours</th>
-                <th style="width:10%">No of Hours </th>
-                <th style="width:10%"> Amount GBP</th>
-                <th style="width:10%" > <button class="btn btn-sm btn-success" id="add-more-btn"> Add More </button> </th>
-            </tr>
-            <tr>
-                <td style="width:100%;"> <hr style="height:5px;color:black; background-color:black;"> </td>
-            </tr>
-            <tr class="d-flex justify-content-between">
-                <td style="width:10%"><input type="text" class="form-control form-control-solid item" placeholder="Item" name="item[]" /> </td>
-                <td style="width:25%"><textarea class="form-control description" id="exampleFormControlTextarea1" rows="3" name="description[]"></textarea> </td>
-                <td style="width:15%"><input type="number" class="form-control form-control-solid quantity" placeholder="Quantity" name="quantity[]" /></td>
-                <td style="width:10%"><input type="number" class="form-control form-control-solid price" placeholder="Price" name="price[]" /></td>
-                <td style="width:10%"> <input type="number" class="form-control form-control-solid amount" placeholder="Amount GBP" name="amount[]" /></td>
-                <td style="width:10%"> </td>
-            </tr>
-        </table>
-        <table class="mt-20 d-flex flex-column">
-                                        
-            <tr class="d-flex justify-content-between mt-10">
-                <td style="width:10%"> </td>
-                <td style="width:25%"></td>
-                <td style="width:15%"> </td>
-                <td style="width:10%"> </td>
-                <td class="text-left" style="width:10%"> <p>Subtotal</p> </td>
-                <td style="width:10%">  <input type="number" class="form-control form-control-solid" id="subtotal-input" placeholder="" name="subtotal" /> </td>
-                <td style="width:10%"> </td>
-            </tr>
-            
-            <tr class="d-flex justify-content-between mt-10">
-                <td style="width:10%"> </td>
-                <td style="width:25%"></td>
-                <td style="width:15%"> </td>
-                <td style="width:10%"> </td>
-                <td class="text-left" style="width:14%"> <p>TOTAL VAT 20% </p> </td>
-                <td style="width:10%">  <input type="number" class="form-control form-control-solid" id="total-vat-input" placeholder="" name="totalvat" /> </td>
-                <td style="width:11%"> </td>
-            </tr>
-            
-            <tr class="d-flex justify-content-between mt-10">
-                <td style="width:10%"> </td>
-                <td style="width:25%"></td>
-                <td style="width:15%"> </td>
-                <td style="width:10%"> </td>
-                <td class="text-left " style="width:11%"> <p class="font-weight-bold">TOTAL GBP </p> </td>
-                <td style="width:10%">  <input type="number" class="form-control form-control-solid font-weight-bold" id="total-gbp-input" placeholder="" name="total_gbp" /> </td>
-                <td style="width:10%"> </td>
-            </tr>
-            
-        </table>
-
-
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="btn-group pull-right">
-            <button type="submit" class="btn btn-success">Generate Invoice</button>
+                            </form>
+            </div>
         </div>
     </div>
-</div>
-</form>
 </div>
 
 

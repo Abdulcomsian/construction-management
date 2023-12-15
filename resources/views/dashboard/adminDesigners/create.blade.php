@@ -68,6 +68,7 @@ background-color: #07d564 !important;
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <!--begin::Toolbar-->
+    {{--
     <div class="toolbar" id="kt_toolbar">
         <!--begin::Container-->
         <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
@@ -110,6 +111,7 @@ background-color: #07d564 !important;
         </div>
         <!--end::Container-->
     </div>
+    --}}
     <!--end::Toolbar-->
     <!--begin::Post-->
     <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -117,7 +119,12 @@ background-color: #07d564 !important;
         <div id="kt_content_container" class="container">
             <!--begin::Card-->
             <div class="card">
-
+                <div class="card-header border-0 pt-6">
+                    <!--begin::Card title-->
+                    <div class="card-title" style="    float: left;padding-top: 0px;">
+                        Add new Designer</h2>
+                    </div>
+                </div>
                 <!--begin::Card body-->
                 <div class="card-body pt-7">
                     <form method="post" action="{{route('adminDesigner.store')}}">

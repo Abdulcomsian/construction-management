@@ -1282,7 +1282,11 @@ class AdminDesignerController extends Controller
             return Redirect::back();
          }
     }
-
+    
+    public function invoices(){
+        $user = Auth::user();
+        return view('dashboard.adminDesigners.invoices',['user'=>$user]);
+} 
     public function manageInvoice(){
             $user = Auth::user();
             return view('dashboard.adminDesigners.manage_invoice',['user'=>$user]);

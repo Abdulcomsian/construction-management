@@ -324,7 +324,7 @@ $user = auth()->user();
                         @endif --}}
                         @if($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker']))
                     </div>
-                    @isset($user->companyProfile)
+                    @if($user->added_by == 1)
                     <div  data-kt-menu-trigger="click" class="menu-item here show menu-accordion mb-1">
                         <span class="menu-link userIconTask">
                             <span class="menu-icon userTask">
@@ -356,7 +356,7 @@ $user = auth()->user();
                         </div>
                       
                     </div>
-                    @endisset
+                    @endif
                   
                 @endif
 

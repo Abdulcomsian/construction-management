@@ -863,7 +863,7 @@
                                             <div class="d-flex inputDiv d-block">
 
                                                 <label class=" fs-6 fw-bold mb-2" style="bottom: 35px">
-                                                    Select company Approved Designers
+                                                    Inhouse Company Designer
                                                 </label>
                                                 <select name="designers[]" id="desingers"
                                                     class="form-select form-select-lg form-select-solid"
@@ -905,7 +905,7 @@
                                             --}}
                                             <div class="d-flex inputDiv d-block">
                                                 <label class=" fs-6 fw-bold mb-2" style="bottom: 35px">
-                                                    <span>Select company approved supplier</span>
+                                                    <span>Inhouse Company Supplier</span>
                                                 </label>
                                                 <select name="suppliers[]" id="suppliers"
                                                     class="form-select form-select-lg form-select-solid"
@@ -1032,7 +1032,7 @@
 
                                             <div class="d-flex inputDiv d-block mb-0">
                                                 <label class=" fs-6 fw-bold mb-2 ">
-                                                    <span>External Designers</span>
+                                                    <span>External Approved Designer</span>
                                                 </label>
                                                 <select class="form-select form-select-lg form-select-solid"
                                                     data-control="select2" data-placeholder="Select an option"
@@ -1143,7 +1143,7 @@
                                             </div> -->
                                             <div class="d-flex inputDiv d-block mb-0">
                                                 <label class=" fs-6 fw-bold mb-2 ">
-                                                    <span class="">External Suppliers</span>
+                                                    <span class="">External Approved Suppliers</span>
                                                 </label>
                                                 <select id="" name="external_suppliers[]"
                                                     class="form-select form-select-lg form-select-solid"

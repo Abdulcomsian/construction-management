@@ -236,8 +236,8 @@
                                 <thead>
                                     <tr>
                                         <th>Invoice #</th>
-                                        <th>Date</th>
-                                        <th>Emails</th>
+                                        <th>Date of Payment</th>
+                                        <th>Sender's Emails</th>
                                         <th>Status</th>
                                         <th></th>
                                     </tr>

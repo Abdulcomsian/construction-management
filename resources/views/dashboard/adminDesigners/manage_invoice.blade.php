@@ -236,6 +236,9 @@
                                     <div class="d-flex flex-column justify-content-between mb-8 fv-row fv-plugins-icon-container">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-md-5 company">
+                                                <h2> Invoice #: AH---1</h2>
+                                                <h2> Sender's Email: input field with type email</h2>
+                                                <h2> Date of Payment: Input field with date</h2>
                                                 <h2> Tax Invoice</h2>
                                                 <p>
                                                 <textarea class="form-control" name="tax_invoice" placeholder="Enter Text"></textarea>

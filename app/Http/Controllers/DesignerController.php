@@ -918,8 +918,10 @@ class DesignerController extends Controller
                 $list .= '<th style="color: white !important;">No</th>';
                 $list .= '<th style="color: white !important;">Drawing No</th>';
                 $list .= '<th style="color: white !important;">Comments</th>';
-                $list .= '<th style="color: white !important;">Designer Name</th><th style="color: white !important;">Drawing Title</th><th style="color: white !important;">Preliminary / For approval</th><th style="color: white !important;">For Construction Drawing</th><th style="color: white !important;">Action</th><th></th>';
-                    $list .= '</tr></thead><tbody>';
+                $list .= '<th style="color: white !important;">Designer Name</th><th style="color: white !important;">Drawing Title</th>';
+                $list .= '<th style="color: white !important;">Preliminary / For approval</th><th style="color: white !important;">For Construction Drawing</th>';
+                $list .= '<th style="color: white !important;">Action</th><th></th>';
+                $list .= '</tr></thead><tbody>';
                 $list .= '</tr></thead><tbody>';
                 $background='';
                 $drawing_number = [];
@@ -977,15 +979,22 @@ class DesignerController extends Controller
                              <a style="padding: 10px; background: #F9F9F9;margin: 5px;" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>';
                              if(!auth()->user()->hasRole('visitor'))
                              {
-                                $list.='&nbsp;<button class="btn drawingshare" style="padding: 10px; background: #F9F9F9;margin: 5px;" title="Share Design Brief"  data-drawing="'.$uploads->drawing_number.'" data-temp="'. $tempworkid .'" data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
+                                if(!isset($request->awarded_job))
+                                {
+                                    $list.='&nbsp;<button class="btn drawingshare" style="padding: 10px; background: #F9F9F9;margin: 5px;" title="Share Design Brief"  data-drawing="'.$uploads->drawing_number.'" data-temp="'. $tempworkid .'" data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
                                 <button class="drawingreply" style="padding: 10px !important; border: none; background: #F9F9F9;margin: 5px;" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>';
+                                }
                                 if($is_permit){
-                                $list .=    '<form id="submit' . $uploads->id . '" method="get" action="' . route("permit.load") . '" style="display:inline-block;">
-                                   <input type="hidden" class="temp_work_id" name="temp_work_id" value=' . Crypt::encrypt($tempworkid) . ' />
-                                   <input type="hidden"  name="drawingno" value=' . $uploads->drawing_number . ' />
-                                    <input type="hidden"  name="drawingtitle" value=' . $uploads->drawing_title . ' />
-                                   <button style="font-size:8px; padding: 10px; background: #F9F9F9;margin: 5px;"" type="button" class="btn  openpermitform"  id="' . $uploads->id . '">Open Permit</button>
-                               </form>';
+                                    if(!isset($request->awarded_job))
+                                    {
+                                        $list .=    '<form id="submit' . $uploads->id . '" method="get" action="' . route("permit.load") . '" style="display:inline-block;">
+                                            <input type="hidden" class="temp_work_id" name="temp_work_id" value=' . Crypt::encrypt($tempworkid) . ' />
+                                            <input type="hidden"  name="drawingno" value=' . $uploads->drawing_number . ' />
+                                                <input type="hidden"  name="drawingtitle" value=' . $uploads->drawing_title . ' />
+                                            <button style="font-size:8px; padding: 10px; background: #F9F9F9;margin: 5px;"" type="button" class="btn  openpermitform"  id="' . $uploads->id . '">Open Permit</button>
+                                        </form>';
+                                    }
+                               
                                }
                              }
                             $list .= '</td>';
@@ -994,15 +1003,19 @@ class DesignerController extends Controller
                              <a style="padding: 10px; background: #F9F9F9;margin: 5px;" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>';
                              if(!auth()->user()->hasRole('visitor'))
                              {
-                                $list.='&nbsp;<button class="btn  drawingshare" style="padding: 10px; background: #F9F9F9;margin: 5px;" title="Share Design Brief" data-drawing="'.$uploads->drawing_number.'" data-temp="'. $tempworkid .'"  data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
-                                <button class="drawingreply" style="padding: 10px; background: #F9F9F9;margin: 5px; border: none;" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>
-                                <form method="get" action="' . route("permit.load") . '" style="display:inline-block;">
-                                   <input type="hidden" name="rams_no" value'.$ramsno->rams_no.'/>
-                                   <input type="hidden" class="temp_work_id" name="temp_work_id" value=' . Crypt::encrypt($tempworkid) . ' />
-                                   <input type="hidden"  name="drawingno" value=' . $uploads->drawing_number . ' />
-                                    <input type="hidden"  name="drawingtitle" value=' . $uploads->drawing_title . ' />
-                                  
-                               </form>';
+                                 if(!isset($request->awarded_job))
+                                {
+                                    $list.='&nbsp;<button class="btn  drawingshare" style="padding: 10px; background: #F9F9F9;margin: 5px;" title="Share Design Brief" data-drawing="'.$uploads->drawing_number.'" data-temp="'. $tempworkid .'"  data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
+                                    <button class="drawingreply" style="padding: 10px; background: #F9F9F9;margin: 5px; border: none;" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>
+                                    <form method="get" action="' . route("permit.load") . '" style="display:inline-block;">
+                                       <input type="hidden" name="rams_no" value'.$ramsno->rams_no.'/>
+                                       <input type="hidden" class="temp_work_id" name="temp_work_id" value=' . Crypt::encrypt($tempworkid) . ' />
+                                       <input type="hidden"  name="drawingno" value=' . $uploads->drawing_number . ' />
+                                        <input type="hidden"  name="drawingtitle" value=' . $uploads->drawing_title . ' />
+                                      
+                                   </form>';
+                                }
+                              
                              }
                           
                             $list.= '</td>';
@@ -3182,7 +3195,7 @@ class DesignerController extends Controller
         $list.='<td style="text-align: center;vertical-align: middle;">'.$history->message.'</td>';
         $list.='<td style="text-align: center;vertical-align: middle;">'.$history->email.'</td>';
         $list.='<td style="text-align: center;vertical-align: middle;">'.$history->type.'</td>';
-        // $list.='<td style="text-align: center;vertical-align: middle;">'.$status.'</td>';
+        $list.='<td style="text-align: center;vertical-align: middle;">'.$status.'</td>';
         
        
         $list.='<td style="text-align: center;vertical-align: middle;">'.$cdate_time.'<br>'.$cdate.'</td>
@@ -3234,7 +3247,7 @@ class DesignerController extends Controller
         $list.='<td style="text-align: center;vertical-align: middle;">'.$history->message.'</td>';
         $list.='<td style="text-align: center;vertical-align: middle;">'.$history->email.'</td>';
         $list.='<td style="text-align: center;vertical-align: middle;">'.$history->type.'</td>';
-        // $list.='<td style="text-align: center;vertical-align: middle;">'.$status.'</td>';
+        $list.='<td style="text-align: center;vertical-align: middle;">'.$status.'</td>';
        
         $list.='<td style="text-align: center;vertical-align: middle;">'.$cdate_time.'<br>'.$cdate.'</td>
         <td style="text-align: center;vertical-align: middle;">'.$rdate_time .'<br>'.$rdate2.'</td></tr>';
@@ -3597,12 +3610,12 @@ class DesignerController extends Controller
             // Convert the start and end dates to Carbon instances for easy comparison
             $startDate = Carbon::parse($startDate);
             $endDate = Carbon::parse($endDate);
-            $tasks = EstimatorDesignerList::with(['Estimator', 'estimatorDesignerListTasks' => function ($query) use ($startDate, $endDate) {
+            $tasks = EstimatorDesignerList::with(['user','Estimator', 'estimatorDesignerListTasks' => function ($query) use ($startDate, $endDate) {
                 // Filter the tasks based on the date column within the provided start and end dates
                 $query->whereBetween('date', [$startDate, $endDate]);
                 // Order the tasks by id in descending order to get the latest records first
                 $query->orderBy('id', 'desc');
-            }])->where('user_id', $user)->get();
+            }])->whereIn('user_id', $user)->get();
             return view('dashboard.calendar.filter', compact('users', 'startDate', 'endDate','tasks'));
             // return view('dashboard.calendar.filter', compact('jobs', 'users', 'startDate', 'endDate'));
 
@@ -3618,7 +3631,45 @@ class DesignerController extends Controller
     {
         $user = Auth::user();
         $users = User::where('di_designer_id', $user->id)->get();
-        return view('dashboard.calendar.filter',['users' => $users]);
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+        $user = $request->input('user');
+
+            // Convert the start and end dates to Carbon instances for easy comparison
+            $startDate = Carbon::parse($startDate);
+            $endDate = Carbon::parse($endDate);
+        $tasks = EstimatorDesignerList::with(['user','Estimator']);
+            // return view('dashboard.calendar.filter', compact('users', 'startDate', 'endDate','tasks'));
+        if(isset($request->start_date))
+        { 
+            $date = new Carbon(date('Y-m-d',strtotime($request->start_date)));
+            $tasks  = $tasks->whereHas('estimatorDesignerListTasks',function ($query) use ($date) {
+                // Filter the tasks based on the date column within the provided start and end dates
+                $query->where('date','>=',$date->copy()->startOfDay());
+                // Order the tasks by id in descending order to get the latest records first
+                $query->orderBy('id', 'desc');
+            });
+         }
+         if(isset($request->end_date))
+        { 
+            $date = new Carbon(date('Y-m-d H:i:s',strtotime($request->end_date)));
+            $tasks  = $tasks->whereHas('estimatorDesignerListTasks',function ($query) use ($date) {
+                // Filter the tasks based on the date column within the provided start and end dates
+                $query->where('date','<=',$date->copy()->endofDay());
+                // Order the tasks by id in descending order to get the latest records first
+                $query->orderBy('id', 'desc');
+            });
+         }
+         if(isset($request->user))
+         { 
+            $tasks  = $tasks->whereHas('estimatorDesignerListTasks',function ($query) use ($startDate, $endDate) {
+                // Filter the tasks based on the date column within the provided start and end dates
+                $query->whereBetween('date', [$startDate, $endDate]);
+                // Order the tasks by id in descending order to get the latest records first
+                $query->orderBy('id', 'desc');
+            })->whereIn('user_id', $request->user)->get();
+          }
+          return view('dashboard.calendar.filter',['users' => $users,'tasks'=>$tasks]);
     }
 
     public function checkerOrDesignerCalendar(Request $request)

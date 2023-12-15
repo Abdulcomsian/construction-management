@@ -1218,7 +1218,8 @@ hr{
             url: "{{route('get-designs')}}",
             method: "get",
             data: {
-                  tempworkid: tempworkid
+                  tempworkid: tempworkid,
+                  awarded_job: 1
             },
             success: function(res) {
                     console.log(res)

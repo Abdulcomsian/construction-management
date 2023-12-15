@@ -322,8 +322,8 @@ $user = auth()->user();
                             </a>
                         </div>
                         @endif --}}
-                    </div>
                         @if($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker']))
+                    </div>
                    
                     @if($user->added_by == 1)
                     <div  data-kt-menu-trigger="click" class="menu-item here show menu-accordion mb-1">

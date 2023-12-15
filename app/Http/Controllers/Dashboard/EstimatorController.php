@@ -509,11 +509,11 @@ class EstimatorController extends Controller
                     ];
 
                
-                
+
                     //work for designer email list==============  
-                    $this->saveDesignerSupplier( $request->designer_company_emails,$request->designers,$request->action,$notify_msg,$temporary_work->id,'Designer', $request->online_designers); 
+                    $this->saveDesignerSupplier( $request->designer_company_emails,$request->designers,$request->action,$notify_msg,$temporary_work->id,'Designer', $request->online_designers,$request->external_designers); 
                     //work for supplier email list=============
-                    $this->saveDesignerSupplier($request->supplier_company_emails,$request->suppliers,$request->action,$notify_msg,$temporary_work->id,'Supplier', $request->online_suppliers);
+                    $this->saveDesignerSupplier($request->supplier_company_emails,$request->suppliers,$request->action,$notify_msg,$temporary_work->id,'Supplier', $request->online_suppliers,$request->external_suppliers);
                 }
                 toastSuccess('Estimator Brief successfully added!');
                 return redirect()->route('estimator.index');
@@ -528,11 +528,12 @@ class EstimatorController extends Controller
     }
 
     //send email to desinger and save in database
-    public function saveDesignerSupplier($emails,$designers_or_suppliers,$action,$notify_msg,$temporary_work_id,$type,$online_designers)
+    public function saveDesignerSupplier($emails,$designers_or_suppliers,$action,$notify_msg,$temporary_work_id,$type,$online_designers,$external_designers)
     {
             $email_list1=[];
             $email_list2=[];
             $email_list3=[];
+            $email_list4=[];
             if(!empty($emails))
             {
                 $email_list1=explode(",",$emails);
@@ -545,7 +546,11 @@ class EstimatorController extends Controller
             {
                 $email_list3=$online_designers;
             }
-            $finalList=array_merge($email_list1,$email_list2, $email_list3);
+            if($external_designers)
+            {
+                $email_list4=$external_designers;
+            }
+            $finalList=array_merge($email_list1,$email_list2, $email_list3,$email_list4);
             // if($action=="Email Designers & Suppliers")
             // {
                 foreach($finalList as $list)

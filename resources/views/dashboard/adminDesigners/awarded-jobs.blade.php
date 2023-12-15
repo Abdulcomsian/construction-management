@@ -813,7 +813,8 @@ hr{
                                     // dd($is_checker);
                                     
                                 @endphp
-                                @if($is_admin || $is_promoted_admin || ($is_designer && $user->id == $is_designer->user_id))
+                                <!-- @if($is_admin || $is_promoted_admin || ($is_designer && $user->id == $is_designer->user_id)) @endif -->
+                                @if($is_admin || $is_promoted_admin || ($is_designer && $user->id == $is_designer->user_id) || $is_checker)
                                     <span class="btn p-2 m-1 designerchangeemail"
                                         style="border-radius: 21%;" title="Designer Change Email"
                                         data-id={{Crypt::encrypt($item->id)}} >
@@ -840,7 +841,8 @@ hr{
                                 </span>
                                 @endif 
                                @endif
-                                @if($is_admin || $is_promoted_admin || ($is_checker && $user->id == $is_checker->user_id))
+                                <!-- @if($is_admin || $is_promoted_admin || ($is_checker && $user->id == $is_checker->user_id)) @endif-->
+                                @if($is_admin || $is_promoted_admin || ($is_checker && $user->id == $is_checker->user_id) || $is_designer)
                                         <span class="btn p-2 m-1 checkerchangeemail"
                                             style="border-radius: 21%; z-index:1060" title="Change Email"
                                             data-id={{Crypt::encrypt($item->id)}} >
@@ -1116,7 +1118,7 @@ hr{
                         <th>Description</th>
                         <th>Email</th>
                         <th>Type</th>
-                        <th>Status</th>
+                        <!-- <th>Status</th> -->
                         
                         <th>Sent Date</th>
                         <th>Read Date</th>
@@ -1142,7 +1144,7 @@ hr{
                         <th>Description</th>
                         <th>Email</th>
                         <th>Type</th>
-                        <th>Status</th>
+                        <!-- <th>Status</th> -->
                         
                         <th>Sent Date</th>
                         <th>Read Date</th>

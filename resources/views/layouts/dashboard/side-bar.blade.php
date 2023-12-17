@@ -301,7 +301,7 @@ $user = auth()->user();
                             @if($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker']) )
                             <!-- && !$user->company_id -->
                             <div class="menu-item">
-                                <a class="menu-link" href="{{route('manage_invoice')}}">
+                                <a class="menu-link" href="{{route('invoices')}}">
                                     <span class="menu-title">Manage Invoice</span>
                                 </a>
                             </div>

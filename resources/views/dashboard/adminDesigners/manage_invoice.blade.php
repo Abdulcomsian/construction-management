@@ -223,7 +223,7 @@
         <div class="post d-flex flex-column-fluid" id="kt_post"  style="">
             <!--begin::Container-->
             <div id="kt_content_container" class="container">
-                <form method="post" action="{{route("generate_invoice")}}">
+                <form method="post" action="{{route("save_invoice")}}">
                     @csrf
                         <div class="card">
                             <div class="card-header border-0 pt-6">
@@ -236,12 +236,27 @@
                                     <div class="d-flex flex-column justify-content-between mb-8 fv-row fv-plugins-icon-container">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-md-5 company">
-                                                <h2> Invoice #: AH---1</h2>
+                                                <!-- <h2> Invoice #: AH---1</h2>
                                                 <h2> Sender's Email: input field with type email</h2>
                                                 <h2> Date of Payment: Input field with date</h2>
-                                                <h2> Tax Invoice</h2>
+                                                <h2> Tax Invoice</h2> -->
                                                 <p>
-                                                <textarea class="form-control" name="tax_invoice" placeholder="Enter Text"></textarea>
+                                            
+                                                <div class =" row d-flex mb-2">
+                                                    <div class = "col-md-4"> <label class="required fs-6 fw-bold">  Invoice#</label></div>
+                                                    <div class = "col-md-8"><input type = "text" name = "invoice_number" class="form-control form-control-solid" placeholder = "Invoice Number" value = "{{$invoice_number}}" readonly></div>
+                                                </div>
+                                                <div class =" row d-flex mb-2">
+                                                    <div class = "col-md-4"> <label class="required fs-6 fw-bold">  Sender Email</label></div>
+                                                    <div class = "col-md-8"><input type = "text" name = "send_email" class="form-control form-control-solid" placeholder = "Sender Email" required></div>
+                                                </div>
+                                                <div class =" row d-flex mb-2">
+                                                    <div class = "col-md-5"> <label class="required fs-6 fw-bold">  Date of Payment</label></div>
+                                                    <div class = "col-md-7"><input type = "date" name = "date_of_payment" class="form-control form-control-solid" required></div>
+                                                </div>
+                                                <div class =" row d-block">
+                                                    <textarea class="form-control" name="tax_invoice" placeholder="Enter Text"></textarea>
+                                                </div>
                                                 </p>
                                             </div>
                                             <div class="col-md-3">
@@ -398,5 +413,32 @@ $(document).ready(function() {
     });
 
 </script>
+<script>
+        // Function to check if the download is complete
+        function isDownloadComplete() {
+            return document.cookie.indexOf('downloadComplete=true') !== -1;
+        }
 
+        // Function to set a cookie
+        function setCookie(name, value, days) {
+            const expires = new Date();
+            expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+            document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+        }
+
+        // Trigger the file download by navigating to the download-and-redirect route
+
+        // Check for the custom header to indicate the download is complete
+        setTimeout(function() {
+            if (isDownloadComplete()) {
+                // Set a cookie to indicate the download is complete
+                setCookie('downloadComplete', 'true', 1); // Adjust the expiration time if needed
+
+                // Redirect to another page after a certain delay
+                setTimeout(function() {
+                    window.location.href = '{{ route("invoices") }}';
+                }, 5000); // Adjust the delay (5 seconds in this example)
+            }
+        }, 1000); // Check every second for the header, adjust as needed
+    </script>
 @endsection

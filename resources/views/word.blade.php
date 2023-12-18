@@ -46,7 +46,9 @@
     <td style="width:3%;"></td>
     
             <td style="width:27%;">
-                <p>
+                <p style="resize: none;
+                white-space: nowrap;
+                overflow-x: scroll;">
                     {{$user->companyProfile->company_address ?? ''}}
                 </p>
     
@@ -122,7 +124,7 @@
     <br/>
     <br/>
     <div class="payment">
-        <span style="font-weight:bold; font-size:12pt;">Due Date: {{$data['date'] ?? ''}}</span>
+        {{-- <span style="font-weight:bold; font-size:12pt;">Due Date: {{$invoice_date ?? ''}}</span> --}}
         <p>
     Payment Details <br/>
     {{$user->paymentDetail->bank ?? ''}} <br/>

@@ -243,20 +243,20 @@
                                                 <p>
                                             
                                                 <div class =" row d-flex mb-2">
-                                                    <div class = "col-md-4"> <label class="required fs-6 fw-bold">  Invoice#</label></div>
+                                                    <div class = "col-md-4"> <label class="required fs-6 fw-bold">Invoice #</label></div>
                                                     <div class = "col-md-8"><input type = "text" name = "invoice_number" class="form-control form-control-solid" placeholder = "Invoice Number" value = "{{$invoice_number}}" readonly></div>
                                                 </div>
                                                 <div class =" row d-flex mb-2">
-                                                    <div class = "col-md-4"> <label class="required fs-6 fw-bold">  Receiver Email</label></div>
+                                                    <div class = "col-md-4"> <label class="required fs-6 fw-bold">Receiver's Email</label></div>
                                                     <div class = "col-md-8"><input type = "text" name = "send_email" class="form-control form-control-solid" placeholder = "Sender Email" required></div>
                                                 </div>
                                                 <div class =" row d-flex mb-2">
-                                                    <div class = "col-md-5"> <label class="required fs-6 fw-bold">  Date of Payment</label></div>
-                                                    <div class = "col-md-7"><input type = "date" name = "date_of_payment" class="form-control form-control-solid" required></div>
+                                                    <div class = "col-md-4"> <label class="required fs-6 fw-bold">Date of Payment</label></div>
+                                                    <div class = "col-md-8"><input type = "date" name = "date_of_payment" class="form-control form-control-solid" required></div>
                                                 </div>
-                                                <div class =" row d-block">
+                                                {{-- <div class =" row d-block">
                                                     <textarea class="form-control" name="tax_invoice" placeholder="Enter Text"></textarea>
-                                                </div>
+                                                </div> --}}
                                                 </p>
                                             </div>
                                             <div class="col-md-3">
@@ -402,9 +402,9 @@ $(document).ready(function() {
                     totalGBP += amountGBP;
                 }
             });
-
+// alert(totalGBP);
             // Update the input fields
-            $("#subtotal-input").val(subTotal.toFixed(2));
+            $("#subtotal-input").val(totalGBP.toFixed(2));
             $("#total-gbp-input").val(totalGBP.toFixed(2));
             $("#total-vat-input").val((0.2 * totalGBP).toFixed(2)); // Assuming 20% VAT
         }

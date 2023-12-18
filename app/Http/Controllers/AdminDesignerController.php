@@ -1299,9 +1299,9 @@ class AdminDesignerController extends Controller
             $userCompany = isset($user->companyProfile->company_name) ? $user->companyProfile->company_name : ''; 
             $countInvoice = Invoice::where('admindesigner_id',Auth::id())->count();
             $userCompany = explode(" ", $userCompany);
-            $first = isset($userCompany[1],) ? strtoupper(substr($userCompany[0], 0,1)) : '';
+            $first = isset($userCompany[0],) ? strtoupper(substr($userCompany[0], 0,1)) : '';
             $second = isset($userCompany[1],) ? strtoupper(substr($userCompany[1], 0,1)) : '';
-            $third = isset($userCompany[1],) ? strtoupper(substr($userCompany[2], 0,1)) : '';
+            $third = isset($userCompany[2],) ? strtoupper(substr($userCompany[2], 0,1)) : '';
             $companyShorts=$first.$second.$third;
             $invoice_number = $countInvoice + 1;
             $invoice_number = sprintf("%03d", $invoice_number);

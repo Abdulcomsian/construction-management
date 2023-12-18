@@ -263,8 +263,8 @@ input.form-control.form-control-solid.readonly-input {
                         </div>
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" name="nomination_link_check" id="flexCheckDefault" {{$editProfile->nomination_link_check ? 'checked':''}}>
-                          <label class="form-check-label" for="flexCheckDefault">
-                            View Nomination LInk
+                          <label class="form-check-label" for="flexCheckDefault" style="font-weight:bold;">
+                            Designer Nomination Form will be available for companies to view online.
                           </label>
                         </div>
                         <div class="d-flex flex-column mb-8 mt-2 fv-row fv-plugins-icon-container">

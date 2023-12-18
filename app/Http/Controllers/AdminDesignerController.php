@@ -1299,9 +1299,9 @@ class AdminDesignerController extends Controller
             $userCompany = isset($user->companyProfile->company_name) ? $user->companyProfile->company_name : ''; 
             $countInvoice = Invoice::where('admindesigner_id',Auth::id())->count();
             $userCompany = explode(" ", $userCompany);
-            $first = isset($userCompany[1],) ? strtoupper(substr($userCompany[0], 0,1)) : '';
+            $first = isset($userCompany[0],) ? strtoupper(substr($userCompany[0], 0,1)) : '';
             $second = isset($userCompany[1],) ? strtoupper(substr($userCompany[1], 0,1)) : '';
-            $third = isset($userCompany[1],) ? strtoupper(substr($userCompany[2], 0,1)) : '';
+            $third = isset($userCompany[2],) ? strtoupper(substr($userCompany[2], 0,1)) : '';
             $companyShorts=$first.$second.$third;
             $invoice_number = $countInvoice + 1;
             $invoice_number = sprintf("%03d", $invoice_number);
@@ -1367,8 +1367,12 @@ class AdminDesignerController extends Controller
         $generate_invoice->status = 'Unpaid';
         $generate_invoice->admindesigner_id  = Auth::id();
         $generate_invoice->save();
-        \Session::flash('download', $fileName);
-            response()->download(public_path($fileName));
+        response()->download(public_path($fileName));
+        if($request->send_email)
+        {
+            Notification::route('mail',  $request->send_email ?? '')->notify(new InvoiceNotification($fileName,$user->companyProfile->company_name));
+        }
+        toastSuccess('Invoice Generated Successfully');
         return redirect()->route('invoices');
     }
 

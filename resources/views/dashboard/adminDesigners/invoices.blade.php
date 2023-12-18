@@ -39,6 +39,7 @@
 
     #kt_content_container {
         background-color: #e9edf1;
+        /* margin-top: 200px */
     }
 
     #kt_toolbar_container {
@@ -53,7 +54,7 @@
     }
 
     .card {
-        margin: 30px 0px;
+        margin: 36px 0px;
         border-radius: 10px;
     }
 
@@ -194,7 +195,7 @@
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <!--begin::Toolbar-->
   
-    <div class="toolbar" id="kt_toolbar">
+    <div class="toolbar" id="kt_toolbar" style="height: 100%">
         <!--begin::Container-->
         {{--
         <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
@@ -213,7 +214,7 @@
     </div> --}}
     <!--end::Toolbar-->
     <!--begin::Post-->
-    <div class="post d-flex flex-column-fluid" id="kt_post"  style="margin-top:180px !important;">
+    <div class="post d-flex flex-column-fluid" id="kt_post" >
         <!--begin::Container-->
         <div id="kt_content_container" class="container">
             <!--begin::Card-->
@@ -223,9 +224,6 @@
                     <div class="card-title" style="    float: left;padding-top: 0px;">
                         Manage Invoices</h2>
                     </div>
-                    @if(\Session::has('download'))
-                        <a  href="{{asset(\Session::get('download'))}}" id = "downloadLink" download = "{{\Session::get('download')}}"></a>
-                    @endif
                     <a href="{{route('generate_invoice')}}" class="btn btn-primary">Generate Invoice</a>
                 </div>
                 
@@ -257,17 +255,14 @@
                                                 <td>{{$invoice->send_email}}</td>
                                                 <td>{{$invoice->status}}</td>
                                                 <td>
-                                                <a   class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
-                                                    <i class="fa fa-download" aria-hidden="true"  onclick="event.preventDefault();
-                                                     document.getElementById('download-form-{{$invoice->id}}').submit();"></i>    
+                                                <a   href = "{{asset($invoice->file_name)}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+                                                    <i class="fa fa-download" aria-hidden="true"></i>    
                                                 </a>
                                                
-                                                <button type="button" id = "{{$invoice->id}}" value = "{{$invoice->status}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm edit_designer_details">
+                                                <button type="button" id = "download-form-{{$invoice->id}}" value = "{{$invoice->status}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm edit_designer_details">
                                                     <i class="fa fa-pen" aria-hidden="true"></i>    
                                                 </button>
-                                                <form id="download-doc-{{$invoice->id}}" action = "{{route('download_invoice',$invoice->id)}}" method = "POST" style="display: none;">
-                                                    @csrf
-                                                </form>
+                                               
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -357,13 +352,7 @@
 @endsection
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
-<script> 
-    var downloadLink = document.getElementById('downloadLink');
-    if (downloadLink && downloadLink.href) {
-        window.location = downloadLink.href;
-    }
 
-</script>
 <script>
     $(document).ready(function() {
         $(document).on('click', '.edit_designer_details', function() {

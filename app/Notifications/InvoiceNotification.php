@@ -10,23 +10,19 @@ use Illuminate\Notifications\Notification;
 class InvoiceNotification extends Notification
 {
     use Queueable;
-     private $offerData;
-     private $email;
-     public $is_check;
-     protected $attachment;
-     protected $ccemail;
-     protected $designCheckFile;
-     protected $riskAssesmentFile;
-     protected $drawingFile;
+    protected $attachmentDoc;
+    protected $designerCompany;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($attachmentDoc,$designerCompany)
     {
        
-     
+     $this->attachmentDoc= $attachmentDoc;
+     $this->designerCompany= $designerCompany;
 
     }
 
@@ -49,26 +45,17 @@ class InvoiceNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        // dd($this->offerData['cc']);
-        if($this->is_check){
-            $path = public_path('estimatorPdf/' . $this->offerData['body']['filename']);
-        } else{
-            $path = public_path('pdf/' . $this->offerData['body']['filename']);
-        }
-
+    
+        $subject = isset($this->designerCompany) ? 'Invoice | '.$this->designerCompany : 'Invoice';
        $send_email = (new MailMessage)
-            ->greeting($this->offerData['greeting'])
-            ->subject($this->offerData['subject'])
-            ->view('mail.designupload', ['details' => $this->offerData,'email'=>$this->email])
-            ->attach($path, [
-                'as' => $this->offerData['body']['name'].'.pdf',
-            ]);
-            if($this->attachment)
+            ->greeting('Hello')
+            ->subject($subject)
+            ->view('mail.invoiceDesignerMail');
+            if($this->attachmentDoc)
             {
-                $send_email->attach($this->attachment);
+                $send_email->attach(public_path($this->attachmentDoc));
 
             }
-            
             return $send_email;
            
     }

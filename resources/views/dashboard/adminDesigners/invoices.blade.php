@@ -254,17 +254,14 @@
                                                 <td>{{$invoice->send_email}}</td>
                                                 <td>{{$invoice->status}}</td>
                                                 <td>
-                                                <a   class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
-                                                    <i class="fa fa-download" aria-hidden="true"  onclick="event.preventDefault();
-                                                     document.getElementById('download-form-{{$invoice->id}}').submit();"></i>    
+                                                <a   href = "{{asset($invoice->file_name)}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+                                                    <i class="fa fa-download" aria-hidden="true"></i>    
                                                 </a>
                                                
-                                                <button type="button" id = "{{$invoice->id}}" value = "{{$invoice->status}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm edit_designer_details">
+                                                <button type="button" id = "download-form-{{$invoice->id}}" value = "{{$invoice->status}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm edit_designer_details">
                                                     <i class="fa fa-pen" aria-hidden="true"></i>    
                                                 </button>
-                                                <form id="download-doc-{{$invoice->id}}" action = "{{route('download_invoice',$invoice->id)}}" method = "POST" style="display: none;">
-                                                    @csrf
-                                                </form>
+                                               
                                                 </td>
                                             </tr>
                                             @endforeach

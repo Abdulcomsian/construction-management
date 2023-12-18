@@ -117,27 +117,24 @@
     
     <br/>
     <br/>
-    <div class="payment">
-        <span style="font-weight:bold; font-size:12pt;">Due Date: {{$data['date'] ?? ''}}</span>
+    <div class="payment" >
         <p>
-    Payment Details <br/>
-    {{$user->paymentDetail->bank ?? ''}} <br/>
-    Sort Code:  {{$user->paymentDetail->sort_code ?? ''}} <br/>
-    A/c Number:  {{$user->paymentDetail->account_number ?? ''}} <br/>
-    SWIFTBIC:  {{$user->paymentDetail->swiftbic ?? ''}} <br/>
-    IBAN: {{$user->paymentDetail->iban ?? ''}}
-    
-                </p>
-    
+            <b>Payment Details</b><br/>
+            <b>Bank: </b>{{$user->paymentDetail->bank ?? ''}} <br/>
+            <b>Sort Code: </b>{{$user->paymentDetail->sort_code ?? ''}} <br/>
+            <b>A/c Number: </b>{{$user->paymentDetail->account_number ?? ''}} <br/>
+            <b>SWIFTBIC: </b>{{$user->paymentDetail->swiftbic ?? ''}} <br/>
+            <b>IBAN: </b>{{$user->paymentDetail->iban ?? ''}}
+        </p>
     </div>
     <br/>
-    <div class="contact">
+    <div class="contact" >
         <p>
-    Contact information <br/>
-    Name: {{$user->companyProfile->company_name ?? ''}} <br/>
-    Email: {{$user->companyProfile->company_email ?? ''}} <br/>
-    Phone: {{$user->companyProfile->phone ?? ''}} <br/>
-    {{$user->companyProfile->website ?? ''}}
+            <b>Contact information</b><br/>
+            <b>Name: </b>{{$user->companyProfile->company_name ?? ''}} <br/>
+            <b>Email: </b>{{$user->companyProfile->comapny_email ?? ''}} <br/>
+            <b>Phone: </b>{{$user->companyProfile->phone ?? ''}} <br/>
+            <b>Website: </b>{{$user->companyProfile->website ?? ''}} <br/>
         </p>
     </div>
     

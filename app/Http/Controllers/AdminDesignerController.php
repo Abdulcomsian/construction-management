@@ -1291,7 +1291,7 @@ class AdminDesignerController extends Controller
     
     public function invoices(){
         $user = Auth::user();
-        $invoices = Invoice::where('admindesigner_id',Auth::id())->get();
+        $invoices = Invoice::where('admindesigner_id',Auth::id())->paginate(10);
         return view('dashboard.adminDesigners.invoices',['user'=>$user,'invoices'=>$invoices]);
 } 
     public function generateinvoice(){
@@ -1385,5 +1385,11 @@ class AdminDesignerController extends Controller
             toastSuccess('Invoice Status Successfully Updated');
          }
         return redirect()->back();
+    }
+    public function invoicepaymentreminder($id)
+    {
+        $id = \Crypt::decrypt($id);
+        dd($id);
+
     }
 }

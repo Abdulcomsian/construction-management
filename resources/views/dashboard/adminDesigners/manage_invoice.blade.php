@@ -318,7 +318,7 @@
                                                 <td style="width:15%"> </td>
                                                 <td style="width:10%"> </td>
                                                 <td class="text-left" style="width:14%"> <p>TOTAL VAT 20% </p> </td>
-                                                <td style="width:10%">  <input type="number" class="form-control form-control-solid" id="total-vat-input" placeholder="" name="totalvat" /> </td>
+                                                <td style="width:10%">  <input type="text" readonly class="form-control form-control-solid" id="total-vat-input" placeholder="" name="totalvat" /> </td>
                                                 <td style="width:11%"> </td>
                                             </tr>
                                             

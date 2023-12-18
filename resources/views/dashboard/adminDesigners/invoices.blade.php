@@ -223,9 +223,6 @@
                     <div class="card-title" style="    float: left;padding-top: 0px;">
                         Manage Invoices</h2>
                     </div>
-                    @if(\Session::has('download'))
-                        <a  href="{{asset(\Session::get('download'))}}" id = "downloadLink" download = "{{\Session::get('download')}}"></a>
-                    @endif
                     <a href="{{route('generate_invoice')}}" class="btn btn-primary">Generate Invoice</a>
                 </div>
                 
@@ -357,13 +354,7 @@
 @endsection
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
-<script> 
-    var downloadLink = document.getElementById('downloadLink');
-    if (downloadLink && downloadLink.href) {
-        window.location = downloadLink.href;
-    }
 
-</script>
 <script>
     $(document).ready(function() {
         $(document).on('click', '.edit_designer_details', function() {

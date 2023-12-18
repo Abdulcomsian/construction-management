@@ -24,32 +24,28 @@
         }
         @endphp
       <tr>
-            <td style="width:50%;">
+            <td style="width:40%;">
                 <div class="heading-2" style="font-weight:bold;">Invoice No</div>{{ $data['invoice_number'] ?? '' }}
                 <div class="heading-2" style="font-weight:bold;">Email:</div>{{$data['sender_email'] ?? ''}}
                 <div class="heading-2" style="font-weight:bold;">Date of Payment:</div>{{$date_of_payment ?? ''}}
-                <div class="heading-2" style="font-weight:bold;">Payment Status:</div>{{$data['payment_status'] ?? ''}}
                 {{-- <div class="heading" style="font-weight:bold; font-size:17pt;">TAX INVOICE</div> --}}
                 <p>
                   {{-- {{$data['tax_invoice'] ?? ''}} --}}
                 </p>
             </td>
-            <td style="width:20%;">
-                <div class="heading-2" style="font-weight:bold;">Invoice Date</div>
-                {{$invoice_date ?? ''}}
-                <div class="heading-2" style="font-weight:bold;"> Invoice Number</div>
-                {{$data['number'] ?? ''}}
-                <div class="heading-2" style="font-weight:bold;"> Reference</div>
-                {{$data['reference'] ?? ''}}
+            <td style="width:30%;">
+                <div class="heading-2" style="font-weight:bold;padding-bottom:5px;">Invoice Date</div>
+                <p>{{$invoice_date ?? ''}}</p>
+                <div class="heading-2" style="font-weight:bold;padding-bottom:5px;">Reference</div>
+                <p>{{$data['reference'] ?? ''}}</p>
+                <div class="heading-2" style="font-weight:bold;padding-bottom:5px;">Payment Status</div>
+                <p>{{$data['payment_status'] ?? ''}}</p>
             </td>
     
-    <td style="width:3%;"></td>
     
-            <td style="width:27%;">
-                <p>
-                    {{$user->companyProfile->company_address ?? ''}}
-                </p>
-    
+            <td style="width:30%;text-align:left">
+                <p>{{$user->companyProfile->company_address ?? ''}}</p>
+                <p><b>VAT# </b>{{$user->companyProfile->vat_number ?? ''}}</p>
             </td>
     
       </tr>

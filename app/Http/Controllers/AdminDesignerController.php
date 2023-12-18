@@ -1367,8 +1367,12 @@ class AdminDesignerController extends Controller
         $generate_invoice->status = 'Unpaid';
         $generate_invoice->admindesigner_id  = Auth::id();
         $generate_invoice->save();
-        \Session::flash('download', $fileName);
-            response()->download(public_path($fileName));
+        response()->download(public_path($fileName));
+        if($request->send_email)
+        {
+            Notification::route('mail',  $request->send_email ?? '')->notify(new InvoiceNotification($fileName,$user->companyProfile->company_name));
+        }
+        toastSuccess('Invoice Generated Successfully');
         return redirect()->route('invoices');
     }
 

@@ -301,7 +301,7 @@ $user = auth()->user();
                             @if($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker']) )
                             <!-- && !$user->company_id -->
                             <div class="menu-item">
-                                <a class="menu-link" href="{{route('manage_invoice')}}">
+                                <a class="menu-link" href="{{route('invoices')}}">
                                     <span class="menu-title">Manage Invoice</span>
                                 </a>
                             </div>
@@ -324,7 +324,8 @@ $user = auth()->user();
                         @endif --}}
                         @if($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker']))
                     </div>
-                    @if($user->admin_designer == 1)
+                   
+                    @if($user->added_by == 1)
                     <div  data-kt-menu-trigger="click" class="menu-item here show menu-accordion mb-1">
                         <span class="menu-link userIconTask">
                             <span class="menu-icon userTask">

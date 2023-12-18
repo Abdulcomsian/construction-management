@@ -12,7 +12,11 @@ use App\Notifications\AdminDesignerNotification;
 use App\Notifications\PasswordResetNotification;
 use App\Notifications\AdminDesignerNomination;
 use App\Notifications\AdminDesignerAppointmentNotification;
-use App\Models\{Nomination,NominationExperience,NominationCompetence,Project,EstimatorDesignerList,TemporaryWork,CompanyProfile,EstimatorDesignerListTask, PaymentDetail, ProfileOtherDocuments};
+use App\Notifications\InvoiceNotification;
+use App\Models\{Nomination,NominationExperience,NominationCompetence,
+                Project,EstimatorDesignerList,TemporaryWork,CompanyProfile,
+                EstimatorDesignerListTask, PaymentDetail, ProfileOtherDocuments,Invoice
+            };
 use Carbon\Carbon;
 use App\Notifications\Nominations;
 use App\Utils\HelperFunctions;
@@ -23,6 +27,8 @@ use PDF;
 use App\Notifications\CreateNomination;
 use Crypt;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\File;
+
 
 class AdminDesignerController extends Controller
 {
@@ -1282,13 +1288,28 @@ class AdminDesignerController extends Controller
             return Redirect::back();
          }
     }
-
-    public function manageInvoice(){
+    
+    public function invoices(){
+        $user = Auth::user();
+        $invoices = Invoice::where('admindesigner_id',Auth::id())->get();
+        return view('dashboard.adminDesigners.invoices',['user'=>$user,'invoices'=>$invoices]);
+} 
+    public function generateinvoice(){
             $user = Auth::user();
-            return view('dashboard.adminDesigners.manage_invoice',['user'=>$user]);
+            $userCompany = isset($user->companyProfile->company_name) ? $user->companyProfile->company_name : ''; 
+            $countInvoice = Invoice::where('admindesigner_id',Auth::id())->count();
+            $userCompany = explode(" ", $userCompany);
+            $first = isset($userCompany[1],) ? strtoupper(substr($userCompany[0], 0,1)) : '';
+            $second = isset($userCompany[1],) ? strtoupper(substr($userCompany[1], 0,1)) : '';
+            $third = isset($userCompany[1],) ? strtoupper(substr($userCompany[2], 0,1)) : '';
+            $companyShorts=$first.$second.$third;
+            $invoice_number = $countInvoice + 1;
+            $invoice_number = sprintf("%03d", $invoice_number);
+            $invoice_number  = !empty($companyShorts) ? $companyShorts.'-'.$invoice_number : 'INV-'.$invoice_number;  
+            return view('dashboard.adminDesigners.manage_invoice',['user'=>$user,'invoice_number'=>$invoice_number]);
     }   
     
-    public function generateInvoice(Request $request){
+    public function saveinvoice(Request $request){
         $phpWord = new \PhpOffice\PhpWord\PhpWord();
 
         $section = $phpWord->addSection();
@@ -1308,6 +1329,10 @@ class AdminDesignerController extends Controller
 
         $data =[
             'tax_invoice' => $request->tax_invoice,
+            'sender_email' => $request->send_email,
+            'invoice_number' => $request->invoice_number,
+            'payment_status' => 'Unpaid',
+            'date_of_payment' => $request->date_of_payment,
             'date' => $request->date,
             'number' => $request->number,
             'reference' => $request->reference,
@@ -1328,11 +1353,38 @@ class AdminDesignerController extends Controller
 
         // $html = View::make('word')->render();
         // Save file
-        $fileName = "download.docx";
+        $fileName = $request->invoice_number.".docx";
         \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
         $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
-
         $objWriter->save($fileName);
-        return response()->download(public_path('download.docx'));
+          
+        //saving the invoice data of designer
+        $generate_invoice =  new Invoice;
+        $generate_invoice->invoice_number = $request->invoice_number;
+        $generate_invoice->file_name = $fileName;
+        $generate_invoice->date_of_payment = $request->date_of_payment;
+        $generate_invoice->send_email = $request->send_email;
+        $generate_invoice->status = 'Unpaid';
+        $generate_invoice->admindesigner_id  = Auth::id();
+        $generate_invoice->save();
+        \Session::flash('download', $fileName);
+            response()->download(public_path($fileName));
+        return redirect()->route('invoices');
+    }
+
+    public function downloadinvoice(Request $request,$id)
+    {
+        $invoice = Invoice::find($id);
+        return response()->download(public_path($invoice->file_name));
+    }
+    public function updateinvoicestatus(Request $request, $id)
+    {
+        $invoice = Invoice::find($id)->first();
+        $invoice->status = $request->status;
+         if($invoice->save())
+         {
+            toastSuccess('Invoice Status Successfully Updated');
+         }
+        return redirect()->back();
     }
 }

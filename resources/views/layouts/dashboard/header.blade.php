@@ -126,10 +126,16 @@
                                 <img alt="Logo" src="{{ auth()->user()->userCompany->image ?? '' }}">
                                 @elseif(isset(auth()->user()->image))
                                 <img alt="Logo" src="{{ auth()->user()->image ?? '' }}">
+                                @elseif(auth()->user()->hasRole(['designer','Design Checker','Designer and Design Checker']) && auth()->user()->added_by == 1 && isset(auth()->user()->companyProfile->logo))
+                                <img alt="Logo" src="{{ auth()->user()->companyProfile->logo ?? '' }}">
+                                @elseif(isset(auth()->user()->userDiCompany->companyProfile->logo))
+                                <img alt="Logo" src="{{ auth()->user()->userDiCompany->companyProfile->logo ?? '' }}">
+                                @elseif(isset(auth()->user()->image))
+                                <img alt="Logo" src="{{ auth()->user()->image ?? '' }}">
                                 @else
                                 <div class="symbol-label fs-3 bg-light-primary text-primary" style="display:flex !important;">
                                     {{ auth()->user()->name[0] ?: '' }}</div>
-                                @endisset
+                                @endif
                             @endif
 
                         </div>
@@ -146,12 +152,16 @@
                                     <div class="symbol symbol-50px me-5">
                                         @if(isset(auth()->user()->userCompany))
                                         <img alt="Logo" src="{{ auth()->user()->userCompany->image ?? '' }}">
+                                        @elseif(auth()->user()->hasRole(['designer','Design Checker','Designer and Design Checker']) && auth()->user()->added_by == 1 && isset(auth()->user()->companyProfile->logo))
+                                        <img alt="Logo" src="{{ auth()->user()->companyProfile->logo ?? '' }}">
+                                        @elseif(isset(auth()->user()->userDiCompany->companyProfile->logo))
+                                        <img alt="Logo" src="{{ auth()->user()->userDiCompany->companyProfile->logo ?? '' }}">
                                         @elseif(isset(auth()->user()->image))
                                         <img alt="Logo" src="{{ auth()->user()->image ?? '' }}">
                                         @else
                                         <div class="symbol-label fs-3 bg-light-primary text-primary" style="display:flex !important;">
                                             {{ auth()->user()->name[0] ?: '' }}</div>
-                                        @endisset
+                                        @endif
                                     </div>
                                     @endif
                                     <!--end::Avatar-->

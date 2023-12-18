@@ -122,6 +122,7 @@ input.form-control.form-control-solid.readonly-input {
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <!--begin::Toolbar-->
+    {{--
     <div class="toolbar" id="kt_toolbar">
         <!--begin::Container-->
         <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
@@ -164,6 +165,7 @@ input.form-control.form-control-solid.readonly-input {
         </div>
         <!--end::Container-->
     </div>
+    --}}
     <!--end::Toolbar-->
     <!--begin::Post-->
     <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -171,7 +173,12 @@ input.form-control.form-control-solid.readonly-input {
         <div id="kt_content_container" class="container">
             <!--begin::Card-->
             <div class="card">
-
+                <div class="card-header border-0 pt-6">
+                    <!--begin::Card title-->
+                    <div class="card-title" style=" font-weight:bold;   float: left;padding-top: 0px;">
+                        Edit Company Profile</h2>
+                    </div>
+                </div>
                 <!--begin::Card body-->
                 <div class="card-body pt-7">
                     <form method="post" action="{{url('adminDesigner/update-profile',$editProfile)}}" enctype="multipart/form-data">

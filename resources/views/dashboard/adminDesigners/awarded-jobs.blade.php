@@ -813,7 +813,8 @@ hr{
                                     // dd($is_checker);
                                     
                                 @endphp
-                                @if($is_admin || $is_promoted_admin || ($is_designer && $user->id == $is_designer->user_id))
+                                <!-- @if($is_admin || $is_promoted_admin || ($is_designer && $user->id == $is_designer->user_id)) @endif -->
+                                @if($is_admin || $is_promoted_admin || ($is_designer && $user->id == $is_designer->user_id) || $is_checker)
                                     <span class="btn p-2 m-1 designerchangeemail"
                                         style="border-radius: 21%;" title="Designer Change Email"
                                         data-id={{Crypt::encrypt($item->id)}} >
@@ -840,7 +841,8 @@ hr{
                                 </span>
                                 @endif 
                                @endif
-                                @if($is_admin || $is_promoted_admin || ($is_checker && $user->id == $is_checker->user_id))
+                                <!-- @if($is_admin || $is_promoted_admin || ($is_checker && $user->id == $is_checker->user_id)) @endif-->
+                                @if($is_admin || $is_promoted_admin || ($is_checker && $user->id == $is_checker->user_id) || $is_designer)
                                         <span class="btn p-2 m-1 checkerchangeemail"
                                             style="border-radius: 21%; z-index:1060" title="Change Email"
                                             data-id={{Crypt::encrypt($item->id)}} >
@@ -1003,12 +1005,14 @@ hr{
                                     <div class="topbar-item cursor-pointer symbol px-3 px-lg-5 me-n3 me-lg-n5 symbol-30px symbol-md-35px"
                                         data-kt-menu-trigger="click" data-kt-menu-attach="parent"
                                         data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
-                                        @isset(auth()->user()->image)
+                                        @if(isset(auth()->user()->userDiCompany->companyProfile->logo))
+                                        <img alt="Logo" src="{{asset(auth()->user()->userDiCompany->companyProfile->logo)}}">
+                                        @elseif(auth()->user()->image)
                                         <img alt="Logo" src="{{ auth()->user()->image ?: '' }}">
                                         @else
                                         <div class="symbol-label fs-3 bg-light-primary text-primary" style="display:flex !important;">
                                             {{ \Illuminate\Support\Str::upper(auth()->user()->name[0]) ?: '' }}</div>
-                                        @endisset
+                                        @endif
                                     </div>
                                     <!--begin::Menu-->
                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold py-4 fs-6 w-275px"
@@ -1018,12 +1022,14 @@ hr{
                                             <div class="menu-content d-flex align-items-center px-3">
                                                 <!--begin::Avatar-->
                                                 <div class="symbol symbol-50px me-5">
-                                                    @isset(auth()->user()->image)
-                                                    <img alt="Logo" src="{{ auth()->user()->image ?: '' }}">
+                                                    @if(isset(auth()->user()->userDiCompany->companyProfile->logo))
+                                                    <img alt="Logo" src="{{asset(auth()->user()->userDiCompany->companyProfile->logo)}}">
+                                                    @elseif(auth()->user()->image)
+                                                    <img alt="Logo" src="{{ auth()->user()->image ?? '' }}">
                                                     @else
                                                     <div class="symbol-label fs-3 bg-light-primary text-primary" style="display:flex !important;">
                                                         {{ auth()->user()->name[0] ?: '' }}</div>
-                                                    @endisset
+                                                    @endif
                                                 </div>
                                                 <!--end::Avatar-->
                                                 <!--begin::Username-->
@@ -1112,7 +1118,7 @@ hr{
                         <th>Description</th>
                         <th>Email</th>
                         <th>Type</th>
-                        <th>Status</th>
+                        <!-- <th>Status</th> -->
                         
                         <th>Sent Date</th>
                         <th>Read Date</th>
@@ -1138,7 +1144,7 @@ hr{
                         <th>Description</th>
                         <th>Email</th>
                         <th>Type</th>
-                        <th>Status</th>
+                        <!-- <th>Status</th> -->
                         
                         <th>Sent Date</th>
                         <th>Read Date</th>
@@ -1212,7 +1218,8 @@ hr{
             url: "{{route('get-designs')}}",
             method: "get",
             data: {
-                  tempworkid: tempworkid
+                  tempworkid: tempworkid,
+                  awarded_job: 1
             },
             success: function(res) {
                     console.log(res)

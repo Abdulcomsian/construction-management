@@ -185,7 +185,23 @@
         opacity: 0;
       }
     } 
+    .select2-container {
+        width: 250px !important;
+    }
+.select2-container--bootstrap5 .select2-selection--multiple.form-select-lg {
+        word-break: break-all;
+        /* height: 32px;
+        height:fit-content; */
+        background: white;
+        border: 1px solid #e4e6ef;
+    }
+.select2-selection__choice__display {
+        color: black;
+    }
 
+    textarea.select2-search__field::placeholder {
+        color: rgb(138, 136, 136) !important;
+    }
 </style>
 @include('layouts.sweetalert.sweetalert_css')
 {{-- @include('layouts.datatables.datatables_css') --}}
@@ -195,6 +211,7 @@
     <!--begin::Toolbar-->
     <div class="toolbar" id="kt_toolbar">
         <!--begin::Container-->
+        {{--
         <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
             <!--begin::Page title-->
             <div data-kt-place="true" data-kt-place-mode="prepend"
@@ -208,29 +225,26 @@
             <!--end::Page title-->
         </div>
         <!--end::Container-->
-    </div>
+    </div> --}}
     <!--end::Toolbar-->
     <!--begin::Post-->
-    <div class="post d-flex flex-column-fluid" id="kt_post">
+    <div class="post d-flex flex-column-fluid" id="kt_post"  style="margin-top:150px !important;">
         <!--begin::Container-->
         <div id="kt_content_container" class="container">
             <!--begin::Card-->
             <div class="card">
-                <!--begin::Card header-->
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
-                    <div class="card-title">
-                        
+                    <div class="card-title" style="    float: left;padding-top: 0px;">
+                        Filters</h2>
                     </div>
-                    <!--begin::Card toolbar-->
-                    {{-- <a href="{{route('add_estimator')}}" class="btn btn-primary">Add New Job</a> --}}
-                    <!--end::Card toolbar-->
                 </div>
+                
                 <!--end::Card header-->
                 <!--begin::Card body-->
                 <div class="card-body pt-0">
                     {{-- <h2>Jobs</h2> --}}
-                    <form method="post" action={{route('apply_filter')}}>
+                    <form method="get" action={{route('filter')}}>
                         <div class="row mb-4">
                                     @csrf
                                     <div class="col-md-3">
@@ -243,10 +257,16 @@
                                     </div>
                                     <div class="col-md-3">
                                         <label for="user">Select User</label>
-                                        <select class="form-control" id="user" name="user">
-                                            @foreach($users as $user)
+                                        <select  id="" name="user[]"
+                                            class="form-select form-select-lg form-select-solid" data-control="select2"
+                                            data-placeholder="Select an option" data-allow-clear="true" multiple required>
+                                            {{-- <option value="">Select Option</option> --}}
+                                            <optgroup >
+                                            @foreach($users as $user)                                       
                                                 <option value="{{$user->id}}">{{$user->name}}</option>
+                                                </option>   
                                             @endforeach
+                                            </optgroup>
                                         </select>
                                     </div>
                                     <div class="col-md-2">
@@ -262,6 +282,8 @@
                                 <thead>
                                     <tr>
                                         <th>Project Name</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
                                         <th>Date</th>
                                         <th>Hours</th>
                                         <th>Percentage</th>
@@ -275,6 +297,8 @@
                                             {{-- @dd($job->designerAssign->estimatorDesignerListTasks->last()->completed) --}}
                                             <tr>
                                                 <td>{{$task->Estimator->projname ?? ''}}</td>
+                                                <td>{{$task->user->name ?? ''}}</td>
+                                                <td>{{$task->user->email ?? ''}}</td>
                                                 <td>{{ $row->date ?? '' }}</td>
                                                 <td>{{ $row->hours ?? '' }}</td>
                                                 <td>{{ $row->completed ??'' }}%</td>

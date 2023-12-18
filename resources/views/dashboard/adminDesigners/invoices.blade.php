@@ -39,6 +39,7 @@
 
     #kt_content_container {
         background-color: #e9edf1;
+        /* margin-top: 200px */
     }
 
     #kt_toolbar_container {
@@ -53,7 +54,7 @@
     }
 
     .card {
-        margin: 30px 0px;
+        margin: 36px 0px;
         border-radius: 10px;
     }
 
@@ -194,7 +195,7 @@
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <!--begin::Toolbar-->
   
-    <div class="toolbar" id="kt_toolbar">
+    <div class="toolbar" id="kt_toolbar" style="height: 100%">
         <!--begin::Container-->
         {{--
         <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
@@ -213,7 +214,7 @@
     </div> --}}
     <!--end::Toolbar-->
     <!--begin::Post-->
-    <div class="post d-flex flex-column-fluid" id="kt_post"  style="margin-top:180px !important;">
+    <div class="post d-flex flex-column-fluid" id="kt_post" >
         <!--begin::Container-->
         <div id="kt_content_container" class="container">
             <!--begin::Card-->

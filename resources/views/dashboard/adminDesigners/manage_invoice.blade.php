@@ -247,7 +247,7 @@
                                                     <div class = "col-md-8"><input type = "text" name = "invoice_number" class="form-control form-control-solid" placeholder = "Invoice Number" value = "{{$invoice_number}}" readonly></div>
                                                 </div>
                                                 <div class =" row d-flex mb-2">
-                                                    <div class = "col-md-4"> <label class="required fs-6 fw-bold">  Sender Email</label></div>
+                                                    <div class = "col-md-4"> <label class="required fs-6 fw-bold">  Receiver Email</label></div>
                                                     <div class = "col-md-8"><input type = "text" name = "send_email" class="form-control form-control-solid" placeholder = "Sender Email" required></div>
                                                 </div>
                                                 <div class =" row d-flex mb-2">

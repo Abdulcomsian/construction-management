@@ -299,12 +299,13 @@ $user = auth()->user();
                             </div>
                             @endif
                             @if($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker']) )
-                            <!-- && !$user->company_id -->
+                            @if($user->added_by == 1)                            <!-- && !$user->company_id -->
                             <div class="menu-item">
                                 <a class="menu-link" href="{{route('invoices')}}">
                                     <span class="menu-title">Manage Invoice</span>
                                 </a>
                             </div>
+                            @endif
                             @endif
                             
                             {{-- @if($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker']))

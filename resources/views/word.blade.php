@@ -14,8 +14,8 @@
   <tr>
         <td style="width:50%;">
             <div class="heading" style="font-size:12pt;"><b>Invoice No# </b>{{$data['invoice_number'] ?? ''}} </div>
-            <div class="heading" style="font-size:12pt;"><b>Sender Email: </b>{{$data['sender_email'] ?? ''}} </div>
-            <div class="heading" style="font-size:12pt;"><b>Date of Payment: </b>{{$data['invoice_number'] ?? ''}} </div>
+            <div class="heading" style="font-size:12pt;"><b>Email: </b>{{$data['sender_email'] ?? ''}} </div>
+            <div class="heading" style="font-size:12pt;"><b>Date of Payment: </b>{{$data['date_of_payment'] ?? ''}} </div>
             <div class="heading" style="font-size:12pt;"><b>Payment Status: </b>{{$data['payment_status'] ?? ''}} </div>
             <div class="heading" style="font-weight:bold; font-size:17pt;">TAX INVOICE</div>
             <p>

@@ -193,6 +193,7 @@
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <!--begin::Toolbar-->
+  
     <div class="toolbar" id="kt_toolbar">
         <!--begin::Container-->
         {{--
@@ -222,6 +223,10 @@
                     <div class="card-title" style="    float: left;padding-top: 0px;">
                         Manage Invoices</h2>
                     </div>
+                    @if(\Session::has('download'))
+                        <a  href="{{asset(\Session::get('download'))}}" id = "downloadLink" download = "{{\Session::get('download')}}"></a>
+                    @endif
+                    <a href="{{route('generate_invoice')}}" class="btn btn-primary">Generate Invoice</a>
                 </div>
                 
                 <!--end::Card header-->
@@ -239,19 +244,33 @@
                                         <th>Date of Payment</th>
                                         <th>Sender's Emails</th>
                                         <th>Status</th>
-                                        <th></th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                         {{-- @foreach($task as $row) --}}
                                             {{-- @dd($job->designerAssign->estimatorDesignerListTasks->last()->completed) --}}
+                                            @foreach($invoices as $invoice)
                                             <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td>{{$invoice->invoice_number}}</td>
+                                                <td>{{date('M d, y',strtotime($invoice->date_of_payment))}}</td>
+                                                <td>{{$invoice->send_email}}</td>
+                                                <td>{{$invoice->status}}</td>
+                                                <td>
+                                                <a   class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+                                                    <i class="fa fa-download" aria-hidden="true"  onclick="event.preventDefault();
+                                                     document.getElementById('download-form-{{$invoice->id}}').submit();"></i>    
+                                                </a>
+                                               
+                                                <button type="button" id = "{{$invoice->id}}" value = "{{$invoice->status}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm edit_designer_details">
+                                                    <i class="fa fa-pen" aria-hidden="true"></i>    
+                                                </button>
+                                                <form id="download-doc-{{$invoice->id}}" action = "{{route('download_invoice',$invoice->id)}}" method = "POST" style="display: none;">
+                                                    @csrf
+                                                </form>
+                                                </td>
                                             </tr>
+                                            @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -267,8 +286,105 @@
     </div>
     <!--end::Post-->
 </div>
+<div class="modal fade" id="Change-Status-Modal" tabindex="-1" aria-hidden="true">
+    <!--begin::Modal dialog-->
+    <div class="modal-dialog modal-dialog-centered mw-650px">
+        <!--begin::Modal content-->
+        <div class="modal-content rounded">
+            <!--begin::Modal header-->
+            <div class="modal-header pb-0 border-0 justify-content-end">
+                <!--begin::Close-->
+                <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                    <!--begin::Svg Icon | path: icons/duotone/Navigation/Close.svg-->
+                    <span class="svg-icon svg-icon-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)" fill="#000000">
+                                <rect fill="#000000" x="0" y="7" width="16" height="2" rx="1" />
+                                <rect fill="#000000" opacity="0.5" transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)" x="0" y="7" width="16" height="2" rx="1" />
+                            </g>
+                        </svg>
+                    </span>
+                    <!--end::Svg Icon-->
+                </div>
+                <!--end::Close-->
+            </div>
+            <!--begin::Modal header-->
+            <!--begin::Modal body-->
+            <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                <!--begin:Form-->
+                <form id="kt_modal_new_target_form" class="form change_status_form" action="{{ route('externalDesigners.store') }}" method="post">
+                    @csrf
+                    <!--begin::Heading-->
+                    <x-auth-validation-errors class="mb-4" :errors="$errors" />
+
+                    <div class="mb-13 text-center">
+                        <!--begin::Title-->
+                        <h1 class="mb-3">Change Payment Status</h1>
+                        <!--end::Title-->
+                    </div>
+                    <!--end::Heading-->
+
+                    <!--begin::Input group-->
+                    <div class="row g-9 mb-8">
+                        <!--begin::Col-->
+                        <div class="col-md-12 fv-row">
+                            <label class="required fs-6 fw-bold mb-2">Email:</label>
+                             <select name = "status" class = "form-select">
+                               <option value = "Unpaid">Unpaid</option>
+                               <option value = "Paid">Paid</option>
+                             </select>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Actions-->
+                    <div class="text-center">
+                        <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">
+                            <span class="indicator-label">Submit</span>
+                        </button>
+                    </div>
+                    <!--end::Actions-->
+                </form>
+                <!--end:Form-->
+            </div>
+            <!--end::Modal body-->
+        </div>
+        <!--end::Modal content-->
+    </div>
+    <!--end::Modal dialog-->
+</div>
 {{-- @include('dashboard.modals.project') --}}
 @endsection
 @section('scripts')
 @include('layouts.sweetalert.sweetalert_js')
+<script> 
+    var downloadLink = document.getElementById('downloadLink');
+    if (downloadLink && downloadLink.href) {
+        window.location = downloadLink.href;
+    }
+
+</script>
+<script>
+    $(document).ready(function() {
+        $(document).on('click', '.edit_designer_details', function() {
+         
+            let type = $(this).attr('value');
+            let id = $(this).attr('id');
+            $('.change_status_form').trigger("reset");
+            $('.change_status_form input[type="select"]').val('');
+            $('#error_div').remove();
+            $('.change_status_form input[name="id"]').remove();
+
+                let update_url = "{{ route('update_invoice_status',':id') }}";
+                update_url = update_url.replace(':id', id);
+                $('.change_status_form').attr('action', update_url);
+                // $('.change_status_form').append(`<input name="id" value="${id}" type="hidden">`);           
+                // $("#projectid").val($(this).attr('data-id'));
+                $("#Change-Status-Modal").modal('show');
+  
+        });
+    });
+
+  
+</script>
 @endsection

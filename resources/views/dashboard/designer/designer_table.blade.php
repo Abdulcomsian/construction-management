@@ -44,6 +44,7 @@
                     <option value="stuck">Stuck</option>
                     <option value="completed">Completed</option>
                     <option value="hold">Hold</option>
+                    <option value="Design Check">Design Check</option>
                 </select>
             </div>
         </div>

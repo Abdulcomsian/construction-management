@@ -336,8 +336,10 @@ Route::post('adminDesigner/nomination-status',[AdminDesignerController::class,'n
 Route::get('adminDesigner/create-appointment/{id}',[AdminDesignerController::class,'createAppointment'])->name('create_appointment');
 Route::post('adminDesigner/save-appointment',[AdminDesignerController::class,'saveAppointment']);
 Route::get('designer/invoices',[AdminDesignerController::class,'invoices'])->name('invoices');
-Route::get('designer/manage-invoice',[AdminDesignerController::class,'manageInvoice'])->name('manage_invoice');
-Route::post('designer/generate-invoice',[AdminDesignerController::class,'generateInvoice'])->name('generate_invoice');
+Route::get('designer/generate-invoice',[AdminDesignerController::class,'generateinvoice'])->name('generate_invoice');
+Route::post('download-invoice/{id}',[AdminDesignerController::class,'downloadinvoice'])->name('download_invoice');
+Route::post('update-invoice-status/{id}',[AdminDesignerController::class,'updateinvoicestatus'])->name('update_invoice_status');
+Route::post('designer/save-invoice',[AdminDesignerController::class,'saveinvoice'])->name('save_invoice');
 
 Route::get('/dashboard',[ProjectController::class,'Dashboard'])->middleware(['auth'])->name('dashboard');
 Route::get('Estimator/estimator-designer/client-email/{id}',[EstimatorController::class,'estimatorDesignerClient'])->name('estimator.designer_client');

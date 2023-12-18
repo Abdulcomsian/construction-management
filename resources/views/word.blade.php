@@ -4,7 +4,6 @@
 <table>
     <tr>
         <td style="width:90%;"></td>
-        <td class="img" ><img  src="{{asset($user->companyProfile->logo)}}" style="width:200px;" alt=""/></td>
     </tr>
 </table>
  
@@ -14,6 +13,10 @@
 <table>
   <tr>
         <td style="width:50%;">
+            <div class="heading" style="font-size:12pt;"><b>Invoice No# </b>{{$data['invoice_number'] ?? ''}} </div>
+            <div class="heading" style="font-size:12pt;"><b>Sender Email: </b>{{$data['sender_email'] ?? ''}} </div>
+            <div class="heading" style="font-size:12pt;"><b>Date of Payment: </b>{{$data['invoice_number'] ?? ''}} </div>
+            <div class="heading" style="font-size:12pt;"><b>Payment Status: </b>{{$data['payment_status'] ?? ''}} </div>
             <div class="heading" style="font-weight:bold; font-size:17pt;">TAX INVOICE</div>
             <p>
               {{$data['tax_invoice'] ?? ''}}
@@ -50,7 +53,7 @@
         <th style="width:30%; font-weight:bold;">Description</th>
         <th style="width:5%; font-weight:bold;"></th>
         <th style="width:15%; font-weight:bold;">Hours</th>
-        <th style="width:15%; font-weight:bold;">No of Hours</th>
+        <th style="width:15%; font-weight:bold;">GBP per Hour</th>
         {{-- <th style="width:10%; font-weight:bold;">VAT</th> --}}
         <th style="width:15%; font-weight:bold;">Amount GBP</th>
     </tr>

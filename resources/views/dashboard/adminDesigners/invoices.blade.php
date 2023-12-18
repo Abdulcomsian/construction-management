@@ -322,7 +322,7 @@
                     <div class="row g-9 mb-8">
                         <!--begin::Col-->
                         <div class="col-md-12 fv-row">
-                            <label class="required fs-6 fw-bold mb-2">Email:</label>
+                            <label class="required fs-6 fw-bold mb-2">Status:</label>
                              <select name = "status" class = "form-select">
                                <option value = "Unpaid">Unpaid</option>
                                <option value = "Paid">Paid</option>

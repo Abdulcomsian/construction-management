@@ -1376,11 +1376,6 @@ class AdminDesignerController extends Controller
         return redirect()->route('invoices');
     }
 
-    public function downloadinvoice(Request $request,$id)
-    {
-        $invoice = Invoice::find($id);
-        return response()->download(public_path($invoice->file_name));
-    }
     public function updateinvoicestatus(Request $request, $id)
     {
         $invoice = Invoice::find($id)->first();

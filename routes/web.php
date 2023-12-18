@@ -337,7 +337,6 @@ Route::get('adminDesigner/create-appointment/{id}',[AdminDesignerController::cla
 Route::post('adminDesigner/save-appointment',[AdminDesignerController::class,'saveAppointment']);
 Route::get('designer/invoices',[AdminDesignerController::class,'invoices'])->name('invoices');
 Route::get('designer/generate-invoice',[AdminDesignerController::class,'generateinvoice'])->name('generate_invoice');
-Route::post('download-invoice/{id}',[AdminDesignerController::class,'downloadinvoice'])->name('download_invoice');
 Route::post('update-invoice-status/{id}',[AdminDesignerController::class,'updateinvoicestatus'])->name('update_invoice_status');
 Route::post('designer/save-invoice',[AdminDesignerController::class,'saveinvoice'])->name('save_invoice');
 

@@ -229,6 +229,7 @@
                 
                 <!--end::Card header-->
                 <!--begin::Card body-->
+                
                 <div class="card-body pt-0">
                     {{-- <h2>Jobs</h2> --}}
                    
@@ -269,10 +270,14 @@
                                 </tbody>
                             </table>
                         </div>
-                  
+                        
                     </div>
+                        
                     <!--end::Table-->
                 </div>
+                        <div class="col-md-6 d-flex" style="margin-bottom:10px;">
+                            {{$invoices->links("pagination::bootstrap-4")}}
+                        </div>
                 <!--end::Card body-->
             </div>
             <!--end::Card-->
@@ -323,7 +328,7 @@
                     <div class="row g-9 mb-8">
                         <!--begin::Col-->
                         <div class="col-md-12 fv-row">
-                            <label class="required fs-6 fw-bold mb-2">Email:</label>
+                            <label class="required fs-6 fw-bold mb-2">Status:</label>
                              <select name = "status" class = "form-select">
                                <option value = "Unpaid">Unpaid</option>
                                <option value = "Paid">Paid</option>

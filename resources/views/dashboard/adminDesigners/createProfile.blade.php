@@ -215,24 +215,39 @@
                         <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
                             <div class="row">
                                 <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                    <label class="required fs-6 fw-bold mb-2 ">VAT Number</label>
+                                    <input type="text" class="form-control form-control-solid vat-number" placeholder="VAT Number" name="vat_number" required />
+                                </div>
+                                <div class="col-md-6 fv-row fv-plugins-icon-container">
                                     <label class="required fs-6 fw-bold mb-2">Year Established</label>
                                     <input type="date" class="form-control form-control-solid" placeholder="Year" name="year_established" required />
                                 </div>
+
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
+                            <div class="row">
                                 <div class="col-md-6">
                                     <label class="required fs-6 fw-bold mb-2">Phone</label>
                                     <input type="text" class="form-control form-control-solid" placeholder="Company Phone" name="phone" required />
                                 </div>
+                                <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                    <label class="required fs-6 fw-bold mb-2">Website Link</label>
+                                    <input type="text" class="form-control form-control-solid" placeholder="Company Website" name="website" required />
+                                </div>
+                                
+                                
                             </div>
                         </div>
                         <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
                             <div class="row">
                                 <div class="col-md-6 fv-row fv-plugins-icon-container">
-                                    <label class="required fs-6 fw-bold mb-2">Website Link</label>
-                                    <input type="text" class="form-control form-control-solid" placeholder="Company Website" name="website" required />
-                                </div>
-                                <div class="col-md-6 fv-row fv-plugins-icon-container">
                                     <label class="required fs-6 fw-bold mb-2">Company Logo</label>
                                     <input type="file" class="form-control form-control-solid"  name="logo" required accept="image/png, image/gif, image/jpeg"/>
+                                </div>
+                                <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                    <label class="required fs-6 fw-bold mb-2">Upload Professional indemnity insurance</label>
+                                    <input type="file" class="form-control form-control-solid"  name="indemnity_insurance" required />
                                 </div>
                                 
                             </div>
@@ -243,11 +258,6 @@
                                     <label class="fs-6 fw-bold mb-2">Upload cv</label>
                                     <input type="file" class="form-control form-control-solid"  name="company_cv" />
                                 </div>
-                                <div class="col-md-6 fv-row fv-plugins-icon-container">
-                                    <label class="required fs-6 fw-bold mb-2">Upload Professional indemnity insurance</label>
-                                    <input type="file" class="form-control form-control-solid"  name="indemnity_insurance" required />
-                                </div>
-                                
                             </div>
                         </div>
                         <div class="d-flex flex-column mb-8 mt-2 fv-row fv-plugins-icon-container">
@@ -326,6 +336,10 @@
 @endsection
 @section('scripts')
 <script>
+ $('.vat-number').on('input', function(e) {
+    // Remove non-numeric characters except space and hyphen
+    $(this).val($(this).val().replace(/[^0-9\s-]/g, ''));
+  });
     $(".addmoredoucument").on('click',function(){
         $(".appenddoc").append(
 

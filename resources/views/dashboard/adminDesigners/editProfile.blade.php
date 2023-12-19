@@ -228,10 +228,18 @@ input.form-control.form-control-solid.readonly-input {
                         </div>
                         <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
                             <div class="row">
-                                <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                <div class="col-md-6">
+                                    <label class="required fs-6 fw-bold mb-2">Vat Number</label>
+                                    <input type="text" class="form-control form-control-solid vat-number" placeholder="VAT Nubmer" name="vat_number" required value="{{$editProfile->vat_number}}" />
+                                </div>
+                                <div class="col-md-6  fv-plugins-icon-container">
                                     <label class="required fs-6 fw-bold mb-2">Year Established</label>
                                     <input type="date" class="form-control form-control-solid" placeholder="Year" name="year_established" required  value="{{$editProfile->year_established}}" />
                                 </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
+                            <div class="row">
                                 <div class="col-md-6">
                                     <label class="required fs-6 fw-bold mb-2">Phone</label>
                                     <input type="text" class="form-control form-control-solid" placeholder="Company Phone" name="phone" required value="{{$editProfile->phone}}" />
@@ -351,6 +359,10 @@ input.form-control.form-control-solid.readonly-input {
 @endsection
 @section('scripts')
 <script>
+    $('.vat-number').on('input', function(e) {
+    // Remove non-numeric characters except space and hyphen
+        $(this).val($(this).val().replace(/[^0-9\s-]/g, ''));
+    });
       $(".addmoredoucument").on('click',function(){
         $(".appenddoc").after(`<div class="row">
                                 <div class="col-md-4 fv-row fv-plugins-icon-container">

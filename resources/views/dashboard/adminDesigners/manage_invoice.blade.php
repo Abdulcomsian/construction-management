@@ -262,20 +262,15 @@
                                             <div class="col-md-3">
                                                 <label class="required fs-6 fw-bold mb-2">  Invoice Date</label>
                                                 <input type="date" name="date" class="form-control form-control-solid" placeholder="Enter Date" name="date" />
-                                                <label class="required fs-6 fw-bold mb-2">  Invoice Number</label>
-                                                <input type="text" name="number" class="form-control form-control-solid" placeholder="Enter Invoice Number" name="invoice-number" />
                                                 <label class="required fs-6 fw-bold mb-2">  Reference</label>
                                                 <input type="text" name="reference" class="form-control form-control-solid" placeholder="Enter Reference" name="reference" />
                                             </div>
 
                                                 <div class="col-md-3 address">
                                                     <p>
-                                                    STRUCTEMP LLP <br>
-                                                    106 Weston Street <br>
-                                                    London SE1 3QB <br>
-                                                    UNITED KINGDOM <br>
-                                                    VAT Number: 282 1901 12
+                                                    {{$user->companyProfile->company_address ?? ''}}
                                                     </p>
+                                                    <p><b>VAT# </b>{{$user->companyProfile->vat_number ?? ''}}</p>
                                                 </div>
                                 
                                         </div>

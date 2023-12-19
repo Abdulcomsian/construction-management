@@ -659,6 +659,11 @@ class DesignerController extends Controller
                     Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg, null, $is_check, $cc_emails));
                 } else{
                     // dd("Ttt");
+                    $designer_or_checker_email = ($request->designermail == $tempworkdata->designer_company_email) ? $tempworkdata->desinger_email_2 : $tempworkdata->designer_company_email;
+                    if (!empty($designer_or_checker_email) && !in_array($designer_or_checker_email, $selectedEmails)) {
+                        $selectedEmails[] = $designer_or_checker_email;
+                    }
+
                     $is_check = true;
                     foreach ($selectedEmails as $email) {
                         $notify_admins_msg['greeting'] = 'Designer Upload Document';

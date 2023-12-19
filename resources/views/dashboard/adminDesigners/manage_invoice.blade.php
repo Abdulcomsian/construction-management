@@ -245,14 +245,21 @@
                                                 <div class =" row d-flex mb-2">
                                                     <div class = "col-md-4"> <label class="required fs-6 fw-bold">Invoice #</label></div>
                                                     <div class = "col-md-8"><input type = "text" name = "invoice_number" class="form-control form-control-solid" placeholder = "Invoice Number" value = "{{$invoice_number}}" readonly></div>
+                                                    
                                                 </div>
                                                 <div class =" row d-flex mb-2">
                                                     <div class = "col-md-4"> <label class="required fs-6 fw-bold">Receiver's Email</label></div>
                                                     <div class = "col-md-8"><input type = "text" name = "send_email" class="form-control form-control-solid" placeholder = "Sender Email" required></div>
+                                                    @error('send_email')
+                                                        <div class="alert alert-danger">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
                                                 <div class =" row d-flex mb-2">
                                                     <div class = "col-md-4"> <label class="required fs-6 fw-bold">Date of Payment</label></div>
                                                     <div class = "col-md-8"><input type = "date" name = "date_of_payment" class="form-control form-control-solid" required></div>
+                                                    @error('date_of_payment')
+                                                        <div class="alert alert-danger">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
                                                 {{-- <div class =" row d-block">
                                                     <textarea class="form-control" name="tax_invoice" placeholder="Enter Text"></textarea>
@@ -262,6 +269,9 @@
                                             <div class="col-md-3">
                                                 <label class="required fs-6 fw-bold mb-2">  Invoice Date</label>
                                                 <input type="date" name="date" class="form-control form-control-solid" placeholder="Enter Date" name="date" />
+                                                    @error('date')
+                                                        <div class="alert alert-danger">{{ $message }}</div>
+                                                    @enderror
                                                 <label class="required fs-6 fw-bold mb-2">  Reference</label>
                                                 <input type="text" name="reference" class="form-control form-control-solid" placeholder="Enter Reference" name="reference" />
                                             </div>

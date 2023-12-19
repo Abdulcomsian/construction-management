@@ -10,19 +10,19 @@ use Illuminate\Notifications\Notification;
 class InvoiceNotification extends Notification
 {
     use Queueable;
-    protected $attachmentDoc;
-    protected $designerCompany;
+    protected $invoiceData;
+    
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($attachmentDoc,$designerCompany)
+    public function __construct($invoiceData)
     {
        
-     $this->attachmentDoc= $attachmentDoc;
-     $this->designerCompany= $designerCompany;
+
+     $this->invoiceData= $invoiceData;
 
     }
 
@@ -45,15 +45,13 @@ class InvoiceNotification extends Notification
      */
     public function toMail($notifiable)
     {
-    
-        $subject = isset($this->designerCompany) ? 'Invoice | '.$this->designerCompany : 'Invoice';
        $send_email = (new MailMessage)
-            ->greeting('Hello')
-            ->subject($subject)
-            ->view('mail.invoiceDesignerMail');
-            if($this->attachmentDoc)
+            ->greeting($this->invoiceData['subject'])
+            ->subject($this->invoiceData['subject'])
+            ->view('mail.invoiceDesignerMail',['invoiceDetails'=>$this->invoiceData]);
+            if($this->invoiceData['body']['attachfile'])
             {
-                $send_email->attach(public_path($this->attachmentDoc));
+                $send_email->attach(public_path($this->invoiceData['body']['attachfile']));
 
             }
             return $send_email;

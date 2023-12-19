@@ -1310,6 +1310,11 @@ class AdminDesignerController extends Controller
     }   
     
     public function saveinvoice(Request $request){
+        $request->validate([
+            'date' => 'required|date',
+            'date_of_payment' => 'required|date|after_or_equal:date',
+            'send_email' => 'required|email',
+        ]);
         $phpWord = new \PhpOffice\PhpWord\PhpWord();
 
         $section = $phpWord->addSection();
@@ -1370,7 +1375,20 @@ class AdminDesignerController extends Controller
         response()->download(public_path($fileName));
         if($request->send_email)
         {
-            Notification::route('mail',  $request->send_email ?? '')->notify(new InvoiceNotification($fileName,$user->companyProfile->company_name));
+            $invoice_notify_msg = [
+                'greeting' => 'Hello',
+                'subject' => isset($user->companyProfile->company_name) ? 'Invoice | '.$user->companyProfile->company_name : 'Invoice',
+                'body' => [
+                     'message'=>'please find the attached Invoice.',
+                    'invoice_number' => $request->invoice_number,
+                    'attachfile' => $fileName,
+                    'designer_company' => $user->companyProfile->company_name ?? '',
+                    'type'=>1,
+                    'invoiceId' => $generate_invoice->id ?? '',
+                ],
+                'thanks_text' => 'Thanks For Using our site',
+            ];
+            Notification::route('mail',  $request->send_email ?? '')->notify(new InvoiceNotification($invoice_notify_msg));
         }
         toastSuccess('Invoice Generated Successfully');
         return redirect()->route('invoices');
@@ -1389,7 +1407,40 @@ class AdminDesignerController extends Controller
     public function invoicepaymentreminder($id)
     {
         $id = \Crypt::decrypt($id);
-        dd($id);
-
+        return view('dashboard.adminDesigners.receiver_invoice_details',compact('id'));
+    }
+    public function saveinvoicepaymentproof(Request $request, $id)
+    {
+        $request->validate([
+            'invoice_payment_details' => 'required',
+            'attachfile' => 'required|file',
+        ]);
+        $invoiceDetails = Invoice::with('userDetails')->find($id);
+        if($request->file('attachfile'))
+        {
+            $filePath  = "invoices/invoice-receipts/";
+            $public_path = public_path($filePath);
+            $file = $request->file('attachfile');
+            File::isDirectory($public_path) or File::makeDirectory($public_path, 0777, true, true);
+            $filename = 'receipt'.'-'.$invoiceDetails->id.'-'.time() . rand(10000, 99999) . '.' .$file->getClientOriginalExtension();
+            $file->move($public_path, $filename);
+            $attachDoc = $filePath.$filename;
+        }
+        $invoice_notify_msg = [
+            'greeting' => 'Hello',
+            'subject' => 'Invoice Receipt Details',
+            'body' => [
+                'message'=>$request->invoice_payment_details,
+                'invoice_number' => $invoiceDetails->invoice_number,
+                'attachfile' => $attachDoc,
+                'designer_company' => $invoiceDetails->userDetails->companyProfile->company_name ?? '',
+                'type'=>0,
+                'invoiceId' => $invoiceDetails->id ?? '',
+            ],
+            'thanks_text' => 'Thanks For Using our site',
+        ];
+        Notification::route('mail',  $invoiceDetails->userDetails->email ?? '')->notify(new InvoiceNotification($invoice_notify_msg));
+        toastSuccess('Payment Details Sent Successfully');
+        return redirect()->back();
     }
 }

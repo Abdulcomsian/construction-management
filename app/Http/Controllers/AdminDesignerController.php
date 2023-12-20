@@ -1232,7 +1232,20 @@ class AdminDesignerController extends Controller
             ->where('work_status', 'publish')
             ->latest()
             ->get();
-
+            if(HelperFunctions::isPromotedAdminDesigner(Auth::user()))
+            {
+                $parent_id = auth()->user()->id;
+                $record=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>$parent_id,'estimatorApprove'=>0])->pluck('temporary_work_id');
+                $awarded=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>$parent_id,'estimatorApprove'=>1])->pluck('temporary_work_id');
+                $estimatorWork=TemporaryWork::with('designer')->with('project.company')->whereIn('id',$record)->get();
+                // dd($estimatorWork);
+                $AwardedEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments',
+                'designerAssign', 'checkerAssign','designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks' , 'creator.userCompany')
+                ->whereIn('id', $awarded)
+                ->where('work_status', 'publish')
+                ->latest()
+                ->get();
+            }
             // dd($AwardedEstimators);
 
         

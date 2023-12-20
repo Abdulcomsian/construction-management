@@ -901,7 +901,7 @@
                                             name="online_designers[]" multiple>
                                             {{-- <option value="">Select Option</option> --}}
                                             <optgroup label="Designer List">
-                                                @if(!empty($selectedOnlineDesigners))
+                                                @if(count($selectedOnlineDesigners) > 0)
                                                 @foreach($selectedOnlineDesigners as $desig)
                                                 <option
                                                     value="{{$desig->designerDetails->email}}-{{$desig->designerDetails->id}}">
@@ -1030,7 +1030,7 @@
                                             data-placeholder="Select an option" data-allow-clear="true" multiple>
                                             {{-- <option value="">Select Option</option> --}}
                                             <optgroup >
-                                            @if(!empty($selectedOnlineSuppliers))
+                                            @if(count($selectedOnlineSuppliers) > 0)
                                         @foreach($selectedOnlineSuppliers as $supp)
                                         <option
                                             value="{{$supp->supplierDetails->email}}-{{$supp->supplierDetails->id}}">

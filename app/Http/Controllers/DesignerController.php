@@ -711,7 +711,14 @@ class DesignerController extends Controller
                if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('company') )
                {
                 $company=Project::find($ramsno->project_id);
-                $coordinators = User::role('user')->select('email')->where('company_id',$company->company_id)->get();
+                
+                //it will take the designer and checker emails if the logged In designer is admin designer, promoted admin desiger, designer or checker
+                if(HelperFunctions::isChildDesigner(Auth::user()) || HelperFunctions::isPromotedAdminDesigner(Auth::user()) || HelperFunctions::isAdminDesigner(Auth::user()))
+                {
+                    $coordinators = EstimatorDesignerList::select('email')->where('temporary_work_id',$tempworkid)->first();
+                }else{
+                    $coordinators = User::role('designer')->select('email')->where('company_id',$company->company_id)->get();
+                }
                 $registerupload= TempWorkUploadFiles::with('comment')->where(function ($query) use($coordinators){
                     $query->whereIn('created_by',$coordinators)
                     ->orWhere('created_by',auth()->user()->email);
@@ -722,7 +729,14 @@ class DesignerController extends Controller
                 $user = User::where('di_designer_id', $ramsno->creator->id)->first();
                 $di_designer_email = $user->email ?? ''; 
                 $company=Project::find($ramsno->project_id);
-                $coordinators = User::role('user')->select('email')->where('company_id',$company->company_id)->get();
+
+                //it will take the designer and checker emails if the logged In designer is admin designer, promoted admin desiger, designer or checker
+                if(HelperFunctions::isChildDesigner(Auth::user()) || HelperFunctions::isPromotedAdminDesigner(Auth::user()) || HelperFunctions::isAdminDesigner(Auth::user()))
+                {
+                    $coordinators = EstimatorDesignerList::select('email')->where('temporary_work_id',$tempworkid)->first();
+                }else{
+                    $coordinators = User::role('user')->select('email')->where('company_id',$company->company_id)->get();
+                }
                 $registerupload= TempWorkUploadFiles::with('comment')->where(function ($query) use($coordinators, $twc_email,$di_designer_email){
                     $query->whereIn('created_by',$coordinators)
                     ->orWhere('created_by','hani.thaher@gmail.com')

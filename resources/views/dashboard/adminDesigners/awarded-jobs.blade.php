@@ -1,10 +1,4 @@
-<style>
-    #kt_aside{
-        display:none;
-    }
-
-
-    </style>
+@extends('layouts.dashboard.master-index-tempory',['title' => 'Awarded Jobs'])
 @php
 $currentRouteUrl = request()->path();
 $tempWorkClass = "d-none";
@@ -12,7 +6,6 @@ $tempWorkClass = "d-none";
 @if($currentRouteUrl == 'temporary_works')
 @include('layouts.dashboard.side-bar')
 @endif
-@extends('layouts.dashboard.master-index-tempory',['title' => 'Awarded Jobs'])
 @php use App\Utils\HelperFunctions; @endphp
 @section('styles')
 <style>
@@ -632,12 +625,9 @@ hr{
         background:#07D564 !important;
     }
 </style>
-@include('layouts.sweetalert.sweetalert_css')
-@include('dashboard.modals.comments2')
-@include('dashboard.modals.drawingdesign')
-@include('dashboard.modals.drawingdesignlist')
-@include('dashboard.modals.description')
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
+
 @endsection
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid temporary_blade" id="kt_content">
@@ -668,7 +658,7 @@ hr{
                             <th  class="th-7">Allocated Designer</th>
                             <th  class="th-8">Allocated Designer Checker</th>
                             <th  class="th-9">Status</th>
-                            <th  class="th-10">Drawing</th>
+                            <th  class="th-10">Drawing <span style = "font-size:10px;">(View & Upload)<span></th>
                             <th  class="th-11">Invoice</th>
                             </tr>
                             @php
@@ -727,15 +717,18 @@ hr{
                                 <div class="row d-flex flex-column">
                                     <div class="col">
                                         <div class="row d-flex justify-content-between ">
-                                            <div class="col d-flex justify-content-start ms-2" id="time-estimator"  data-rowid="{{$item->id}}"> 
-                                                <img class="img"  style="cursor: pointer;" src="{{asset('images/time.png')}}"> 
+                                            <div class="col  ms-2" id="time-estimator"  data-rowid="{{$item->id}}"> 
+                                                <img class="img"  style="cursor: pointer;" src="{{asset('images/time.png')}}" title= "View Tasks"> 
+                                                <label class="fs-6 fw-bold mb-2">View</label>
                                             </div>
-                                            <div class="col d-flex justify-content-end ms-4" id="allocated-designer" data-rowid="{{ $item->id }}"> 
-                                                    @php $blink = '' @endphp
-                                                        @if(empty($item->designerAssign->user->name) || empty($item->checkerAssign->user->name) )
-                                                        @php $blink = 'blink' @endphp
-                                                    @endif
-                                                <img class="img {{$blink}}"    style="cursor: pointer;" src="{{asset('images/box.png')}}" alt=""> 
+                                            <div class="col  ms-2" id="allocated-designer" data-rowid="{{ $item->id }}">   
+                                                @php $blink = '' @endphp
+                                                    @if(empty($item->designerAssign->user->name) || empty($item->checkerAssign->user->name) )
+                                                    @php $blink = 'blink' @endphp
+                                                @endif
+                                                <img class="img {{$blink}}"    style="cursor: pointer;" src="{{asset('images/box.png')}}" alt=""  title= "Add Task"> 
+                                                <label class="fs-6 fw-bold mb-2">Add</label>
+
                                             </div>
                                         </div>
                                     </div>
@@ -868,10 +861,12 @@ hr{
                                         @endif
                                         <a href="{{ route('designer.uploaddesign', Crypt::encrypt($item->id).'/?mail='.$userEmail.'&job=1') }}"
                                                     target="_blank">
-                                            <img src="{{asset('images/add.png')}}" alt="" srcset=""> 
-                                        <a>
+                                            <img src="{{asset('images/add.png')}}" alt="" srcset="" title= "Upload Design"> 
+                                        </a>
                                     </div>
-                                    <div class="image-2 uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1"> <img src="../images/group.png" alt="" srcset=""></div>
+                                    <div class="image-2 uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1">
+                                        <img src="../images/group.png" alt="" title= "View Drawings/Designs" srcset="">
+                                    </div>
                                 </div>
                                 </div>
                             </td>
@@ -1095,8 +1090,7 @@ hr{
     </div>
     <!--end::Container-->
 </div>
-<!--end::Post-->
-</div>
+
 <div class="modal  fade" id="AssignProjectModal" style="width: 100%">
     <div class="modal-dialog modal-lg modal-dialog-centered">
        <div class="modal-content">
@@ -1168,7 +1162,14 @@ hr{
       </div>
    </div>
 </div>
+
 @include('dashboard.modals.change-emails-modal')
+@include('layouts.sweetalert.sweetalert_css')
+@include('dashboard.modals.comments2')
+@include('dashboard.modals.drawingdesign')
+@include('dashboard.modals.drawingdesignlist')
+@include('dashboard.modals.description')
+@endsection
 @section('scripts')
 <script type="text/javascript">
     let role = "{{ \Auth::user()->roles->pluck('name')[0] }}";

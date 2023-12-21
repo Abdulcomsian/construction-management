@@ -280,6 +280,7 @@ Route::group(['prefix'=>'designer','middleware' => ['auth']], function () {
      Route::delete('/destroy/{user}',[DesignerController::class,'Destroy'])->name('designer.destroy');
      //get designs that uploaded
      Route::get('get-designs',[DesignerController::class,'get_desings'])->name('get-designs');
+     Route::get('get-di-designs',[DesignerController::class,'get_di_desings'])->name('get-di-designs');
      Route::get('get-designersinfo',[DesignerController::class,'get_designersinfo'])->name('get-designersinfo');
      Route::get('get-designersinfo-details',[DesignerController::class,'get_designersinfodetails'])->name('get-designersinfo-details');
      Route::post('share-drawing',[DesignerController::class,'share_drawing'])->name('drawing.share');

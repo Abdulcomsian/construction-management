@@ -1216,7 +1216,7 @@ hr{
          console.log("id",tempworkid)
       
          $.ajax({
-            url: "{{route('get-designs')}}",
+            url: "{{route('get-di-designs')}}",
             method: "get",
             data: {
                   tempworkid: tempworkid,

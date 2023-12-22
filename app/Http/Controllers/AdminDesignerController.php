@@ -1220,6 +1220,11 @@ class AdminDesignerController extends Controller
             {
                 $parent_id = auth()->user()->id;
             }
+            elseif(HelperFunctions::isPromotedAdminDesigner(Auth::user()))
+            {
+                $parent_id = auth()->user()->di_designer_id;
+
+            }
              else{
                 $parent_id = auth()->user()->id;
             }
@@ -1274,9 +1279,14 @@ class AdminDesignerController extends Controller
             // }
         
             // // Remove the condition ->orWhere('created_by', Auth::user()->id)
-            if(auth()->user()->admin_designer == null && auth()->user()->di_designer_id != null )
+         if(auth()->user()->admin_designer == null && auth()->user()->di_designer_id != null )
             {
                 $parent_id = auth()->user()->id;
+            }
+            elseif(HelperFunctions::isPromotedAdminDesigner(Auth::user()))
+            {
+                $parent_id = auth()->user()->di_designer_id;
+
             }
              else{
                 $parent_id = auth()->user()->id;

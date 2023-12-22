@@ -711,14 +711,7 @@ class DesignerController extends Controller
                if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('company') )
                {
                 $company=Project::find($ramsno->project_id);
-                
-                //it will take the designer and checker emails if the logged In designer is admin designer, promoted admin desiger, designer or checker
-                if(HelperFunctions::isChildDesigner(Auth::user()) || HelperFunctions::isPromotedAdminDesigner(Auth::user()) || HelperFunctions::isAdminDesigner(Auth::user()))
-                {
-                    $coordinators = EstimatorDesignerList::select('email')->where('temporary_work_id',$tempworkid)->first();
-                }else{
-                    $coordinators = User::role('designer')->select('email')->where('company_id',$company->company_id)->get();
-                }
+                $coordinators = User::role('user')->select('email')->where('company_id',$company->company_id)->get();
                 $registerupload= TempWorkUploadFiles::with('comment')->where(function ($query) use($coordinators){
                     $query->whereIn('created_by',$coordinators)
                     ->orWhere('created_by',auth()->user()->email);
@@ -729,14 +722,7 @@ class DesignerController extends Controller
                 $user = User::where('di_designer_id', $ramsno->creator->id)->first();
                 $di_designer_email = $user->email ?? ''; 
                 $company=Project::find($ramsno->project_id);
-
-                //it will take the designer and checker emails if the logged In designer is admin designer, promoted admin desiger, designer or checker
-                if(HelperFunctions::isChildDesigner(Auth::user()) || HelperFunctions::isPromotedAdminDesigner(Auth::user()) || HelperFunctions::isAdminDesigner(Auth::user()))
-                {
-                    $coordinators = EstimatorDesignerList::select('email')->where('temporary_work_id',$tempworkid)->first();
-                }else{
-                    $coordinators = User::role('user')->select('email')->where('company_id',$company->company_id)->get();
-                }
+                $coordinators = User::role('user')->select('email')->where('company_id',$company->company_id)->get();
                 $registerupload= TempWorkUploadFiles::with('comment')->where(function ($query) use($coordinators, $twc_email,$di_designer_email){
                     $query->whereIn('created_by',$coordinators)
                     ->orWhere('created_by','hani.thaher@gmail.com')
@@ -998,21 +984,18 @@ class DesignerController extends Controller
                              <a style="padding: 10px; background: #F9F9F9;margin: 5px;" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>';
                              if(!auth()->user()->hasRole('visitor'))
                              {
-                                if(!isset($request->awarded_job))
-                                {
-                                    $list.='&nbsp;<button class="btn drawingshare" style="padding: 10px; background: #F9F9F9;margin: 5px;" title="Share Design Brief"  data-drawing="'.$uploads->drawing_number.'" data-temp="'. $tempworkid .'" data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
-                                <button class="drawingreply" style="padding: 10px !important; border: none; background: #F9F9F9;margin: 5px;" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>';
-                                }
+
+                                $list.='&nbsp;<button class="btn drawingshare" style="padding: 10px; background: #F9F9F9;margin: 5px;" title="Share Design Brief"  data-drawing="'.$uploads->drawing_number.'" data-temp="'. $tempworkid .'" data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
+                                <button class="drawingreply" style="padding: 10px !important; border: none; background: #F9F9F9;margin: 5px;"   title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>';
+
                                 if($is_permit){
-                                    if(!isset($request->awarded_job))
-                                    {
+                                    
                                         $list .=    '<form id="submit' . $uploads->id . '" method="get" action="' . route("permit.load") . '" style="display:inline-block;">
                                             <input type="hidden" class="temp_work_id" name="temp_work_id" value=' . Crypt::encrypt($tempworkid) . ' />
                                             <input type="hidden"  name="drawingno" value=' . $uploads->drawing_number . ' />
                                                 <input type="hidden"  name="drawingtitle" value=' . $uploads->drawing_title . ' />
                                             <button style="font-size:8px; padding: 10px; background: #F9F9F9;margin: 5px;"" type="button" class="btn  openpermitform"  id="' . $uploads->id . '">Open Permit</button>
                                         </form>';
-                                    }
                                
                                }
                              }
@@ -1022,8 +1005,7 @@ class DesignerController extends Controller
                              <a style="padding: 10px; background: #F9F9F9;margin: 5px;" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>';
                              if(!auth()->user()->hasRole('visitor'))
                              {
-                                 if(!isset($request->awarded_job))
-                                {
+                                 
                                     $list.='&nbsp;<button class="btn  drawingshare" style="padding: 10px; background: #F9F9F9;margin: 5px;" title="Share Design Brief" data-drawing="'.$uploads->drawing_number.'" data-temp="'. $tempworkid .'"  data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
                                     <button class="drawingreply" style="padding: 10px; background: #F9F9F9;margin: 5px; border: none;" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>
                                     <form method="get" action="' . route("permit.load") . '" style="display:inline-block;">
@@ -1033,7 +1015,6 @@ class DesignerController extends Controller
                                         <input type="hidden"  name="drawingtitle" value=' . $uploads->drawing_title . ' />
                                       
                                    </form>';
-                                }
                               
                              }
                           
@@ -1312,12 +1293,46 @@ class DesignerController extends Controller
                     })->where(['file_type'=>1,'temporary_work_id' => $tempworkid])->orderBy('id','desc')->get();
                }elseif(auth()->user()->hasRole('designer') || auth()->user()->hasRole('Design Checker') || auth()->user()->hasRole('Designer and Design Checker'))
                {
+               
                 $twc_email =$ramsno->creator->email;
-                $user = User::where('id', $ramsno->creator->id)->first();
-                $di_designer_email = $user->email ?? ''; 
-                $registerupload= TempWorkUploadFiles::with('comment')->where(function ($query) use($twc_email,$di_designer_email){
-                    $query->where('created_by',$di_designer_email);
+                $user = User::where('id',Auth::id())->first();
+                $di_user = User::where('id',$user->di_designer_id)->first();
+                $di_designer_email = $di_user->email ?? ''; 
+                // $user = User::where('di_designer_id', $ramsno->creator->id)->first();
+                if($ramsno->project_id)
+                {
+                    $di_email = '';
+                    $company=Project::find($ramsno->project_id);                    
+                    $coordinators = User::role('user')->select('email')->where('company_id',$company->company_id)->get();
+                    if(HelperFunctions::isAdminDesigner(Auth::user()))
+                    {
+                        $di_email = auth()->user()->email;
+                    }
+                    $registerupload= TempWorkUploadFiles::with('comment')->where(function ($query) use($di_email,$coordinators, $twc_email,$di_designer_email){
+                    $query->whereIn('created_by',$coordinators)
+                    ->orWhere('created_by','hani.thaher@gmail.com')
+                    ->orWhere('created_by',$twc_email)
+                    ->orWhere('created_by',$di_designer_email)
+                    ->orWhere('created_by',$di_email);
                     })->where(['file_type'=>1,'temporary_work_id' => $tempworkid])->orderBy('id','desc')->get();
+                }
+                else{
+                    $user = User::where('id',Auth::id())->first();
+                    $di_designer_email = '';
+                    $di_email = '';
+                    if(HelperFunctions::isAdminDesigner(Auth::user()))
+                    {
+                        $di_email = auth()->user()->email;
+                    }
+                        $di_user = User::where('id',$user->di_designer_id)->first();
+                        $di_designer_email = $di_user->email ?? ''; 
+                        $registerupload= TempWorkUploadFiles::with('comment')->where(function ($query) use($di_email,$twc_email,$di_designer_email){
+                        $query->where('created_by',$di_designer_email)
+                            ->orWhere('created_by',$twc_email)
+                            ->orWhere('created_by',$di_email);
+                    })->where(['file_type'=>1,'temporary_work_id' => $tempworkid])->orderBy('id','desc')->get();
+                }
+                
                }elseif($is_shared){
                 $twc_email =$ramsno->creator->email;
                 $user = User::where('di_designer_id', $ramsno->creator->id)->first();
@@ -1403,44 +1418,13 @@ class DesignerController extends Controller
                         $list .= '<td style="text-align:Center; !important;">' . $construction . '</td>';
                         if ($construction == 'Yes') {
                             $list .= '<td style="display:flex; height:40px;">
-                                 <a style="color:#fff !important;" class="btn btn-primary btn-small" title="View Drawing" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>';
-                                 if(!auth()->user()->hasRole('visitor'))
-                                 {
-                                    if(!isset($request->awarded_job)){
-                                    $list.='&nbsp;<button class="btn btn-danger btn-small drawingshare" title="Share Drawing" data-drawing="'.$uploads->drawing_number.'" data-temp="'. $tempworkid .'" data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt" ></i></button>&nbsp;
-                                    <button class="btn btn-danger btn-small drawingreply" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>';
-                                   if($is_permit){
-                                       $list .= '<form id="submit' . $uploads->id . '" method="get" action="' . route("permit.load") . '" style="display:inline-block;">
-                                       <input type="hidden" class="temp_work_id" name="temp_work_id" value=' . Crypt::encrypt($tempworkid) . ' />
-                                       <input type="hidden"  name="drawingno" value=' . $uploads->drawing_number . ' />
-                                       <input type="hidden"  name="drawingtitle" value=' . $uploads->drawing_title . ' />
-                                       <button style="font-size:8px" type="button" class="btn btn-primary btn-small openpermitform" id="' . $uploads->id . '">Open Permit</button>
-                                       </form>';
-                                   }
-                                }  
-                            }
-                                                           
-                            $list .= '</td>';
+                                 <a style="color:#fff !important;" class="btn btn-primary btn-small" title="View Drawing" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>';                           
+                                $list .= '</td>';
                         } else {
                             $list .= '<td style="display:flex">
                             
                            
                                 <a class="btn" style="font-weight:bold;color:#9C9C9C " title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>';
-                                if(!auth()->user()->hasRole('visitor'))
-                                {
-                                    if(!isset($request->awarded_job)){
-                                $list .='&nbsp;<button class="btn drawingshare" title="Share Drawing"  data-drawing="'.$uploads->drawing_number.'" data-temp="'. $tempworkid .'" data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>
-                                 &nbsp;
-                                 <button class="btn  drawingreply" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:2px;" class="fa fa-reply"></i></button>
-                                 <form method="get" action="' . route("permit.load") . '" style="display:inline-block;">
-                                    <input type="hidden" name="rams_no" value'.$ramsno->rams_no.'/>
-                                    <input type="hidden" class="temp_work_id" name="temp_work_id" value=' . Crypt::encrypt($tempworkid) . ' />
-                                    <input type="hidden"  name="drawingno" value=' . $uploads->drawing_number . ' />
-                                     <input type="hidden"  name="drawingtitle" value=' . $uploads->drawing_title . ' />
-                                   
-                                </form>';
-                                }
-                            }
                                 $list.='</td>';
                         }
                         // $delete = route('designer.delete',$uploads->id);
@@ -1573,47 +1557,10 @@ class DesignerController extends Controller
                     if ($construction == 'Yes') {
                         $list .= '<td style="display:flex">
                              <a style="padding: 10px; background: #F9F9F9;margin: 5px;" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>';
-                             if(!auth()->user()->hasRole('visitor'))
-                             {
-                                if(!isset($request->awarded_job))
-                                {
-                                    $list.='&nbsp;<button class="btn drawingshare" style="padding: 10px; background: #F9F9F9;margin: 5px;" title="Share Design Brief"  data-drawing="'.$uploads->drawing_number.'" data-temp="'. $tempworkid .'" data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
-                                <button class="drawingreply" style="padding: 10px !important; border: none; background: #F9F9F9;margin: 5px;" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>';
-                                }
-                                if($is_permit){
-                                    if(!isset($request->awarded_job))
-                                    {
-                                        $list .=    '<form id="submit' . $uploads->id . '" method="get" action="' . route("permit.load") . '" style="display:inline-block;">
-                                            <input type="hidden" class="temp_work_id" name="temp_work_id" value=' . Crypt::encrypt($tempworkid) . ' />
-                                            <input type="hidden"  name="drawingno" value=' . $uploads->drawing_number . ' />
-                                                <input type="hidden"  name="drawingtitle" value=' . $uploads->drawing_title . ' />
-                                            <button style="font-size:8px; padding: 10px; background: #F9F9F9;margin: 5px;"" type="button" class="btn  openpermitform"  id="' . $uploads->id . '">Open Permit</button>
-                                        </form>';
-                                    }
-                               
-                               }
-                             }
                             $list .= '</td>';
                     } else {
                         $list .= '<td style="display:flex">
                              <a style="padding: 10px; background: #F9F9F9;margin: 5px;" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>';
-                             if(!auth()->user()->hasRole('visitor'))
-                             {
-                                 if(!isset($request->awarded_job))
-                                {
-                                    $list.='&nbsp;<button class="btn  drawingshare" style="padding: 10px; background: #F9F9F9;margin: 5px;" title="Share Design Brief" data-drawing="'.$uploads->drawing_number.'" data-temp="'. $tempworkid .'"  data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
-                                    <button class="drawingreply" style="padding: 10px; background: #F9F9F9;margin: 5px; border: none;" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>
-                                    <form method="get" action="' . route("permit.load") . '" style="display:inline-block;">
-                                       <input type="hidden" name="rams_no" value'.$ramsno->rams_no.'/>
-                                       <input type="hidden" class="temp_work_id" name="temp_work_id" value=' . Crypt::encrypt($tempworkid) . ' />
-                                       <input type="hidden"  name="drawingno" value=' . $uploads->drawing_number . ' />
-                                        <input type="hidden"  name="drawingtitle" value=' . $uploads->drawing_title . ' />
-                                      
-                                   </form>';
-                                }
-                              
-                             }
-                          
                             $list.= '</td>';
                     }
                     // $delete = route('designer.delete',$uploads->id);

@@ -1220,7 +1220,6 @@ hr{
             method: "get",
             data: {
                   tempworkid: tempworkid,
-                  awarded_job: 1
             },
             success: function(res) {
                     console.log(res)

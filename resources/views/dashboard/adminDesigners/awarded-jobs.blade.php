@@ -1216,11 +1216,10 @@ hr{
          console.log("id",tempworkid)
       
          $.ajax({
-            url: "{{route('get-designs')}}",
+            url: "{{route('get-di-designs')}}",
             method: "get",
             data: {
                   tempworkid: tempworkid,
-                  awarded_job: 1
             },
             success: function(res) {
                     console.log(res)

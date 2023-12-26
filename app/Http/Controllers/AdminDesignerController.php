@@ -1216,16 +1216,21 @@ class AdminDesignerController extends Controller
     {
         try
         {
-            if(auth()->user()->admin_designer == null)
+            if(auth()->user()->admin_designer == null && auth()->user()->di_designer_id != null )
             {
                 $parent_id = auth()->user()->id;
-            } else{
+            }
+            elseif(HelperFunctions::isPromotedAdminDesigner(Auth::user()))
+            {
                 $parent_id = auth()->user()->di_designer_id;
+
+            }
+             else{
+                $parent_id = auth()->user()->id;
             }
             $record=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>$parent_id,'estimatorApprove'=>0])->pluck('temporary_work_id');
             $awarded=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>$parent_id,'estimatorApprove'=>1])->pluck('temporary_work_id');
             $estimatorWork=TemporaryWork::with('designer')->with('project.company')->whereIn('id',$record)->get();
-            // dd($estimatorWork);
             $AwardedEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments',
             'designerAssign', 'checkerAssign','designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks' , 'creator.userCompany')
             ->whereIn('id', $awarded)
@@ -1233,7 +1238,35 @@ class AdminDesignerController extends Controller
             ->latest()
             ->get();
 
-            // dd($AwardedEstimators);
+            // if(HelperFunctions::isPromotedAdminDesigner(Auth::user()))
+            // {
+            //     $promoted_parent_id = auth()->user()->id;
+            //     $promotedRecord=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>$promoted_parent_id,'estimatorApprove'=>0])->pluck('temporary_work_id');
+            //     $promotedAwarded=EstimatorDesignerList::where(['user_id'=>$promoted_parent_id,'estimatorApprove'=>1])->pluck('temporary_work_id');
+            //     $promotedEstimatorWork=TemporaryWork::with('designer')->with('project.company')->whereIn('id',$promotedAwarded)->get();
+            //     $promotedAwardedEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments',
+            //     'designerAssign', 'checkerAssign','designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks' , 'creator.userCompany')
+            //     ->whereIn('id', $promotedAwarded)
+            //     ->where('work_status', 'publish')
+            //     ->latest()
+            //     ->get();
+            //     $AwardedEstimators = $AwardedEstimators->merge($promotedAwardedEstimators);
+            // }
+
+            // if(HelperFunctions::isAdminDesigner(Auth::user()))
+            // {
+            //     $admin_parent_id = auth()->user()->id;
+            //     $adminRecord=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>$admin_parent_id,'estimatorApprove'=>0])->pluck('temporary_work_id');
+            //     $adminAwarded=EstimatorDesignerList::where(['user_id'=>$admin_parent_id,'estimatorApprove'=>1])->pluck('temporary_work_id');
+            //     $adminEstimatorWork=TemporaryWork::with('designer')->with('project.company')->whereIn('id',$adminAwarded)->get();
+            //     $adminAwardedEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments',
+            //     'designerAssign', 'checkerAssign','designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks' , 'creator.userCompany')
+            //     ->whereIn('id', $adminAwarded)
+            //     ->where('work_status', 'publish')
+            //     ->latest()
+            //     ->get();
+            //     $AwardedEstimators = $AwardedEstimators->merge($adminAwardedEstimators);
+            // }
 
         
             // if (HelperFunctions::isPromotedAdminDesigner(Auth::user())) {
@@ -1246,14 +1279,19 @@ class AdminDesignerController extends Controller
             // }
         
             // // Remove the condition ->orWhere('created_by', Auth::user()->id)
-            if(auth()->user()->admin_designer == null)
+         if(auth()->user()->admin_designer == null && auth()->user()->di_designer_id != null )
             {
                 $parent_id = auth()->user()->id;
-            } else{
+            }
+            elseif(HelperFunctions::isPromotedAdminDesigner(Auth::user()))
+            {
                 $parent_id = auth()->user()->di_designer_id;
+
+            }
+             else{
+                $parent_id = auth()->user()->id;
             }
             $all_admin = User::where('di_designer_id',$parent_id)->where('admin_designer', 1)->pluck('id');
-            // dd($all_admin);
             if (HelperFunctions::isAdminDesigner(Auth::user()) || HelperFunctions::isPromotedAdminDesigner(Auth::user())) {
                 $adminDesignerEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments',
                 'designerAssign', 'checkerAssign', 'designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks')

@@ -74,8 +74,12 @@ class DesignUpload extends Notification
         // dd($this->offerData['cc']);
         if($this->is_check){
             $path = public_path('estimatorPdf/' . $this->offerData['body']['filename']);
+            if(!file_exists($path))
+            $path = public_path('pdf/'.$this->offerData['body']['filename']);
         } else{
             $path = public_path('pdf/' . $this->offerData['body']['filename']);
+            if(!file_exists($path))
+            $path = public_path('estimatorPdf/'.$this->offerData['body']['filename']);
         }
 
        $send_email = (new MailMessage)

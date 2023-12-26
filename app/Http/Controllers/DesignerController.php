@@ -659,6 +659,11 @@ class DesignerController extends Controller
                     Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg, null, $is_check, $cc_emails));
                 } else{
                     // dd("Ttt");
+                    $designer_or_checker_email = ($request->designermail == $tempworkdata->designer_company_email) ? $tempworkdata->desinger_email_2 : $tempworkdata->designer_company_email;
+                    if (!empty($designer_or_checker_email) && !in_array($designer_or_checker_email, $selectedEmails)) {
+                        $selectedEmails[] = $designer_or_checker_email;
+                    }
+
                     $is_check = true;
                     foreach ($selectedEmails as $email) {
                         $notify_admins_msg['greeting'] = 'Designer Upload Document';
@@ -979,21 +984,18 @@ class DesignerController extends Controller
                              <a style="padding: 10px; background: #F9F9F9;margin: 5px;" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>';
                              if(!auth()->user()->hasRole('visitor'))
                              {
-                                if(!isset($request->awarded_job))
-                                {
-                                    $list.='&nbsp;<button class="btn drawingshare" style="padding: 10px; background: #F9F9F9;margin: 5px;" title="Share Design Brief"  data-drawing="'.$uploads->drawing_number.'" data-temp="'. $tempworkid .'" data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
-                                <button class="drawingreply" style="padding: 10px !important; border: none; background: #F9F9F9;margin: 5px;" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>';
-                                }
+
+                                $list.='&nbsp;<button class="btn drawingshare" style="padding: 10px; background: #F9F9F9;margin: 5px;" title="Share Design Brief"  data-drawing="'.$uploads->drawing_number.'" data-temp="'. $tempworkid .'" data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
+                                <button class="drawingreply" style="padding: 10px !important; border: none; background: #F9F9F9;margin: 5px;"   title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>';
+
                                 if($is_permit){
-                                    if(!isset($request->awarded_job))
-                                    {
+                                    
                                         $list .=    '<form id="submit' . $uploads->id . '" method="get" action="' . route("permit.load") . '" style="display:inline-block;">
                                             <input type="hidden" class="temp_work_id" name="temp_work_id" value=' . Crypt::encrypt($tempworkid) . ' />
                                             <input type="hidden"  name="drawingno" value=' . $uploads->drawing_number . ' />
                                                 <input type="hidden"  name="drawingtitle" value=' . $uploads->drawing_title . ' />
                                             <button style="font-size:8px; padding: 10px; background: #F9F9F9;margin: 5px;"" type="button" class="btn  openpermitform"  id="' . $uploads->id . '">Open Permit</button>
                                         </form>';
-                                    }
                                
                                }
                              }
@@ -1003,8 +1005,7 @@ class DesignerController extends Controller
                              <a style="padding: 10px; background: #F9F9F9;margin: 5px;" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>';
                              if(!auth()->user()->hasRole('visitor'))
                              {
-                                 if(!isset($request->awarded_job))
-                                {
+                                 
                                     $list.='&nbsp;<button class="btn  drawingshare" style="padding: 10px; background: #F9F9F9;margin: 5px;" title="Share Design Brief" data-drawing="'.$uploads->drawing_number.'" data-temp="'. $tempworkid .'"  data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
                                     <button class="drawingreply" style="padding: 10px; background: #F9F9F9;margin: 5px; border: none;" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>
                                     <form method="get" action="' . route("permit.load") . '" style="display:inline-block;">
@@ -1014,7 +1015,6 @@ class DesignerController extends Controller
                                         <input type="hidden"  name="drawingtitle" value=' . $uploads->drawing_title . ' />
                                       
                                    </form>';
-                                }
                               
                              }
                           
@@ -1266,6 +1266,550 @@ class DesignerController extends Controller
     </form>';
         echo $list;
     }
+    public function get_di_desings(Request $request)
+    {
+        $tempworkid = $request->tempworkid;
+        $is_shared = $request->shared;
+    
+        $designearray=[];
+        $ramsno=TemporaryWork::with('designerCompanyEmails','creator')->find($tempworkid);
+        $designearray[0]=$ramsno->designer_company_email;
+        if($ramsno->desinger_email_2)
+        {
+        $designearray[1]=$ramsno->desinger_email_2;
+        }
+        $list='';
+        $path = config('app.url');
+        
+        if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('company') || auth()->user()->hasRole('user') || auth()->user()->hasRole('visitor') || auth()->user()->hasRole('designer') | auth()->user()->hasRole('Design Checker') || auth()->user()->hasRole('Designer and Design Checker')) {
+               
+               if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('company') )
+               {
+                $company=Project::find($ramsno->project_id);
+                $coordinators = User::role('user')->select('email')->where('company_id',$company->company_id)->get();
+                $registerupload= TempWorkUploadFiles::with('comment')->where(function ($query) use($coordinators){
+                    $query->whereIn('created_by',$coordinators)
+                    ->orWhere('created_by',auth()->user()->email);
+                    })->where(['file_type'=>1,'temporary_work_id' => $tempworkid])->orderBy('id','desc')->get();
+               }elseif(auth()->user()->hasRole('designer') || auth()->user()->hasRole('Design Checker') || auth()->user()->hasRole('Designer and Design Checker'))
+               {
+               
+                $twc_email =$ramsno->creator->email;
+                $user = User::where('id',Auth::id())->first();
+                $di_user = User::where('id',$user->di_designer_id)->first();
+                $di_designer_email = $di_user->email ?? ''; 
+                // $user = User::where('di_designer_id', $ramsno->creator->id)->first();
+                if($ramsno->project_id)
+                {
+                    $di_email = '';
+                    $company=Project::find($ramsno->project_id);                    
+                    $coordinators = User::role('user')->select('email')->where('company_id',$company->company_id)->get();
+                    if(HelperFunctions::isAdminDesigner(Auth::user()))
+                    {
+                        $di_email = auth()->user()->email;
+                    }
+                    $registerupload= TempWorkUploadFiles::with('comment')->where(function ($query) use($di_email,$coordinators, $twc_email,$di_designer_email){
+                    $query->whereIn('created_by',$coordinators)
+                    ->orWhere('created_by','hani.thaher@gmail.com')
+                    ->orWhere('created_by',$twc_email)
+                    ->orWhere('created_by',$di_designer_email)
+                    ->orWhere('created_by',$di_email);
+                    })->where(['file_type'=>1,'temporary_work_id' => $tempworkid])->orderBy('id','desc')->get();
+                }
+                else{
+                    $user = User::where('id',Auth::id())->first();
+                    $di_designer_email = '';
+                    $di_email = '';
+                    if(HelperFunctions::isAdminDesigner(Auth::user()))
+                    {
+                        $di_email = auth()->user()->email;
+                    }
+                        $di_user = User::where('id',$user->di_designer_id)->first();
+                        $di_designer_email = $di_user->email ?? ''; 
+                        $registerupload= TempWorkUploadFiles::with('comment')->where(function ($query) use($di_email,$twc_email,$di_designer_email){
+                        $query->where('created_by',$di_designer_email)
+                            ->orWhere('created_by',$twc_email)
+                            ->orWhere('created_by',$di_email);
+                    })->where(['file_type'=>1,'temporary_work_id' => $tempworkid])->orderBy('id','desc')->get();
+                }
+                
+               }elseif($is_shared){
+                $twc_email =$ramsno->creator->email;
+                $user = User::where('di_designer_id', $ramsno->creator->id)->first();
+                $di_designer_email = $user->email ?? ''; 
+                $registerupload= TempWorkUploadFiles::with('comment')->where(function ($query) use($twc_email,$di_designer_email){
+                    $query->where(['created_by'=>auth()->user()->email])
+                    ->orWhere('created_by','hani.thaher@gmail.com')
+                    ->orWhere('created_by',$twc_email)
+                    ->orWhere('created_by',$di_designer_email);
+                    })->where(['file_type'=>1,'temporary_work_id' => $tempworkid])->orderBy('id','desc')->get();
+               }
+               else{
+                $twc_email =$ramsno->creator->email;
+                $user = User::where('di_designer_id', $ramsno->creator->id)->first();
+                $di_designer_email = $user->email ?? ''; 
+                $registerupload= TempWorkUploadFiles::with('comment')->where(function ($query) use($twc_email,$di_designer_email){
+                       $query->where(['created_by'=>auth()->user()->email])
+                            ->orWhere('created_by','hani.thaher@gmail.com')
+							   ->orWhere('created_by',$twc_email)
+							   ->orWhere('created_by',$di_designer_email);
+                       })->where(['file_type'=>1,'temporary_work_id' => $tempworkid])->orderBy('id','desc')->get();
+               }
+               
+               if($registerupload)
+                {
+                    $list.="<h3>Admin Designer Uploaded</h3>";            
+                    $list .= '<table class="table " style="border-radius: 8px; overflow: hidden;"><thead ><tr style="background: #07D564 !important;">';
+                    $list .= '<th style="color: white !important;">No</th>';
+                    $list .= '<th style="color: white !important;">Drawing No</th>';
+                    $list .= '<th style="color: white !important;">Comments</th>';
+                    $list .= '<th style="color: white !important;">Designer Name</th><th style="color: white !important;">Drawing Title</th><th style="color: white !important;">Preliminary / For approval</th><th style="color: white !important;">For Construction Drawing</th><th style="color: white !important;">Action</th><th></th>';
+                    $list .= '</tr></thead><tbody>';
+                     $i = 1;
+                     $background='';
+                     $userList = []; 
+                            
+                     $checksamenodesign='';
+                     $drawing_number = [];
+                    foreach ($registerupload as $uploads) {
+                        $is_permit = 1;
+                        $parts = explode('-', $uploads->drawing_number);
+                        $originalNumber = $parts[0];
+                        $originalNumber = $uploads->drawing_number;
+                        if(in_array($originalNumber, $drawing_number) )
+                        {
+                            // dd($drawing_number,$uploads->drawing_number);
+                            $is_permit=0;
+                        }
+                        // dd($originalNumber, $is_permit);
+                        $drawing_number[] = $originalNumber;
+                        $papproval = 'No';
+                        $construction = 'No';
+                        $dno=explode('-',$uploads->drawing_number);
+                        $drawinglastno=$dno[sizeof($dno)-1];
+                        $sliced = array_slice($dno, 0, -1);
+                        $string = implode("-", $sliced);
+
+                        $remove_p_c =  ltrim(ltrim($drawinglastno, 'P') , 'C');
+                        $fullString=$string.$remove_p_c;
+                        if(!in_array($fullString,$userList))
+                        {
+                            $userList[] = $fullString;
+
+                            $background = $uploads->preliminary_approval==1 ? '#FAFF0099' : '#3A7DFF38'; 
+                        
+                        }else{
+                            $background = "";
+                        }
+                        if ($uploads->preliminary_approval == 1) {
+                            
+                            $papproval = 'Yes';
+                        } elseif ($uploads->construction == 1) {
+                            $construction = 'Yes';
+                        }
+                        if($is_permit==0){$background  = '#FF0A0B40';}
+                        $list .= '<tr class="clickable-row viewdrawing_popup cursor-pointer" data-drawing="'.$uploads->drawing_number.'" data-temp="'. $tempworkid .'" data-href="' . $path . $uploads->file_name . '" style="background:' . $background . '">';
+                        $list .= '<td style="text-align:Center; !important;">' . $i . '</td>';
+                        $list .= '<td style="text-align:Center; !important;">' . $uploads->drawing_number . '</td>';
+                        $list .= '<td style="text-align:Center; !important;">' . $uploads->comments . '</td>';
+                        $list .= '<td style="text-align:Center; !important;">' . $uploads->twd_name . '</td>';
+                        $list .= '<td  style="text-align:Center; !important;">' . $uploads->drawing_title . '</td>';
+                        $list .= '<td  style="text-align:Center; !important;">' . $papproval . '</td>';
+                        $list .= '<td style="text-align:Center; !important;">' . $construction . '</td>';
+                        if ($construction == 'Yes') {
+                            $list .= '<td style="display:flex; height:40px;">
+                                 <a style="color:#fff !important;" class="btn btn-primary btn-small" title="View Drawing" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>';                           
+                                $list .= '</td>';
+                        } else {
+                            $list .= '<td style="display:flex">
+                            
+                           
+                                <a class="btn" style="font-weight:bold;color:#9C9C9C " title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>';
+                                $list.='</td>';
+                        }
+                        // $delete = route('designer.delete',$uploads->id);
+                        if(!auth()->user()->hasRole('visitor'))
+                        {
+                            $list .= '<td style="style="text-align: center; vertical-align: middle;"">
+                            <button class="mt-2 deletedrawing" style="border-radius:4px; border:none;background: transparent; padding:5px;" title="Reply To Designer" data-id="'.$uploads->id.'"><i  class="fa fa-trash"></i></button>';
+                        }
+                      
+                        // <a class="btn" href="'.$delete.'"><i class="fas fa-trash"></i></a></td></tr>';
+                        if(count($uploads->comment)>0)
+                        {
+                            $j=1;
+
+                            foreach($uploads->comment as $comment)
+                            {
+                                 $reply='';
+                                 $replydate='';
+                                if(isset($comment->drawing_reply[0]))
+                                {
+                                    $reply=$comment->drawing_reply[0];
+                                }
+                                if(isset($comment->reply_date[0]))
+                                {
+                                    $replydate=date("d-m-Y H:i", strtotime($comment->reply_date[0]));
+                                }
+                                $image = '';
+                                if (isset($comment->reply_image[0])) {
+                                    $n = strrpos($comment->reply_image[0], '.');
+                                    $ext = substr($comment->reply_image[0], $n + 1);
+                                    if ($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg') {
+                                        $image = '<a target="_blank" href="' . $path . $comment->reply_image[0] . '"><img src="' . $path . $comment->reply_image[0] . '" width="50px" height="50px"/></a>';
+                                    } else {
+                                        $image = '<a target="_blank" href="' . $path . $comment->reply_image[0] . '">View File</a>';
+                                    }
+                                }
+                                $list .='<tr>';
+                                $list .='<td>'.$i.'-'.$j.'</td>';
+                                $list .='<td>Comment/Reply</td>';
+                                $list .='<td colspan="5" style="white-space: pre-wrap;max-width:30px;overflow-x:scroll;">'.$comment->sender_email.'<br><b>'.$comment->drawing_comment.'</b><br>'.date('d-m-Y H:i',strtotime($comment->created_at)).'</td>';
+                                $list .='<td colspan="5" style="white-space: pre-wrap;">'.$comment->reply_email.'<br><b>'.$reply.'</b><br>'.$image.'<br>'.$replydate.'</td>';
+                                $list .='</tr>';
+                                $j++;
+
+                            }
+                            
+                        }
+                        $i++;
+                    }
+                    $list .= '</tbody></table>';
+                }
+        }
+
+        
+        for($j=0;$j<count($designearray);$j++)
+        {
+            $DesignerUploads = TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 1,'created_by'=>$designearray[$j]])->orderBy('id','desc')->get();            
+            $i = 1;
+            if($DesignerUploads)
+            {
+                if($j==0)
+                {
+                    $list.="<h3>Designer Company </h3>";
+                }
+                else{
+                     $list.="<h3>Design Checker Company</h3>";
+                }
+                
+                $list .= '<table class="table table-hover"><thead><tr>';
+                $list .= '<table class="table" style="border-radius: 8px; overflow: hidden;"><thead><tr style="background: #07D564 !important">';
+                $list .= '<th style="color: white !important;">No</th>';
+                $list .= '<th style="color: white !important;">Drawing No</th>';
+                $list .= '<th style="color: white !important;">Comments</th>';
+                $list .= '<th style="color: white !important;">Designer Name</th><th style="color: white !important;">Drawing Title</th>';
+                $list .= '<th style="color: white !important;">Preliminary / For approval</th><th style="color: white !important;">For Construction Drawing</th>';
+                $list .= '<th style="color: white !important;">Action</th><th></th>';
+                $list .= '</tr></thead><tbody>';
+                $list .= '</tr></thead><tbody>';
+                $background='';
+                $drawing_number = [];
+                $userList=[];
+                foreach ($DesignerUploads as $uploads) {
+                    $is_permit = 1;
+                    $parts = explode('-', $uploads->drawing_number);
+                    $originalNumber = $parts[0];
+                    $originalNumber = $uploads->drawing_number;
+                    if(in_array($originalNumber, $drawing_number) )
+                    {
+                        // dd($drawing_number,$uploads->drawing_number);
+                        $is_permit=0;
+                    }
+
+                    $drawing_number[] = $originalNumber;
+
+                    $papproval = 'No';
+                    $construction = 'No';
+                     $dno=explode('-',$uploads->drawing_number);
+                        $drawinglastno=$dno[sizeof($dno)-1];
+                        $sliced = array_slice($dno, 0, -1);
+                        $string = implode("-", $sliced);
+
+                        $remove_p_c =  ltrim(ltrim($drawinglastno, 'P') , 'C');
+                        $fullString=$string.$remove_p_c;
+                        if(!in_array($fullString,$userList))
+                        {
+                            $userList[] = $fullString;
+
+                            $background = $uploads->preliminary_approval==1 ? '#FAFF0099' : '#3A7DFF38'; 
+                        
+                        }else{
+                            // $background = ""; comment for testing
+                            $background = $uploads->preliminary_approval==1 ? '#FAFF0099' : '#3A7DFF38'; 
+                        }
+                        if ($uploads->preliminary_approval == 1) {
+                            
+                            $papproval = 'Yes';
+                        } elseif ($uploads->construction == 1) {
+                            $construction = 'Yes';
+                        }
+                        if($is_permit==0){$background  = '#FF0A0B40';}
+
+                    $list .= '<tr class="clickable-row viewdrawing_popup cursor-pointer" data-drawing="'.$uploads->drawing_number.'" data-temp="'. $tempworkid .'" data-href="' . $path . $uploads->file_name . '" style="background:' . $background . '">';
+                    $list .= '<td style="text-align: center; vertical-align: middle;">' . $i . '</td>';
+                    $list .= '<td style="text-align: center; vertical-align: middle;">' . $uploads->drawing_number . '</td>';
+                    $list .= '<td style="text-align: center; vertical-align: middle;">' . $uploads->comments . '</td>';
+                    $list .= '<td style="text-align: center; vertical-align: middle;">' . $uploads->twd_name . '</td>';
+                    $list .= '<td style="text-align: center; vertical-align: middle;">' . $uploads->drawing_title . '</td>';
+                    $list .= '<td style="text-align: center; vertical-align: middle;">' . $papproval . '</td>';
+                    $list .= '<td style="text-align: center; vertical-align: middle;">' . $construction . '</td>';
+                    if ($construction == 'Yes') {
+                        $list .= '<td style="display:flex">
+                             <a style="padding: 10px; background: #F9F9F9;margin: 5px;" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>';
+                            $list .= '</td>';
+                    } else {
+                        $list .= '<td style="display:flex">
+                             <a style="padding: 10px; background: #F9F9F9;margin: 5px;" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>';
+                            $list.= '</td>';
+                    }
+                    // $delete = route('designer.delete',$uploads->id);
+                        if(!auth()->user()->hasRole('visitor'))
+                            {
+                            $list .= '<td style="text-align: center; vertical-align: middle;">
+                            <button class="mt-2 deletedrawing" style="border-radius:4px; border:none;background: transparent; padding:5px;" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-trash"></i></button>
+                            </td></tr>';
+                            }
+                       
+                    if(count($uploads->comment)>0)
+                    {
+                        $k=1;
+
+                        foreach($uploads->comment as $comment)
+                        {
+                             $reply='';
+                             $replydate='';
+                            if(isset($comment->drawing_reply[0]))
+                            {
+                                $reply=$comment->drawing_reply[0];
+                            }
+                            if(isset($comment->reply_date[0]))
+                            {
+                                $replydate=date("d-m-Y H:i", strtotime($comment->reply_date[0]));
+                            }
+                             $image = '';
+                                if (isset($comment->reply_image[0])) {
+                                    $n = strrpos($comment->reply_image[0], '.');
+                                    $ext = substr($comment->reply_image[0], $n + 1);
+                                    if ($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg') {
+                                        $image = '<a target="_blank" href="' . $path . $comment->reply_image[0] . '"><img src="' . $path . $comment->reply_image[0] . '" width="50px" height="50px"/></a>';
+                                    } else {
+                                        $image = '<a target="_blank" href="' . $path . $comment->reply_image[0] . '">View File</a>';
+                                    }
+                                }
+                            $list .='<tr background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), rgba(7, 213, 100, 0.5);>';
+                            $list .='<td style="text-align: center; ">'.$i.'-'.$k.'</td>';
+                            $list .='<td style="text-align: center; font-weight: bold;">Comment/Reply:</td>';
+                            $list .='<td colspan="5" style="white-space: pre-wrap;;max-width:30px;overflow-x:scroll;">'.$comment->sender_email.'<br><b style="white-space:pre-wrap;">'.$comment->drawing_comment.'</b><br>'.date('d-m-Y H:i',strtotime($comment->created_at)).'</td>';
+                            $list .='<td colspan="5" style="white-space: pre-wrap;">'.$comment->reply_email.'<br><b>'.$reply.'</b><br>'.$image.'<br>'.$replydate.'</td>';
+                        //     $delete = route('designer.delete',$uploads->id);
+                        // $list .= '<td><a class="btn" href="'.$delete.'"><i class="fas fa-trash"></i></a></td></tr>';
+                            $k++;
+
+                        }
+                        
+                    }
+                    $i++;
+                }
+                      
+                $list .= '</tbody></table>';
+            }
+ 
+        }
+        //Extra designer code begin here
+
+        for($j=0;$j<count($ramsno->designerCompanyEmails);$j++)
+        {
+            $DesignerUploads = TempWorkUploadFiles::with('comment')->where(['temporary_work_id' => $tempworkid, 'file_type' => 1,'created_by'=>$ramsno->designerCompanyEmails[$j]->email])->orderBy('id','desc')->get();           
+            // $i = 1;
+            if($DesignerUploads)
+            {
+                
+                $list.="<h3>Designer Company </h3>";
+                // $list .= '<table class="table table-hover"><thead><tr>';
+                $list .= '<table class="table" style="border-radius: 8px; overflow: hidden;"><thead>';
+                $list .= '<tr style="background: #07D564 !important"><th style="color: white !important;">No</th>';
+                $list .= '<th style="color: white !important;">Drawing No</th>';
+                $list .= '<th style="color: white !important;">Comments</th>';
+                $list .= '<th style="color: white !important;">Designer Name</th><th style="color: white !important;">Drawing Title</th><th style="color: white !important;">Preliminary / For approval</th><th style="color: white !important;">For Construction Drawing</th><th style="color: white !important;">Action</th><th></th>';
+                    $list .= '</tr></thead><tbody>';
+                // $list .= '</tr></thead><tbody>';
+
+                $background='';
+                $drawing_number = [];
+                $userList=[];
+                foreach ($DesignerUploads as $uploads) {
+                    $is_permit = 1;
+                    $parts = explode('-', $uploads->drawing_number);
+                    $originalNumber = $parts[0];
+                    $originalNumber = $uploads->drawing_number;
+                    if(in_array($originalNumber, $drawing_number) )
+                    {
+                        // dd($drawing_number,$uploads->drawing_number);
+                        $is_permit=0;
+                    }
+
+                    $drawing_number[] = $originalNumber;
+
+                    $papproval = 'No';
+                    $construction = 'No';
+                     $dno=explode('-',$uploads->drawing_number);
+                        $drawinglastno=$dno[sizeof($dno)-1];
+                        $sliced = array_slice($dno, 0, -1);
+                        $string = implode("-", $sliced);
+
+                        $remove_p_c =  ltrim(ltrim($drawinglastno, 'P') , 'C');
+                        $fullString=$string.$remove_p_c;
+                        if(!in_array($fullString,$userList))
+                        {
+                            $userList[] = $fullString;
+
+                            $background = $uploads->preliminary_approval==1 ? '#FAFF0099' : '#3A7DFF38'; 
+                        
+                        }else{
+                            // $background = ""; comment for testing
+                            $background = $uploads->preliminary_approval==1 ? '#FAFF0099' : '#3A7DFF38'; 
+                        }
+                        if ($uploads->preliminary_approval == 1) {
+                            
+                            $papproval = 'Yes';
+                        } elseif ($uploads->construction == 1) {
+                            $construction = 'Yes';
+                        }
+                        if($is_permit==0){$background  = '#FF0A0B40';}
+
+                    $list .= '<tr class="clickable-row viewdrawing_popup cursor-pointer" data-drawing="'.$uploads->drawing_number.'" data-temp="'. $tempworkid .'" data-href="' . $path . $uploads->file_name . '" style="background:' . $background . '">';
+                    $list .= '<td style="text-align: center; vertical-align: middle;">' . $i . '</td>';
+                    $list .= '<td style="text-align: center; vertical-align: middle;">' . $uploads->drawing_number . '</td>';
+                    $list .= '<td style="text-align: center; vertical-align: middle;">' . $uploads->comments . '</td>';
+                    $list .= '<td style="text-align: center; vertical-align: middle;">' . $uploads->twd_name . '</td>';
+                    $list .= '<td style="text-align: center; vertical-align: middle;">' . $uploads->drawing_title . '</td>';
+                    $list .= '<td style="text-align: center; vertical-align: middle;">' . $papproval . '</td>';
+                    $list .= '<td style="text-align: center; vertical-align: middle;">' . $construction . '</td>';
+                    if ($construction == 'Yes') {
+                        $list .= '<td style="display:flex">
+                             <a style="padding: 10px; background: #F9F9F9;margin: 5px;" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>';
+                             if(!auth()->user()->hasRole('visitor'))
+                             {
+                                $list.='&nbsp;<button class="btn drawingshare" style="padding: 10px; background: #F9F9F9;margin: 5px;" title="Share Design Brief"  data-drawing="'.$uploads->drawing_number.'" data-temp="'. $tempworkid .'" data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
+                                <button class="drawingreply" style="padding: 10px !important; border: none; background: #F9F9F9;margin: 5px;" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>';
+                                if($is_permit){
+                                $list .=    '<form id="submit' . $uploads->id . '" method="get" action="' . route("permit.load") . '" style="display:inline-block;">
+                                   <input type="hidden" class="temp_work_id" name="temp_work_id" value=' . Crypt::encrypt($tempworkid) . ' />
+                                   <input type="hidden"  name="drawingno" value=' . $uploads->drawing_number . ' />
+                                    <input type="hidden"  name="drawingtitle" value=' . $uploads->drawing_title . ' />
+                                   <button style="font-size:8px; padding: 10px; background: #F9F9F9;margin: 5px;"" type="button" class="btn  openpermitform"  id="' . $uploads->id . '">Open Permit</button>
+                               </form>';
+                               }
+                             }
+                            
+                            $list .= '</td>';
+                    } else {
+                        $list .= '<td style="display:flex">
+                             <a style="padding: 10px; background: #F9F9F9;margin: 5px;" title="View Design Brief" href="' . $path . $uploads->file_name . '" target="_blank">D' . $i . '</a>';
+                             if(!auth()->user()->hasRole('visitor'))
+                             {
+                                $list.='&nbsp;<button class="btn  drawingshare" style="padding: 10px; background: #F9F9F9;margin: 5px;" title="Share Design Brief" data-drawing="'.$uploads->drawing_number.'" data-temp="'. $tempworkid .'" data-email="'.$ramsno->desinger_email_2.'" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-share-alt"></i></button>&nbsp;
+                                <button class="drawingreply" style="padding: 10px; background: #F9F9F9;margin: 5px; border: none;" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-reply"></i></button>
+                                <form method="get" action="' . route("permit.load") . '" style="display:inline-block;">
+                                   <input type="hidden" name="rams_no" value'.$ramsno->rams_no.'/>
+                                   <input type="hidden" class="temp_work_id" name="temp_work_id" value=' . Crypt::encrypt($tempworkid) . ' />
+                                   <input type="hidden"  name="drawingno" value=' . $uploads->drawing_number . ' />
+                                    <input type="hidden"  name="drawingtitle" value=' . $uploads->drawing_title . ' />
+                                  
+                               </form>';
+                             }
+                           
+                            $list.='</td>';
+                    }
+                    // $delete = route('designer.delete',$uploads->id);
+                    if(!auth()->user()->hasRole('visitor'))
+                    {
+                        $list .= '<td style="text-align: center; vertical-align: middle;">
+                        <button class="mt-2 deletedrawing" style="border-radius:4px; border:none;background: transparent; padding:5px;" title="Reply To Designer" data-id="'.$uploads->id.'"><i style="padding:3px;" class="fa fa-trash"></i></button>
+                        </td></tr>';
+                    }
+                    if(count($uploads->comment)>0)
+                    {
+                        $k=1;
+
+                        foreach($uploads->comment as $comment)
+                        {
+                             $reply='';
+                             $replydate='';
+                            if(isset($comment->drawing_reply[0]))
+                            {
+                                $reply=$comment->drawing_reply[0];
+                            }
+                            if(isset($comment->reply_date[0]))
+                            {
+                                $replydate=date("d-m-Y H:i", strtotime($comment->reply_date[0]));
+                            }
+                             $image = '';
+                                if (isset($comment->reply_image[0])) {
+                                    $n = strrpos($comment->reply_image[0], '.');
+                                    $ext = substr($comment->reply_image[0], $n + 1);
+                                    if ($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg') {
+                                        $image = '<a target="_blank" href="' . $path . $comment->reply_image[0] . '"><img src="' . $path . $comment->reply_image[0] . '" width="50px" height="50px"/></a>';
+                                    } else {
+                                        $image = '<a target="_blank" href="' . $path . $comment->reply_image[0] . '">View File</a>';
+                                    }
+                                }
+                            $list .='<tr background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), rgba(7, 213, 100, 0.5);>';
+                            $list .='<td style="text-align: center; ">'.$i.'-'.$k.'</td>';
+                            $list .='<td style="text-align: center; font-weight: bold;">Comment/Reply:</td>';
+                            $list .='<td colspan="5" style="white-space: pre-wrap;max-width:30px;overflow-x:scroll;">'.$comment->sender_email.'<br><b style="white-space:pre-wrap;">'.$comment->drawing_comment.'</b><br>'.date('d-m-Y H:i',strtotime($comment->created_at)).'</td>';
+                            $list .='<td colspan="5" style="white-space: pre-wrap;">'.$comment->reply_email.'<br><b>'.$reply.'</b><br>'.$image.'<br>'.$replydate.'</td>';
+                        //     $delete = route('designer.delete',$uploads->id);
+                        // $list .= '<td><a class="btn" href="'.$delete.'"><i class="fas fa-trash"></i></a></td></tr>';
+                            $k++;
+
+                        }
+                        
+                    }
+                    $i++;
+                }
+                      
+                $list .= '</tbody></table>';
+            }
+ 
+        }
+       
+        $calc = route('riskassesment.store');
+        $list.=' <h3 style="margin-top:50px;">Upload Documents by TWC </h3>
+        <form class="form-group" action="'.$calc.'" method="post" enctype="multipart/form-data" style="width: 100%;margin: auto 0;">
+        <input type="hidden" name="_token" value="' . csrf_token() . '"/>
+        <input type="hidden" name="tempworkid" value="'.$tempworkid.'"">
+        <input type="hidden" name="designermail" value="">
+        <div class="row" style="background:white;">
+             <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1" style="margin: 0px; font-weight:bold; padding:0px !important;">Select Document
+                            Type:</label><br>
+                        <select class="form-select form-control" name="type" required>
+                            <option value="" disabled></option>
+                            <option value="" selected disabled>Risk Assessment-Calculations</option>
+                            <option value="5">Risk Assessment</option>
+                            <option value="6">Calculations (Design Notes)</option>
+                        </select>
+                    </div>
+                </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="exampleInputEmail1" style="margin: 0px; font-weight:bold; padding:0px !important;">Select Document:</label><br>
+                    <input type="file" class="form-control" id="riskassesmentfile"
+                        name="riskassesmentfile" required="required">
+                </div>
+            </div>
+            <div class="col-md-2 " style="margin-top: 1.3rem !important;" >
+            <button type="submit" class="btn btn-primary " style="padding:7px 15px">Upload</button>
+             </div>
+        </div>
+
+    </form>';
+        echo $list;
+    }
+    
 
 //duplicated get_desings for fetching twd names
     public function get_designersinfo(Request $request)

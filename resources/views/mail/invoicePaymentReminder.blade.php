@@ -24,10 +24,12 @@
                                                             <td style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;padding:35px"><span class="im">
                                                                     <h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:19px;font-weight:bold;margin-top:0;text-align:left">Hello </h1> 
                                                                     <br>
-                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">{{isset($invoiceDetails['body']['message']) ? $invoiceDetails['body']['message'] : ''}}</p>
-                                                                    @if($invoiceDetails['body']['type'] && $invoiceDetails['body']['type'] == 1)
-                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">If the payment has already been paid, click <a href="{{route('invoice_payment_reminder',Crypt::encrypt($invoiceDetails['body']['invoiceId']))}}">here</a> to update status</p>
-                                                                    @endif
+                                                                    <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">
+                                                                        You have {{$days}} days in  payment. kindly find the attached Invoice Document and  update the payment by clicking on the link
+                                                                   </p>
+                                                                   <a href="{{route('invoice_payment_reminder',Crypt::encrypt($invoiceId))}}">Update Payment</a><br><br>
+
+                                                            
                                                                 </span>
                                                             </td>
                                                         </tr>

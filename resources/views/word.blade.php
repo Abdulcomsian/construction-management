@@ -24,34 +24,28 @@
         }
         @endphp
       <tr>
-            <td style="width:50%;">
+            <td style="width:40%;">
                 <div class="heading-2" style="font-weight:bold;">Invoice No</div>{{ $data['invoice_number'] ?? '' }}
                 <div class="heading-2" style="font-weight:bold;">Email:</div>{{$data['sender_email'] ?? ''}}
                 <div class="heading-2" style="font-weight:bold;">Date of Payment:</div>{{$date_of_payment ?? ''}}
-                <div class="heading-2" style="font-weight:bold;">Payment Status:</div>{{$data['payment_status'] ?? ''}}
                 {{-- <div class="heading" style="font-weight:bold; font-size:17pt;">TAX INVOICE</div> --}}
                 <p>
                   {{-- {{$data['tax_invoice'] ?? ''}} --}}
                 </p>
             </td>
-            <td style="width:20%;">
-                <div class="heading-2" style="font-weight:bold;">Invoice Date</div>
-                {{$invoice_date ?? ''}}
-                <div class="heading-2" style="font-weight:bold;"> Invoice Number</div>
-                {{$data['number'] ?? ''}}
-                <div class="heading-2" style="font-weight:bold;"> Reference</div>
-                {{$data['reference'] ?? ''}}
+            <td style="width:30%;">
+                <div class="heading-2" style="font-weight:bold;padding-bottom:5px;">Invoice Date</div>
+                <p>{{$invoice_date ?? ''}}</p>
+                <div class="heading-2" style="font-weight:bold;padding-bottom:5px;">Reference</div>
+                <p>{{$data['reference'] ?? ''}}</p>
+                <div class="heading-2" style="font-weight:bold;padding-bottom:5px;">Payment Status</div>
+                <p>{{$data['payment_status'] ?? ''}}</p>
             </td>
     
-    <td style="width:3%;"></td>
     
-            <td style="width:27%;">
-                <p style="resize: none;
-                white-space: nowrap;
-                overflow-x: scroll;">
-                    {{$user->companyProfile->company_address ?? ''}}
-                </p>
-    
+            <td style="width:30%;text-align:left">
+                <p>{{$user->companyProfile->company_address ?? ''}}</p>
+                <p><b>VAT# </b>{{$user->companyProfile->vat_number ?? ''}}</p>
             </td>
     
       </tr>
@@ -123,27 +117,24 @@
     
     <br/>
     <br/>
-    <div class="payment">
-        {{-- <span style="font-weight:bold; font-size:12pt;">Due Date: {{$invoice_date ?? ''}}</span> --}}
+    <div class="payment" >
         <p>
-    Payment Details <br/>
-    {{$user->paymentDetail->bank ?? ''}} <br/>
-    Sort Code:  {{$user->paymentDetail->sort_code ?? ''}} <br/>
-    A/c Number:  {{$user->paymentDetail->account_number ?? ''}} <br/>
-    SWIFTBIC:  {{$user->paymentDetail->swiftbic ?? ''}} <br/>
-    IBAN: {{$user->paymentDetail->iban ?? ''}}
-    
-                </p>
-    
+            <b>Payment Details</b><br/>
+            <b>Bank: </b>{{$user->paymentDetail->bank ?? ''}} <br/>
+            <b>Sort Code: </b>{{$user->paymentDetail->sort_code ?? ''}} <br/>
+            <b>A/c Number: </b>{{$user->paymentDetail->account_number ?? ''}} <br/>
+            <b>SWIFTBIC: </b>{{$user->paymentDetail->swiftbic ?? ''}} <br/>
+            <b>IBAN: </b>{{$user->paymentDetail->iban ?? ''}}
+        </p>
     </div>
     <br/>
-    <div class="contact">
+    <div class="contact" >
         <p>
-    Contact information <br/>
-    Name: {{$user->companyProfile->company_name ?? ''}} <br/>
-    Email: {{$user->companyProfile->company_email ?? ''}} <br/>
-    Phone: {{$user->companyProfile->phone ?? ''}} <br/>
-    {{$user->companyProfile->website ?? ''}}
+            <b>Contact information</b><br/>
+            <b>Name: </b>{{$user->companyProfile->company_name ?? ''}} <br/>
+            <b>Email: </b>{{$user->companyProfile->comapny_email ?? ''}} <br/>
+            <b>Phone: </b>{{$user->companyProfile->phone ?? ''}} <br/>
+            <b>Website: </b>{{$user->companyProfile->website ?? ''}} <br/>
         </p>
     </div>
     

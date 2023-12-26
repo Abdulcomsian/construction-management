@@ -106,7 +106,7 @@
         </div>
     </div>
     @endif
-    @elseif(auth()->user()->di_designer_id == null)
+    @elseif(auth()->user()->di_designer_id == null || auth()->user()->admin_designer == 1)
         <div class="row">
             <p><b>Desinger: </b>{{$estimatorDesigner->email ?? ''}}</p>
             <div class="col-12">

@@ -1216,16 +1216,21 @@ class AdminDesignerController extends Controller
     {
         try
         {
-            if(auth()->user()->admin_designer == null)
+            if(auth()->user()->admin_designer == null && auth()->user()->di_designer_id != null )
             {
                 $parent_id = auth()->user()->id;
-            } else{
+            }
+            elseif(HelperFunctions::isPromotedAdminDesigner(Auth::user()))
+            {
                 $parent_id = auth()->user()->di_designer_id;
+
+            }
+             else{
+                $parent_id = auth()->user()->id;
             }
             $record=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>$parent_id,'estimatorApprove'=>0])->pluck('temporary_work_id');
             $awarded=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>$parent_id,'estimatorApprove'=>1])->pluck('temporary_work_id');
             $estimatorWork=TemporaryWork::with('designer')->with('project.company')->whereIn('id',$record)->get();
-            // dd($estimatorWork);
             $AwardedEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments',
             'designerAssign', 'checkerAssign','designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks' , 'creator.userCompany')
             ->whereIn('id', $awarded)
@@ -1233,7 +1238,35 @@ class AdminDesignerController extends Controller
             ->latest()
             ->get();
 
-            // dd($AwardedEstimators);
+            // if(HelperFunctions::isPromotedAdminDesigner(Auth::user()))
+            // {
+            //     $promoted_parent_id = auth()->user()->id;
+            //     $promotedRecord=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>$promoted_parent_id,'estimatorApprove'=>0])->pluck('temporary_work_id');
+            //     $promotedAwarded=EstimatorDesignerList::where(['user_id'=>$promoted_parent_id,'estimatorApprove'=>1])->pluck('temporary_work_id');
+            //     $promotedEstimatorWork=TemporaryWork::with('designer')->with('project.company')->whereIn('id',$promotedAwarded)->get();
+            //     $promotedAwardedEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments',
+            //     'designerAssign', 'checkerAssign','designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks' , 'creator.userCompany')
+            //     ->whereIn('id', $promotedAwarded)
+            //     ->where('work_status', 'publish')
+            //     ->latest()
+            //     ->get();
+            //     $AwardedEstimators = $AwardedEstimators->merge($promotedAwardedEstimators);
+            // }
+
+            // if(HelperFunctions::isAdminDesigner(Auth::user()))
+            // {
+            //     $admin_parent_id = auth()->user()->id;
+            //     $adminRecord=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>$admin_parent_id,'estimatorApprove'=>0])->pluck('temporary_work_id');
+            //     $adminAwarded=EstimatorDesignerList::where(['user_id'=>$admin_parent_id,'estimatorApprove'=>1])->pluck('temporary_work_id');
+            //     $adminEstimatorWork=TemporaryWork::with('designer')->with('project.company')->whereIn('id',$adminAwarded)->get();
+            //     $adminAwardedEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments',
+            //     'designerAssign', 'checkerAssign','designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks' , 'creator.userCompany')
+            //     ->whereIn('id', $adminAwarded)
+            //     ->where('work_status', 'publish')
+            //     ->latest()
+            //     ->get();
+            //     $AwardedEstimators = $AwardedEstimators->merge($adminAwardedEstimators);
+            // }
 
         
             // if (HelperFunctions::isPromotedAdminDesigner(Auth::user())) {
@@ -1246,14 +1279,19 @@ class AdminDesignerController extends Controller
             // }
         
             // // Remove the condition ->orWhere('created_by', Auth::user()->id)
-            if(auth()->user()->admin_designer == null)
+         if(auth()->user()->admin_designer == null && auth()->user()->di_designer_id != null )
             {
                 $parent_id = auth()->user()->id;
-            } else{
+            }
+            elseif(HelperFunctions::isPromotedAdminDesigner(Auth::user()))
+            {
                 $parent_id = auth()->user()->di_designer_id;
+
+            }
+             else{
+                $parent_id = auth()->user()->id;
             }
             $all_admin = User::where('di_designer_id',$parent_id)->where('admin_designer', 1)->pluck('id');
-            // dd($all_admin);
             if (HelperFunctions::isAdminDesigner(Auth::user()) || HelperFunctions::isPromotedAdminDesigner(Auth::user())) {
                 $adminDesignerEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments',
                 'designerAssign', 'checkerAssign', 'designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks')
@@ -1291,7 +1329,7 @@ class AdminDesignerController extends Controller
     
     public function invoices(){
         $user = Auth::user();
-        $invoices = Invoice::where('admindesigner_id',Auth::id())->get();
+        $invoices = Invoice::where('admindesigner_id',Auth::id())->paginate(10);
         return view('dashboard.adminDesigners.invoices',['user'=>$user,'invoices'=>$invoices]);
 } 
     public function generateinvoice(){
@@ -1310,6 +1348,11 @@ class AdminDesignerController extends Controller
     }   
     
     public function saveinvoice(Request $request){
+        $request->validate([
+            'date' => 'required|date',
+            'date_of_payment' => 'required|date|after_or_equal:date',
+            'send_email' => 'required|email',
+        ]);
         $phpWord = new \PhpOffice\PhpWord\PhpWord();
 
         $section = $phpWord->addSection();
@@ -1370,17 +1413,25 @@ class AdminDesignerController extends Controller
         response()->download(public_path($fileName));
         if($request->send_email)
         {
-            Notification::route('mail',  $request->send_email ?? '')->notify(new InvoiceNotification($fileName,$user->companyProfile->company_name));
+            $invoice_notify_msg = [
+                'greeting' => 'Hello',
+                'subject' => isset($user->companyProfile->company_name) ? 'Invoice | '.$user->companyProfile->company_name : 'Invoice',
+                'body' => [
+                     'message'=>'please find the attached Invoice.',
+                    'invoice_number' => $request->invoice_number,
+                    'attachfile' => $fileName,
+                    'designer_company' => $user->companyProfile->company_name ?? '',
+                    'type'=>1,
+                    'invoiceId' => $generate_invoice->id ?? '',
+                ],
+                'thanks_text' => 'Thanks For Using our site',
+            ];
+            Notification::route('mail',  $request->send_email ?? '')->notify(new InvoiceNotification($invoice_notify_msg));
         }
         toastSuccess('Invoice Generated Successfully');
         return redirect()->route('invoices');
     }
 
-    public function downloadinvoice(Request $request,$id)
-    {
-        $invoice = Invoice::find($id);
-        return response()->download(public_path($invoice->file_name));
-    }
     public function updateinvoicestatus(Request $request, $id)
     {
         $invoice = Invoice::find($id)->first();
@@ -1389,6 +1440,45 @@ class AdminDesignerController extends Controller
          {
             toastSuccess('Invoice Status Successfully Updated');
          }
+        return redirect()->back();
+    }
+    public function invoicepaymentreminder($id)
+    {
+        $id = \Crypt::decrypt($id);
+        return view('dashboard.adminDesigners.receiver_invoice_details',compact('id'));
+    }
+    public function saveinvoicepaymentproof(Request $request, $id)
+    {
+        $request->validate([
+            'invoice_payment_details' => 'required',
+            'attachfile' => 'required|file',
+        ]);
+        $invoiceDetails = Invoice::with('userDetails')->find($id);
+        if($request->file('attachfile'))
+        {
+            $filePath  = "invoices/invoice-receipts/";
+            $public_path = public_path($filePath);
+            $file = $request->file('attachfile');
+            File::isDirectory($public_path) or File::makeDirectory($public_path, 0777, true, true);
+            $filename = 'receipt'.'-'.$invoiceDetails->id.'-'.time() . rand(10000, 99999) . '.' .$file->getClientOriginalExtension();
+            $file->move($public_path, $filename);
+            $attachDoc = $filePath.$filename;
+        }
+        $invoice_notify_msg = [
+            'greeting' => 'Hello',
+            'subject' => 'Invoice Receipt Details',
+            'body' => [
+                'message'=>$request->invoice_payment_details,
+                'invoice_number' => $invoiceDetails->invoice_number,
+                'attachfile' => $attachDoc,
+                'designer_company' => $invoiceDetails->userDetails->companyProfile->company_name ?? '',
+                'type'=>0,
+                'invoiceId' => $invoiceDetails->id ?? '',
+            ],
+            'thanks_text' => 'Thanks For Using our site',
+        ];
+        Notification::route('mail',  $invoiceDetails->userDetails->email ?? '')->notify(new InvoiceNotification($invoice_notify_msg));
+        toastSuccess('Payment Details Sent Successfully');
         return redirect()->back();
     }
 }

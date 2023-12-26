@@ -7,22 +7,24 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class InvoiceNotification extends Notification
+class InvoicePaymentRemiderNotification extends Notification
 {
     use Queueable;
-    protected $invoiceData;
-    
+    protected $attackDoc;
+    protected $days;
+    protected $invoiceId;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($invoiceData)
+    public function __construct($attackDoc,$days,$invoiceId)
     {
        
-
-     $this->invoiceData= $invoiceData;
+        $this->attackDoc= $attackDoc;
+        $this->days= $days;
+        $this->invoiceId= $invoiceId;
 
     }
 
@@ -45,14 +47,15 @@ class InvoiceNotification extends Notification
      */
     public function toMail($notifiable)
     {
+    
+        $subject = 'Invoice Reminder';
        $send_email = (new MailMessage)
-            ->greeting($this->invoiceData['subject'])
-            ->subject($this->invoiceData['subject'])
-            ->view('mail.invoiceDesignerMail',['invoiceDetails'=>$this->invoiceData]);
-            if($this->invoiceData['body']['attachfile'])
+            ->greeting('Hello')
+            ->subject($subject)
+            ->view('mail.invoicePaymentReminder',['days'=>$this->days,'invoiceId'=>$this->invoiceId]);
+            if($this->attackDoc)
             {
-                $send_email->attach(public_path($this->invoiceData['body']['attachfile']));
-
+                $send_email->attach(public_path($this->attackDoc));
             }
             return $send_email;
            

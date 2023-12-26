@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Invoice extends Model
 {
     use HasFactory;
+
+    public function userDetails()
+    {
+        return $this->belongsTo(User::class,'admindesigner_id');
+    }
 }

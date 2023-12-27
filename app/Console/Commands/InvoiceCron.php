@@ -7,6 +7,7 @@ use App\Models\Invoice;
 use Carbon\Carbon;
 use Notification;
 use App\Notifications\InvoicePaymentRemiderNotification;
+use App\Jobs\SendEmailJob;
 class InvoiceCron extends Command
 {
     /**
@@ -51,7 +52,7 @@ class InvoiceCron extends Command
             $diff = $invoice_date->diffInDays($due_date);
             if($diff == 3 || $diff == 7 || $diff == 1)
             {
-                Notification::route('mail',  $invoice->send_email ?? '')->notify(new InvoicePaymentRemiderNotification($invoice->file_name,$diff,$invoice->id));
+                dispatch(new SendEmailJob($invoice->send_email,$invoice->file_name,$diff,$invoice->id));
             }
 
         }

@@ -18,7 +18,13 @@
     #kt_aside:hover .menu-title{
        opacity: 1 !important;
     }
+    #kt_aside .menu-title{
+       opacity: 1 !important;
+    }
     #kt_aside:hover .menu-sub-accordion{
+       height: auto !important;
+    }
+    #kt_aside .menu-sub-accordion{
        height: auto !important;
     }
     #kt_aside_toggle .rotate-180{

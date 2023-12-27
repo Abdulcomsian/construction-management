@@ -624,6 +624,9 @@ hr{
 #check{
         background:#07D564 !important;
     }
+.mainMenu-link:hover{
+    cursor: pointer;
+}
 </style>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
@@ -640,7 +643,7 @@ hr{
                     <!--begin::Card header-->
                     <div class="card-header border-0">
                         <div class="card-title">
-                            <a href="" class="mainMenu-link" style="position:absolute; left: 40px; top: 23px">Menu</a>
+                            <a   class="mainMenu-link" style="position:absolute; left: 40px; top: 23px" onclick="hideCheck3(1)">Menu</a>
                             <h3 class="card-label pt-5" style="font-size:1.6rem;">AWARDED JOBS 
                                 <span class="d-block text-muted pt-25 font-size-sm"></span>
                             </h3>
@@ -1298,11 +1301,11 @@ hr{
     });
     // });
 
-        const asideContainer = document.querySelector('.aside-fixed .aside');
-        const overlay = document.querySelector('.overlay');
-        document.querySelector('.mainMenu-link').addEventListener('click', function(e){
-            e.preventDefault();
-            asideContainer.style.display = 'block';
+    const asideContainer = document.querySelector('.aside-fixed .aside');
+    const overlay = document.querySelector('.overlay');
+    document.querySelector('.mainMenu-link').addEventListener('click', function(e){
+        e.preventDefault();
+        asideContainer.style.display = 'block !important';
             overlay.classList.remove('d-none')
         });
 
@@ -1310,6 +1313,20 @@ hr{
             asideContainer.style.display = 'none';
             overlay.classList.add('d-none');
         })
+        
+    </script>
+    <script>
+        // const asideContainer = document.querySelector('.aside-fixed .aside');
 
+            function hideCheck3() {
+            document.getElementById("check2").style.display = "block";
+            document.getElementById("kt_aside").style.display = "block";
+            // asideContainer.style.display = 'block !important';
+        }
+        function hideCheck2() {
+            document.getElementById("check2").style.display = "none";
+            document.getElementById("kt_aside").style.display = "none";
+            // asideContainer.style.display = 'block !important';
+        }
 </script>
 @endsection

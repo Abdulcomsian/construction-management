@@ -1041,7 +1041,7 @@
                                                     {{-- <option value="">Select Option</option> --}}
                                                     <optgroup label="Designer List">
                                                         @foreach($externalDesigners as $designer)
-                                                        <option value="{{$designer->email}}-{{$designer->id}}"
+                                                        <option value="{{$designer->email}}"
                                                             {{in_array($designer->email,
                                                             $selectedDesignersList) ?
                                                             'selected':''}}>{{$designer->email}}
@@ -1152,7 +1152,7 @@
                                                     {{-- <option value="">Select Option</option> --}}
                                                     <optgroup>
                                                         @foreach($externalSuppliers as $supplier)
-                                                        <option value="{{$supplier->email}}-{{$supplier->id}}"
+                                                        <option value="{{$supplier->email}}"
                                                             {{in_array($supplier->email,
                                                             $selectedDesignersList) ?
                                                             'selected':''}}>{{$supplier->email}}

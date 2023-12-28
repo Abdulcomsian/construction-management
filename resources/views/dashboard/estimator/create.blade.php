@@ -949,7 +949,7 @@
                                             {{-- <option value="">Select Option</option> --}}
                                             <optgroup >
                                             @foreach($externalDesigners as $designer)
-                                        <option value="{{$designer->email}}-{{$designer->id}}">{{$designer->email}}
+                                        <option value="{{$designer->email}}">{{$designer->email}}
                                         </option>
                                         @endforeach
                                             </optgroup>
@@ -1078,7 +1078,7 @@
                                             {{-- <option value="">Select Option</option> --}}
                                             <optgroup >
                                             @foreach($externalSuppliers as $supplier)
-                                        <option value="{{$supplier->email}}-{{$supplier->id}}">{{$supplier->email}}
+                                        <option value="{{$supplier->email}}">{{$supplier->email}}
                                         </option>
                                         @endforeach
                                             </optgroup>

@@ -1319,17 +1319,30 @@ class DesignerController extends Controller
                 else{
                     $user = User::where('id',Auth::id())->first();
                     $di_designer_email = '';
-                    $di_email = '';
+                    $di_email = [];
                     if(HelperFunctions::isAdminDesigner(Auth::user()))
                     {
-                        $di_email = auth()->user()->email;
+                        $di_designer_email = auth()->user()->email;
+                        $filteredDesignearray = array_filter($designearray, function ($value) {
+                            return $value !== null;
+                        });
+                        $di_email = User::where('di_designer_id',auth()->user()->id)->whereNotIn('email',$filteredDesignearray)->pluck('email');
+                    }
+                    else
+                    {
+                        $di_designer = User::where('id',auth()->user()->di_designer_id)->first();
+                        $di_designer_email = $di_designer->email;
+                        $filteredDesignearray = array_filter($designearray, function ($value) {
+                            return $value !== null;
+                        });
+                        $di_email = User::where('di_designer_id',auth()->user()->di_designer_id)->whereNotIn('email',$filteredDesignearray)->pluck('email');
                     }
                         $di_user = User::where('id',$user->di_designer_id)->first();
                         $di_designer_email = $di_user->email ?? ''; 
                         $registerupload= TempWorkUploadFiles::with('comment')->where(function ($query) use($di_email,$twc_email,$di_designer_email){
-                        $query->where('created_by',$di_designer_email)
+                        $query->whereIn('created_by',$di_email)
                             ->orWhere('created_by',$twc_email)
-                            ->orWhere('created_by',$di_email);
+                            ->orWhere('created_by',$di_designer_email);
                     })->where(['file_type'=>1,'temporary_work_id' => $tempworkid])->orderBy('id','desc')->get();
                 }
                 

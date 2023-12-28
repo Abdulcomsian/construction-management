@@ -867,8 +867,10 @@ hr{
                                             <img src="{{asset('images/add.png')}}" alt="" srcset="" title= "Upload Design"> 
                                         </a>
                                     </div>
-                                    <div class="image-2 uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1">
-                                        <img src="../images/group.png" alt="" title= "View Drawings/Designs" srcset="">
+                                    <div style="background: {{($item->uploadfile_count > 0 ? 'green' : '#919191ba')}};padding: 4px; border-radius: 4px;width: 23px; height:23px;line-height:14px;margin-top:4px;" class="image-2 uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1">
+                                        <p class="uploaddrawinglist cursor-pointer" data-id="44" data-type="1" style="margin-bottom:0px;font-weight: 400;bottom:3px !important; ">
+                                            <span style="font-size: 10px; color: #fff;" class="fa fa-eye" title="Upload Drawings"></span>
+                                        </p>
                                     </div>
                                 </div>
                                 </div>

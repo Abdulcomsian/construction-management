@@ -1236,6 +1236,7 @@ class AdminDesignerController extends Controller
             ->whereIn('id', $awarded)
             ->where('work_status', 'publish')
             ->latest()
+            ->withCount('uploadfile')
             ->get();
 
             // if(HelperFunctions::isPromotedAdminDesigner(Auth::user()))
@@ -1300,6 +1301,7 @@ class AdminDesignerController extends Controller
                     ->orWhere('created_by',$parent_id)
                     // ->where('created_by', Auth::user()->id)
                     ->latest()
+                    ->withCount('uploadfile')
                     ->get();
 
                 // dd($adminDesignerEstimators);

@@ -1500,10 +1500,10 @@ class DesignerController extends Controller
             {
                 if($j==0)
                 {
-                    $list.="<h3>Designer Company </h3>";
+                    $list.="<h3>Designer</h3>";
                 }
                 else{
-                     $list.="<h3>Design Checker Company</h3>";
+                     $list.="<h3>Design Checker</h3>";
                 }
                 
                 $list .= '<table class="table table-hover"><thead><tr>';

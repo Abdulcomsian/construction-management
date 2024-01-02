@@ -716,25 +716,47 @@ hr{
                                     <div class="col d-flex justify-content-center"> <div class="comment addcomment cursor-pointer mt-3" data-id="{{$item->id}}"> Comment <span class="{{$class}}">({{count($item->commentlist) ?? '-'}})</span> </div> </div>
                                 </div>
                             </td>
+                            @php
+                                    $user = Auth::user();
+                                    // dd($user);
+                                    $is_admin = HelperFunctions::isAdminDesigner($user);
+                                    $is_promoted_admin = HelperFunctions::isPromotedAdminDesigner($user);
+                                    $is_designer = HelperFunctions::getJobAwardedDesignerorCheckerByJobId($item->id,'designers');
+                                    $is_checker = HelperFunctions::getJobAwardedDesignerorCheckerByJobId($item->id,'checker');
+                                    $designer_or_checker = \App\Models\EstimatorDesignerList::where('temporary_work_id',$item->id)->where('email', auth()->user()->email)->whereIn('type',['designers','checker'])->first();
+
+                                    if($designer_or_checker)
+                                      {
+
+                                        $status_1 = 'Add Timeline';
+                                        $status_2 = 'View Designer';
+                                    }
+                                  
+                                     else{
+                                        $status_1 = 'View Timeline';
+                                        if(HelperFunctions::isPromotedAdminDesigner(\Auth::user()))
+                                            $status_2 = 'View Designer';
+                                        else
+                                            $status_2 = 'Allocate Designer';
+
+                                     }
+                                         
+                                @endphp
                             <td>
                                 <div class="row d-flex flex-column">
-                                    <div class="col">
-                                        <div class="row d-flex justify-content-between ">
-                                            <div class="col  ms-2" id="time-estimator"  data-rowid="{{$item->id}}"> 
-                                                <img class="img"  style="cursor: pointer;" src="{{asset('images/time.png')}}" title= "View Tasks"> 
-                                                <label class="fs-6 fw-bold mb-2">View</label>
+                                            <div class="row d-block ms-2" id="time-estimator"  data-rowid="{{$item->id}}"> 
+                                                 <label class="fs-6 fw-bold">{{$status_1}}</label>
+                                                <img class="img"  style="cursor: pointer; vertical-align:top;width:30%;" src="{{asset('images/time.png')}}" title= "{{$status_1}}"> 
                                             </div>
-                                            <div class="col  ms-2" id="allocated-designer" data-rowid="{{ $item->id }}">   
+                                            <div class="row d-block ms-2" id="allocated-designer" data-rowid="{{ $item->id }}">   
                                                 @php $blink = '' @endphp
                                                     @if(empty($item->designerAssign->user->name) || empty($item->checkerAssign->user->name) )
                                                     @php $blink = 'blink' @endphp
                                                 @endif
-                                                <img class="img {{$blink}}"    style="cursor: pointer;" src="{{asset('images/box.png')}}" alt=""  title= "Add Task"> 
-                                                <label class="fs-6 fw-bold mb-2">Add</label>
+                                                <label class="fs-6 fw-bold">{{$status_2}}</label>
+                                                <img class="img {{$blink}}"    style="cursor: pointer; vertical-align:top;width:30%;" src="{{asset('images/box.png')}}" alt=""  title= "{{$status_2}}"> 
 
                                             </div>
-                                        </div>
-                                    </div>
                                     <!-- <div class="col d-flex justify-content-center mt-2">
                                     <div class="progress-bar">
                                     <div class="progress-3" style="width: 50%;"></div>
@@ -786,6 +808,7 @@ hr{
                                         ? ($item->design->estimatorDesignerListTasks->last() ? $item->design->estimatorDesignerListTasks->last()->status : '-')
                                         : '-';
                                     $status_badge = HelperFunctions::getDesignerStatusBadge($designer_status);
+                                    $checker_status_badge = HelperFunctions::getCheckerStatusBadge($checker_status);
 
                                 @endphp
                             <td>
@@ -799,16 +822,7 @@ hr{
                                         </div>
                                     </div>            
                                 @endif
-                                @php
-                                    $user = Auth::user();
-                                    // dd($user);
-                                    $is_admin = HelperFunctions::isAdminDesigner($user);
-                                    $is_promoted_admin = HelperFunctions::isPromotedAdminDesigner($user);
-                                    $is_designer = HelperFunctions::getJobAwardedDesignerorCheckerByJobId($item->id,'designers');
-                                    $is_checker = HelperFunctions::getJobAwardedDesignerorCheckerByJobId($item->id,'checker');
-                                    // dd($is_checker);
-                                    
-                                @endphp
+                               
                                 <!-- @if($is_admin || $is_promoted_admin || ($is_designer && $user->id == $is_designer->user_id)) @endif -->
                                 @if($is_admin || $is_promoted_admin || ($is_designer && $user->id == $is_designer->user_id) || $is_checker)
                                     <span class="btn p-2 m-1 designerchangeemail"
@@ -830,12 +844,8 @@ hr{
                                     </div>
                                 </div>
                                 @endif
-                                 @if($designer_status != NULL)
-                                 @if($designer_status != "-" )
-                                <span class="badge {{$status_badge}} mt-2">
-                                    {{$checker_status}}
-                                </span>
-                                @endif 
+                                 @if($checker_status != '-' )
+                                    {!! $checker_status_badge !!}
                                @endif
                                 <!-- @if($is_admin || $is_promoted_admin || ($is_checker && $user->id == $is_checker->user_id)) @endif-->
                                 @if($is_admin || $is_promoted_admin || ($is_checker && $user->id == $is_checker->user_id) || $is_designer)
@@ -877,8 +887,23 @@ hr{
                             </td>
                             <td>
                                 <div class="row d-flex flex-column">
-                                    <div class="col d-flex justify-content-center"> <div class="description"> Pending </div> </div>
-                                    <div class="col d-flex justify-content-center"> <div class="paid mt-3"> Paid </div> </div>
+                                    @if(isset($item->invoice))
+                                        @if($item->invoice->status == 'Unpaid')
+                                        <div class="col d-flex justify-content-center"> <div class="description"> Unpaid </div> </div>
+                                        @elseif($item->invoice->status = 'Paid')
+                                        <div class="col d-flex justify-content-center"> <div class="paid mt-3"> Paid </div> </div>
+                                        @endif
+                                    @else
+                                    <div class="col d-flex justify-content-center"> 
+                                        <div class="paid mt-3">
+                                            <a href="{{ route('generate_invoice') }}?tempwork_id={{$item->id}}"
+                                                    target="_blank">
+                                                <span  class="fa fa-plus" title="Upload Drawings"> Invoice</span>                                       
+                                            </a>
+                                                
+                                        </div>
+                                     </div>
+                                    @endif
                                 </div>
                             </td>
                             </tr>
@@ -1331,4 +1356,5 @@ hr{
             // asideContainer.style.display = 'block !important';
         }
 </script>
+
 @endsection

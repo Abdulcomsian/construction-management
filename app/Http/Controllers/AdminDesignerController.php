@@ -175,7 +175,7 @@ class AdminDesignerController extends Controller
         $checker = false;
         $checkerData = null;
         if (HelperFunctions::isChildDesigner($loggedInUser)) {
-            $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks')
+            $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks')->withSum('estimatorDesignerListTasks as task_completed', 'completed')
             ->where('temporary_work_id', $request->temporary_work_id)
             ->where(function ($query) use ($loggedInUser) {
                 $query->where(function ($subquery) use ($loggedInUser) {
@@ -193,7 +193,7 @@ class AdminDesignerController extends Controller
         $checker = $estimatorDesigner && $estimatorDesigner->type === 'checker';
         }
         elseif (HelperFunctions::isChildAdminDesigner($loggedInUser)) {
-            $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks')
+            $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks')->withSum('estimatorDesignerListTasks as task_completed', 'completed')
             ->where('temporary_work_id', $request->temporary_work_id)
             ->where(function ($query) use ($loggedInUser) {
                 $query->where(function ($subquery) use ($loggedInUser) {
@@ -211,7 +211,7 @@ class AdminDesignerController extends Controller
         $checker = $estimatorDesigner && $estimatorDesigner->type === 'checker';
         } else {
             // Admin Designer
-            $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks')
+            $estimatorDesigner = EstimatorDesignerList::with('estimatorDesignerListTasks')->withSum('estimatorDesignerListTasks as task_completed', 'completed')
                 // ->whereHas('Estimator', function ($query) use ($loggedInUser) {
                 //     $query->where('created_by', $loggedInUser->id);
                 // })
@@ -1232,7 +1232,7 @@ class AdminDesignerController extends Controller
             $awarded=EstimatorDesignerList::select('temporary_work_id')->where(['user_id'=>$parent_id,'estimatorApprove'=>1])->pluck('temporary_work_id');
             $estimatorWork=TemporaryWork::with('designer')->with('project.company')->whereIn('id',$record)->get();
             $AwardedEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments',
-            'designerAssign', 'checkerAssign','designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks' , 'creator.userCompany')
+            'designerAssign', 'checkerAssign','designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks' , 'creator.userCompany','invoice')
             ->whereIn('id', $awarded)
             ->where('work_status', 'publish')
             ->latest()
@@ -1295,7 +1295,7 @@ class AdminDesignerController extends Controller
             $all_admin = User::where('di_designer_id',$parent_id)->where('admin_designer', 1)->pluck('id');
             if (HelperFunctions::isAdminDesigner(Auth::user()) || HelperFunctions::isPromotedAdminDesigner(Auth::user())) {
                 $adminDesignerEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments',
-                'designerAssign', 'checkerAssign', 'designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks')
+                'designerAssign', 'checkerAssign', 'designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks','invoice')
                     ->where('work_status', 'publish')
                     ->whereIn('created_by', $all_admin)
                     ->orWhere('created_by',$parent_id)
@@ -1407,6 +1407,7 @@ class AdminDesignerController extends Controller
         $generate_invoice =  new Invoice;
         $generate_invoice->invoice_number = $request->invoice_number;
         $generate_invoice->file_name = $fileName;
+        $generate_invoice->temporary_work_id = $request->temporary_work_id;
         $generate_invoice->date_of_payment = $request->date_of_payment;
         $generate_invoice->send_email = $request->send_email;
         $generate_invoice->status = 'Unpaid';

@@ -692,7 +692,7 @@
                                             <!--end::Label-->
                                             {{-- <select class="form-control"> --}}
                                             <select name="emails[]" class="form-select form-select-lg" multiple="multiple" data-control="select2" data-placeholder="Select an option" >
-                                                <option value="" selected>Select Email</option>
+                                                <option value="" >Select Email</option>
                                                 <option value="{{$client_email}}">Client ({{$client_email}})</option>
                                                 {{-- @if($user->di_designer_id != null) --}}
                                                     @if($admin_designer_option)

@@ -260,7 +260,7 @@
                                                     <i class="fa fa-download" aria-hidden="true"></i>    
                                                 </a>
                                                
-                                                <button type="button" id = "download-form-{{$invoice->id}}" value = "{{$invoice->status}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm edit_designer_details">
+                                                <button type="button" id = "{{$invoice->id}}" value = "{{$invoice->status}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm edit_designer_details">
                                                     <i class="fa fa-pen" aria-hidden="true"></i>    
                                                 </button>
                                                

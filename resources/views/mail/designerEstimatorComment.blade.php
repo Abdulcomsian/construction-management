@@ -28,7 +28,11 @@
                                                                         @if($type=='estimator')
                                                                         {{$email}} has ben commented on estimated brief kindly check it.
                                                                         @else
-                                                                        Estimator has replied to your comment kindly check it.
+                                                                            @if($messageType == 2)
+                                                                            Estimator has added Public Q&A, Kindly check it.
+                                                                            @else
+                                                                            Estimator has replied to your comment kindly check it.
+                                                                            @endif
                                                                         @endif
                                                                    </p>
                                                                    @if($comment)

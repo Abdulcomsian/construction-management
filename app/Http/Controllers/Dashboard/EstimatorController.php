@@ -662,26 +662,32 @@ class EstimatorController extends Controller
         $model->reply=$request->comment;
         $model->reply_email=Auth::user()->email;
         $model->reply_date=date('Y-m-d H:i:s');
-        if($request->public)
-        {
-            $model->public_status=1;
-            $this->notifyUserPublicMessage($model->temporary_work_id);
-        }
+       //send email to designer/supplier
+       if($request->public)
+       {
+           $model->public_status=1;
+           $this->notifyUserPublicMessage($model->temporary_work_id,$model->comment_email);
+       }else
+       {
+           $type='designer_supplier';
+           Notification::route('mail',$model->comment_email)->notify(new DesignerEstimatComment(Null,$type,$model->estimator_designer_list_id,$model->temporary_work_id));  
+       }
         $model->save();
-        //send email to designer/supplier
-        $type='designer_supplier';
-        Notification::route('mail',$model->comment_email)->notify(new DesignerEstimatComment(Null,$type,$model->estimator_designer_list_id,$model->temporary_work_id));
+       
+ 
         toastSuccess('Reply submitted successfully!');
         return redirect()->back();
     }
 
-    public function notifyUserPublicMessage($temporary_work_id)
+    public function notifyUserPublicMessage($temporary_work_id,$comment_email=null)
     {
         $userlist=EstimatorDesignerList::where(['temporary_work_id'=>$temporary_work_id])->get();
         foreach($userlist as $list)
         {
             $list->public_message=1;
             $list->save();
+            $type='designer_supplier';
+            Notification::route('mail',$list->email)->notify(new DesignerEstimatComment($comment_email,$type,$list->id,$list->temporary_work_id));
         }
     }
     //estimator edit form

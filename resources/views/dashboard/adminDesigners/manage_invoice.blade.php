@@ -225,6 +225,7 @@
             <div id="kt_content_container" class="container">
                 <form method="post" action="{{route("save_invoice")}}">
                     @csrf
+                    <input type="hidden" name="temporary_work_id" value = "{{$_GET['tempwork_id'] ?? ''}}">
                         <div class="card">
                             <div class="card-header border-0 pt-6">
                                 <!--begin::Card title-->
@@ -407,10 +408,11 @@ $(document).ready(function() {
                     totalGBP += amountGBP;
                 }
             });
+            console.log("total GPG is " + totalGBP + " and Subt Total is  "+subTotal)
 // alert(totalGBP);
             // Update the input fields
             $("#subtotal-input").val(totalGBP.toFixed(2));
-            $("#total-gbp-input").val(totalGBP.toFixed(2));
+            $("#total-gbp-input").val((0.2 * totalGBP + totalGBP).toFixed(2));
             $("#total-vat-input").val((0.2 * totalGBP).toFixed(2)); // Assuming 20% VAT
         }
         // Listen to changes in the "Quantity" and "Unit Price" fields

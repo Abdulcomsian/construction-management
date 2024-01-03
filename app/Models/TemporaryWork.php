@@ -191,4 +191,8 @@ class TemporaryWork extends Model
         return $this->morphMany(Signature::class, 'signatureable');
     }
 
+    public function invoice()
+    {
+        return $this->hasOne(Invoice::class,'temporary_work_id');
+    }
 }

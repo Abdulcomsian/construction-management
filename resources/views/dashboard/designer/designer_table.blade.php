@@ -24,18 +24,21 @@
             </div>
         </div>
         <div class="col-md-6 mb-2">
-            <div class="d-flex inputDiv d-block mb-3">
+            <div class=" inputDiv d-block mb-3">
                 <!--begin::Label-->
                 <label class=" fs-6 fw-bold mb-2">
                     <span class="required">Completed</span>
                 </label>
                 <!--end::Label-->
                 <input type="number" name="completed"  id="completed" style="width: 100%" class="form-control form-control-solid">
+                <p id= "error-complete-percentage" style="color:red;"></p>
+                <p class="d-flex inputDiv d-block mb-3"><b>Task Remaining: </b> &nbsp; <span id  = "task-remaining"> {{100 - $estimatorDesigner->task_completed ?? 0}}<span>%</p>
             </div>
+
         </div>
         <div class="col-md-6 mb-2">
              <!--begin::Label-->
-            <div class="d-flex inputDiv d-block mb-3">
+            <div class="inputDiv d-block mb-3">
                 <label class=" fs-6 fw-bold mb-2" style = "width:50%">
                     <span class="required" >Select Status</span>
                 </label>
@@ -43,7 +46,7 @@
                     <option value="working">Working</option>
                     <option value="stuck">Stuck</option>
                     <option value="completed">Completed</option>
-                    <option value="hold">Hold</option>
+                    <option value="On Hold">On Hold</option>
                     <option value="Design Check">Design Check</option>
                 </select>
             </div>
@@ -184,3 +187,30 @@
             itaque voluptatem asperiores deserunt nemo eum ea? Doloribus.</p>
     </div>
 </div> @endif --}}
+<script>
+     
+     var taskInput = document.querySelector('input[name=completed]');
+        if(taskInput)
+        {
+            var taskComplete = document.querySelector('#task-remaining').innerText;
+                taskInput.addEventListener('input', function () {
+                taskComplete = parseInt(taskComplete);
+                var inputValue = parseInt(taskInput.value);
+                  console.log(taskComplete);
+                if (inputValue > taskComplete) {
+                    document.getElementById('error-complete-percentage').innerHTML = 'You can not enter number greater than '+taskComplete;
+                    taskInput.value = taskComplete;
+                }
+                else
+                {
+                    document.getElementById('error-complete-percentage').innerHTML = '';
+
+                }
+            });
+        }
+        else{
+            console.log('no')
+        }
+      
+     
+</script>

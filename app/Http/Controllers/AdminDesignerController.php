@@ -1458,7 +1458,7 @@ class AdminDesignerController extends Controller
 
     public function updateinvoicestatus(Request $request, $id)
     {
-        $invoice = Invoice::find($id)->first();
+        $invoice = Invoice::find($id);
         $invoice->status = $request->status;
          if($invoice->save())
          {

@@ -283,6 +283,7 @@ class AdminDesignerController extends Controller
     {
         try
         {
+            $estimator_designer_list = EstimatorDesignerList::find($id);
             $designer_tasks = new EstimatorDesignerListTask();
             $designer_tasks->estimator_designer_list_id = $id;
             $designer_tasks->date = $request->date;
@@ -292,6 +293,26 @@ class AdminDesignerController extends Controller
             $designer_tasks->status = $request->status;
             // $designer_tasks->user_id = Auth::user()->id;
             $designer_tasks->save();
+            if($estimator_designer_list->type == 'designers')
+            {
+                HelperFunctions::EmailHistory(
+                    $estimator_designer_list->email,
+                    'Designer',
+                    $estimator_designer_list ->temporary_work_id,
+                    $request->completed.'% '.'Task Completed by Designer',
+                    'designer'
+                );
+            }else
+            {
+                HelperFunctions::EmailHistory(
+                    $estimator_designer_list->email,
+                    'Design Checker',
+                    $estimator_designer_list ->temporary_work_id,
+                    $request->completed.'% '.'Task Completed by Design Checker',
+                    'checker'
+                );
+            }
+          
             toastSuccess('Designer tasks saved successfully!');
             return Redirect::back();
         } catch (\Exception $exception) {

@@ -1145,8 +1145,8 @@ hr{
                         <th>Type</th>
                         <!-- <th>Status</th> -->
                         
-                        <th>Sent Date</th>
-                        <th>Read Date</th>
+                        <!-- <th>Sent Date</th> -->
+                        <th>Date</th>
                     </tr>
                 </thead>
                 <tbody id="designer_change_email_history">
@@ -1171,8 +1171,8 @@ hr{
                         <th>Type</th>
                         <!-- <th>Status</th> -->
                         
-                        <th>Sent Date</th>
-                        <th>Read Date</th>
+                        <!-- <th>Sent Date</th> -->
+                        <th>Date</th>
                     </tr>
                 </thead>
                 <tbody id="checker_change_email_history">

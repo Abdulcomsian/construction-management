@@ -51,16 +51,28 @@ class DesignerEstimatComment extends Notification
     {
         $code='';
         $data='';
+        $messageType =0;
         if($this->designListId)
         {
             $data=EstimatorDesignerList::find($this->designListId);
             $code=$data->code;
+            if($this->type == 'designer_supplier')
+            {
+                if($data->email == $this->email)
+                {
+                $messageType = 1;
+                }
+                else
+                {
+                    $messageType = 2;
+                }
+            }
         }
        
         $send_email =  (new MailMessage)
             ->greeting('Designer Comment')
             ->subject('Designer Comment')
-            ->view('mail.designerEstimatorComment',['email'=>$this->email,'type'=>$this->type,'code'=>$code,'data'=>$data,'comment'=>$this->comment]);
+            ->view('mail.designerEstimatorComment',['email'=>$this->email,'type'=>$this->type,'code'=>$code,'data'=>$data,'comment'=>$this->comment,'messageType'=>$messageType]);
             if($this->attachment)
             {
                 $send_email->attachData(

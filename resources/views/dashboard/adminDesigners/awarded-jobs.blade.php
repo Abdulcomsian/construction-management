@@ -744,10 +744,7 @@ hr{
                                 @endphp
                             <td>
                                 <div class="row d-flex flex-column">
-                                            <div class="row d-block ms-2" id="time-estimator"  data-rowid="{{$item->id}}"> 
-                                                 <label class="fs-6 fw-bold">{{$status_1}}</label>
-                                                <img class="img"  style="cursor: pointer; vertical-align:top;width:30%;" src="{{asset('images/time.png')}}" title= "{{$status_1}}"> 
-                                            </div>
+                                           
                                             <div class="row d-block ms-2" id="allocated-designer" data-rowid="{{ $item->id }}">   
                                                 @php $blink = '' @endphp
                                                     @if(empty($item->designerAssign->user->name) || empty($item->checkerAssign->user->name) )
@@ -756,6 +753,10 @@ hr{
                                                 <label class="fs-6 fw-bold">{{$status_2}}</label>
                                                 <img class="img {{$blink}}"    style="cursor: pointer; vertical-align:top;width:30%;" src="{{asset('images/box.png')}}" alt=""  title= "{{$status_2}}"> 
 
+                                            </div>
+                                            <div class="row d-block ms-2" id="time-estimator"  data-rowid="{{$item->id}}"> 
+                                                 <label class="fs-6 fw-bold">{{$status_1}}</label>
+                                                <img class="img"  style="cursor: pointer; vertical-align:top;width:30%;" src="{{asset('images/time.png')}}" title= "{{$status_1}}"> 
                                             </div>
                                     <!-- <div class="col d-flex justify-content-center mt-2">
                                     <div class="progress-bar">

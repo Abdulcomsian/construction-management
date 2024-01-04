@@ -10,7 +10,7 @@
                     <span class="required">Date</span>
                 </label>
                 <!--end::Label-->
-                <input type="date" name="date"  id="date" style="width: 100%" class="form-control form-control-solid">
+                <input type="date" name="date"  id="date" style="width: 100%" class="form-control form-control-solid" required>
             </div>
         </div>
         <div class="col-md-6 mb-2">
@@ -20,7 +20,7 @@
                     <span class="required">Hours</span>
                 </label>
                 <!--end::Label-->
-                <input type="text" name="hours" id="hours" style="width: 100%" class="form-control form-control-solid">
+                <input type="text" name="hours" id="hours" style="width: 100%" class="form-control form-control-solid" required>
             </div>
         </div>
         <div class="col-md-6 mb-2">
@@ -30,7 +30,7 @@
                     <span class="required">Completed</span>
                 </label>
                 <!--end::Label-->
-                <input type="number" name="completed"  id="completed" style="width: 100%" class="form-control form-control-solid">
+                <input type="number" name="completed"  id="completed" style="width: 100%" class="form-control form-control-solid" required>
                 <p id= "error-complete-percentage" style="color:red;"></p>
                 <p class="d-flex inputDiv d-block mb-3"><b>Task Remaining: </b> &nbsp; <span id  = "task-remaining"> {{100 - $estimatorDesigner->task_completed ?? 0}}<span>%</p>
             </div>
@@ -91,7 +91,7 @@
                 <tbody>
                 @foreach($estimatorDesigner->estimatorDesignerListTasks as $row)    
                     <tr>
-                    <td scope="row" style = "width:10%;">{{$row->date ?? ''}}</td>
+                    <td scope="row" style = "width:10%;">{{$row->date ? date('d-m-Y',strtotime($row->date)) : ''}}</td>
                     <td style = "width:10%;">{{$row->hours ?? ''}}</td>
                     <td><div style="width:60%; line-height:17px;letter-spacing: normal;">{{$row->task ?? ''}}</div></td>
                     <td style = "width:10%;">{{$row->completed ?? ''}}%</td>
@@ -127,7 +127,7 @@
                         @if(isset($estimatorDesigner->estimatorDesignerListTasks) && $estimatorDesigner->estimatorDesignerListTasks != null)
                         @foreach($estimatorDesigner->estimatorDesignerListTasks as $row) 
                         <tr>
-                            <td scope="row" style = "width:10%;">{{$row->date ?? ''}}</td>
+                            <td scope="row" style = "width:10%;">{{$row->date ? date('d-m-Y',strtotime($row->date)) : ''}}</td>
                             <td style = "width:10%;">{{$row->hours ?? ''}}</td>
                             <td><div style="width:60%; line-height:17px;letter-spacing: normal;">{{$row->task ?? ''}}</div></td>
                             <td style = "width:10%;">{{$row->completed ?? ''}}%</td>
@@ -156,7 +156,7 @@
                         @if(isset($checkerData->estimatorDesignerListTasks) && $checkerData->estimatorDesignerListTasks != null)
                         @foreach($checkerData->estimatorDesignerListTasks as $row) 
                         <tr>
-                            <td scope="row" style = "width:10%;">{{$row->date ?? ''}}</td>
+                            <td scope="row" style = "width:10%;">{{$row->date ? date('d-m-Y',strtotime($row->date)) : ''}}</td>
                             <td style = "width:10%;">{{$row->hours ?? ''}}</td>
                             <td><div style="width:60%; line-height:17px;letter-spacing: normal;">{{$row->task ?? ''}}</div></td>
                             <td style = "width:10%;">{{$row->completed ?? ''}}%</td>

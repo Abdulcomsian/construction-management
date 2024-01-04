@@ -627,6 +627,25 @@ hr{
 .mainMenu-link:hover{
     cursor: pointer;
 }
+.invoice-btn {
+    background: #f1416c;
+    padding: 0 5px;
+    border-radius: 4px;
+    color: #07D564;
+    width: 80%;
+}
+.badge-custom{
+    color:#50cd89;
+    background: #07D56426;
+    font-size: 14px;
+    height: 3% !important
+}
+.badge-red{
+    color:#fff;
+    background: #f1416ca6;
+    font-size: 14px;
+    height: 3% !important
+}
 </style>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
@@ -660,8 +679,8 @@ hr{
                             <th  class="th-6">Timeline</th>
                             <th  class="th-7">Allocated Designer</th>
                             <th  class="th-8">Allocated Designer Checker</th>
-                            <th  class="th-9">Status</th>
-                            <th  class="th-10">Drawing <span style = "font-size:10px;">(View & Upload)<span></th>
+                            <!-- <th  class="th-9">Status</th> -->
+                            <th  class="th-10"><div>Drawing <p style = "font-size: 11px;line-height: 17px">(View & Upload)<p></div></th>
                             <th  class="th-11">Invoice</th>
                             </tr>
                             @php
@@ -711,7 +730,7 @@ hr{
                                         }
                                         }
                                     @endphp
-                                    <div class="col d-flex justify-content-center"> <div class="description desc cursor-pointer" data-toggle="tooltip"
+                                    <div class="col d-flex justify-content-center"> <div class="description desc cursor-pointer" data-toggle="tooltip" title="{{ $item->description_temporary_work_required ?? '' }}"
                                                     data-placement="top">  Description </div> </div>
                                     <div class="col d-flex justify-content-center"> <div class="comment addcomment cursor-pointer mt-3" data-id="{{$item->id}}"> Comment <span class="{{$class}}">({{count($item->commentlist) ?? '-'}})</span> </div> </div>
                                 </div>
@@ -798,8 +817,8 @@ hr{
                                     }
 
                                     $designer_status = isset($item->designerAssign->estimatorDesignerListTasks)
-                                    ? ($item->designerAssign->estimatorDesignerListTasks->last() ? $item->designerAssign->estimatorDesignerListTasks->last()->status : '-')
-                                    : '-';
+                                    ? ($item->designerAssign->estimatorDesignerListTasks->last() ? $item->designerAssign->estimatorDesignerListTasks->last()->status : '')
+                                    : '';
 
                                     $checker_status = isset($item->checkerAssign->estimatorDesignerListTasks)
                                         ? ($item->checkerAssign->estimatorDesignerListTasks->last() ? $item->checkerAssign->estimatorDesignerListTasks->last()->status : '-')
@@ -814,16 +833,16 @@ hr{
                                 @endphp
                             <td>
                                 @if(isset($item->designerAssign->user->name))
-                                    <div class="row d-flex flex-column">
-                                        <div class="col text-center"> {{$item->designerAssign->user->name ?? ''}}  </div>
-                                        <div class="col d-flex justify-content-center">
+                                    <div class=" d-flex flex-column">
+                                        <div class=" text-center"> {{$item->designerAssign->user->name ?? ''}}  </div>
+                                        <div class=" d-flex justify-content-center">
                                         <div class="progress-bar">
                                         <div class="progress" style="width: {{$designer_task}}%;"></div>
                                         <span class="progress-text">{{$designer_task}}%</span>
                                         </div>
                                     </div>            
                                 @endif
-                               
+                                {!! $status_badge !!}
                                 <!-- @if($is_admin || $is_promoted_admin || ($is_designer && $user->id == $is_designer->user_id)) @endif -->
                                 @if($is_admin || $is_promoted_admin || ($is_designer && $user->id == $is_designer->user_id) || $is_checker)
                                     <span class="btn p-2 m-1 designerchangeemail"
@@ -836,9 +855,9 @@ hr{
                                 @endif
                             <td>
                                 @if(isset($item->checkerAssign->user->name))
-                                <div class="row d-flex flex-column">
-                                    <div class="col text-center"> {{$item->checkerAssign->user->name ?? ''}}  </div>
-                                    <div class="col d-flex justify-content-center">
+                                <div class=" d-flex flex-column">
+                                    <div class=" text-center"> {{$item->checkerAssign->user->name ?? ''}}  </div>
+                                    <div class=" d-flex justify-content-center">
                                     <div class="progress-bar">
                                     <div class="progress-2" style="width: {{$checker_task}}%;"></div>
                                     <span class="progress-text">{{$checker_task}}%</span>
@@ -858,7 +877,7 @@ hr{
                                     </span>
                                 @endif
                             </td>
-                            <td class="green">  {{$designer_status}} </td>
+                            <!-- <td >  {!! $status_badge !!} </td> -->
                             <td>
                                 <div class="center ">
                                 <div class="image d-flex gap-3">
@@ -896,8 +915,8 @@ hr{
                                         @endif
                                     @else
                                     <div class="col d-flex justify-content-center"> 
-                                        <div class="paid mt-3">
-                                            <a href="{{ route('generate_invoice') }}?tempwork_id={{$item->id}}"
+                                        <div class="invoice-btn mt-3">
+                                            <a href="{{ route('generate_invoice') }}?tempwork_id={{$item->id}}" style = "color:white !important;"
                                                     target="_blank">
                                                 <span  class="fa fa-plus" title="Upload Drawings"> Invoice</span>                                       
                                             </a>

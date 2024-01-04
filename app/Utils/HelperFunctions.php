@@ -351,51 +351,51 @@ class HelperFunctions
     public static function getDesignerStatusBadge($designer_status) {
         switch ($designer_status) {
             case 'working':
-                $badge_class = 'badge-success';
+                $badge_class = 'badge-custom';
                 break;
             case 'stuck':
-                $badge_class = 'badge-danger';
+                $badge_class = 'badge-red';
                 break;
             case 'completed':
-                $badge_class = 'badge-primary';
+                $badge_class = 'badge-custom';
                 break;
             case 'hold':
-                $badge_class = 'badge-danger';
+                $badge_class = 'badge-custom';
                 break;
             case 'On Hold':
-                $badge_class = 'badge-danger';
+                $badge_class = 'badge-red';
                 break;
             default:
-                $badge_class = 'badge-success';
+                $badge_class = 'badge-custom';
                 break;
         }
     
-        $html = '<span class="badge ' . $badge_class . ' mt-2">' . $designer_status . '</span>';
+        $html = '<span class="badge ' . $badge_class . ' mt-2" style = "width:100%;">' . ucfirst($designer_status) . '</span>';
         return $html;
     }  
     public static function getCheckerStatusBadge($designer_status) {
         switch ($designer_status) {
             case 'working':
-                $badge_class = 'badge-success';
+                $badge_class = 'badge-custom';
                 break;
             case 'stuck':
-                $badge_class = 'badge-danger';
+                $badge_class = 'badge-red';
                 break;
             case 'completed':
-                $badge_class = 'badge-primary';
+                $badge_class = 'badge-custom';
                 break;
             case 'hold':
-                $badge_class = 'badge-danger';
+                $badge_class = 'badge-custom';
                 break;
             case 'On Hold':
-                $badge_class = 'badge-danger';
+                $badge_class = 'badge-red';
                 break;
             default:
-                $badge_class = 'badge-success';
+                $badge_class = 'badge-custom';
                 break;
         }
     
-        $html = '<span class="badge ' . $badge_class . ' mt-2">' . $designer_status . '</span>';
+        $html = '<span class="badge ' . $badge_class . ' mt-2">' . ucfirst($designer_status) . '</span>';
         return $html;
     }    
 

@@ -627,6 +627,13 @@ hr{
 .mainMenu-link:hover{
     cursor: pointer;
 }
+.invoice-btn {
+    background: #f1416c;
+    padding: 0 5px;
+    border-radius: 4px;
+    color: #07D564;
+    width: 80%;
+}
 </style>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
@@ -896,8 +903,8 @@ hr{
                                         @endif
                                     @else
                                     <div class="col d-flex justify-content-center"> 
-                                        <div class="paid mt-3">
-                                            <a href="{{ route('generate_invoice') }}?tempwork_id={{$item->id}}"
+                                        <div class="invoice-btn mt-3">
+                                            <a href="{{ route('generate_invoice') }}?tempwork_id={{$item->id}}" style = "color:white !important;"
                                                     target="_blank">
                                                 <span  class="fa fa-plus" title="Upload Drawings"> Invoice</span>                                       
                                             </a>

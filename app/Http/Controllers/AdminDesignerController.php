@@ -299,7 +299,7 @@ class AdminDesignerController extends Controller
                     $estimator_designer_list->email,
                     'Designer',
                     $estimator_designer_list ->temporary_work_id,
-                    $request->completed.'% '.'Task Completed by Designer',
+                    $request->completed.'% '.'Task Completed by Designer and status is '.ucfirst($request->status),
                     'designer'
                 );
             }else
@@ -308,7 +308,7 @@ class AdminDesignerController extends Controller
                     $estimator_designer_list->email,
                     'Design Checker',
                     $estimator_designer_list ->temporary_work_id,
-                    $request->completed.'% '.'Task Completed by Design Checker',
+                    $request->completed.'% '.'Task Completed by Design Checker and status is '.ucfirst($request->status),
                     'checker'
                 );
             }

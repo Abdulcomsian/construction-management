@@ -72,6 +72,8 @@ class UserController extends Controller
                             elseif($data->user_notify)
                             {
                                 $class='redBgBlink';
+                            }else{
+                                $class='';
                             }
                            
                             $btn .= '<div class="d-flex">

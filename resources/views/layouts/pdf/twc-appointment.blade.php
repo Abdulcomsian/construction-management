@@ -116,7 +116,7 @@
                                     </td>
                                     <td style="border-bottom: 1px solid;text-align: center;">
                                         @if($data['signtype']==1)
-                                        {{signature}}
+                                        {{$signature}}
                                         @else
                                          <img src="temporary/signature/{{$signature}}" width="auto" height="40">
                                         @endif

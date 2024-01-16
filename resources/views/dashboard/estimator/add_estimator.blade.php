@@ -500,7 +500,7 @@
                                         name="design_required_by_date">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            {{-- <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block mb-0">
                                     <div class="d-flex modalDiv" data-bs-toggle="modal"
                                         data-bs-target="#design-requirement">
@@ -515,6 +515,21 @@
                                         <!--end::Label-->
                                     </div>
                                 </div>
+                            </div> --}}
+                            <div class="col-md-6" style="margin-top: 35px;">
+                                <div class="d-flex inputDiv d-block my-0" id="designReq">
+                                    <div class="modalDiv" data-bs-toggle="modal" data-bs-target="#design-requirement">
+                                        <!--begin::Label-->
+                                        <label class="required fs-6 fw-bold mb-2">
+                                            Design Requirement:
+                                        </label>
+                                        <!-- <br> -->
+                                        <input type="text" class="blackBack" style="width: 50%;" id="design_requirement_text" placeholder="Design requirement" readonly name="design_requirement_text" value="{{old('design_requirement_text')}}">
+                                        <!--end::Label-->
+                                    </div>
+                                </div>
+                                <span class="designReq_err"></span>
+                
                             </div>
                         </div>
                         <div class="row">
@@ -668,10 +683,12 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="d-flex inputDiv d-block mb-0">
+                                {{-- <div class="d-flex inputDiv d-block mb-0">
                                     <div style="position:relative;" class="d-flex modalDiv d-block"
-                                        data-bs-toggle="modal" data-bs-target="#attachment-of-design">
-                                        <label class=" fs-6 fw-bold mb-2" style="bottom: 32px">
+                                        data-bs-toggle="modal" data-bs-target="#attachment-of-design"> --}}
+                                        <div class="d-flex inputDiv d-block mb-0" id="attachment_specs">
+                                            <div style="position:relative;" class="modalDiv d-block" data-bs-toggle="modal" data-bs-target="#attachment-of-design">
+                                        <label class=" fs-6 fw-bold mb-2" style="bottom: 14px;">
                                             Attachments / Spec:
                                             <span style="margin-left: 10px;">
                                                 <a href="{{asset('uploads/checklist.pdf')}}" target="_blank"><span><img
@@ -902,6 +919,20 @@
 </div>
 @endsection
 @section('scripts')
+<script src="{{asset('assets/plugins/custom/summernote/summernote-bs4.min.js')}}"></script>
+<script src="{{asset('assets/plugins/custom/summernote/summernote-cleaner.js')}}"></script>
+<script>
+     var url = "{{asset('js/myfile.json')}}";
+    var jsondata = "";
+    $(document).ready(function() {
+        getText(url);
+        async function getText(file) {
+            await fetch(file).then(response => response.json()).then(json => {
+                jsondata = json;
+            });
+        }
+    });
+</script>
 <script src="{{asset('assets/js/temporary-work-modal.js')}}"></script>
 <script>
     $(document).ready(function(){

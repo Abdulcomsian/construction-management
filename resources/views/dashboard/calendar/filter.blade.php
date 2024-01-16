@@ -53,7 +53,8 @@
     }
 
     .card {
-        margin: 30px 0px;
+        /* margin: 9px 0px; */
+        margin-bottom: 30px;
         border-radius: 10px;
     }
 
@@ -228,14 +229,14 @@
     </div> --}}
     <!--end::Toolbar-->
     <!--begin::Post-->
-    <div class="post d-flex flex-column-fluid" id="kt_post"  style="margin-top:150px !important;">
+    <div class="post d-flex flex-column-fluid" id="kt_post"  style="margin-top:300px !important;">
         <!--begin::Container-->
         <div id="kt_content_container" class="container">
             <!--begin::Card-->
             <div class="card">
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
-                    <div class="card-title" style="    float: left;padding-top: 0px;">
+                    <div class="card-title" style="float: left;padding-top: 0px;">
                         Filters</h2>
                     </div>
                 </div>
@@ -273,8 +274,8 @@
                                         <button class="btn btn-sm btn-primary btn-block mt-md-5" type="submit">Filter</button>
                                     </div>
                             </div>
-                        </div>
-                    </form>    
+                        </form>    
+                    </div>
                     <!--begin::Table-->
                     @isset($tasks)
                         <div class="table-responsive">

@@ -885,7 +885,7 @@ class EstimatorController extends Controller
 
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('unload_images','external_designers','external_suppliers', '_token','_method','date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno', 'projname','preloaded','namesign','signtype','pdfsigntype','approval','req_type','req_name','req_check','req_notes','designers','suppliers','supplier_company_emails','designer_company_emails','action', 'display_sign', 'signtype', 'pdfsigntype', 'namesign', 'online_designers', 'online_suppliers');
+            $all_inputs  = $request->except('unload_images','files', 'external_designers','external_suppliers', '_token','_method','date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno', 'projname','preloaded','namesign','signtype','pdfsigntype','approval','req_type','req_name','req_check','req_notes','designers','suppliers','supplier_company_emails','designer_company_emails','action', 'display_sign', 'signtype', 'pdfsigntype', 'namesign', 'online_designers', 'online_suppliers');
             //if design req details is exist
             if(isset($request->req_name))
             {

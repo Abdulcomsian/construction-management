@@ -91,7 +91,8 @@
                                 echo nl2br($data['description_temporary_work_required']);
                             @endphp
                         </td>
-                    </tr>            
+                    </tr>  
+                    @if(isset($existing_design_brief['existing_design_brief']))          
                     <tr>
                         <td style="width: 200px;background:gray;color:white">
                             <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Existing Design Brief</b></label>
@@ -100,6 +101,8 @@
                            <a href="{{asset($existing_design_brief['existing_design_brief'])}}">{{asset($existing_design_brief['existing_design_brief'])}}</a>
                         </td>
                     </tr>
+                    @endif
+                    @if(isset($existing_design_brief['photo']))    
                     <tr>
                         <td style="width: 200px;background:gray;color:white">
                             <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Photo</b></label>
@@ -108,8 +111,8 @@
                            <a href="{{asset($existing_design_brief['photo'])}}">{{asset($existing_design_brief['photo'])}}</a>
                         </td>
                     </tr>
-
-                    @if($data['information_required'] == 'on')
+@endif
+                    @if(isset($data['information_required']) && $data['information_required'] == 'on')
                     <tr>
                         <td style="width: 200px;background:gray;color:white">
                             <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Additional Information</b></label>
@@ -131,6 +134,7 @@
                     </tr>
                     @endif
                     @endif
+                    @if(isset($data['work_status']))
                     <tr>
                         <td style="width: 200px;background:gray;color:white">
                             <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Lead Status</b></label>
@@ -141,6 +145,7 @@
                             @endphp
                         </td>
                     </tr>
+                    @endif
                 </tbody>
             </table>
         </div>

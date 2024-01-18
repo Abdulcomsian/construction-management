@@ -3548,7 +3548,7 @@ class DesignerController extends Controller
                 Folder::create(array_merge($folder_attachements, ['temporary_work_id' => $temporary_work->id]));
                 AttachSpeComment::create(array_merge($attachcomments, ['temporary_work_id' => $temporary_work->id]));
                 //work for upload images here
-                $image_links = [];
+                // $image_links = [];
                 if ($request->file('images')) {
                     $filePath = HelperFunctions::temporaryworkImagePath();
                     $files = $request->file('images');
@@ -3558,12 +3558,29 @@ class DesignerController extends Controller
                         $model->image = $imagename;
                         $model->temporary_work_id = $temporary_work->id;
                         $model->save();
-                        $image_links[] = $imagename;
                     }
+                    
                 }
+                // getting the of images from database related to the temporary Id from URL
+                $dataOfImage = TemporayWorkImage::where('temporary_work_id', '=', $temporary_work->id)->get();
+                // getting the additional Information Image data from Database
+                $dataOfAdditionalImage = AdditionalInformation::select('file_path')->where('temporary_work_id', '=', $temporary_work->id)->first();
+                // Existing Design Brief and photo
+                $existingDesignBrief = TemporaryWork::select('existing_design_brief', 'photo')->where('id', '=', $temporary_work->id)->first();
                 //work for pdf
-                // dd("eeee");
-                $pdf = PDF::loadView('layouts.pdf.estimator', ['data' => $request->all(), 'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => '', 'comments' => $attachcomments]);
+                $pdf = PDF::loadView('layouts.pdf.estimator', [
+                    'data' => $request->all(), 
+                    'image_name' => $temporary_work->id, 
+                    'scopdesg' => $scope_of_design, 
+                    'folderattac' => $folder_attachements, 
+                    'folderattac1' =>  $folder_attachements_pdf,
+                    'imagelinks' => $dataOfImage,
+                    'twc_id_no' => '', 
+                    'comments' => $attachcomments, 
+                    'additional_file' => $dataOfAdditionalImage,
+                    'existing_design_brief' => $existingDesignBrief,
+                ]);
+
                 $path = public_path('estimatorPdf');
                 $filename = rand() . '.pdf';
                 $pdf->save($path . '/' . $filename);
@@ -3983,7 +4000,7 @@ class DesignerController extends Controller
                 Folder::create(array_merge($folder_attachements, ['temporary_work_id' => $temporary_work->id]));
                 AttachSpeComment::create(array_merge($attachcomments, ['temporary_work_id' => $temporary_work->id]));
                 //work for upload images here
-                $image_links = [];
+                // $image_links = [];
                 if ($request->file('images')) {
                     $filePath = HelperFunctions::temporaryworkImagePath();
                     $files = $request->file('images');
@@ -3993,11 +4010,29 @@ class DesignerController extends Controller
                         $model->image = $imagename;
                         $model->temporary_work_id = $temporary_work->id;
                         $model->save();
-                        $image_links[] = $imagename;
+                        // $image_links[] = $imagename;
                     }
                 }
+                // getting the of images from database related to the temporary Id from URL
+                $dataOfImage = TemporayWorkImage::where('temporary_work_id', '=', $temporary_work->id)->get();
+                // getting the additional Information Image data from Database
+                $dataOfAdditionalImage = AdditionalInformation::select('file_path')->where('temporary_work_id', '=', $temporary_work->id)->first();
+                // Existing Design Brief and photo
+                $existingDesignBrief = TemporaryWork::select('existing_design_brief', 'photo')->where('id', '=', $temporary_work->id)->first();
                 //work for pdf
-                $pdf = PDF::loadView('layouts.pdf.estimator', ['data' => $request->all(), 'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => '', 'comments' => $attachcomments]);
+                $pdf = PDF::loadView('layouts.pdf.estimator', [
+                    'data' => $request->all(), 
+                    'image_name' => $temporary_work->id, 
+                    'scopdesg' => $scope_of_design, 
+                    'folderattac' => $folder_attachements, 
+                    'folderattac1' =>  $folder_attachements_pdf,
+                    'imagelinks' => $dataOfImage, 
+                    'twc_id_no' => '', 
+                    'comments' => $attachcomments, 
+                    'additional_file' => $dataOfAdditionalImage,
+                    'existing_design_brief' => $existingDesignBrief,
+                ]);
+
                 $path = public_path('estimatorPdf');
                 $filename = rand() . '.pdf';
                 $pdf->save($path . '/' . $filename);

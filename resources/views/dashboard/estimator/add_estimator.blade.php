@@ -746,15 +746,15 @@
                                 <div class="d-flex inputDiv d-block mb-0">
                                     <!--begin::Label-->
                                     <label class=" fs-6 fw-bold mb-2">
-                                        <span class="">Current Date:</span>
+                                        <span class="">Date:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input data-date-inline-picker="true" type="date" name="date" value=""
+                                    <input type="text" name="date" value="<?php echo date('m/d/Y'); ?>" 
                                         style="background-color:#fff" class="form-control form-control-solid">
                                 </div>
                             </div>
                         </div>
-                        <div class="row">                           
+                        <div class="row">
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block mb-0">
                                     <!--begin::Label-->

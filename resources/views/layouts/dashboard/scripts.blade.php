@@ -6,7 +6,6 @@
 <script src="{{ asset('assets/js/custom/modals/create-app.js') }}"></script>
 <script src="{{ asset('assets/js/custom/modals/upgrade-plan.js') }}"></script>
 <script src="{{ asset('css/jquery.validate.js') }}"></script>
-<script type="text/javascript" src="{{asset('js/imageuploadify.min.js')}}"></script>
 @yield('multiselectscripts')
 
 <script>

@@ -536,7 +536,7 @@
             <!--begin::Modal header-->
             <div class="modal-header" style="align-items: flex-start">
                 <!--begin::Modal title-->
-                <h2>Attachments / Spec / Existing Designs and Existing Site Conditions (folders to upload) hello</h2>
+                <h2>Attachments / Spec / Existing Designs and Existing Site Conditions (folders to upload)</h2>
                 <!--end::Modal title-->
                 <!--begin::Close-->
                 <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">

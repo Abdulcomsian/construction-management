@@ -86,9 +86,58 @@
                         <td style="width: 200px;background:gray;color:white">
                             <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Description of Temporary Works Required</b></label>
                         </td>
-                        <td colspan="3" style="width: 300px; font-size:14px; font-weight:bold;">
+                        <td colspan="3" style="width: 300px; font-size:14px;">
                             @php
                                 echo nl2br($data['description_temporary_work_required']);
+                            @endphp
+                        </td>
+                    </tr>            
+                    <tr>
+                        <td style="width: 200px;background:gray;color:white">
+                            <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Existing Design Brief</b></label>
+                        </td>
+                        <td colspan="3" style="width: 300px; font-size:14px;">
+                           <a href="{{asset($existing_design_brief['existing_design_brief'])}}">{{asset($existing_design_brief['existing_design_brief'])}}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 200px;background:gray;color:white">
+                            <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Photo</b></label>
+                        </td>
+                        <td colspan="3" style="width: 300px; font-size:14px;">
+                           <a href="{{asset($existing_design_brief['photo'])}}">{{asset($existing_design_brief['photo'])}}</a>
+                        </td>
+                    </tr>
+
+                    @if($data['information_required'] == 'on')
+                    <tr>
+                        <td style="width: 200px;background:gray;color:white">
+                            <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Additional Information</b></label>
+                        </td>
+                        <td colspan="3" style="width: 300px; font-size:14px;">
+                            @php
+                                echo $data['additional_information'];
+                            @endphp
+                        </td>
+                    </tr>
+                    @if(isset($data['additional_information_file']) && !empty($data['additional_information_file']))
+                    <tr>
+                        <td style="width: 200px;background:gray;color:white">
+                            <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Additional Information File</b></label>
+                        </td>
+                        <td colspan="3" style="width: 300px; font-size:14px;">
+                            <a href="{{asset('uploads/additional_information/' . $additional_file['file_path'])}}">{{asset('uploads/additional_information/' . $additional_file['file_path'])}}</a>
+                        </td>
+                    </tr>
+                    @endif
+                    @endif
+                    <tr>
+                        <td style="width: 200px;background:gray;color:white">
+                            <label for="" style="float: left;width: 200px; font-size: 14px; padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Lead Status</b></label>
+                        </td>
+                        <td colspan="3" style="width: 300px; font-size:14px; font-weight:bold;">
+                            @php
+                                echo $data['work_status'];
                             @endphp
                         </td>
                     </tr>
@@ -100,8 +149,7 @@
             <table>
                 <thead style="background:gray;color:white">
                     <tr>
-                        <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Required from Temporary Works Designer 
-                            DESIGNER</td>
+                        <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Required from Temporary Works Designer</td>
                         <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Y</td>
                         <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">N</td>
                         <td style="color: #fff; background: gray !important; padding: 10px; font-size:12px;">Date Required</td>
@@ -353,21 +401,19 @@
         <div class="tableDiv paddingTable" style="margin: 20px 0px;">
             <table>
                 <tr>
-                    <td colspan="5" border="1" style="width: 15%; text-align: left; padding: 5px 10px;font-size: 10px;
-            font-weight: 700;">
+                    <td colspan="5" border="1" style="width: 15%; text-align: left; padding: 5px 10px;font-size: 10px; font-weight: 700;">
                         <strong style="font-size:12px;">List of Attachments Uploaded </strong>
                         <table style="width: 100%;">
-                            <tr>
-                                <td style="width: 100%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 5px 10px;border-radius: 3px;background-color: #F4F4F4; font-size:12px;">
-                                    @foreach($imagelinks as $links)
-                                    <a target="_blank" href="{{asset($links)}}">{{asset($links)}}</a><br>
-                                    @endforeach
-                                    <br>
+                            @foreach($imagelinks as $links)
+                                <tr>
+                                    <td style="width: 100%; text-align: left;border:1px solid rgba(191, 191, 191,1));padding: 5px 10px;border-radius: 3px;background-color: #F4F4F4; font-size:12px;">
+                                        <a style="margin-bottom: 5px;" target="_blank" href="{{asset($links->image)}}">{{asset($links->image)}}</a>
+                                    </td>
+                                </tr>
+                            @endforeach
                                     {{-- @foreach($folderattac as $key => $folder)
                                     <strong>{{$key}}:{{$folder}}</strong><br>
                                     @endforeach --}}
-                                </td>
-                            </tr>
                         </table>
 
                     </td>
@@ -392,10 +438,18 @@
                 <tbody>
                     <tr>
                         <td>
-                            <label for="" style="float: left;width: 400px; height: 70p1; font-size: 14px; padding: 10px; display: grid; align-items: center; margin: 0px;"><b style="font-size:12px;">Name</b></label>
+                            <label for="" style="float: left;width: 400px; height: 70p1; font-size: 14px; padding: 10px; display: grid; align-items: center; margin: 0px;"><b style="font-size:12px;">Client Name</b></label>
                         </td>
-                        <td style="font-size:12px;"> {{$data['name'] ?? ''}}</td>
+                        <td style="font-size:12px;"> {{$data['client_name'] ?? ''}}</td>
                     </tr>
+
+                    <tr>
+                        <td>
+                            <label for="" style="float: left;width: 400px; height: 70p1; font-size: 14px; padding: 10px; display: grid; align-items: center; margin: 0px;"><b style="font-size:12px;">Client Email</b></label>
+                        </td>
+                        <td style="font-size:12px;"> {{$data['client_email'] ?? ''}}</td>
+                    </tr>
+
                     <tr>
                         <td>
                             <label for="" style="float: left;width: 400px; height: 70p1; font-size: 14px; padding: 10px; display: grid; align-items: center; margin: 0px;"><b style="font-size:12px;">Job Title</b></label>
@@ -408,14 +462,14 @@
                         </td>
                         <td style="font-size:12px;"> {{$data['company'] ?? ''}}</td>
                     </tr>
-                    <tr>
+                    {{-- <tr>
                         <td>
                             <label for="" style="float: left;width: 400px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; margin: 0px;"><b style="font-size:12px;">Signature</b></label>
                         </td>
                         <td style="font-size:12px;"> 
 
                         </td>
-                    </tr>
+                    </tr> --}}
                     
                     <tr>
                         <td> <label for="" style="float: left;width: 400px; height: 70px; font-size: 14px; padding: 10px; display: grid; align-items: center; margin: 0px;"><b style="font-size:12px;">Date</b></label></td>

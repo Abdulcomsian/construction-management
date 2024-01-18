@@ -727,7 +727,7 @@
                                         <span class="">Date:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input data-date-inline-picker="true" type="date" name="date" value="{{$temporaryWork->date}}"
+                                    <input type="text" name="date" value="{{$temporaryWork->date}}"
                                         style="background-color:#fff" class="form-control form-control-solid">
                                 </div>
                             </div>
@@ -955,13 +955,14 @@
 </script> --}}
 <script src="{{asset('assets/js/temporary-work-modal.js')}}"></script>
 {{-- <script type="text/javascript" src="{{asset('js/image-uploader.min.js')}}"></script> --}}
-<script type="text/javascript">
+<script type="text/javascript" src="{{asset('js/imageuploadify.min.js')}}"></script>
+{{-- <script type="text/javascript">
     $(document).ready(function() {
     
         $('input[type="file"]').imageuploadify();
         
     })
-</script>
+</script> --}}
 <script type="text/javascript">
     $(".add-more-price").on('click',function(){
         $(".appendresult").append(`<div class="row"><div class="pl-3 col-md-3">
@@ -1041,4 +1042,48 @@
         let checkbox = this;
         checkbox.checked == true ? additionalInformation.classList.remove("d-none") : additionalInformation.classList.add("d-none"); 
     })
+
+    function deleteImageFile(id) {
+        console.log("id", id);
+        // Remove the corresponding file container (the parent div) by its id
+        const fileContainer = document.getElementById(id);
+
+        if (fileContainer) {
+            fileContainer.remove();
+
+            // Get the filename from the id (assuming your id is in the format "filename")
+
+            // Find all hidden inputs with the "design_upload[]" name attribute
+            const hiddenInputs = document.querySelectorAll('input[name="unload_images[]"]');
+
+            // Loop through hidden inputs to find the one with the matching value
+            hiddenInputs.forEach(input => {
+                if (input.value == id) {
+                    input.remove();
+                }
+            });
+
+            if (hiddenInputs) {
+                // Make an AJAX request to delete the file on the server
+                fetch('{{ route("delete.temporarywork.image") }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}' // Add CSRF token if necessary
+                        },
+                        body: JSON.stringify({
+                            filename_id: id,
+                            type:"temp_work_image"
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data.message); // Log the server's response
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+                }
+            }
+        }
 </script>

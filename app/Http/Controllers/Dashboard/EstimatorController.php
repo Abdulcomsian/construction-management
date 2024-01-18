@@ -1161,7 +1161,7 @@ class EstimatorController extends Controller
                         toastSuccess('Pre Con Published successfully!');
                         return redirect()->route('temporary_works.index');
                 } else{
-                    $dataOfImage = TemporayWorkImage::where('temporary_work_id', '=', $temporaryWork->id)->get();
+                    $dataOfImage = TemporayWorkImage::where('temporary_work_id', '=', $temporaryWork)->get();
                     $pdf = PDF::loadView('layouts.pdf.estimator', ['data' => $request->all(), 'image_name' => $temporaryWork, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $dataOfImage, 'twc_id_no' => $twc_id_no, 'comments' => $attachcomments]);
                      $path = public_path('estimatorPdf');
                

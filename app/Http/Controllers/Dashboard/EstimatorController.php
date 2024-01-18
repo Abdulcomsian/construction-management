@@ -428,7 +428,7 @@ class EstimatorController extends Controller
                 Folder::create(array_merge($folder_attachements, ['temporary_work_id' => $temporary_work->id]));
                 AttachSpeComment::create(array_merge($attachcomments, ['temporary_work_id' => $temporary_work->id]));
                 //work for upload images here
-                $image_links = [];
+                // $image_links = [];
                 if ($request->file('images')) {
                     $filePath = HelperFunctions::temporaryworkImagePath();
                     $files = $request->file('images');
@@ -438,7 +438,7 @@ class EstimatorController extends Controller
                         $model->image = $imagename;
                         $model->temporary_work_id = $temporary_work->id;
                         $model->save();
-                        $image_links[] = $imagename;
+                        // $image_links[] = $imagename;
                     }
                 }
 
@@ -513,7 +513,8 @@ class EstimatorController extends Controller
                     return redirect()->route('temporary_works.index');
 
                 }else{
-                    $pdf = PDF::loadView('layouts.pdf.estimator', ['data' => $request->all(), 'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $twc_id_no, 'comments' => $attachcomments]);
+                    $dataOfImage = TemporayWorkImage::where('temporary_work_id', '=', $temporary_work->id)->get();
+                    $pdf = PDF::loadView('layouts.pdf.estimator', ['data' => $request->all(), 'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $dataOfImage, 'twc_id_no' => $twc_id_no, 'comments' => $attachcomments]);
                     $path = public_path('estimatorPdf');
                     $filename = rand() . '.pdf';
                     $pdf->save($path . '/' . $filename);
@@ -1037,7 +1038,7 @@ class EstimatorController extends Controller
                         $model->image = $imagename;
                         $model->temporary_work_id = $temporaryWork;
                         $model->save();
-                        $image_links[] = $imagename;
+                        // $image_links[] = $imagename;
                     }
                 }
                 //work for pdf
@@ -1160,7 +1161,8 @@ class EstimatorController extends Controller
                         toastSuccess('Pre Con Published successfully!');
                         return redirect()->route('temporary_works.index');
                 } else{
-                    $pdf = PDF::loadView('layouts.pdf.estimator', ['data' => $request->all(), 'image_name' => $temporaryWork, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $twc_id_no, 'comments' => $attachcomments]);
+                    $dataOfImage = TemporayWorkImage::where('temporary_work_id', '=', $temporary_work->id)->get();
+                    $pdf = PDF::loadView('layouts.pdf.estimator', ['data' => $request->all(), 'image_name' => $temporaryWork, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $dataOfImage, 'twc_id_no' => $twc_id_no, 'comments' => $attachcomments]);
                      $path = public_path('estimatorPdf');
                
                 

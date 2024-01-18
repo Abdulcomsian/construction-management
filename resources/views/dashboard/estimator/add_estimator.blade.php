@@ -415,7 +415,7 @@
                                 <div class="d-flex inputDiv d-block mb-0">
                                     <!--begin::Label-->
                                     <label class=" fs-6 fw-bold mb-2">
-                                        <span class="">Design Issued Date:</span>
+                                        <span class="">Design Brief Issued Date:</span>
                                     </label>
                                     <!--end::Label-->
                                     <input data-date-inline-picker="true" type="date" value=""
@@ -463,6 +463,28 @@
                                         style="background: #f5f8fa">
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv d-block mb-0">
+                                    <!--begin::Label-->
+                                    <label class=" fs-6 fw-bold mb-2">
+                                        <span>Client Name:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" name="client_name" class="form-control form-control-slid"
+                                        placeholder="Enter Client Name" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv d-block mb-0">
+                                    <!--begin::Label-->
+                                    <label class=" fs-6 fw-bold mb-2">
+                                        <span>Client Email:</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="email" name="client_email" class="form-control form-control-slid"
+                                        placeholder="Enter Client Email" />
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
@@ -478,7 +500,7 @@
                                         name="design_required_by_date">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            {{-- <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block mb-0">
                                     <div class="d-flex modalDiv" data-bs-toggle="modal"
                                         data-bs-target="#design-requirement">
@@ -493,6 +515,21 @@
                                         <!--end::Label-->
                                     </div>
                                 </div>
+                            </div> --}}
+                            <div class="col-md-6" style="margin-top: 35px;">
+                                <div class="d-flex inputDiv d-block my-0" id="designReq">
+                                    <div class="modalDiv" data-bs-toggle="modal" data-bs-target="#design-requirement">
+                                        <!--begin::Label-->
+                                        <label class="required fs-6 fw-bold mb-2">
+                                            Design Requirement:
+                                        </label>
+                                        <!-- <br> -->
+                                        <input type="text" class="blackBack" style="width: 50%;" id="design_requirement_text" placeholder="Design requirement" readonly name="design_requirement_text" value="{{old('design_requirement_text')}}">
+                                        <!--end::Label-->
+                                    </div>
+                                </div>
+                                <span class="designReq_err"></span>
+                
                             </div>
                         </div>
                         <div class="row">
@@ -603,7 +640,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            {{-- <div class="col-md-6">
                                 <div class="inputDiv desinger_company_name2 mb-0 d-none" id="desinger_company_name2">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -626,7 +663,7 @@
                                         placeholder="Design Checker Email" id="desinger_email_2" name="desinger_email_2"
                                         value="" autocomplete="off">
                                 </div>
-                            </div>
+                            </div> --}}
 
                         </div>
                         <div class="row">
@@ -646,10 +683,12 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="d-flex inputDiv d-block mb-0">
+                                {{-- <div class="d-flex inputDiv d-block mb-0">
                                     <div style="position:relative;" class="d-flex modalDiv d-block"
-                                        data-bs-toggle="modal" data-bs-target="#attachment-of-design">
-                                        <label class=" fs-6 fw-bold mb-2" style="bottom: 32px">
+                                        data-bs-toggle="modal" data-bs-target="#attachment-of-design"> --}}
+                                        <div class="d-flex inputDiv d-block mb-0" id="attachment_specs">
+                                            <div style="position:relative;" class="modalDiv d-block" data-bs-toggle="modal" data-bs-target="#attachment-of-design">
+                                        <label class=" fs-6 fw-bold mb-2" style="bottom: 14px;">
                                             Attachments / Spec:
                                             <span style="margin-left: 10px;">
                                                 <a href="{{asset('uploads/checklist.pdf')}}" target="_blank"><span><img
@@ -710,7 +749,7 @@
                                         <span class="">Date:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input data-date-inline-picker="true" type="date" name="date" value=""
+                                    <input type="text" name="date" value="<?php echo date('m/d/Y'); ?>" 
                                         style="background-color:#fff" class="form-control form-control-solid">
                                 </div>
                             </div>
@@ -720,32 +759,10 @@
                                 <div class="d-flex inputDiv d-block mb-0">
                                     <!--begin::Label-->
                                     <label class=" fs-6 fw-bold mb-2">
-                                        <span>Client Name:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <input type="text" name="client_name" class="form-control form-control-slid"
-                                        placeholder="Enter Client Name" />
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="d-flex inputDiv d-block mb-0">
-                                    <!--begin::Label-->
-                                    <label class=" fs-6 fw-bold mb-2">
-                                        <span>Client Email:</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <input type="email" name="client_email" class="form-control form-control-slid"
-                                        placeholder="Enter Client Email" />
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="d-flex inputDiv d-block mb-0">
-                                    <!--begin::Label-->
-                                    <label class=" fs-6 fw-bold mb-2">
                                         <span>Status:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <select name="work_status" id=""
+                                    <select name="work_status" id="publishOrDraft"
                                         style="height: 33px;border: none;padding-left: 5px;outline:none">
                                         <option value="draft">Draft (Pricing Not Agreed)</option>
                                         <option value="publish">Publish (Pricing Agreed)</option>
@@ -794,20 +811,20 @@
                                         </label>
                                         <input type="text" class="form-control form-control-solid " placeholder="Design Checker Name" id="desinger" name="desinger" value="{{old('desinger')}}"  >
                                     </div> -->
-                                <div class="d-flex align-items-center inputDiv" style="height: 41px">
-                                    <!--begin::Label-->
-                                    <label class="fs-6 fw-bold mb-2">
-                                        <span>Information Required?</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <input type="checkbox" name="information_required" id="information_required"
-                                        style="margin-left:10px;opacity: 0.5" class="blackBack">
-                                    <span style="padding-left:22px;color:#000">Select if additional information is
-                                        required.</span>
-                                </div>
+                                    <div id="information_req" class="align-items-center inputDiv"  style="height: 41px; margin-bottom: 0px;">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">
+                                            <span>Information Required?</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <input type="checkbox" name="information_required" id="information_required"
+                                            style="margin-left:10px;opacity: 0.5" class="blackBack">
+                                        <span style="padding-left:22px;color:#000">Select if additional information is
+                                            required.</span>
+                                    </div>
                             </div>
 
-                            <div class="col-md-12 additional_information d-none" style="margin-top: -30px; margin-bottom: 20px;">
+                            <div class="col-md-12 additional_information d-none" style="margin-top: 0px; margin-bottom: 20px;">
                                 <div class="d-flex inputDiv d-block mb-0">
                                     <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
@@ -836,7 +853,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="appendresult" style="background:white;margin: 0 4px;">
+                        <div class="appendresult" style="background:white;margin: 26px 4px;">
                             <div class="row">
                                 <div class="pl-3 col-md-3">
                                     <div class="inputDiv mt-0">
@@ -902,6 +919,20 @@
 </div>
 @endsection
 @section('scripts')
+<script src="{{asset('assets/plugins/custom/summernote/summernote-bs4.min.js')}}"></script>
+<script src="{{asset('assets/plugins/custom/summernote/summernote-cleaner.js')}}"></script>
+<script>
+     var url = "{{asset('js/myfile.json')}}";
+    var jsondata = "";
+    $(document).ready(function() {
+        getText(url);
+        async function getText(file) {
+            await fetch(file).then(response => response.json()).then(json => {
+                jsondata = json;
+            });
+        }
+    });
+</script>
 <script src="{{asset('assets/js/temporary-work-modal.js')}}"></script>
 <script>
     $(document).ready(function(){
@@ -976,6 +1007,17 @@
             document.querySelector(".additional_information_photo").classList.add("d-none");
         }
     })
+
+    $(document).on('change', '#publishOrDraft', function(){
+        let value = $("#publishOrDraft").val();
+        console.log(value);
+        if(value === 'publish'){
+            console.log($('#information_req'))
+            $('#information_req').hide();
+        }else{
+            $('#information_req').show();
+        }
+    });
 </script>
 <script>
     // Get a reference to the date input element

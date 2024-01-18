@@ -1,5 +1,4 @@
 @extends('layouts.dashboard.master',['title' => 'Temporary Works'])
-
 @section('styles')
 <style>
     ::placeholder {

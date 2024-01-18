@@ -1002,7 +1002,7 @@
                     @endisset -->
                 </div>
                 <div class="uploadDiv" style="margin-top:20px">
-                    <!-- <div class="input-images"></div> -->
+                    {{-- <div class="input-images"></div> --}}
                     <input type="file" name="images[]" accept=".DWG, .dwg, .mp4, .mp3, .jpg, .jpeg, .gif, .svg, .png, .xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf" multiple>
                 </div>
                 <div class="submit-requirment" style="width:100%;justify-content: flex-end">

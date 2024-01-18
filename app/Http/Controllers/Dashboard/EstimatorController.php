@@ -208,7 +208,7 @@ class EstimatorController extends Controller
 
     //save estimator work
     public function store(Request $request)
-    {
+    { 
         Validations::storeEstimatorWork($request);
         try {
             $scope_of_design = [];
@@ -255,9 +255,44 @@ class EstimatorController extends Controller
                 }
             }
 
+            $designDocument = $request->description_temporary_work_required;
+            $dom = new \DOMDocument();
+            libxml_use_internal_errors(true);
+            @$dom->loadHtml($designDocument, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            libxml_use_internal_errors(false);
+            $images = $dom->getElementsByTagName('img');
+            foreach($images as $item => $image){
+                $data = $image->getAttribute("src");
+            // dd($data);
+
+            //     dd($data)(;
+            $image_explode = explode(';', $data);
+            if(count($image_explode) == 2){
+                list($type, $data) = [$image_explode[0] , $image_explode[1]];
+                list(, $data)      = explode(',', $data);
+            }else{
+                continue;
+            }
+            
+                // list($type, $data) = explode(';', $data);
+                // list(, $data)      = explode(',', $data);
+    
+
+                $imgeData = base64_decode($data);
+                $image_name= time().$item.'.png';
+                $path = public_path().'/temporary/signature/' . $image_name;
+                file_put_contents($path, $imgeData);
+                $image->removeAttribute('src');
+                $image->setAttribute('src', 'temporary/signature/'.$image_name);
+                $image->setAttribute('width' , "120");
+                $image->setAttribute('height' , "120");
+                $image->removeAttribute("style");
+            }
+            $content = $dom->saveHTML();
+            $all_inputs['description_temporary_work_required'] = $content;
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token','external_designers','external_suppliers', 'date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno', 'projname', 'approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails', 'online_designers', 'online_suppliers','action', 'display_sign', 'signtype', 'pdfsigntype', 'namesign');
+            $all_inputs  = $request->except('_token','external_designers','files', 'external_suppliers', 'date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno', 'projname', 'approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails', 'online_designers', 'online_suppliers','action', 'display_sign', 'signtype', 'pdfsigntype', 'namesign');
             //if design req details is exist
             if(isset($request->req_name))
             {
@@ -764,6 +799,7 @@ class EstimatorController extends Controller
     //update estimaor work from estimator or twc
     public function update(Request $request, $temporaryWork)
     {
+        dd($request->all());
         $temporaryWorkData=TemporaryWork::find($temporaryWork);
         Validations::storeEstimatorWork($request);
         try {
@@ -810,6 +846,43 @@ class EstimatorController extends Controller
                     unset($request[$key]);
                 }
             }
+
+            $designDocument = $request->description_temporary_work_required;
+            $dom = new \DOMDocument();
+            libxml_use_internal_errors(true);
+            @$dom->loadHtml($designDocument, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            libxml_use_internal_errors(false);
+            $images = $dom->getElementsByTagName('img');
+            foreach($images as $item => $image){
+                $data = $image->getAttribute("src");
+            // dd($data);
+
+            //     dd($data)(;
+            $image_explode = explode(';', $data);
+            if(count($image_explode) == 2){
+                list($type, $data) = [$image_explode[0] , $image_explode[1]];
+                list(, $data)      = explode(',', $data);
+            }else{
+                continue;
+            }
+            
+                // list($type, $data) = explode(';', $data);
+                // list(, $data)      = explode(',', $data);
+    
+
+                $imgeData = base64_decode($data);
+                $image_name= time().$item.'.png';
+                $path = public_path().'/temporary/signature/' . $image_name;
+                file_put_contents($path, $imgeData);
+                $image->removeAttribute('src');
+                $image->setAttribute('src', 'temporary/signature/'.$image_name);
+                $image->setAttribute('width' , "120");
+                $image->setAttribute('height' , "120");
+                $image->removeAttribute("style");
+            }
+            $content = $dom->saveHTML();
+            $all_inputs['description_temporary_work_required'] = $content;
+
             //unset all keys 
             $request = $this->Unset($request);
             $all_inputs  = $request->except('unload_images','external_designers','external_suppliers', '_token','_method','date', 'company_id', 'projaddress', 'signed', 'images','pdfphoto', 'projno', 'projname','preloaded','namesign','signtype','pdfsigntype','approval','req_type','req_name','req_check','req_notes','designers','suppliers','supplier_company_emails','designer_company_emails','action', 'display_sign', 'signtype', 'pdfsigntype', 'namesign', 'online_designers', 'online_suppliers');
@@ -932,6 +1005,7 @@ class EstimatorController extends Controller
                 $data['designer_company_email'] = array_merge($cleaned_email, $designer_company_emails, $supplier_company_emails);
                 $all_inputs['designer_company_email'] = $data['designer_company_email'][0];
             }
+
             //photo work here
             if ($request->photo) {
                 $filePath = HelperFunctions::designbriefphotopath();
@@ -942,6 +1016,7 @@ class EstimatorController extends Controller
             }
             $categorylabel=explode("-",$request->design_requirement_text);
             $all_inputs['category_label']=$categorylabel[0];
+
             $temporary_work = TemporaryWork::find($temporaryWork)->update($all_inputs);
             if ($temporary_work) {
                 ScopeOfDesign::where(['temporary_work_id'=>$temporaryWork])->update(array_merge($scope_of_design, ['temporary_work_id' => $temporaryWork]));
@@ -967,6 +1042,7 @@ class EstimatorController extends Controller
                 }
                 //work for pdf
                 if($request->action == 'Publish' && $temporaryWorkData->estimatorApprove == 1){
+
                     // $data['designer_company_email']=$request->designer_company_emails;
                     // dd($data);
                     $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $data, 'image_name' => $temporaryWork, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $twc_id_no, 'comments' => $attachcomments]);
@@ -1025,6 +1101,7 @@ class EstimatorController extends Controller
                     return redirect()->route('temporary_works.index');
 
                 } elseif($request->action == 'Publish'){
+
                     // $data['designer_company_email']=$request->designer_company_emails;
                     $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $data, 'image_name' => $temporaryWork, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $twc_id_no, 'comments' => $attachcomments]);
                     $path = public_path('pdf');

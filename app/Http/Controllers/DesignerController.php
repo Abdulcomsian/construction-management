@@ -3369,7 +3369,7 @@ class DesignerController extends Controller
          ->orWhere('created_by', Auth::user()->id)
          ->whereIn('work_status', ['draft','pending'])
          ->get();
-         
+        
          $AwardedEstimators=TemporaryWork::with('designer.quotationSum')->with('project.company')->whereIn('id',$awarded)->get();
         //  $AwardedEstimators=TemporaryWork::with('designer.quotationSum')->with('project.company')
         //  ->whereIn('id',$awarded)
@@ -3397,8 +3397,10 @@ class DesignerController extends Controller
         try
         {
             $temporary_work = TemporaryWork::findOrFail($id); // Assuming you have the $id of the record you want to update
+
             $all_inputs  = $request->except('_token', 'date', 'company_id', 'signed', 'images','pdfphoto','approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action', 'price', 'description', 'date', 'information_required' ,'additional_information' , 'additional_information_file');
             $informationRequired = $request->information_required;
+            
             if($informationRequired == "on")
             {
                 if(is_null($request->additional_information) || empty($request->additional_information))
@@ -3451,19 +3453,22 @@ class DesignerController extends Controller
                 }
             }
 
+            
+            //unset all keys 
+            $request = $this->Unset($request);
+            $all_inputs  = $request->except('_token', 'date', 'unload_images', 'company_id', 'signed', 'images','pdfphoto','approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action', 'price', 'description', 'date', 'information_required' ,'additional_information' , 'additional_information_file');
+
             //if design req details is exist
             if(isset($request->req_name))
             {
                 $desing_req_details=[];
                 foreach($request->req_name as $key => $req)
                 {
-                    $desing_req_details[]=['name'=>$req,'check'=>isset($request->req_check[$key]) ? 'Y':'N','note'=>$request->req_notes[$key]];
+                    $desing_req_details[]=['name'=>$req,'check'=>isset($request->req_check[$req]) ? 'Y':'N','note'=>$request->req_notes[$key]];
                 }
                 $all_inputs['desing_req_details']=json_encode($desing_req_details);
             }
-            //unset all keys 
-            $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token', 'date', 'company_id', 'signed', 'images','pdfphoto','approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action', 'price', 'description', 'date', 'information_required' ,'additional_information' , 'additional_information_file');
+
             $image_name = '';
             $all_inputs['signature'] = $image_name;
             $all_inputs['created_by'] = auth()->user()->id;
@@ -3476,6 +3481,7 @@ class DesignerController extends Controller
                 $imagename = HelperFunctions::saveFile(null, $file, $filePath);
                 $all_inputs['photo'] = $imagename;
             }
+
             if($request->existing_design_brief){
                 $old_path = public_path($temporary_work->existing_design_brief);
                 $file = $request->file('existing_design_brief');
@@ -3483,6 +3489,7 @@ class DesignerController extends Controller
                 $imagename = HelperFunctions::saveFile($old_path, $file, $filePath);
                 $all_inputs['existing_design_brief'] = $imagename;
             }
+            
             $categorylabel=explode("-",$request->design_requirement_text);
             $all_inputs['category_label']=$categorylabel[0];
             $all_inputs['estimator']=1;
@@ -3541,7 +3548,7 @@ class DesignerController extends Controller
                 Folder::create(array_merge($folder_attachements, ['temporary_work_id' => $temporary_work->id]));
                 AttachSpeComment::create(array_merge($attachcomments, ['temporary_work_id' => $temporary_work->id]));
                 //work for upload images here
-                $image_links = [];
+                // $image_links = [];
                 if ($request->file('images')) {
                     $filePath = HelperFunctions::temporaryworkImagePath();
                     $files = $request->file('images');
@@ -3551,12 +3558,29 @@ class DesignerController extends Controller
                         $model->image = $imagename;
                         $model->temporary_work_id = $temporary_work->id;
                         $model->save();
-                        $image_links[] = $imagename;
                     }
+                    
                 }
+                // getting the of images from database related to the temporary Id from URL
+                $dataOfImage = TemporayWorkImage::where('temporary_work_id', '=', $temporary_work->id)->get();
+                // getting the additional Information Image data from Database
+                $dataOfAdditionalImage = AdditionalInformation::select('file_path')->where('temporary_work_id', '=', $temporary_work->id)->first();
+                // Existing Design Brief and photo
+                $existingDesignBrief = TemporaryWork::select('existing_design_brief', 'photo')->where('id', '=', $temporary_work->id)->first();
                 //work for pdf
-                // dd("eeee");
-                $pdf = PDF::loadView('layouts.pdf.estimator', ['data' => $request->all(), 'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => '', 'comments' => $attachcomments]);
+                $pdf = PDF::loadView('layouts.pdf.estimator', [
+                    'data' => $request->all(), 
+                    'image_name' => $temporary_work->id, 
+                    'scopdesg' => $scope_of_design, 
+                    'folderattac' => $folder_attachements, 
+                    'folderattac1' =>  $folder_attachements_pdf,
+                    'imagelinks' => $dataOfImage,
+                    'twc_id_no' => '', 
+                    'comments' => $attachcomments, 
+                    'additional_file' => $dataOfAdditionalImage,
+                    'existing_design_brief' => $existingDesignBrief,
+                ]);
+
                 $path = public_path('estimatorPdf');
                 $filename = rand() . '.pdf';
                 $pdf->save($path . '/' . $filename);
@@ -3886,20 +3910,23 @@ class DesignerController extends Controller
                     unset($request[$key]);
                 }
             }
-
-            //if design req details is exist
-            if(isset($request->req_name))
-            {
-                $desing_req_details=[];
-                foreach($request->req_name as $key => $req)
-                {
-                    $desing_req_details[]=['name'=>$req,'check'=>isset($request->req_check[$key]) ? 'Y':'N','note'=>$request->req_notes[$key]];
-                }
-                $all_inputs['desing_req_details']=json_encode($desing_req_details);
-            }
             //unset all keys 
             $request = $this->Unset($request);
             $all_inputs  = $request->except('_token', 'company_id', 'signed', 'images','pdfphoto','approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action', 'price', 'description', 'date', 'information_required' ,'additional_information' , 'additional_information_file');
+              //if design req details is exist
+              if(isset($request->req_name))
+              {
+                  $desing_req_details=[];
+                  foreach($request->req_name as $key => $req)
+                  {
+
+                      $desing_req_details[]=['name'=>$req,'check'=>isset($request->req_check[$req]) ? 'Y':'N','note'=>$request->req_notes[$key]];
+                  }
+  
+                  $all_inputs['desing_req_details']=json_encode($desing_req_details);
+              }
+            
+
             $image_name = '';
             $all_inputs['signature'] = $image_name;
             $all_inputs['created_by'] = auth()->user()->id;
@@ -3925,7 +3952,9 @@ class DesignerController extends Controller
             $all_inputs['estimator_serial_no']= HelperFunctions::generateEstimatorSerial();
             // $all_inputs['work_status'] = $informationRequired == "on" ? "draft" : "publish";
             $all_inputs['admin_designer_email'] = Auth::user()->email;
+            // dd($all_inputs);
             $temporary_work = TemporaryWork::create($all_inputs);
+
             for($i=0;$i<count($request->price);$i++)
             {
                 if(!isset($request->price[$i]) || is_null($request->price[$i]) )
@@ -3971,7 +4000,7 @@ class DesignerController extends Controller
                 Folder::create(array_merge($folder_attachements, ['temporary_work_id' => $temporary_work->id]));
                 AttachSpeComment::create(array_merge($attachcomments, ['temporary_work_id' => $temporary_work->id]));
                 //work for upload images here
-                $image_links = [];
+                // $image_links = [];
                 if ($request->file('images')) {
                     $filePath = HelperFunctions::temporaryworkImagePath();
                     $files = $request->file('images');
@@ -3981,11 +4010,29 @@ class DesignerController extends Controller
                         $model->image = $imagename;
                         $model->temporary_work_id = $temporary_work->id;
                         $model->save();
-                        $image_links[] = $imagename;
+                        // $image_links[] = $imagename;
                     }
                 }
+                // getting the of images from database related to the temporary Id from URL
+                $dataOfImage = TemporayWorkImage::where('temporary_work_id', '=', $temporary_work->id)->get();
+                // getting the additional Information Image data from Database
+                $dataOfAdditionalImage = AdditionalInformation::select('file_path')->where('temporary_work_id', '=', $temporary_work->id)->first();
+                // Existing Design Brief and photo
+                $existingDesignBrief = TemporaryWork::select('existing_design_brief', 'photo')->where('id', '=', $temporary_work->id)->first();
                 //work for pdf
-                $pdf = PDF::loadView('layouts.pdf.estimator', ['data' => $request->all(), 'image_name' => $temporary_work->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => '', 'comments' => $attachcomments]);
+                $pdf = PDF::loadView('layouts.pdf.estimator', [
+                    'data' => $request->all(), 
+                    'image_name' => $temporary_work->id, 
+                    'scopdesg' => $scope_of_design, 
+                    'folderattac' => $folder_attachements, 
+                    'folderattac1' =>  $folder_attachements_pdf,
+                    'imagelinks' => $dataOfImage, 
+                    'twc_id_no' => '', 
+                    'comments' => $attachcomments, 
+                    'additional_file' => $dataOfAdditionalImage,
+                    'existing_design_brief' => $existingDesignBrief,
+                ]);
+
                 $path = public_path('estimatorPdf');
                 $filename = rand() . '.pdf';
                 $pdf->save($path . '/' . $filename);

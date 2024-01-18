@@ -255,6 +255,9 @@ class EstimatorController extends Controller
                 }
             }
 
+            ini_set('max_execution_time', '300');
+            ini_set("pcre.backtrack_limit", "5000000");
+            
             $designDocument = $request->description_temporary_work_required;
             $dom = new \DOMDocument();
             libxml_use_internal_errors(true);
@@ -847,6 +850,9 @@ class EstimatorController extends Controller
                     unset($request[$key]);
                 }
             }
+
+            ini_set('max_execution_time', '300');
+            ini_set("pcre.backtrack_limit", "5000000");
 
             $designDocument = $request->description_temporary_work_required;
             $dom = new \DOMDocument();

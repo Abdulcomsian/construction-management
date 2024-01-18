@@ -1,4 +1,5 @@
 @section('styles')
+<link href="{{asset('css/imageuploadify.min.css')}}" rel="stylesheet">
 <style>
     ::placeholder {
         /* Chrome, Firefox, Opera, Safari 10.1+ */
@@ -334,16 +335,23 @@
 </style>
 
 @include('layouts.sweetalert.sweetalert_css')
+<link href="{{asset('css/imageuploadify.min.css')}}" rel="stylesheet">
 <link rel="stylesheet" href="{{asset('css/signature-twitter-bootstrap.css')}}" />
 <link rel="stylesheet" href="{{asset('css/Jquery-ui-min.css')}}" />
 <link rel="stylesheet" href="{{asset('css/signature.css')}}" />
 <link rel="stylesheet" href="{{asset('css/image-uploader.min.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/plugins/custom/summernote/summernote-bs4.min.css')}}">
 @endsection
 @section('content')
+<?php
+    if(isset($temporary_work)){
+        $temporaryWork = $temporary_work;
+    }
+?>
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <!--begin::Container-->
-        <div id="kt_content_container" class="container temporary_work_create">
+        <div id="kt_content_container" class="container temporaryWork_create">
             <!--begin::Card-->
             <div class="card">
                 <!--begin::Card header-->
@@ -354,7 +362,7 @@
                     </div>
                 </div>
                 <div class="card-body pt-0">
-                    <form id="desingform" action="{{ route('update_estimation', $temporary_work->id) }}" method="post"
+                    <form id="desingform" action="{{ route('update_estimation', $temporaryWork->id) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
@@ -367,7 +375,7 @@
                                     </label>
                                     <!--end::Label-->
                                     <input type="number" class="blackBack form-control form-control-solid"
-                                        placeholder="Enter Project number" id="no" value="{{$temporary_work->projno}}" name="projno">
+                                        placeholder="Enter Project number" id="no" value="{{$temporaryWork->projno}}" name="projno">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -378,7 +386,7 @@
 
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="form-control form-control-solid" value="{{$temporary_work->projname}}"
+                                    <input type="text" class="form-control form-control-solid" value="{{$temporaryWork->projname}}"
                                         placeholder="Project Name" id="name" name="projname">
                                 </div>
                             </div>
@@ -392,7 +400,7 @@
                                     </label>
                                     <!--end::Label-->
                                   
-                                    <input data-date-inline-picker="true" type="date" value="{{$temporary_work->design_issued_date}}"
+                                    <input data-date-inline-picker="true" type="date" value="{{$temporaryWork->design_issued_date}}"
                                         class="blackBack form-control form-control-solid" placeholder="Date"
                                         name="design_issued_date" id="design_issued_date">
                                 </div>
@@ -407,7 +415,7 @@
                                     <!--end::Label-->
                                     
                                     
-                                    <input type="text" class="blackBack form-control form-control-solid" value="{{$temporary_work->projaddress}}"
+                                    <input type="text" class="blackBack form-control form-control-solid" value="{{$temporaryWork->projaddress}}"
                                         placeholder="Project Address" id="address" name="projaddress">
                                 </div>
                             </div>
@@ -422,7 +430,7 @@
 
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="blackBack form-control form-control-solid" value="{{$temporary_work->twc_name}}"
+                                    <input type="text" class="blackBack form-control form-control-solid" value="{{$temporaryWork->twc_name}}"
                                         placeholder="TWC Name" id="twc_name" name="twc_name" value="">
                                 </div>
                             </div>
@@ -434,7 +442,7 @@
 
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" class="blackBack form-control form-control-solid" value="{{$temporary_work->twc_email}}"
+                                    <input type="text" class="blackBack form-control form-control-solid" value="{{$temporaryWork->twc_email}}"
                                         placeholder="TWC Email Address" id="twc_email" name="twc_email"
                                         style="background: #f5f8fa">
                                 </div>
@@ -449,13 +457,13 @@
                                     </label>
                                  
                                     <input data-date-inline-picker="true"
-                                        style=" cursor: pointer;color:#a9abb7 !important;" type="date" value="{{$temporary_work->design_required_by_date}}"
+                                        style=" cursor: pointer;color:#a9abb7 !important;" type="date" value="{{$temporaryWork->design_required_by_date}}"
                                         class="customDate blackBack form-control form-control-solid"
                                         placeholder="Design Required by Date" id="design_required_by_date"
                                         name="design_required_by_date">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            {{-- <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block mb-0">
                                     <div class="d-flex modalDiv" data-bs-toggle="modal"
                                         data-bs-target="#design-requirement">
@@ -464,12 +472,28 @@
                                             Design Requirement:
                                         </label>
                                         <br>
-                                        <input type="text" class="blackBack" style="width: 50%;" value="{{$temporary_work->design_requirement_text}}"
+                                        <input type="text" class="blackBack" style="width: 50%;" value="{{$temporaryWork->design_requirement_text}}"
                                             id="design_requirement_text" placeholder="Design requirement"
                                             name="design_requirement_text">
                                         <!--end::Label-->
                                     </div>
                                 </div>
+                            </div> --}}
+
+                            <div class="col-md-6" style="margin-top: 35px;">
+                                <div class="d-flex inputDiv d-block my-0" id="designReq">
+                                    <div class="modalDiv" data-bs-toggle="modal" data-bs-target="#design-requirement">
+                                        <!--begin::Label-->
+                                        <label class="required fs-6 fw-bold mb-2">
+                                            Design Requirement:
+                                        </label>
+                                        <!-- <br> -->
+                                        <input type="text" class="blackBack" style="width: 50%;" id="design_requirement_text" placeholder="Design requirement" readonly name="design_requirement_text" value="{{$temporaryWork->design_requirement_text}}">
+                                        <!--end::Label-->
+                                    </div>
+                                </div>
+                                <span class="designReq_err"></span>
+                
                             </div>
                         </div>
                         <div class="row">
@@ -484,7 +508,7 @@
                                         <textarea class="blackBack form-control"
                                             name="description_temporary_work_required"
                                             style="height:32px; border: none " rows="2" cols="50"
-                                            placeholder="Provide brief description of design requirements.">{{$temporary_work->description_temporary_work_required}}</textarea>
+                                            placeholder="Provide brief description of design requirements.">{{$temporaryWork->description_temporary_work_required}}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -622,11 +646,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            {{-- <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block mb-0">
                                     <div style="position:relative;" class="d-flex modalDiv d-block"
                                         data-bs-toggle="modal" data-bs-target="#attachment-of-design">
-                                        <label class=" fs-6 fw-bold mb-2" style="bottom: 32px">
+                                        <label class=" fs-6 fw-bold mb-2" style="bottom: 14px;">
                                             
                                             Attachments / Spec:
                                             <span style="margin-left: 10px;">
@@ -638,6 +662,20 @@
                                         <input id="attachment" class="blackBack"
                                             style="background-color: #000; color:#fff" type="text"
                                             placeholder="Attachments / Spec / Existing Designs and Existing Site Conditions (folders to upload)">
+                                    </div>
+                                </div>
+                            </div> --}}
+                            <div class="col-md-6">
+                                <div class="d-flex inputDiv d-block mb-0" id="attachment_specs">
+                                    <div style="position:relative;" class="modalDiv d-block" data-bs-toggle="modal"
+                                        data-bs-target="#attachment-of-design">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            Attachments / Spec:
+                                        </label>
+                                        <input type="text"
+                                            placeholder="Attachments / Spec / Existing Designs and Existing Site Conditions (folders to upload)"
+                                            readonly>
                                     </div>
                                 </div>
                             </div>
@@ -652,7 +690,7 @@
                                     </label>
                                     <!--end::Label-->
                                     <input type="text" class="blackBack form-control form-control-solid"
-                                        placeholder="Name" name="name" value="{{$temporary_work->name}}" id="admin_name">
+                                        placeholder="Name" name="name" value="{{$temporaryWork->name}}" id="admin_name">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -663,7 +701,7 @@
                                     </label>
                                     <!--end::Label-->
                                     <input type="text" class="blackBack form-control form-control-solid"
-                                        placeholder="Job title" name="job_title" value="{{$temporary_work->job_title}}" id="job_title">
+                                        placeholder="Job title" name="job_title" value="{{$temporaryWork->job_title}}" id="job_title">
                                 </div>
                             </div>
                         </div>
@@ -678,7 +716,7 @@
                                   
                                     <input type="text" id="companyadmin"
                                         class="blackBack form-control form-control-solid"
-                                        style="background-color:#f5f8fa" placeholder="Company" name="company" value="{{$temporary_work->company}}">
+                                        style="background-color:#f5f8fa" placeholder="Company" name="company" value="{{$temporaryWork->company}}">
                                     <input type="hidden" id="company_id"  name="company_id">
                                 </div>
                             </div>
@@ -689,7 +727,7 @@
                                         <span class="">Date:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input data-date-inline-picker="true" type="date" name="date" value="{{$temporary_work->date}}"
+                                    <input data-date-inline-picker="true" type="date" name="date" value="{{$temporaryWork->date}}"
                                         style="background-color:#fff" class="form-control form-control-solid">
                                 </div>
                             </div>
@@ -702,7 +740,7 @@
                                         <span>Client Name:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" name="client_name" class="form-control form-control-slid" value="{{$temporary_work->client_name}}" placeholder="Enter Client Name" />
+                                    <input type="text" name="client_name" class="form-control form-control-slid" value="{{$temporaryWork->client_name}}" placeholder="Enter Client Name" />
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -712,7 +750,7 @@
                                         <span>Client Email:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="email" name="client_email" class="form-control form-control-slid" value="{{$temporary_work->designerQuote ? ($temporary_work->designerQuote[0]->email ?? '') : '' }}" placeholder="Enter Client Email" />
+                                    <input type="email" name="client_email" class="form-control form-control-slid" value="{{$temporaryWork->designerQuote ? ($temporaryWork->designerQuote[0]->email ?? '') : '' }}" placeholder="Enter Client Email" />
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -722,10 +760,10 @@
                                         <span>Status:</span>
                                     </label>
                                     <!--end::Label-->
-                                    <select name="work_status" id=""
+                                    <select name="work_status" id="publishOrDraft"
                                         style="height: 33px;border: none;padding-left: 5px;outline:none">
-                                        <option value="draft" @if($temporary_work->work_status == "draft") selected @endif > Draft (Pricing Not Agreed)</option>
-                                        <option value="publish" @if($temporary_work->work_status == "publish") selected @endif >Publish (Pricing Agreed)</option>
+                                        <option value="draft" @if($temporaryWork->work_status == "draft") selected @endif > Draft (Pricing Not Agreed)</option>
+                                        <option value="publish" @if($temporaryWork->work_status == "publish") selected @endif >Publish (Pricing Agreed)</option>
                                     </select>
                                 </div>
                             </div>
@@ -753,19 +791,19 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="d-flex align-items-center inputDiv" style="height: 41px">
+                                <div id="information_req" class="align-items-center inputDiv" style="height: 41px; margin-bottom: 0px;">
                                     <!--begin::Label-->
                                     <label class="fs-6 fw-bold mb-2">
                                         <span>Information Required?</span>
                                     </label>
                                     <!--end::Label-->
                                     
-                                    <input type="checkbox" name="information_required" id="information_required" style="margin-left:10px;opacity: 0.5" class="blackBack">
+                                    <input type="checkbox" name="information_required" id="information_required" style="margin:-65px; !important opacity: 0.5" class="blackBack">
                                     <span style="padding-left:22px;color:#000">Select if additional information is required.</span>
                                 </div>
                             </div>
 
-                            <div class="col-md-12 additional_information @if(!$temporary_work->additionalInformation) d-none @endif" style="margin-top: -30px; margin-bottom: 20px;">
+                            <div class="col-md-12 additional_information @if(!$temporaryWork->additionalInformation) d-none @endif" style="margin-top: 0px; margin-bottom: 20px;">
                                 <div class="d-flex inputDiv d-block mb-0">
                                     <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
@@ -778,7 +816,7 @@
                                             style="height:64px; border: none" 
                                             rows="4" 
                                             cols="50"
-                                            placeholder="Provide additional information.">@if($temporary_work->additionalInformation) {{$temporary_work->additionalInformation->more_details}} @endif
+                                            placeholder="Provide additional information.">@if($temporaryWork->additionalInformation) {{$temporaryWork->additionalInformation->more_details}} @endif
                                             
                                         </textarea>
                                     </div>
@@ -787,7 +825,7 @@
 
 
                         </div>
-                        @if($temporary_work->work_status == 'pending')
+                        @if($temporaryWork->work_status == 'pending')
                             <div class="row mt-md-3 text-center">
                                 <div class="col-md-12">
                                     <p style="color:red"> Your price is rejected please update the prices</p>
@@ -796,7 +834,7 @@
                         @endif
                         <div class="row mt-md-4">
                             <div class="col-md-12">
-                                @foreach($temporary_work->designerQuote as $row)
+                                @foreach($temporaryWork->designerQuote as $row)
                                     <div class="row">
                                         <div class="pl-3 col-md-3">
                                             <div class="inputDiv mt-0">
@@ -874,7 +912,9 @@
                                 </div>
                             </div>
                         </div>
-                        @include('dashboard.modals.design-relief-modals')
+                        {{-- @dd($temporaryWork) --}}
+                        {{-- @include('dashboard.modals.design-relief-modals-edit') --}}
+                        @include('dashboard.modals.design-relief-modals-edit',['design_check' => $temporaryWork->desing_req_details,'images'=>$temporaryWork->temp_work_images])
                         <div class="row mt-5">
                             <div class="col-md-6"></div>
                             <div class="col-md-6">
@@ -899,7 +939,29 @@
 </div>
 @endsection
 @section('scripts')
+<script src="{{asset('assets/plugins/custom/summernote/summernote-bs4.min.js')}}"></script>
+{{-- <script src="{{asset('assets/plugins/custom/summernote/summernote-cleaner.js')}}"></script>
+<script>
+    var url = "{{asset('js/myfile.json')}}";
+    var jsondata = "";
+    $(document).ready(function() {
+        getText(url);
+        async function getText(file) {
+            await fetch(file).then(response => response.json()).then(json => {
+                jsondata = json;
+            });
+        }
+    });
+</script> --}}
 <script src="{{asset('assets/js/temporary-work-modal.js')}}"></script>
+{{-- <script type="text/javascript" src="{{asset('js/image-uploader.min.js')}}"></script> --}}
+<script type="text/javascript">
+    $(document).ready(function() {
+    
+        $('input[type="file"]').imageuploadify();
+        
+    })
+</script>
 <script type="text/javascript">
     $(".add-more-price").on('click',function(){
         $(".appendresult").append(`<div class="row"><div class="pl-3 col-md-3">
@@ -942,6 +1004,17 @@
     $(document).on("click",".remove",function(){
         $(this).parent().parent().parent().remove();
     })
+
+    $(document).on('change', '#publishOrDraft', function(){
+        let value = $("#publishOrDraft").val();
+        console.log(value);
+        if(value === 'publish'){
+            console.log($('#information_req'))
+            $('#information_req').hide();
+        }else{
+            $('#information_req').show();
+        }
+    });
 </script>
 <script>
     $(document).ready(function(){

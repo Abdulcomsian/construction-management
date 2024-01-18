@@ -824,7 +824,7 @@
                                     </div>
                             </div>
 
-                            <div class="col-md-12 additional_information d-none" style="margin-top: -30px; margin-bottom: 20px;">
+                            <div class="col-md-12 additional_information d-none" style="margin-top: 0px; margin-bottom: 20px;">
                                 <div class="d-flex inputDiv d-block mb-0">
                                     <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
@@ -1017,7 +1017,7 @@
         }else{
             $('#information_req').show();
         }
-    })
+    });
 </script>
 <script>
     // Get a reference to the date input element

@@ -799,7 +799,7 @@ class EstimatorController extends Controller
     //update estimaor work from estimator or twc
     public function update(Request $request, $temporaryWork)
     {
-        dd($request->all());
+        // dd($request->all());
         $temporaryWorkData=TemporaryWork::find($temporaryWork);
         Validations::storeEstimatorWork($request);
         try {

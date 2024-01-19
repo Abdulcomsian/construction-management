@@ -765,7 +765,8 @@
                                     <select name="work_status" id="publishOrDraft"
                                         style="height: 33px;border: none;padding-left: 5px;outline:none">
                                         <option value="draft">Draft (Pricing Not Agreed)</option>
-                                        <option value="publish">Publish (Pricing Agreed)</option>
+                                        <option value="publish">Approval from Client Not Required(Pricing Agreed)</option>
+                                        {{-- <option value="no_approval">Publish (Pricing Not Agreed)</option> --}}
                                     </select>
                                 </div>
                             </div>

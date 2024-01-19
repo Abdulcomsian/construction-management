@@ -3367,7 +3367,7 @@ class DesignerController extends Controller
          $estimatorWork=TemporaryWork::with('designer', 'additionalInformation.unreadComment' ,'additionalInformation.jobComment')->with('project.company')
          ->whereIn('id',$record)
          ->orWhere('created_by', Auth::user()->id)
-         ->whereIn('work_status', ['draft','pending'])
+         ->whereIn('work_status', ['draft','pending', 'no_approval'])
          ->get();
         
          $AwardedEstimators=TemporaryWork::with('designer.quotationSum')->with('project.company')->whereIn('id',$awarded)->get();
@@ -3453,7 +3453,33 @@ class DesignerController extends Controller
                 }
             }
 
-            
+            ini_set('max_execution_time', '300');
+            ini_set("pcre.backtrack_limit", "5000000");
+            $designDocument = $request->description_temporary_work_required;
+            $dom = new \DOMDocument();
+            libxml_use_internal_errors(true);
+            $dom->loadHtml($designDocument, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            libxml_use_internal_errors(false);
+            $images = $dom->getElementsByTagName('img');
+
+            foreach($images as $item => $image){
+                $data = $image->getAttribute("src");
+                $styles = $image->getAttribute("style");
+                list($type, $data) = explode(';', $data);
+                list(, $data)      = explode(',', $data);
+                $imgeData = base64_decode($data);
+                $image_name= time().$item.'.png';
+                $path = public_path().'/temporary/signature/' . $image_name;
+                file_put_contents($path, $imgeData);
+                $image->removeAttribute('src');
+                $image->setAttribute('src', 'temporary/signature/'.$image_name);
+                $image->setAttribute('max-width' , '100% !important;');
+                $image->setAttribute('width' , $styles);
+                $image->setAttribute('height' , 'auto');
+                $image->removeAttribute("style");
+            }
+            $content = $dom->saveHTML();
+            $all_inputs['description_temporary_work_required'] = $content;
             //unset all keys 
             $request = $this->Unset($request);
             $all_inputs  = $request->except('_token', 'date', 'unload_images', 'company_id', 'signed', 'images','pdfphoto','approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action', 'price', 'description', 'date', 'information_required' ,'additional_information' , 'additional_information_file');
@@ -3856,6 +3882,7 @@ class DesignerController extends Controller
 
    public function storeEstimation(Request $request)
    {
+    // dd($request->all());
     Validations::storeEstimatorWork($request);
     try {
             $informationRequired = $request->information_required;
@@ -3910,6 +3937,34 @@ class DesignerController extends Controller
                     unset($request[$key]);
                 }
             }
+
+            ini_set('max_execution_time', '300');
+            ini_set("pcre.backtrack_limit", "5000000");
+            $designDocument = $request->description_temporary_work_required;
+            $dom = new \DOMDocument();
+            libxml_use_internal_errors(true);
+            $dom->loadHtml($designDocument, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            libxml_use_internal_errors(false);
+            $images = $dom->getElementsByTagName('img');
+
+            foreach($images as $item => $image){
+                $data = $image->getAttribute("src");
+                $styles = $image->getAttribute("style");
+                list($type, $data) = explode(';', $data);
+                list(, $data)      = explode(',', $data);
+                $imgeData = base64_decode($data);
+                $image_name= time().$item.'.png';
+                $path = public_path().'/temporary/signature/' . $image_name;
+                file_put_contents($path, $imgeData);
+                $image->removeAttribute('src');
+                $image->setAttribute('src', 'temporary/signature/'.$image_name);
+                $image->setAttribute('max-width' , '100% !important;');
+                $image->setAttribute('width' , $styles);
+                $image->setAttribute('height' , 'auto');
+                $image->removeAttribute("style");
+            }
+            $content = $dom->saveHTML();
+            $all_inputs['description_temporary_work_required'] = $content;
             //unset all keys 
             $request = $this->Unset($request);
             $all_inputs  = $request->except('_token', 'company_id', 'signed', 'images','pdfphoto','approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action', 'price', 'description', 'date', 'information_required' ,'additional_information' , 'additional_information_file');

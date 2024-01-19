@@ -300,8 +300,9 @@
                                         <th>No</th>
                                         <th>Project</th>
                                         <th>Company</th>
+                                        <th>Design Brief</th>
                                         <th>Comments</th>
-                                        {{-- <th>Comment</th> --}}
+                                        <th>Additional Information</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -320,10 +321,11 @@
 
                                     @endphp
                                     <tr style="background: {{$background ?? ''}}  !important">
-                                        <td>{{$count++}}</td>
-                                        <td>{{$row->projname}}</td>
-                                        <td>{{$row->company}} <br> 
-                                            <a target="_blank" href="{{ asset('estimatorPdf/'.$row->ped_url) }}" class="btn" style="border: 1px solid #07d564; margin-top:5px; border-radius: 5px">Design Brief</a>
+                                        <td><p style="margin-top: 10px;">{{$count++}}</p></td>
+                                        <td><p style="margin-top: 10px;">{{$row->projname}}</p></td>
+                                        <td><p style="margin-top: 10px;">{{$row->company}}</p></td>
+                                        <td>
+                                            <a target="_blank" href="{{ asset('estimatorPdf/'.$row->ped_url) }}" class="btn" style="border: 1px solid #07d564; border-radius: 5px">Design Brief</a>
                                         </td>
                                         <td>
                                             <button onclick="showCommentModal({{$row->id}})" class="btn" style="border: 1px solid #07d564; border-radius: 5px" id="pricing_modal">View Comments</button>
@@ -377,21 +379,25 @@
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-body">
-
                     <form method="post" action="{{route("approve_pricing")}}"  enctype="multipart/form-data">
+                        @if($estimatorWork[0]['work_status'] == 'publish')
+                        <h5>Pricing Approved</h5>
+                        @endif
                         <div id="table">
-
+                            
                         </div>
                         @csrf
+                        @if($estimatorWork[0]['work_status'] == 'draft')
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group" style="padding-left: 10px">
                                     <input type="radio" name="payment" value="approve" checked>
-                                    <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">I accept payment terms</span>
+                                    <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">I accept payment terms and design brief</span>
+                                    <a target="_blank" href="{{ asset('estimatorPdf/'.$row->ped_url) }}" style="float: right;">Download Design Brief</a>
                                 </div>
                                 <div class="form-group" style="padding-left: 10px">
                                     <input type="radio" name="payment" value="reject">
-                                    <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">I reject payment terms</span>
+                                    <span style="padding-left:14px;font-family: 'Inter', sans-serif;font-weight:color:#000;font-size:14px;line-height: 2">I reject payment terms and design brief</span>
                                 </div>
                             </div>
                         </div>
@@ -477,6 +483,7 @@
                         disabled
                         style="  top: 77% !important; left: 0;  padding: 10px 50px;font-size: 20px;font-weight: bold;">Submit</button>
                     
+                        @endif
                     </form>
                 </div>
             </div>

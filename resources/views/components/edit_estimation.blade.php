@@ -763,7 +763,7 @@
                                     <select name="work_status" id="publishOrDraft"
                                         style="height: 33px;border: none;padding-left: 5px;outline:none">
                                         <option value="draft" @if($temporaryWork->work_status == "draft") selected @endif > Draft (Pricing Not Agreed)</option>
-                                        <option value="publish" @if($temporaryWork->work_status == "publish") selected @endif >Publish (Pricing Agreed)</option>
+                                        <option value="publish" @if($temporaryWork->work_status == "publish") selected @endif >Approval from Client Not Required(Pricing Agreed)</option>
                                     </select>
                                 </div>
                             </div>

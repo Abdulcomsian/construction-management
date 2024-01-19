@@ -3482,7 +3482,7 @@ class DesignerController extends Controller
             $all_inputs['description_temporary_work_required'] = $content;
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token', 'date', 'unload_images', 'company_id', 'signed', 'images','pdfphoto','approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action', 'price', 'description', 'date', 'information_required' ,'additional_information' , 'additional_information_file');
+            $all_inputs  = $request->except('_token', 'files', 'date', 'unload_images', 'company_id', 'signed', 'images','pdfphoto','approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action', 'price', 'description', 'date', 'information_required' ,'additional_information' , 'additional_information_file');
 
             //if design req details is exist
             if(isset($request->req_name))
@@ -3967,7 +3967,7 @@ class DesignerController extends Controller
             $all_inputs['description_temporary_work_required'] = $content;
             //unset all keys 
             $request = $this->Unset($request);
-            $all_inputs  = $request->except('_token', 'company_id', 'signed', 'images','pdfphoto','approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action', 'price', 'description', 'date', 'information_required' ,'additional_information' , 'additional_information_file');
+            $all_inputs  = $request->except('_token', 'files', 'company_id', 'signed', 'images','pdfphoto','approval','req_type','req_name','req_check','req_notes','designers','suppliers','designer_company_emails','supplier_company_emails','action', 'price', 'description', 'date', 'information_required' ,'additional_information' , 'additional_information_file');
               //if design req details is exist
               if(isset($request->req_name))
               {

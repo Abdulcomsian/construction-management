@@ -54,7 +54,8 @@
         <span style="font-weight: 600; font-size: 16px; margin-right:5px">Comment:</span>
         <span style="font-size:16px; white-space: pre-wrap;">{{$comment->comment}}</span>
         <br>
-        <div style="display:flex; justify-content: space-between;"><span style="color: #9D9D9D">haroon@checker.com</span><span style="color: #9D9D9D">07:36 03-07-2023</span></div>
+        <div style="display:flex; justify-content: space-between;"><span style="color: #9D9D9D">{{$comment->reply_email}}</span><span style="color: #9D9D9D">{{$comment->created_at}}</span></div>
+        <a href="{{asset($comment->image)}}" target="_blank"><i class="fa fa-eye"></i></a>
         <span style="color: #3A7DFF; font-size: 14px; font-weight: 400;"></span>
     </td>
     <td style=" flex-direction: column;">

@@ -12,7 +12,7 @@
         <tr style="background: {{$background ?? ''}}  !important">
             <td>£{{$row->price}}</td>
             <td>{{$row->description}}</td>
-            <td>{{$row->date}}</td>
+            <td>{{date("d-m-Y", strtotime($row->date))}}</td>
         </tr>
     @endforeach
 </tbody>

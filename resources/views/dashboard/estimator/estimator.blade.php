@@ -315,7 +315,13 @@
                                             <div class="circle unblink"></div>
                                         @endif
                                     </td>
-                                    <td style="text-transform: capitalize;">{{ $work->work_status}}</td>
+                                    <td style="text-transform: capitalize;">
+                                        @if($work->work_status == 'pending')
+                                            {{ $work->work_status }}(Rejected)                                            
+                                        @else
+                                            {{ $work->work_status }}
+                                        @endif
+                                    </td>
                                     <td style="text-transform: capitalize;">{{ $work->client_name}}</td>
                                     <td><a href="{{route('edit_estimation',$work->id)}}" class="btn btn-primary">Edit</a></td>
                                 </tr>

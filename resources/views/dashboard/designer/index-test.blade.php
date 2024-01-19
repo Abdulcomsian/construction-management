@@ -319,6 +319,11 @@
                                         }
                                     }
 
+                                    $btn_pricing_class = '';
+                                    if($row->work_status == 'draft'){
+                                        $btn_pricing_class = 'blink';
+                                    }
+
                                     @endphp
                                     <tr style="background: {{$background ?? ''}}  !important">
                                         <td><p style="margin-top: 10px;">{{$count++}}</p></td>
@@ -334,7 +339,7 @@
                                             {{-- data-bs-target="#modal1" --}}
                                             <button onclick="showAdditionalInformation({{$row->id}})" class="btn {{$btn_class}}" style="border: 1px solid #07d564; border-radius: 5px; margin-right: 15px" data-bs-toggle="modal">Additional Information</button>
                                             {{-- <button onclick="showAdditionalInformation({{$row->id}})" class="btn" style="border: 1px solid #07d564; border-radius: 5px; margin-right:15px" data-bs-toggle="modal">Additional Information </button> --}}
-                                            <button onclick="showPricingModal({{$row->id}})" class="btn" style="border: 1px solid #07d564; border-radius: 5px" id="pricing_modal">View Pricing</button>
+                                            <button onclick="showPricingModal({{$row->id}})" class="btn {{$btn_pricing_class}}" style="border: 1px solid #07d564; border-radius: 5px" id="pricing_modal">View Pricing</button>
                                             <a target="_blank" href="{{route('client_edit_estimation', $row->id)}}" class="btn" style="border: 1px solid #07d564; border-radius: 5px">Edit Job</a>
                                         </td>
                                     </tr>
@@ -705,6 +710,7 @@
                 _token: CSRF_TOKEN,
                 id: id
             }).done(function(res) {
+                console.log(res);
                 // Add response in Modal body
                 document.getElementById("modal1").querySelector(".comment-body").innerHTML = res.html;
                 // Display Modal

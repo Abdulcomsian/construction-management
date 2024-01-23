@@ -2724,20 +2724,23 @@ class TemporaryWorkController extends Controller
                 $date4 = $request->date4;
                 $folderPath = public_path('temporary/signature/');
                 $image = explode(";base64,", $request->signed4);
+            
                 $image_type = explode("image/", $image[0]);
-                $image_type_png = $image_type[1];
-                $image_base64 = base64_decode($image[1]);
-                $image_name4 = uniqid() . '.' . $image_type_png;
-                $file = $folderPath . $image_name4;
-                file_put_contents($file, $image_base64);
-                $signature4 = $image_name4; 
+                if(count($image_type)>1){
+                    $image_type_png = $image_type[1];
+                    $image_base64 = base64_decode($image[1]);
+                    $image_name4 = uniqid() . '.' . $image_type_png;
+                    $file = $folderPath . $image_name4;
+                    file_put_contents($file, $image_base64);
+                    $signature4 = $image_name4; 
+                }
             }
         // }
             //fifth person signature and name
             $image_name5 = '';
         // if($request->signtype5!=NULL){
             if ($request->signtype5 == 1) {
-                $signature4 = $request->namesign5;
+                $signature5 = $request->namesign5;
             } elseif($request->signed5 != HelperFunctions::defaultSign()) { 
                 $name5 = $request->name5;
                 $job_title5 = $request->job_title5;

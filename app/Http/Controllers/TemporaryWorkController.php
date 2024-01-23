@@ -1575,6 +1575,7 @@ class TemporaryWorkController extends Controller
     public function destroy(TemporaryWork $temporaryWork)
     {
         try {
+            // PermitLoad::where('temporary_work_id', '=', $temporaryWork->id);
             $temporaryWork->delete();
             toastSuccess('Temporary Work Delete Successfully!!');
             return Redirect::back();

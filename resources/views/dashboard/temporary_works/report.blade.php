@@ -331,6 +331,9 @@
                                     @endphp
                                     @forelse($permited as $permit)
                                     @php
+                                    if(!isset($permit->tempwork)){
+                                        continue;
+                                    }
                                     $to = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $permit->created_at);
                                     $diff_in_days = $to->diffInDays($current);
                                     $color = '';
@@ -394,7 +397,7 @@
                 <div class="card generte-reports">
                     <div class="card-header border-0 pt-6">
                         <div class="card-title">
-                            <h2 class="text-center">Permit to Unoad</h2>
+                            <h2 class="text-center">Permit to Unload</h2>
                         </div>
                     </div>
                     <!--begin::Card body-->
@@ -442,6 +445,9 @@
                                                 }  
                                         ?>
                                          @php
+                                          if(!isset($permit->tempwork)){
+                                                continue;
+                                            }
                                             $to = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $permit->created_at);
                                             $diff_in_days = $to->diffInDays($current);
                                             $color = '';

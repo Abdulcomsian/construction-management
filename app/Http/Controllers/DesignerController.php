@@ -3807,7 +3807,8 @@ class DesignerController extends Controller
        
         // $list.='<td style="text-align: center;vertical-align: middle;">'.$cdate_time.'<br>'.$cdate.'</td>
         // <td style="text-align: center;vertical-align: middle;">'.$rdate_time .'<br>'.$rdate2.'</td></tr>';
-        $list.='<td style="text-align: center;vertical-align: middle;">'.$cdate_time.'<br>'.$cdate.'</td>';
+        // $list.='<td style="text-align: center;vertical-align: middle;">'.$cdate_time.'<br>'.$cdate.'</td>';
+        $list.='<td style="text-align: center;vertical-align: middle;">'.strtotime('d/m/Y', $cdate).'</td>';
         $i++;
      }
      echo $list;

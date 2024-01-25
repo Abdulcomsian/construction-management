@@ -27,9 +27,10 @@
                     $n = strrpos($comment->reply_image[$j], '.');
                     $ext = substr($comment->reply_image[$j], $n + 1);
                     if ($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg') {
-                        $image = '<a target="_blank" href="' . $path . $comment->reply_image[$j] . '"><img src="' . $path . $comment->reply_image[$j] . '" width="50px" height="50px"/></a>';
+                        // $image = '<a target="_blank" href="' . $path . $comment->reply_image[$j] . '"><img src="' . $path . $comment->reply_image[$j] . '" width="50px" height="50px"/></a>';
+                        $image = '<a target="_blank" href="' . asset($comment->reply_image[$j]) . '"><i class="fa fa-eye"></i></a>';
                     } else {
-                        $image = '<a target="_blank" href="' . $path . $comment->reply_image[$j] . '">View File</a>';
+                        $image = '<a target="_blank" href="' . asset($comment->reply_image[$j]) . '">View File</a>';
                     }
                 }
                 $date = '';

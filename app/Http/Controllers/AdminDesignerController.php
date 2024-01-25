@@ -1048,9 +1048,18 @@ class AdminDesignerController extends Controller
                     ->addColumn('action', function ($data) use ($user) {
                          $btn ='';
                          $class='';
-                        if($data->user_notify==1)
+                         if($data->user_notify==2){
+                            $class='greenBgBlink';
+                        }
+                        elseif($data->user_notify==3)
+                        {
+                            $class='yellowBgBlink';
+                        }
+                        elseif($data->user_notify)
                         {
                             $class='redBgBlink';
+                        }else{
+                            $class='';
                         }
                         if ($user->hasRole(['designer','Design Checker','Designer and Design Checker'])) {
                             

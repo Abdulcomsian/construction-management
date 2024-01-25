@@ -869,7 +869,8 @@
                                                  <a href="{{route('estimator.show',$item->id)}}"
                                                    class="">
                                                    <!-- <i class="fa fa-eye " style="margin-left:15px"></i> -->
-                                                   <button class="btn btn-primary @if(!$item->designerQuote->isEmpty() && !$item->estimatorApprove) blinking-icon @endif  {{$item->unreadQuestions->count() > 0 ? 'redBgBlink' : '' }} {{ count($item->checkQuestion) > 0 ? 'redBgBlink' : ''}}">View Quotations</button>
+                                                   {{-- {{ count($item->checkQuestion) > 0 ? 'redBgBlink' : ''}} --}}
+                                                   <button class="btn btn-primary @if(!$item->designerQuote->isEmpty() && !$item->estimatorApprove) blinking-icon @endif  {{$item->unreadQuestions->count() > 0 ? 'redBgBlink' : '' }} ">View Quotations</button>
                                                 </a>
                                              </div>
 

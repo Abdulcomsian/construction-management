@@ -1844,6 +1844,7 @@ class TemporaryWorkController extends Controller
 
     public function temp_savecommentreplay(Request $request)
     {
+        // dd($request->all());
         // dd("here Nouman Pakistan"); 
         try {
 
@@ -1919,21 +1920,24 @@ class TemporaryWorkController extends Controller
             // dd($request->all());
             $previousCommentCount = isset($data->replay) && !is_null($data->replay) ?  count($data->replay) + 1 : 0 ;
             if ($request->hasFile('replyfile')) {
+                // dd("hjere");
             $fileLocation = HelperFunctions::temporaryworkcommentPath();
                 // $file = $request->file('replyfile');
-                // $imagename = HelperFunctions::saveFile(null, $file, $filePath);
-                foreach($request->file('replyfile') as $index => $file){
-                $fileName =   $previousCommentCount.'-'.time().'_'.$index.'_'.str_replace("-","", $file->getClientOriginalName());
+                // $imagename = HelperFunctions::saveFile(null, $file, $fileLocation);
+                // dd($request->file('replyfile'));
+
+                // foreach($request->file('replyfile') as $index => $file){
+                $file = $request->file('replyfile');
+                    // $fileName =   $previousCommentCount.'-'.time().'_'.$index.'_'.str_replace("-","", $file->getClientOriginalName());
+                $fileName =   $previousCommentCount.'-'.time().str_replace("-","", $file->getClientOriginalName());
                 $imagename = $fileLocation.$fileName;
                 $filePath = public_path($fileLocation);
                 $file->move($filePath , $fileName);
                 $arrayimage[] = $imagename;
-                }
-
+                // }
             } else {
                 $arrayimage[] = null;
             }
-
             $scan = '';
             if (isset($request->scan)) {
                 $scan = 'scan';
@@ -2430,7 +2434,8 @@ class TemporaryWorkController extends Controller
                                 $n = strrpos($comment->reply_image[0], '.');
                                 $ext = substr($comment->reply_image[0], $n + 1);
                                 if ($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg') {
-                                    $image = '<a target="_blank" href="' . $path . $comment->reply_image[0] . '"><img src="' . $path . $comment->reply_image[0] . '" width="50px" height="50px"/></a>';
+                                    // $image = '<a target="_blank" href="' . $path . $comment->reply_image[0] . '">   <img src="' . $path . $comment->reply_image[0] . '" width="50px" height="50px"/></a>';
+                                    $image = '<a href='.asset($comment->reply_image[0]).' target="_blank"><i class="fa fa-eye"></i></a>';
                                 } else {
                                     $image = '<a target="_blank" href="' . $path . $comment->reply_image[0] . '">View File</a>';
                                 }
@@ -2680,11 +2685,13 @@ class TemporaryWorkController extends Controller
                 $folderPath = public_path('temporary/signature/');
                 $image = explode(";base64,", $request->signed);
                 $image_type = explode("image/", $image[0]);
-                $image_type_png = $image_type[1];
-                $image_base64 = base64_decode($image[1]);
-                $image_name = uniqid() . '.' . $image_type_png;
-                $file = $folderPath . $image_name;
-                file_put_contents($file, $image_base64);
+                if(count($image_type) > 1){
+                    $image_type_png = $image_type[1];
+                    $image_base64 = base64_decode($image[1]);
+                    $image_name = uniqid() . '.' . $image_type_png;
+                    $file = $folderPath . $image_name;
+                    file_put_contents($file, $image_base64);
+                }
                $all_inputs['signature'] = $image_name; 
             }
             //third person signature and name
@@ -2695,17 +2702,19 @@ class TemporaryWorkController extends Controller
             } elseif($request->signed3 != HelperFunctions::defaultSign()) { 
                 $name3 = $request->name3;
                 $job_title3 = $request->job_title3;
-                $company3 = $request->company3;
+                $company3 = isset($request->company3) ? $request->company3 : '';
                 $date3 = $request->date3;
                 $folderPath = public_path('temporary/signature/');
                 $image = explode(";base64,", $request->signed3);
                 $image_type = explode("image/", $image[0]);
-                $image_type_png = $image_type[1];
-                $image_base64 = base64_decode($image[1]);
-                $image_name3 = uniqid() . '.' . $image_type_png;
-                $file = $folderPath . $image_name3;
-                file_put_contents($file, $image_base64);
-                $signature3 = $image_name3; 
+                if(count($image_type) > 0){
+                    $image_type_png = $image_type[1];
+                    $image_base64 = base64_decode($image[1]);
+                    $image_name3 = uniqid() . '.' . $image_type_png;
+                    $file = $folderPath . $image_name3;
+                    file_put_contents($file, $image_base64);
+                    $signature3 = $image_name3; 
+                }
             }
         }
             //fourth person signature and name
@@ -2720,7 +2729,7 @@ class TemporaryWorkController extends Controller
         $name4 = $request->name4;
 
                 $job_title4 = $request->job_title4;
-                $company4 = $request->company4;
+                $company4 = isset($request->company4) ? $request->company4 : '';
                 $date4 = $request->date4;
                 $folderPath = public_path('temporary/signature/');
                 $image = explode(";base64,", $request->signed4);
@@ -2744,17 +2753,19 @@ class TemporaryWorkController extends Controller
             } elseif($request->signed5 != HelperFunctions::defaultSign()) { 
                 $name5 = $request->name5;
                 $job_title5 = $request->job_title5;
-                $company5 = $request->company5;
+                $company5 = isset($request->company5) ? $request->company5 : '';
                 $date5 = $request->date5;
                 $folderPath = public_path('temporary/signature/');
                 $image = explode(";base64,", $request->signed5);
                 $image_type = explode("image/", $image[0]);
-                $image_type_png = $image_type[1];
-                $image_base64 = base64_decode($image[1]);
-                $image_name5 = uniqid() . '.' . $image_type_png;
-                $file = $folderPath . $image_name5;
-                file_put_contents($file, $image_base64);
-                $signature5 = $image_name5; 
+                if(count($image_type>1)){
+                    $image_type_png = $image_type[1];
+                    $image_base64 = base64_decode($image[1]);
+                    $image_name5 = uniqid() . '.' . $image_type_png;
+                    $file = $folderPath . $image_name5;
+                    file_put_contents($file, $image_base64);
+                    $signature5 = $image_name5; 
+                }
             }
         // }
             $all_inputs['created_by'] = auth()->user()->id;

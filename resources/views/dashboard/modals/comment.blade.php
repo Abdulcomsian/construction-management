@@ -67,7 +67,7 @@
         <input type="hidden" name="tempid" value="{{$tempWorks->id}}"/>
         <textarea style="width: 100%" type="text" class="replay" name="replay" placeholder="Add comment here..."></textarea>
          <div class="submmitBtnDiv">
-             <input style="width:50%;margin-top:20px;float:left" type="file" name="replyfile">
+             <input style="width:50%;margin-top:20px;float:left" type="file" name="replyfile[]" multiple>
              <input type="hidden" name="commentid" value="{{$comment->id}}"/>
              
              <button class="btn btn-primary replay-comment" style="font-size:10px;margin-top:10px;float:right;">submit</button>

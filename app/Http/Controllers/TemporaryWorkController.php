@@ -1924,16 +1924,13 @@ class TemporaryWorkController extends Controller
             $fileLocation = HelperFunctions::temporaryworkcommentPath();
                 // $file = $request->file('replyfile');
                 // $imagename = HelperFunctions::saveFile(null, $file, $fileLocation);
-                // dd($request->file('replyfile'));
-
+                // dd(count($request->file('replyfile')));
                 foreach($request->file('replyfile') as $index => $file){
-                // $file = $request->file('replyfile');
                     $fileName =   $previousCommentCount.'-'.time().'_'.$index.'_'.str_replace("-","", $file->getClientOriginalName());
-                // $fileName =   $previousCommentCount.'-'.time().str_replace("-","", $file->getClientOriginalName());
-                $imagename = $fileLocation.$fileName;
-                $filePath = public_path($fileLocation);
-                $file->move($filePath , $fileName);
-                $arrayimage[] = $imagename;
+                    $imagename = $fileLocation.$fileName;
+                    $filePath = public_path($fileLocation);
+                    $file->move($filePath , $fileName);
+                    $arrayimage[] = $imagename;
                 }
             } else {
                 $arrayimage[] = null;

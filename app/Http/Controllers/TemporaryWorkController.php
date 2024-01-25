@@ -2755,7 +2755,8 @@ class TemporaryWorkController extends Controller
                 $folderPath = public_path('temporary/signature/');
                 $image = explode(";base64,", $request->signed5);
                 $image_type = explode("image/", $image[0]);
-                if(count($image_type>1)){
+                // dd($image_type);
+                if(count($image_type)>1){
                     $image_type_png = $image_type[1];
                     $image_base64 = base64_decode($image[1]);
                     $image_name5 = uniqid() . '.' . $image_type_png;

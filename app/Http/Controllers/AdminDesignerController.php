@@ -614,6 +614,24 @@ class AdminDesignerController extends Controller
                 $model->nomination_id =$nomination->id;
                 $model->save();
 
+                // dd($user);
+                User::find($user->id)->update(['user_notify'=>1]);
+                // $user=User::find($user->id);
+                // $user->project=$request->project;
+                // $company=User::find($user->company_id);
+
+
+                // $model=new NominationComment();
+                // $model->email=$user->email;
+                // $model->comment="User has submitted Nominatin form"; //to company ".$company->email."
+                // $model->type="Nomination";
+                // $model->send_date=date('Y-m-d H:i:s');
+                // // $model->read_date=date('Y-m-d');
+                // $model->user_id=$user->id;
+                // $model->project_id=$request->project;
+                // $model->nomination_id=$nomination->id;
+                // $model->save();
+
                 //pdf wok
                 $pdf = PDF::loadView('layouts.pdf.adminDiDesignerNomination',['data'=>$request->all(),'signature'=>$image_name,'user'=>$user,'cv'=>$cv]);
                     $path = public_path('pdf');
@@ -1228,7 +1246,7 @@ class AdminDesignerController extends Controller
                 'appointment_date'=>$request->date,
             ]);
             User::find($user->id)->update([
-                'user_notify'=>1
+                'user_notify'=>2
              ]);
             Notification::route('mail',$user->userDiCompany->email ?? '')->notify(new AdminDesignerAppointmentNotification($user));
             DB::commit();

@@ -3650,8 +3650,8 @@ class DesignerController extends Controller
     try{
         $tempId = $request->id;
         $temporary_work = TemporaryWork::with('clientComments')->findOrFail($request->input('id'));
-        // dd($temporary_work);
-        $html = $temporary_work->clientComments ?  view('dashboard.modals.comment' , ['tempWorks' => $temporary_work])->render() : "No Comments Added";
+        $updateStatus = TemporaryWorkComment::where('temporary_work_id', $tempId)->update(['status' =>0]);
+        $html = $temporary_work->clientComments ?  view('dashboard.modals.comment' , ['tempWorks' => $temporary_work, 'tempId' => $tempId])->render() : "No Comments Added";
         return response()->json(['success' => true , 'msg' => 'Comments find successfully' , 'html' => $html]);
     }catch(\Exception $e){
         return response()->json([ 'success'=>false , 'msg' => 'Something went wrong' , 'error' => $e->getMessage()]);
@@ -4185,11 +4185,16 @@ class DesignerController extends Controller
             $user = Auth::user();
             $users = User::where('di_designer_id', $user->id)->get();
 
+            if($user->di_designer_id != null){
+                $adminId = $user->di_designer_id;
+            }else{
+                $adminId = $user->id;
+            }
             // Apply filter
             $selectedUserId = $request->input('user_id');
 
             $jobs = TemporaryWork::with('designerAssign', 'checkerAssign', 'designerAssign.user', 'checkerAssign.user', 'designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks')
-                ->where('created_by', $user->id);
+                ->where('created_by',$adminId);
 
             // Apply user filter
             if (!empty($selectedUserId)) {

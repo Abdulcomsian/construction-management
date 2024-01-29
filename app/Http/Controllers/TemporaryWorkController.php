@@ -1722,7 +1722,7 @@ class TemporaryWorkController extends Controller
             $model->user_id = auth()->user()->id ?? NULL;
             $model->sender_email = $request->mail ?? NULL;
             $model->sender_name = $request->sender_name ?? NULL;
-            $model->status = $request->status ?? '0';
+            $model->status = 1;
             if ($request->file('image')) {
                 $filePath = HelperFunctions::temporaryworkcommentPath();
                 $file = $request->file('image');
@@ -1831,7 +1831,6 @@ class TemporaryWorkController extends Controller
                         Notification::route('mail', $designeremail->email)->notify(new CommentsNotification($request->comment, 'comment', $request->temp_work_id, $designeremail->email ,'test'));
                    }
                  }
-
                 toastSuccess('Comment submitted successfully');
                 return Redirect::back();
             }
@@ -1844,7 +1843,7 @@ class TemporaryWorkController extends Controller
 
     public function temp_savecommentreplay(Request $request)
     {
-        // dd($request->all());
+
         // dd("here Nouman Pakistan"); 
         try {
 
@@ -1946,7 +1945,7 @@ class TemporaryWorkController extends Controller
                 'reply_email' => Auth::user()->email,
             ]);
 
-     
+            $updateStatus = TemporaryWorkComment::where('temporary_work_id', $tempid)->update(['status' => 2]);
                
             $query_cc =  implode(', ', $cc_emails);
            
@@ -2042,6 +2041,8 @@ class TemporaryWorkController extends Controller
         $tabletwcdesigner='';
         $client_table = '';
         $path = config('app.url');
+        // update Status of temporay Work Comment to read the comment
+        $updateStatus = TemporaryWorkComment::where('temporary_work_id', $request->temporary_work_id)->update(['status'=>0]);
         $tmpWork = TemporaryWork::with('comments' , 'reply')->where('id' , $request->temporary_work_id)->first();
         // dd(count($tmpWork->comments) , count($tmpWork->reply) );
         if ($request->type == 'normal') {
@@ -2406,8 +2407,17 @@ class TemporaryWorkController extends Controller
             
         // } 
         if (isset($twclientcomments) && count($twclientcomments) > 0) {
-
-                $client_table .= '<table class="table commentsTable" style="border-radius: 8px; overflow:hidden;"><thead id="check" style="height:60px;"><tr><th style="width:10%;text-align:left;color:white !important; font-weight: 600 !important; font-size:16px !important;background: #07D564 !important;">No</th><th style="width:35%;text-align:left;color:white !important;background: #07D564 !important; font-weight: 600 !important; font-size:16px !important">Designer Comment</th><th style="width:40%;text-align:left;color:white !important; font-weight: 600 !important; font-size:16px !important;background: #07D564 !important">Client Reply</th></tr></thead><tbody>';
+            // $checked = $twclientcomments[0]['status'] == 1 ? "checked disabled" : '';
+            //     $client_table .= '<div class="d-flex justify-content-end">
+            //                     <p>
+            //                         <label>
+            //                             <input class="twc-comment-checked" type="checkbox" '.$checked.' value="'.$request->temporary_work_id.'">
+            //                                     Mark As Read
+            //                         </label>
+            //                     </p>
+            //                 </div>';
+                $client_table .= '
+                <table class="table commentsTable" style="border-radius: 8px; overflow:hidden;"><thead id="check" style="height:60px;"><tr><th style="width:10%;text-align:left;color:white !important; font-weight: 600 !important; font-size:16px !important;background: #07D564 !important;">No</th><th style="width:35%;text-align:left;color:white !important;background: #07D564 !important; font-weight: 600 !important; font-size:16px !important">Designer Comment</th><th style="width:40%;text-align:left;color:white !important; font-weight: 600 !important; font-size:16px !important;background: #07D564 !important">Client Reply</th></tr></thead><tbody>';
 
             $i = 1;
             foreach ($twclientcomments as $comment) {
@@ -5557,6 +5567,26 @@ class TemporaryWorkController extends Controller
              }
  
              return response()->json(['success' => true , 'msg' => 'Comment Marked As Read Successfully']);
+        }catch(\Exception $e){
+            return response()->json(['success' => true , 'msg' => 'Something Went Wrong' , 'error' => $e->getMessage()]);
+        }
+    }
+
+    public function mark_comment_as_read_admin_designer(Request $request){
+        try{
+            $id = $request->twcId;
+            $temporaryWork = TemporaryWorkComment::where('temporary_work_id', $id)->update(['status' => 1]);
+            return response()->json(['success' => true , 'msg' => 'Comment Marked As Read Successfully']);
+        }catch(\Exception $e){
+            return response()->json(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function mark_comment_as_read_client(Request $request){
+        try{
+            $id = $request->twcId;
+            $temporaryWork = TemporaryWorkComment::where('temporary_work_id', $id)->update(['status' => 2]);
+            return response()->json(['success' => true , 'msg' => 'Comment Marked As Read Successfully']);
         }catch(\Exception $e){
             return response()->json(['success' => true , 'msg' => 'Something Went Wrong' , 'error' => $e->getMessage()]);
         }

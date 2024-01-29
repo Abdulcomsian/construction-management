@@ -1,3 +1,15 @@
+{{-- <?php 
+    // $checked = $tempWorks->clientComments[0]['status'] == 2 ? "checked disabled" : '';
+?>
+<div class="d-flex justify-content-end">
+    <p>
+        <label>
+            <input class="twc-comment-checked" type="checkbox" {{$checked}} value="{{$tempId}}">
+                    Mark As Read
+        </label>
+    </p>
+</div> --}}
+
 <table class="table commentsTable" style="border-radius: 8px; overflow:hidden;">
     <thead style="height:60px;background: #07D564;">
         <tr>
@@ -20,8 +32,8 @@
         $none='display:block;';
         // $none='display:none;';
       
-        for ($j = 1; $j < count($comment->replay); $j++) {
-            if ($comment->replay[1]) {
+        for ($j = 0; $j < count($comment->replay); $j++) {
+            if (isset($comment->replay[$j])) {
                 $image = '';
                 if (isset($comment->reply_image[$j])) {
                     $n = strrpos($comment->reply_image[$j], '.');
@@ -35,15 +47,15 @@
                 }
                 $date = '';
                 if (isset($comment->reply_date[$j])) {
-                    $date = date("H:i d-m-Y", strtotime($comment->reply_date[1]));
+                    $date = date("H:i d-m-Y", strtotime($comment->reply_date[$j]));
                 }
                 // $list .= '<tr style="background:#08d56478;margin-top:1px"><td>R</td><td>' . $comment->replay[0] . '</td><td>' . $comment->reply_email . '<br>' . $image . '<br>' . $date . '</td><td></td><td>' .  date("d-m-Y", strtotime($comment->reply_date[0])) . '</td></tr><br>';
                 $k++;
-                if($image){
-                    $formorreply.=$comment->reply_email. '<br>'. $comment->replay[$j].'<br>' . $image . '<br>' . $date. '<br><br>';
+                $formorreply .= $comment->reply_email . '<br>' . $comment->replay[$j] . '<br>' . $date . '<br>';
+                if ($image) {
+                    $formorreply .= $image . '<br>';
                 }
-                $formorreply.=$comment->reply_email. '<br>'. $comment->replay[$j].'<br>' . $date. '<br><br>';
-
+                $formorreply .= '<br>';
             }
         }
             // dd($comment->replay[0]);

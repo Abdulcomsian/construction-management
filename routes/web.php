@@ -47,6 +47,8 @@ Route::get('comments-status', [TemporaryWorkController::class, 'comments_status'
 Route::post('temporary_works/comments', [TemporaryWorkController::class, 'temp_savecomment'])->name('temporarywork.storecomment');
 Route::post('temporary_works/comments-replay', [TemporaryWorkController::class, 'temp_savecommentreplay'])->name('temporarywork.storecommentreplay');
 Route::post('mark-comment-as-read' , [TemporaryWorkController::class , 'mark_comment_as_read'])->name('mark.comment.as.read');
+Route::post('mark-comment-as-read-admin-designer' , [TemporaryWorkController::class , 'mark_comment_as_read_admin_designer'])->name('mark.comment.as.read.admin.designer');
+Route::post('mark-comment-as-read-client' , [TemporaryWorkController::class , 'mark_comment_as_read_client'])->name('mark.comment.as.read.client');
 //design page for designer 
 Route::get('designer/upload-design/{id}',[DesignerController::class,'index'])->name('designer.uploaddesign');
 Route::post('designer/store',[DesignerController::class,'store'])->name('designer.store');

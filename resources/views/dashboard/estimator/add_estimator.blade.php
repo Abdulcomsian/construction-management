@@ -904,7 +904,7 @@
                             <div class="col-md-6">
                                 <input type="submit" name="action"
                                     style="margin-left: 10px; background: #07d564 !important"
-                                    class="btn btn-primary float-end submitbutton" value="Save">
+                                    class="btn btn-primary float-end submitbutton" value="Save and Send">
                             </div>
                         </div>
                         <!-- <button  type="submit" style="margin-left: 10px;" class="btn btn-primary float-end submitbutton">Save & Email</button> -->

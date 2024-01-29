@@ -256,22 +256,23 @@ $user = auth()->user();
                                 </a>
                             </div>
                             @endif -->
-                            
-                            @if($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker']) )
-                            <!-- && !$user->company_id -->
-                            <div class="menu-item">
-                                <a class="menu-link" href="{{url('designer/designer')}}">
-                                    <span class="menu-title">Bidding Requests</span>
-                                </a>
-                            </div>
+
+                            @if(($user->di_designer_id == null || $user->admin_designer) && $user->hasAnyRole(['designer']))
+                                <!-- && !$user->company_id -->
+                                <div class="menu-item">
+                                    <a class="menu-link" href="{{url('designer/designer')}}">
+                                        <span class="menu-title">Bidding Requests</span>
+                                    </a>
+                                </div>
                             @endif
-                            @if($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker']) )
-                            <!-- && !$user->company_id -->
-                            <div class="menu-item">
-                                <a class="menu-link" href="{{route('estimator_list')}}">
-                                    <span class="menu-title">Manage Leads</span>
-                                </a>
-                            </div>
+                            
+                            @if(($user->di_designer_id == null || $user->admin_designer) && $user->hasAnyRole(['designer']))
+                                <!-- && !$user->company_id -->
+                                <div class="menu-item">
+                                    <a class="menu-link" href="{{route('estimator_list')}}">
+                                        <span class="menu-title">Manage Leads</span>
+                                    </a>
+                                </div>
                             @endif
 
                             @if($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker']) )
@@ -282,7 +283,8 @@ $user = auth()->user();
                                 </a>
                             </div>
                             @endif
-                            @if($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker']) )
+                            {{-- means admin designer  --}}
+                            @if(($user->di_designer_id == null || $user->admin_designer == 1) && $user->hasAnyRole(['designer']))
                             <!-- && !$user->company_id -->
                             <div class="menu-item">
                                 <a class="menu-link" href="{{route('calendar')}}">
@@ -290,7 +292,15 @@ $user = auth()->user();
                                 </a>
                             </div>
                             @endif
-                            @if($user->hasAnyRole(['designer','Design Checker','Designer and Design Checker']))
+                            {{-- means child designer  --}}
+                            @if($user->di_designer_id != null)
+                            <div class="menu-item">
+                                <a class="menu-link" href="{{ route('calendar') }}?user_id={{ $user->id }}">
+                                    <span class="menu-title">Calendar</span>
+                                </a>
+                            </div>
+                            @endif
+                            @if(($user->di_designer_id == null || $user->admin_designer) && $user->hasAnyRole(['designer']))
                             <!-- && !$user->company_id -->
                             <div class="menu-item">
                                 <a class="menu-link" href="{{route('filter')}}">

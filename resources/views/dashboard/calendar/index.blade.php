@@ -39,7 +39,7 @@
 
 @section('content')
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-        <div class="form-control">
+        <div class="form-control"> 
             <div class="row mb-4">
                 <div class="col-md-6">
                     <label for="user-filter">Filter by User:</label>
@@ -51,7 +51,7 @@
                         @endforeach
                     </select>
                 </div>              
-            </div>
+            </div>            
             <div id="calendar"></div>
         </div>
     </div>

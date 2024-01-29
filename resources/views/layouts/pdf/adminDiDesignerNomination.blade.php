@@ -118,6 +118,7 @@
                     <tr>
                        <td style="font-size:12px;"> 
                         <p style="color:blue">{{$cv}}</p></td>
+                        {{-- <a href="{{asset($cv)}}">{{asset($cv)}}</a> --}}
                     </tr>
                 </tbody>
             </table>

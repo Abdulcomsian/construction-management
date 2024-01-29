@@ -719,15 +719,16 @@ hr{
                                         $drawingscount=0;
                                         $color="green";
                                         $class='';
-                                        if(count($item->commentlist)>0)
+                                        // dd($item->commentlist[0]['status']);
+                                        if(isset($item->commentlist[0]['status']) && $item->commentlist[0]['status'] == 2)
                                         {
                                         $color="red";
                                         $class='redBgBlink';
-                                        if(count($item->reply)== count($item->commentlist))
-                                        {
-                                        $color="blue";
-                                        $class='';
-                                        }
+                                        // if(count($item->reply) == count($item->commentlist))
+                                        // {
+                                        // $color="blue";
+                                        // $class='';
+                                        // }
                                         }
                                     @endphp
                                     <div class="col d-flex justify-content-center"> <div class="description desc cursor-pointer" data-toggle="tooltip" title="{{ $item->description_temporary_work_required ?? '' }}"
@@ -1347,6 +1348,30 @@ hr{
         });
     });
     // });
+
+    //     $(document).on("change" , ".twc-comment-checked" , function(e){
+    //     if(e.target.checked === true){
+    //         let element = e.target;
+    //         const urlRoute = '{{route("mark.comment.as.read.admin.designer")}}';
+    //         // alert(element.value);
+    //         $.ajax({
+    //             type: 'POST',
+    //             url : urlRoute,
+    //             data : {
+    //                 twcId : element.value,
+    //                 _token : '{{csrf_token()}}'
+    //             },
+    //             success: function(res){
+    //                 if(res.success === true){
+    //                     toastr.success(res.msg)
+    //                     window.location.reload();
+    //                 }else{
+    //                     toastr.error(res.msg)
+    //                 }
+    //             }
+    //         })
+    //     }
+    // })
 
     const asideContainer = document.querySelector('.aside-fixed .aside');
     const overlay = document.querySelector('.overlay');

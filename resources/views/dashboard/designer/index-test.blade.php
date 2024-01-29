@@ -324,6 +324,12 @@
                                         $btn_pricing_class = 'blink';
                                     }
 
+                                    $view_comments_class = '';
+                                    for($j=1; $j<=count($viewComments); $j++){
+                                        if(isset($viewComments[$j]['status']) && $viewComments[$j]['status'] == 1){
+                                            $view_comments_class = 'blink';
+                                        }
+                                    }
                                     @endphp
                                     <tr style="background: {{$background ?? ''}}  !important">
                                         <td><p style="margin-top: 10px;">{{$count++}}</p></td>
@@ -333,7 +339,7 @@
                                             <a target="_blank" href="{{ asset('estimatorPdf/'.$row->ped_url) }}" class="btn" style="border: 1px solid #07d564; border-radius: 5px">Design Brief</a>
                                         </td>
                                         <td>
-                                            <button onclick="showCommentModal({{$row->id}})" class="btn" style="border: 1px solid #07d564; border-radius: 5px" id="pricing_modal">View Comments</button>
+                                            <button onclick="showCommentModal({{$row->id}})" class="btn {{$view_comments_class}}" style="border: 1px solid #07d564; border-radius: 5px" id="pricing_modal">View Comments</button>
                                         </td>
                                         <td style="width: 40%;">
                                             {{-- data-bs-target="#modal1" --}}
@@ -514,6 +520,29 @@
             toastr.success("{{\Session::get('success')}}")
         @endif
 
+
+    //     $(document).on("change" , ".twc-comment-checked" , function(e){
+        
+    //     if(e.target.checked === true){
+    //         let element = e.target;
+    //         $.ajax({
+    //             type: 'POST',
+    //             url : '{{route("mark.comment.as.read.client")}}',
+    //             data : {
+    //                 twcId : element.value,
+    //                 _token : '{{csrf_token()}}'
+    //             },
+    //             success: function(res){
+    //                 if(res.success === true){
+    //                     toastr.success(res.msg)
+    //                     window.location.reload();
+    //                 }else{
+    //                     toastr.error(res.msg)
+    //                 }
+    //             }
+    //         })
+    //     }
+    // })
 
         var canvas = document.getElementById("sig");
         var signaturePad = new SignaturePad(canvas);
@@ -803,6 +832,8 @@
             $('input[name="payment_note"]').prop('required', false);
         }
     });
+
+    
     
 
     </script>

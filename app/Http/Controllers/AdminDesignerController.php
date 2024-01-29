@@ -1369,7 +1369,7 @@ class AdminDesignerController extends Controller
             $projectIds = array_unique($projectIds);
             $projects = Project::with('company')->whereIn('id' , $projectIds )->get();
             $scantempwork = '';
-             return view('dashboard.adminDesigners.awarded-jobs',compact('estimatorWork','AwardedEstimators', 'scantempwork' , 'projects', 'users'));
+            return view('dashboard.adminDesigners.awarded-jobs',compact('estimatorWork','AwardedEstimators', 'scantempwork' , 'projects', 'users'));
             
          }catch (\Exception $exception) {
             toastError('Something went wrong, try again!');

@@ -110,9 +110,12 @@ class DesignUpload extends Notification
           
             if ($this->ccemail)
             {
+               
                 foreach($this->ccemail as $cc_email)
                 {
-                    $send_email->cc($cc_email);
+                    if($cc_email != ""){
+                        $send_email->cc($cc_email);
+                    }
                 }
             }
             return $send_email;

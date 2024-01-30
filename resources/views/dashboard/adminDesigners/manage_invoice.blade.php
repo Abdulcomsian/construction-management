@@ -226,12 +226,15 @@
                 <form method="post" action="{{route("save_invoice")}}">
                     @csrf
                     <input type="hidden" name="temporary_work_id" value = "{{$_GET['tempwork_id'] ?? ''}}">
-                        <div class="card">
-                            <div class="card-header border-0 pt-6">
-                                <!--begin::Card title-->
-                                <div class="card-title" style="    float: left;padding-top: 0px;">
-                                    Add New Invoice</h2>
-                                </div>
+                    <div class="card">
+                        <div class="card-header border-0 pt-6">
+                            <!--begin::Card title-->
+                            <div class="card-title" style="    float: left;padding-top: 0px;">
+                                Add New Invoice</h2>
+                            </div>
+                            <button type="button" class="btn btn-success uploadManualInvoice">
+                                Upload Manual Invoice
+                            </button>
                             </div>
                             <div class="card-body pt-7 px-20">
                                     <div class="d-flex flex-column justify-content-between mb-8 fv-row fv-plugins-icon-container">
@@ -354,10 +357,7 @@
         </div>
     </div>
 </div>
-
-
-
-
+@include('dashboard.modals.upload-manual-invoice')
 @endsection
 @section('scripts')
 <script>
@@ -447,5 +447,9 @@ $(document).ready(function() {
                 }, 5000); // Adjust the delay (5 seconds in this example)
             }
         }, 1000); // Check every second for the header, adjust as needed
+
+        $(document).on('click', '.uploadManualInvoice', function(){
+            $('#uploadInvoiceModal').modal('show');
+        });
     </script>
 @endsection

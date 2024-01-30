@@ -385,4 +385,4 @@ Route::get("/test" , function(){
 
 Route::get('get-report' , [TemporaryWorkController::class , 'getReportsData'])->name('get-report');
 
-Route::view('/testRoute','/layouts/pdf/signature');
+// Route::view('/testRoute','/layouts/pdf/signature');

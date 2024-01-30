@@ -3689,7 +3689,7 @@ class DesignerController extends Controller
         $filenames[] = $existingPDF->ped_url;
 
         // Create a new pdf of only Signature
-        $pdf = PDF::loadView('layouts.pdf.signature', ['image' => $image_name]);
+        $pdf = PDF::loadView('layouts.pdf.signature', ['image' => $image_name, 'signtype' => $request->signtype, 'pdfSigntype' => $request->pdfsigntype]);
         $path = public_path('estimatorPdf');
         $filenames[] = rand() . '.pdf';
         $pdf->save($path . '/' . $filenames[1]);

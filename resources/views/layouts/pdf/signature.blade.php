@@ -26,12 +26,33 @@
     <table>
         <tbody>
             <tr style="min-height: 150px;">
-                <td style="width: 150px;height: 300px; background:gray;color:white">
-                    <label for="" style="font-weight:900;float: left;width: 200px; height: 70px;  padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Client Signature After Approval</b></label>
-                </td>
-                <td style="width: 270px; font-size:12px;">
-                    <img src="{{asset('temporary/signature/', $image)}}" alt="Image">                    
-                </td>
+                {{-- just a name  --}}
+                @if($signtype == 1)
+                    <td style="width: 100px;height: 100px; background:gray;color:white">
+                        <label for="" style="font-weight:900;float: left;width: 200px; height: 70px;  padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Client Signature After Approval</b></label>
+                    </td>
+                    <td style="width: 370px; font-size:12px;">
+                        <p>{{$image}}</p>               
+                    </td>
+
+                {{-- signature image  --}}
+                @elseif($pdfSigntype == 1)
+                    <td style="width: 100px;height: 250px; background:gray;color:white">
+                        <label for="" style="font-weight:900;float: left;width: 200px; height: 70px;  padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Client Signature After Approval</b></label>
+                    </td>
+                    <td style="width: 370px; font-size:12px;">
+                        <img src="{{asset('temporary/signature/', $image)}}" alt="Image">                    
+                    </td>
+                {{-- actual image of Signature  --}}
+                @else
+                    <td style="width: 100px;height: 250px; background:gray;color:white">
+                        <label for="" style="font-weight:900;float: left;width: 200px; height: 70px;  padding: 10px; display: grid; align-items: center; background: gray !important;  color: #fff; margin: 0px;"><b style="font-size: 12px;">Client Signature After Approval</b></label>
+                    </td>
+                    <td style="width: 370px; font-size:12px;">
+                        <img src="{{asset('temporary/signature/', $image)}}" alt="Image">                    
+                    </td>
+                @endif
+                
             </tr>
         </tbody>
     </table>

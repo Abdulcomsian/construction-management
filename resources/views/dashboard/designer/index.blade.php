@@ -734,6 +734,7 @@
                                         <th>Drawing Title</th>
                                         <th>Preliminary / For Approval</th>
                                         <th>For Construction</th>
+                                        <th>To Emails</th>
                                         <th>Comments</th>
                                     </tr>
                                 </thead>
@@ -777,6 +778,14 @@
                                         <td>{{$uploads->drawing_title}}</td>
                                         <td>{{$uploads->preliminary_approval==1 ? 'Yes':'No'}}</td>
                                         <td>{{$uploads->construction==1 ? 'Yes':'No'}}</td>
+                                        <td>
+                                            @php
+                                            $emails = json_decode($uploads->to_emails);
+                                            @endphp
+                                            @foreach($emails as $email)
+                                            {{$email}}
+                                            @endforeach
+                                        </td>
 
                                         <td style="padding: 10px;">
                                             <div class="d-flex justify-content-around">

@@ -536,9 +536,23 @@ class DesignerController extends Controller
             }
             $model->file_type = $file_type;
             $model->temporary_work_id = $tempworkdata->id;
-            
+
+            // Storing emails in temp_work_upload_files
+            $dropDownEmails = isset($request->emails) ? $request->emails : ''; // emeils from DropDown
+            $ccEmails = isset($cc_emails) ? $cc_emails : ''; // cc Emails
+
+            if(!empty($dropDownEmails) && empty($ccEmails)){
+                $model->to_emails = json_encode($dropDownEmails);
+            }elseif(!empty($ccEmails) && empty($dropDownEmails)){
+                $model->to_emails = json_encode($ccEmails);
+            }elseif(!empty($ccEmails) && !empty($dropDownEmails)){
+                $mergedEmailArrays = array_merge($dropDownEmails, $ccEmails);
+                $jsonEndodedArray = json_encode($mergedEmailArrays);
+                $model->to_emails = $jsonEndodedArray;
+            }
+
+
             if ($model->save()) {
-                //
                 $drawingData = [
                     'drawing_title'=>$model->drawing_title,
                     'drawing_number'=>$model->drawing_number,
@@ -657,6 +671,8 @@ class DesignerController extends Controller
                     if($tempworkdata->status == 0 && $tempworkdata->estimatorApprove == 1){
                         $is_check=true;
                     }
+
+                    // dd("1", $tempworkdata->twc_email);
                     Notification::route('mail',  $tempworkdata->twc_email ?? '')->notify(new DesignUpload($notify_admins_msg, null, $is_check, $cc_emails));
                 } else{
                     // dd("Ttt");
@@ -674,7 +690,7 @@ class DesignerController extends Controller
                         $notify_admins_msg['body']['filename'] = $tempworkdata->ped_url;
                         $notify_admins_msg['body']['name'] = $tempworkdata->design_requirement_text . '-' . $tempworkdata->twc_id_no;
                         $notify_admins_msg['body']['filetype'] = $file_type;
-                    
+                        // dd("2", $email);
                         Notification::route('mail', $email)->notify(new DesignUpload($notify_admins_msg, null, $is_check));
                     }
                 }

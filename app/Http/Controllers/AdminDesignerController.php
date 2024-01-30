@@ -1532,4 +1532,47 @@ class AdminDesignerController extends Controller
         toastSuccess('Payment Details Sent Successfully');
         return redirect()->back();
     }
+
+    public function saveManualInvoice(Request $request){
+        try{
+            $request->validate([
+                'date' => 'required|date',
+                'date_of_payment' => 'required|date|after_or_equal:date',
+                'send_email' => 'required|email',
+                'invoice_number' => 'required',
+                'payment_status' => 'required'
+            ]);
+
+            if($request->file('attachfile')){
+                $file = $request->file('attachfile');
+                $filename = 'invoices/manual_invoices/' . rand(). '.' . $file->getClientOriginalExtension();
+                $path = public_path('invoices/manual_invoices/');
+                $file->move($path, $filename);
+            }
+
+
+
+            //saving the invoice data of designer
+            $generate_invoice =  new Invoice;
+            $generate_invoice->invoice_number = $request->invoice_number;
+            if($request->hasFile('attachfile')){
+                $generate_invoice->file_name = $filename;
+            }
+            $generate_invoice->temporary_work_id = $request->temporary_work_id;
+            $generate_invoice->date_of_payment = $request->date_of_payment;
+            $generate_invoice->send_email = $request->send_email;
+            if($request->payment_status == 'paid'){
+                $generate_invoice->status = 'Paid';
+            }else{
+                $generate_invoice->status = 'Unpaid';
+            }       
+            $generate_invoice->admindesigner_id  = Auth::id();
+            $generate_invoice->save();
+
+            toastSuccess('Payment Details Sent Successfully');
+            return redirect()->back();
+        }catch(\Exception $e){
+            dd($e->getMessage());
+        }
+    }
 }

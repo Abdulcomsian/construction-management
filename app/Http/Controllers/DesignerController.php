@@ -43,6 +43,7 @@ use App\Notifications\{DesignerAwarded,TemporaryWorkNotification,DesignerCertifi
 use Illuminate\Support\Str;
 use PDF;
 use Illuminate\Support\Facades\View;
+use Webklex\PDFMerger\Facades\PDFMergerFacade as PDFMerger;
 
 
 class DesignerController extends Controller
@@ -3683,7 +3684,29 @@ class DesignerController extends Controller
             }
         }
 
-       
+        // Getting the existing pdf
+        $existingPDF = TemporaryWork::select('ped_url')->where('id', $request->temporary_work_id)->first();
+        $filenames[] = $existingPDF->ped_url;
+
+        // Create a new pdf of only Signature
+        $pdf = PDF::loadView('layouts.pdf.signature', ['image' => $image_name]);
+        $path = public_path('estimatorPdf');
+        $filenames[] = rand() . '.pdf';
+        $pdf->save($path . '/' . $filenames[1]);
+        
+        // merging pdfs 
+        $pdf = PDFMerger::init();
+        foreach($filenames as $file)
+        {
+            $filePath = public_path('estimatorPdf') . '/' . $file;
+            $pdf->addPDF($filePath, 'all');            
+        }
+
+        $fileName = rand().'.pdf';
+        $pdf->merge();
+        $pdf->save($path . '/' . $fileName);
+
+        $updatingPath = TemporaryWork::where('id', $request->temporary_work_id)->update(['ped_url' => $fileName]);
         // $image_name = HelperFunctions::savesignature($request);
         $temporary_work->signature = $image_name;
         $status = 'draft';
@@ -3694,7 +3717,8 @@ class DesignerController extends Controller
         }
         $temporary_work->work_status = $status;
         $temporary_work->save();
-        $note = $request->payment_note;
+        $note = $request->payment_note;       
+        
         if($temporary_work->work_status == 'pending'){
             Notification::route('mail', $temporary_work->admin_designer_email)->notify(new EstimationPriceRejectedNotification($note,$temporary_work));
         } else{

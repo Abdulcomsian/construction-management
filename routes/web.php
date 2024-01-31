@@ -15,11 +15,10 @@ use App\Http\Controllers\AdminSupplierController;
 use App\Http\Controllers\ExternalDesignerController;
 use App\Models\TemporaryWork;
 use Illuminate\Support\Facades\Artisan;
-use App\Models\Invoice;
-use Carbon\Carbon;
-use Notification;
-use App\Notifications\InvoicePaymentRemiderNotification;
-use App\Jobs\SendEmailJob;
+// use App\Models\Invoice;
+// use Carbon\Carbon;
+// use App\Notifications\InvoicePaymentRemiderNotification;
+// use App\Jobs\SendEmailJob;
 use Illuminate\Support\Facades\Route;
 use  Meneses\LaravelMpdf\Facades\LaravelMpdf as PDF;
 

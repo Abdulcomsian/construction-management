@@ -42,19 +42,19 @@ class InvoiceCron extends Command
     public function handle()
     {
         \Log::info("Cron is working fine!");
-        $invoices = Invoice::where('status','Unpaid')->get();
-        foreach($invoices as $invoice)
-        {
-            $invoice_date = date('Y-m-d',strtotime($invoice->created_at));
-            $invoice_date = carbon::parse($invoice_date);
-            $due_date = date('Y-m-d',strtotime($invoice->date_of_payment));
-            $due_date = carbon::parse($due_date);
-            $diff = $invoice_date->diffInDays($due_date);
-            if($diff == 3 || $diff == 7 || $diff == 1)
-            {
-                dispatch(new SendEmailJob($invoice->send_email,$invoice->file_name,$diff,$invoice->id));
-            }
+        // $invoices = Invoice::where('status','Unpaid')->get();
+        // foreach($invoices as $invoice)
+        // {
+        //     $invoice_date = date('Y-m-d',strtotime($invoice->created_at));
+        //     $invoice_date = carbon::parse($invoice_date);
+        //     $due_date = date('Y-m-d',strtotime($invoice->date_of_payment));
+        //     $due_date = carbon::parse($due_date);
+        //     $diff = $invoice_date->diffInDays($due_date);
+        //     if($diff == 3 || $diff == 7 || $diff == 1)
+        //     {
+        //         dispatch(new SendEmailJob($invoice->send_email,$invoice->file_name,$diff,$invoice->id));
+        //     }
 
-        }
+        // }
     }
 }

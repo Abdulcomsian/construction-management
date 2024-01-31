@@ -15,7 +15,7 @@ class InvoiceCron extends Command
      *
      * @var string
      */
-    protected $signature = 'invoice:cron';
+    protected $signature = 'Invoice:Cron';
 
     /**
      * The console command description.

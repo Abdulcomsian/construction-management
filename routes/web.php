@@ -15,6 +15,11 @@ use App\Http\Controllers\AdminSupplierController;
 use App\Http\Controllers\ExternalDesignerController;
 use App\Models\TemporaryWork;
 use Illuminate\Support\Facades\Artisan;
+use App\Models\Invoice;
+use Carbon\Carbon;
+use Notification;
+use App\Notifications\InvoicePaymentRemiderNotification;
+use App\Jobs\SendEmailJob;
 use Illuminate\Support\Facades\Route;
 use  Meneses\LaravelMpdf\Facades\LaravelMpdf as PDF;
 
@@ -387,3 +392,27 @@ Route::get("/test" , function(){
 Route::get('get-report' , [TemporaryWorkController::class , 'getReportsData'])->name('get-report');
 
 // Route::view('/testRoute','/layouts/pdf/signature');
+
+
+// Route::get('test', function(){
+//     $invoices = Invoice::where('status','Unpaid')->get();
+//     // dd($invoices);
+//         foreach($invoices as $invoice)
+//         {
+//             $invoice_date = date('Y-m-d',strtotime($invoice->created_at));
+//             $invoice_date = carbon::parse($invoice_date);
+//             $due_date = date('Y-m-d',strtotime($invoice->date_of_payment));
+//             $due_date = carbon::parse($due_date);
+//             $diff = $invoice_date->diffInDays($due_date);
+//             if($diff == 3 || $diff == 7 || $diff == 1)
+//             {
+//                 dispatch(new SendEmailJob($invoice->send_email,$invoice->file_name,$diff,$invoice->id));
+//                 echo "Email send to the day " . $diff . "<br>";
+//             }else{
+//                 echo "Days are not matching .Days are " . $diff . "<br>";
+//             }
+
+//         }
+// });
+
+// Route::view('/test', '/mail/invoiceDesignerMail');

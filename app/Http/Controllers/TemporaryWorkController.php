@@ -26,6 +26,7 @@ use App\Models\DrawingComment;
 use App\Notifications\PermitNotification;
 use App\Notifications\TempAttachmentNotifications;
 use App\Notifications\CommentsNotification;
+use App\Notifications\ClientToAdminDesignerReply;
 use App\Utils\Validations;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Http\Request;
@@ -1864,7 +1865,7 @@ class TemporaryWorkController extends Controller
             $commentid = $request->commentid;
             $tempid = $request->tempid;
             $data = TemporaryWorkComment::select('replay', 'reply_image', 'reply_date', 'sender_email')->find($commentid);
-            $tempdata = TemporaryWork::select( 'designer_company_email')->find($tempid);
+            $tempdata = TemporaryWork::select( 'admin_designer_email')->find($tempid);
             $array = [];
             $cc_emails = [];
             $designer_emails = [];
@@ -1962,7 +1963,9 @@ class TemporaryWorkController extends Controller
                 {
                     Notification::route('mail',  $designer_email)->notify(new CommentsNotification($request->replay, 'designers-reply', $tempid, $designer_email, $scan,''));
                 }
-                // Notification::route('mail', $tempdata->designer_company_email)->notify(new CommentsNotification($request->comment, 'comment', $request->temp_work_id,'','test'));
+                if(isset($tempdata->admin_designer_email)){
+                    Notification::route('mail', $tempdata->admin_designer_email)->notify(new ClientToAdminDesignerReply());
+                }
                 toastSuccess('Thank you for your reply');
                 return Redirect::back();
             } else {

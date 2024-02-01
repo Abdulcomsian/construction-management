@@ -22,6 +22,7 @@ use Notification;
 use Redirect;
 use DB;
 use App\Notifications\ResendNomination;
+use App\Notifications\Nominations;
 use Webklex\PDFMerger\Facades\PDFMergerFacade as PDFMerger;
 use Crypt;
 class HomeController extends Controller
@@ -117,9 +118,14 @@ class HomeController extends Controller
         try{
             $nomination = Nomination::where(['project'=>$project_id,'user_id'=>$user_id])->first();
             $user = User::find($user_id);
-            $user->nominationId = $nomination->id;
-            $url = url('Nomination/nomination-edit',Crypt::encrypt($nomination->id));
-            Notification::route('mail',$user->email ?? '')->notify(new ResendNomination($user,$url));
+            if($nomination != null){
+                $user->nominationId = $nomination->id;
+                $url = url('Nomination/nomination-edit',Crypt::encrypt($nomination->id));
+                Notification::route('mail',$user->email ?? '')->notify(new ResendNomination($user,$url));
+            }else{
+                $user->project  = $project_id;
+                Notification::route('mail',$user->email ?? '')->notify(new Nominations($user));         
+            }
             toastSuccess('status changed successfully');
             return Redirect::back();
          } catch (\Exception $exception) {

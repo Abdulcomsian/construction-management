@@ -782,9 +782,11 @@
                                             @php
                                             $emails = json_decode($uploads->to_emails);
                                             @endphp
-                                            @foreach($emails as $email)
-                                            {{$email}}
-                                            @endforeach
+                                            @if(!empty($emails) && count($emails) > 0)
+                                                @foreach($emails as $email)
+                                                {{$email}}
+                                                @endforeach
+                                            @endif
                                         </td>
 
                                         <td style="padding: 10px;">

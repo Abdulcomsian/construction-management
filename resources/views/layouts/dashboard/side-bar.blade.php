@@ -257,7 +257,7 @@ $user = auth()->user();
                             </div>
                             @endif -->
 
-                            @if(($user->di_designer_id == null || $user->admin_designer == 1) && $user->hasAnyRole(['designer']))
+                            @if(($user->di_designer_id == null || $user->admin_designer == 1) && $user->hasAnyRole(['designer', 'Designer and Design Checker']))
                                 <!-- && !$user->company_id -->
                                 <div class="menu-item">
                                     <a class="menu-link" href="{{url('designer/designer')}}">
@@ -266,7 +266,7 @@ $user = auth()->user();
                                 </div>
                             @endif
                             
-                            @if(($user->di_designer_id == null || $user->admin_designer == 1) && $user->hasAnyRole(['designer']))
+                            @if(($user->di_designer_id == null || $user->admin_designer == 1) && $user->hasAnyRole(['designer','Designer and Design Checker']))
                                 <!-- && !$user->company_id -->
                                 <div class="menu-item">
                                     <a class="menu-link" href="{{route('estimator_list')}}">
@@ -284,7 +284,7 @@ $user = auth()->user();
                             </div>
                             @endif
                             {{-- means admin designer  --}}
-                            @if(($user->di_designer_id == null || $user->admin_designer == 1) && $user->hasAnyRole(['designer']))
+                            @if(($user->di_designer_id == null || $user->admin_designer == 1) && $user->hasAnyRole(['designer', 'Designer and Design Checker']))
                             <!-- && !$user->company_id -->
                             <div class="menu-item">
                                 <a class="menu-link" href="{{route('calendar')}}">
@@ -300,7 +300,7 @@ $user = auth()->user();
                                 </a>
                             </div>
                             @endif
-                            @if(($user->di_designer_id == null || $user->admin_designer == 1) && $user->hasAnyRole(['designer']))
+                            @if(($user->di_designer_id == null || $user->admin_designer == 1) && $user->hasAnyRole(['designer', 'Designer and Design Checker']))
                             <!-- && !$user->company_id -->
                             <div class="menu-item">
                                 <a class="menu-link" href="{{route('filter')}}">

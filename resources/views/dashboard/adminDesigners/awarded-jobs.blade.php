@@ -754,10 +754,10 @@ hr{
                                   
                                      else{
                                         $status_1 = 'View Timeline';
-                                        if(HelperFunctions::isPromotedAdminDesigner(\Auth::user()))
-                                            $status_2 = 'View Designer';
-                                        else
+                                        if(HelperFunctions::isPromotedAdminDesigner(\Auth::user()))                                            
                                             $status_2 = 'Allocate Designer';
+                                        else
+                                            $status_2 = 'View Designer';
 
                                      }
                                          

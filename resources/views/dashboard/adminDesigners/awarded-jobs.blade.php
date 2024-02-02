@@ -745,8 +745,8 @@ hr{
                                     $is_checker = HelperFunctions::getJobAwardedDesignerorCheckerByJobId($item->id,'checker');
                                     $designer_or_checker = \App\Models\EstimatorDesignerList::where('temporary_work_id',$item->id)->where('email', auth()->user()->email)->whereIn('type',['designers','checker'])->first();
                                     if(HelperFunctions::isPromotedAdminDesigner(\Auth::user())){
-                                            $status_1 = 'Allocate Designer';   
-                                            $status_2 = 'View Timeline';                    
+                                            $status_2 = 'Allocate Designer';   
+                                            $status_1 = 'View Timeline';                    
                                     }else{
                                         if($designer_or_checker){
                                             $status_1 = 'Add Timeline';

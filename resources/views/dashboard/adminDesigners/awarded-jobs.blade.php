@@ -754,6 +754,7 @@ hr{
                                   
                                      else{
                                         $status_1 = 'View Timeline';
+                                        dd(HelperFunctions::isPromotedAdminDesigner(\Auth::user()));
                                         if(HelperFunctions::isPromotedAdminDesigner(\Auth::user()))                                            
                                             $status_2 = 'Allocate Designer';
                                         else

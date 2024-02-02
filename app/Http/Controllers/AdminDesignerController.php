@@ -1534,14 +1534,15 @@ class AdminDesignerController extends Controller
     }
 
     public function saveManualInvoice(Request $request){
-        try{
+            // dd($request->all());
             $request->validate([
                 'date' => 'required|date',
                 'date_of_payment' => 'required|date|after_or_equal:date',
                 'send_email' => 'required|email',
                 'invoice_number' => 'required',
                 'payment_status' => 'required'
-            ]);
+            ]
+        );
 
             if($request->file('attachfile')){
                 $file = $request->file('attachfile');
@@ -1550,7 +1551,7 @@ class AdminDesignerController extends Controller
                 $file->move($path, $filename);
             }
 
-
+            $user = Auth::user();
 
             //saving the invoice data of designer
             $generate_invoice =  new Invoice;
@@ -1565,14 +1566,26 @@ class AdminDesignerController extends Controller
                 $generate_invoice->status = 'Paid';
             }else{
                 $generate_invoice->status = 'Unpaid';
-            }       
+            }
             $generate_invoice->admindesigner_id  = Auth::id();
             $generate_invoice->save();
 
+            $invoice_notify_msg = [
+                'greeting' => 'Hello',
+                'subject' => 'Invoice Receipt Details',
+                'body' => [
+                    'message'=>'Client uploaded a Manual Invoice',
+                    'invoice_number' => $request->invoice_number,
+                    'attachfile' => $filename,
+                    'designer_company' => $user->companyProfile->company_name ?? '',
+                    'type'=>1,
+                    'invoiceId' => $generate_invoice->id ?? '',
+                ],
+                'thanks_text' => 'Thanks For Using our site',
+            ];
+            Notification::route('mail',  $request->send_email)->notify(new InvoiceNotification($invoice_notify_msg));
+
             toastSuccess('Payment Details Sent Successfully');
             return redirect()->back();
-        }catch(\Exception $e){
-            dd($e->getMessage());
-        }
     }
 }

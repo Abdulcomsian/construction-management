@@ -744,7 +744,10 @@ hr{
                                     $is_designer = HelperFunctions::getJobAwardedDesignerorCheckerByJobId($item->id,'designers');
                                     $is_checker = HelperFunctions::getJobAwardedDesignerorCheckerByJobId($item->id,'checker');
                                     $designer_or_checker = \App\Models\EstimatorDesignerList::where('temporary_work_id',$item->id)->where('email', auth()->user()->email)->whereIn('type',['designers','checker'])->first();
-
+                                    if(HelperFunctions::isPromotedAdminDesigner(\Auth::user()))
+                        {
+                            dd("123");
+                        }else{
                                     if($designer_or_checker)
                                       {
 
@@ -760,7 +763,7 @@ hr{
                                             $status_2 = 'Allocate Designer';
 
                                      }
-                                         
+                                    }   
                                 @endphp
                             <td>
                                 <div class="row d-flex flex-column">

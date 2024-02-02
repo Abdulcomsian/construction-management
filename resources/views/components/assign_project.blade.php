@@ -1,6 +1,6 @@
 
 <span data-dismiss="modal" class="modal-close">&times;</span>
-@if($loggedInUser->di_designer_id == null)
+@if($loggedInUser->di_designer_id == null || ($loggedInUser->di_designer_id != null && $loggedInUser->admin_designer == 1))
 <form action="{{route("projectAssign", $temporary_work_id)}}" method="post">
    @csrf
    <div class="row">

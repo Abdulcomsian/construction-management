@@ -336,7 +336,7 @@ class HelperFunctions
     public static function isPromotedAdminDesigner($user)
     {
         return $user->di_designer_id !== null && $user->admin_designer == 1;
-        // if($user->di_designer_id == null || ($user->di_designer_id == null && $user->admin_designer == 1)){
+        // if($user->di_designer_id == null || ($user->di_designer_id != null && $user->admin_designer == 1)){
         //     return true;
         // }else{
         //     return false;

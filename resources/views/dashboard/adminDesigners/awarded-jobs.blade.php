@@ -747,13 +747,12 @@ hr{
 
                                     if($designer_or_checker)
                                       {
-dd("1");
+
                                         $status_1 = 'Add Timeline';
                                         $status_2 = 'View Designer';
                                     }
                                   
                                      else{
-                                        dd("2");
                                         $status_1 = 'View Timeline';
                                         if(HelperFunctions::isPromotedAdminDesigner(\Auth::user()))
                                             $status_2 = 'View Designer';

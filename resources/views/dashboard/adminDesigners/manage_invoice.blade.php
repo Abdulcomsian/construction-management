@@ -229,7 +229,7 @@
                     <div class="card">
                         <div class="card-header border-0 pt-6">
                             <!--begin::Card title-->
-                            <div class="card-title" style="    float: left;padding-top: 0px;">
+                            <div class="card-title" style="float: left;padding-top: 0px;">
                                 Add New Invoice</h2>
                             </div>
                             <button type="button" class="btn btn-success uploadManualInvoice">

@@ -264,8 +264,12 @@ class AdminDesignerController extends Controller
     public function allocatedDesignerModal(Request $request)
     {
         $loggedInUser = Auth::user();
-        // dd($loggedInUser);
-        $users = User::where('di_designer_id',$loggedInUser->id)->get();
+        if($loggedInUser->di_designer_id == null){
+            $users = User::where('di_designer_id',$loggedInUser->id)->get();
+        }else{
+            $AdminDesigner = Auth::user()->di_designer_id;
+            $users = User::where('di_designer_id', $AdminDesigner)->get();
+        }
         $estimatorDesigner = TemporaryWork::with('designerAssign','designerAssign.user')->findorfail($request->temporary_work_id);
         $estimatorChecker = TemporaryWork::with('checkerAssign','checkerAssign.user')->findorfail($request->temporary_work_id);
         // Prepare the data to be passed to the view

@@ -835,6 +835,12 @@
                                 </div>
                             </div>
                         @endif
+                        @php
+                        $fullURL = "$_SERVER[REQUEST_URI]";
+                        $segments = explode('/', trim($fullURL, '/'));
+                        $desiredSegment = $segments[count($segments) - 2];
+                        @endphp
+                        @if($desiredSegment == 'edit-estimation')
                         <div class="row mt-md-4">
                             <div class="col-md-12">
                                 @foreach($temporaryWork->designerQuote as $row)
@@ -915,6 +921,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
                         {{-- @dd($temporaryWork) --}}
                         {{-- @include('dashboard.modals.design-relief-modals-edit') --}}
                         @include('dashboard.modals.design-relief-modals-edit',['design_check' => $temporaryWork->desing_req_details,'images'=>$temporaryWork->temp_work_images])

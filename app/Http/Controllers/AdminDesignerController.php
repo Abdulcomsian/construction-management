@@ -264,6 +264,7 @@ class AdminDesignerController extends Controller
     public function allocatedDesignerModal(Request $request)
     {
         $loggedInUser = Auth::user();
+        // dd($loggedInUser);
         $users = User::where('di_designer_id',$loggedInUser->id)->get();
         $estimatorDesigner = TemporaryWork::with('designerAssign','designerAssign.user')->findorfail($request->temporary_work_id);
         $estimatorChecker = TemporaryWork::with('checkerAssign','checkerAssign.user')->findorfail($request->temporary_work_id);
@@ -275,7 +276,6 @@ class AdminDesignerController extends Controller
             'users' => $users,
             'temporary_work_id' => $request->temporary_work_id,
         ];
-
         return view('components.assign_project',$data);
     }
 

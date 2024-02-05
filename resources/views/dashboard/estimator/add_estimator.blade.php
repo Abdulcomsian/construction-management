@@ -689,7 +689,7 @@
                                 {{-- <div class="d-flex inputDiv d-block mb-0">
                                     <div style="position:relative;" class="d-flex modalDiv d-block"
                                         data-bs-toggle="modal" data-bs-target="#attachment-of-design"> --}}
-                                        <div class="d-flex inputDiv d-block mb-0" id="attachment_specs">
+                                        <div class="d-flex inputDiv d-block mb-0" id="attachment_specs" style="height: 55px;">
                                             <div style="position:relative;" class="modalDiv d-block" data-bs-toggle="modal" data-bs-target="#attachment-of-design">
                                         <label class=" fs-6 fw-bold mb-2" style="bottom: 14px;">
                                             Attachments / Spec:
@@ -700,7 +700,7 @@
                                             </span>
                                         </label>
                                         <input id="attachment" class="blackBack"
-                                            style="background-color: #000; color:#fff" type="text"
+                                            style="background-color: #000; color:#fff;position: relative;top: 10px;" type="text"
                                             placeholder="Attachments / Spec / Existing Designs and Existing Site Conditions (folders to upload)" value="Attachments / Spec / Existing Designs and Existing Site Conditions (folders to upload)">
                                     </div>
                                 </div>
@@ -815,16 +815,18 @@
                                         </label>
                                         <input type="text" class="form-control form-control-solid " placeholder="Design Checker Name" id="desinger" name="desinger" value="{{old('desinger')}}"  >
                                     </div> -->
-                                    <div id="information_req" class="align-items-center inputDiv"  style="height: 41px; margin-bottom: 0px;">
+                                    <div id="information_req" class="align-items-center inputDiv"  style="height: 44px; margin-bottom: 0px;">
                                         <!--begin::Label-->
-                                        <label class="fs-6 fw-bold mb-2">
+                                        <label class="fs-6 fw-bold mb-2" style="top: -9px;">
                                             <span>Information Required?</span>
                                         </label>
                                         <!--end::Label-->
+                                        <div class="set-pp" style="z-index: 9;display: block;position: relative;top: 10px;">
                                         <input type="checkbox" name="information_required" id="information_required"
                                             style="margin-left:10px;opacity: 0.5" class="blackBack">
                                         <span style="padding-left:22px;color:#000">Select if additional information is
                                             required.</span>
+                                        </div>
                                     </div>
                             </div>
 

@@ -1550,8 +1550,9 @@ class EstimatorController extends Controller
                 \Mail::to($designerEmail)->send(new CommentEmail($comment , $projName));
             }
             //new email code ends here
-
-            return response()->json(['success' => true , 'msg' => 'Comment Added Successfully']);
+            toastSuccess('Comment Added Successfully');
+            return redirect()->back();
+            // return response()->json(['success' => true , 'msg' => 'Comment Added Successfully']);
         }catch(\Exception $e){
             return response()->json(['success' => false , 'msg' => 'Something Went Wrong' , 'error' => $e->getMessage()]);
         }

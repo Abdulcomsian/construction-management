@@ -95,8 +95,7 @@ class DesignerController extends Controller
                 //Check if the same checker exists agains this job
                 $existing_designer = EstimatorDesignerList::where(['temporary_work_id'=>$id,'type'=>'designers','user_id'=>$designer->id])->first();
                 if(!$existing_designer)
-                {
-                    
+                {                    
                     $delete_past_designers = EstimatorDesignerList::where(['temporary_work_id'=>$id,'type'=>'designers'])->delete();
                     $job_assign = new EstimatorDesignerList();
                     $job_assign->temporary_work_id = $id;
@@ -139,6 +138,11 @@ class DesignerController extends Controller
     
                         // Notification::route('mail', $designer->email)->notify(new DesignerAwarded($id, $designer->email, $code));
                     }
+                }else{
+                    $job_assign = EstimatorDesignerList::where(['temporary_work_id'=>$id,'type'=>'designers','user_id'=>$designer->id])->update([
+                        'start_date' => $request->designer_start_date,
+                        'end_date' => $request->designer_end_date,
+                    ]);
                 }
 
             }
@@ -190,6 +194,11 @@ class DesignerController extends Controller
                         // Notification::route('mail', $list)->notify(new EstimationClientNotification($notify_msg, $temporary_work->id, $list,$informationRequired,$additionalInformation,$mainFile,'Designer'));
                         Notification::route('mail', $checker->email)->notify(new TemporaryWorkNotification($notify_admins_msg, $id, $checker->email, $is_check,$is_job));
                     }
+                }else{
+                    $job_assign = EstimatorDesignerList::where(['temporary_work_id'=>$id,'type'=>'checker','user_id'=>$checker->id])->update([
+                        'start_date' => $request->checker_start_date,
+                        'end_date' => $request->checker_end_date,
+                    ]);
                 }
             }
             $temporary_work = TemporaryWork::find($id);

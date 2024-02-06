@@ -4526,21 +4526,9 @@ class DesignerController extends Controller
                     $checker_image_name = $image_name;
                 }
                 // dd($temporary_work->id, $user->id, $temporary_work->designerAssign->user_id,$image_name, $designer_image_name, $checker_image_name);
-                // Define the attributes for the record
-                $attributes = [
-                    'certificate_element' => $request->certificate_element,
-                    'design_document' => $request->design_document,
-                    'created_by' => $request->designermail,
-                    'designer_signature' => $designer_image_name,
-                    'checker_signature' => $checker_image_name,
-                ];
-                // Update the record if it exists or create a new record if it doesn't exist
-                $designerCertificate =DesignerCertificate::updateOrCreate(['temporary_work_id' => $temporary_work_id], $attributes);
+               
 
-                $selectedTags = $request->selected_tags;
-                // Sync the selected tags with the designerCertificate
-                $designerCertificate->tags()->sync($selectedTags);
-                 // Send email notification
+                
                 
 
                 $temporary_work = TemporaryWork::with('designerCertificates', 'designerCertificates.tags', 'project')->findorfail($temporary_work_id);
@@ -4583,6 +4571,22 @@ class DesignerController extends Controller
                         'checker'
                     );
                 }
+
+                 // Define the attributes for the record
+                 $attributes = [
+                    'certificate_element' => $request->certificate_element,
+                    'design_document' => $request->design_document,
+                    'created_by' => $request->designermail,
+                    'designer_signature' => $designer_image_name,
+                    'checker_signature' => $checker_image_name,
+                    'pdf_file' => $filename,
+                ];
+                // Update the record if it exists or create a new record if it doesn't exist
+                $designerCertificate =DesignerCertificate::updateOrCreate(['temporary_work_id' => $temporary_work_id], $attributes);
+                $selectedTags = $request->selected_tags;
+                // Sync the selected tags with the designerCertificate
+                $designerCertificate->tags()->sync($selectedTags);
+                 // Send email notification 
                 // dd($login);
                 // dd($temporary_work->checkerAssign->email);
                 Notification::route('mail', $recipient_email)->notify(new DesignerCertificateNotification($temporary_work, $pdfLink, $login_url));

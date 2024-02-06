@@ -345,6 +345,7 @@ Route::post('adminDesigner/save-appointment',[AdminDesignerController::class,'sa
 Route::get('designer/invoices',[AdminDesignerController::class,'invoices'])->name('invoices');
 Route::get('designer/generate-invoice',[AdminDesignerController::class,'generateinvoice'])->name('generate_invoice');
 Route::post('update-invoice-status/{id}',[AdminDesignerController::class,'updateinvoicestatus'])->name('update_invoice_status');
+Route::post('update-payment-status',[AdminDesignerController::class,'updatePaymentStatus'])->name('update.payment.status');
 Route::get('invoice-payment-reminder/{id}',[AdminDesignerController::class,'invoicepaymentreminder'])->name('invoice_payment_reminder');
 Route::post('save-invoice-payment-proof/{id}',[AdminDesignerController::class,'saveinvoicepaymentproof'])->name('save_invoice_payment_proof');
 Route::post('upload-manual-invoice', [AdminDesignerController::class, 'saveManualInvoice'])->name('save.manual.invoice');

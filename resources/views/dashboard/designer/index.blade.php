@@ -287,7 +287,7 @@
                                 <td>1</td>
                                 
                                 <td >
-                                    <a target="_blank" href="{{asset('pdf/'.$tempdata->ped_url)}}">Design Brief</a>
+                                    <a target="_blank" href="{{asset('estimatorPdf/'.$tempdata->ped_url)}}">Design Brief</a>
                                     
                                     </td>
                                 <td>{{$tempdata->created_at}}</td>
@@ -301,7 +301,7 @@
                                 <td>{{$i}}</td>
                                 
                                 <td class="">
-                                    <a target="_blank" href="{{asset('pdf/'.$pdf_files->pdf_name)}}">Design Brief</a></td>
+                                    <a target="_blank" href="{{asset('estimatorPdf/'.$pdf_files->pdf_name)}}">Design Brief</a></td>
                                    
                              
 
@@ -1130,12 +1130,42 @@
                                         name="certificateccemails" value="" />
                                 </div>
                             </div>
-                            <div class = "col-md-2 d-flex flex-column justify-content-center align-items-center pt-7">
+                        </div>
+                        <div class="row" style="background:white;margin: 0 4px;">
+                                <div class="col-md-4">
+                                    <div class=" inputDiv d-block">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                            <span class="required">Send Email:</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        {{-- <select class="form-control"> --}}
+                                        <select name="emails[]" class="form-select form-select-lg" multiple="multiple" data-control="select2" data-placeholder="Select an option" >
+                                            <option value="" >Select Email</option>
+                                            <option value="{{$client_email}}">Client ({{$client_email}})</option>
+                                            {{-- @if($user->di_designer_id != null) --}}
+                                                @if($admin_designer_option)
+                                                <option value="{{$estimator->email}}">Estimator ({{$admin_designer->creator->email}})</option>
+                                                @endif
+                                                @if($estimator_option)
+                                                <option value="{{$admin_designer->creator->email}}">Estimator ({{$admin_designer->creator->email}})</option>
+                                                @endif
+                                                <option value="{{$admin_designer->creator->email}}">Admin Designer ({{$admin_designer->creator->email}})</option>
+                                                @if($checker_option && isset($designer->email))
+                                                    <option value="{{$designer->email}}">Designer ({{$designer->email}})</option>
+                                                @endif
+                                                @if($designer_option && isset($checker->email))
+                                                <option value="{{$checker->email}}">Checker ({{$checker->email}})</option>
+                                                @endif
+                                            {{-- @endif --}}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class = "col-md-2" style="margin-top: 10px; margin-left: 17px;">
                                 <button type="submit" class="btn btn-primary "
                                             >Upload</button>
                             </div>
-                            
-                        </div>
                     </form>
 
                     <div class="row" style="background:white;margin: 0 4px;">
@@ -1159,7 +1189,7 @@
                                             <td>{{$designer_certificate['created_by']}}</td>
                                             <td>{{$designer_certificate['certificate_element']}}</td>
                                             <td>{{$designer_certificate['design_document']}}</td>
-                                            <td><a href="{{asset('temporary/signature/' .$designer_certificate['checker_signature'])}}" target="_blank">View Signature</a></td>
+                                            <td><a href="{{asset('certificate/' .$designer_certificate['pdf_file'])}}" target="_blank">View File</a></td>
                                             <td>{{$designer_certificate['created_at']}}</td>
                                         </tr>
                                     @endisset

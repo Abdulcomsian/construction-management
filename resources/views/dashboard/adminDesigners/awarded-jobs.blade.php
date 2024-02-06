@@ -745,14 +745,14 @@ hr{
                                     $is_checker = HelperFunctions::getJobAwardedDesignerorCheckerByJobId($item->id,'checker');
                                     $designer_or_checker = \App\Models\EstimatorDesignerList::where('temporary_work_id',$item->id)->where('email', auth()->user()->email)->whereIn('type',['designers','checker'])->first();
                                     if(HelperFunctions::isPromotedAdminDesigner(\Auth::user())){
-                                        $status_1 = 'View Timeline';                    
+                                        $status_1 = 'Timeline';                    
                                         $status_2 = 'Allocate Designer';   
                                     }else{
                                         if($designer_or_checker){
                                             $status_1 = 'Add Timeline';
                                             $status_2 = 'View Designer';
                                         }else{
-                                            $status_1 = 'View Timeline';
+                                            $status_1 = 'Timeline';
                                             if(HelperFunctions::isPromotedAdminDesigner(\Auth::user()))
                                                 $status_2 = 'View Designer';
                                             else
@@ -909,9 +909,12 @@ hr{
                                 <div class="row d-flex flex-column">
                                     @if(isset($item->invoice))
                                         @if($item->invoice->status == 'Unpaid')
-                                        <div class="col d-flex justify-content-center"> <div class="description"> Unpaid </div> </div>
+                                        {{-- <button type="button" id = "{{$invoice->id}}" value = "{{$invoice->status}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm edit_designer_details">
+                                            <i class="fa fa-pen" aria-hidden="true"></i>    
+                                        </button> --}}
+                                        <div class="col d-flex justify-content-center"> <button type="button" id = "{{$item->invoice->id}}" value = "{{$item->invoice->status}}" class="description edit_designer_details" style="border: none;"> Unpaid </button> </div>
                                         @elseif($item->invoice->status = 'Paid')
-                                        <div class="col d-flex justify-content-center"> <div class="paid mt-3"> Paid </div> </div>
+                                        <div class="col d-flex justify-content-center"> <button type="button" id="{{$item->invoice->id}}" value="{{$item->invoice->status}}" class="paid mt-3 edit_designer_details" style="border: none;"> Paid </button> </div>
                                         @endif
                                     @else
                                     <div class="col d-flex justify-content-center"> 
@@ -1219,6 +1222,7 @@ hr{
 @include('dashboard.modals.drawingdesign')
 @include('dashboard.modals.drawingdesignlist')
 @include('dashboard.modals.description')
+@include('dashboard.modals.change_payment_status')
 @endsection
 @section('scripts')
 <script type="text/javascript">
@@ -1346,6 +1350,27 @@ hr{
             }
         });
     });
+
+    $(document).on('click', '.edit_designer_details', function() {
+         let type = $(this).attr('value');
+         let id = $(this).attr('id');            
+        $('#invoice_id').val(id);
+        $('.change_status_form').trigger("reset");
+        $("#Change-Status-Modal").modal('show');
+
+
+        //  $('.change_status_form input[type="select"]').val('');
+        //  $('#error_div').remove();
+        //  $('.change_status_form input[name="id"]').remove();
+
+            //  let update_url = "{{ route('update_invoice_status',':id') }}";
+            //  update_url = update_url.replace(':id', id);
+            //  $('.change_status_form').attr('action', update_url);
+             // $('.change_status_form').append(`<input name="id" value="${id}" type="hidden">`);           
+             // $("#projectid").val($(this).attr('data-id'));
+             
+
+     });
     // });
 
     //     $(document).on("change" , ".twc-comment-checked" , function(e){
@@ -1384,6 +1409,8 @@ hr{
             asideContainer.style.display = 'none';
             overlay.classList.add('d-none');
         })
+    
+       
         
     </script>
     <script>

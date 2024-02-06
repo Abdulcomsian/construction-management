@@ -13,7 +13,8 @@ class DesignerCertificate extends Model
         'created_by',
         'designer_signature',
         'checker_signature',
-        'temporary_work_id'
+        'temporary_work_id',
+        'pdf_file'
     ];
 
     public function tags()

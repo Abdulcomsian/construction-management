@@ -217,24 +217,39 @@
 </style>
 @endsection
 @section('content')
+@php
+    if(isset($_GET['tempwork_id'])){
+        $id = $_GET['tempwork_id'];
+        $userData = App\Models\TemporaryWork::where('id', $id)->first();
+    }
+@endphp
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <!--begin::Toolbar-->
     <div class="" id="kt_toolbar">
-        <div class="post d-flex flex-column-fluid" id="kt_post"  style="">
+        <div class="buttons">
+            <div class="card">
+                <div class="card-header">
+                    <button type="button" class="btn btn-success addNewInvoice">
+                        Add New Invoice
+                    </button>
+                    <button type="button" class="btn btn-success uploadManualInvoice">
+                        Upload Manual Invoice
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="post d-flex flex-column-fluid" id="kt_post"  style="">           
             <!--begin::Container-->
             <div id="kt_content_container" class="container">
                 <form method="post" action="{{route("save_invoice")}}">
                     @csrf
                     <input type="hidden" name="temporary_work_id" value = "{{$_GET['tempwork_id'] ?? ''}}">
-                    <div class="card">
-                        <div class="card-header border-0 pt-6">
+                    <div class="card newInvoiceCardBody">
+                        <div class="card-header border-0 pt-6">                                        
                             <!--begin::Card title-->
                             <div class="card-title" style="float: left;padding-top: 0px;">
                                 Add New Invoice</h2>
                             </div>
-                            <button type="button" class="btn btn-success uploadManualInvoice">
-                                Upload Manual Invoice
-                            </button>
                             </div>
                             <div class="card-body pt-7 px-20">
                                     <div class="d-flex flex-column justify-content-between mb-8 fv-row fv-plugins-icon-container">
@@ -253,7 +268,7 @@
                                                 </div>
                                                 <div class =" row d-flex mb-2">
                                                     <div class = "col-md-4"> <label class="required fs-6 fw-bold">Receiver's Email</label></div>
-                                                    <div class = "col-md-8"><input type = "text" name = "send_email" class="form-control form-control-solid" placeholder = "Sender Email" required></div>
+                                                    <div class = "col-md-8"><input type = "text" name = "send_email" class="form-control form-control-solid" placeholder = "Sender Email" required value="{{$userData['client_email']}}"></div>
                                                     @error('send_email')
                                                         <div class="alert alert-danger">{{ $message }}</div>
                                                     @enderror
@@ -447,8 +462,14 @@ $(document).ready(function() {
                 }, 5000); // Adjust the delay (5 seconds in this example)
             }
         }, 1000); // Check every second for the header, adjust as needed
-
+        $('.newInvoiceCardBody').hide();
+        $(document).on('click', '.addNewInvoice', function(){
+            $('.newInvoiceCardBody').toggle();
+        });
         $(document).on('click', '.uploadManualInvoice', function(){
+            if ($('.newInvoiceCardBody').is(":visible")) {
+                $('.newInvoiceCardBody').hide();
+            }
             $('#uploadInvoiceModal').modal('show');
         });
     </script>

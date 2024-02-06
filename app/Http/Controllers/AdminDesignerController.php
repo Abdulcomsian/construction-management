@@ -1497,6 +1497,16 @@ class AdminDesignerController extends Controller
          }
         return redirect()->back();
     }
+
+    public function updatePaymentStatus(Request $request){
+        $invoice_id = $request->invoice_id;
+        $invoice = Invoice::find($invoice_id);
+        $invoice->status = $request->status;
+        if($invoice->save()){
+            toastSuccess('Invoice Status Updated Successfully');
+        }
+        return redirect()->back();
+    }
     public function invoicepaymentreminder($id)
     {
         $id = \Crypt::decrypt($id);

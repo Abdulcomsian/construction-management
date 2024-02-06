@@ -1144,7 +1144,7 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Email</th>
+                                        <th>Design Checker Name</th>
                                         <th>Document Type</th>
                                         <th>Design Check Certificate</th>
                                         <th>File</th>
@@ -1152,13 +1152,31 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($Designerchecks as $dcc)
-                                    <tr>
-                                        <td>{{$loop->index+1}}</td>
-                                        <td><a href="{{asset($dcc->file_name)}}"
-                                                target="_blank">DC{{$loop->index+1}}</a></td>
-                                    </tr>
-                                    @endforeach
+                                    {{-- @dd($designer_certificate) --}}
+                                    @isset($designer_certificate)
+                                        <tr>
+                                            <td>0</td>
+                                            <td>{{$designer_certificate['created_by']}}</td>
+                                            <td>{{$designer_certificate['certificate_element']}}</td>
+                                            <td>{{$designer_certificate['design_document']}}</td>
+                                            <td><a href="{{asset('temporary/signature/' .$designer_certificate['checker_signature'])}}" target="_blank">View Signature</a></td>
+                                            <td>{{$designer_certificate['created_at']}}</td>
+                                        </tr>
+                                    @endisset
+
+                                    @isset($Designerchecks)
+                                        @foreach($Designerchecks as $dcc)
+                                            <tr>
+                                                <td>{{$loop->index+1}}</td>
+                                                <td>{{$dcc->twd_name}}</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td><a href="{{asset($dcc->file_name)}}" target="_blank">DC{{$loop->index+1}}</a></td>
+                                                <td>{{$dcc->created_at}}</td>
+                                            </tr>
+                                        @endforeach
+                                    @endisset
+                                    
                                 </tbody>
                             </table>
                         </div>

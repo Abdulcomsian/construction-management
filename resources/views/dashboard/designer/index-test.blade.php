@@ -687,7 +687,8 @@
             $("input[name='namesign']").attr('required','required');
             $("#clear").hide();
             $("#sign").removeClass('d-flex').hide();
-            $('#sigimage').addClass('d-none')
+            $('#sigimage').addClass('d-none');
+            $('#submitbutton').removeAttr("disabled");
            
         }
         else{
@@ -698,6 +699,7 @@
             $("#clear").show();
             $(".customSubmitButton").addClass("hideBtn");
             $(".customSubmitButton").removeClass("showBtn");
+            $('#submitbutton').addAttr("disabled");
         }
     })
 
@@ -715,7 +717,8 @@
             $("input[name='namesign']").removeAttr('required');
             $("#clear").hide();
             $("#sign").removeClass('d-flex').hide();
-            $('#sigimage').addClass('d-none')
+            $('#sigimage').addClass('d-none');
+            $('#submitbutton').removeAttr("disabled");
            
         }
         else{
@@ -727,6 +730,7 @@
             $("input[name='namesign']").removeAttr('required');
             $("input[name='pdfsign']").removeAttr('required');
             $("#clear").show();
+            $('#submitbutton').addAttr("disabled");
              
         }
     })

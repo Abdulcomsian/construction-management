@@ -268,7 +268,7 @@
                                                 </div>
                                                 <div class =" row d-flex mb-2">
                                                     <div class = "col-md-4"> <label class="required fs-6 fw-bold">Receiver's Email</label></div>
-                                                    <div class = "col-md-8"><input type = "text" name = "send_email" class="form-control form-control-solid" placeholder = "Sender Email" required value="{{$userData['client_email']}}"></div>
+                                                    <div class = "col-md-8"><input type = "text" name = "send_email" class="form-control form-control-solid" placeholder = "Sender Email" required value="{{isset($userData['client_email']) ? $userData['client_email'] : ''}}"></div>
                                                     @error('send_email')
                                                         <div class="alert alert-danger">{{ $message }}</div>
                                                     @enderror

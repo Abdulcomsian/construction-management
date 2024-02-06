@@ -34,7 +34,7 @@
                         </div>
                         <div class = "col-md-6"> 
                             <label class="required fs-6 fw-bold">Receiver's Email</label>
-                            <input type = "text" name = "send_email" class="form-control form-control-solid" value="{{$userData['client_email']}}" placeholder = "Sender Email" required>
+                            <input type = "text" name = "send_email" class="form-control form-control-solid" value="{{isset($userData['client_email']) ? $userData['client_email'] : ''}}" placeholder = "Sender Email" required>
                             @error('send_email')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror

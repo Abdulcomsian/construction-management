@@ -1151,10 +1151,10 @@
                                                 <option value="{{$admin_designer->creator->email}}">Estimator ({{$admin_designer->creator->email}})</option>
                                                 @endif
                                                 <option value="{{isset($admin_designer->creator->email) ? $admin_designer->creator->email : ''}}">Admin Designer ({{isset($admin_designer->creator->email) ? $admin_designer->creator->email : ''}})</option>
-                                                @if($checker_option && isset($designer->email))
+                                                @if(isset($checker_option) && isset($designer->email))
                                                     <option value="{{$designer->email}}">Designer ({{$designer->email}})</option>
                                                 @endif
-                                                @if($designer_option && isset($checker->email))
+                                                @if(isset($designer_option) && isset($checker->email))
                                                 <option value="{{$checker->email}}">Checker ({{$checker->email}})</option>
                                                 @endif
                                             {{-- @endif --}}

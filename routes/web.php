@@ -355,6 +355,8 @@ Route::post('designer/save-invoice',[AdminDesignerController::class,'saveinvoice
 Route::get('/dashboard',[ProjectController::class,'Dashboard'])->middleware(['auth'])->name('dashboard');
 Route::get('Estimator/estimator-designer/client-email/{id}',[EstimatorController::class,'estimatorDesignerClient'])->name('estimator.designer_client');
 Route::post('designer/show-pricing' , [DesignerController::class , 'showPricing'])->name('show_pricing');
+Route::post('designer/approve-design-brief', [DesignerController::class, 'approveDB'])->name('approve.design.brief');
+Route::post('designer/store_approve_design_brief_status', [DesignerController::class, 'approveDBStore'])->name('approve.db.store');
 Route::post('approve-pricing' , [DesignerController::class , 'approvePricing'])->name('approve_pricing');
 Route::post('designer/show_comment' , [DesignerController::class , 'showComment'])->name('show_comment');
 Route::get('generate-pdf' , [DesignerController::class , 'generatePdf'])->name('generate_pdf');

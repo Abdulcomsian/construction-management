@@ -303,7 +303,9 @@
                                         <th>Design Brief</th>
                                         <th>Comments</th>
                                         <th>Additional Information</th>
-                                        <th></th>
+                                        @if($estimatorWork[0]['work_status'] == 'publish' && $estimatorWork[0]['estimator'] == 1)
+                                        <th>Approve Design Brief</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -348,6 +350,11 @@
                                             <button onclick="showPricingModal({{$row->id}})" class="btn {{$btn_pricing_class}}" style="border: 1px solid #07d564; border-radius: 5px" id="pricing_modal">View Pricing</button>
                                             <a target="_blank" href="{{route('client_edit_estimation', $row->id)}}" class="btn" style="border: 1px solid #07d564; border-radius: 5px">Edit Job</a>
                                         </td>
+                                        @if($row->work_status == 'publish' && $row->estimator == 1)
+                                            <td>
+                                                <button onclick="showApproveDesignBriefModal({{$row->id}})" class="btn" style="border: 1px solid #07d564; border-radius: 5px" id="approve_design_brief">Approve Design Brief</button>
+                                            </td>
+                                        @endif
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -512,6 +519,7 @@
         </div>
     </div>
     {{-- @include('dashboard.modals.pricing') --}}
+    @include('dashboard.modals.approve_design_brief')
     @endsection
     @section('scripts')
     <script type="text/javascript">
@@ -801,6 +809,16 @@
                 // $.LoadingOverlay("hide");
             });
 
+    }
+
+    function showApproveDesignBriefModal(id){
+        var CSRF_TOKEN = '{{csrf_token()}}';
+        $.post("{{route('approve.design.brief')}}", {
+            _token: CSRF_TOKEN,
+            id: id
+        }).done(function(response){
+            $('#approve_db').modal('show');
+        });
     }
 
     function showCommentModal(id){

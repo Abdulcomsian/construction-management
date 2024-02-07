@@ -1379,6 +1379,9 @@ class AdminDesignerController extends Controller
             $projectIds = array_unique($projectIds);
             $projects = Project::with('company')->whereIn('id' , $projectIds )->get();
             $scantempwork = '';
+
+            // Check in the designer Certificate
+                    
             return view('dashboard.adminDesigners.awarded-jobs',compact('estimatorWork','AwardedEstimators', 'scantempwork' , 'projects', 'users'));
             
          }catch (\Exception $exception) {

@@ -301,7 +301,7 @@
                                 <td>{{$i}}</td>
                                 
                                 <td class="">
-                                    <a target="_blank" href="{{asset('estimatorPdf/'.$pdf_files->pdf_name)}}">Design Brief</a></td>
+                                    <a target="_blank" href="{{asset('pdf/'.$pdf_files->pdf_name)}}">Design Brief</a></td>
                                    
                              
 

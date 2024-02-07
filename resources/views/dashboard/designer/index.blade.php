@@ -287,7 +287,7 @@
                                 <td>1</td>
                                 
                                 <td >
-                                    <a target="_blank" href="{{asset('estimatorPdf/'.$tempdata->ped_url)}}">Design Brief</a>
+                                    <a target="_blank" href="{{asset('pdf/'.$tempdata->ped_url)}}">Design Brief</a>
                                     
                                     </td>
                                 <td>{{$tempdata->created_at}}</td>

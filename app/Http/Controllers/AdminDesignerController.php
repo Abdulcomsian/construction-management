@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Notifications\AdminDesignerNotification;
 use App\Notifications\PasswordResetNotification;
 use App\Notifications\AdminDesignerNomination;
+use App\Notifications\notifyDesignChecker;
 use App\Notifications\AdminDesignerAppointmentNotification;
 use App\Notifications\InvoiceNotification;
 use App\Models\{Nomination,NominationExperience,NominationCompetence,
@@ -288,6 +289,7 @@ class AdminDesignerController extends Controller
         try
         {
             $estimator_designer_list = EstimatorDesignerList::find($id);
+            // dd($estimator_designer_list->email);
             $designer_tasks = new EstimatorDesignerListTask();
             $designer_tasks->estimator_designer_list_id = $id;
             $designer_tasks->date = $request->date;
@@ -295,6 +297,11 @@ class AdminDesignerController extends Controller
             $designer_tasks->completed = $request->completed;
             $designer_tasks->task = $request->task;
             $designer_tasks->status = $request->status;
+
+            // sending email to design checker if the status is completed or design check
+            if($request->status == 'completed' || $request->status == 'Design Check'){
+                Notification::route('mail', $estimator_designer_list->email ?? '')->notify(new notifyDesignChecker());
+            }
             // $designer_tasks->user_id = Auth::user()->id;
             $designer_tasks->save();
             if($estimator_designer_list->type == 'designers')
@@ -1290,7 +1297,6 @@ class AdminDesignerController extends Controller
             ->latest()
             ->withCount('uploadfile')
             ->get();
-
             // if(HelperFunctions::isPromotedAdminDesigner(Auth::user()))
             // {
             //     $promoted_parent_id = auth()->user()->id;
@@ -1348,9 +1354,9 @@ class AdminDesignerController extends Controller
             if (HelperFunctions::isAdminDesigner(Auth::user()) || HelperFunctions::isPromotedAdminDesigner(Auth::user())) {
                 $adminDesignerEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments',
                 'designerAssign', 'checkerAssign', 'designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks','invoice')
-                    ->where('work_status', 'publish')
                     ->whereIn('created_by', $all_admin)
                     ->orWhere('created_by',$parent_id)
+                    ->where('work_status', 'publish')
                     // ->where('created_by', Auth::user()->id)
                     ->latest()
                     ->withCount('uploadfile')

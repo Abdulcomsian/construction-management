@@ -1385,7 +1385,7 @@ class AdminDesignerController extends Controller
         $user = Auth::user();
         $invoices = Invoice::where('admindesigner_id',Auth::id())->paginate(10);
         return view('dashboard.adminDesigners.invoices',['user'=>$user,'invoices'=>$invoices]);
-} 
+    }
     public function generateinvoice(){
             $user = Auth::user();
             $userCompany = isset($user->companyProfile->company_name) ? $user->companyProfile->company_name : ''; 

@@ -584,6 +584,10 @@ $tempWorkClass = "d-none";
     color: #F03738;
 }
 
+
+.redbackground{
+    background-color: #f17c7c26 !important;
+}
 table tbody td {
     /* text-align: center; */
     padding: 5px !important;
@@ -688,7 +692,13 @@ hr{
                             @endphp
                             @forelse($AwardedEstimators as $item)
                         
-                            <tr class="row-2">
+                            @php
+                            $rowBackgroundColor = '';
+                            if($item->work_status == 'publish' && $item->approve_design_brief == 0){
+                                $rowBackgroundColor = 'redbackground';
+                            }
+                            @endphp
+                            <tr class="row-2 {{$rowBackgroundColor}}">
                             <td>
                                 @if($item->project_id)
                                 {{ $item->project->no ?? '' }} <br> {{ $item->project->name ?? '' }}

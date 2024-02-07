@@ -3549,6 +3549,7 @@ class DesignerController extends Controller
             $all_inputs['estimator_serial_no']= HelperFunctions::generateEstimatorSerial();
             // $all_inputs['work_status'] = $informationRequired == "on" ? "draft" : "publish";
             $all_inputs['admin_designer_email'] = Auth::user()->email;
+            $all_inputs['approve_design_brief'] = 0;
             $temporary_work->update($all_inputs);
              // Delete existing designer_quote records
              $temporary_work->designerQuote()->delete();
@@ -3686,6 +3687,9 @@ class DesignerController extends Controller
         }
         $temporary_work = TemporaryWork::findOrFail($temporary_work_id);
         $temporary_work->approve_design_brief = $status;
+        if($status == 1){
+            $temporary_work->work_status = 'draft';
+        }
         if($temporary_work->save()){
             toastSuccess("Status Changed Successfully");
             return redirect()->back();
@@ -4084,6 +4088,7 @@ class DesignerController extends Controller
             $all_inputs['estimator_serial_no']= HelperFunctions::generateEstimatorSerial();
             // $all_inputs['work_status'] = $informationRequired == "on" ? "draft" : "publish";
             $all_inputs['admin_designer_email'] = Auth::user()->email;
+            $all_inputs['approve_design_brief'] = 0;
             // dd($all_inputs);
             $temporary_work = TemporaryWork::create($all_inputs);
 

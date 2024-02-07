@@ -891,6 +891,7 @@ hr{
                             <td>
                                 <div class="center ">
                                 <div class="image d-flex gap-3">
+                                   
                                     <div class="image-1"> 
                                         @php
                                             $userEmail = auth()->user()->email;
@@ -914,6 +915,16 @@ hr{
                                     </div>
                                 </div>
                                 </div>
+                                @php 
+                                $designerCertificateTag = App\Models\DesignerCertificate::where('temporary_work_id', $item->id)->count();
+                                $tempWorkUploadFiles = App\Models\TempWorkUploadFiles::where('temporary_work_id', $item->id)->where('drawing_title', '==' , null)->count();
+                                // print_r($designerCertificateTag);
+                                @endphp
+                                @if($designerCertificateTag > 0 || $tempWorkUploadFiles > 0)
+                                    <div>
+                                        <i class="fa fa-file" style="color: green"></i>
+                                    </div>
+                                @endif
                             </td>
                             <td>
                                 <div class="row d-flex flex-column">
@@ -938,6 +949,10 @@ hr{
                                      </div>
                                     @endif
                                 </div>
+                                
+                                    <div>
+                                        <i class="fa fa-exchange-alt"></i>
+                                    </div>
                             </td>
                             </tr>
                             @empty

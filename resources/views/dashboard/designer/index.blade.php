@@ -1144,13 +1144,13 @@
                                             <option value="" >Select Email</option>
                                             <option value="{{isset($client_email) ? $client_email : ''}}">Client ({{isset($client_email) ? $client_email : ''}})</option>
                                             {{-- @if($user->di_designer_id != null) --}}
-                                                @if($admin_designer_option)
+                                                @if(isset($admin_designer_option))
                                                 <option value="{{$estimator->email}}">Estimator ({{$admin_designer->creator->email}})</option>
                                                 @endif
-                                                @if($estimator_option)
+                                                @if(isset($estimator_option))
                                                 <option value="{{$admin_designer->creator->email}}">Estimator ({{$admin_designer->creator->email}})</option>
                                                 @endif
-                                                <option value="{{$admin_designer->creator->email}}">Admin Designer ({{$admin_designer->creator->email}})</option>
+                                                <option value="{{isset($admin_designer->creator->email) ? $admin_designer->creator->email : ''}}">Admin Designer ({{isset($admin_designer->creator->email) ? $admin_designer->creator->email : ''}})</option>
                                                 @if($checker_option && isset($designer->email))
                                                     <option value="{{$designer->email}}">Designer ({{$designer->email}})</option>
                                                 @endif

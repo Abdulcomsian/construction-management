@@ -282,36 +282,69 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
-                            <tr>
-                                <td>1</td>
-                                
-                                <td >
-                                    <a target="_blank" href="{{asset('pdf/'.$tempdata->ped_url)}}">Design Brief</a>
+                            {{-- means admin designer  --}}
+                            @if($tempdata->estimator == 1 && ($tempdata->work_status == 'draft' || $tempdata->work_status == 'publish'))
+                                <tr>
+                                    <td>1</td>
                                     
-                                    </td>
-                                <td>{{$tempdata->created_at}}</td>
+                                    <td >
+                                        <a target="_blank" href="{{asset('estimatorPdf/'.$tempdata->ped_url)}}">Design Brief</a>
+                                        
+                                        </td>
+                                    <td>{{$tempdata->created_at}}</td>
 
-                            </tr>
-                            @php
-                                $i=2
-                            @endphp
-                            @foreach($tempdata->pdfFilesDesignBrief as $pdf_files)
-                            <tr>
-                                <td>{{$i}}</td>
+                                </tr>
+                                @php
+                                    $i=2
+                                @endphp
+                                @foreach($tempdata->pdfFilesDesignBrief as $pdf_files)
+                                <tr>
+                                    <td>{{$i}}</td>
+                                    
+                                    <td class="">
+                                        <a target="_blank" href="{{asset('estimatorPdf/'.$pdf_files->pdf_name)}}">Design Brief</a></td>
+                                    
                                 
-                                <td class="">
-                                    <a target="_blank" href="{{asset('pdf/'.$pdf_files->pdf_name)}}">Design Brief</a></td>
-                                   
-                             
 
-                                <td class="">{{$pdf_files->created_at}}</td>
-                            
-                            </tr>
-                            @php 
-                                $i++;
-                            @endphp
-                            @endforeach
+                                    <td class="">{{$pdf_files->created_at}}</td>
+                                
+                                </tr>
+                                @php 
+                                    $i++;
+                                @endphp
+                                @endforeach
+                                {{-- means twc  --}}
+                            @elseif($tempdata->estimator == 0 && ($tempdata->work_status == 'no_approval'))
+                                <tr>
+                                    <td>1</td>
+                                    
+                                    <td >
+                                        <a target="_blank" href="{{asset('pdf/'.$tempdata->ped_url)}}">Design Brief</a>
+                                        
+                                        </td>
+                                    <td>{{$tempdata->created_at}}</td>
+
+                                </tr>
+                                @php
+                                    $i=2
+                                @endphp
+                                @foreach($tempdata->pdfFilesDesignBrief as $pdf_files)
+                                <tr>
+                                    <td>{{$i}}</td>
+                                    
+                                    <td class="">
+                                        <a target="_blank" href="{{asset('pdf/'.$pdf_files->pdf_name)}}">Design Brief</a></td>
+                                    
+                                
+
+                                    <td class="">{{$pdf_files->created_at}}</td>
+                                
+                                </tr>
+                                @php 
+                                    $i++;
+                                @endphp
+                                @endforeach
+                            @endif
                         </tbody>
                     </table>
                 </div>
@@ -1131,8 +1164,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row" style="background:white;margin: 0 4px;">
-                                <div class="col-md-4">
+                        @if(isset($_GET['job']))
+                            <div class="row" style="background:white;margin: 0 4px;">
+                                <div class="col-md-12">
                                     <div class=" inputDiv d-block">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-6 fw-bold mb-2">
@@ -1142,19 +1176,19 @@
                                         {{-- <select class="form-control"> --}}
                                         <select name="emails[]" class="form-select form-select-lg" multiple="multiple" data-control="select2" data-placeholder="Select an option" >
                                             <option value="" >Select Email</option>
-                                            <option value="{{isset($client_email) ? $client_email : ''}}">Client ({{isset($client_email) ? $client_email : ''}})</option>
+                                            <option value="{{$client_email}}">Client ({{$client_email}})</option>
                                             {{-- @if($user->di_designer_id != null) --}}
-                                                @if(isset($admin_designer_option))
+                                                @if($admin_designer_option)
                                                 <option value="{{$estimator->email}}">Estimator ({{$admin_designer->creator->email}})</option>
                                                 @endif
-                                                @if(isset($estimator_option))
+                                                @if($estimator_option)
                                                 <option value="{{$admin_designer->creator->email}}">Estimator ({{$admin_designer->creator->email}})</option>
                                                 @endif
-                                                <option value="{{isset($admin_designer->creator->email) ? $admin_designer->creator->email : ''}}">Admin Designer ({{isset($admin_designer->creator->email) ? $admin_designer->creator->email : ''}})</option>
-                                                @if(isset($checker_option) && isset($designer->email))
+                                                <option value="{{$admin_designer->creator->email}}">Admin Designer ({{$admin_designer->creator->email}})</option>
+                                                @if($checker_option && isset($designer->email))
                                                     <option value="{{$designer->email}}">Designer ({{$designer->email}})</option>
                                                 @endif
-                                                @if(isset($designer_option) && isset($checker->email))
+                                                @if($designer_option && isset($checker->email))
                                                 <option value="{{$checker->email}}">Checker ({{$checker->email}})</option>
                                                 @endif
                                             {{-- @endif --}}
@@ -1162,6 +1196,7 @@
                                     </div>
                                 </div>
                             </div>
+                        @endif
                             <div class = "col-md-2" style="margin-top: 10px; margin-left: 17px;">
                                 <button type="submit" class="btn btn-primary "
                                             >Upload</button>

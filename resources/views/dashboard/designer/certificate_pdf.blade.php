@@ -151,15 +151,17 @@
             <p> (c) Has been designed in accordance with the following standards and reference</p> <br>
             {{-- @dd($temporary_work->designerCertificates) --}}
             <table style="width:100%">
-            @foreach($temporary_work->designerCertificates->tags as $tag)
-                {{-- @foreach($certificate->tags as $tag) --}}
-                    <tr>
-                        <td style="width:30%">{{$tag->title}} </td>
-                        <td> {{$tag->description}}</td>
-                    </tr>
-                {{-- @endforeach --}}
-                <hr>
-            @endforeach
+            @isset($temporary_work->designerCertificates->tags)
+                @foreach($temporary_work->designerCertificates->tags as $tag)
+                    {{-- @foreach($certificate->tags as $tag) --}}
+                        <tr>
+                            <td style="width:30%">{{$tag->title}} </td>
+                            <td> {{$tag->description}}</td>
+                        </tr>
+                    {{-- @endforeach --}}
+                    <hr>
+                @endforeach
+            @endisset
             
     </table>
     <p class="font">(d) The design is described in the following documents:</p> <br>
@@ -184,7 +186,7 @@
     </div>
     {{-- @if --}}
     {{-- @php $user = User::where('email',$email)->first(); @endphp --}}
-    @if($temporary_work->designerCertificates->designer_signature)
+    @if(isset($temporary_work->designerCertificates->designer_signature) && $temporary_work->designerCertificates->designer_signature)
         @php 
         $designer = $user
         @endphp
@@ -229,7 +231,7 @@
             </p>
         </div>
         {{-- @php $user = Auth::user(); @endphp --}}
-        @if($temporary_work->designerCertificates->checker_signature)
+        @if(isset($temporary_work->designerCertificates->checker_signature) && $temporary_work->designerCertificates->checker_signature)
         @php 
             $checker = $user
             @endphp

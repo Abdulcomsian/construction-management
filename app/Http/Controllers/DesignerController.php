@@ -4544,15 +4544,17 @@ class DesignerController extends Controller
                 $temporary_work = TemporaryWork::with('designerCertificates')->findorfail($request->tempworkid);
                 $checker_image_name = $temporary_work->designerCertificates->checker_signature ?? '';
                 $designer_image_name = $temporary_work->designerCertificates->designer_signature ?? '';
-                if($user->id == $temporary_work->designerAssign->user_id)
-                {
-                    // dd("sss");
-                    $designer = $user;
-                    $designer_image_name = $image_name;
-                } else{
-                    $checker = $user;
-                    $checker_image_name = $image_name;
-                }
+                if(isset($temporary_work->designerAssign->user_id)){
+                    if($user->id == $temporary_work->designerAssign->user_id)
+                    {
+                        // dd("sss");
+                        $designer = $user;
+                        $designer_image_name = $image_name;
+                    } else{
+                        $checker = $user;
+                        $checker_image_name = $image_name;
+                    }
+                }                
                 // dd($temporary_work->id, $user->id, $temporary_work->designerAssign->user_id,$image_name, $designer_image_name, $checker_image_name);
                
 
@@ -4564,16 +4566,16 @@ class DesignerController extends Controller
                 $path = public_path('certificate');
                 $filename =rand().'pdf.pdf';
                 $pdf->save($path . '/' . $filename);
-                $pdfLink = public_path('certificate/' . $filename);
+                $pdfLink = asset('certificate/' . $filename);
                 $recipient_email = '';
                 $login_url = route('login');
                 if (isset($designer) && isset($designer_image_name)) {
                 $recipient_email = $temporary_work->checkerAssign->email;
                 }
                 if (isset($checker) && isset($checker_image_name)) {
-                    $recipient_email = $temporary_work->designerAssign->email;
+                    $recipient_email = $temporary_work->designerAssign->email ?? '';
                 }
-                if($temporary_work->designerCertificates->designer_signature && $temporary_work->designerCertificates->checker_signature){
+                if(isset($temporary_work->designerCertificates->designer_signature) && isset($temporary_work->designerCertificates->checker_signature)){
                     if($temporary_work->client_email){
                         $recipient_email = $temporary_work->client_email; 
                     } else{
@@ -4582,7 +4584,7 @@ class DesignerController extends Controller
                     }
                     $login_url = $pdfLink;
                 }
-                if (isset($designer) && isset($designer_image_name)) {
+                if (isset($designer) && isset($designer_image_name)  && isset($temporary_work->designerAssign->email)) {
                     HelperFunctions::EmailHistory(
                         $temporary_work->designerAssign->email,
                         'Certificate Uploaded',

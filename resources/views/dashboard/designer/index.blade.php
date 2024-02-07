@@ -314,7 +314,8 @@
                                 @endphp
                                 @endforeach
                                 {{-- means twc  --}}
-                            @elseif($tempdata->estimator == 0 && ($tempdata->work_status == 'no_approval'))
+                            {{-- @elseif($tempdata->estimator == 0 && ($tempdata->work_status == 'no_approval')) --}}
+                            @else
                                 <tr>
                                     <td>1</td>
                                     

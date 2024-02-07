@@ -3671,6 +3671,30 @@ class DesignerController extends Controller
         return view('dashboard.modals.pricing', ['title' => 'Temporary Work Detail', 'temporary_work' => $temporary_work]);
    }
 
+   public function approveDB(Request $request){
+        $id = $request->input('id');
+        return view('dashboard.modals.approve_design_brief', ['id' => $id]);
+   }
+
+   public function approveDBStore(Request $request){
+        $temporary_work_id = $request->temporary_work_id;
+        $status = $request->approveDesignBrief;
+        if($status == 'approve'){
+            $status = 2;
+        }else{
+            $status = 1;
+        }
+        $temporary_work = TemporaryWork::findOrFail($temporary_work_id);
+        $temporary_work->approve_design_brief = $status;
+        if($temporary_work->save()){
+            toastSuccess("Status Changed Successfully");
+            return redirect()->back();
+        }else{
+            toastSuccess("Sorry Failure in changing the status. Please try again in a while");
+            return redirect()->back();
+        }
+   }
+
    public function showComment(Request $request){
     // return view('dashboard.modals.comment', ['title' => 'Temporary Work Detail', 'temporary_work' => $temporary_work]);
     try{
@@ -3737,10 +3761,14 @@ class DesignerController extends Controller
         $status = 'draft';
         if($request->payment == 'approve'){
             $status = 'publish';
+            $designBriefStatus = 2;
         } else{
             $status = 'pending';
+            $designBriefStatus = 1;
         }
+        // dd($designBriefStatus);
         $temporary_work->work_status = $status;
+        $temporary_work->approve_design_brief = $designBriefStatus;
         $temporary_work->save();
         $note = $request->payment_note;       
         

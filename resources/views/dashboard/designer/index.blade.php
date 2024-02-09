@@ -962,7 +962,7 @@
                                             <span class="required">Certificate Element:</span>
                                         </label>
                                         <div class="d-flex">
-                                            <input type="text" placeholder="Certificate Element" class="form-control" name="certificate_element" value="{{$designer_certificate->certificate_element ?? ''}}">
+                                            <input type="text" placeholder="Certificate Element" class="form-control" name="certificate_element" value="">
                                         </div>
                                     </div>
                                 </div>
@@ -972,7 +972,7 @@
                                             <span class="required">Design Document:</span>
                                         </label>
                                         <div class="d-flex">
-                                            <input type="text" placeholder="Design Document" class="form-control" name="design_document" value="{{$designer_certificate->design_document ?? ''}}">
+                                            <input type="text" placeholder="Design Document" class="form-control" name="design_document" value="">
                                         </div>
                                     </div>
                                 </div>
@@ -1004,9 +1004,9 @@
                                                     @foreach($tags as $tag)
                                                         <label class="tag">
                                                             <input type="checkbox" name="selected_tags[]" value="{{ $tag->id }}" 
-                                                            @if($designer_certificate && in_array($tag->id, $designer_certificate->tags->pluck('id')->toArray())) 
+                                                            {{-- @if($designer_certificate && in_array($tag->id, $designer_certificate->tags->pluck('id')->toArray())) 
                                                                 checked 
-                                                            @endif
+                                                            @endif --}}
                                                             >
                                                             {{ $tag->title }}
                                                         </label>

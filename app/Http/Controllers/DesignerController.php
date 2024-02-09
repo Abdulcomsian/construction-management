@@ -3946,6 +3946,31 @@ class DesignerController extends Controller
      echo $list;
    }
 
+   public function invoiceHistory(Request $request){
+        $id=\Crypt::decrypt($request->id);
+        $invoiceHistoryData = ChangeEmailHistory::where('foreign_idd', $id)->where('type', 'Invoice')->get();
+        $list = '';
+        $i = 1;
+        
+        foreach($invoiceHistoryData as $item){
+            $cdate = date('d-m-Y', strtotime($item->created_at));
+            $cdate_time = date('H:m', strtotime($item->created_at));
+
+            $list.='<tr>';
+            $list.='<td style="text-align: center;vertical-align: middle;">'.$i.'</td>';
+            $list.='<td style="text-align: center;vertical-align: middle;">'.$item->message.'</td>';
+            $list.='<td style="text-align: center;vertical-align: middle;">'.$item->email.'</td>';
+            $list.='<td style="text-align: center;vertical-align: middle;">'.$item->type.'</td>';
+            // $list.='<td style="text-align: center;vertical-align: middle;">'.$status.'</td>';
+        
+            // $list.='<td style="text-align: center;vertical-align: middle;">'.$cdate_time.'<br>'.$cdate.'</td>
+            // <td style="text-align: center;vertical-align: middle;">'.$rdate_time .'<br>'.$rdate2.'</td></tr>';
+            $list.='<td style="text-align: center;vertical-align: middle;">'.$cdate_time.'<br>'.$cdate.'</td>';
+            $i++;
+        }
+        echo $list;
+   }
+
 
    public function Designdelte(Request $request)
    {

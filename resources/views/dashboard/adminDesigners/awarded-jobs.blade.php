@@ -950,9 +950,15 @@ hr{
                                     @endif
                                 </div>
                                 
-                                    <div>
-                                        <i class="fa fa-exchange-alt"></i>
-                                    </div>
+                                <span 
+                                class="btn p-2 m-1 invoiceHistory" 
+                                style="border-radius: 21%; z-index:1060" 
+                                title="Invoice History" 
+                                {{-- data-id={{$item->id}} --}}
+                                data-id={{Crypt::encrypt($item->id)}}
+                                >
+                                    <i style="padding:3px;" class="fa fa-exchange-alt"></i>
+                                </span>
                             </td>
                             </tr>
                             @empty
@@ -1231,6 +1237,34 @@ hr{
        </div>
     </div>
  </div>
+{{-- Invoice history Modal  --}}
+ <div class="modal  fade" id="invoice_history_modal" style="width: 100%">
+    <div class="modal-dialog modal-dialog-centered mw-1000px">
+       <div class="modal-content">
+          <div class="modal-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>S-NO</th>
+                        <th>Description</th>
+                        <th>Email</th>
+                        <th>Type</th>
+                        <!-- <th>Status</th> -->
+                        
+                        <!-- <th>Sent Date</th> -->
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody id="invoice_history_table">
+                    
+                </tbody>
+                
+            </table>
+          </div>
+       </div>
+    </div>
+ </div>
+
 <div class="modal fade" id="allocationDesignerModal">
    <div class="modal-dialog modal-dialog-centered" style="min-width:700px;">
       <div class="modal-content">
@@ -1357,6 +1391,21 @@ hr{
         
         
     })
+
+    $(document).on('click', '.invoiceHistory', function(e){
+        var id = $(this).attr('data-id');
+        $.ajax({
+            url: "{{route('invoice.history')}}",
+            method: "get",
+            data:{
+                id
+            },
+            success: function(res){
+                $("#invoice_history_table").html(res);
+                $('#invoice_history_modal').modal('show');
+            }
+        });
+    });
 
       $(document).on('click', '.checkerchangeemail', function(e) {
         e.preventDefault()

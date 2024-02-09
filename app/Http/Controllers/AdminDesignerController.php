@@ -16,7 +16,7 @@ use App\Notifications\AdminDesignerAppointmentNotification;
 use App\Notifications\InvoiceNotification;
 use App\Models\{Nomination,NominationExperience,NominationCompetence,
                 Project,EstimatorDesignerList,TemporaryWork,CompanyProfile,
-                EstimatorDesignerListTask, PaymentDetail, ProfileOtherDocuments,Invoice
+                EstimatorDesignerListTask, PaymentDetail, ProfileOtherDocuments,Invoice, ChangeEmailHistory
             };
 use Carbon\Carbon;
 use App\Notifications\Nominations;
@@ -1411,6 +1411,7 @@ class AdminDesignerController extends Controller
     }   
     
     public function saveinvoice(Request $request){
+        // dd($request->all());
         $request->validate([
             'date' => 'required|date',
             'date_of_payment' => 'required|date|after_or_equal:date',
@@ -1474,6 +1475,16 @@ class AdminDesignerController extends Controller
         $generate_invoice->status = 'Unpaid';
         $generate_invoice->admindesigner_id  = Auth::id();
         $generate_invoice->save();
+
+        $chm= new ChangeEmailHistory();
+        $chm->email= $request->send_email;
+        $chm->type ='Invoice';
+        $chm->foreign_idd=$request->temporary_work_id ?? '';
+        $chm->message='Invoice Generated';
+        // $chm->status = 2;
+        // $chm->user_type = 'checker';
+        $chm->save();
+
         response()->download(public_path($fileName));
         if($request->send_email)
         {
@@ -1502,6 +1513,25 @@ class AdminDesignerController extends Controller
         $invoice->status = $request->status;
          if($invoice->save())
          {
+            if($request->status == 'Paid'){
+                $chm= new ChangeEmailHistory();
+                $chm->email= Auth::user()->email;
+                $chm->type ='Invoice';
+                $chm->foreign_idd=$invoice->temporary_work_id;
+                $chm->message='Payment status changed to paid';
+                // $chm->status = 2;
+                // $chm->user_type = 'checker';
+                $chm->save();
+            }else{
+                $chm= new ChangeEmailHistory();
+                $chm->email= Auth::user()->email;
+                $chm->type ='Invoice';
+                $chm->foreign_idd=$invoice->temporary_work_id;
+                $chm->message='Payment status changed to unpaid';
+                // $chm->status = 2;
+                // $chm->user_type = 'checker';
+                $chm->save();
+            }
             toastSuccess('Invoice Status Successfully Updated');
          }
         return redirect()->back();
@@ -1512,6 +1542,25 @@ class AdminDesignerController extends Controller
         $invoice = Invoice::find($invoice_id);
         $invoice->status = $request->status;
         if($invoice->save()){
+            if($request->status == 'Paid'){
+                $chm= new ChangeEmailHistory();
+                $chm->email= Auth::user()->email;
+                $chm->type ='Invoice';
+                $chm->foreign_idd=$invoice->temporary_work_id;
+                $chm->message='Payment status changed to paid';
+                // $chm->status = 2;
+                // $chm->user_type = 'checker';
+                $chm->save();
+            }else{
+                $chm= new ChangeEmailHistory();
+                $chm->email= Auth::user()->email;
+                $chm->type ='Invoice';
+                $chm->foreign_idd=$invoice->temporary_work_id;
+                $chm->message='Payment status changed to unpaid';
+                // $chm->status = 2;
+                // $chm->user_type = 'checker';
+                $chm->save();
+            }
             toastSuccess('Invoice Status Updated Successfully');
         }
         return redirect()->back();
@@ -1523,6 +1572,7 @@ class AdminDesignerController extends Controller
     }
     public function saveinvoicepaymentproof(Request $request, $id)
     {
+        // dd($request->all());
         $request->validate([
             'invoice_payment_details' => 'required',
             'attachfile' => 'required|file',
@@ -1592,6 +1642,15 @@ class AdminDesignerController extends Controller
             }
             $generate_invoice->admindesigner_id  = Auth::id();
             $generate_invoice->save();
+
+            $chm= new ChangeEmailHistory();
+            $chm->email= $request->send_email;
+            $chm->type ='Invoice';
+            $chm->foreign_idd=$request->temporary_work_id ?? '';
+            $chm->message='Invoice Generated';
+            // $chm->status = 2;
+            // $chm->user_type = 'checker';
+            $chm->save();
 
             $invoice_notify_msg = [
                 'greeting' => 'Hello',

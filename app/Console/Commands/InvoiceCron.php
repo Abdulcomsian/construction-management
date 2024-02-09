@@ -52,6 +52,35 @@ class InvoiceCron extends Command
             $diff = $invoice_date->diffInDays($due_date);
             if($diff == 3 || $diff == 7 || $diff == 1)
             {
+                if($diff == 3){
+                    $chm= new ChangeEmailHistory();
+                    // $chm->email= Auth::user()->email;
+                    $chm->type ='Invoice';
+                    $chm->foreign_idd=$invoice->temporary_work_id;
+                    $chm->message='Three day reminder message sent';
+                    // $chm->status = 2;
+                    // $chm->user_type = 'checker';
+                    $chm->save();
+                }elseif($diff == 7){
+                    $chm= new ChangeEmailHistory();
+                    // $chm->email= Auth::user()->email;
+                    $chm->type ='Invoice';
+                    $chm->foreign_idd=$invoice->temporary_work_id;
+                    $chm->message='Seven days reminder message sent';
+                    // $chm->status = 2;
+                    // $chm->user_type = 'checker';
+                    $chm->save();
+                }elseif($diff == 1){
+                    $chm= new ChangeEmailHistory();
+                    // $chm->email= Auth::user()->email;
+                    $chm->type ='Invoice';
+                    $chm->foreign_idd=$invoice->temporary_work_id;
+                    $chm->message='One day reminder message sent';
+                    // $chm->status = 2;
+                    // $chm->user_type = 'checker';
+                    $chm->save();
+                }
+                
                 dispatch(new SendEmailJob($invoice->send_email,$invoice->file_name,$diff,$invoice->id));
             }
 

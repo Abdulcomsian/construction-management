@@ -1229,7 +1229,7 @@
                                                 <td><a href="{{asset('certificate/' .$item->pdf_file)}}" target="_blank">View File</a></td>
                                                 <td>{{$item->created_at}}</td>
                                             </tr>
-                                        @endforeach                                        
+                                        @endforeach
                                     @endisset
 
                                     @isset($Designerchecks)
@@ -1266,7 +1266,7 @@
                                             <option value="" disabled></option>
                                             <option value="" selected disabled>Risk Assessment-Calculations</option>
                                             <option value="5">Risk Assessment</option>
-                                            <option value="6">Calculations (Design Notes)</option>
+                                            <option value="6">Calculations (Desing Notes)</option>
                                         </select>
                                     </div>
                                 </div>

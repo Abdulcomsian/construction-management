@@ -4563,12 +4563,12 @@ class DesignerController extends Controller
                 // dd($temporary_work->id, $user->id, $temporary_work->designerAssign->user_id,$image_name, $designer_image_name, $checker_image_name);
                
                 
-
                 $temporary_work = TemporaryWork::with('designerCertificates', 'designerCertificates.tags', 'project')->findorfail($temporary_work_id);
                 $pdf = PDF::loadView('dashboard.designer.certificate_pdf',['temporary_work' => $temporary_work, 'user' => $user, 'designer_image_name' => $designer_image_name, 'checker_image_name' => $checker_image_name]);
                 $path = public_path('certificate');
                 $filename =rand().'pdf.pdf';
                 $pdf->save($path . '/' . $filename);
+                
                 $pdfLink = asset('certificate/' . $filename);
                 $recipient_email = '';
                 $login_url = route('login');
@@ -4623,13 +4623,14 @@ class DesignerController extends Controller
                 $designerCertificate->designer_signature = $designer_image_name;
                 $designerCertificate->checker_signature = $checker_image_name;
                 $designerCertificate->temporary_work_id = $temporary_work_id;
-                $designerCertificate->$filename;
+                $designerCertificate->pdf_file = $filename;
                 $designerCertificate->save();
 
+                
                 $selectedTags = $request->selected_tags;
                 // Sync the selected tags with the designerCertificate
                 $designerCertificate->tags()->sync($selectedTags);
-                 // Send email notification 
+                // Send email notification 
                 // dd($login);
                 // dd($temporary_work->checkerAssign->email);
                 Notification::route('mail', $recipient_email)->notify(new DesignerCertificateNotification($temporary_work, $pdfLink, $login_url));

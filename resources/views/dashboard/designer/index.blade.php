@@ -1220,14 +1220,16 @@
                                 <tbody>
                                     {{-- @dd($designer_certificate) --}}
                                     @isset($designer_certificate)
-                                        <tr>
-                                            <td>0</td>
-                                            <td>{{$designer_certificate['created_by']}}</td>
-                                            <td>{{$designer_certificate['certificate_element']}}</td>
-                                            <td>{{$designer_certificate['design_document']}}</td>
-                                            <td><a href="{{asset('certificate/' .$designer_certificate['pdf_file'])}}" target="_blank">View File</a></td>
-                                            <td>{{$designer_certificate['created_at']}}</td>
-                                        </tr>
+                                        @foreach ($designer_certificate as $item)
+                                            <tr>
+                                                <td>0</td>
+                                                <td>{{$item->created_by}}</td>
+                                                <td>{{$item->certificate_element}}</td>
+                                                <td>{{$item->design_document}}</td>
+                                                <td><a href="{{asset('certificate/' .$item->pdf_file)}}" target="_blank">View File</a></td>
+                                                <td>{{$item->created_at}}</td>
+                                            </tr>
+                                        @endforeach                                        
                                     @endisset
 
                                     @isset($Designerchecks)

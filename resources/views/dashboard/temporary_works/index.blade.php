@@ -1716,7 +1716,9 @@ $tempWorkClass = "d-none";
                                                                 <p class="dateclick cursor-pointer"
                                                                     style="color:{{$dcolor ?? ''}}; font-weight:500; color:black"
                                                                     data-id="{{$item->id}}" data-type="1">
-                                                                    {{date('d-m-Y', strtotime($date))}}
+																	@if(isset($date))
+																		{{date('d-m-Y', strtotime($date))}}
+																	@endif
                                                                 </p>
                                                                 @endif
                                                             </div>
@@ -1758,8 +1760,10 @@ $tempWorkClass = "d-none";
                                                                 @if($file->file_type==2)
                                                                 <p class="dateclick cursor-pointer"
                                                                     data-id="{{$item->id}}" data-type="2">
-                                                                    {{date('d-m-Y',
-                                                                    strtotime($file->created_at->todatestring()))}}</p>
+																	@if(isset($file->created_at))
+																		{{date('d-m-Y',	                                                              strtotime($file->created_at->todatestring()))}}
+																	@endif
+																</p>
                                                                 @break
                                                                 @endif
                                                                 @endforeach
@@ -2002,7 +2006,6 @@ $tempWorkClass = "d-none";
                                                     <!-- <td style="">
                                                                 @foreach($item->uploadfile as $file)
                                                                 @if($file->file_type==2)
-                                                                <p class="dateclick cursor-pointer" data-id="{{$item->id}}" data-type="2">{{date('d-m-Y', strtotime($file->created_at->todatestring()))}}</p>
                                                                 @break
                                                                 @endif
                                                                 @endforeach
@@ -2877,8 +2880,11 @@ $tempWorkClass = "d-none";
                                                 @foreach($item->uploadfile as $file)
                                                 @if($file->file_type==2)
                                                 <p class="dateclick cursor-pointer" data-id="{{$item->id}}"
-                                                    data-type="2">{{date('d-m-Y',
-                                                    strtotime($file->created_at->todatestring()))}}</p>
+                                                    data-type="2">
+													@if(isset($file->created_at))
+													{{date('d-m-Y',
+                                                    strtotime($file->created_at->todatestring()))}}
+													@endif</p>
                                                 @break
                                                 @endif
                                                 @endforeach
@@ -3435,8 +3441,10 @@ $tempWorkClass = "d-none";
                                                                     @if($file->file_type==2)
                                                                     <p class="dateclick cursor-pointer"
                                                                         data-id="{{$item->id}}" data-type="2">
-                                                                        {{date('d-m-Y',
+                                                                        @if(isset($file->created_at))
+																		{{date('d-m-Y',
                                                                         strtotime($file->created_at->todatestring()))}}
+																		@endif
                                                                     </p>
                                                                     @break
                                                                     @endif
@@ -4095,7 +4103,9 @@ $tempWorkClass = "d-none";
                                                             <p class="dateclick cursor-pointer"
                                                                 style="color:{{$dcolor ?? ''}}; font-weight:500; color:black"
                                                                 data-id="{{$item->id}}" data-type="1">
-                                                                {{date('d-m-Y', strtotime($date))}}
+                                                                @if(isset($date))
+																	{{date('d-m-Y', strtotime($date))}}
+																@endif
                                                             </p>
                                                             @endif
                                                         </div>
@@ -4136,8 +4146,11 @@ $tempWorkClass = "d-none";
                                                             @if($file->file_type==2)
                                                             <p class="dateclick cursor-pointer" data-id="{{$item->id}}"
                                                                 data-type="2">
+																@if(isset($file->created_at))
                                                                 {{date('d-m-Y',
-                                                                strtotime($file->created_at->todatestring()))}}</p>
+                                                                strtotime($file->created_at->todatestring()))}}
+																@endif
+															</p>
                                                             @break
                                                             @endif
                                                             @endforeach
@@ -4360,12 +4373,10 @@ $tempWorkClass = "d-none";
                                                                         {
                                                                         $dcolor='green';
                                                                         $drawingscount=1;
-                                                                        $date=$file->created_at->todatestring();
                                                                         }
                                                                         elseif($file->file_type==1 && $file->preliminary_approval==1)
                                                                         {
                                                                         $dcolor='orange';
-                                                                        $date=$file->created_at->todatestring();
                                                                         }
                                                                         @endphp
                                                                         @endforeach
@@ -4378,7 +4389,6 @@ $tempWorkClass = "d-none";
                                                 <!-- <td style="">
                                                                         @foreach($item->uploadfile as $file)
                                                                         @if($file->file_type==2)
-                                                                        <p class="dateclick cursor-pointer" data-id="{{$item->id}}" data-type="2">{{date('d-m-Y', strtotime($file->created_at->todatestring()))}}</p>
                                                                         @break
                                                                         @endif
                                                                         @endforeach

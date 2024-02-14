@@ -49,6 +49,8 @@ Route::get('get-comments', [TemporaryWorkController::class, 'get_comments'])->na
 Route::get('get-emails', [TemporaryWorkController::class, 'get_emails'])->name('temporarywork.get-emails');
 Route::get('comments-status', [TemporaryWorkController::class, 'comments_status'])->name('temporarywork.comments.status');
 Route::post('temporary_works/comments', [TemporaryWorkController::class, 'temp_savecomment'])->name('temporarywork.storecomment');
+Route::post('temporary_works/client_to_adminDesinger', [TemporaryWorkController::class, 'client_savecomment'])->name('client.to.admin.designer');
+Route::post('temporary_works/adminDesigner_reply', [TemporaryWorkController::class, 'adminDesignerReply'])->name('admin.designer.reply');
 Route::post('temporary_works/comments-replay', [TemporaryWorkController::class, 'temp_savecommentreplay'])->name('temporarywork.storecommentreplay');
 Route::post('mark-comment-as-read' , [TemporaryWorkController::class , 'mark_comment_as_read'])->name('mark.comment.as.read');
 Route::post('mark-comment-as-read-admin-designer' , [TemporaryWorkController::class , 'mark_comment_as_read_admin_designer'])->name('mark.comment.as.read.admin.designer');

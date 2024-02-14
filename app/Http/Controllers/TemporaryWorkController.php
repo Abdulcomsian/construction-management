@@ -1844,7 +1844,6 @@ class TemporaryWorkController extends Controller
 
     public function temp_savecommentreplay(Request $request)
     {
-
         // dd("here Nouman Pakistan"); 
         try {
 
@@ -1978,6 +1977,41 @@ class TemporaryWorkController extends Controller
             return Redirect::back();
         }
     }
+
+    // Client to Admin Comment
+    public function client_savecomment(Request $request){
+        $request->validate([
+            'comment' => 'required',
+        ],[
+            'comment.required' => 'This field is required',
+        ]);
+
+        try{
+            $comment = new TemporaryWorkComment();
+            $comment->replay = array($request->comment);
+            if ($request->file('myFile')) {
+                $filePath = HelperFunctions::temporaryworkcommentPath();
+                $file = $request->file('myFile');
+                $fileName = HelperFunctions::saveFile(null, $file, $filePath);
+                $comment->reply_image = array($fileName);
+            }
+            $comment->temporary_work_id = $request->temp_work_id;
+            $comment->reply_date = array(Carbon::now());
+            $comment->user_id = Auth::user()->id ?? '';
+            $comment->type = "client";
+            $comment->status = 1;
+            $comment->sender_email = Auth::user()->email ?? '';
+            $comment->sender_name = Auth::user()->name ?? '';
+            if($comment->save()){
+                toastSuccess('Message Sent Successfully');
+                return Redirect::back();
+            }
+        }catch(\Exception $e){
+            dd($e->getMessage());
+        }
+    }
+    
+
     public function temp_savetwname(Request $request)
     {
         try {
@@ -2465,10 +2499,25 @@ class TemporaryWorkController extends Controller
                     $client_table .= '<tr style="background:' . $colour . '">
                                <td>' . $i . '</td><td style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), rgba(7, 213, 100, 0.5);
 
-                               ">'. '<span style="font-weight: 600; font-size: 16px; margin-right:5px">Comment:</span>'. '<span style="font-size:16px; white-space:pre-wrap;">'.$comment->comment.'</span>' .$comment->sender_name.'<br>'. '<div><span style="color: #9D9D9D;">'. date('H:i d-m-Y', strtotime($comment->created_at)) . '</span></div><span style="color: #3A7DFF; font-size: 14px; font-weight: 400;">'.$a.'</span><span style="color: #3A7DFF; font-size: 14px; font-weight: 400;">';
+                               ">'. '<span style="font-weight: 600; font-size: 16px; margin-right:5px">Comment:</span>'. '<span style="font-size:16px; white-space:pre-wrap;">'.$comment->comment.'</span><br>'. '<div><span style="color: #9D9D9D;">'. date('H:i d-m-Y', strtotime($comment->created_at)) . '</span></div><span style="color: #3A7DFF; font-size: 14px; font-weight: 400;">'.$a.'</span><span style="color: #3A7DFF; font-size: 14px; font-weight: 400;">';
                     if(isset($comment->image)){
                         $client_table .= '<a href='.asset($comment->image).' target="_blank"><i class="fa fa-eye"></i></a></span> </td>';
                     } 
+
+                    if(empty($comment->comment) || $comment->comment == null){
+                        $client_table .= ' 
+                        <form method="post" action="'.route('admin.designer.reply').'" enctype="multipart/form-data">
+                        <input type="hidden" name="_token" value="' . csrf_token() . '"/>
+                        <input type="hidden" name="tempid" value="' . $request->temporary_work_id . '"/>
+                            <textarea style="width: 100%" type="text" class="replay" name="replay" placeholder="Add comment here..."></textarea>
+                            <div class="submmitBtnDiv">
+                                <input style="width:50%;margin-top:20px;float:left" type="file" name="replyfile">
+                                <input type="hidden" name="commentid" value="'.$comment->id.'"/>                                
+                                <button type="submit" class="btn btn-primary" style="font-size:10px;margin-top:10px;float:right;">submit</button>
+                            </div>
+                        </form>
+                        ';
+                    }
                     
                     $client_table .= '                    
                                <td style=" flex-direction: column;">
@@ -5596,6 +5645,28 @@ class TemporaryWorkController extends Controller
             return response()->json(['success' => true , 'msg' => 'Comment Marked As Read Successfully']);
         }catch(\Exception $e){
             return response()->json(['success' => true , 'msg' => 'Something Went Wrong' , 'error' => $e->getMessage()]);
+        }
+    }
+
+    // admin reply to designer
+    public function adminDesignerReply(Request $request){
+        // dd($request->all());
+        try{
+            $comment = TemporaryWorkComment::find($request->commentid);
+            $comment->comment = $request->replay;
+            if($request->file('replyfile')){
+                $filePath = HelperFunctions::temporaryworkcommentPath();
+                $file = $request->file('replyfile');
+                $fileName = HelperFunctions::saveFile(null, $file, $filePath);
+                $comment->image = $fileName;
+            }
+            if($comment->save()){
+                // dd("here");
+                toastSuccess('Reply Sent Successfully');
+                return Redirect::back();
+            }
+        }catch(\Exception $e){
+            dd($e->getMessage());
         }
     }
 }

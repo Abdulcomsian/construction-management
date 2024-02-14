@@ -50,7 +50,7 @@ class TemporaryWork extends Model
     public function clientComments()
     {
         return $this->hasMany(TemporaryWorkComment::class)->where('type','client');
-    }    
+    }
 
     public function rejecteddesign()
     {

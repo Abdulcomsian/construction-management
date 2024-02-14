@@ -1344,7 +1344,7 @@ class EstimatorController extends Controller
                 $AwardedEstimators=EstimatorDesignerList::with('estimator.project')->where(['email'=>$request->mail,'estimatorApprove'=>1])->get();
                 $viewComments = TemporaryWorkComment::where('temporary_work_id', $id)->get(); // Getting this Temporary Work Comments Data for Blinking functionality of View Comment Button
                 return view('dashboard.designer.index-test',['mail'=>$request->email,'estimatorWork'=>$estimatorWork,'id'=>$id,'designerquotation'=>$designerquotation,'comments'=>$comments,'public_comments'=>$public_comments,'AwardedEstimators'=>$AwardedEstimators, 'viewComments' => $viewComments]);
-            }
+            }  
             // return view('dashboard.designer.index-test');
 
             // else{

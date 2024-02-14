@@ -9,13 +9,44 @@
         </label>
     </p>
 </div> --}}
+{{-- client Message to Admin Designer--}}
+<form action="{{route('client.to.admin.designer')}}" method="POST" enctype="multipart/form-data">
+    @csrf
+    <div class="row">
+        <input type="hidden" name="temp_work_id" value="{{$tempWorks->id}}">
+        <input type="hidden" name="admin_designer_id" value="">
+        <label class="d-flex align-items-center fs-6 fw-bold form-label mb-4">
+            <span class="required">Send Comment to Admin Designer:</span>
+        </label>
+        <div class="col-lg-12 d-flex align-items-center fw-bold fs-6"
+            style="border: 2px dashed #07D56480">
+            <textarea class="form-control form-control-solid" rows="4" placeholder="Enter Comment"
+                name="comment" required></textarea>
+            @error('comment')
+                <span class="text-danger">
+                    {{$message}}
+                </span>
+            @enderror
+            <!--end:Input-->
+        </div>
+        <div class="col-lg-12 d-flex align-items-center fw-bold fs-6">
+            <input class="form-control form-control-solid" type="file" name="myFile">           
+            <!--end:Input-->
+        </div>
+        <div class="text-center mt-3">
+            <button type="submit" class="btn btn-primary">
+                Submit
+            </button>
+        </div>
+    </div>
+</form>
 
 <table class="table commentsTable" style="border-radius: 8px; overflow:hidden;">
     <thead style="height:60px;background: #07D564;">
         <tr>
             <th style="width:10%;text-align:left;color:white !important; font-weight: 600 !important; font-size:16px !important">No</th>
             <th style="width:35%;text-align:left;color:white !important; font-weight: 600 !important; font-size:16px !important">Designer Comment</th>
-            <th style="width:40%;text-align:left;color:white !important; font-weight: 600 !important; font-size:16px !important">Client's Reply</th>
+            <th style="width:40%;text-align:left;color:white !important; font-weight: 600 !important; font-size:16px !important">Client's Comment</th>
         </tr>
     </thead>
     <tbody>
@@ -79,6 +110,7 @@
      <form style="" method="post" action="{{route('temporarywork.storecommentreplay')}}" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="tempid" value="{{$tempWorks->id}}"/>
+        @if(empty($comment->replay) || $comment->replay == null)
         <textarea style="width: 100%" type="text" class="replay" name="replay" placeholder="Add comment here..."></textarea>
          <div class="submmitBtnDiv">
              <input style="width:50%;margin-top:20px;float:left" type="file" name="replyfile[]" multiple>
@@ -86,6 +118,7 @@
              
              <button class="btn btn-primary replay-comment" style="font-size:10px;margin-top:10px;float:right;">submit</button>
          </div>
+        @endif
      </form>
     </td>
 </tr>

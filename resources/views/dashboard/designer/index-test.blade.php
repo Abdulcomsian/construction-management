@@ -372,9 +372,7 @@
                                         </td>
                                         <td>
                                             <button onclick="showPricingModal({{$row->id}})" class="btn {{$btn_pricing_class}}" style="border: 1px solid #07d564; border-radius: 5px" id="pricing_modal">View Pricing</button>
-                                            @if(count($extraPricing) > 0)
                                             <button onclick="showAdditionalPricingModal({{$row->id}})" class="btn {{$view_additional_pricing}}" style="border: 1px solid #07d564; border-radius: 5px; margin-top: 7px;" id="pricing_modal">Additional Pricing</button>
-                                            @endif
                                         </td>
                                         @if($row->work_status == 'publish' && $row->estimator == 1)
                                             <td>

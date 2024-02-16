@@ -16,7 +16,7 @@ use App\Notifications\AdminDesignerAppointmentNotification;
 use App\Notifications\InvoiceNotification;
 use App\Models\{Nomination,NominationExperience,NominationCompetence,
                 Project,EstimatorDesignerList,TemporaryWork,CompanyProfile,
-                EstimatorDesignerListTask, PaymentDetail, ProfileOtherDocuments,Invoice, ChangeEmailHistory
+                EstimatorDesignerListTask, PaymentDetail, ProfileOtherDocuments,Invoice, ChangeEmailHistory, ExtraPrice
             };
 use Carbon\Carbon;
 use App\Notifications\Nominations;
@@ -1353,7 +1353,7 @@ class AdminDesignerController extends Controller
             $all_admin = User::where('di_designer_id',$parent_id)->where('admin_designer', 1)->pluck('id');
             if (HelperFunctions::isAdminDesigner(Auth::user()) || HelperFunctions::isPromotedAdminDesigner(Auth::user())) {
                 $adminDesignerEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments',
-                'designerAssign', 'checkerAssign', 'designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks','invoice')
+                'designerAssign', 'checkerAssign', 'designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks','invoice', 'getExtraPricePending', 'getExtraPriceRejected', 'getExtraPriceAccepted')
                     ->whereIn('created_by', $all_admin)
                     ->orWhere('created_by',$parent_id)
                     ->where('work_status', 'publish')
@@ -1395,6 +1395,31 @@ class AdminDesignerController extends Controller
         $invoices = Invoice::where('admindesigner_id',Auth::id())->paginate(10);
         return view('dashboard.adminDesigners.invoices',['user'=>$user,'invoices'=>$invoices]);
     }
+
+    // extra price functions
+    public function storeExtraPrice(Request $request){
+        try{
+            $request->validate([
+                'price' => 'required',
+            ],[
+                'price.required' => "This field is required",
+            ]);
+            $adminDesigner_id = Auth::user()->id;
+            $extraPrice = new ExtraPrice();
+            $extraPrice->temporary_work_id = $request->temporary_work_id;
+            $extraPrice->price = $request->price;
+            $extraPrice->description = $request->description;
+            $extraPrice->adminDesigner_id = $adminDesigner_id;
+            if($extraPrice->save()){
+                toastSuccess("Extra price added");
+                return Redirect::back();
+            }
+        }catch(\Exception $e){
+            dd($e->getMessage(), $e->getLine());
+        }
+    }
+
+
     public function generateinvoice(){
             $user = Auth::user();
             $userCompany = isset($user->companyProfile->company_name) ? $user->companyProfile->company_name : ''; 

@@ -650,6 +650,18 @@ hr{
     font-size: 14px;
     height: 3% !important
 }
+.extra-price{
+    padding: 6px 9px;
+    border-radius: 4px;
+    color: #5d5db3;
+}
+
+.red{
+    background-color: rgb(255, 0, 0) !important;
+}
+.green{
+    background-color: green !important;
+}
 </style>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
@@ -709,20 +721,65 @@ hr{
                                <a target="_blank" href="estimatorPdf/{{$item->ped_url ?? ''}}">Job PDF</a>
                             </td>
                             <td>{{$item->client_name ?? ($item->creator->userCompany->name ?? '') }}</td>
-                            <td>{{$item->job_title ?? ''}}  
+                            <td>
+                                @php
+                                // For pending Status
+                                $jsonData = $item->getExtraPricePending;
+                                $extraPrices = json_decode($jsonData);
+                                if ($extraPrices !== null) {
+                                    foreach ($extraPrices as $extraPrice) {
+                                        $blink = 'redBgBlink';
+                                        $price = $extraPrice->price;
+                                        echo "<p class='extra-price $blink' style='color:black;'> £$price </p>";
+                                    }
+                                } else {
+                                    echo "Error decoding JSON";
+                                }
+
+                                // for rejected Status
+                                $jsonDataRejected = $item->getExtraPriceRejected;
+                                $extraPriceRejected = json_decode($jsonDataRejected);
+                                if($extraPriceRejected !== null){
+                                    foreach ($extraPriceRejected as $extraPrice) {
+                                        $price = $extraPrice->price;
+                                        $color = 'red';
+                                        echo "<p class='extra-price $color' style='color:black;'> £$price </p>";
+                                    }
+                                }
+
+                                // for accepted Status
+                                $jsonDataAccepted = $item->getExtraPriceAccepted;
+                                $extraPriceAccepted = json_decode($jsonDataAccepted);
+                                if($extraPriceAccepted !== null){
+                                    foreach ($extraPriceAccepted as $extraPrice) {
+                                        $price = $extraPrice->price;
+                                        $color = 'green';
+                                        echo "<p class='extra-price $color' style='color:black;'>£$price </p>";
+                                    }
+                                }
+                                @endphp
+                                {{-- @dd($item->designerQuote) --}}
+                                {{$item->job_title ?? ''}}
                                     @if($item->designerQuote && auth()->user()->view_price)
                                     <br>
                                         <span>{{$item->designerQuote ? $item->designerQuote->sum('price') : '0'}}</span>
                                     @endif
                                 </td>
-                            <td> 
+                            <td>
                                     @php
-                                        $req = explode('-', $item->design_requirement_text);
-                                    
+                                        $req = explode('-', $item->design_requirement_text);                                    
                                     @endphp
                                     <span> {{$req[0] ?? ''}} 
                                         <!-- {{$item->design_requirement_text ?? ''}} -->
-                                    </span> <br> {{$req[1] ?? ''}}</td>
+                                    </span> <br> {{$req[1] ?? ''}} <br>
+                                    
+                                    <button class="btn btn-success extraPrice" data-id="{{$item->id}}" style="
+                                    background-color: #3A7DFF26 !important;
+                                    padding: 6px 9px;
+                                    border-radius: 4px;
+                                    color: #5d5db3;
+                                    ">Add Extra Price</button>
+                            </td>
                             <td>
                                 <div class="row d-flex flex-column">
                                     @php
@@ -745,6 +802,7 @@ hr{
                                                     data-placement="top">  Description </div> </div>
                                     <div class="col d-flex justify-content-center"> <div class="comment addcomment cursor-pointer mt-3" data-id="{{$item->id}}"> Comment <span class="{{$class}}">({{count($item->commentlist) ?? '-'}})</span> </div> </div>
                                 </div>
+                                
                             </td>
                             @php
                                     $user = Auth::user();
@@ -793,6 +851,7 @@ hr{
                                     <span class="progress-text">50%</span>
                                     </div> -->
                                 </div>
+                               
                             </td>
                             @php
                                    /*  Doesn't add total tasks percentage for Designer
@@ -863,6 +922,7 @@ hr{
                                         </span>
                                     </td>
                                 @endif
+                            
                             <td>
                                 @if(isset($item->checkerAssign->user->name))
                                 <div class=" d-flex flex-column">
@@ -886,6 +946,7 @@ hr{
                                                 class="fa fa-exchange-alt"></i>
                                     </span>
                                 @endif
+
                             </td>
                             <!-- <td >  {!! $status_badge !!} </td> -->
                             <td>
@@ -1282,6 +1343,7 @@ hr{
 @include('dashboard.modals.drawingdesignlist')
 @include('dashboard.modals.description')
 @include('dashboard.modals.change_payment_status')
+@include('dashboard.modals.extra_price')
 @endsection
 @section('scripts')
 <script type="text/javascript">
@@ -1425,9 +1487,15 @@ hr{
         });
     });
 
+    $(document).on('click', '.extraPrice', function(){
+        let temporary_work_id = $(this).attr('data-id');
+        $('#temporary_work_id').val(temporary_work_id);
+        $('#extraPriceModal').modal('show');
+    });
+
     $(document).on('click', '.edit_designer_details', function() {
          let type = $(this).attr('value');
-         let id = $(this).attr('id');            
+         let id = $(this).attr('id');
         $('#invoice_id').val(id);
         $('.change_status_form').trigger("reset");
         $("#Change-Status-Modal").modal('show');

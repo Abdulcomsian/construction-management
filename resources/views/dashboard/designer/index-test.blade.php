@@ -219,6 +219,13 @@
     animation: blink 1s infinite;
     }
 
+    .red{
+    background-color: rgb(255, 0, 0) !important;
+    }
+    .green{
+        background-color: green !important;
+    }
+
 
 
     /* .circle.nonblink{
@@ -303,6 +310,7 @@
                                         <th>Design Brief</th>
                                         <th>Comments</th>
                                         <th>Additional Information</th>
+                                        <th>Pricing</th>
                                         @if($estimatorWork[0]['work_status'] == 'publish' && $estimatorWork[0]['estimator'] == 1)
                                         <th>Approve Design Brief</th>
                                         @endif
@@ -332,6 +340,18 @@
                                             $view_comments_class = 'blink';
                                         }
                                     }
+
+                                    $view_additional_pricing = '';
+                                    for($i = 0; $i<=count($extraPricing); $i++){
+                                        if(isset($extraPricing[$i]['status']) && $extraPricing[$i]['status'] == 0){
+                                            $view_additional_pricing = 'blink';
+                                        }elseif(isset($extraPricing[$i]['status']) && $extraPricing[$i]['status'] == 1){
+                                            $view_additional_pricing = 'red';
+                                        }elseif(isset($extraPricing[$i]['status']) && $extraPricing[$i]['status'] == 2){
+                                            $view_additional_pricing = 'green';
+                                        }
+                                    }
+                                    // dd($extraPricing);
                                     @endphp
                                     <tr style="background: {{$background ?? ''}}  !important">
                                         <td><p style="margin-top: 10px;">{{$count++}}</p></td>
@@ -343,12 +363,18 @@
                                         <td>
                                             <button onclick="showCommentModal({{$row->id}})" class="btn {{$view_comments_class}}" style="border: 1px solid #07d564; border-radius: 5px" id="pricing_modal">Comments</button>
                                         </td>
-                                        <td style="width: 40%;">
+                                        <td style="width: 30%;">
                                             {{-- data-bs-target="#modal1" --}}
                                             <button onclick="showAdditionalInformation({{$row->id}})" class="btn {{$btn_class}}" style="border: 1px solid #07d564; border-radius: 5px; margin-right: 15px" data-bs-toggle="modal">Additional Information</button>
                                             {{-- <button onclick="showAdditionalInformation({{$row->id}})" class="btn" style="border: 1px solid #07d564; border-radius: 5px; margin-right:15px" data-bs-toggle="modal">Additional Information </button> --}}
-                                            <button onclick="showPricingModal({{$row->id}})" class="btn {{$btn_pricing_class}}" style="border: 1px solid #07d564; border-radius: 5px" id="pricing_modal">View Pricing</button>
+                                           
                                             <a target="_blank" href="{{route('client_edit_estimation', $row->id)}}" class="btn" style="border: 1px solid #07d564; border-radius: 5px">Edit Job</a>
+                                        </td>
+                                        <td>
+                                            <button onclick="showPricingModal({{$row->id}})" class="btn {{$btn_pricing_class}}" style="border: 1px solid #07d564; border-radius: 5px" id="pricing_modal">View Pricing</button>
+                                            @if(count($extraPricing) > 0)
+                                            <button onclick="showAdditionalPricingModal({{$row->id}})" class="btn {{$view_additional_pricing}}" style="border: 1px solid #07d564; border-radius: 5px; margin-top: 7px;" id="pricing_modal">Additional Pricing</button>
+                                            @endif
                                         </td>
                                         @if($row->work_status == 'publish' && $row->estimator == 1)
                                             <td>
@@ -420,6 +446,7 @@
     </div>
     {{-- @include('dashboard.modals.pricing') --}}
     @include('dashboard.modals.approve_design_brief')
+    @include('dashboard.modals.show_additional_pricing')
     @endsection
     @section('scripts')
     <script type="text/javascript">
@@ -554,8 +581,8 @@
             $("#pdfChecked").prop('checked',false);
             $("#flexCheckChecked").prop('checked',false);
             $("#signtype").val(0);
-             $("#pdfsign").val(0);
-             $("#Drawtype").val(1);
+            $("#pdfsign").val(0);
+            $("#Drawtype").val(1);
             // $("div#pdfsign").removeClass('d-flex').addClass('d-none');
             // $("#pdfsign").removeClass('d-flex').addClass("d-none");
             // $(".customSubmitButton").removeClass("hideBtn");
@@ -659,7 +686,11 @@
             });
 
     }
-   
+
+    function showAdditionalPricingModal(id){
+        $('#temp_id').val(id);
+        $('#show_additional_pricing_modal').modal('show');
+    }
 
     $(document).on("click", '.additional-comment', function(e) {
         e.preventDefault();
@@ -755,6 +786,7 @@
         }
     });
 
+    
     
     
 

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Crypt;
 use App\Utils\Validations;
-use App\Models\{TemporayWorkImage, AdditionalInformation, EstimatorDesignerList,DesignerQuotation,TemporaryWork,ScopeOfDesign,Project,AttachSpeComment,TemporaryWorkComment,TempWorkUploadFiles,User,Folder,EstimatorDesignerComment,ReviewRating , JobComments};
+use App\Models\{TemporayWorkImage, AdditionalInformation, EstimatorDesignerList,DesignerQuotation,TemporaryWork,ScopeOfDesign,Project,AttachSpeComment,TemporaryWorkComment,TempWorkUploadFiles,User,Folder,EstimatorDesignerComment,ReviewRating , JobComments, ExtraPrice};
 use App\Utils\HelperFunctions;
 use App\Notifications\{DesignerAwarded,QuotationSend,EstimatorNotification,TemporaryWorkNotification,DesignerEstimatComment};
 use App\Models\ChangeEmailHistory;
@@ -1337,13 +1337,25 @@ class EstimatorController extends Controller
                 $designerquotation=DesignerQuotation::where(['temporary_work_id'=>$estimatorWork[0]->id])->get();
                 $comments=EstimatorDesignerComment::where(['estimator_designer_list_id'=>$estimatorWork[0]->id,'temporary_work_id'=>$id])->get();
                 $public_comments=EstimatorDesignerComment::where(['temporary_work_id'=>$id,'public_status'=>1])->get();
+                $extraPricing = ExtraPrice::where('temporary_work_id', $estimatorWork[0]->id)->get();
                 //get company record
                 // $company=Project::with('company')->find($estimatorWork->project_id);
                 //get rating of cuurent designer
                 //$ratings=ReviewRating::where(['added_by'=>$record->email,'user_id'=>$company->company->id])->first();
                 $AwardedEstimators=EstimatorDesignerList::with('estimator.project')->where(['email'=>$request->mail,'estimatorApprove'=>1])->get();
                 $viewComments = TemporaryWorkComment::where('temporary_work_id', $id)->get(); // Getting this Temporary Work Comments Data for Blinking functionality of View Comment Button
-                return view('dashboard.designer.index-test',['mail'=>$request->email,'estimatorWork'=>$estimatorWork,'id'=>$id,'designerquotation'=>$designerquotation,'comments'=>$comments,'public_comments'=>$public_comments,'AwardedEstimators'=>$AwardedEstimators, 'viewComments' => $viewComments]);
+
+                return view('dashboard.designer.index-test',[
+                    'mail'=>$request->email,
+                    'estimatorWork'=>$estimatorWork,
+                    'id'=>$id,
+                    'designerquotation'=>$designerquotation,
+                    'comments'=>$comments,
+                    'public_comments'=>$public_comments,
+                    'AwardedEstimators'=>$AwardedEstimators, 
+                    'viewComments' => $viewComments, 
+                    'extraPricing' => $extraPricing, 
+                ]);
             }  
             // return view('dashboard.designer.index-test');
 
@@ -1357,6 +1369,26 @@ class EstimatorController extends Controller
         
     }
 
+    public function changeStatus(Request $request){
+        // dd($request->all());
+        try{
+            $tempWork_id = $request->temporary_work_id;
+            $statusCheck = $request->status_check;
+            $status = '';
+            if($statusCheck == 'on'){
+                $status = 2;
+            }
+
+            $extraPricing = ExtraPrice::where('temporary_work_id', $tempWork_id)->update([
+                'status' => $status
+            ]);
+
+            toastSuccess('Pricing Approved');
+            return Redirect::back();
+        }catch(\Exception $e){
+            dd($e->getMessage(), $e->getLine());
+        }
+    }
     //save designer quotation from designer side
     public function designerQuotation(Request $request)
     {

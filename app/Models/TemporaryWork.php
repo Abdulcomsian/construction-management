@@ -195,4 +195,24 @@ class TemporaryWork extends Model
     {
         return $this->hasOne(Invoice::class,'temporary_work_id');
     }
+
+    public function extraPrice(){
+        return $this->hasMany(ExtraPrice::class, 'temporary_work_id');
+    }
+
+    public function getExtraPricePending(){
+        return $this->hasMany(ExtraPrice::class)->where('status', '=', '0');
+    }
+
+    public function getExtraPriceRejected(){
+        return $this->hasMany(ExtraPrice::class)->where('status', '=', '1');
+    }
+
+    public function getExtraPriceAccepted(){
+        return $this->hasMany(ExtraPrice::class)->where('status', '=', '2');
+    }
+
+    public function getExtraPricing(){
+        return $this->hasMany(ExtraPrice::class);
+    }
 }

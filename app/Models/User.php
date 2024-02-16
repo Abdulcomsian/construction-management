@@ -116,4 +116,8 @@ class User extends Authenticatable
     {
         return $this->hasOne(SelectedOnlineSupplier::class , 'supplier_id')->where('company_id',Auth::id());
     }
+
+    public function extraPrice(){
+        return $this->hasMany(User::class, 'adminDesigner_id');
+    }
 }

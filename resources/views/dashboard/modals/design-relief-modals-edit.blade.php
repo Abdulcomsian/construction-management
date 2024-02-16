@@ -471,37 +471,37 @@
                         <div class="list-div">
 
                             <ul>
-                            <li class="{{$temporaryWork->scopdesign->preliminary_sketches_date ? '':'invisible'}} Preliminary-Sketches">
+                            <li class="{{!isset($temporaryWork->scopdesign->preliminary_sketches_date) ? '':'invisible'}} Preliminary-Sketches">
                                     <input type="date" name="preliminary_sketches_date_sod" value="{{$temporaryWork->scopdesign->preliminary_sketches_date ?? ''}}">
                                 </li>
-                                <li class="{{$temporaryWork->scopdesign->construction_rawings_date ? '':'invisible'}} Construction-Drawings">
+                                <li class="{{!isset($temporaryWork->scopdesign->construction_rawings_date) ? '':'invisible'}} Construction-Drawings">
                                     <input type="date" name="construction_rawings_date_sod" value="{{$temporaryWork->scopdesign->construction_rawings_date ?? ''}}">
                                 </li>
                                                   
-                                <li class="{{$temporaryWork->scopdesign->design_calculations_date ? '':'invisible'}} Design-Calculations">
+                                <li class="{{!isset($temporaryWork->scopdesign->design_calculations_date) ? '':'invisible'}} Design-Calculations">
                                 <input type="date" name="design_calculations_date_sod" value="{{$temporaryWork->scopdesign->design_calculations_date ?? ''}}">
                                 </li>
-                                <li class="{{$temporaryWork->scopdesign->design_check_certificate_date ? '':'invisible'}} Check-Certificate">
+                                <li class="{{!isset($temporaryWork->scopdesign->design_check_certificate_date) ? '':'invisible'}} Check-Certificate">
                                     <input type="date" name="design_check_certificate_date_sod" value="{{$temporaryWork->scopdesign->design_check_certificate_date ?? ''}}">
                                 </li>
-                                <li class="{{$temporaryWork->scopdesign->loading_criteria_date ? '':'invisible'}} Loading-Criteria">
+                                <li class="{{!isset($temporaryWork->scopdesign->loading_criteria_date) ? '':'invisible'}} Loading-Criteria">
                                     <input type="date" name="loading_criteria_date_sod" value="{{$temporaryWork->scopdesign->loading_criteria_date ?? '' }}">
                                 </li>
-                                <li class="{{$temporaryWork->scopdesign->construction_erection_sequence_information_date ? '':'invisible'}} Construction-Erection">
+                                <li class="{{!isset($temporaryWork->scopdesign->construction_erection_sequence_information_date) ? '':'invisible'}} Construction-Erection">
                                     <input type="date" name="construction_erection_sequence_information_date_sod" value="{{$temporaryWork->scopdesign->construction_erection_sequence_information_date ?? '' }}">
                                 </li>
-                                <li class="{{$temporaryWork->scopdesign->inspection_checklist_date ? '':'invisible'}} Inspection-Checklist">
+                                <li class="{{!isset($temporaryWork->scopdesign->inspection_checklist_date) ? '':'invisible'}} Inspection-Checklist">
                                     <input type="date" name="inspection_checklist_date_sod" value="{{$temporaryWork->scopdesign->inspection_checklist_date ?? '' }}">
                                 </li>
-                                <li class="{{$temporaryWork->scopdesign->monitoring_requirements_date ? '':'invisible'}} Monitoring-Requirements">
+                                <li class="{{!isset($temporaryWork->scopdesign->monitoring_requirements_date) ? '':'invisible'}} Monitoring-Requirements">
                                     <input type="date" name="monitoring_requirements_date_sod" value="{{$temporaryWork->scopdesign->monitoring_requirements_date ?? '' }}">
                                 </li>
 
 
-                                <li class="{{$temporaryWork->scopdesign->specifications_date ? '':'invisible'}} Specifications">
+                                <li class="{{!isset($temporaryWork->scopdesign->specifications_date) ? '':'invisible'}} Specifications">
                                     <input type="date" name="specifications_date_sod" value="{{$temporaryWork->scopdesign->specifications_date ?? '' }}">
                                 </li>
-                                <li class="{{$temporaryWork->scopdesign->design_inspection_test_plans_date ? '':'invisible'}} Design-Inspection">
+                                <li class="{{!isset($temporaryWork->scopdesign->design_inspection_test_plans_date) ? '':'invisible'}} Design-Inspection">
                                     <input type="date" name="design_inspection_test_plans_date_sod" value="{{$temporaryWork->scopdesign->design_inspection_test_plans_date ?? '' }}">
                                 </li>
 
@@ -605,18 +605,25 @@
                         <input type="text" value="" class="requirment-first-value">
                         <div class="list-div">
                             <ul>
-                                <div class="list {{$temporaryWork->folder->list_of_attachments ? 'borderActive' : ''}}">
-                                    <li data-id="List-Attachment" class="majorList {{$temporaryWork->folder->list_of_attachments ? 'active' : ''}}">Attachments (sketches / photos /
+							@php
+							$list_folder=true;
+							if(!isset($temporaryWork->folder->list_of_attachments)){
+								$list_folder = false;
+							}
+							@endphp
+                                <div class="list {{!isset($temporaryWork->folder->list_of_attachments) ? 'borderActive' : ''}}">
+                                    <li data-id="List-Attachment" class="majorList {{!isset($temporaryWork->folder->list_of_attachments) ? 'active' : ''}}">Attachments (sketches / photos /
                                         specifications / drawings, etc)
                                     </li>
 
-                                    <ul class="listAttachment--desc {{$temporaryWork->folder->list_of_attachments ? '':'d-none'}}">
-                                        <li class="{{$temporaryWork->folder->list_of_attachments ? '' : 'invisible'}} List-Attachment d-flex  my-0"
+                                    <ul class="listAttachment--desc {{$list_folder ? '':'d-none'}}">
+                                        <li class="{{$list_folder ? '' : 'invisible'}} List-Attachment d-flex  my-0"
                                             style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="list_of_attachments_folder" id="" value="yes" {{$temporaryWork->folder->list_of_attachments=='yes' ? 'checked':''}} />
+                                                  
+														<input class="form-check-input" type="radio" name="list_of_attachments_folder" id="" value="yes" {{ isset($temporaryWork->folder->list_of_attachments) && $temporaryWork->folder->list_of_attachments == 'yes' ? 'checked' : '' }} />
+
                                                     <input class="form-check-input" type="hidden"
                                                         name="list_of_attachments"
                                                         value="List of attachments/sketches/ Photos / Specifications /Drawings etc." />
@@ -625,13 +632,13 @@
                                                 <!-- NO -->
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
-                                                        name="list_of_attachments_folder" id="" value="no"  {{$temporaryWork->folder->list_of_attachments=='no' ? 'checked':''}} />
+                                                        name="list_of_attachments_folder" id="" value="no"  {{isset($temporaryWork->folder->list_of_attachments) && $temporaryWork->folder->list_of_attachments=='no' ? 'checked':''}} />
                                                     <label class="form-check-label" for=""> NO </label>
                                                 </div>
                                             </div>
-                                            <!-- <div class="list_of_attach_comment {{$temporaryWork->attachspeccomment->list_of_attachments_comment ? '':'d-none'}}"> -->
+                                            
                                             <div class="list_of_attach_comment
-                                            {{ $temporaryWork->folder->list_of_attachments == 'yes' ? '' : 'd-none' }}">
+                                            {{isset($temporaryWork->folder->list_of_attachments) && $temporaryWork->folder->list_of_attachments == 'yes' ? '' : 'd-none' }}">
                                                     <textarea type="text" 
                                                     style="background: white;color:black;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px" 
                                                     name="list_of_attachments_comment" cols="80" rows="2" 
@@ -641,19 +648,19 @@
                                     </ul>
 
                                 </div>
-                                <div class="list {{$temporaryWork->folder->reports_including_site_investigations ? 'borderActive':''}} ">
-                                    <li data-id="Report-Site" class="majorList {{$temporaryWork->folder->reports_including_site_investigations ? 'active ':''}}">Reports Including Site Investigations
+                                <div class="list {{isset($temporaryWork->folder->reports_including_site_investigations)  ? 'borderActive':''}} ">
+                                    <li data-id="Report-Site" class="majorList {{isset($temporaryWork->folder->reports_including_site_investigations) ? 'active ':''}}">Reports Including Site Investigations
                                         (relevant boreholes / trial pits / site investigation / any existing or proposed
                                         services above or below the ground where appropriate minimum clearances and
                                         protection are required to be maintained)
                                     </li>
-                                    <ul class="report-site--desc {{$temporaryWork->folder->reports_including_site_investigations ? '':'d-none'}}">
-                                        <li class="{{$temporaryWork->folder->reports_including_site_investigations ? '':'invisible'}} Report-Site d-flex my-0"
+                                    <ul class="report-site--desc {{isset($temporaryWork->folder->reports_including_site_investigations) ? '':'d-none'}}">
+                                        <li class="{{isset($temporaryWork->folder->reports_including_site_investigations) ? '':'invisible'}} Report-Site d-flex my-0"
                                             style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
-                                                        name="reports_including_site_investigations_folder" id="" value="yes" {{$temporaryWork->folder->reports_including_site_investigations=='yes' ? 'checked':''}}/>
+                                                        name="reports_including_site_investigations_folder" id="" value="yes" {{isset($temporaryWork->folder->reports_including_site_investigations) && $temporaryWork->folder->reports_including_site_investigations=='yes' ? 'checked':''}}/>
                                                     <input class="form-check-input" type="hidden"
                                                         name="reports_including_site_investigations"
                                                         value="Reports Including Site Investigations (relevant boreholes / trial pits / site investigation / any existing or proposed services above or below the ground where appropriate minimum clearances and protection are required to be maintained)" />
@@ -663,13 +670,12 @@
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
                                                    
-                                                    name="reports_including_site_investigations_folder" id="" value="no"      {{$temporaryWork->folder->reports_including_site_investigations=='no' ? 'checked':''}}/>
+                                                    name="reports_including_site_investigations_folder" id="" value="no"      {{isset($temporaryWork->folder->reports_including_site_investigations) && $temporaryWork->folder->reports_including_site_investigations=='no' ? 'checked':''}}/>
                                                     <label class="form-check-label" for=""> NO </label>
                                                 </div>
                                             </div>
-                                            <!-- <div class="reports_including_site_investigations_comment {{$temporaryWork->attachspeccomment->reports_including_site_investigations_comment ? '':'d-none'}}"> -->
                                             <div class="reports_including_site_investigations_comment
-                                            {{ $temporaryWork->folder->reports_including_site_investigations == 'yes' ? '' : 'd-none' }}">
+                                            {{ isset($temporaryWork->folder->reports_including_site_investigations) && $temporaryWork->folder->reports_including_site_investigations == 'yes' ? '' : 'd-none' }}">
                                                 <textarea
                                                     style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"
                                                     type="text" name="reports_including_site_investigations_comment"
@@ -680,15 +686,15 @@
                                     </ul>
                                 </div>
                               
-                                <div class="list {{$temporaryWork->folder->existing_ground_conditions ? 'borderActive':''}}">
-                                    <li data-id="Exsisting-Ground" class="majorList {{$temporaryWork->folder->existing_ground_conditions ? 'active':''}}">Existing Ground conditions</li>
-                                    <ul class="existing-ground--desc {{$temporaryWork->folder->existing_ground_conditions ? '':'d-none'}}">
-                                        <li class="{{$temporaryWork->folder->existing_ground_conditions ? '':'invisible'}} Exsisting-Ground d-flex my-0"
+                                <div class="list {{!isset($temporaryWork->folder->existing_ground_conditions) ? 'borderActive':''}}">
+                                    <li data-id="Exsisting-Ground" class="majorList {{isset($temporaryWork->folder->existing_ground_conditions) && $temporaryWork->folder->existing_ground_conditions ? 'active':''}}">Existing Ground conditions</li>
+                                    <ul class="existing-ground--desc {{isset($temporaryWork->folder->existing_ground_conditions) ? '':'d-none'}}">
+                                        <li class="{{isset($temporaryWork->folder->existing_ground_conditions) && $temporaryWork->folder->existing_ground_conditions ? '':'invisible'}} Exsisting-Ground d-flex my-0"
                                             style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
-                                                        name="existing_ground_conditions_folder" id="" value="yes" {{$temporaryWork->folder->existing_ground_conditions=='yes' ? 'checked':''}} />
+                                                        name="existing_ground_conditions_folder" id="" value="yes" {{isset($temporaryWork->folder->existing_ground_conditions) && $temporaryWork->folder->existing_ground_conditions=='yes' ? 'checked':''}} />
                                                     <input class="form-check-input" type="hidden"
                                                         name="existing_ground_conditions"
                                                         value="Existing Ground conditions:" />
@@ -697,13 +703,12 @@
                                                 <!-- NO -->
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
-                                                        name="existing_ground_conditions_folder" id="" value="no" {{$temporaryWork->folder->existing_ground_conditions=='no' ? 'checked':''}} />
+                                                        name="existing_ground_conditions_folder" id="" value="no" {{isset($temporaryWork->folder->existing_ground_conditions) && $temporaryWork->folder->existing_ground_conditions=='no' ? 'checked':''}} />
                                                     <label class="form-check-label" for=""> NO </label>
                                                 </div>
                                             </div>
-                                            <!-- <div class="existing_ground_conditions_comment {{$temporaryWork->attachspeccomment->existing_ground_conditions_comment ? '':'d-none'}}"> -->
                                             <div class="existing_ground_conditions_comment 
-                                            {{ $temporaryWork->folder->existing_ground_conditions == 'yes' ? '' : 'd-none' }}">
+                                            {{ isset($temporaryWork->folder->existing_ground_conditions) && $temporaryWork->folder->existing_ground_conditions == 'yes' ? '' : 'd-none' }}">
                                                 <textarea
                                                     style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"
                                                     type="text" name="existing_ground_conditions_comment" cols="80"
@@ -711,24 +716,23 @@
                                             </div>
                                         </li>
                                     </ul>
-                                    <!-- <li class="existing_ground_conditions_comment d-none" style="background: white;height:73px"></li> -->
 
                                 </div>
 
                                 <!-- Prefered/Non prefered container  -->
-                                <div class="list {{$temporaryWork->folder->preferred_non_preferred_methods ? 'borderActive':''}}">
-                                    <li data-id="System-Type" class="majorList {{$temporaryWork->folder->preferred_non_preferred_methods ? 'active':''}}">Preferred/non-preferred methods, systems
+                                <div class="list {{isset($temporaryWork->folder->preferred_non_preferred_methods) ? 'borderActive':''}}">
+                                    <li data-id="System-Type" class="majorList isset(temporaryWork->folder->preferred_non_preferred_methods) ? 'active':''}}">Preferred/non-preferred methods, systems
                                         or types of
                                         equipment:
                                     </li>
-                                    <ul class="perferred-NonPrefered--desc {{$temporaryWork->folder->preferred_non_preferred_methods ? '':'d-none'}}">
-                                        <li class="{{$temporaryWork->folder->preferred_non_preferred_methods ? '':'invisible'}} System-Type d-flex my-0"
+                                    <ul class="perferred-NonPrefered--desc {{isset($temporaryWork->folder->preferred_non_preferred_methods) ? '':'d-none'}}">
+                                        <li class="{{isset($temporaryWork->folder->preferred_non_preferred_methods) ? '':'invisible'}} System-Type d-flex my-0"
                                             style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
                                                         name="preferred_non_preferred_methods_folder" id=""
-                                                        value="yes" {{$temporaryWork->folder->preferred_non_preferred_methods=='yes' ? 'checked':''}}/>
+                                                        value="yes" {{isset($temporaryWork->folder->preferred_non_preferred_methods) && $temporaryWork->folder->preferred_non_preferred_methods=='yes' ? 'checked':''}}/>
                                                     <input class="form-check-input" type="hidden"
                                                         name="preferred_non_preferred_methods"
                                                         value="Preferred/non-preferred methods, systems or types of equipment:" />
@@ -738,11 +742,11 @@
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
                                                         name="preferred_non_preferred_methods_folder" id=""
-                                                        value="no" {{$temporaryWork->folder->preferred_non_preferred_methods=='no' ? 'checked':''}} />
+                                                        value="no" {{isset($temporaryWork->folder->preferred_non_preferred_methods) && $temporaryWork->folder->preferred_non_preferred_methods=='no' ? 'checked':''}} />
                                                     <label class="form-check-label" for=""> NO </label>
                                                 </div>
                                             </div>
-                                            <div class="preferred_non_preferred_methods_comment {{$temporaryWork->folder->preferred_non_preferred_methods=='yes' ? '':'d-none'}}">
+                                            <div class="preferred_non_preferred_methods_comment {{isset($temporaryWork->folder->preferred_non_preferred_methods) && $temporaryWork->folder->preferred_non_preferred_methods=='yes' ? '':'d-none'}}">
                                                 <textarea
                                                     style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"
                                                     type="text" name="preferred_non_preferred_methods_comment" cols="80"
@@ -761,16 +765,16 @@
 
                                 <!-- Access Limitations start -->
 
-                                <div class="list {{$temporaryWork->folder->access_limitations ? 'borderActive':''}}">
-                                    <li data-id="Limitations" class="majorList {{$temporaryWork->folder->access_limitations ? 'active':''}}">Access Limitations (or edge protection
+                                <div class="list {{isset($temporaryWork->folder->access_limitations) ? 'borderActive':''}}">
+                                    <li data-id="Limitations" class="majorList {{ isset($temporaryWork->folder->access_limitations) ? 'active':''}}">Access Limitations (or edge protection
                                         requirements)</li>
-                                    <ul class="access-limitation--desc {{$temporaryWork->folder->access_limitations ? '':'d-none'}}">
-                                        <li class="{{$temporaryWork->folder->access_limitations ? '':'invisible'}} Limitations d-flex my-0"
+                                    <ul class="access-limitation--desc {{isset($temporaryWork->folder->access_limitations) ? '':'d-none'}}">
+                                        <li class="{{isset($temporaryWork->folder->access_limitations) ? '':'invisible'}} Limitations d-flex my-0"
                                             style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
-                                                        name="access_limitations_folder" id="" value="yes" {{$temporaryWork->folder->access_limitations=='yes' ? 'checked':''}} />
+                                                        name="access_limitations_folder" id="" value="yes" {{isset($temporaryWork->folder->access_limitations) && $temporaryWork->folder->access_limitations=='yes' ? 'checked':''}} />
                                                     <input class="form-check-input" type="hidden"
                                                         name="access_limitations"
                                                         value="Access Limitations (or edge protection requirements)" />
@@ -779,11 +783,11 @@
                                                 <!-- NO -->
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
-                                                        name="access_limitations_folder" id="" value="no" {{$temporaryWork->folder->access_limitations=='no' ? 'checked':''}}/>
+                                                        name="access_limitations_folder" id="" value="no" {{isset($temporaryWork->folder->access_limitations) &&$temporaryWork->folder->access_limitations=='no' ? 'checked':''}}/>
                                                     <label class="form-check-label" for=""> NO </label>
                                                 </div>
                                             </div>
-                                            <div class="access_limitations_comment {{$temporaryWork->folder->access_limitations=='yes' ? '':'d-none'}}">
+                                            <div class="access_limitations_comment {{ isset($temporaryWork->folder->access_limitations) && $temporaryWork->folder->access_limitations=='yes' ? '':'d-none'}}">
                                                 <textarea
                                                     style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"
                                                     type="text" name="access_limitations_comment" cols="80" rows="2"
@@ -801,16 +805,16 @@
 
                                 <!-- Back propping start -->
 
-                                <div class="list {{$temporaryWork->folder->back_propping ? 'borderActive':''}}" >
-                                    <li data-id="Back-Propping" class="majorList {{$temporaryWork->folder->back_propping ? 'active':''}}">Back Propping / Re-Propping Sequence
+                                <div class="list {{isset($temporaryWork->folder->back_propping) ? 'borderActive':''}}" >
+                                    <li data-id="Back-Propping" class="majorList {{isset($temporaryWork->folder->back_propping) ? 'active':''}}">Back Propping / Re-Propping Sequence
                                     </li>
-                                    <ul class="back-propping--desc {{$temporaryWork->folder->back_propping ? '':'d-none'}}">
-                                        <li class="{{$temporaryWork->folder->back_propping ? '':'invisible'}} Back-Propping d-flex"
+                                    <ul class="back-propping--desc {{isset($temporaryWork->folder->back_propping) ? '':'d-none'}}">
+                                        <li class="{{isset($temporaryWork->folder->back_propping) ? '':'invisible'}} Back-Propping d-flex"
                                             style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
-                                                        name="back_propping_folder" id="" value="yes" {{$temporaryWork->folder->back_propping=='yes' ? 'checked':''}}/>
+                                                        name="back_propping_folder" id="" value="yes" {{isset($temporaryWork->folder->back_propping) && $temporaryWork->folder->back_propping=='yes' ? 'checked':''}}/>
                                                     <input class="form-check-input" type="hidden" name="back_propping"
                                                         value="Back Propping  / Re-Propping Sequence" />
                                                     <label class="form-check-label" for=""> YES </label>
@@ -818,11 +822,11 @@
                                                 <!-- NO -->
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
-                                                        name="back_propping_folder" id="" value="no" {{$temporaryWork->folder->back_propping=='no' ? 'checked':''}}/>
+                                                        name="back_propping_folder" id="" value="no" {{isset($temporaryWork->folder->back_propping) &&$temporaryWork->folder->back_propping=='no' ? 'checked':''}}/>
                                                     <label class="form-check-label" for=""> NO </label>
                                                 </div>
                                             </div>
-                                            <div class="back_propping_comment {{$temporaryWork->folder->back_propping=='yes' ? '':'d-none'}}">
+                                            <div class="back_propping_comment {{isset($temporaryWork->folder->back_propping) && $temporaryWork->folder->back_propping=='yes' ? '':'d-none'}}">
                                                 <textarea
                                                     style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"
                                                     type="text" name="back_propping_comment" cols="80" rows="2"
@@ -838,17 +842,17 @@
 
                                 <!-- Limitation on Temporary work start  -->
 
-                                <div class="list {{$temporaryWork->folder->limitations_on_temporary_works_design ? 'borderActive':''}}">
-                                    <li data-id="Temporary-Work" class="majorList  {{$temporaryWork->folder->limitations_on_temporary_works_design ? 'active':''}}">Limitations on Temporary Works
+                                <div class="list {{isset($temporaryWork->folder->limitations_on_temporary_works_design) ? 'borderActive':''}}">
+                                    <li data-id="Temporary-Work" class="majorList  {{isset($temporaryWork->folder->limitations_on_temporary_works_design) ? 'active':''}}">Limitations on Temporary Works
                                         Design:</li>
-                                    <ul class="temporary-work--desc {{$temporaryWork->folder->limitations_on_temporary_works_design ? '':'d-none'}}">
-                                        <li class="{{$temporaryWork->folder->limitations_on_temporary_works_design ? '':'invisible'}} Temporary-Work d-flex"
+                                    <ul class="temporary-work--desc {{isset($temporaryWork->folder->limitations_on_temporary_works_design) ? '':'d-none'}}">
+                                        <li class="{{isset($temporaryWork->folder->limitations_on_temporary_works_design) ? '':'invisible'}} Temporary-Work d-flex"
                                             style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
                                                         name="limitations_on_temporary_works_design_folder" id=""
-                                                        value="yes" {{$temporaryWork->folder->limitations_on_temporary_works_design=='yes' ? 'checked':''}}/>
+                                                        value="yes" {{isset($temporaryWork->folder->limitations_on_temporary_works_design) && $temporaryWork->folder->limitations_on_temporary_works_design=='yes' ? 'checked':''}}/>
                                                     <input class="form-check-input" type="hidden"
                                                         name="limitations_on_temporary_works_design"
                                                         value="Limitations on Temporary Works Design:" />
@@ -858,12 +862,11 @@
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
                                                         name="limitations_on_temporary_works_design_folder" id=""
-                                                        value="no" {{$temporaryWork->folder->limitations_on_temporary_works_design=='no' ? 'checked':''}}/>
+                                                        value="no" {{isset($temporaryWork->folder->limitations_on_temporary_works_design) && $temporaryWork->folder->limitations_on_temporary_works_design=='no' ? 'checked':''}}/>
                                                     <label class="form-check-label" for=""> NO </label>
                                                 </div>
                                             </div>
-                                            <!-- <div class="limitations_on_temporary_works_design_comment {{$temporaryWork->attachspeccomment->limitations_on_temporary_works_design_comment ?'':'d-none'}}"> -->
-                                            <div class="limitations_on_temporary_works_design_comment {{$temporaryWork->folder->limitations_on_temporary_works_design=='yes' ? '':'d-none'}}">
+                                            <div class="limitations_on_temporary_works_design_comment {{isset($temporaryWork->folder->limitations_on_temporary_works_design) && $temporaryWork->folder->limitations_on_temporary_works_design=='yes' ? '':'d-none'}}">
                                                 <textarea
                                                     style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"
                                                     type="text" name="limitations_on_temporary_works_design_comment"
@@ -880,19 +883,19 @@
 
                                 <!-- Hazard identification start  -->
 
-                                <div class="list {{$temporaryWork->folder->details_of_any_hazards ? 'borderActive':''}}">
-                                    <li data-id="Hazard-Risk" class="majorList {{$temporaryWork->folder->details_of_any_hazards ? 'active':''}}">Details of any hazards identified during
+                                <div class="list {{isset($temporaryWork->folder->details_of_any_hazards) ? 'borderActive':''}}">
+                                    <li data-id="Hazard-Risk" class="majorList {{isset($temporaryWork->folder->details_of_any_hazards) ? 'active':''}}">Details of any hazards identified during
                                         the risk or hazard
                                         assessment that require action by the Temporary Works Designer to eliminate or
                                         control all risks or hazard
                                     </li>
-                                    <ul class="hazard-risk--desc {{$temporaryWork->folder->details_of_any_hazards ? '':'d-none'}}">
-                                        <li class="{{$temporaryWork->folder->details_of_any_hazards ? '':'invisible'}} Hazard-Risk d-flex"
+                                    <ul class="hazard-risk--desc {{isset($temporaryWork->folder->details_of_any_hazards) ? '':'d-none'}}">
+                                        <li class="{{isset($temporaryWork->folder->details_of_any_hazards) ? '':'invisible'}} Hazard-Risk d-flex"
                                             style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
-                                                        name="details_of_any_hazards_folder" id="" value="yes" {{$temporaryWork->folder->details_of_any_hazards=='yes' ? 'checked':''}}/>
+                                                        name="details_of_any_hazards_folder" id="" value="yes" {{isset($temporaryWork->folder->details_of_any_hazards) && $temporaryWork->folder->details_of_any_hazards=='yes' ? 'checked':''}}/>
                                                     <input class="form-check-input" type="hidden"
                                                         name="details_of_any_hazards"
                                                         value="Details of any hazards identified during the risk or hazard assessment that require action by the Temporary Works Designer to eliminate or control all risks or hazard" />
@@ -901,12 +904,11 @@
                                                 <!-- NO -->
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
-                                                        name="details_of_any_hazards_folder" id="" value="no" {{$temporaryWork->folder->details_of_any_hazards=='no' ? 'checked':''}}/>
+                                                        name="details_of_any_hazards_folder" id="" value="no" {{isset($temporaryWork->folder->details_of_any_hazards) && $temporaryWork->folder->details_of_any_hazards=='no' ? 'checked':''}}/>
                                                     <label class="form-check-label" for=""> NO </label>
                                                 </div>
                                             </div>
-                                            <!-- <div class="details_of_any_hazards_comment {{$temporaryWork->attachspeccomment->details_of_any_hazards_comment ?'':'d-none'}}"> -->
-                                            <div class="details_of_any_hazards_comment {{$temporaryWork->folder->details_of_any_hazards=='yes' ? '':'d-none'}}">
+                                            <div class="details_of_any_hazards_comment {{isset($temporaryWork->folder->details_of_any_hazards) && $temporaryWork->folder->details_of_any_hazards=='yes' ? '':'d-none'}}">
                                                 <textarea
                                                     style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"
                                                     type="text" name="details_of_any_hazards_comment" cols="80" rows="2"
@@ -924,15 +926,15 @@
 
                                 <!-- 3rd part Requirements start  -->
 
-                                <div class="list {{$temporaryWork->folder->toArray()['3rd_party_requirements'] ? 'borderActive':''}}">
-                                    <li data-id="Party-Requirements" class="majorList {{$temporaryWork->folder->toArray()['3rd_party_requirements']  ? 'active':''}}">3rd Party Requirements:</li>
-                                    <ul class="partyRequirment--desc {{$temporaryWork->folder->toArray()['3rd_party_requirements']  ? '':'d-none'}}">
-                                        <li class="{{$temporaryWork->folder->toArray()['3rd_party_requirements']  ? '':'invisible'}} Party-Requirements d-flex"
+                                <div class="list {{isset($temporaryWork->folder) && $temporaryWork->folder->toArray()['3rd_party_requirements'] ? 'borderActive':''}}">
+                                    <li data-id="Party-Requirements" class="majorList {{isset($temporaryWork->folder) && $temporaryWork->folder->toArray()['3rd_party_requirements']  ? 'active':''}}">3rd Party Requirements:</li>
+                                    <ul class="partyRequirment--desc {{isset($temporaryWork->folder) && $temporaryWork->folder->toArray()['3rd_party_requirements']  ? '':'d-none'}}">
+                                        <li class="{{isset($temporaryWork->folder) && $temporaryWork->folder->toArray()['3rd_party_requirements']  ? '':'invisible'}} Party-Requirements d-flex"
                                             style="justify-content: space-between; align-items: center; min-height: 70px">
                                             <div class="multi-Radio">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
-                                                        name="3rd_party_requirements_folder" id="" value="yes" {{$temporaryWork->folder->toArray()['3rd_party_requirements'] =='yes' ? 'checked':''}}/>
+                                                        name="3rd_party_requirements_folder" id="" value="yes" {{isset($temporaryWork->folder) && $temporaryWork->folder->toArray()['3rd_party_requirements'] =='yes' ? 'checked':''}}/>
                                                     <input class="form-check-input" type="hidden"
                                                         name="3rd_party_requirements" value="3rd Party Requirements:" />
                                                     <label class="form-check-label" for=""> YES </label>
@@ -940,12 +942,16 @@
                                                 <!-- NO -->
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio"
-                                                        name="3rd_party_requirements_folder" id="" value="no" {{$temporaryWork->folder->toArray()['3rd_party_requirements'] =='no' ? 'checked':''}}/>
+                                                        name="3rd_party_requirements_folder" id="" value="no" {{isset($temporaryWork->folder) && $temporaryWork->folder->toArray()['3rd_party_requirements'] =='no' ? 'checked':''}}/>
                                                     <label class="form-check-label" for=""> NO </label>
                                                 </div>
                                             </div>
                                             @php
-                                            $val = $temporaryWork->folder->toArray()['3rd_party_requirements'];
+											if(isset($temporaryWork->folder)){
+												$val = $temporaryWork->folder->toArray()['3rd_party_requirements'];
+											}else{
+												$val= '';
+											}
                                             @endphp
                                             <div class="3rd_party_requirements_comment @if($val=='yes') @else 'd-none' @endif">
 
@@ -953,7 +959,7 @@
                                                 <textarea
                                                     style="color: black;width: 100%;background: white;border: 1px solid lightgrey !important;border-radius: 5px;height: auto; padding: 10px 0 0 10px"
                                                     type="text" name="3rd_party_requirements_comment" cols="80" rows="2"
-                                                    placeholder="Enter Comment">{{$temporaryWork->attachspeccomment->toArray()['3rd_party_requirements_comment'] ?? ''}}</textarea>
+                                                    placeholder="Enter Comment">@if(isset($temporaryWork->attachspeccomment)) {{$temporaryWork->attachspeccomment->toArray()['3rd_party_requirements_comment'] ?? ''}} @endif </textarea>
                                             </div>
                                         </li>
                                     </ul>
@@ -994,12 +1000,7 @@
                     </div>
                 </div>
             <div>
-                    <!-- @isset($images)
-                        @foreach($images as $image)
-                            <a target="_blank" href="{{asset($image->image)}}">Attachment {{$loop->iteration}} </a>
-                            <div><a href="{{route('delete.temporaryworkimage',$image->id)}}" class="btn btn-danger">-</a></div>
-                        @endforeach
-                    @endisset -->
+                   
                 </div>
                 <div class="uploadDiv" style="margin-top:20px">
                     {{-- <div class="input-images"></div> --}}

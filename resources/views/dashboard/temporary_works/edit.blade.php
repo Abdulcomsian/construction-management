@@ -795,6 +795,7 @@
                                 <span class="designReq_err"></span>
                             </div>
                             @php 
+							if($temporaryWork->scopdesign!=null){
                             $preliminary_sketches_date = $temporaryWork->scopdesign->preliminary_sketches_date ? 'preliminary_sketches_date_sod '.$temporaryWork->scopdesign->preliminary_sketches_date : '';
                             $construction_rawings_date = $temporaryWork->scopdesign->construction_rawings_date ? 'construction_rawings_date_sod '.$temporaryWork->scopdesign->construction_rawings_date: '';
                             $design_calculations_date = $temporaryWork->scopdesign->design_calculations_date ? 'design_calculations_date '.$temporaryWork->scopdesign->design_calculations_date: '';
@@ -805,6 +806,7 @@
                             $monitoring_requirements_date = $temporaryWork->scopdesign->monitoring_requirements_date ? 'monitoring_requirements_date '.$temporaryWork->scopdesign->monitoring_requirements_date: '';
                             $design_inspection_test_plans_date = $temporaryWork->scopdesign->design_inspection_test_plans_date ? 'design_inspection_test_plans_date '.$temporaryWork->scopdesign->design_inspection_test_plans_date: '';
                             $scope_of_design = $preliminary_sketches_date." <br> ".$construction_rawings_date;
+							}
                             @endphp
                             <div class="col-md-6">
                                 <div class="d-flex inputDiv d-block mb-0">

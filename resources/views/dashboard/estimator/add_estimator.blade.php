@@ -533,6 +533,23 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col-md-12" style="margin-top: 35px;">
+                                <div class="d-flex inputDiv d-block my-0" id="designReq">
+                                    <div class="modalDiv">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">
+                                            Custom Design Brief Number
+                                        </label>
+                                        <!-- <br> -->
+                                        <input type="text"style="width: 50%;" placeholder="Custom Design Brief Number" name="twc_id_no" value="">
+                                        <!--end::Label-->
+                                    </div>
+                                </div>
+                                <span class="designReq_err"></span>
+                
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-12">
                                 <div class="d-flex inputDiv d-block mb-0">
                                     <div class="d-flex modalDiv d-block">

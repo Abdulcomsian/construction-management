@@ -501,6 +501,19 @@
                                 <div class="d-flex inputDiv d-block mb-0">
                                     <div class="d-flex modalDiv d-block">
                                         <!--begin::Label-->
+                                        <label class=" fs-6 fw-bold mb-2">
+                                            Design Brief Number
+                                        </label>
+                                        <input type="text"style="width: 50%;" placeholder="Custom Design Brief Number" name="twc_id_no" value="{{$temporary_work->twc_id_no}}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="d-flex inputDiv d-block mb-0">
+                                    <div class="d-flex modalDiv d-block">
+                                        <!--begin::Label-->
                                         <label class="required  fs-6 fw-bold mb-2"
                                             style="bottom: 0; top: -13px; height: fit-content;">
                                             Description:

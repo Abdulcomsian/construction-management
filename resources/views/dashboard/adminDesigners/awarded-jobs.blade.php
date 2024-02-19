@@ -697,6 +697,7 @@ hr{
                             <th  class="th-8">Allocated Designer Checker</th>
                             <!-- <th  class="th-9">Status</th> -->
                             <th  class="th-10"><div>Drawing <p style = "font-size: 11px;line-height: 17px">(View & Upload)<p></div></th>
+                            <th  class="th-11">Design Brief Number</th>
                             <th  class="th-11">Invoice</th>
                             </tr>
                             @php
@@ -988,17 +989,10 @@ hr{
                                 @endif
                             </td>
                             <td>
+                                <p>{{isset($item->twc_id_no) ? $item->twc_id_no : ''}}</p>
+                            </td>
+                            <td>
                                 <div class="row d-flex flex-column">
-                                    @if(isset($item->invoice))
-                                        @if($item->invoice->status == 'Unpaid')
-                                        {{-- <button type="button" id = "{{$invoice->id}}" value = "{{$invoice->status}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm edit_designer_details">
-                                            <i class="fa fa-pen" aria-hidden="true"></i>    
-                                        </button> --}}
-                                        <div class="col d-flex justify-content-center"> <button type="button" id = "{{$item->invoice->id}}" value = "{{$item->invoice->status}}" class="description edit_designer_details" style="border: none;"> Unpaid </button> </div>
-                                        @elseif($item->invoice->status = 'Paid')
-                                        <div class="col d-flex justify-content-center"> <button type="button" id="{{$item->invoice->id}}" value="{{$item->invoice->status}}" class="paid mt-3 edit_designer_details" style="border: none;"> Paid </button> </div>
-                                        @endif
-                                    @else
                                     <div class="col d-flex justify-content-center"> 
                                         <div class="invoice-btn mt-3">
                                             <a href="{{ route('generate_invoice') }}?tempwork_id={{$item->id}}" style = "color:white !important;"
@@ -1007,8 +1001,17 @@ hr{
                                             </a>
                                                 
                                         </div>
-                                     </div>
-                                    @endif
+                                    </div>
+                                    @foreach($item->invoice as $invoiceItem)
+                                        @if(isset($item->invoice))
+                                            @if($invoiceItem->status == 'Unpaid')
+                                                <div class="col d-flex justify-content-center mt-3"> <button type="button" id = "{{$invoiceItem->id}}" value = "{{$invoiceItem->status}}" class="description edit_designer_details" style="border: none;"> Unpaid </button> </div>
+                                            @elseif($invoiceItem->status = 'Paid')
+                                                <div class="col d-flex justify-content-center"> <button type="button" id="{{$invoiceItem->id}}" value="{{$invoiceItem->status}}" class="paid mt-3 edit_designer_details" style="border: none;"> Paid </button> </div>
+                                            @endif
+                                        @endif
+                                    @endforeach
+                                   
                                 </div>
                                 
                                 <span 

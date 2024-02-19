@@ -3546,6 +3546,7 @@ class DesignerController extends Controller
             $all_inputs['category_label']=$categorylabel[0];
             $all_inputs['estimator']=1;
             $all_inputs['work_status']=$request->work_status;
+            $all_inputs['twc_id_no'] = $request->twc_id_no;
             $all_inputs['estimator_serial_no']= HelperFunctions::generateEstimatorSerial();
             // $all_inputs['work_status'] = $informationRequired == "on" ? "draft" : "publish";
             $all_inputs['admin_designer_email'] = Auth::user()->email;
@@ -3988,7 +3989,6 @@ class DesignerController extends Controller
 
    public function storeEstimation(Request $request)
    {
-    // dd($request->all());
     Validations::storeEstimatorWork($request);
     try {
             $informationRequired = $request->information_required;
@@ -4110,6 +4110,7 @@ class DesignerController extends Controller
             $all_inputs['category_label']=$categorylabel[0];
             $all_inputs['estimator']=1;
             $all_inputs['work_status']=$request->work_status;
+            $all_inputs['twc_id_no']=$request->twc_id_no;
             $all_inputs['estimator_serial_no']= HelperFunctions::generateEstimatorSerial();
             // $all_inputs['work_status'] = $informationRequired == "on" ? "draft" : "publish";
             $all_inputs['admin_designer_email'] = Auth::user()->email;

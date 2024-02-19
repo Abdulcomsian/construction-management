@@ -193,7 +193,7 @@ class TemporaryWork extends Model
 
     public function invoice()
     {
-        return $this->hasOne(Invoice::class,'temporary_work_id');
+        return $this->hasMany(Invoice::class);
     }
 
     public function extraPrice(){

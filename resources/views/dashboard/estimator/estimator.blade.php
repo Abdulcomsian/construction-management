@@ -287,6 +287,7 @@
                                     <th>Status</th>
                                     <th>Client Name</th>
                                     <th>PDF File</th>
+                                    <th>Design Brief number</th>
                                     <th>Action</th>
                                 </tr>
                                 <!--end::Table row-->
@@ -325,6 +326,7 @@
                                     </td>
                                     <td style="text-transform: capitalize;">{{ $work->client_name}}</td>
                                     <td style="text-transform: capitalize;"><a href="{{asset('estimatorPdf/' . $work->ped_url)}}" target="_blank">View Brief</a></td>
+                                    <td style="text-transform: capitalize;">{{$work->twc_id_no}}</td>
                                     <td><a href="{{route('edit_estimation',$work->id)}}" class="btn btn-primary">Edit</a></td>
                                 </tr>
                                 @endforeach

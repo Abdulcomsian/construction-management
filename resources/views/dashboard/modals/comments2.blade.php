@@ -125,6 +125,13 @@
                                 <!--end:Input-->
                             </div>
                             <!--begin::Label-->
+                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-1 mt-3">
+                                <span>Send Email:</span>                                
+                            </label>
+                           
+                            <div class="col-lg-12 d-flex align-items-center fw-bold fs-6" id="select_this">
+                            
+                            </div>
                         </div>
                         <!--end::Col-->
                         <!--begin::Col-->

@@ -16,7 +16,8 @@ use App\Notifications\AdminDesignerAppointmentNotification;
 use App\Notifications\InvoiceNotification;
 use App\Models\{Nomination,NominationExperience,NominationCompetence,
                 Project,EstimatorDesignerList,TemporaryWork,CompanyProfile,
-                EstimatorDesignerListTask, PaymentDetail, ProfileOtherDocuments,Invoice, ChangeEmailHistory, ExtraPrice
+                EstimatorDesignerListTask, PaymentDetail, ProfileOtherDocuments,Invoice, ChangeEmailHistory, 
+                ExtraPrice, DesignBriefStatus,
             };
 use Carbon\Carbon;
 use App\Notifications\Nominations;
@@ -1271,10 +1272,18 @@ class AdminDesignerController extends Controller
        
     }
 
+
+    // default awarded jobs
     public function getAwardedJob()
     {
         try
         {
+            // getting the last element of url
+            $url = url()->current();
+            $path = parse_url($url, PHP_URL_PATH);
+            $segments = explode('/', rtrim($path, '/'));
+            $lastSegment = end($segments);
+
             if(auth()->user()->admin_designer == null && auth()->user()->di_designer_id != null )
             {
                 $parent_id = auth()->user()->id;
@@ -1350,20 +1359,60 @@ class AdminDesignerController extends Controller
              else{
                 $parent_id = auth()->user()->id;
             }
-            $all_admin = User::where('di_designer_id',$parent_id)->where('admin_designer', 1)->pluck('id');
+            $all_admin = User::where('di_designer_id',$parent_id)->where('admin_designer', 1)->pluck('id')->toArray();
+            $all_admin = [...$all_admin , $parent_id];
             if (HelperFunctions::isAdminDesigner(Auth::user()) || HelperFunctions::isPromotedAdminDesigner(Auth::user())) {
-                $adminDesignerEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments',
-                'designerAssign', 'checkerAssign', 'designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks','invoice', 'getExtraPricePending', 'getExtraPriceRejected', 'getExtraPriceAccepted')
+                // $adminDesignerEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments',
+                // 'designerAssign', 'checkerAssign', 'designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks','invoice', 'getExtraPricePending', 'getExtraPriceRejected', 'getExtraPriceAccepted', 'designBriefStatus')
+                //     ->whereIn('created_by', $all_admin)
+                //     ->orWhere('created_by',$parent_id)
+                //     ->where('work_status', 'publish')
+                //     ->latest()
+                //     ->withCount('uploadfile')
+                //     ->get();
+
+                
+                if($lastSegment == "awarded-jobs"){
+                    $adminDesignerEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments',
+                    'designerAssign', 'checkerAssign', 'designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks','invoice', 'getExtraPricePending', 'getExtraPriceRejected', 'getExtraPriceAccepted')
+                    ->where(function($query) {
+                        $query->whereDoesntHave('designBriefStatus', function($q) {
+                            $q->whereIn('status', [1, 2]);
+                        })->orWhereDoesntHave('designBriefStatus');
+                    })
                     ->whereIn('created_by', $all_admin)
-                    ->orWhere('created_by',$parent_id)
-                    ->where('work_status', 'publish')
-                    // ->where('created_by', Auth::user()->id)
-                    ->latest()
+                    ->where('work_status' , 'publish')
                     ->withCount('uploadfile')
+                    ->orderBy('id' , 'desc')
                     ->get();
-
-                // dd($adminDesignerEstimators);
-
+                }elseif($lastSegment == "completed"){
+                    $adminDesignerEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments',
+                    'designerAssign', 'checkerAssign', 'designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks','invoice', 'getExtraPricePending', 'getExtraPriceRejected', 'getExtraPriceAccepted')
+                    ->whereHas('designBriefStatus' , function($query){
+                        $query->where('status' , 1);
+                    })
+                    ->where(function($query) {
+                        $query->whereDoesntHave('designBriefStatus', function($q) {
+                            $q->whereIn('status', [0, 2]);
+                        })->orWhereDoesntHave('designBriefStatus');
+                    })
+                    ->whereIn('created_by', $all_admin)
+                    ->where('work_status' , 'publish')
+                    ->withCount('uploadfile')
+                    ->orderBy('id' , 'desc')
+                    ->get();
+                }elseif($lastSegment == "paid"){
+                    $adminDesignerEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments',
+                    'designerAssign', 'checkerAssign', 'designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks','invoice', 'getExtraPricePending', 'getExtraPriceRejected', 'getExtraPriceAccepted')
+                    ->whereHas('designBriefStatus' , function($query){
+                        $query->where('status' , 2);
+                    })
+                    ->whereIn('created_by', $all_admin)
+                    ->where('work_status' , 'publish')
+                    ->withCount('uploadfile')
+                    ->orderBy('id' , 'desc')
+                    ->get();
+                }
                 $AwardedEstimators = $AwardedEstimators->merge($adminDesignerEstimators);
             }
             // dd($AwardedEstimators);
@@ -1381,15 +1430,42 @@ class AdminDesignerController extends Controller
             $scantempwork = '';
 
             // Check in the designer Certificate
-                    
-            return view('dashboard.adminDesigners.awarded-jobs',compact('estimatorWork','AwardedEstimators', 'scantempwork' , 'projects', 'users'));
+            if($lastSegment == "awarded-jobs"){
+                return view('dashboard.adminDesigners.awarded-jobs',compact('estimatorWork','AwardedEstimators', 'scantempwork' , 'projects', 'users'));
+            }elseif($lastSegment == "completed"){
+                return view('dashboard.adminDesigners.completed-awarded-jobs',compact('estimatorWork','AwardedEstimators', 'scantempwork' , 'projects', 'users'));
+            }elseif($lastSegment == "paid"){
+                return view('dashboard.adminDesigners.paid-awarded-jobs',compact('estimatorWork','AwardedEstimators', 'scantempwork' , 'projects', 'users'));
+            }
             
          }catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();
          }
     }
-    
+
+    // changing status
+    public function changeDesignStatus(Request $request){
+        // dd($request->all());
+        try{
+            $status = $request->move_design_brief;
+            if($status == 'completed'){
+                $status = 1;
+            }elseif($status == 'paid'){
+                $status = 2;
+            }
+
+            $changeStatus = new DesignBriefStatus();
+            $changeStatus->temporary_work_id = $request->temporary_work_id;
+            $changeStatus->status = $status;
+            if($changeStatus->save()){
+                toastSuccess("Design Brief moved succesfully");
+                return Redirect::back();
+            }
+        }catch(\Exception $e){
+            dd($e->getMessage(), $e->getLine());
+        }
+    }
     public function invoices(){
         $user = Auth::user();
         $invoices = Invoice::where('admindesigner_id',Auth::id())->paginate(10);

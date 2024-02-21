@@ -684,38 +684,6 @@ hr{
                             </h3>
                         </div>
                         <hr>
-
-                        <!-- start: filter -->
-                        <div class="row">
-                            <div class="col-4">
-                                <select name="projects[]" multiple="multiple" class="form-select form-select-lg" style = "max-height:40px;"
-                                     data-control="select2"
-                                    data-placeholder="Select a Project" required>
-                                    @foreach($AwardedEstimators as $project)
-                                        <option value="
-                                            @if($project->project_id)
-                                                {{ $project->project->no ?? '' }} <br> {{ $project->project->name ?? '' }}
-                                            @else
-                                                {{ $project->projno ?? '' }} <br> {{ $project->projname ?? '' }}
-                                            @endif
-                                        ">
-                                            @if($project->project_id)
-                                                {{ $project->project->no ?? '' }} <br> {{ $project->project->name ?? '' }}
-                                            @else
-                                                {{ $project->projno ?? '' }} <br> {{ $project->projname ?? '' }}
-                                            @endif
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-1">
-                                <button type="submit"
-                                    class="btn btn-light-primary mb-2 w-50 btn-action"
-                                    style="border-radius: 7px;padding: 10px 10px; margin-left:10px;    margin-bottom: 0px !important;width: auto;    "><span
-                                        class="fa fa-filter" style="width: 9px !important;"></span></button>
-                            </div>
-                        </div>
-                        <!-- end: filter  -->
                         <div class="tab">
                         <table>
                             <tr class="row-1">
@@ -799,21 +767,18 @@ hr{
                                 </td>
                             <td>
                                     @php
-                                        $req = explode('-', $item->design_requirement_text); 
-                                        $user = Auth::user();                                  
+                                        $req = explode('-', $item->design_requirement_text);                                    
                                     @endphp
                                     <span> {{$req[0] ?? ''}} 
                                         <!-- {{$item->design_requirement_text ?? ''}} -->
                                     </span> <br> {{$req[1] ?? ''}} <br>
                                     
-                                    @if(($user->di_designer_id == null || $user->admin_designer == 1) && $user->hasAnyRole(['designer', 'Designer and Design Checker']))
-                                        <button class="btn btn-success extraPrice" data-id="{{$item->id}}" style="
-                                        background-color: #3A7DFF26 !important;
-                                        padding: 6px 9px;
-                                        border-radius: 4px;
-                                        color: #5d5db3;
-                                        ">Add Extra Price</button>
-                                    @endif
+                                    <button class="btn btn-success extraPrice" data-id="{{$item->id}}" style="
+                                    background-color: #3A7DFF26 !important;
+                                    padding: 6px 9px;
+                                    border-radius: 4px;
+                                    color: #5d5db3;
+                                    ">Add Extra Price</button>
                             </td>
                             <td>
                                 <div class="row d-flex flex-column">
@@ -1057,13 +1022,12 @@ hr{
                                 >
                                     <i style="padding:3px;" class="fa fa-exchange-alt"></i>
                                 </span>
-                                @if(($user->di_designer_id == null || $user->admin_designer == 1) && $user->hasAnyRole(['designer', 'Designer and Design Checker']))
-                                    <span
-                                    class="btn p-2 m-1 moveDesignBrief"
-                                    style="background-color: #07D56426; color:#07D564; border-radius: 10%; padding:6px 20px !important;"
-                                    data-id={{$item->id}}
-                                    >Move</span>
-                                @endif
+
+                                <span
+                                class="btn p-2 m-1 moveDesignBrief"
+                                style="background-color: #07D56426; color:#07D564; border-radius: 10%; padding:6px 20px !important;"
+                                data-id={{$item->id}}
+                                >Move</span>
                             </td>
                             </tr>
                             @empty
@@ -1480,6 +1444,12 @@ hr{
               });
       });
 
+      $(document).on('click', '.moveDesignBrief', function(){
+        var id = $(this).attr('data-id');
+        $('#tempWorkId').val(id);
+        $("#moving_design_brief").modal('show');
+    })
+
               //change email click event
     $(document).on('click', '.designerchangeemail', function(e) {
     // $(".designerchangeemail").on('click',function(){
@@ -1498,12 +1468,6 @@ hr{
         });
         
         
-    })
-
-    $(document).on('click', '.moveDesignBrief', function(){
-        var id = $(this).attr('data-id');
-        $('#tempWorkId').val(id);
-        $("#moving_design_brief").modal('show');
     })
 
     $(document).on('click', '.invoiceHistory', function(e){

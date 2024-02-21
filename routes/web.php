@@ -314,6 +314,10 @@ Route::group(['prefix'=>'designer','middleware' => ['auth']], function () {
      Route::post('/awarded-estimator-modal-checker',[AdminDesignerController::class,'awardedEstimatorModalChecker'])->name('award-estimator-modal-checker');
      Route::post('/store-awarded-estimator-hours/{id}',[AdminDesignerController::class,'storeAwardedEstimatorHours'])->name('store_award_estimator_hours');
      Route::post('/allocated-designer-modal',[AdminDesignerController::class,'allocatedDesignerModal'])->name('allocated-designer-modal');
+
+     Route::get('/completed', [AdminDesignerController::class, 'getAwardedJob'])->name('completed.awarded');
+     Route::get('/paid', [AdminDesignerController::class, 'getAwardedJob'])->name('paid.awarded');
+     Route::post('/change_status_design_brief', [AdminDesignerController::class, 'changeDesignStatus'])->name('change.design.status');
     //  Route::get('/awarded-estimator',[DesignerController::class,'testDesigner']);
      //test designer route starts here
      Route::get('estimator-list' , [DesignerController::class , 'estimator'])->name('estimator_list');

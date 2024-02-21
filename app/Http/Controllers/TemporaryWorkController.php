@@ -14,6 +14,7 @@ use App\Models\TempWorkUploadFiles;
 use App\Models\TemporaryWorkComment;
 use App\Models\PermitLoad;
 use App\Models\PermitLoadImages;
+use App\Models\EstimatorDesignerList;
 use App\Models\Scaffolding;
 use App\Models\CheckAndComment;
 use App\Models\CommentsAction;
@@ -27,6 +28,7 @@ use App\Notifications\PermitNotification;
 use App\Notifications\TempAttachmentNotifications;
 use App\Notifications\CommentsNotification;
 use App\Notifications\ClientToAdminDesignerReply;
+use App\Notifications\DesignerOrCheckerCustomEmail;
 use App\Utils\Validations;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Http\Request;
@@ -1832,6 +1834,11 @@ class TemporaryWorkController extends Controller
                         Notification::route('mail', $designeremail->email)->notify(new CommentsNotification($request->comment, 'comment', $request->temp_work_id, $designeremail->email ,'test'));
                    }
                  }
+
+                 // sending email to the selected email of designer or checker
+                 if(isset($request->emails)){
+                    Notification::route('mail', $request->emails)->notify(new DesignerOrCheckerCustomEmail());
+                 }
                 toastSuccess('Comment submitted successfully');
                 return Redirect::back();
             }
@@ -2540,7 +2547,30 @@ class TemporaryWorkController extends Controller
             
         }
 
-        echo  json_encode(array('comment'=>$table,'twccomment'=>$tabletwc,'drawingcomments'=>$tabledrawingcomments, 'twcdesigner'=>$tabletwcdesigner, 'twclientcomments' => $client_table));
+        $designerChecker = EstimatorDesignerList::where('temporary_work_id', $request->temporary_work_id)->get();
+        $selectElement = '';
+        if(count($designerChecker)>0){        
+            $selectElement = '<select name="emails" class="form-control">
+            <option value="">Select Email</option>';
+                foreach($designerChecker as $user){
+                    $selectElement .= '
+                    <option value="'.$user->email.'">'.$user->email.'</option>
+                    ';
+                }
+            $selectElement .= '</select>';
+            
+        }else{
+            $selectElement .= '<input type="text" class="form-control" style="background-color:white;" value="No designer or checker assigned" disabled>';
+        }
+
+        echo  json_encode(array(
+            'comment'=>$table,
+            'twccomment'=>$tabletwc,
+            'drawingcomments'=>$tabledrawingcomments, 
+            'twcdesigner'=>$tabletwcdesigner, 
+            'twclientcomments' => $client_table,
+            'selectElement' => $selectElement,
+        ));
     }
 
     // Add this method to your controller

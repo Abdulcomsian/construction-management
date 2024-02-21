@@ -215,4 +215,8 @@ class TemporaryWork extends Model
     public function getExtraPricing(){
         return $this->hasMany(ExtraPrice::class);
     }
+
+    public function designBriefStatus(){
+        return $this->hasMany(DesignBriefStatus::class);
+    }
 }

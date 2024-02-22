@@ -4568,7 +4568,7 @@ $tempWorkClass = "d-none";
                 </div>
                 <br>
                 <div class="col-md-6 d-flex" style="margin-bottom:10px">
-                    {{$temporary_works->links("pagination::bootstrap-4")}}
+                    {{$temporary_works->appends(['project' => $project_ids[0]])->links("pagination::bootstrap-4")}}
                 </div>
                 <!--end::Table-->
             </div>

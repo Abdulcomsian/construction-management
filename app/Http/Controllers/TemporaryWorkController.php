@@ -4680,6 +4680,7 @@ class TemporaryWorkController extends Controller
     //temp work search according to projects
     public function tempwork_project_search(Request $request)
     {
+        $project_ids = $request->projects;
         $user = auth()->user();
         $tot_emails = [];
         $assignedBlocks = [];
@@ -4712,8 +4713,7 @@ class TemporaryWorkController extends Controller
         try {
             if ($user->hasRole('admin')) {
                 $temporary_works = TemporaryWork::with('project', 'uploadfile', 'comments', 'reply', 'permits', 'scaffold', 'rejecteddesign','unloadpermits','closedpermits')->whereIn('project_id', $request->projects)->whereIn('status',$status)->where(['estimator'=>0])->latest()->paginate(20);
-                $tot_emails = [];
-				foreach ($temporary_works as $temporary_work) {
+                foreach ($temporary_works as $temporary_work) {
                     $permit_loads = PermitLoad::where('temporary_work_id', $temporary_work->id)
                         ->pluck('block_id')
                         ->toArray();
@@ -4723,7 +4723,8 @@ class TemporaryWorkController extends Controller
                     $tot_emails[] = TempWorkUploadFiles::where(['temporary_work_id' => $temporary_work->id, 'file_type'=>4])->count();
                 }
                 $projects = Project::with('company')->whereNotNull('company_id')->latest()->get();
-                
+                $tot_emails = [];
+                $tot_emails[] = TempWorkUploadFiles::where(['temporary_work_id' => $temporary_work->id, 'file_type'=>4])->count();
                 
                 $nominations=[];
                 $users=[];
@@ -4784,7 +4785,7 @@ class TemporaryWorkController extends Controller
             }
             $scantempwork = '';
             //work for datatable
-            return view('dashboard.temporary_works.index', compact('users','nominations','temporary_works','projects','scantempwork','assignedBlocks', 'tot_emails'));
+            return view('dashboard.temporary_works.index', compact('users','nominations','temporary_works','projects','scantempwork','assignedBlocks', 'tot_emails', 'project_ids'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();

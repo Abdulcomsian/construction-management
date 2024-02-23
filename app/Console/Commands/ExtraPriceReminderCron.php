@@ -42,6 +42,7 @@ class ExtraPriceReminderCron extends Command
      */
     public function handle()
     {
+        \Log::info("ExtraPrice Cron is working fine");
         $extraPrice = ExtraPrice::where('status', 0)->get();
         if(isset($extraPrice) && !empty($extraPrice)){
             foreach($extraPrice as $price){

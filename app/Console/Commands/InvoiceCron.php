@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Models\Invoice;
+use App\Models\ChangeEmailHistory;
 use Carbon\Carbon;
 use Notification;
 use App\Notifications\InvoicePaymentRemiderNotification;

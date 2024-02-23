@@ -1283,6 +1283,9 @@ class AdminDesignerController extends Controller
             $path = parse_url($url, PHP_URL_PATH);
             $segments = explode('/', rtrim($path, '/'));
             $lastSegment = end($segments);
+            $tempWorkProjects = '';
+            $tempWorkClients = '';
+
 
             if(auth()->user()->admin_designer == null && auth()->user()->di_designer_id != null )
             {
@@ -1291,7 +1294,6 @@ class AdminDesignerController extends Controller
             elseif(HelperFunctions::isPromotedAdminDesigner(Auth::user()))
             {
                 $parent_id = auth()->user()->di_designer_id;
-
             }
              else{
                 $parent_id = auth()->user()->id;
@@ -1385,6 +1387,30 @@ class AdminDesignerController extends Controller
                     ->withCount('uploadfile')
                     ->orderBy('id' , 'desc')
                     ->get();
+
+                    // fetching projects for filter
+                    $tempWorkProjects = TemporaryWork::where(function($query) {
+                        $query->whereDoesntHave('designBriefStatus', function($q) {
+                            $q->whereIn('status', [1, 2]);
+                        })->orWhereDoesntHave('designBriefStatus');
+                    })
+                    ->whereIn('created_by', $all_admin)
+                    ->where('work_status' , 'publish')
+                    ->withCount('uploadfile')
+                    ->orderBy('id' , 'desc')
+                    ->get();
+
+                    // fetching clients for filter
+                    $tempWorkClients = TemporaryWork::where(function($query) {
+                        $query->whereDoesntHave('designBriefStatus', function($q) {
+                            $q->whereIn('status', [1, 2]);
+                        })->orWhereDoesntHave('designBriefStatus');
+                    })
+                    ->whereIn('created_by', $all_admin)
+                    ->where('work_status' , 'publish')
+                    ->withCount('uploadfile')
+                    ->orderBy('id' , 'desc')
+                    ->get();
                 }elseif($lastSegment == "completed"){
                     $adminDesignerEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments',
                     'designerAssign', 'checkerAssign', 'designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks','invoice', 'getExtraPricePending', 'getExtraPriceRejected', 'getExtraPriceAccepted')
@@ -1401,10 +1427,61 @@ class AdminDesignerController extends Controller
                     ->withCount('uploadfile')
                     ->orderBy('id' , 'desc')
                     ->get();
+
+                    // fetching projects for filter
+                    $tempWorkProjects = TemporaryWork::whereHas('designBriefStatus' , function($query){
+                        $query->where('status' , 1);
+                    })
+                    ->where(function($query) {
+                        $query->whereDoesntHave('designBriefStatus', function($q) {
+                            $q->whereIn('status', [0, 2]);
+                        })->orWhereDoesntHave('designBriefStatus');
+                    })
+                    ->whereIn('created_by', $all_admin)
+                    ->where('work_status' , 'publish')
+                    ->withCount('uploadfile')
+                    ->orderBy('id' , 'desc')
+                    ->get();
+
+                    // fetching clients for filter 
+                    $tempWorkClients = TemporaryWork::whereHas('designBriefStatus' , function($query){
+                        $query->where('status' , 1);
+                    })
+                    ->where(function($query) {
+                        $query->whereDoesntHave('designBriefStatus', function($q) {
+                            $q->whereIn('status', [0, 2]);
+                        })->orWhereDoesntHave('designBriefStatus');
+                    })
+                    ->whereIn('created_by', $all_admin)
+                    ->where('work_status' , 'publish')
+                    ->withCount('uploadfile')
+                    ->orderBy('id' , 'desc')
+                    ->get();
+
                 }elseif($lastSegment == "paid"){
                     $adminDesignerEstimators = TemporaryWork::with('designer.quotationSum', 'designerQuote', 'project.company', 'comments',
                     'designerAssign', 'checkerAssign', 'designerAssign.estimatorDesignerListTasks', 'checkerAssign.estimatorDesignerListTasks','invoice', 'getExtraPricePending', 'getExtraPriceRejected', 'getExtraPriceAccepted')
                     ->whereHas('designBriefStatus' , function($query){
+                        $query->where('status' , 2);
+                    })
+                    ->whereIn('created_by', $all_admin)
+                    ->where('work_status' , 'publish')
+                    ->withCount('uploadfile')
+                    ->orderBy('id' , 'desc')
+                    ->get();
+
+                    // fetching projects for filter
+                    $tempWorkProjects = TemporaryWork::whereHas('designBriefStatus' , function($query){
+                        $query->where('status' , 2);
+                    })
+                    ->whereIn('created_by', $all_admin)
+                    ->where('work_status' , 'publish')
+                    ->withCount('uploadfile')
+                    ->orderBy('id' , 'desc')
+                    ->get();
+
+                    // fetching clients for filter
+                    $tempWorkClients = TemporaryWork::whereHas('designBriefStatus' , function($query){
                         $query->where('status' , 2);
                     })
                     ->whereIn('created_by', $all_admin)
@@ -1428,22 +1505,88 @@ class AdminDesignerController extends Controller
             $projectIds = array_unique($projectIds);
             $projects = Project::with('company')->whereIn('id' , $projectIds )->get();
             $scantempwork = '';
-
             // Check in the designer Certificate
             if($lastSegment == "awarded-jobs"){
-                return view('dashboard.adminDesigners.awarded-jobs',compact('estimatorWork','AwardedEstimators', 'scantempwork' , 'projects', 'users'));
+                return view('dashboard.adminDesigners.awarded-jobs',compact('estimatorWork','AwardedEstimators', 'scantempwork' , 'projects', 'users', 'tempWorkProjects', 'tempWorkClients'));
             }elseif($lastSegment == "completed"){
-                return view('dashboard.adminDesigners.completed-awarded-jobs',compact('estimatorWork','AwardedEstimators', 'scantempwork' , 'projects', 'users'));
+                return view('dashboard.adminDesigners.completed-awarded-jobs',compact('estimatorWork','AwardedEstimators', 'scantempwork' , 'projects', 'users', 'tempWorkProjects', 'tempWorkClients'));
             }elseif($lastSegment == "paid"){
-                return view('dashboard.adminDesigners.paid-awarded-jobs',compact('estimatorWork','AwardedEstimators', 'scantempwork' , 'projects', 'users'));
+                return view('dashboard.adminDesigners.paid-awarded-jobs',compact('estimatorWork','AwardedEstimators', 'scantempwork' , 'projects', 'users', 'tempWorkProjects', 'tempWorkClients'));
             }
             
          }catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return Redirect::back();
+            // dd($exception->getMessage(), $exception->getLine());
          }
     }
 
+    // for filter through project
+    public function adminDeignerSearchProject(Request $request){
+        try{
+            // for the awarded-jobs
+            $client = $request->clients;
+            $project = $request->projects;
+            if(!isset($client) && !isset($project)){
+                toastError("Please Select at least one filter");
+                return redirect()->back();
+            }
+            $queryData = TemporaryWork::query();
+            $queryData->when($project !== null, function($query) use ($project){
+                $query->where('projno', $project);
+            });
+            $queryData->when($client !== null, function($query) use ($client){
+                $query->where('client_name', $client);
+            });
+
+            $AwardedEstimators = $queryData->get();
+            $scantempwork = '';
+
+            if(auth()->user()->admin_designer == null && auth()->user()->di_designer_id != null )
+            {
+                $parent_id = auth()->user()->id;
+            }
+            elseif(HelperFunctions::isPromotedAdminDesigner(Auth::user()))
+            {
+                $parent_id = auth()->user()->di_designer_id;
+
+            }
+            else{
+                $parent_id = auth()->user()->id;
+            }
+            $all_admin = User::where('di_designer_id',$parent_id)->where('admin_designer', 1)->pluck('id')->toArray();
+            $all_admin = [...$all_admin , $parent_id];
+            
+
+            // fetching projects for filter
+            $tempWorkProjects = TemporaryWork::where(function($query) {
+                $query->whereDoesntHave('designBriefStatus', function($q) {
+                    $q->whereIn('status', [1, 2]);
+                })->orWhereDoesntHave('designBriefStatus');
+            })
+            ->whereIn('created_by', $all_admin)
+            ->where('work_status' , 'publish')
+            ->withCount('uploadfile')
+            ->orderBy('id' , 'desc')
+            ->get();
+
+            // fetching clients for filter
+            $tempWorkClients = TemporaryWork::where(function($query) {
+                $query->whereDoesntHave('designBriefStatus', function($q) {
+                    $q->whereIn('status', [1, 2]);
+                })->orWhereDoesntHave('designBriefStatus');
+            })
+            ->whereIn('created_by', $all_admin)
+            ->where('work_status' , 'publish')
+            ->withCount('uploadfile')
+            ->orderBy('id' , 'desc')
+            ->get();
+            return view('dashboard.adminDesigners.awarded-jobs', compact('AwardedEstimators', 'scantempwork', 'tempWorkProjects', 'tempWorkClients'));
+        }catch(\Exception $e){
+            dd($e->getMessage(), $e->getLine());
+        }
+        
+    }
     // changing status
     public function changeDesignStatus(Request $request){
         // dd($request->all());

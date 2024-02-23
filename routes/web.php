@@ -13,12 +13,12 @@ use App\Http\Controllers\DesignerController;
 use App\Http\Controllers\AdminDesignerController;
 use App\Http\Controllers\AdminSupplierController;
 use App\Http\Controllers\ExternalDesignerController;
-use App\Models\TemporaryWork;
 use Illuminate\Support\Facades\Artisan;
-// use App\Models\Invoice;
-// use Carbon\Carbon;
-// use App\Notifications\InvoicePaymentRemiderNotification;
-// use App\Jobs\SendEmailJob;
+use App\Models\TemporaryWork;
+use App\Models\ExtraPrice;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\ThreeDayReminderExtraPrice;
 use Illuminate\Support\Facades\Route;
 use  Meneses\LaravelMpdf\Facades\LaravelMpdf as PDF;
 
@@ -318,6 +318,10 @@ Route::group(['prefix'=>'designer','middleware' => ['auth']], function () {
      Route::get('/completed', [AdminDesignerController::class, 'getAwardedJob'])->name('completed.awarded');
      Route::get('/paid', [AdminDesignerController::class, 'getAwardedJob'])->name('paid.awarded');
      Route::post('/change_status_design_brief', [AdminDesignerController::class, 'changeDesignStatus'])->name('change.design.status');
+
+     // Routes for filtering  - Projects, Clients etc
+     Route::post('/admin-designer-search', [AdminDesignerController::class, 'adminDeignerSearchProject'])->name('filter.project');
+    //  Route::post('/admin-designer-client-search', [AdminDesignerController::class, 'clientSearch'])->name('client.search');
     //  Route::get('/awarded-estimator',[DesignerController::class,'testDesigner']);
      //test designer route starts here
      Route::get('estimator-list' , [DesignerController::class , 'estimator'])->name('estimator_list');
@@ -403,3 +407,17 @@ Route::get("/test" , function(){
 
 
 Route::get('get-report' , [TemporaryWorkController::class , 'getReportsData'])->name('get-report');
+
+Route::get('cron_test', function(){
+    $extraPrice = ExtraPrice::where('status', 0)->get();
+    foreach($extraPrice as $price){
+        $todayDate = Carbon::parse(date('Y-m-d'));
+        $created_at = Carbon::parse(date('Y-m-d', strtotime($price->created_at)));
+        $differnce = $todayDate->diffInDays($created_at);
+        if($differnce == 3){
+            $clientData = TemporaryWork::where('id', $price->temporary_work_id)->first();
+            Notification::route('mail', $clientData['client_email'])->notify(new ThreeDayReminderExtraPrice());
+            echo "Email Sent";
+        }
+    }
+});

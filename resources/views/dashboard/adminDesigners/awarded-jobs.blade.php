@@ -9,13 +9,13 @@ $tempWorkClass = "d-none";
 @php use App\Utils\HelperFunctions; @endphp
 @section('styles')
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap');
 
-
-    #kt_aside{
-        display:none;
+    #kt_aside {
+        display: none;
     }
+
     #kt_content_container .card-header .topRightMenu {
         position: absolute;
         right: 15px;
@@ -484,188 +484,217 @@ $tempWorkClass = "d-none";
 
 
     table {
-      border-collapse: collapse;
-      width: 100%;
-    }
-    tr{
-        height:100px;
-        background-color:white !important;
-    }
-    th{
-    background-color:#D9D9D91F !important;
-
-
+        border-collapse: collapse;
+        width: 100%;
     }
 
-    th, td {
-      /* border: 1px solid black;
-       */
-      border: 1px solid #B4BBC580;
-      padding: 8px;
-      text-align: left;
-      font-family: "Inter";
-        font-size: 14px ;
-        /* font-weight: 600 !important; */
-        line-height: 30px;
-        text-align: center;
-        padding-top: 10px  !important;
+    tr {
+        height: 100px;
+        background-color: white !important;
     }
 
     th {
-      background-color: #f2f2f2;
+        background-color: #D9D9D91F !important;
+
+
     }
-    td span{
-        font-weight:600;
+
+    th,
+    td {
+        /* border: 1px solid black;
+       */
+        border: 1px solid #B4BBC580;
+        padding: 8px;
+        text-align: left;
+        font-family: "Inter";
+        font-size: 14px;
+        /* font-weight: 600 !important; */
+        line-height: 30px;
+        text-align: center;
+        padding-top: 10px !important;
     }
-    .description{
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    td span {
+        font-weight: 600;
+    }
+
+    .description {
         background: #FFA50026;
         padding: 0 2px;
-        border-radius:4px;
-        color:#FFA500;
-        width:80%;
-        font-size:14px;
-        height:3% !important;
+        border-radius: 4px;
+        color: #FFA500;
+        width: 80%;
+        font-size: 14px;
+        height: 3% !important;
     }
-    .comment{
+
+    .comment {
         background: #3A7DFF26;
         padding: 0 2px;
-        border-radius:4px;
+        border-radius: 4px;
         color: #3A7DFF;
-        width:80%;
+        width: 80%;
     }
-    .paid{
+
+    .paid {
         background: #07D56426;
         padding: 0 5px;
-        border-radius:4px;
+        border-radius: 4px;
         color: #07D564;
-        width:80%;
+        width: 80%;
     }
+
     .progress-bar {
-  position: relative;
-  height: 18.28px;
-  background-color: black;
-  width:95%;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.progress {
-  height: 100%;
-  background-color: #07D5A4;
-}
-.progress-2 {
-    height: 100%;
-  background-color: #BE6CFF;
-}
-.progress-3{
-    height: 100%;
-    background: #3A7DFF;
-
-}
-
-.progress-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
- font-size:14px;
-}
-.green{
-    color: #07D564;
-    background: #07D56426;
-}
-.yellow{
-    background: #FFA50026;
-        color:#FFA500; 
-}
-.red{
-    background: #F0373826;
-    color: #F03738;
-}
-
-
-.redbackground{
-    background-color: #f17c7c26 !important;
-}
-table tbody td {
-    /* text-align: center; */
-    padding: 5px !important;
-}
-
-.th-2{
-    width:7%;
-}
-.th-5{
-    width:11%;
-}
-.th-6{
-    width:10%;
-}
-.th-7{
-    width:10%;
-}
-.th-8{
-    width:10%;
-}
-.th-9{
-    width:7%;
-}
-.th-11{
-    width:8%;
-}
-.center{
-    display:grid;
-    place-items:center;
-}
-.img{
-    width:40%;
-}
-hr{
-    box-shadow: 0px 3px 10px 0px #0000000F;
-    color:#0000000F;
-}
-#check{
-        background:#07D564 !important;
+        position: relative;
+        height: 18.28px;
+        background-color: black;
+        width: 95%;
+        border-radius: 10px;
+        overflow: hidden;
     }
-.mainMenu-link:hover{
-    cursor: pointer;
-}
-.invoice-btn {
-    background: #f1416c;
-    padding: 0 5px;
-    border-radius: 4px;
-    color: #07D564;
-    width: 80%;
-}
-.badge-custom{
-    color:#50cd89;
-    background: #07D56426;
-    font-size: 14px;
-    height: 3% !important
-}
-.badge-red{
-    color:#fff;
-    background: #f1416ca6;
-    font-size: 14px;
-    height: 3% !important
-}
-.extra-price{
-    padding: 6px 9px;
-    border-radius: 4px;
-    color: #5d5db3;
-}
 
-.red{
-    background-color: rgb(255, 0, 0) !important;
-}
-.green{
-    background-color: green !important;
-}
+    .progress {
+        height: 100%;
+        background-color: #07D5A4;
+    }
+
+    .progress-2 {
+        height: 100%;
+        background-color: #BE6CFF;
+    }
+
+    .progress-3 {
+        height: 100%;
+        background: #3A7DFF;
+
+    }
+
+    .progress-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 14px;
+    }
+
+    .green {
+        color: #07D564;
+        background: #07D56426;
+    }
+
+    .yellow {
+        background: #FFA50026;
+        color: #FFA500;
+    }
+
+    .red {
+        background: #F0373826;
+        color: #F03738;
+    }
+
+
+    .redbackground {
+        background-color: #f17c7c26 !important;
+    }
+
+    table tbody td {
+        /* text-align: center; */
+        padding: 5px !important;
+    }
+
+    .th-2 {
+        width: 7%;
+    }
+
+    .th-5 {
+        width: 11%;
+    }
+
+    .th-6 {
+        width: 10%;
+    }
+
+    .th-7 {
+        width: 10%;
+    }
+
+    .th-8 {
+        width: 10%;
+    }
+
+    .th-9 {
+        width: 7%;
+    }
+
+    .th-11 {
+        width: 8%;
+    }
+
+    .center {
+        display: grid;
+        place-items: center;
+    }
+
+    .img {
+        width: 40%;
+    }
+
+    hr {
+        box-shadow: 0px 3px 10px 0px #0000000F;
+        color: #0000000F;
+    }
+
+    #check {
+        background: #07D564 !important;
+    }
+
+    .mainMenu-link:hover {
+        cursor: pointer;
+    }
+
+    .invoice-btn {
+        background: #f1416c;
+        padding: 0 5px;
+        border-radius: 4px;
+        color: #07D564;
+        width: 80%;
+    }
+
+    .badge-custom {
+        color: #50cd89;
+        background: #07D56426;
+        font-size: 14px;
+        height: 3% !important
+    }
+
+    .badge-red {
+        color: #fff;
+        background: #f1416ca6;
+        font-size: 14px;
+        height: 3% !important
+    }
+
+    .extra-price {
+        padding: 6px 9px;
+        border-radius: 4px;
+        color: #5d5db3;
+    }
+
+    .red {
+        background-color: rgb(255, 0, 0) !important;
+    }
+
+    .green {
+        background-color: green !important;
+    }
 </style>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
-
 @endsection
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid temporary_blade" id="kt_content">
@@ -678,397 +707,453 @@ hr{
                     <!--begin::Card header-->
                     <div class="card-header border-0">
                         <div class="card-title">
-                            <a   class="mainMenu-link" style="position:absolute; left: 40px; top: 23px" onclick="hideCheck3(1)">Menu</a>
-                            <h3 class="card-label pt-5" style="font-size:1.6rem;">AWARDED JOBS 
+                            <a class="mainMenu-link" style="position:absolute; left: 40px; top: 23px"
+                                onclick="hideCheck3(1)">Menu</a>
+                            <h3 class="card-label pt-5" style="font-size:1.6rem;">AWARDED JOBS
                                 <span class="d-block text-muted pt-25 font-size-sm"></span>
                             </h3>
                         </div>
                         <hr>
+                        <div class="row d-flex">
+                            <form action="{{route('filter.project')}}" class="d-flex" method="post"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <!-- start: filter -->
+                                <div class="col-md-6 d-flex">
+                                    <select name="projects" class="form-select form-select-lg" style="max-height:40px;"
+                                        data-control="select2" data-placeholder="Select a Project">
+                                        <option value="">Select a Project</option>
+                                        @if(isset($tempWorkProjects) && !empty($tempWorkProjects) && $tempWorkProjects !== null)
+                                            @foreach($tempWorkProjects->unique('projname') as $project)
+                                            <option value="{{ $project->projno ?? '' }}">
+                                                {{ $project->projno ?? '' }} <br> {{ $project->projname ?? '' }}
+                                            </option>
+                                            @endforeach
+                                        @endif
+                                    </select>
+                                </div>
 
-                        <!-- start: filter -->
-                        <div class="row">
-                            <div class="col-4">
-                                <select name="projects[]" multiple="multiple" class="form-select form-select-lg" style = "max-height:40px;"
-                                     data-control="select2"
-                                    data-placeholder="Select a Project" required>
-                                    @foreach($AwardedEstimators as $project)
-                                        <option value="
-                                            @if($project->project_id)
-                                                {{ $project->project->no ?? '' }} <br> {{ $project->project->name ?? '' }}
-                                            @else
-                                                {{ $project->projno ?? '' }} <br> {{ $project->projname ?? '' }}
-                                            @endif
-                                        ">
-                                            @if($project->project_id)
-                                                {{ $project->project->no ?? '' }} <br> {{ $project->project->name ?? '' }}
-                                            @else
-                                                {{ $project->projno ?? '' }} <br> {{ $project->projname ?? '' }}
-                                            @endif
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-1">
-                                <button type="submit"
-                                    class="btn btn-light-primary mb-2 w-50 btn-action"
-                                    style="border-radius: 7px;padding: 10px 10px; margin-left:10px;    margin-bottom: 0px !important;width: auto;    "><span
-                                        class="fa fa-filter" style="width: 9px !important;"></span></button>
-                            </div>
+                                <div class="col-md-6 d-flex" style="margin-left: 9px;">
+                                    <select name="clients" class="form-select form-select-lg" style="max-height:40px;"
+                                        data-control="select2" data-placeholder="Select a Client">
+                                        <option value="">Select a Client</option>
+                                        @if(isset($tempWorkClients) && !empty($tempWorkClients) && $tempWorkClients !== null)
+                                            @foreach($tempWorkClients->unique('client_name') as $client)
+                                            <option value="{{ $client->client_name ?? '' }}">
+                                                {{ $client->client_email ?? '' }} <br> {{ $client->client_name ?? '' }}
+                                            </option>
+                                            @endforeach
+                                        @endif
+                                    </select>
+                                    <button type="submit" class="btn btn-light-primary mb-2 w-50 btn-action"
+                                        style="border-radius: 7px;padding: 10px 10px; margin-left:10px;    margin-bottom: 0px !important;width: 55px !important;    "><span
+                                            class="fa fa-filter" style="width: 9px !important;"></span></button>
+                                    <a href="{{route('awarded_jobs')}}" style="margin-left: 5px; width: 40%;"><button
+                                            type="button" class="btn btn-primary">Clear Filter</button></a>
+                                </div>
+                            </form>
                         </div>
                         <!-- end: filter  -->
                         <div class="tab">
-                        <table>
-                            <tr class="row-1">
-                            <th class="th-1" >Project</th>
-                            <th class="th-2">Client</th>
-                            <th  class="th-3">Job Title / Cost</th>
-                            <th  class="th-4">Design Req </th>
-                            <th  class="th-5">Description / Comment</th>
-                            <th  class="th-6">Timeline</th>
-                            <th  class="th-7">Allocated Designer</th>
-                            <th  class="th-8">Allocated Designer Checker</th>
-                            <!-- <th  class="th-9">Status</th> -->
-                            <th  class="th-10"><div>Drawing <p style = "font-size: 11px;line-height: 17px">(View & Upload)<p></div></th>
-                            <th  class="th-11">Design Brief Number</th>
-                            <th  class="th-11">Invoice</th>
-                            </tr>
-                            @php
-                            $i=0;
-                            @endphp
-                            @forelse($AwardedEstimators as $item)
-                            @php
-                            $rowBackgroundColor = '';
-                            if($item->work_status == 'publish' && $item->approve_design_brief == 0){
-                                $rowBackgroundColor = 'redbackground';
-                            }
-                            @endphp
-                            <tr class="row-2 {{$rowBackgroundColor}}">
-                            <td>
-                                @if($item->project_id)
-                                {{ $item->project->no ?? '' }} <br> {{ $item->project->name ?? '' }}
-                                @else
-                                    {{ $item->projno ?? '' }} <br> {{ $item->projname ?? '' }}
-                                @endif
-                               <br>
-                               <a target="_blank" href="estimatorPdf/{{$item->ped_url ?? ''}}">Job PDF</a>
-                            </td>
-                            <td>{{$item->client_name ?? ($item->creator->userCompany->name ?? '') }}</td>
-                            <td>
+                            <table>
+                                <tr class="row-1">
+                                    <th class="th-1">Project</th>
+                                    <th class="th-2">Client</th>
+                                    <th class="th-3">Job Title / Cost</th>
+                                    <th class="th-4">Design Req </th>
+                                    <th class="th-5">Description / Comment</th>
+                                    <th class="th-6">Timeline</th>
+                                    <th class="th-7">Allocated Designer</th>
+                                    <th class="th-8">Allocated Designer Checker</th>
+                                    <!-- <th  class="th-9">Status</th> -->
+                                    <th class="th-10">
+                                        <div>Drawing <p style="font-size: 11px;line-height: 17px">(View & Upload)
+                                            <p>
+                                        </div>
+                                    </th>
+                                    <th class="th-11">Design Brief Number</th>
+                                    <th class="th-11">Invoice</th>
+                                </tr>
                                 @php
-                                // For pending Status
-                                $jsonData = $item->getExtraPricePending;
-                                $extraPrices = json_decode($jsonData);
-                                if ($extraPrices !== null) {
-                                    foreach ($extraPrices as $extraPrice) {
+                                $i=0;
+                                // if(session()->has('data')){
+                                // $AwardedEstimators = session('data');
+                                // }
+                                @endphp
+                                @forelse($AwardedEstimators as $item)
+                                @php
+                                $rowBackgroundColor = '';
+                                if($item->work_status == 'publish' && $item->approve_design_brief == 0){
+                                $rowBackgroundColor = 'redbackground';
+                                }
+                                @endphp
+                                <tr class="row-2 {{$rowBackgroundColor}}">
+                                    <td>
+                                        @if($item->project_id)
+                                        {{ $item->project->no ?? '' }} <br> {{ $item->project->name ?? '' }}
+                                        @else
+                                        {{ $item->projno ?? '' }} <br> {{ $item->projname ?? '' }}
+                                        @endif
+                                        <br>
+                                        <a target="_blank" href="estimatorPdf/{{$item->ped_url ?? ''}}">Job PDF</a>
+                                    </td>
+                                    <td>{{$item->client_name ?? ($item->creator->userCompany->name ?? '') }}</td>
+                                    <td>
+                                        @php
+                                        // For pending Status
+                                        $jsonData = $item->getExtraPricePending;
+                                        $extraPrices = json_decode($jsonData);
+                                        if ($extraPrices !== null) {
+                                        foreach ($extraPrices as $extraPrice) {
                                         $blink = 'redBgBlink';
                                         $price = $extraPrice->price;
                                         echo "<p class='extra-price $blink' style='color:black;'> £$price </p>";
-                                    }
-                                } else {
-                                    echo "Error decoding JSON";
-                                }
+                                        }
+                                        } else {
+                                        echo "Error decoding JSON";
+                                        }
 
-                                // for rejected Status
-                                $jsonDataRejected = $item->getExtraPriceRejected;
-                                $extraPriceRejected = json_decode($jsonDataRejected);
-                                if($extraPriceRejected !== null){
-                                    foreach ($extraPriceRejected as $extraPrice) {
+                                        // for rejected Status
+                                        $jsonDataRejected = $item->getExtraPriceRejected;
+                                        $extraPriceRejected = json_decode($jsonDataRejected);
+                                        if($extraPriceRejected !== null){
+                                        foreach ($extraPriceRejected as $extraPrice) {
                                         $price = $extraPrice->price;
                                         $color = 'red';
                                         echo "<p class='extra-price $color' style='color:black;'> £$price </p>";
-                                    }
-                                }
+                                        }
+                                        }
 
-                                // for accepted Status
-                                $jsonDataAccepted = $item->getExtraPriceAccepted;
-                                $extraPriceAccepted = json_decode($jsonDataAccepted);
-                                if($extraPriceAccepted !== null){
-                                    foreach ($extraPriceAccepted as $extraPrice) {
+                                        // for accepted Status
+                                        $jsonDataAccepted = $item->getExtraPriceAccepted;
+                                        $extraPriceAccepted = json_decode($jsonDataAccepted);
+                                        if($extraPriceAccepted !== null){
+                                        foreach ($extraPriceAccepted as $extraPrice) {
                                         $price = $extraPrice->price;
                                         $color = 'green';
                                         echo "<p class='extra-price $color' style='color:black;'>£$price </p>";
-                                    }
-                                }
-                                @endphp
-                                {{-- @dd($item->designerQuote) --}}
-                                {{$item->job_title ?? ''}}
-                                    @if($item->designerQuote && auth()->user()->view_price)
-                                    <br>
+                                        }
+                                        }
+                                        @endphp
+                                        {{-- @dd($item->designerQuote) --}}
+                                        {{$item->job_title ?? ''}}
+                                        @if($item->designerQuote && auth()->user()->view_price)
+                                        <br>
                                         <span>{{$item->designerQuote ? $item->designerQuote->sum('price') : '0'}}</span>
-                                    @endif
-                                </td>
-                            <td>
-                                    @php
-                                        $req = explode('-', $item->design_requirement_text); 
-                                        $user = Auth::user();                                  
-                                    @endphp
-                                    <span> {{$req[0] ?? ''}} 
-                                        <!-- {{$item->design_requirement_text ?? ''}} -->
-                                    </span> <br> {{$req[1] ?? ''}} <br>
-                                    
-                                    @if(($user->di_designer_id == null || $user->admin_designer == 1) && $user->hasAnyRole(['designer', 'Designer and Design Checker']))
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @php
+                                        $req = explode('-', $item->design_requirement_text);
+                                        $user = Auth::user();
+                                        @endphp
+                                        <span> {{$req[0] ?? ''}}
+                                            <!-- {{$item->design_requirement_text ?? ''}} -->
+                                        </span> <br> {{$req[1] ?? ''}} <br>
+
+                                        @if(($user->di_designer_id == null || $user->admin_designer == 1) &&
+                                        $user->hasAnyRole(['designer', 'Designer and Design Checker']))
                                         <button class="btn btn-success extraPrice" data-id="{{$item->id}}" style="
                                         background-color: #3A7DFF26 !important;
                                         padding: 6px 9px;
                                         border-radius: 4px;
                                         color: #5d5db3;
                                         ">Add Extra Price</button>
-                                    @endif
-                            </td>
-                            <td>
-                                <div class="row d-flex flex-column">
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <div class="row d-flex flex-column">
+                                            @php
+                                            $drawingscount=0;
+                                            $color="green";
+                                            $class='';
+                                            // dd($item->commentlist[0]['status']);
+                                            if(isset($item->commentlist[0]['status']) && $item->commentlist[0]['status']
+                                            == 2)
+                                            {
+                                            $color="red";
+                                            $class='redBgBlink';
+                                            // if(count($item->reply) == count($item->commentlist))
+                                            // {
+                                            // $color="blue";
+                                            // $class='';
+                                            // }
+                                            }
+                                            @endphp
+                                            <div class="col d-flex justify-content-center">
+                                                <div class="description desc cursor-pointer" data-toggle="tooltip"
+                                                    title="{{ $item->description_temporary_work_required ?? '' }}"
+                                                    data-placement="top"> Description </div>
+                                            </div>
+                                            <div class="col d-flex justify-content-center">
+                                                <div class="comment addcomment cursor-pointer mt-3"
+                                                    data-id="{{$item->id}}"> Comment <span
+                                                        class="{{$class}}">({{count($item->commentlist) ?? '-'}})</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </td>
                                     @php
-                                        $drawingscount=0;
-                                        $color="green";
-                                        $class='';
-                                        // dd($item->commentlist[0]['status']);
-                                        if(isset($item->commentlist[0]['status']) && $item->commentlist[0]['status'] == 2)
-                                        {
-                                        $color="red";
-                                        $class='redBgBlink';
-                                        // if(count($item->reply) == count($item->commentlist))
-                                        // {
-                                        // $color="blue";
-                                        // $class='';
-                                        // }
-                                        }
-                                    @endphp
-                                    <div class="col d-flex justify-content-center"> <div class="description desc cursor-pointer" data-toggle="tooltip" title="{{ $item->description_temporary_work_required ?? '' }}"
-                                                    data-placement="top">  Description </div> </div>
-                                    <div class="col d-flex justify-content-center"> <div class="comment addcomment cursor-pointer mt-3" data-id="{{$item->id}}"> Comment <span class="{{$class}}">({{count($item->commentlist) ?? '-'}})</span> </div> </div>
-                                </div>
-                                
-                            </td>
-                            @php
                                     $user = Auth::user();
                                     // dd($user);
                                     $is_admin = HelperFunctions::isAdminDesigner($user);
                                     $is_promoted_admin = HelperFunctions::isPromotedAdminDesigner($user);
-                                    $is_designer = HelperFunctions::getJobAwardedDesignerorCheckerByJobId($item->id,'designers');
-                                    $is_checker = HelperFunctions::getJobAwardedDesignerorCheckerByJobId($item->id,'checker');
-                                    $designer_or_checker = \App\Models\EstimatorDesignerList::where('temporary_work_id',$item->id)->where('email', auth()->user()->email)->whereIn('type',['designers','checker'])->first();
+                                    $is_designer =
+                                    HelperFunctions::getJobAwardedDesignerorCheckerByJobId($item->id,'designers');
+                                    $is_checker =
+                                    HelperFunctions::getJobAwardedDesignerorCheckerByJobId($item->id,'checker');
+                                    $designer_or_checker =
+                                    \App\Models\EstimatorDesignerList::where('temporary_work_id',$item->id)->where('email',
+                                    auth()->user()->email)->whereIn('type',['designers','checker'])->first();
                                     if(HelperFunctions::isPromotedAdminDesigner(\Auth::user())){
-                                        $status_1 = 'Timeline';                    
-                                        $status_2 = 'Allocate Designer';   
+                                    $status_1 = 'Timeline';
+                                    $status_2 = 'Allocate Designer';
                                     }else{
-                                        if($designer_or_checker){
-                                            $status_1 = 'Add Timeline';
-                                            $status_2 = 'View Designer';
-                                        }else{
-                                            $status_1 = 'Timeline';
-                                            if(HelperFunctions::isPromotedAdminDesigner(\Auth::user()))
-                                                $status_2 = 'View Designer';
-                                            else
-                                                $status_2 = 'Allocate Designer';
+                                    if($designer_or_checker){
+                                    $status_1 = 'Add Timeline';
+                                    $status_2 = 'View Designer';
+                                    }else{
+                                    $status_1 = 'Timeline';
+                                    if(HelperFunctions::isPromotedAdminDesigner(\Auth::user()))
+                                    $status_2 = 'View Designer';
+                                    else
+                                    $status_2 = 'Allocate Designer';
 
-                                        }
-                                    }   
-                                @endphp
-                            <td>
-                                <div class="row d-flex flex-column">
-                                           
-                                            <div class="row d-block ms-2" id="allocated-designer" data-rowid="{{ $item->id }}">   
+                                    }
+                                    }
+                                    @endphp
+                                    <td>
+                                        <div class="row d-flex flex-column">
+
+                                            <div class="row d-block ms-2" id="allocated-designer"
+                                                data-rowid="{{ $item->id }}">
                                                 @php $blink = '' @endphp
-                                                    @if(empty($item->designerAssign->user->name) || empty($item->checkerAssign->user->name) )
-                                                    @php $blink = 'blink' @endphp
+                                                @if(empty($item->designerAssign->user->name) ||
+                                                empty($item->checkerAssign->user->name) )
+                                                @php $blink = 'blink' @endphp
                                                 @endif
                                                 <label class="fs-6 fw-bold">{{$status_2}}</label>
-                                                <img class="img {{$blink}}"    style="cursor: pointer; vertical-align:top;width:30%;" src="{{asset('images/box.png')}}" alt=""  title= "{{$status_2}}"> 
+                                                <img class="img {{$blink}}"
+                                                    style="cursor: pointer; vertical-align:top;width:30%;"
+                                                    src="{{asset('images/box.png')}}" alt="" title="{{$status_2}}">
 
                                             </div>
-                                            <div class="row d-block ms-2" id="time-estimator"  data-rowid="{{$item->id}}"> 
-                                                 <label class="fs-6 fw-bold">{{$status_1}}</label>
-                                                <img class="img"  style="cursor: pointer; vertical-align:top;width:30%;" src="{{asset('images/time.png')}}" title= "{{$status_1}}"> 
+                                            <div class="row d-block ms-2" id="time-estimator"
+                                                data-rowid="{{$item->id}}">
+                                                <label class="fs-6 fw-bold">{{$status_1}}</label>
+                                                <img class="img" style="cursor: pointer; vertical-align:top;width:30%;"
+                                                    src="{{asset('images/time.png')}}" title="{{$status_1}}">
                                             </div>
-                                    <!-- <div class="col d-flex justify-content-center mt-2">
+                                            <!-- <div class="col d-flex justify-content-center mt-2">
                                     <div class="progress-bar">
                                     <div class="progress-3" style="width: 50%;"></div>
                                     <span class="progress-text">50%</span>
                                     </div> -->
-                                </div>
-                               
-                            </td>
-                            @php
-                                   /*  Doesn't add total tasks percentage for Designer
+                                        </div>
 
-                                   $designer_task = isset($item->designerAssign->estimatorDesignerListTasks)
-                                        ? ($item->designerAssign->estimatorDesignerListTasks->last() ? $item->designerAssign->estimatorDesignerListTasks->last()->completed : '0')
-                                        : '0'; 
-                                        
-                                        */ 
-                                    
-                                    
-                                        $designer_task = 0;
-                                    if(isset($item->designerAssign->estimatorDesignerListTasks))  //add tasks percentage
+                                    </td>
+                                    @php
+                                    /* Doesn't add total tasks percentage for Designer
+
+                                    $designer_task = isset($item->designerAssign->estimatorDesignerListTasks)
+                                    ? ($item->designerAssign->estimatorDesignerListTasks->last() ?
+                                    $item->designerAssign->estimatorDesignerListTasks->last()->completed : '0')
+                                    : '0';
+
+                                    */
+
+
+                                    $designer_task = 0;
+                                    if(isset($item->designerAssign->estimatorDesignerListTasks)) //add tasks percentage
                                     {
-                                        foreach($item->designerAssign->estimatorDesignerListTasks as $task)
-                                        $designer_task = $designer_task + $task->completed;
+                                    foreach($item->designerAssign->estimatorDesignerListTasks as $task)
+                                    $designer_task = $designer_task + $task->completed;
                                     }
-                                    
-                                    
 
-                                   /*  Doesn't add total tasks percentage for Checker
+
+
+                                    /* Doesn't add total tasks percentage for Checker
                                     $checker_task = isset($item->checkerAssign->estimatorDesignerListTasks)
-                                        ? ($item->checkerAssign->estimatorDesignerListTasks->last() ? $item->checkerAssign->estimatorDesignerListTasks->last()->completed : '0')
-                                        : '0';
+                                    ? ($item->checkerAssign->estimatorDesignerListTasks->last() ?
+                                    $item->checkerAssign->estimatorDesignerListTasks->last()->completed : '0')
+                                    : '0';
                                     */
 
                                     $checker_task = 0;
-                                    if(isset($item->checkerAssign->estimatorDesignerListTasks))  //add tasks percentage
+                                    if(isset($item->checkerAssign->estimatorDesignerListTasks)) //add tasks percentage
                                     {
-                                        foreach($item->checkerAssign->estimatorDesignerListTasks as $task)
-                                        $checker_task = $checker_task + $task->completed;
+                                    foreach($item->checkerAssign->estimatorDesignerListTasks as $task)
+                                    $checker_task = $checker_task + $task->completed;
                                     }
 
                                     $designer_status = isset($item->designerAssign->estimatorDesignerListTasks)
-                                    ? ($item->designerAssign->estimatorDesignerListTasks->last() ? $item->designerAssign->estimatorDesignerListTasks->last()->status : '')
+                                    ? ($item->designerAssign->estimatorDesignerListTasks->last() ?
+                                    $item->designerAssign->estimatorDesignerListTasks->last()->status : '')
                                     : '';
 
                                     $checker_status = isset($item->checkerAssign->estimatorDesignerListTasks)
-                                        ? ($item->checkerAssign->estimatorDesignerListTasks->last() ? $item->checkerAssign->estimatorDesignerListTasks->last()->status : '-')
-                                        : '-';
+                                    ? ($item->checkerAssign->estimatorDesignerListTasks->last() ?
+                                    $item->checkerAssign->estimatorDesignerListTasks->last()->status : '-')
+                                    : '-';
 
-                                        $last_status =isset($item->design->estimatorDesignerListTasks)
-                                        ? ($item->design->estimatorDesignerListTasks->last() ? $item->design->estimatorDesignerListTasks->last()->status : '-')
-                                        : '-';
+                                    $last_status =isset($item->design->estimatorDesignerListTasks)
+                                    ? ($item->design->estimatorDesignerListTasks->last() ?
+                                    $item->design->estimatorDesignerListTasks->last()->status : '-')
+                                    : '-';
                                     $status_badge = HelperFunctions::getDesignerStatusBadge($designer_status);
                                     $checker_status_badge = HelperFunctions::getCheckerStatusBadge($checker_status);
 
-                                @endphp
-                            <td>
-                                @if(isset($item->designerAssign->user->name))
-                                    <div class=" d-flex flex-column">
-                                        <div class=" text-center"> {{$item->designerAssign->user->name ?? ''}}  </div>
-                                        <div class=" d-flex justify-content-center">
-                                        <div class="progress-bar">
-                                        <div class="progress" style="width: {{$designer_task}}%;"></div>
-                                        <span class="progress-text">{{$designer_task}}%</span>
-                                        </div>
-                                    </div>            
-                                @endif
-                                {!! $status_badge !!}
-                                <!-- @if($is_admin || $is_promoted_admin || ($is_designer && $user->id == $is_designer->user_id)) @endif -->
-                                @if($is_admin || $is_promoted_admin || ($is_designer && $user->id == $is_designer->user_id) || $is_checker)
-                                    <span class="btn p-2 m-1 designerchangeemail"
-                                        style="border-radius: 21%;" title="Designer Change Email"
-                                        data-id={{Crypt::encrypt($item->id)}} >
-                                        <i style="padding:3px;"
-                                            class="fa fa-exchange-alt"></i>
-                                        </span>
-                                    </td>
-                                @endif
-                            
-                            <td>
-                                @if(isset($item->checkerAssign->user->name))
-                                <div class=" d-flex flex-column">
-                                    <div class=" text-center"> {{$item->checkerAssign->user->name ?? ''}}  </div>
-                                    <div class=" d-flex justify-content-center">
-                                    <div class="progress-bar">
-                                    <div class="progress-2" style="width: {{$checker_task}}%;"></div>
-                                    <span class="progress-text">{{$checker_task}}%</span>
-                                    </div>
-                                </div>
-                                @endif
-                                 @if($checker_status != '-' )
-                                    {!! $checker_status_badge !!}
-                               @endif
-                                <!-- @if($is_admin || $is_promoted_admin || ($is_checker && $user->id == $is_checker->user_id)) @endif-->
-                                @if($is_admin || $is_promoted_admin || ($is_checker && $user->id == $is_checker->user_id) || $is_designer)
-                                        <span class="btn p-2 m-1 checkerchangeemail"
-                                            style="border-radius: 21%; z-index:1060" title="Change Email"
-                                            data-id={{Crypt::encrypt($item->id)}} >
-                                            <i style="padding:3px;"
-                                                class="fa fa-exchange-alt"></i>
-                                    </span>
-                                @endif
-
-                            </td>
-                            <!-- <td >  {!! $status_badge !!} </td> -->
-                            <td>
-                                <div class="center ">
-                                <div class="image d-flex gap-3">
-                                   
-                                    <div class="image-1"> 
-                                        @php
-                                            $userEmail = auth()->user()->email;
-                                            $email = '';
-                                        @endphp
-                                            
-                                        @if(isset($item->designerAssign) && $userEmail == $item->designerAssign->email)
-                                                @php $userEmail = $item->designerAssign->email; @endphp
-                                        @elseif(isset($item->checkerAssign) && $userEmail == $item->checkerAssign->email)
-                                                @php $userEmail = $item->checkerAssign->email; @endphp
-                                        @endif
-                                        <a href="{{ route('designer.uploaddesign', Crypt::encrypt($item->id).'/?mail='.$userEmail.'&job=1') }}"
-                                                    target="_blank">
-                                            <img src="{{asset('images/add.png')}}" alt="" srcset="" title= "Upload Design"> 
-                                        </a>
-                                    </div>
-                                    <div style="background: {{($item->uploadfile_count > 0 ? 'green' : '#919191ba')}};padding: 4px; border-radius: 4px;width: 23px; height:23px;line-height:14px;margin-top:4px;" class="image-2 uploaddrawinglist cursor-pointer" data-id="{{$item->id}}" data-type="1">
-                                        <p class="uploaddrawinglist cursor-pointer" data-id="44" data-type="1" style="margin-bottom:0px;font-weight: 400;bottom:3px !important; ">
-                                            <span style="font-size: 10px; color: #fff;" class="fa fa-eye" title="Upload Drawings"></span>
-                                        </p>
-                                    </div>
-                                </div>
-                                </div>
-                                @php 
-                                $designerCertificateTag = App\Models\DesignerCertificate::where('temporary_work_id', $item->id)->count();
-                                $tempWorkUploadFiles = App\Models\TempWorkUploadFiles::where('temporary_work_id', $item->id)->where('drawing_title', '==' , null)->count();
-                                // print_r($designerCertificateTag);
-                                @endphp
-                                @if($designerCertificateTag > 0 || $tempWorkUploadFiles > 0)
-                                    <div>
-                                        <i class="fa fa-file" style="color: green"></i>
-                                    </div>
-                                @endif
-                            </td>
-                            <td>
-                                <p>{{isset($item->twc_id_no) ? $item->twc_id_no : ''}}</p>
-                            </td>
-                            <td>
-                                <div class="row d-flex flex-column">
-                                    <div class="col d-flex justify-content-center"> 
-                                        <div class="invoice-btn mt-3">
-                                            <a href="{{ route('generate_invoice') }}?tempwork_id={{$item->id}}" style = "color:white !important;"
-                                                    target="_blank">
-                                                <span  class="fa fa-plus" title="Upload Drawings"> Invoice</span>                                       
-                                            </a>
-                                                
-                                        </div>
-                                    </div>
-                                    @foreach($item->invoice as $invoiceItem)
-                                        @if(isset($item->invoice))
-                                            @if($invoiceItem->status == 'Unpaid')
-                                                <div class="col d-flex justify-content-center mt-3"> <button type="button" id = "{{$invoiceItem->id}}" value = "{{$invoiceItem->status}}" class="description edit_designer_details" style="border: none;"> Unpaid </button> </div>
-                                            @elseif($invoiceItem->status = 'Paid')
-                                                <div class="col d-flex justify-content-center"> <button type="button" id="{{$invoiceItem->id}}" value="{{$invoiceItem->status}}" class="paid mt-3 edit_designer_details" style="border: none;"> Paid </button> </div>
+                                    @endphp
+                                    <td>
+                                        @if(isset($item->designerAssign->user->name))
+                                        <div class=" d-flex flex-column">
+                                            <div class=" text-center"> {{$item->designerAssign->user->name ?? ''}}
+                                            </div>
+                                            <div class=" d-flex justify-content-center">
+                                                <div class="progress-bar">
+                                                    <div class="progress" style="width: {{$designer_task}}%;"></div>
+                                                    <span class="progress-text">{{$designer_task}}%</span>
+                                                </div>
+                                            </div>
                                             @endif
+                                            {!! $status_badge !!}
+                                            <!-- @if($is_admin || $is_promoted_admin || ($is_designer && $user->id == $is_designer->user_id)) @endif -->
+                                            @if($is_admin || $is_promoted_admin || ($is_designer && $user->id ==
+                                            $is_designer->user_id) || $is_checker)
+                                            <span class="btn p-2 m-1 designerchangeemail" style="border-radius: 21%;"
+                                                title="Designer Change Email" data-id={{Crypt::encrypt($item->id)}} >
+                                                <i style="padding:3px;" class="fa fa-exchange-alt"></i>
+                                            </span>
+                                    </td>
+                                    @endif
+
+                                    <td>
+                                        @if(isset($item->checkerAssign->user->name))
+                                        <div class=" d-flex flex-column">
+                                            <div class=" text-center"> {{$item->checkerAssign->user->name ?? ''}} </div>
+                                            <div class=" d-flex justify-content-center">
+                                                <div class="progress-bar">
+                                                    <div class="progress-2" style="width: {{$checker_task}}%;"></div>
+                                                    <span class="progress-text">{{$checker_task}}%</span>
+                                                </div>
+                                            </div>
+                                            @endif
+                                            @if($checker_status != '-' )
+                                            {!! $checker_status_badge !!}
+                                            @endif
+                                            <!-- @if($is_admin || $is_promoted_admin || ($is_checker && $user->id == $is_checker->user_id)) @endif-->
+                                            @if($is_admin || $is_promoted_admin || ($is_checker && $user->id ==
+                                            $is_checker->user_id) || $is_designer)
+                                            <span class="btn p-2 m-1 checkerchangeemail"
+                                                style="border-radius: 21%; z-index:1060" title="Change Email"
+                                                data-id={{Crypt::encrypt($item->id)}} >
+                                                <i style="padding:3px;" class="fa fa-exchange-alt"></i>
+                                            </span>
+                                            @endif
+
+                                    </td>
+                                    <!-- <td >  {!! $status_badge !!} </td> -->
+                                    <td>
+                                        <div class="center ">
+                                            <div class="image d-flex gap-3">
+
+                                                <div class="image-1">
+                                                    @php
+                                                    $userEmail = auth()->user()->email;
+                                                    $email = '';
+                                                    @endphp
+
+                                                    @if(isset($item->designerAssign) && $userEmail ==
+                                                    $item->designerAssign->email)
+                                                    @php $userEmail = $item->designerAssign->email; @endphp
+                                                    @elseif(isset($item->checkerAssign) && $userEmail ==
+                                                    $item->checkerAssign->email)
+                                                    @php $userEmail = $item->checkerAssign->email; @endphp
+                                                    @endif
+                                                    <a href="{{ route('designer.uploaddesign', Crypt::encrypt($item->id).'/?mail='.$userEmail.'&job=1') }}"
+                                                        target="_blank">
+                                                        <img src="{{asset('images/add.png')}}" alt="" srcset=""
+                                                            title="Upload Design">
+                                                    </a>
+                                                </div>
+                                                <div style="background: {{($item->uploadfile_count > 0 ? 'green' : '#919191ba')}};padding: 4px; border-radius: 4px;width: 23px; height:23px;line-height:14px;margin-top:4px;"
+                                                    class="image-2 uploaddrawinglist cursor-pointer"
+                                                    data-id="{{$item->id}}" data-type="1">
+                                                    <p class="uploaddrawinglist cursor-pointer" data-id="44"
+                                                        data-type="1"
+                                                        style="margin-bottom:0px;font-weight: 400;bottom:3px !important; ">
+                                                        <span style="font-size: 10px; color: #fff;" class="fa fa-eye"
+                                                            title="Upload Drawings"></span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @php
+                                        $designerCertificateTag =
+                                        App\Models\DesignerCertificate::where('temporary_work_id', $item->id)->count();
+                                        $tempWorkUploadFiles =
+                                        App\Models\TempWorkUploadFiles::where('temporary_work_id',
+                                        $item->id)->where('drawing_title', '==' , null)->count();
+                                        // print_r($designerCertificateTag);
+                                        @endphp
+                                        @if($designerCertificateTag > 0 || $tempWorkUploadFiles > 0)
+                                        <div>
+                                            <i class="fa fa-file" style="color: green"></i>
+                                        </div>
                                         @endif
-                                    @endforeach
-                                   
-                                </div>
-                                
-                                <span 
-                                class="btn p-2 m-1 invoiceHistory" 
-                                style="border-radius: 21%; z-index:1060" 
-                                title="Invoice History" 
-                                {{-- data-id={{$item->id}} --}}
-                                data-id={{Crypt::encrypt($item->id)}}
-                                >
-                                    <i style="padding:3px;" class="fa fa-exchange-alt"></i>
-                                </span>
-                                @if(($user->di_designer_id == null || $user->admin_designer == 1) && $user->hasAnyRole(['designer', 'Designer and Design Checker']))
-                                    <span
-                                    class="btn p-2 m-1 moveDesignBrief"
-                                    style="background-color: #07D56426; color:#07D564; border-radius: 10%; padding:6px 20px !important;"
-                                    data-id={{$item->id}}
-                                    >Move</span>
-                                @endif
-                            </td>
-                            </tr>
-                            @empty
-                            @endforelse
-                        </table>
+                                    </td>
+                                    <td>
+                                        <p>{{isset($item->twc_id_no) ? $item->twc_id_no : ''}}</p>
+                                    </td>
+                                    <td>
+                                        <div class="row d-flex flex-column">
+                                            <div class="col d-flex justify-content-center">
+                                                <div class="invoice-btn mt-3">
+                                                    <a href="{{ route('generate_invoice') }}?tempwork_id={{$item->id}}"
+                                                        style="color:white !important;" target="_blank">
+                                                        <span class="fa fa-plus" title="Upload Drawings"> Invoice</span>
+                                                    </a>
+
+                                                </div>
+                                            </div>
+                                            @foreach($item->invoice as $invoiceItem)
+                                            @if(isset($item->invoice))
+                                            @if($invoiceItem->status == 'Unpaid')
+                                            <div class="col d-flex justify-content-center mt-3"> <button type="button"
+                                                    id="{{$invoiceItem->id}}" value="{{$invoiceItem->status}}"
+                                                    class="description edit_designer_details" style="border: none;">
+                                                    Unpaid </button> </div>
+                                            @elseif($invoiceItem->status = 'Paid')
+                                            <div class="col d-flex justify-content-center"> <button type="button"
+                                                    id="{{$invoiceItem->id}}" value="{{$invoiceItem->status}}"
+                                                    class="paid mt-3 edit_designer_details" style="border: none;"> Paid
+                                                </button> </div>
+                                            @endif
+                                            @endif
+                                            @endforeach
+
+                                        </div>
+
+                                        <span class="btn p-2 m-1 invoiceHistory"
+                                            style="border-radius: 21%; z-index:1060" title="Invoice History" {{--
+                                            data-id={{$item->id}} --}}
+                                            data-id={{Crypt::encrypt($item->id)}}
+                                            >
+                                            <i style="padding:3px;" class="fa fa-exchange-alt"></i>
+                                        </span>
+                                        @if(($user->di_designer_id == null || $user->admin_designer == 1) &&
+                                        $user->hasAnyRole(['designer', 'Designer and Design Checker']))
+                                        <span class="btn p-2 m-1 moveDesignBrief"
+                                            style="background-color: #07D56426; color:#07D564; border-radius: 10%; padding:6px 20px !important;"
+                                            data-id={{$item->id}}
+                                            >Move</span>
+                                        @endif
+                                    </td>
+                                </tr>
+                                @empty
+                                @endforelse
+                            </table>
                         </div>
                         <!--begin::Topbar-->
                         <div class="d-flex align-items-stretch flex-shrink-0 topRightMenu">
@@ -1190,11 +1275,13 @@ hr{
                                         data-kt-menu-trigger="click" data-kt-menu-attach="parent"
                                         data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
                                         @if(isset(auth()->user()->userDiCompany->companyProfile->logo))
-                                        <img alt="Logo" src="{{asset(auth()->user()->userDiCompany->companyProfile->logo)}}">
+                                        <img alt="Logo"
+                                            src="{{asset(auth()->user()->userDiCompany->companyProfile->logo)}}">
                                         @elseif(auth()->user()->image)
                                         <img alt="Logo" src="{{ auth()->user()->image ?: '' }}">
                                         @else
-                                        <div class="symbol-label fs-3 bg-light-primary text-primary" style="display:flex !important;">
+                                        <div class="symbol-label fs-3 bg-light-primary text-primary"
+                                            style="display:flex !important;">
                                             {{ \Illuminate\Support\Str::upper(auth()->user()->name[0]) ?: '' }}</div>
                                         @endif
                                     </div>
@@ -1207,11 +1294,13 @@ hr{
                                                 <!--begin::Avatar-->
                                                 <div class="symbol symbol-50px me-5">
                                                     @if(isset(auth()->user()->userDiCompany->companyProfile->logo))
-                                                    <img alt="Logo" src="{{asset(auth()->user()->userDiCompany->companyProfile->logo)}}">
+                                                    <img alt="Logo"
+                                                        src="{{asset(auth()->user()->userDiCompany->companyProfile->logo)}}">
                                                     @elseif(auth()->user()->image)
                                                     <img alt="Logo" src="{{ auth()->user()->image ?? '' }}">
                                                     @else
-                                                    <div class="symbol-label fs-3 bg-light-primary text-primary" style="display:flex !important;">
+                                                    <div class="symbol-label fs-3 bg-light-primary text-primary"
+                                                        style="display:flex !important;">
                                                         {{ auth()->user()->name[0] ?: '' }}</div>
                                                     @endif
                                                 </div>
@@ -1266,7 +1355,7 @@ hr{
                     </div>
                     <!--end::Card header-->
                     <!--begin::Card body-->
-                    
+
                 </div>
                 <br>
                 <div class="col-md-6 d-flex" style="margin-bottom:10px">
@@ -1282,102 +1371,102 @@ hr{
 
 <div class="modal  fade" id="AssignProjectModal" style="width: 100%">
     <div class="modal-dialog modal-lg modal-dialog-centered">
-       <div class="modal-content">
-          <div class="modal-body">
-             <input type="hidden" name="assigned_task" id="assigned_task" />
-       
-          </div>
-       </div>
+        <div class="modal-content">
+            <div class="modal-body">
+                <input type="hidden" name="assigned_task" id="assigned_task" />
+
+            </div>
+        </div>
     </div>
- </div>
- <div class="modal  fade" id="designer_change_email_modal_id" style="width: 100%">
+</div>
+<div class="modal  fade" id="designer_change_email_modal_id" style="width: 100%">
     <div class="modal-dialog modal-dialog-centered mw-1000px">
-       <div class="modal-content">
-          <div class="modal-body">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>S-NO</th>
-                        <th>Description</th>
-                        <th>Email</th>
-                        <th>Type</th>
-                        <!-- <th>Status</th> -->
-                        
-                        <!-- <th>Sent Date</th> -->
-                        <th>Date</th>
-                    </tr>
-                </thead>
-                <tbody id="designer_change_email_history">
-                    
-                </tbody>
-                
-            </table>
-          </div>
-       </div>
+        <div class="modal-content">
+            <div class="modal-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>S-NO</th>
+                            <th>Description</th>
+                            <th>Email</th>
+                            <th>Type</th>
+                            <!-- <th>Status</th> -->
+
+                            <!-- <th>Sent Date</th> -->
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="designer_change_email_history">
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
     </div>
- </div>
- <div class="modal  fade" id="checker_change_email_modal_id" style="width: 100%">
+</div>
+<div class="modal  fade" id="checker_change_email_modal_id" style="width: 100%">
     <div class="modal-dialog modal-dialog-centered mw-1000px">
-       <div class="modal-content">
-          <div class="modal-body">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>S-NO</th>
-                        <th>Description</th>
-                        <th>Email</th>
-                        <th>Type</th>
-                        <!-- <th>Status</th> -->
-                        
-                        <!-- <th>Sent Date</th> -->
-                        <th>Date</th>
-                    </tr>
-                </thead>
-                <tbody id="checker_change_email_history">
-                    
-                </tbody>
-                
-            </table>
-          </div>
-       </div>
+        <div class="modal-content">
+            <div class="modal-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>S-NO</th>
+                            <th>Description</th>
+                            <th>Email</th>
+                            <th>Type</th>
+                            <!-- <th>Status</th> -->
+
+                            <!-- <th>Sent Date</th> -->
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="checker_change_email_history">
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
     </div>
- </div>
-{{-- Invoice history Modal  --}}
- <div class="modal  fade" id="invoice_history_modal" style="width: 100%">
+</div>
+{{-- Invoice history Modal --}}
+<div class="modal  fade" id="invoice_history_modal" style="width: 100%">
     <div class="modal-dialog modal-dialog-centered mw-1000px">
-       <div class="modal-content">
-          <div class="modal-body">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>S-NO</th>
-                        <th>Description</th>
-                        <th>Email</th>
-                        <th>Type</th>
-                        <!-- <th>Status</th> -->
-                        
-                        <!-- <th>Sent Date</th> -->
-                        <th>Date</th>
-                    </tr>
-                </thead>
-                <tbody id="invoice_history_table">
-                    
-                </tbody>
-                
-            </table>
-          </div>
-       </div>
+        <div class="modal-content">
+            <div class="modal-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>S-NO</th>
+                            <th>Description</th>
+                            <th>Email</th>
+                            <th>Type</th>
+                            <!-- <th>Status</th> -->
+
+                            <!-- <th>Sent Date</th> -->
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="invoice_history_table">
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
     </div>
- </div>
+</div>
 
 <div class="modal fade" id="allocationDesignerModal">
-   <div class="modal-dialog modal-dialog-centered" style="min-width:700px;">
-      <div class="modal-content">
-         <div class="modal-body">
-           
-         </div>
-      </div>
-   </div>
+    <div class="modal-dialog modal-dialog-centered" style="min-width:700px;">
+        <div class="modal-content">
+            <div class="modal-body">
+
+            </div>
+        </div>
+    </div>
 </div>
 
 @include('dashboard.modals.change-emails-modal')
@@ -1606,9 +1695,9 @@ hr{
     
        
         
-    </script>
-    <script>
-        // const asideContainer = document.querySelector('.aside-fixed .aside');
+</script>
+<script>
+    // const asideContainer = document.querySelector('.aside-fixed .aside');
 
             function hideCheck3() {
             document.getElementById("check2").style.display = "block";

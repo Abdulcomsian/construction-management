@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\InvoiceCron::class
+        Commands\InvoiceCron::class,
+        Commands\ExtraPriceReminderCron::class
     ];
 
     /**
@@ -25,6 +26,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('invoice:cron')->everyMinute();
+        $schedule->command('Extra:Price')->everyMinute();
     }
 
     /**

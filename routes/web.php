@@ -15,10 +15,10 @@ use App\Http\Controllers\AdminSupplierController;
 use App\Http\Controllers\ExternalDesignerController;
 use Illuminate\Support\Facades\Artisan;
 use App\Models\TemporaryWork;
-use App\Models\ExtraPrice;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Notification;
-use App\Notifications\ThreeDayReminderExtraPrice;
+// use App\Models\ExtraPrice;
+// use Carbon\Carbon;
+// use Illuminate\Support\Facades\Notification;
+// use App\Notifications\ThreeDayReminderExtraPrice;
 use Illuminate\Support\Facades\Route;
 use  Meneses\LaravelMpdf\Facades\LaravelMpdf as PDF;
 
@@ -408,16 +408,16 @@ Route::get("/test" , function(){
 
 Route::get('get-report' , [TemporaryWorkController::class , 'getReportsData'])->name('get-report');
 
-Route::get('cron_test', function(){
-    $extraPrice = ExtraPrice::where('status', 0)->get();
-    foreach($extraPrice as $price){
-        $todayDate = Carbon::parse(date('Y-m-d'));
-        $created_at = Carbon::parse(date('Y-m-d', strtotime($price->created_at)));
-        $differnce = $todayDate->diffInDays($created_at);
-        if($differnce == 3){
-            $clientData = TemporaryWork::where('id', $price->temporary_work_id)->first();
-            Notification::route('mail', $clientData['client_email'])->notify(new ThreeDayReminderExtraPrice());
-            echo "Email Sent";
-        }
-    }
-});
+// Route::get('cron_test', function(){
+//     $extraPrice = ExtraPrice::where('status', 0)->get();
+//     foreach($extraPrice as $price){
+//         $todayDate = Carbon::parse(date('Y-m-d'));
+//         $created_at = Carbon::parse(date('Y-m-d', strtotime($price->created_at)));
+//         $differnce = $todayDate->diffInDays($created_at);
+//         if($differnce == 3){
+//             $clientData = TemporaryWork::where('id', $price->temporary_work_id)->first();
+//             Notification::route('mail', $clientData['client_email'])->notify(new ThreeDayReminderExtraPrice());
+//             echo "Email Sent";
+//         }
+//     }
+// });

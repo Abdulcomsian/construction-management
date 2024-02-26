@@ -3011,7 +3011,7 @@ class TemporaryWorkController extends Controller
         //  }
         if (isset($request->type)) {
             $permited = PermitLoad::with('blocks')->where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->where('status','!=',7)->where('status','!=',9)->latest()->get();
-             $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->latest()->get();
+            $scaffold = Scaffolding::where(['temporary_work_id' => $tempid])->where('status','!=',4)->where('status','!=',0)->latest()->get();
           }else{
             
               $permited = PermitLoad::with('blocks')->where(['temporary_work_id' => $tempid])->where('status','!=',3)->where('status','!=',6)->latest()->get();

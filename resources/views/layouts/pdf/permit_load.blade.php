@@ -37,7 +37,7 @@
                 <img src="{{public_path($logodata->image  ?? '')}}" width="auto" height="80px" />
                 @else --}}
                <!--  <img src="{{public_path('uploads/logo/ctw-02-2.png')}}" width="80px" height="80px" /> -->
-                @endif
+                {{-- @endif --}}
             </div>
         </div>
         <!-- <br> -->

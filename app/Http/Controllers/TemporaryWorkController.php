@@ -1456,7 +1456,12 @@ class TemporaryWorkController extends Controller
                 
                 $twc_id_no = $request->twc_id_no.'-'.$count;
                 //work for pdf
-                $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $request->all(),'name_signature'=>$image_name,'signature_type'=>$signature_type, 'image_name' => $temporaryWork->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $twc_id_no, 'comments' => $attachcomments, "description" => $content,'image_name3' => $image_name3, 'image_name4' => $image_name4, 'image_name5' => $image_name5, 'company3' => $request->company3, 'company4' => $request->company4, 'company5' => $request->company5, 'date3'=>$request->date3, 'date4'=>$request->date4, 'date5'=>$request->date5]);
+                if ($request->file('photo')) {
+                    $other_photo = $imagename;
+                }else{
+                    $other_photo = NULL;
+                }
+                $pdf = PDF::loadView('layouts.pdf.design_breif', ['data' => $request->all(), 'other_photo'=>$other_photo, 'name_signature'=>$image_name,'signature_type'=>$signature_type, 'image_name' => $temporaryWork->id, 'scopdesg' => $scope_of_design, 'folderattac' => $folder_attachements, 'folderattac1' =>  $folder_attachements_pdf, 'imagelinks' => $image_links, 'twc_id_no' => $twc_id_no, 'comments' => $attachcomments, "description" => $content,'image_name3' => $image_name3, 'image_name4' => $image_name4, 'image_name5' => $image_name5, 'company3' => $request->company3, 'company4' => $request->company4, 'company5' => $request->company5, 'date3'=>$request->date3, 'date4'=>$request->date4, 'date5'=>$request->date5]);
                 $path = public_path('pdf');
                 // if (isset($request->approval)) {
                 //     @unlink($path . '/' . $temporaryWork->ped_url);

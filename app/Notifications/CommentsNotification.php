@@ -27,7 +27,7 @@ class CommentsNotification extends Notification
     protected $attachment;
     protected $designertotwc;
     // private $client_email;
-    public function __construct($comment,$type,$tempid,$mail=null,$scan=null,$code=null,$cc_emails='',$attachment='',$designertotwc = '')
+    public function __construct($comment,$type,$tempid,$mail=null,$scan=null,$code=null,$cc_emails='',$attachment,$designertotwc = '')
     {
         
         $this->comment=$comment;
@@ -112,16 +112,17 @@ class CommentsNotification extends Notification
         $send_mail =  (new MailMessage)
         ->greeting('Comments Notification')
         ->subject($subject)
+        ->attach(asset($this->attachment))
         ->view('mail.designertotwc-commentsmail',['comment'=>$this->comment,'type'=>$this->type,'tempid'=>$this->tempid,'email'=>$this->email,'twc_id_no'=>$twc_id_no,'scan'=>$this->scan,'company'=>$company,'code'=>$this->code,]);
        }else{
-        $send_mail =  (new MailMessage)
-        ->greeting('Comments Notification')
-        ->subject($subject)
-        ->view('mail.commentsmail',['comment'=>$this->comment,'type'=>$this->type,'tempid'=>$this->tempid,'email'=>$this->email,'twc_id_no'=>$twc_id_no,'scan'=>$this->scan,'company'=>$company,'code'=>$this->code,]);
-       }
+           $send_mail =  (new MailMessage)
+           ->greeting('Comments Notification')
+           ->subject($subject)
+           ->view('mail.commentsmail',['comment'=>$this->comment,'type'=>$this->type,'tempid'=>$this->tempid,'email'=>$this->email,'twc_id_no'=>$twc_id_no,'scan'=>$this->scan,'company'=>$company,'code'=>$this->code,]);
+        }
             if($this->attachment)
             {
-                $send_mail ->attach(public_path($this->attachment));
+                $send_mail->attach(public_path($this->attachment));
             }
           
             if ($this->cc_emails)

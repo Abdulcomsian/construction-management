@@ -542,7 +542,7 @@
                                             @php
                                             if(isset($cments->image)){
                                             @endphp
-                                            <a href="{{$path}}{{$cments->image}}">View File</a>
+                                            <a href="{{asset($cments->image)}}" target="_blank">View File</a>
                                             @php
                                             }
                                             @endphp

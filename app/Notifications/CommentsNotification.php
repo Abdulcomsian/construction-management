@@ -27,7 +27,7 @@ class CommentsNotification extends Notification
     protected $attachment;
     protected $designertotwc;
     // private $client_email;
-    public function __construct($comment,$type,$tempid,$mail=null,$scan=null,$code=null,$cc_emails='',$attachment,$designertotwc = '')
+    public function __construct($comment,$type,$tempid,$mail=null,$scan=null,$code=null,$cc_emails='',$attachment='',$designertotwc = '')
     {
         
         $this->comment=$comment;

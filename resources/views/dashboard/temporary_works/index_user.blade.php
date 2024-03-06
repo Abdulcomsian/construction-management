@@ -286,7 +286,7 @@ border-radius: 8px;
                                    <!--  <td></td> -->
                                     <td style="">
                                         @foreach($item->uploadfile as $file)
-                                          @if($file->file_type==2)
+                                          @if(isset($file->created_at) && $file->file_type==2)
                                            <p  class="dateclick cursor-pointer" data-id="{{$item->id}}" data-type="2">{{date('d-m-Y', strtotime($file->created_at->todatestring()))}}</p>
                                             @break
                                           @endif

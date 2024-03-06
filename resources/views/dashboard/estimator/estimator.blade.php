@@ -180,6 +180,17 @@
         cursor: pointer;
     }
 
+    .rectangle-blink{
+        /* height: 25px;
+        width: 25px; */
+        /* border-radius: 50%; */
+        background-color: rgb(255, 30, 0);
+        animation: blink 1s infinite;
+        margin: auto;
+        cursor: pointer;
+        color: white;
+    }
+
     @keyframes blink {
       50% {
         opacity: 0;
@@ -319,7 +330,7 @@
                                     </td>
                                     <td style="text-transform: capitalize;">
                                         @if($work->work_status == 'pending')
-                                            {{ $work->work_status }}(Rejected)                                            
+                                            <p class="rectangle-blink">{{ $work->work_status }}(Rejected)</p>                                            
                                         @else
                                             {{ $work->work_status }}
                                         @endif

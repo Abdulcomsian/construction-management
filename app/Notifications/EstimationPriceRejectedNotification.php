@@ -46,7 +46,7 @@ class EstimationPriceRejectedNotification extends Notification
         $mailMessage = new MailMessage;
 
         if ($this->editRoute->work_status === 'pending') {
-            $mailMessage->subject($this->editRoute->projno . (!empty($this->editRoute->projno) && !empty($this->editRoute->projname)) ? ' | ' : ''. $this->editRoute->projname . ' Rejected')->line('Your pricing is rejected by the client.Please update the prices.')
+            $mailMessage->subject($this->editRoute->projno . (!empty($this->editRoute->projno) && !empty($this->editRoute->projname)) ? ' | ' : ''. $this->editRoute->projname . ' Rejected')->line('Your pricing is rejected by the client.Please review the pricing.')
                 ->line($this->text)
                 ->action('Link', route('edit_estimation', $this->editRoute->id));
         } elseif ($this->editRoute->work_status === 'publish') {

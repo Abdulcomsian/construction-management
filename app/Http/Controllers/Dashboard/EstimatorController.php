@@ -1516,8 +1516,14 @@ class EstimatorController extends Controller
    public function getAdditionalInformation(Request $request){
         try{
             $tempId = $request->id;
-            $tempWork =TemporaryWork::with(['AdditionalInformation.jobComment' => function ($query) {
-                $query->orderByDesc('created_at');
+            // $tempWork =TemporaryWork::with(['AdditionalInformation.jobComment' => function ($query) {
+            //     $query->orderByDesc('created_at');
+            // }])->where('id', $tempId)->first();
+
+            $tempWork =TemporaryWork::with(['AdditionalInformation' => function ($query) {
+                $query->with(['jobComment' => function($query1){
+                    $query1->orderByDesc('created_at');
+                }])->where('status' , 'additional_text');
             }])->where('id', $tempId)->first();
 
             $html = $tempWork->AdditionalInformation ?  view('components.additional-information' , ['tempWorks' => $tempWork])->render() : "No Additional Information Added";

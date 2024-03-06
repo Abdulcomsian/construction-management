@@ -3736,7 +3736,6 @@ class DesignerController extends Controller
                 $file = $folderPath . $image_name;
                 file_put_contents($file, $image_base64);
             }
-        }
 
         // Getting the existing pdf
         $existingPDF = TemporaryWork::select('ped_url')->where('id', $request->temporary_work_id)->first();
@@ -3761,6 +3760,7 @@ class DesignerController extends Controller
         $pdf->save($path . '/' . $fileName);
 
         $updatingPath = TemporaryWork::where('id', $request->temporary_work_id)->update(['ped_url' => $fileName]);
+        }
         // $image_name = HelperFunctions::savesignature($request);
         $temporary_work->signature = $image_name;
         $status = 'draft';
@@ -3770,13 +3770,22 @@ class DesignerController extends Controller
         } else{
             $status = 'pending';
             $designBriefStatus = 1;
+
+            // adding rejected comment message into additional Information table
+            $additionalInformation  = new AdditionalInformation();
+            $additionalInformation->temporary_work_id = $request->temporary_work_id;
+            $additionalInformation->more_details = $request->payment_note;
+            $additionalInformation->status = "reject_text";
+            $additionalInformation->save();
         }
         // dd($designBriefStatus);
         $temporary_work->work_status = $status;
         $temporary_work->approve_design_brief = $designBriefStatus;
         $temporary_work->save();
-        $note = $request->payment_note;       
+
         
+
+        $note = $request->payment_note;
         if($temporary_work->work_status == 'pending'){
             Notification::route('mail', $temporary_work->admin_designer_email)->notify(new EstimationPriceRejectedNotification($note,$temporary_work));
         } else{

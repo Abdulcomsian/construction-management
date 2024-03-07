@@ -19,7 +19,7 @@ use App\Models\ScopeOfDesign;
 use App\Models\Folder;
 use App\Models\AttachSpeComment;
 use App\Models\PermitLoadRejected;
-use App\Models\{TemporayWorkImage, Project,DesignerQuotation,EstimatorDesignerList,AdditionalInformation, DesignerCertificate, JobAssign, Tag, EmailExtra, ExternalDesignerSupplier};
+use App\Models\{TemporayWorkImage, Project,DesignerQuotation,EstimatorDesignerList,AdditionalInformation, DesignerCertificate, JobAssign, Tag, EmailExtra, ExternalDesignerSupplier, JobComments};
 use App\Models\DesignerCompanyEmail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Crypt;
@@ -3774,9 +3774,15 @@ class DesignerController extends Controller
             // adding rejected comment message into additional Information table
             $additionalInformation  = new AdditionalInformation();
             $additionalInformation->temporary_work_id = $request->temporary_work_id;
-            $additionalInformation->more_details = $request->payment_note;
+            $additionalInformation->more_details = "";
             $additionalInformation->status = "reject_text";
             $additionalInformation->save();
+
+            $jobComment = new JobComments();
+            $jobComment->additional_information_id = $additionalInformation->id;
+            $jobComment->comment = $request->payment_note;
+            $jobComment->notified = "5"; // 5 means its rejected text
+            $jobComment->save();
         }
         // dd($designBriefStatus);
         $temporary_work->work_status = $status;

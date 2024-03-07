@@ -19,6 +19,11 @@ class AdditionalInformation extends Model
         return $this->hasMany(JobComments::class , "additional_information_id" , "id");
     }
 
+    public function jobCommentCount()
+    {
+        return $this->hasMany(JobComments::class , "additional_information_id" , "id")->where('notified', '!=', '5'); // here am excluding the rejected text comments
+    }
+
     public function unreadComment()
     {
         return $this->hasMany(JobComments::class , "additional_information_id" , "id")->where('notified' , 0);

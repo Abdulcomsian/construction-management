@@ -320,14 +320,18 @@
                                     @php $count = 0; @endphp
                                     @foreach($estimatorWork as $row)
                                     @php 
-                                    $count++; 
+                                    $count++;
                                     // $btn_style = $row->additionalInformation ? 'blink' : ''
-                                    // $btn_class = '';
-                                    // if($row->additionalInformation){
-                                    //     if($row->additionalInformation->jobComment->count() == 0){
-                                    //         $btn_class = 'blink';
-                                    //     }
-                                    // }
+                                    $btn_class = '';
+                                    if($row->additionalInformation){
+                                        // if($row->additionalInformation->jobComment->count() == 0){
+                                        //     $btn_class = 'blink';
+                                        // }
+
+                                        if($row->additionalInformation->jobCommentCount->count() > 0){
+                                            $btn_class = 'blink';
+                                        }
+                                    }
 
                                     $btn_pricing_class = '';
                                     if($row->work_status == 'draft'){
@@ -365,7 +369,7 @@
                                         </td>
                                         <td style="width: 30%;">
                                             {{-- data-bs-target="#modal1" --}}
-                                            <button onclick="showAdditionalInformation({{$row->id}})" class="btn" style="border: 1px solid #07d564; border-radius: 5px; margin-right: 15px" data-bs-toggle="modal">Additional Information</button>
+                                            <button onclick="showAdditionalInformation({{$row->id}})" class="btn {{$btn_class}}" style="border: 1px solid #07d564; border-radius: 5px; margin-right: 15px" data-bs-toggle="modal">Additional Information</button>
                                             {{-- <button onclick="showAdditionalInformation({{$row->id}})" class="btn" style="border: 1px solid #07d564; border-radius: 5px; margin-right:15px" data-bs-toggle="modal">Additional Information </button> --}}
                                            
                                             <a target="_blank" href="{{route('client_edit_estimation', $row->id)}}" class="btn" style="border: 1px solid #07d564; border-radius: 5px">Edit Job</a>

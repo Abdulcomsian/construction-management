@@ -3660,7 +3660,7 @@ class DesignerController extends Controller
                 Notification::route('mail', $list)->notify(new EstimationClientNotification($notify_msg, $temporary_work->id, $list,$informationRequired,$additionalInformation,$mainFile,'Designer'));
                 
             toastSuccess("Data updated successfully!");
-            return Redirect::back();
+            return redirect()->route('estimator_list');
             }
         } catch (\Exception $exception) {
             toastError($exception->getMessage());

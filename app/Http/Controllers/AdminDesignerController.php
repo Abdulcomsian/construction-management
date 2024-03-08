@@ -12,6 +12,7 @@ use App\Notifications\AdminDesignerNotification;
 use App\Notifications\PasswordResetNotification;
 use App\Notifications\AdminDesignerNomination;
 use App\Notifications\notifyDesignChecker;
+use App\Notifications\AddExtraPriceNotification;
 use App\Notifications\AdminDesignerAppointmentNotification;
 use App\Notifications\InvoiceNotification;
 use App\Models\{Nomination,NominationExperience,NominationCompetence,
@@ -1630,6 +1631,10 @@ class AdminDesignerController extends Controller
             $extraPrice->description = $request->description;
             $extraPrice->adminDesigner_id = $adminDesigner_id;
             if($extraPrice->save()){
+                // sending email to the client
+                $temporaryWorkData = TemporaryWork::where('id', $request->temporary_work_id)->first();
+                $clientEmail = $temporaryWorkData->client_email;
+                Notification::route("mail", $clientEmail)->notify(new AddExtraPriceNotification($request->temporary_work_id, $clientEmail, 'Designer'));
                 toastSuccess("Extra price added");
                 return Redirect::back();
             }

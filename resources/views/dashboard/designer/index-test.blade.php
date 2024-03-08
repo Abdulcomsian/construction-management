@@ -320,17 +320,22 @@
                                     @php $count = 0; @endphp
                                     @foreach($estimatorWork as $row)
                                     @php 
-                                    $count++;
+                                    $count++; 
                                     // $btn_style = $row->additionalInformation ? 'blink' : ''
                                     $btn_class = '';
                                     if($row->additionalInformation){
-                                        // if($row->additionalInformation->jobComment->count() == 0){
-                                        //     $btn_class = 'blink';
-                                        // }
-
-                                        if($row->additionalInformation->jobCommentCount->count() > 0){
+                                        if($row->additionalInformation->jobComment->count() == 0){
                                             $btn_class = 'blink';
                                         }
+                                    }
+
+                                    $approve_design_brief_button = '';
+                                    if($row->approve_design_brief == '0'){
+                                        $approve_design_brief_button = 'blink';
+                                    }elseif($row->approve_design_brief == '1'){
+                                        $approve_design_brief_button = 'red';
+                                    }elseif($row->approve_design_brief == '2'){
+                                        $approve_design_brief_button = 'green';
                                     }
 
                                     $btn_pricing_class = '';
@@ -380,7 +385,7 @@
                                         </td>
                                         @if($row->work_status == 'publish' && $row->estimator == 1)
                                             <td>
-                                                <button onclick="showApproveDesignBriefModal({{$row->id}})" class="btn" style="border: 1px solid #07d564; border-radius: 5px" id="approve_design_brief">Approve Design Brief</button>
+                                                <button onclick="showApproveDesignBriefModal({{$row->id}})" class="btn {{$approve_design_brief_button}}" style="border: 1px solid #07d564; border-radius: 5px" id="approve_design_brief">Approve Design Brief</button>
                                             </td>
                                         @endif
                                     </tr>
@@ -453,6 +458,28 @@
     @section('scripts')
     <script type="text/javascript">
 
+    // Updating pricing status when client reject or approve new pricing
+     $(document).on("change", "#changeStatusValue", function(e){
+        // e.preventDefault();
+        let pricingId = $(this).attr("data");
+        let tempId = $("#temp_id").val();
+        let status = $(this).find(':selected').val();
+        var CSRF_TOKEN = '{{ csrf_token() }}';
+            $.post("{{route('change.status.client')}}", {
+                _token: CSRF_TOKEN,
+                temporary_work_id: tempId,
+                changeStatus: status,
+                extra_price_id: pricingId,
+            }).done(function(res) {
+                console.log(res);
+                if(res.status === true){
+                    toastr.success(res.msg);
+                    window.location.reload();
+                }else{
+                    toastr.danger(res.error_message);
+                }
+            });
+        });
         @if (\Session::has('success'))
             toastr.success("{{\Session::get('success')}}")
         @endif

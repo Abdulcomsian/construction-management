@@ -33,8 +33,6 @@
                     <h3>Additional Pricing</h3>
                     <!--end::Title-asd -->
                 </div>
-                <form action="{{ route('change.status.client') }}" method="POST">
-                    @csrf
                     <table class="table drawing_infoTable" style="border-collapse: collapse;background: none;">
                         <thead>
                             <tr style="padding-left: 10px;">
@@ -56,9 +54,17 @@
                                         <td>£{{ $pricing->price }}</td>
                                         <td>{{ $pricing->description }}</td>
                                         @if($pricing->status == '2')
-                                        <td>Approved</td>
+                                        <td class="d-flex justify-content-center"><p class="green" style="color: white; border-radius: 10%; width: 50%; margin-bottom: 0px;">Approved</p></td>
+                                        @elseif($pricing->status == '1')
+                                        <td class="d-flex justify-content-center"><p class="red" style="color: white; border-radius: 10%; width: 50%; margin-bottom: 0px;">Rejected</p></td>
                                         @else
-                                        <td><input type="checkbox" id="status_check" name="status_check"></td>                                    
+                                        <td>
+                                            <select class="form-control" name="pricing_status" id="changeStatusValue" data="{{$pricing->id}}">
+                                                <option value="">New to approve</option>
+                                                <option value="approve">Approve Pricing</option>
+                                                <option value="reject">Reject Pricing</option>
+                                            </select>
+                                        </td>
                                         @endif
                                     </tr>
                                     @php
@@ -69,8 +75,6 @@
 
                         </tbody>
                     </table>
-                    <button type="submit" class="btn btn-primary" id="status_button" style="float: right;" disabled>Approve</button>
-                </form>
             </div>
             <!--end::Modal body-->
         </div>
@@ -78,13 +82,3 @@
     </div>
     <!--end::Modal dialog-->
 </div>
-<script>
-    var checkbox = document.getElementById('status_check');
-    checkbox.addEventListener('click', function() {
-        if (this.checked) {
-            document.getElementById('status_button').disabled = false;
-        } else {
-            document.getElementById('status_button').disabled = true;
-        }
-    });
-</script>

@@ -2012,7 +2012,7 @@ class TemporaryWorkController extends Controller
             $comment->reply_date = array(Carbon::now());
             $comment->user_id = Auth::user()->id ?? '';
             $comment->type = "client";
-            $comment->status = 1;
+            $comment->status = "2";
             $comment->sender_email = Auth::user()->email ?? '';
             $comment->sender_name = Auth::user()->name ?? '';
             if($comment->save()){

@@ -867,7 +867,7 @@ $tempWorkClass = "d-none";
                                             $drawingscount=0;
                                             $color="green";
                                             $class='';
-                                            // dd($item->commentlist[0]['status']);
+                                            // dd($item->commentlist);
                                             if(isset($item->commentlist[0]['status']) && $item->commentlist[0]['status']
                                             == 2)
                                             {

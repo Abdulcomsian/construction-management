@@ -9,13 +9,15 @@
 <tbody>
     @if($temporary_work['work_status'] == 'publish')
     <h5>Pricing Approved</h5>
+    @elseif($temporary_work['work_status'] == 'pending')
+    <h5>Pricing Rejected</h5>
     @endif
     @foreach($temporary_work->designerQuote as $item)
-    <tr style="background: {{$background ?? ''}}  !important">
-        <td>£{{$item->price}}</td>
-        <td>{{$item->description}}</td>
-        <td>{{date("d-m-Y", strtotime($item->date))}}</td>
-    </tr>
+        <tr style="background: {{$background ?? ''}}  !important">
+            <td>£{{$item->price}}</td>
+            <td>{{$item->description}}</td>
+            <td>{{date("d-m-Y", strtotime($item->date))}}</td>
+        </tr>
     @endforeach
 </tbody>
 </table>

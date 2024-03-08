@@ -1370,23 +1370,25 @@ class EstimatorController extends Controller
     }
 
     public function changeStatus(Request $request){
-        // dd($request->all());
         try{
             $tempWork_id = $request->temporary_work_id;
-            $statusCheck = $request->status_check;
+            $changeStatus = $request->changeStatus;
+            $pricingId = $request->extra_price_id;
             $status = '';
-            if($statusCheck == 'on'){
-                $status = 2;
+            if($changeStatus == 'approve'){
+                $status = 2; // means approved
+            }elseif($changeStatus == 'reject'){
+                $status = 1; // means rejected
             }
 
-            $extraPricing = ExtraPrice::where('temporary_work_id', $tempWork_id)->update([
+            $extraPricing = ExtraPrice::where('id', $pricingId)->where('temporary_work_id', $tempWork_id)->update([
                 'status' => $status
             ]);
-
-            toastSuccess('Pricing Approved');
-            return Redirect::back();
+            if($extraPricing){
+                return response()->json(["status" => true, "msg"=>"Pricing Updated Successfully"], 200);
+            }
         }catch(\Exception $e){
-            dd($e->getMessage(), $e->getLine());
+            return response()->json(["status"=>false, "error_message"=>$e->getMessage()], 400);
         }
     }
     //save designer quotation from designer side

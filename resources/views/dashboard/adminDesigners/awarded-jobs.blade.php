@@ -820,7 +820,7 @@ $tempWorkClass = "d-none";
                                         foreach ($extraPriceRejected as $extraPrice) {
                                         $price = $extraPrice->price;
                                         $color = 'red';
-                                        echo "<p class='extra-price $color' style='color:black;'> £$price </p>";
+                                        echo "<p class='extra-price $color showClientComment' data-id='$extraPrice->id' style='color:black;'> £$price </p>";
                                         }
                                         }
 
@@ -831,7 +831,7 @@ $tempWorkClass = "d-none";
                                         foreach ($extraPriceAccepted as $extraPrice) {
                                         $price = $extraPrice->price;
                                         $color = 'green';
-                                        echo "<p class='extra-price $color' style='color:black;'>£$price </p>";
+                                        echo "<p class='extra-price $color showClientComment' data-id='$extraPrice->id' style='color:black;'>£$price </p>";
                                         }
                                         }
                                         @endphp
@@ -1099,7 +1099,7 @@ $tempWorkClass = "d-none";
                                         @endphp
                                         @if($designerCertificateTag > 0 || $tempWorkUploadFiles > 0)
                                         <div>
-                                            <i class="fa fa-file" style="color: green"></i>
+                                            <a href="{{ route('designer.uploaddesign', Crypt::encrypt($item->id).'/?mail='.$userEmail.'&job=1&cert') }}" target="_blank"><i class="fa fa-file" style="color: green"></i></a>
                                         </div>
                                         @endif
                                     </td>
@@ -1478,9 +1478,27 @@ $tempWorkClass = "d-none";
 @include('dashboard.modals.change_payment_status')
 @include('dashboard.modals.extra_price')
 @include('dashboard.modals.movingDesignBrief')
+@include('dashboard.modals.showClientComment')
 @endsection
 @section('scripts')
 <script type="text/javascript">
+$(document).on("click", ".showClientComment", function(){
+    let pricingId = $(this).attr('data-id');
+    $.ajax({
+           url: "{{route('get.client.comment')}}",
+           method: "POST",
+           data: {
+                _token: '{{csrf_token()}}',
+               pricingId: pricingId,
+           },
+           success: function(res) {
+               console.log(res.clientComment);
+               let clientComment = res.clientComment;
+               $('#clientCommentPrice').val(clientComment.client_comment !== null ? clientComment.client_comment : "No comment added by the client");
+               $('#show_client_comment').modal('show');
+           }
+       });
+});
     let role = "{{ \Auth::user()->roles->pluck('name')[0] }}";
    $(".addcomment").on('click', function() {
        if (role == 'supervisor' || role == "scaffolder" || role == "visitor") {

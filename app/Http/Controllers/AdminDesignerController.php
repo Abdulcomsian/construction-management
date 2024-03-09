@@ -1610,6 +1610,15 @@ class AdminDesignerController extends Controller
             dd($e->getMessage(), $e->getLine());
         }
     }
+
+    public function getPricingComment(Request $request){
+        $clientComment = ExtraPrice::where('id', $request->pricingId)->first();
+        if(isset($clientComment)){
+            return response()->json(['clientComment' => $clientComment, "status"=>true], 200);
+        }else{
+            return response()->json(["msg"=> "No pricing found", "status"=>false], 400);
+        }
+    }
     public function invoices(){
         $user = Auth::user();
         $invoices = Invoice::where('admindesigner_id',Auth::id())->paginate(10);

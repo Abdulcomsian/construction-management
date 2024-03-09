@@ -1370,10 +1370,12 @@ class EstimatorController extends Controller
     }
 
     public function changeStatus(Request $request){
+        // dd($request->all());
         try{
             $tempWork_id = $request->temporary_work_id;
             $changeStatus = $request->changeStatus;
             $pricingId = $request->extra_price_id;
+            $clientComment = $request->clientComment;
             $status = '';
             if($changeStatus == 'approve'){
                 $status = 2; // means approved
@@ -1382,7 +1384,8 @@ class EstimatorController extends Controller
             }
 
             $extraPricing = ExtraPrice::where('id', $pricingId)->where('temporary_work_id', $tempWork_id)->update([
-                'status' => $status
+                'status' => $status,
+                'client_comment' => $clientComment,
             ]);
             if($extraPricing){
                 return response()->json(["status" => true, "msg"=>"Pricing Updated Successfully"], 200);

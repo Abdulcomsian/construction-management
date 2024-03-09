@@ -1,6 +1,6 @@
 <div class="modal fade" id="show_additional_pricing_modal" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
-    <div class="modal-dialog modal-dialog-centered mw-650px" style="max-width:650px !important">
+    <div class="modal-dialog modal-dialog-centered mw-650px" style="max-width:750px !important">
         <!--begin::Modal content-->
         <div class="modal-content rounded">
             <!--begin::Modal header-->
@@ -39,6 +39,7 @@
                                 <th>No</th>
                                 <th>Price</th>
                                 <th>Description</th>
+                                <th>Comment</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -53,6 +54,9 @@
                                         <td>{{ $i }}</td>
                                         <td>£{{ $pricing->price }}</td>
                                         <td>{{ $pricing->description }}</td>
+                                        <td>
+                                            <textarea name="client_comment" id="clientComment" cols="20" rows="5" placeholder="Please enter your reason why you will approve or reject this pricing"></textarea>
+                                        </td>
                                         @if($pricing->status == '2')
                                         <td class="d-flex justify-content-center"><p class="green" style="color: white; border-radius: 10%; width: 50%; margin-bottom: 0px;">Approved</p></td>
                                         @elseif($pricing->status == '1')

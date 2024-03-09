@@ -464,12 +464,14 @@
         let pricingId = $(this).attr("data");
         let tempId = $("#temp_id").val();
         let status = $(this).find(':selected').val();
+        let clientComment = $('#clientComment').val();
         var CSRF_TOKEN = '{{ csrf_token() }}';
             $.post("{{route('change.status.client')}}", {
                 _token: CSRF_TOKEN,
                 temporary_work_id: tempId,
                 changeStatus: status,
                 extra_price_id: pricingId,
+                clientComment: clientComment,
             }).done(function(res) {
                 console.log(res);
                 if(res.status === true){

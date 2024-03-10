@@ -53,10 +53,17 @@
                                     <tr>
                                         <td>{{ $i }}</td>
                                         <td>£{{ $pricing->price }}</td>
-                                        <td>{{ $pricing->description }}</td>
-                                        <td>
-                                            <textarea name="client_comment" id="clientComment" cols="20" rows="5" placeholder="Please enter your reason why you will approve or reject this pricing"></textarea>
+                                        <td style="text-wrap: wrap;">{{ $pricing->description }}</td>
+                                        @if($pricing->client_comment !== null)
+                                        <td style="text-wrap: wrap;">
+                                            {{$pricing->client_comment}}
                                         </td>
+                                        @else
+                                        <td>
+                                            <textarea name="client_comment" id="clientPricingComment" cols="20" rows="5" placeholder="Please enter your reason why you will approve or reject this pricing" required></textarea>
+                                        </td>
+                                        @endif
+                                        
                                         @if($pricing->status == '2')
                                         <td class="d-flex justify-content-center"><p class="green" style="color: white; border-radius: 10%; width: 50%; margin-bottom: 0px;">Approved</p></td>
                                         @elseif($pricing->status == '1')

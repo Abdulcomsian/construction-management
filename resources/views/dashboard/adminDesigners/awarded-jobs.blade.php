@@ -867,17 +867,11 @@ $tempWorkClass = "d-none";
                                             $drawingscount=0;
                                             $color="green";
                                             $class='';
-                                            // dd($item->commentlist);
-                                            if(isset($item->commentlist[0]['status']) && $item->commentlist[0]['status']
-                                            == 2)
-                                            {
-                                            $color="red";
-                                            $class='redBgBlink';
-                                            // if(count($item->reply) == count($item->commentlist))
-                                            // {
-                                            // $color="blue";
-                                            // $class='';
-                                            // }
+                                            foreach ($item->commentlist as $comment) {
+                                                if(isset($comment->status) && $comment->status == 2){
+                                                    $color = "red";
+                                                    $class = "redBgBlink";
+                                                }
                                             }
                                             @endphp
                                             <div class="col d-flex justify-content-center">

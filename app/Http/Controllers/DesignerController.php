@@ -33,6 +33,7 @@ use App\Notifications\DrawingCommentNotification;
 use App\Notifications\EstimatorNotification;
 use App\Notifications\EstimationClientNotification;
 use App\Notifications\EstimationPriceRejectedNotification;
+use App\Notifications\AdminDesignerCertificateNotification;
 // use App\Notifications\TemporaryWorkNotification;
 use App\Utils\Validations;
 use Illuminate\Support\Facades\Hash;
@@ -4565,6 +4566,7 @@ class DesignerController extends Controller
 
     public function certificateStore(Request $request)
     {
+        dd($request->all());
         try {
                 $image_name = '';
                 if ($request->signtype == 1) {
@@ -4687,6 +4689,11 @@ class DesignerController extends Controller
                 // }
                 // return response()->download($path . '/' . $filename, 'pdf.pdf', $headers);
                 // Notification::route('mail',  $createdby->email ?? '')->notify(new DesignUpload($notify_admins_msg));
+
+                // Sending emails to the selected emails
+                foreach($request->emails as $email){
+                    Notification::route("mail", $email)->notify(new AdminDesignerCertificateNotification($pdfLink));
+                }
                 return redirect()->back();
                 toastSuccess('Designer Uploaded Successfully!');
                 return Redirect::back();

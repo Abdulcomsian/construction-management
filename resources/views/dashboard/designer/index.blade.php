@@ -1032,6 +1032,38 @@
                                     </div>
                                 </div> --}}
                                 
+                                <div class="row" style="background:white;margin: 0 4px;">
+                                    <div class="col-md-12">
+                                        <div class=" inputDiv d-block">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                <span class="required">Send Email:</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            {{-- <select class="form-control"> --}}
+                                            <select name="emails[]" class="form-select form-select-lg" multiple="multiple" data-control="select2" data-placeholder="Select an option" >
+                                                <option value="" >Select Email</option>
+                                                <option value="{{$client_email}}">Client ({{$client_email}})</option>
+                                                {{-- @if($user->di_designer_id != null) --}}
+                                                    @if($admin_designer_option)
+                                                    <option value="{{$estimator->email}}">Estimator ({{$admin_designer->creator->email}})</option>
+                                                    @endif
+                                                    @if($estimator_option)
+                                                    <option value="{{$admin_designer->creator->email}}">Estimator ({{$admin_designer->creator->email}})</option>
+                                                    @endif
+                                                    <option value="{{$admin_designer->creator->email}}">Admin Designer ({{$admin_designer->creator->email}})</option>
+                                                    @if($checker_option && isset($designer->email))
+                                                        <option value="{{$designer->email}}">Designer ({{$designer->email}})</option>
+                                                    @endif
+                                                    @if($designer_option && isset($checker->email))
+                                                    <option value="{{$checker->email}}">Checker ({{$checker->email}})</option>
+                                                    @endif
+                                                {{-- @endif --}}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                
                                 <div class="row" id="signature_div">
                                     <div class="col-md-8">
                                     <div class="d-flex flex-column inputDiv mb-1" style="border: none">

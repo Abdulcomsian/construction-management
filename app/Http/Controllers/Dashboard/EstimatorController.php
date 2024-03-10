@@ -1370,7 +1370,6 @@ class EstimatorController extends Controller
     }
 
     public function changeStatus(Request $request){
-        // dd($request->all());
         try{
             $tempWork_id = $request->temporary_work_id;
             $changeStatus = $request->changeStatus;

@@ -464,7 +464,7 @@
         let pricingId = $(this).attr("data");
         let tempId = $("#temp_id").val();
         let status = $(this).find(':selected').val();
-        let clientComment = $('#clientComment').val();
+        let clientComment = $(this).closest('tr').find('#clientPricingComment').val()
         var CSRF_TOKEN = '{{ csrf_token() }}';
             $.post("{{route('change.status.client')}}", {
                 _token: CSRF_TOKEN,

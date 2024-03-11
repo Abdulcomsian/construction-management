@@ -1387,6 +1387,13 @@ class EstimatorController extends Controller
                 'client_comment' => $clientComment,
             ]);
             if($extraPricing){
+                // Storing History of that event
+                $chm= new ChangeEmailHistory(); 
+                $chm->email=Auth::user()->email;
+                $chm->type ='Extra Price';
+                $chm->foreign_idd=$request->temporary_work_id;
+                $chm->message='Designer responded to the extra price';
+                $chm->save();
                 return response()->json(["status" => true, "msg"=>"Pricing Updated Successfully"], 200);
             }
         }catch(\Exception $e){

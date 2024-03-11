@@ -4182,6 +4182,13 @@ class DesignerController extends Controller
             $additionalInformation = $request->additional_information;
             $mainFile =null;
 
+            // Adding History of this Event
+            $chm= new ChangeEmailHistory(); 
+            $chm->email=Auth::user()->email;
+            $chm->type ='Design Brief Created';
+            $chm->foreign_idd=$temporaryWorkId;
+            $chm->message='A new lead has been created by ' . Auth::user()->email;
+            $chm->save();
             if($informationRequired == "on")
             {
                 if($request->hasFile('additional_information_file'))
@@ -4718,6 +4725,18 @@ class DesignerController extends Controller
                 foreach($request->emails as $email){
                     Notification::route("mail", $email)->notify(new AdminDesignerCertificateNotification($pdfLink));
                 }
+
+                if(isset($_GET['mail'])){
+                    $email = $_GET['mail'];
+                }
+                // adding history of Certificate
+                $chm= new ChangeEmailHistory(); 
+                $chm->email=$email;
+                $chm->type ='Certificate Created';
+                $chm->foreign_idd=$temporary_work_id;
+                $chm->message='Certificate has been created by ' . $email;
+                $chm->save();
+
                 return redirect()->back();
                 toastSuccess('Designer Uploaded Successfully!');
                 return Redirect::back();

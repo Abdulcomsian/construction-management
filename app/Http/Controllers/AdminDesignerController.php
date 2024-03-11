@@ -1640,6 +1640,14 @@ class AdminDesignerController extends Controller
             $extraPrice->description = $request->description;
             $extraPrice->adminDesigner_id = $adminDesigner_id;
             if($extraPrice->save()){
+
+                // Storing History of that event
+                $chm= new ChangeEmailHistory(); 
+                $chm->email=Auth::user()->email;
+                $chm->type ='Extra Price';
+                $chm->foreign_idd=$request->temporary_work_id;
+                $chm->message='Extra Price created';
+                $chm->save();
                 // sending email to the client
                 $temporaryWorkData = TemporaryWork::where('id', $request->temporary_work_id)->first();
                 $clientEmail = $temporaryWorkData->client_email;

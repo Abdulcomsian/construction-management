@@ -3693,6 +3693,13 @@ class DesignerController extends Controller
             $temporary_work->work_status = 'draft';
         }
         if($temporary_work->save()){
+            // storing the history of that event
+            $chm= new ChangeEmailHistory(); 
+            $chm->email=Auth::user()->email;
+            $chm->type ='Design Brief';
+            $chm->foreign_idd=$temporary_work_id;
+            $chm->message='Design brief status has been changed by the designer';
+            $chm->save();
             toastSuccess("Status Changed Successfully");
             return redirect()->back();
         }else{

@@ -885,6 +885,10 @@ $tempWorkClass = "d-none";
                                                         class="{{$class}}">({{count($item->commentlist) ?? '-'}})</span>
                                                 </div>
                                             </div>
+                                            <span class="btn p-2 m-1 allHistory" style="border-radius: 21%;"
+                                                title="Designer Change Email" data-id={{Crypt::encrypt($item->id)}} >
+                                                <i style="padding:3px;" class="fa fa-exchange-alt"></i>
+                                            </span>
                                         </div>
 
                                     </td>
@@ -1453,6 +1457,34 @@ $tempWorkClass = "d-none";
     </div>
 </div>
 
+{{-- all history table  --}}
+<div class="modal  fade" id="all-history-modal" style="width: 100%">
+    <div class="modal-dialog modal-dialog-centered mw-1000px">
+        <div class="modal-content">
+            <div class="modal-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>S-NO</th>
+                            <th>Description</th>
+                            <th>Email</th>
+                            <th>Type</th>
+                            <!-- <th>Status</th> -->
+
+                            <!-- <th>Sent Date</th> -->
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="all_history_table">
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="allocationDesignerModal">
     <div class="modal-dialog modal-dialog-centered" style="min-width:700px;">
         <div class="modal-content">
@@ -1618,6 +1650,21 @@ $(document).on("click", ".showClientComment", function(){
             success: function(res){
                 $("#invoice_history_table").html(res);
                 $('#invoice_history_modal').modal('show');
+            }
+        });
+    });
+
+    $(document).on('click', '.allHistory', function(e){
+        var id = $(this).attr('data-id');
+        $.ajax({
+            url: "{{route('all.history')}}",
+            method: "get",
+            data:{
+                id
+            },
+            success: function(res){
+                $("#all_history_table").html(res);
+                $('#all-history-modal').modal('show');
             }
         });
     });

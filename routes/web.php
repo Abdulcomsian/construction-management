@@ -306,6 +306,7 @@ Route::group(['prefix'=>'designer','middleware' => ['auth']], function () {
      Route::get('get-changed-emails-history',[DesignerController::class,'change_email_history'])->name('change-email-history');
      Route::get('get-designer-changed-emails-history',[DesignerController::class,'designer_change_email_history'])->name('designer-change-email-history');
      Route::get('invoice_history', [DesignerController::class, 'invoiceHistory'])->name('invoice.history');
+     Route::get('all-history', [DesignerController::class, 'allHistory'])->name('all.history');
      Route::get('get-checker-changed-emails-history',[DesignerController::class,'checker_change_email_history'])->name('checker-change-email-history');
 
      //

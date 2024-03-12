@@ -48,6 +48,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use Auth;
 use App\Mail\PermitUnloadMail;
+use App\Models\AdditionalInformation;
 use App\Models\DesignerCompanyEmail;
 use App\Models\PdfFilesHistory;
 use App\Models\ProjectBlock;
@@ -2010,11 +2011,10 @@ class TemporaryWorkController extends Controller
             }
             $comment->temporary_work_id = $request->temp_work_id;
             $comment->reply_date = array(Carbon::now());
-            $comment->user_id = Auth::user()->id ?? '';
             $comment->type = "client";
             $comment->status = "2";
-            $comment->sender_email = Auth::user()->email ?? '';
-            $comment->sender_name = Auth::user()->name ?? '';
+            $comment->sender_email = $_GET['mail'] ?? '';
+            // $comment->sender_name = Auth::user()->name ?? '';
             if($comment->save()){
                 toastSuccess('Message Sent Successfully');
                 return Redirect::back();
@@ -2569,6 +2569,11 @@ class TemporaryWorkController extends Controller
             $selectElement .= '<input type="text" class="form-control" style="background-color:white;" value="No designer or checker assigned" disabled>';
         }
 
+        // getting communication before Awarded JOB
+        $pastCommunication = AdditionalInformation::with('jobComment')->where('temporary_work_id', $request->temporary_work_id)->get();
+        if(isset($pastCommunication) && count($pastCommunication) > 0){
+
+        }
         echo  json_encode(array(
             'comment'=>$table,
             'twccomment'=>$tabletwc,
@@ -2576,6 +2581,7 @@ class TemporaryWorkController extends Controller
             'twcdesigner'=>$tabletwcdesigner, 
             'twclientcomments' => $client_table,
             'selectElement' => $selectElement,
+            
         ));
     }
 

@@ -352,7 +352,7 @@ Route::post('update-status-client', [EstimatorController::class, 'changeStatus']
 Route::post('get-pricing-comment', [AdminDesignerController::class, 'getPricingComment'])->name('get.client.comment')->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
 
 Route::get('get-extra-pricing/{id}', [AdminDesignerController::class, 'getExtraPricing'])->name('get.extra.pricing')->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
-
+ 
 Route::get('adminDesigner/create-nomination/{id}',[AdminDesignerController::class,'createNomination'])->name('nomination_create');
 Route::post('adminDesigner/save-nomination/{id}',[AdminDesignerController::class,'saveNomination']);
 Route::get('client-edit-estimation/{id}' , [DesignerController::class , 'clientEditEstimation'])->name('client_edit_estimation');

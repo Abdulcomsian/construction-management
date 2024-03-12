@@ -1389,7 +1389,7 @@ class EstimatorController extends Controller
             if($extraPricing){
                 // Storing History of that event
                 $chm= new ChangeEmailHistory(); 
-                $chm->email=Auth::user()->email;
+                $chm->email=$_GET['mail'] ?? '';
                 $chm->type ='Extra Price';
                 $chm->foreign_idd=$request->temporary_work_id;
                 $chm->message='Designer responded to the extra price';

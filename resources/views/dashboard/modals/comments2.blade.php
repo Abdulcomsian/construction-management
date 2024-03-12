@@ -199,6 +199,14 @@
                     </div>
                     <!--end::Actions-->
                 </form>
+                <div class="mb-13 mt-4 text-center">
+                    <!--begin::Title-->
+                    <h1 class="mb-3">Communication before Awarded Job</h1>
+                    <!--end::Title-->
+                </div>
+                <div id="communicationBeforeAwarded">
+
+                </div>
                 @endif
                 <!--end:Form-->
 

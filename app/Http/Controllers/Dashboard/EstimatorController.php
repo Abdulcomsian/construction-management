@@ -1337,7 +1337,11 @@ class EstimatorController extends Controller
                 $designerquotation=DesignerQuotation::where(['temporary_work_id'=>$estimatorWork[0]->id])->get();
                 $comments=EstimatorDesignerComment::where(['estimator_designer_list_id'=>$estimatorWork[0]->id,'temporary_work_id'=>$id])->get();
                 $public_comments=EstimatorDesignerComment::where(['temporary_work_id'=>$id,'public_status'=>1])->get();
-                $extraPricing = ExtraPrice::where('temporary_work_id', $estimatorWork[0]->id)->get();
+                $extraPricing = ExtraPrice::with('temporaryWork')
+                ->join('temporary_works', 'add_extra_price.temporary_work_id', '=', 'temporary_works.id')
+                ->select('add_extra_price.status')
+                ->where('temporary_works.client_email', $request->mail)
+                ->get();
                 //get company record
                 // $company=Project::with('company')->find($estimatorWork->project_id);
                 //get rating of cuurent designer

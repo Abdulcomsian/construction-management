@@ -350,16 +350,29 @@
                                         }
                                     }
 
+                                    // dd($extraPricing);
                                     $view_additional_pricing = '';
-                                    for($i = 0; $i<=count($extraPricing); $i++){
-                                        if(isset($extraPricing[$i]['status']) && $extraPricing[$i]['status'] == 0){
-                                            $view_additional_pricing = 'blink';
-                                        }elseif(isset($extraPricing[$i]['status']) && $extraPricing[$i]['status'] == 1){
-                                            $view_additional_pricing = 'red';
-                                        }elseif(isset($extraPricing[$i]['status']) && $extraPricing[$i]['status'] == 2){
-                                            $view_additional_pricing = 'green';
-                                        }
-                                    }
+                                    // for($i = 0; $i<=count($extraPricing); $i++){
+                                    //     if(isset($extraPricing[$i]['status']) && $extraPricing[$i]['status'] == 0){
+                                    //         $view_additional_pricing = 'blink';
+                                    //     }elseif(isset($extraPricing[$i]['status']) && $extraPricing[$i]['status'] == 1){
+                                    //         $view_additional_pricing = 'red';
+                                    //     }elseif(isset($extraPricing[$i]['status']) && $extraPricing[$i]['status'] == 2){
+                                    //         $view_additional_pricing = 'green';
+                                    //     }
+                                    // }
+                                    // foreach($extraPricing as $index => $price){
+                                    //     foreach ($price as $pr) {
+                                    //         // if($pr->status == 0){
+                                    //         //     $view_additional_pricing = 'blink';
+                                    //         // }elseif($pr->status == 1){
+                                    //         //     $view_additional_pricing = 'red';
+                                    //         // }elseif($pr->status == 2){
+                                    //         //     $view_additional_pricing = 'green';
+                                    //         // }
+                                    //     }
+                                       
+                                    // }
                                     // dd($extraPricing);
                                     @endphp
                                     <tr style="background: {{$background ?? ''}}  !important">
@@ -719,8 +732,20 @@
     }
 
     function showAdditionalPricingModal(id){
-        $('#temp_id').val(id);
-        $('#show_additional_pricing_modal').modal('show');
+        var url = "{{ route('get.extra.pricing', ['id' => ':id']) }}";
+        url = url.replace(':id', id);
+        $.ajax({
+            type: "GET",
+            url: url,
+            data: {id: id},
+            processData: false, 
+            contentType: false,
+            success: function(res) {
+                console.log(res);
+                $('#extraPricingTable').html(res.pricingTable);
+                $('#show_additional_pricing_modal').modal('show');
+            }
+        })
     }
 
     $(document).on("click", '.additional-comment', function(e) {

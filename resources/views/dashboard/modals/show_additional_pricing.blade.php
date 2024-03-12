@@ -43,8 +43,8 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <input type="hidden" name="temporary_work_id" id="temp_id" value="">
+                        <tbody id="extraPricingTable">
+                            {{-- <input type="hidden" name="temporary_work_id" id="temp_id" value="">
                             @php
                                 $i = 1;
                             @endphp
@@ -82,7 +82,7 @@
                                         $i++;
                                     @endphp
                                 @endforeach
-                            @endif
+                            @endif --}}
 
                         </tbody>
                     </table>

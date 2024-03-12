@@ -110,6 +110,67 @@ class AdminDesignerController extends Controller
         }
     }
 
+    public function getExtraPricing($id){
+        try{
+            $pricingTable = '';
+            $i = 1;
+            $extrapricing = ExtraPrice::where('temporary_work_id', $id)->get();
+            if(isset($extrapricing) && count($extrapricing) > 0){
+                foreach($extrapricing as $pricing){
+                    $pricingTable .= '
+                        <input type="hidden" name="temporary_work_id" id="temp_id" value="'.$id.'">
+                        <tr>
+                            <td>'.$i.'</td>
+                            <td>£'.$pricing->price.'</td>
+                            <td style="text-wrap: wrap;">'.$pricing->description .'</td>
+                    ';
+
+                    if($pricing->client_comment !== null){
+                        $pricingTable .= '
+                            <td style="text-wrap: wrap;">'.$pricing->client_comment.'</td>
+                        ';
+                    }else{
+                        $pricingTable .= '
+                            <td> <textarea name="client_comment" id="clientPricingComment" cols="20" rows="5" placeholder="Please enter your reason why you will approve or reject this pricing" required></textarea></td>
+                        ';
+                    }
+
+                    if($pricing->status == '2'){ // means accepted
+                        $pricingTable .= '
+                            <td class="d-flex justify-content-center"><p class="green" style="color: white; border-radius: 10%; width: 75%; margin-bottom: 0px;">Approved</p></td>
+                        ';
+                    }elseif($pricing->status == '1'){ // means rejected
+                        $pricingTable .= ' 
+                            <td class="d-flex justify-content-center"><p class="red" style="color: white; border-radius: 10%; width: 75%; margin-bottom: 0px;">Rejected</p></td>
+                        ';
+                    }else{
+                        $pricingTable .='
+                            <td>
+                            <select class="form-control" name="pricing_status" id="changeStatusValue" data="'.$pricing->id.'">
+                                <option value="">Update Status</option>
+                                <option value="approve">Approve Pricing</option>
+                                <option value="reject">Reject Pricing</option>
+                            </select>
+                            </td>
+                        ';
+                    }
+
+                    $pricingTable .= '
+                    </tr>
+                    ';
+
+                    $i++;
+                }
+            }
+
+            return response()->json([
+                'pricingTable' => $pricingTable,
+            ]);
+        }catch(\Exception $e){
+            dd($e->getMessage(), $e->getLine());
+        }
+    }
+
     //awarded estiamtor
     public function awardedEstimator()
     {
@@ -1640,7 +1701,6 @@ class AdminDesignerController extends Controller
             $extraPrice->description = $request->description;
             $extraPrice->adminDesigner_id = $adminDesigner_id;
             if($extraPrice->save()){
-
                 // Storing History of that event
                 $chm= new ChangeEmailHistory(); 
                 $chm->email=Auth::user()->email;

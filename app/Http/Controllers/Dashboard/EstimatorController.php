@@ -1321,7 +1321,8 @@ class EstimatorController extends Controller
             // $record=EstimatorDesignerList::where(['email'=>$request->mail,'code'=>$code])->first();
             // $record=EstimatorDesignerList::where(['email'=>$request->email])->first();
             // $estimatorWork=TemporaryWork::with('project')->find($id);
-            $estimatorWork=TemporaryWork::with('additionalInformation.unreadComment')->where('client_email',$request->mail)->get();
+            $estimatorWork=TemporaryWork::with(['additionalInformation.unreadComment', 'extraPrice'])->where('client_email',$request->mail)->get();
+            // dd($estimatorWork->extraPrice);
             if($estimatorWork)
             {
                 // $estimatorWork=TemporaryWork::with('project')->find($id);
@@ -1337,11 +1338,6 @@ class EstimatorController extends Controller
                 $designerquotation=DesignerQuotation::where(['temporary_work_id'=>$estimatorWork[0]->id])->get();
                 $comments=EstimatorDesignerComment::where(['estimator_designer_list_id'=>$estimatorWork[0]->id,'temporary_work_id'=>$id])->get();
                 $public_comments=EstimatorDesignerComment::where(['temporary_work_id'=>$id,'public_status'=>1])->get();
-                $extraPricing = ExtraPrice::with('temporaryWork')
-                ->join('temporary_works', 'add_extra_price.temporary_work_id', '=', 'temporary_works.id')
-                ->select('add_extra_price.status')
-                ->where('temporary_works.client_email', $request->mail)
-                ->get();
                 //get company record
                 // $company=Project::with('company')->find($estimatorWork->project_id);
                 //get rating of cuurent designer
@@ -1358,7 +1354,6 @@ class EstimatorController extends Controller
                     'public_comments'=>$public_comments,
                     'AwardedEstimators'=>$AwardedEstimators, 
                     'viewComments' => $viewComments, 
-                    'extraPricing' => $extraPricing, 
                 ]);
             }  
             // return view('dashboard.designer.index-test');

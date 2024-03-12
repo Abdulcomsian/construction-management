@@ -350,29 +350,17 @@
                                         }
                                     }
 
-                                    // dd($extraPricing);
+                                    // dd($row->extraPrice);
                                     $view_additional_pricing = '';
-                                    // for($i = 0; $i<=count($extraPricing); $i++){
-                                    //     if(isset($extraPricing[$i]['status']) && $extraPricing[$i]['status'] == 0){
-                                    //         $view_additional_pricing = 'blink';
-                                    //     }elseif(isset($extraPricing[$i]['status']) && $extraPricing[$i]['status'] == 1){
-                                    //         $view_additional_pricing = 'red';
-                                    //     }elseif(isset($extraPricing[$i]['status']) && $extraPricing[$i]['status'] == 2){
-                                    //         $view_additional_pricing = 'green';
-                                    //     }
-                                    // }
-                                    // foreach($extraPricing as $index => $price){
-                                    //     foreach ($price as $pr) {
-                                    //         // if($pr->status == 0){
-                                    //         //     $view_additional_pricing = 'blink';
-                                    //         // }elseif($pr->status == 1){
-                                    //         //     $view_additional_pricing = 'red';
-                                    //         // }elseif($pr->status == 2){
-                                    //         //     $view_additional_pricing = 'green';
-                                    //         // }
-                                    //     }
-                                       
-                                    // }
+                                    foreach($row->extraPrice as $price){                                     
+                                            if($price->status == 0){
+                                                $view_additional_pricing = 'blink';
+                                            }elseif($price->status == 1){
+                                                $view_additional_pricing = 'red';
+                                            }elseif($price->status == 2){
+                                                $view_additional_pricing = 'green';
+                                            }
+                                    }
                                     // dd($extraPricing);
                                     @endphp
                                     <tr style="background: {{$background ?? ''}}  !important">

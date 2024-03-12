@@ -71,7 +71,7 @@
                                         @else
                                         <td>
                                             <select class="form-control" name="pricing_status" id="changeStatusValue" data="{{$pricing->id}}">
-                                                <option value="">New to approve</option>
+                                                <option value="">Update Status</option>
                                                 <option value="approve">Approve Pricing</option>
                                                 <option value="reject">Reject Pricing</option>
                                             </select>

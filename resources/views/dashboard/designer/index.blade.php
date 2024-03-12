@@ -1047,10 +1047,10 @@
                                 
                                 <div class="row" style="background:white;margin: 0 4px;">
                                     <div class="col-md-12">
-                                        <div class=" inputDiv d-block">
+                                        <div class=" inputDiv d-block" style="margin-left: -11px;">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="required">Send Email:</span>
+                                                <span>Send Email:</span>
                                             </label>
                                             <!--end::Label-->
                                             {{-- <select class="form-control"> --}}

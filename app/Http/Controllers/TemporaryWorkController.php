@@ -2570,9 +2570,41 @@ class TemporaryWorkController extends Controller
         }
 
         // getting communication before Awarded JOB
+        $pastCommunicationTable = '';
+        $i = 1;
         $pastCommunication = AdditionalInformation::with('jobComment')->where('temporary_work_id', $request->temporary_work_id)->get();
         if(isset($pastCommunication) && count($pastCommunication) > 0){
-
+            $pastCommunicationTable .= '
+            <table class="table pastCommunicationTable" style="border-radius: 8px; overflow:hidden;">
+                <thead id="check" style="height:60px;">
+                    <tr>
+                        <th style="width:10%;text-align:left;color:white !important; font-weight: 600 !important; font-size:16px !important;background: #07D564 !important;">
+                        No
+                        </th>
+                        <th style="width:35%;text-align:left;color:white !important;background: #07D564 !important; font-weight: 600 !important; font-size:16px !important">
+                        Designer Comment
+                        </th>
+                        <th style="width:40%;text-align:left;color:white !important; font-weight: 600 !important; font-size:16px !important;background: #07D564 !important">
+                        Client Reply
+                        </th>
+                    </tr>
+                </thead>
+            <tbody>';
+            foreach($pastCommunication as $index => $communcation){
+                $jobComments = [];
+                if(isset($communcation->jobComment) && count($communcation->jobComment) > 0){
+                    foreach($communcation->jobComment as $clientReply){
+                        $jobComments = $clientReply->comment;
+                    }
+                }
+                $pastCommunicationTable .= '
+                <tr>
+                               <td>' . $i . '</td>
+                               <td style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), rgba(7, 213, 100, 0.5);">'.$communcation->more_details.'</td>
+                               <td style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), rgba(7, 213, 100, 0.5);">'.$jobComments.'</td>
+                ';
+                $i++;
+            }
         }
         echo  json_encode(array(
             'comment'=>$table,
@@ -2581,6 +2613,7 @@ class TemporaryWorkController extends Controller
             'twcdesigner'=>$tabletwcdesigner, 
             'twclientcomments' => $client_table,
             'selectElement' => $selectElement,
+            'pastCommunicationTable' => $pastCommunicationTable,
             
         ));
     }

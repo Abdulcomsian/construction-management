@@ -1553,6 +1553,7 @@ $(document).on("click", ".showClientComment", function(){
                $("#twccommenttable").html(res.twccomment);
                $("#twccommenttable2").html(res.twclientcomments);
                $('#select_this').html(res.selectElement);
+               $('#communicationBeforeAwarded').html(res.pastCommunicationTable);
                $(".comments_form").show();
                $("#comment_modal_id").modal('show');
            }

@@ -4192,7 +4192,7 @@ class DesignerController extends Controller
             // Adding History of this Event
             $chm= new ChangeEmailHistory(); 
             $chm->email=Auth::user()->email;
-            $chm->type ='Design Brief Created';
+            $chm->type ='Lead Created';
             $chm->foreign_idd=$temporaryWorkId;
             $chm->message='A new lead has been created by ' . Auth::user()->email;
             $chm->save();

@@ -231,6 +231,10 @@
     padding: 1px 10px !important;
     font-size: 12px;
         }
+        .tag-div{
+            width: 100%;
+            margin-top: 10px;
+        }
 
 </style>
 @include('dashboard.modals.drawing_delete_modals')
@@ -1002,14 +1006,23 @@
                                             <div class="tag-container">
                                                 @isset($tags)
                                                     @foreach($tags as $tag)
-                                                        <label class="tag">
-                                                            <input type="checkbox" name="selected_tags[]" value="{{ $tag->id }}" 
-                                                            {{-- @if($designer_certificate && in_array($tag->id, $designer_certificate->tags->pluck('id')->toArray())) 
-                                                                checked 
-                                                            @endif --}}
-                                                            >
-                                                            {{ $tag->title }}
-                                                        </label>
+                                                        <div class="tag-div">
+                                                            <h5>{{ $tag->category_name }}</h5>
+                                                        </div>
+                                                        <div> 
+                                                            @php
+                                                                $category = $tag->category_name;
+                                                                $categoryTags = App\Models\Tag::where('category_name', $category)->get();
+                                                            @endphp
+                                                            @isset($categoryTags)
+                                                                @foreach($categoryTags as $categoryTag)
+                                                                    <label class="tag">
+                                                                        <input type="checkbox" name="selected_tags[]" value="{{ $categoryTag->id }}" >
+                                                                        {{$categoryTag->title}}
+                                                                    </label>
+                                                                @endforeach
+                                                            @endisset
+                                                        </div>
                                                     @endforeach
                                                 @endisset
                                             </div>

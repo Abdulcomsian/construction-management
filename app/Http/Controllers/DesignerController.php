@@ -430,7 +430,7 @@ class DesignerController extends Controller
         $riskassessment = TempWorkUploadFiles::where(['temporary_work_id' => $id,'created_by'=>$mail])->whereIn('file_type',[5,6])->get();
         $twd_name = TemporaryWork::select('twc_name')->where('id', $id)->first();
         $comments=TemporaryWorkComment::where(['temporary_work_id'=> $id])->whereIn('type', ['normal', 'twctodesigner'])->get();
-        $tags=Tag::get();
+        $tags=Tag::select('category_name')->groupBy('category_name')->get();
         $user = User::where('email',$mail)->first();
         $estimato_designer = EstimatorDesignerList::where('temporary_work_id',$id)->where('estimatorApprove',1)->first();
         return view('dashboard.designer.index', compact('DesignerUploads', 'id', 'twd_name','Designerchecks','mail','comments','riskassessment','tempdata','tags','designer_certificate','user','estimato_designer'));
@@ -4729,9 +4729,11 @@ class DesignerController extends Controller
                 // Notification::route('mail',  $createdby->email ?? '')->notify(new DesignUpload($notify_admins_msg));
 
                 // Sending emails to the selected emails
-                foreach($request->emails as $email){
-                    Notification::route("mail", $email)->notify(new AdminDesignerCertificateNotification($pdfLink));
-                }
+                if(isset($request->emails)){
+                    foreach($request->emails as $email){
+                        Notification::route("mail", $email)->notify(new AdminDesignerCertificateNotification($pdfLink));
+                    }
+                }                
 
                 if(isset($_GET['mail'])){
                     $email = $_GET['mail'];

@@ -4737,14 +4737,15 @@ class DesignerController extends Controller
 
                 if(isset($_GET['mail'])){
                     $email = $_GET['mail'];
+                    // adding history of Certificate
+                    $chm= new ChangeEmailHistory(); 
+                    $chm->email=$email;
+                    $chm->type ='Certificate Created';
+                    $chm->foreign_idd=$temporary_work_id;
+                    $chm->message='Certificate has been created by ' . $email;
+                    $chm->save();
                 }
-                // adding history of Certificate
-                $chm= new ChangeEmailHistory(); 
-                $chm->email=$email;
-                $chm->type ='Certificate Created';
-                $chm->foreign_idd=$temporary_work_id;
-                $chm->message='Certificate has been created by ' . $email;
-                $chm->save();
+                
 
                 return redirect()->back();
                 toastSuccess('Designer Uploaded Successfully!');

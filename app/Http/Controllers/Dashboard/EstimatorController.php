@@ -1392,7 +1392,11 @@ class EstimatorController extends Controller
                 $chm->email=$_GET['mail'] ?? '';
                 $chm->type ='Extra Price';
                 $chm->foreign_idd=$request->temporary_work_id;
-                $chm->message='Designer responded to the extra price';
+                if($changeStatus == 'approve'){
+                    $chm->message='Client has approved extra price';
+                }else{
+                    $chm->message='Client has rejected extra price';
+                }
                 $chm->save();
                 return response()->json(["status" => true, "msg"=>"Pricing Updated Successfully"], 200);
             }

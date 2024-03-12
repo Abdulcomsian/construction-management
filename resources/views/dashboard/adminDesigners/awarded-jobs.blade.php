@@ -683,6 +683,7 @@ $tempWorkClass = "d-none";
         padding: 6px 9px;
         border-radius: 4px;
         color: #5d5db3;
+        cursor: pointer;
     }
 
     .red {

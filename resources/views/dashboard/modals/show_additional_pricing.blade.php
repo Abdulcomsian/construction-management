@@ -65,9 +65,9 @@
                                         @endif
                                         
                                         @if($pricing->status == '2')
-                                        <td class="d-flex justify-content-center"><p class="green" style="color: white; border-radius: 10%; width: 50%; margin-bottom: 0px;">Approved</p></td>
+                                        <td class="d-flex justify-content-center"><p class="green" style="color: white; border-radius: 10%; width: 75%; margin-bottom: 0px;">Approved</p></td>
                                         @elseif($pricing->status == '1')
-                                        <td class="d-flex justify-content-center"><p class="red" style="color: white; border-radius: 10%; width: 50%; margin-bottom: 0px;">Rejected</p></td>
+                                        <td class="d-flex justify-content-center"><p class="red" style="color: white; border-radius: 10%; width: 75%; margin-bottom: 0px;">Rejected</p></td>
                                         @else
                                         <td>
                                             <select class="form-control" name="pricing_status" id="changeStatusValue" data="{{$pricing->id}}">

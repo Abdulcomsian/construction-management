@@ -209,32 +209,32 @@ class TagTableSeeder extends Seeder
             ],
             [
                 'title' => 'NA to BS EN 1991-1-1',
-                'description' => '2002     UK National Annex to Eurocode 1: Actions on structures. General Actions. Densities, self-weight, imposed load for buildings',
+                'description' => '2002 UK National Annex to Eurocode 1: Actions on structures. General Actions. Densities, self-weight, imposed load for buildings',
                 'category_name' => 'European Standards'
             ],
             [
                 'title' => 'BS EN 1991-1-5',
-                'description' => '2003     Eurocode 1: Actions on structures. General Actions. Thermal actions',
+                'description' => '2003 Eurocode 1: Actions on structures. General Actions. Thermal actions',
                 'category_name' => 'European Standards'
             ],
             [
-                'title' => ' NA to BS EN 1991-1-6',
-                'description' => '2005     UK National Annex to Eurocode 1: Actions on structures. General Actions. Actions during execution',
+                'title' => 'NA to BS EN 1991-1-6',
+                'description' => '2005 UK National Annex to Eurocode 1: Actions on structures. General Actions. Actions during execution',
                 'category_name' => 'European Standards'
             ],
             [
                 'title' => 'BS EN 1991-1-7',
-                'description' => '2006 +A1:2014    Eurocode 1: Actions on structures. General Actions. Accidental actions',
+                'description' => '2006 +A1:2014 Eurocode 1: Actions on structures. General Actions. Accidental actions',
                 'category_name' => 'European Standards'
             ],
             [
                 'title' => 'BS EN 1991-2',
-                'description' => '2003    Eurocode 1: Actions on structures. Traffic loads on bridges',
+                'description' => '2003 Eurocode 1: Actions on structures. Traffic loads on bridges',
                 'category_name' => 'European Standards'
             ],
             [
                 'title' => 'NA +A1',
-                'description' => '2020   to BS EN 1991-2:2003     UK National Annex to Eurocode 1: Actions on structures. Traffic loads on bridges',
+                'description' => '2020 to BS EN 1991-2:2003     UK National Annex to Eurocode 1: Actions on structures. Traffic loads on bridges',
                 'category_name' => 'European Standards'
             ],[
                 'title' => 'EN 1992 Eurocode 2',
@@ -254,15 +254,15 @@ class TagTableSeeder extends Seeder
                 'category_name' => 'European Standards'
             ],[
                 'title' => 'NA to BS EN 1995-1-1:',
-                'description' => '2004 + A2:2014   UK National Annex to Eurocode 5: Design of timber structures – Part 1-1 General – common rules and rules for buildings',
+                'description' => '2004 + A2:2014 UK National Annex to Eurocode 5: Design of timber structures – Part 1-1 General – common rules and rules for buildings',
                 'category_name' => 'European Standards'
             ],[
                 'title' => 'BS EN 1995-2',
-                'description' => '2004     Eurocode 5: Design of timber structures – Part 2 Bridges',
+                'description' => '2004 Eurocode 5: Design of timber structures – Part 2 Bridges',
                 'category_name' => 'European Standards'
             ],[
                 'title' => 'NA to BS EN 1995-2',
-                'description' => '2004     UK National Annex to Eurocode 5: Design of timber structures – Part 2 Bridges',
+                'description' => '2004 UK National Annex to Eurocode 5: Design of timber structures – Part 2 Bridges',
                 'category_name' => 'European Standards'
             ],[
                 'title' => 'EN 1996 Eurocode 6',
@@ -274,7 +274,7 @@ class TagTableSeeder extends Seeder
                 'category_name' => 'European Standards'
             ],[
                 'title' => 'BS EN 1997-1',
-                'description' => '2004+A1:2013    Eurocode 7: Geotechnical design – Part 1 General rules',
+                'description' => '2004+A1:2013 Eurocode 7: Geotechnical design – Part 1 General rules',
                 'category_name' => 'European Standards'
             ],[
                 'title' => 'NA+A2',
@@ -282,12 +282,12 @@ class TagTableSeeder extends Seeder
                 'category_name' => 'European Standards'
             ],[
                 'title' => 'BS EN 1997-2',
-                'description' => '2007   Eurocode 7: Geotechnical design – Part 2 Ground investigation and testing',
+                'description' => '2007 Eurocode 7: Geotechnical design – Part 2 Ground investigation and testing',
                 'category_name' => 'European Standards'
             ],
             [
                 'title' => 'NA to BS EN 1997-2',
-                'description' => '2007    UK National Annex to Eurocode 7: Geotechnical design – Part 2 Ground investigation and testing',
+                'description' => '2007 UK National Annex to Eurocode 7: Geotechnical design – Part 2 Ground investigation and testing',
                 'category_name' => 'European Standards'
             ],
             [
@@ -307,17 +307,17 @@ class TagTableSeeder extends Seeder
             ],
             [
                 'title' => 'BS 8002',
-                'description' => '2015  Code of practice for earth retaining structures',
+                'description' => '2015 Code of practice for earth retaining structures',
                 'category_name' => 'British Standards'
             ],
             [
                 'title' => 'BS 8004',
-                'description' => '2015 +A1 2020   Code of practice for foundations',
+                'description' => '2015 +A1 2020 Code of practice for foundations',
                 'category_name' => 'British Standards'
             ],
             [
                 'title' => 'BS 8006-1',
-                'description' => '2010+A1: 2016   Code of practice for strengthened/reinforced soils and other fills',
+                'description' => '2010+A1: 2016 Code of practice for strengthened/reinforced soils and other fills',
                 'category_name' => 'British Standards'
             ],
             [

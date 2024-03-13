@@ -210,9 +210,10 @@
 
         .tag {
             padding: 5px 10px;
-            border: 1px solid #ccc;
+            /* border: 1px solid #ccc; */
             cursor: pointer;
             user-select: none;
+            float:left;
         }
 
         .tag.selected {
@@ -221,9 +222,9 @@
         }
 
         /* Hide the actual checkbox */
-        input[type="checkbox"] {
+        /* input[type="checkbox"] { */
             /* display: none; */
-        }
+        /* } */
         .btn-comment{
             color: white !important;
     border: 1px solid green !important;
@@ -1009,20 +1010,29 @@
                                                         <div class="tag-div">
                                                             <h5>{{ $tag->category_name }}</h5>
                                                         </div>
-                                                        <div> 
-                                                            @php
-                                                                $category = $tag->category_name;
-                                                                $categoryTags = App\Models\Tag::where('category_name', $category)->get();
-                                                            @endphp
-                                                            @isset($categoryTags)
-                                                                @foreach($categoryTags as $categoryTag)
-                                                                    <label class="tag">
-                                                                        <input type="checkbox" name="selected_tags[]" value="{{ $categoryTag->id }}" >
-                                                                        {{$categoryTag->title}}
-                                                                    </label>
-                                                                @endforeach
-                                                            @endisset
-                                                        </div>
+                                                        <table>
+                                                            <div> 
+                                                                @php
+                                                                    $category = $tag->category_name;
+                                                                    $categoryTags = App\Models\Tag::where('category_name', $category)->get();
+                                                                @endphp
+                                                                @isset($categoryTags)
+                                                                    @foreach($categoryTags as $categoryTag)
+                                                                    <tr style="">
+                                                                        <td style="min-width:300px;">
+                                                                            <label class="tag">
+                                                                                <input type="checkbox" style="pointer-events: none;" name="selected_tags[]" value="{{ $categoryTag->id }}" >
+                                                                                {{$categoryTag->title}}
+                                                                            </label>
+                                                                        </td>
+                                                                        <td style="text-align:left;">
+                                                                            {{$categoryTag->description}}
+                                                                        </td>
+                                                                    </tr>
+                                                                    @endforeach
+                                                                @endisset
+                                                            </div>
+                                                        </table>
                                                     @endforeach
                                                 @endisset
                                             </div>

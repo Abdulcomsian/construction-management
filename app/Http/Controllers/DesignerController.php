@@ -3395,6 +3395,7 @@ class DesignerController extends Controller
          ->whereIn('id',$record)
          ->orWhere('created_by', Auth::user()->id)
          ->whereIn('work_status', ['draft','pending', 'no_approval'])
+         ->orderBy('id', 'desc')
          ->get();
         
          $AwardedEstimators=TemporaryWork::with('designer.quotationSum')->with('project.company')->whereIn('id',$awarded)->get();

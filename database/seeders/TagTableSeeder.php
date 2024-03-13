@@ -18,7 +18,7 @@ class TagTableSeeder extends Seeder
         $roles = [
             [
                 'title' => 'EN 39',
-                'description' => '',
+                'description' => '2001 Loose steel tubes for tube and coupler scaffolds. Technical delivery conditions ',
                 'category_name' => 'European Standards'
             ],
             [

@@ -1740,7 +1740,7 @@ class AdminDesignerController extends Controller
         // dd($request->all());
         $request->validate([
             'date' => 'required|date',
-            'date_of_payment' => 'required|date|after_or_equal:date',
+            'date_of_payment' => 'required|date', //|after_or_equal:date
             'send_email' => 'required|email',
         ]);
         $phpWord = new \PhpOffice\PhpWord\PhpWord();
@@ -1942,7 +1942,7 @@ class AdminDesignerController extends Controller
                 'payment_status' => 'required'
             ]
         );
-
+        try {
             if($request->file('attachfile')){
                 $file = $request->file('attachfile');
                 $filename = 'invoices/manual_invoices/' . rand(). '.' . $file->getClientOriginalExtension();
@@ -1995,5 +1995,9 @@ class AdminDesignerController extends Controller
 
             toastSuccess('Payment Details Sent Successfully');
             return redirect()->back();
+        } catch (\Exception $exception) {
+            toastError('Something went wrong, try again');
+            return Redirect::back();
+        }
     }
 }

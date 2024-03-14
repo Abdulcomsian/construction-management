@@ -56,8 +56,10 @@
 <table style="width:100%">
     <tr>
         <td style="border-right:1px solid black; padding:0px 15px;" rowspan="3"> 
-            <div class="company-name font-3">Consulting Temporary Works Engineers</div>
-            <div class="address font-2">85 Great Portland Street <br> London, United Kingdom, W1W 7LT</div>
+            <div class="company-name font-3">
+               <img src="{{ $user->companyProfile->logo }}" width="200px" height="auto"/>
+            </div>
+            {{-- <div class="address font-2">85 Great Portland Street <br> London, United Kingdom, W1W 7LT</div> --}}
             <div class="email">
                 <span class="font">Email: {{$user->email}}</span>
             </div>
@@ -94,7 +96,7 @@
                     </td>
                     <td class="font" style="border:none !important; text-align: right; vertical-align: middle;">
                         <label for="date">Date:</label>
-                        {{$temporary_work->design_issued_date}}
+                        {{date('d-m-Y', strtotime($temporary_work->design_issued_date))}}
                     </td>
                 </tr>
             </table>
@@ -164,8 +166,11 @@
             
     </table>
     <p class="font">(d) The design is described in the following documents:</p> <br>
-            <div class="d font" style="margin-left:7%; margin-top:-22px; font-weight:bold;"> TW 024-01-P00 </div>
-            <div class="d-2 font" style="margin-left:7%; font-weight:bold;"> TW 024-01-CALCS-REV0 </div>
+        @isset($uploaded_designs)
+            @foreach($uploaded_designs as $drawing_no)
+                <div class="d font" style="margin-left:7%; margin-top:-22px; font-weight:bold;"> {{ $drawing_no->drawing_number }} </div>
+            @endforeach
+        @endisset
             <!-- <input type="text" id="" class="set"/> 
             <input type="text" id="" class="set"/> -->
     </div>
@@ -193,7 +198,8 @@
     <table style="width:100%;" class="font">
         <tr>
             <td style="width:20%" >Name:</td>
-            <td>{{$designer->name ?? ''}}</td>
+            <td>{{$temporary_work->designerAssign->user->name ?? ''}}</td>
+            {{-- <td>{{$designer->name ?? ''}}</td> --}}
     
         </tr>
         <tr >
@@ -202,12 +208,13 @@
         </tr>
         <tr >
             <td > Organisation:</td>
-            <td>{{$temporary_work->designer_company_name ?? '' }}</td>
+            <td>{{ $user->companyProfile->company_name ?? ''}} </td>
+            {{-- <td>{{$temporary_work->designer_company_name ?? '' }}</td> --}}
         </tr>
-        <tr >
+        {{-- <tr >
             <td > Position:</td>
             <td>designer</td>
-        </tr>
+        </tr> --}}
         <tr >
             <td > sign:</td>
             <td>
@@ -238,21 +245,24 @@
         <table class="font" style="width:100%;">
         <tr>
             <td style="width:20%" >Name:</td>
-            <td>{{$checker->name ?? ''}}</td>
+            <td>{{$temporary_work->checkerAssign->user->name ?? ''}}</td>
+            {{-- <td>{{$checker->name ?? ''}}</td> --}}
     
         </tr>
         <tr >
             <td > Date:</td>
-            <td>{{$checker->designerCertificates->created_at ?? ''}}</td>
+            {{-- <td>{{$checker->designerCertificates->created_at ?? ''}}</td> --}}
+            <td>{{ $temporary_work->designerCertificates->created_at }}</td>
         </tr>
         <tr >
             <td> Organisation:</td>
-            <td>{{$temporary_work->designer_company_name ?? ''}}</td>
+            {{-- <td>{{$temporary_work->designer_company_name ?? ''}}</td> --}}
+            <td>{{ $user->companyProfile->company_name ?? '' }} </td>
         </tr>
-        <tr >
+        {{-- <tr >
             <td> Position:</td>
             <td>checker</td>
-        </tr>
+        </tr> --}}
         <tr >
             <td> sign:</td>
             <td>

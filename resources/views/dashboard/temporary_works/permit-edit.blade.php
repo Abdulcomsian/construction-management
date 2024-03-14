@@ -890,7 +890,7 @@
                                     <div class="uploadDiv" style="padding-left: 10px;">
                                         {{-- <div class="input-images"></div> --}}
                                         
-                                        <input type="file" name="images[]" accept=".DWG, .dwg, .mp4, .mp3, .jpg, .jpeg, .gif, .svg, .png, .xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf" multiple>
+                                        <input type="file" name="images[]" accept=".DWG, .dwg, .mp4, .mp3, .jpg, .jpeg, .gif, .svg, .png, .xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf,.PDF" multiple>
                                     </div>
                                 </div>
                             </div>

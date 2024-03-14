@@ -147,7 +147,6 @@ class DesignerController extends Controller
                 }
 
             }
-            
             if ($request->checker) {
                 $checker = User::findOrFail($request->checker);
                 //Check if the same checker exists agains this job
@@ -4627,9 +4626,9 @@ class DesignerController extends Controller
                     file_put_contents($file, $image_base64);
                 }
                 $temporary_work_id = $request->tempworkid;
-                $user = User::where('email',$request->designermail)->first();
+                $user = User::with('companyProfile')->where('email',$request->designermail)->first();
                 $temporary_work = TemporaryWork::with('designerCertificates')->findorfail($request->tempworkid);
-                $DesignerUploads = TempWorkUploadFiles::where(['file_type' => 1, 'temporary_work_id' => $temporary_work->id])->orderBy('id','desc')->get(); //,'created_by'=>$mail
+                $DesignerUploads = TempWorkUploadFiles::where(['file_type' => 1, 'temporary_work_id' => $temporary_work->id, 'construction'=>1])->orderBy('id','desc')->get(); //,'created_by'=>$mail
                 $checker_image_name = $temporary_work->designerCertificates->checker_signature ?? '';
                 $designer_image_name = $temporary_work->designerCertificates->designer_signature ?? '';
                 if(isset($temporary_work->designerAssign->user_id)){
@@ -4644,15 +4643,16 @@ class DesignerController extends Controller
                     }
                 }
                 // dd($temporary_work->id, $user->id, $temporary_work->designerAssign->user_id,$image_name, $designer_image_name, $checker_image_name);
-               
                 $title = explode("-",$temporary_work->design_requirement_text);
                 $title = $title[0] ?? '';
-                $temporary_work = TemporaryWork::with('designerCertificates', 'designerCertificates.tags', 'project')->findorfail($temporary_work_id);
+                $temporary_work = TemporaryWork::with('designerCertificates', 'designerCertificates.tags', 'project', 'checkerAssign', 'designerAssign')->findorfail($temporary_work_id); 
+                // dd($user->companyProfile->company_name, $temporary_work->checkerAssign->user, $temporary_work->designerAssign->user);
                 $pdf = PDF::loadView('dashboard.designer.certificate_pdf',['temporary_work' => $temporary_work, 'user' => $user, 'designer_image_name' => $designer_image_name, 'checker_image_name' => $checker_image_name, 'title'=>$title, 'uploaded_designs'=>$DesignerUploads]);
                 $path = public_path('certificate');
                 $filename =rand().'pdf.pdf';
-                $pdf->save($path . '/' . $filename);
                 
+                $pdf->save($path . '/' . $filename);
+                // dd($filename);
                 $pdfLink = asset('certificate/' . $filename);
                 $recipient_email = '';
                 $login_url = route('login');

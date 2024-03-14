@@ -2597,11 +2597,14 @@ class TemporaryWorkController extends Controller
                         $jobComments = $clientReply->comment;
                     }
                 }
+                if(is_Array($jobComments) && (count($jobComments)==0)){
+                    $jobComments = '';
+                }
                 $pastCommunicationTable .= '
                 <tr>
-                               <td style="text-align:left;">' . $i . '</td>
-                               <td style="text-align:left;background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), rgba(7, 213, 100, 0.5);">'.$communcation->more_details.'</td>
-                               <td style="text-align:left;background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), rgba(7, 213, 100, 0.5);">'.$jobComments.'</td>
+                               <td>' . $i . '</td>
+                               <td style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), rgba(7, 213, 100, 0.5);">'.$communcation->more_details.'</td>
+                               <td style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), rgba(7, 213, 100, 0.5);">'.$jobComments.'</td>
                 ';
                 $i++;
             }

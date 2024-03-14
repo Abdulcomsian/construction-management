@@ -59,7 +59,7 @@
             <div class="company-name font-3">Consulting Temporary Works Engineers</div>
             <div class="address font-2">85 Great Portland Street <br> London, United Kingdom, W1W 7LT</div>
             <div class="email">
-                <span class="font">Email:</span>
+                <span class="font">Email: {{$user->email}}</span>
             </div>
             <p></p>
         </td>
@@ -67,7 +67,7 @@
                         <table style="width: 100%; border:none !important; height: 100%;">
                 <tr>
                     <td class="font" style="border:none; vertical-align: middle;">
-                         <label  for="title">Title:</label>
+                         <label  for="title">Title: {{$title}}</label>
                     </td>
                 </tr>
             </table>
@@ -125,11 +125,11 @@
         </td>
     </tr>
         <tr>
-            <td style="width:30%; border-right:none !important;padding:0px 15px;">
+            <td style="width:170px; border-right:none !important;padding:0px 15px;">
                 <span>Design check Category:</span>
             </td>
             <td style="border-left:1px solid white !important;">
-                <label for="cat1">CAT {{$temporary_work->tw_category }} </label>
+                <label for="cat1"> &nbsp; CAT {{$temporary_work->tw_category }} </label>
                 <p></p>
             </td>
         </tr>
@@ -143,10 +143,10 @@
     </div>
     <div class="options font" style="margin-left:5%">
             <p>(a) The following element of temporary works:</p> <br>
-            <div class="a" style="margin-left:7%; margin-top:-22px; font-weight:bold;" > {{$temporary_work->description_temporary_work_required}}</div>
-            <!-- <p>{{$temporary_work->description_temporary_work_required}}</p> -->
+            <div class="a" style="margin-left:7%; margin-top:-22px; font-weight:bold;" > {{$temporary_work->design_requirement_text}}</div>
+            <!-- <p>{{$temporary_work->design_requirement_text}}</p> -->
             <p>(b) Described in design brief:</p> <br>
-            <div class="b" style="margin-left:7%; margin-top:-22px; font-weight:bold;" >{{$temporary_work->design_requirement_text}}  </div>
+            <div class="b" style="margin-left:7%; margin-top:-22px; font-weight:bold;" >{{$temporary_work->description_temporary_work_required}}  </div>
             <!-- <p>{{$temporary_work->design_requirement_text}}</p> -->
             <p> (c) Has been designed in accordance with the following standards and reference</p> <br>
             {{-- @dd($temporary_work->designerCertificates) --}}
@@ -159,7 +159,6 @@
                             <td> {{$tag->description}}</td>
                         </tr>
                     {{-- @endforeach --}}
-                    <hr>
                 @endforeach
             @endisset
             
@@ -224,9 +223,9 @@
     
         <div class="para font">
             <p>
-           I propose that the design be checked as category 1. I confirm that the check of the scheme 
+           I propose that the design be checked as {{ $temporary_work->tw_category }}. I confirm that the check of the scheme 
     described above has been carried out with the required level of independence required for a 
-    category 1 check, and that we are satisfied that the design provides a satisfactory solution to the 
+    {{$temporary_work->tw_category }} check, and that we are satisfied that the design provides a satisfactory solution to the 
     brief and standards referenced.
             </p>
         </div>

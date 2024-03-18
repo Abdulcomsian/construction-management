@@ -944,7 +944,16 @@
                     
                
                     
-                
+                @php
+                    if(\Auth::user()->representative_name)
+                    {
+                        $loggedin_name = \Auth::user()->representative_name ?? ''; //company representative name
+                        $company_name = \Auth::user()->name ?? ''; //company name
+                    }else{
+                        $loggedin_name= \Auth::user()->name ?? ''; //employee username
+                        $company_name = \Auth::user()->name ?? ''; //company name
+                    }
+                @endphp
                 <div class="col-md-6">
                     <div class="d-flex inputDiv d-block">
                         <!--begin::Label-->
@@ -952,7 +961,7 @@
                             <span class="required">Name:</span>
                         </label>
                         <!--end::Label-->
-                        <input type="text" class=" form-control form-control-solid whiteBack" placeholder="Name" name="name" id="admin_name" value="{{\Auth::user()->name ?? ''}}" readonly="readonly" required>
+                        <input type="text" class=" form-control form-control-solid whiteBack" placeholder="Name" name="name" id="admin_name" value="{{$loggedin_name}}" readonly="readonly" required>
                     </div>
                     <div class="d-flex inputDiv d-block" id="designBriefCompany">
                         <!--begin::Label-->
@@ -960,8 +969,8 @@
                             <span class="required">Company: </span>
                         </label>
                         <!--end::Label-->
-                        <input type="text" id="companyadmin" class="blackBack form-control form-control-solid"  placeholder="Company" name="company" required>
-                        <input type="hidden" id="company_id" name="company_id">
+                        <input type="text" id="companyadmin" class="blackBack form-control form-control-solid"  placeholder="Company" name="company" value="{{$company_name}}" required>
+                        <input type="hidden" id="company_id"  name="company_id">
                     </div>
                     <div class="d-flex inputDiv d-block" id='designBriefJobTitle'>
                         <!--begin::Label-->

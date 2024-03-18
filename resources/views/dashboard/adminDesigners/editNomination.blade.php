@@ -303,6 +303,95 @@
                                 </tr>
                             </tbody>
                         </table>
+
+                         <!-- 2nd table -->
+                         <div class="table-responsive bordered">
+                            <div class="bg_grey p-3">
+                                <h5>Temporary works qualifications</h5>
+                                <p class="mb-0">List highest temporary works related qualifications held</p>
+                            </div>
+                            <table class="table table3 nom_table qualif table-bordered mt-0">
+                                <thead>
+                                    <tr>
+                                        <th>Qualification</th>
+                                        <th>Date</th>
+                                        <th>Upload Certificate</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                            @php   
+                             $app_url = env('APP_URL');
+                            @endphp
+
+                                    @foreach($qualifications as $qf)
+                                    <tr>
+                                        <input type="hidden" name="qualifications_ids[]" value="{{$qf->id}}">
+                                        <td class="tdhight"><input type="text" name="qualification[]"
+                                                value="{{$qf->qualification}}" required></td>
+                                        <td class="tdhight" style="width:25%"><input type="date"
+                                                name="qualification_date[]" value="{{$qf->date}}" required></td>
+                                        <td class="tdhight" style="width:35%">
+                                            <a target="_blank" href="{{$app_url.$qf->qualification_certificate}}"> Use Uploaded
+                                                File</a>
+                                            <span>Or</span>
+                                            <input type="file" style="display:inline-block;width:200px;"
+                                                name="qualification_file[]">
+
+                                        </td>
+                                    </tr>
+                                    @endforeach
+
+
+
+                                </tbody>
+                            </table>
+                            <!-- add btn -->
+                            <div class="addrowBtn mb-5 pb-5 d-flex align-items-center justify-content-center">
+                                <a href="" class="btn btn-primary" id="table3Btn">Add Field</a>
+                            </div>
+                        </div>
+
+                        <!-- 3rd table -->
+                        <div class="table-responsive bordered">
+                            <div class="bg_grey p-3">
+                                <h5>Temporary works courses</h5>
+                                <p class="mb-0">List highest temporary works related courses held</p>
+                            </div>
+                            <table class="table nom_table table4 qualif table-bordered mt-0">
+                                <thead>
+                                    <tr>
+                                        <th>Course title</th>
+                                        <th>Date</th>
+                                        <th>Upload Certificate</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach($courses as $cs)
+                                    <tr>
+                                        <input type="hidden" name="course_ids[]" value="{{$cs->id}}">
+                                        <td class="tdhight"><input type="text" name="course[]" value="{{$cs->course}}"
+                                                required></td>
+                                        <td class="tdhight" style="width:25%"><input type="date" name="course_date[]"
+                                                value="{{$cs->date}}" required></td>
+                                        <td class="tdhight" style="width:35%">
+                                            <a target="_blank" href="{{$app_url.$cs->course_certificate}}"> Use Uploaded File</a>
+                                            <span>Or</span>
+                                            <input type="file" style="display:inline-block;width:200px;"
+                                                name="course_file[]">
+
+                                        </td>
+                                    </tr>
+                                    @endforeach
+
+                                </tbody>
+                            </table>
+                            <!-- add btn -->
+                            <div class="addrowBtn mb-5 pb-5 d-flex align-items-center justify-content-center">
+                                <a href="" class="btn btn-primary" id="table4Btn">Add Field</a>
+                            </div>
+                        </div>
+                        
                          <!-- 4th table -->
                          <div class="table-responsive bordered">
                             <div class="bg_grey p-3">

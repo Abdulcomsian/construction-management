@@ -31,7 +31,8 @@ use App\Notifications\CreateNomination;
 use Crypt;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\File;
-
+use App\Models\NominationQualification;
+use App\Models\NominationCourses;
 
 class AdminDesignerController extends Controller
 {
@@ -596,6 +597,102 @@ class AdminDesignerController extends Controller
             $nomination=Nomination::create($all_inputs);
             if($nomination)
             {
+
+                $images=[];
+                $qimages=[];
+                $qualificationscount=0;
+               //nomination qualifications
+               for($i=0;$i<count($request->qualification);$i++)
+               {
+                   if($request->qualification[$i])
+                   {
+                       $model=new NominationQualification();
+                       if ($request->file('qualification_file')) {
+                           $filePath = HelperFunctions::nominationqualificationpath();
+                           $file = $request->file('qualification_file');
+                       
+                           if(isset($file[$i]))
+                           {
+                           $imagename = HelperFunctions::saveFile(null, $file[$i], $filePath);
+                           $model->qualification_certificate=$imagename;
+                           $images[]=$imagename;
+                           $qimages[]=$imagename;
+                           $qualificationscount++;
+                           }
+                       
+                       
+                       }
+                       if(isset($request->qualifications_ids[$i]))
+                       {  
+                           $file = $request->file('qualification_file');
+                           if(!isset($file[$i]))
+                           {
+                               $get_qualification = NominationQualification::where('id',$request->qualifications_ids[$i])->first();
+                               if(isset($get_qualification->qualification_certificate))
+                               {
+                                   $model->qualification_certificate = $get_qualification->qualification_certificate;
+                                   $images[]=public_path($get_qualification->qualification_certificate);
+                                   $qimages[]=public_path($get_qualification->qualification_certificate);
+                                   $qualificationscount++;
+   
+                               }
+                           }
+                        
+                       }
+                      
+                       $model->qualification=$request->qualification[$i];
+                       $model->date=$request->qualification_date[$i];
+                       $model->nomination_id=$nomination->id;
+                       $model->save();
+                   }
+                   
+               }
+
+               //nomination courses
+               $cimages=[];
+               for($i=0;$i<count($request->course);$i++)
+               {
+                   if($request->course[$i])
+                   {
+                      $model=new NominationCourses();
+                       if ($request->file('course_file')) {
+                           $filePath = HelperFunctions::nominationcoursepath();
+                           $file = $request->file('course_file');
+                           if(isset($file[$i]))
+                           {
+                           $imagename = HelperFunctions::saveFile(null, $file[$i], $filePath);
+                           $model->course_certificate=$imagename;
+                           $images[]=$imagename;
+                           $cimages[]=$imagename;
+                           }
+                        
+                       
+                       }
+                       if(isset($request->course_ids[$i]))
+                       {
+                           $file = $request->file('course_file');
+                           if(!isset($file[$i]))
+                           {
+                               $get_course = NominationCourses::where('id',$request->course_ids[$i])->first();
+                               if(isset($get_course->course_certificate))
+                               {
+                                   $model->course_certificate = $get_course->course_certificate;
+                                   $images[]=public_path($get_course->course_certificate);
+                                   $qimages[]=public_path($get_course->course_certificate);
+                                   $qualificationscount++;
+   
+                               }
+                           }  
+                         
+                       }
+                       $model->course=$request->course[$i];
+                       $model->date=$request->course_date[$i];
+                       $model->nomination_id=$nomination->id;
+                       $model->save(); 
+                   }
+                   
+               }
+
                 //nomination experience
                 for($i=0;$i<count($request->project_title);$i++)
                 {
@@ -707,7 +804,7 @@ class AdminDesignerController extends Controller
                 // $model->save();
 
                 //pdf wok
-                $pdf = PDF::loadView('layouts.pdf.adminDiDesignerNomination',['data'=>$request->all(),'signature'=>$image_name,'user'=>$user,'cv'=>$cv]);
+                $pdf = PDF::loadView('layouts.pdf.adminDiDesignerNomination',['data'=>$request->all(),'signature'=>$image_name,'images'=>$images,'qimages'=>$qimages,'cimages'=>$cimages, 'user'=>$user,'qualificationscount'=>$qualificationscount, 'cv'=>$cv]);
                     $path = public_path('pdf');
                     $filename =rand().'nomination.pdf';
                     $pdf->save($path . '/' . $filename);
@@ -733,10 +830,12 @@ class AdminDesignerController extends Controller
         {
             $nominationid= \Crypt::decrypt($id);
             $nomination=Nomination::find($nominationid);
+            $qualifications=NominationQualification::where('nomination_id', $nomination->id)->get();
             $experience=NominationExperience::where('nomination_id',$nomination->id)->get();
+            $courses=NominationCourses::where('nomination_id',$nomination->id)->get();
             $competence=NominationCompetence::where('nomination_id', $nomination->id)->first();
             $user=User::find($nomination->user_id);
-            return view('dashboard.adminDesigners.editNomination',compact('user','nomination','experience','competence'));
+            return view('dashboard.adminDesigners.editNomination',compact('user','nomination','qualifications','courses','experience','competence'));
         } catch (\Exception $exception) {
             toastError('Something went wrong, try again!');
             return back();

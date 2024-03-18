@@ -77,6 +77,84 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="tableDiv paddingTable" style="margin: 10px 0px;">
+            <div style="background:gray; padding: 12px; margin-top: 20px; color: white;">
+                <h4 style="margin: 0;font-size:13px">Temporary works qualifications</h4>
+                <p style="margin: 0;font-size:10px;">List highest temporary works related qualifications held
+                </p>
+            </div>
+            <table>
+                <thead style="background:gray;color:white">
+                    <tr>
+                        <td style="color: #fff; background: gray !important; padding: 10px; font-size:10px;">Qualification
+                        </td>
+                        <td style="color: #fff; background: gray !important; padding: 10px; font-size:10px;">Date</td>
+                        <td style="color: #fff; background: gray !important; padding: 10px; font-size:10px;">Documents</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+                    $i=0;
+                    $arraycount=0;
+                    @endphp
+                    @foreach($data['qualification'] as $qualification)
+                    <tr>
+                        <td style="font-size:10px;">{{$data['qualification'][$i]}}</td>
+                        <td style="font-size:10px;">{{$data['qualification_date'][$i]}}</td>
+    
+                        <td style="font-size:10px;">
+                            @if(isset($qimages[$i]))
+                            <p style="color:blue">{{asset($qimages[$i] ?? '')}}</p>
+                            @endif
+                        </td>
+                    </tr>
+                    @php $i++; @endphp
+                    @endforeach
+                    @php $arraycount=$i;@endphp
+                </tbody>
+            </table>
+        </div>
+        <div class="tableDiv paddingTable" style="margin: 10px 0px;">
+            <div style="background:gray; padding: 12px; margin-top: 20px; color: white;">
+                <h4 style="margin: 0;font-size:13px">Temporary works courses attended.</h4>
+                <p style="margin: 0;font-size:10px;">Detail all relevant temporary works related courses the individual has
+                    attended <small>(copies of certification must be appended to this document)</small>
+                </p>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <td style="color: #fff; background: gray !important; padding: 10px; font-size:10px;">Course title
+                        </td>
+                        <td style="color: #fff; background: gray !important; padding: 10px; font-size:10px;">Date</td>
+                        <td style="color: #fff; background: gray !important; padding: 10px; font-size:10px;">Documents</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php $i=0;$qualificationscount=0;@endphp
+                    @foreach($data['course'] as $course)
+                    <tr>
+                        <td style="font-size:10px;">
+                            {{$data['course'][$i]}}
+                        </td>
+                        <td style="font-size:10px;">
+                            {{$data['course_date'][$i]}}
+                        </td>
+                        <td style="font-size:10px;">
+                            @if(isset($cimages[$i]))
+                            <p style="color:blue">{{asset($cimages[$i] ?? '')}}</p>
+                            @endif
+                        </td>
+                    </tr>
+                    @php $i++; $qualificationscount++;@endphp
+                    @endforeach
+    
+    
+                </tbody>
+            </table>
+        </div>
+        
         <div class="tableDiv paddingTable" style="margin: 20px 0px;">
             <div style="background:gray; padding: 12px; margin-top: 20px; color: white;">
                     <h4 style="margin: 0;font-size:14px;">Temporary works Related Experience</h4>

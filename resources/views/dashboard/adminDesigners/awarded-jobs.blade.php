@@ -895,7 +895,7 @@ $tempWorkClass = "d-none";
                                                 {{-- @if($item->commentlist->count())
                                                 @dd($item->commentlist)
                                                 @endif --}}
-                                                <div class="comment addcomment cursor-pointer mt-3"data-id="{{$item->id}}"> Comment <span class="{{$class}}">({{count($item->commentlist) ?? '-'}})</span></div>
+                                                <div class="comment addcomment cursor-pointer mt-3"data-id="{{$item->id}}"> Comment <span class="{{$class}}@if(!empty(trim($class))) text-danger @endif">({{count($item->commentlist) ?? '-'}})</span></div>
                                             </div>
                                             <span class="btn p-2 m-1 allHistory" style="border-radius: 21%;"
                                                 title="Designer Change Email" data-id={{Crypt::encrypt($item->id)}} >

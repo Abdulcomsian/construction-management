@@ -693,6 +693,17 @@ $tempWorkClass = "d-none";
     .green {
         background-color: green !important;
     }
+
+    @keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Apply the animation to the element */
+.blinking-text {
+  animation: blink 1s infinite; /* 1s duration, infinite loop */
+}
 </style>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
@@ -869,7 +880,7 @@ $tempWorkClass = "d-none";
                                             $color="green";
                                             $class='';
                                             foreach ($item->commentlist as $comment) {
-                                                if(isset($comment->status) && $comment->status == 2){
+                                                if(isset($comment->status) && ($comment->status == 2 || $comment->status == 1)){
                                                     $color = "red";
                                                     $class = "redBgBlink";
                                                 }
@@ -881,10 +892,10 @@ $tempWorkClass = "d-none";
                                                     data-placement="top"> Description </div>
                                             </div>
                                             <div class="col d-flex justify-content-center">
-                                                <div class="comment addcomment cursor-pointer mt-3"
-                                                    data-id="{{$item->id}}"> Comment <span
-                                                        class="{{$class}}">({{count($item->commentlist) ?? '-'}})</span>
-                                                </div>
+                                                {{-- @if($item->commentlist->count())
+                                                @dd($item->commentlist)
+                                                @endif --}}
+                                                <div class="comment addcomment cursor-pointer mt-3"data-id="{{$item->id}}"> Comment <span class="{{$class}}">({{count($item->commentlist) ?? '-'}})</span></div>
                                             </div>
                                             <span class="btn p-2 m-1 allHistory" style="border-radius: 21%;"
                                                 title="Designer Change Email" data-id={{Crypt::encrypt($item->id)}} >
@@ -1012,9 +1023,8 @@ $tempWorkClass = "d-none";
                                                 @php
                                                 $currentDate = \Carbon\Carbon::now();
                                                 $finishDate = \Carbon\Carbon::createFromFormat("Y-m-d" , $item->design_required_by_date);
-                                                $campareDate = $finishDate->greaterThan($currentDate);
                                                 @endphp
-                                                <p class="m-0 p-0 @if($campareDate) text-danger @endif">{{date( 'd-m-Y' , strtotime($item->design_required_by_date))}}</p>
+                                                <div class="d-flex justify-content-center mb-1"><p class="m-0 @if($currentDate > $finishDate) invoice-btn mt-3 text-white blinking-text @endif">{{date( 'd-m-Y' , strtotime($item->design_required_by_date))}}</p></div>
                                             </div>
                                             <div class=" d-flex justify-content-center">
                                         
@@ -1042,9 +1052,8 @@ $tempWorkClass = "d-none";
                                                 <p class="m-0 p-0">{{$item->checkerAssign->user->name ?? ''}}</p> 
                                             @php
                                                 $allocatedFinishDate = \Carbon\Carbon::createFromFormat("Y-m-d" , $item->checkerAssign->end_date);
-                                                $allocatedCampareDate = $allocatedFinishDate->greaterThan($currentDate);
                                             @endphp 
-                                                <p class="m-0 p-0 @if($allocatedCampareDate) text-danger @endif">{{date( 'd-m-Y' , strtotime($item->checkerAssign->end_date))}}</p>
+                                             <div class="d-flex justify-content-center mb-1"><p class="m-0 @if($currentDate > $allocatedFinishDate) invoice-btn mt-3 text-white blink-text @endif">{{date( 'd-m-Y' , strtotime($item->checkerAssign->end_date))}}</p></div>
                                             </div>
                                             <div class=" d-flex justify-content-center">
                                                 <div class="progress-bar">

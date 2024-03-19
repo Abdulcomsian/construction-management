@@ -1798,6 +1798,13 @@ class TemporaryWorkController extends Controller
                     }
                   //COde for sendign email to cleint on admin designer module, comment for now
                   Notification::route('mail', $email)->notify(new CommentsNotification($request->comment, $type, $request->temp_work_id,$client_email,$request->type ?? '','Designer',$attachment));
+                  $cmh= new ChangeEmailHistory();
+                  $cmh->email=$tempdata->twc_email;
+                  $cmh->type ='Client To Designer';
+                  $cmh->foreign_idd=$request->temp_work_id;
+                  $cmh->message = "Client has added new comment";
+                  $cmh->user_type = 'client';
+                  $cmh->save();
                 }else if(!isset($twc))
                 {
                     if($request->type=="designertotwc"){

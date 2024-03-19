@@ -3698,7 +3698,7 @@ class DesignerController extends Controller
             $chm->email=Auth::user()->email;
             $chm->type ='Design Brief';
             $chm->foreign_idd=$temporary_work_id;
-            $chm->message='Design brief status has been changed by the designer';
+            $chm->message=$request->approveDesignBrief == 'approve' ? 'Design brief status has been approved by the designer' : 'Design brief status has been rejected by the designer ';
             $chm->save();
             toastSuccess("Status Changed Successfully");
             return redirect()->back();
@@ -3713,7 +3713,7 @@ class DesignerController extends Controller
     try{
         $tempId = $request->id;
         $temporary_work = TemporaryWork::with('clientComments')->findOrFail($request->input('id'));
-        $updateStatus = TemporaryWorkComment::where('temporary_work_id', $tempId)->update(['status' =>0]);
+        $updateStatus = TemporaryWorkComment::where('temporary_work_id', $tempId)->update(['status' => 0]);
         $html = $temporary_work->clientComments ?  view('dashboard.modals.comment' , ['tempWorks' => $temporary_work, 'tempId' => $tempId])->render() : "No Comments Added";
         return response()->json(['success' => true , 'msg' => 'Comments find successfully' , 'html' => $html]);
     }catch(\Exception $e){

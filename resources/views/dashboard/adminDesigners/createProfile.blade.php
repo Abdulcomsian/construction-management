@@ -177,7 +177,7 @@
                                     <td>
                                         <a href="{{asset($companyProfile->indemnity_insurance)}}" target="_blank">View Indemnity Insurance</a> 
                                     </td>
-                                    <td><a href="{{url('adminDesigner/edit-profile',$companyProfile->id)}}"><i class="fa fa-edit"></i></a></td>
+                                    <td><a href="{{url('adminDesigner/edit-profile',$companyProfile->id)}}"><i class="fa fa-edit"></i></a><a href="{{url('company-profile' , $companyProfile->id)}}"> <i class="fa fa-eye"></i></a></td>
                                 </tr>
                             </tbody>
                         </table>

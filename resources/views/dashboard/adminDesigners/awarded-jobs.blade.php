@@ -1007,9 +1007,17 @@ $tempWorkClass = "d-none";
                                     <td>
                                         @if(isset($item->designerAssign->user->name))
                                         <div class=" d-flex flex-column">
-                                            <div class=" text-center"> {{$item->designerAssign->user->name ?? ''}}
+                                            <div class=" text-center"> 
+                                                <p class="m-0 p-0">{{$item->designerAssign->user->name ?? ''}}</p>
+                                                @php
+                                                $currentDate = \Carbon\Carbon::now();
+                                                $finishDate = \Carbon\Carbon::createFromFormat("Y-m-d" , $item->design_required_by_date);
+                                                $campareDate = $finishDate->greaterThan($currentDate);
+                                                @endphp
+                                                <p class="m-0 p-0 @if($campareDate) text-danger @endif">{{date( 'd-m-Y' , strtotime($item->design_required_by_date))}}</p>
                                             </div>
                                             <div class=" d-flex justify-content-center">
+                                        
                                                 <div class="progress-bar">
                                                     <div class="progress" style="width: {{$designer_task}}%;"></div>
                                                     <span class="progress-text">{{$designer_task}}%</span>
@@ -1030,7 +1038,14 @@ $tempWorkClass = "d-none";
                                     <td>
                                         @if(isset($item->checkerAssign->user->name))
                                         <div class=" d-flex flex-column">
-                                            <div class=" text-center"> {{$item->checkerAssign->user->name ?? ''}} </div>
+                                            <div class=" text-center"> 
+                                                <p class="m-0 p-0">{{$item->checkerAssign->user->name ?? ''}}</p> 
+                                            @php
+                                                $allocatedFinishDate = \Carbon\Carbon::createFromFormat("Y-m-d" , $item->checkerAssign->end_date);
+                                                $allocatedCampareDate = $allocatedFinishDate->greaterThan($currentDate);
+                                            @endphp 
+                                                <p class="m-0 p-0 @if($allocatedCampareDate) text-danger @endif">{{date( 'd-m-Y' , strtotime($item->checkerAssign->end_date))}}</p>
+                                            </div>
                                             <div class=" d-flex justify-content-center">
                                                 <div class="progress-bar">
                                                     <div class="progress-2" style="width: {{$checker_task}}%;"></div>

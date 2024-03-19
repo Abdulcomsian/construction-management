@@ -733,7 +733,7 @@
                                     </label>
                                     <!--end::Label-->
                                     <input type="text" class="blackBack form-control form-control-solid"
-                                        placeholder="Name" name="name" id="admin_name">
+                                        placeholder="Name" name="name" id="admin_name" value="{{$user->name}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -742,9 +742,10 @@
                                     <label class=" fs-6 fw-bold mb-2">
                                         <span class="">Job title:</span>
                                     </label>
+                                    {{-- @dd($user); --}}
                                     <!--end::Label-->
                                     <input type="text" class="blackBack form-control form-control-solid"
-                                        placeholder="Job title" name="job_title" id="job_title">
+                                        placeholder="Job title" name="job_title" id="job_title" value="{{$user->job_title}}" >
                                 </div>
                             </div>
                         </div>
@@ -758,7 +759,7 @@
                                     <!--end::Label-->
                                     <input type="text" id="companyadmin"
                                         class="blackBack form-control form-control-solid"
-                                        style="background-color:#f5f8fa" placeholder="Company" name="company">
+                                        style="background-color:#f5f8fa" placeholder="Company" name="company" value="{{$user->userCompany ? $user->userCompany->designer_company : $user->designer_company}}">
                                     <input type="hidden" id="company_id" name="company_id">
                                 </div>
                             </div>

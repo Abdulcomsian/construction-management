@@ -3811,12 +3811,16 @@ class DesignerController extends Controller
    }
 
    public function addEstimator(){
-      return view('dashboard.estimator.add_estimator');
+    
+      $user = User::with('userCompany')->where('id' , auth()->user()->id)->first();
+
+      return view('dashboard.estimator.add_estimator')->with(['user' => $user]);
    }
 
    public function change_email_history(Request $request)
    {
      $id=\Crypt::decrypt($request->id);
+
      $changedemailhistory=ChangeEmailHistory::where('foreign_idd',$id)->get();
      $list='';
      $i=1;

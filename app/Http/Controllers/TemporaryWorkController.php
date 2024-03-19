@@ -2099,7 +2099,7 @@ class TemporaryWorkController extends Controller
         $client_table = '';
         $path = config('app.url');
         // update Status of temporay Work Comment to read the comment
-        $updateStatus = TemporaryWorkComment::where('temporary_work_id', $request->temporary_work_id)->update(['status'=>0]);
+        // $updateStatus = TemporaryWorkComment::where('temporary_work_id', $request->temporary_work_id)->update(['status'=>0]);
         $tmpWork = TemporaryWork::with('comments' , 'reply')->where('id' , $request->temporary_work_id)->first();
         // dd(count($tmpWork->comments) , count($tmpWork->reply) );
         if ($request->type == 'normal') {
